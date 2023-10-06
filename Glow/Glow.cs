@@ -2445,7 +2445,6 @@ namespace Glow{
         private void network(){
             GlowGetLangs g_lang = new GlowGetLangs(lang_path);
             ManagementObjectSearcher search_na = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_NetworkAdapter");
-            ManagementObjectSearcher search_nac = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_NetworkAdapterConfiguration");
             foreach (ManagementObject query_na_rotate in search_na.Get()){
                 try{
                     // NET NAME
@@ -2534,7 +2533,7 @@ namespace Glow{
                     NET_Guid_V.Text = network_guid_list[0];
                 }catch (Exception){ }
                 try{
-                    // NET CONNECTION ID
+                    // NET CONNECTION TYPE
                     string net_con_id = Convert.ToString(query_na_rotate["NetConnectionID"]);
                     if (net_con_id == ""){
                         network_connection_type_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network_Content", "nk_c_7").Trim())));
@@ -2543,39 +2542,45 @@ namespace Glow{
                     }
                     NET_ConnectionType_V.Text = network_connection_type_list[0];
                 }catch (Exception){ }
+                // NETWORK ADAPTER CONFIG SECTION
+                try{
+                    var get_na_index = query_na_rotate["Index"];
+                    ManagementObjectSearcher search_nac = new ManagementObjectSearcher("root\\CIMV2", $"SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index={get_na_index}");
+                    foreach (ManagementObject query_nac_rotate in search_nac.Get()){
+                        try{
+                            // DHCP STATUS
+                            bool dhcp_enabled = Convert.ToBoolean(query_nac_rotate["DHCPEnabled"]);
+                            if (dhcp_enabled == true){
+                                network_dhcp_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network_Content", "nk_c_8").Trim())));
+                            }else if (dhcp_enabled == false){
+                                network_dhcp_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network_Content", "nk_c_9").Trim())));
+                            }
+                            NET_Dhcp_status_V.Text = network_dhcp_status_list[0];
+                        }catch (Exception){ }
+                        try{
+                            // DHCP SERVER STATUS
+                            string dhcp_server = Convert.ToString(query_nac_rotate["DHCPServer"]);
+                            if (dhcp_server == ""){
+                                network_dhcp_server_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network_Content", "nk_c_10").Trim())));
+                            }else{
+                                network_dhcp_server_list.Add(dhcp_server);
+                            }
+                            NET_Dhcp_server_V.Text = network_dhcp_server_list[0];
+                        }catch (Exception){ }
+                    }
+                }catch (Exception){ }
+                // NETWORK ADAPTER CONFIG SECTION
                 try{
                     // MODEM CONNECT SPEED
                     string local_con_speed = Convert.ToString(query_na_rotate["Speed"]);
                     if (local_con_speed == "" || local_con_speed == "Unknown"){
-                        network_connection_speed_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network_Content", "nk_c_8").Trim())));
+                        network_connection_speed_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network_Content", "nk_c_11").Trim())));
                     }else{
                         int net_speed_cal = Convert.ToInt32(local_con_speed) / 1000 / 1000;
                         double net_speed_download_cal = Convert.ToDouble(net_speed_cal) / 8;
                         network_connection_speed_list.Add(net_speed_cal.ToString() + " Mbps - (" + string.Format("{0:0.0} MB/s)", net_speed_download_cal));
                     }
                     NET_LocalConSpeed_V.Text = network_connection_speed_list[0];
-                }catch (Exception){ }
-            }
-            foreach (ManagementObject query_nac_rotate in search_nac.Get()){
-                try{
-                    // DHCP STATUS
-                    bool dhcp_enabled = Convert.ToBoolean(query_nac_rotate["DHCPEnabled"]);
-                    if (dhcp_enabled == true){
-                        network_dhcp_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network_Content", "nk_c_9").Trim())));
-                    }else if (dhcp_enabled == false){
-                        network_dhcp_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network_Content", "nk_c_10").Trim())));
-                    }
-                    NET_Dhcp_status_V.Text = network_dhcp_status_list[0];
-                }catch (Exception){ }
-                try{
-                    // DHCP SERVER STATUS
-                    string dhcp_server = Convert.ToString(query_nac_rotate["DHCPServer"]);
-                    if (dhcp_server == ""){
-                        network_dhcp_server_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network_Content", "nk_c_11").Trim())));
-                    }else{
-                        network_dhcp_server_list.Add(dhcp_server);
-                    }
-                    NET_Dhcp_server_V.Text = network_dhcp_server_list[0];
                 }catch (Exception){ }
             }
             // IPv4 And IPv6 Adress
@@ -2617,7 +2622,6 @@ namespace Glow{
         List<string> usb_con_device_id_list = new List<string>();
         List<string> usb_con_pnp_device_id_list = new List<string>();
         List<string> usb_con_device_status_list = new List<string>();
-
         List<string> usb_device_name_list = new List<string>();
         List<string> usb_device_id_list = new List<string>();
         List<string> usb_pnp_device_id_list = new List<string>();
@@ -3136,6 +3140,33 @@ namespace Glow{
                     OSD_DataMainTable.Rows.Add(driver_infos);
                 }
             }catch (ManagementException){ }
+            // CHECK NULL ROWS CELLS
+            try{
+                if (OSD_DataMainTable.Rows.Count > 0){
+                    for (int i = 0; i<= OSD_DataMainTable.Rows.Count - 1; i++){
+                        // CELL 1
+                        if (OSD_DataMainTable.Rows[i].Cells[0].Value == null || (string)OSD_DataMainTable.Rows[i].Cells[0].Value == "" || (string)OSD_DataMainTable.Rows[i].Cells[0].Value == string.Empty){
+                            OSD_DataMainTable.Rows[i].Cells[0].Value = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd_Content", "osd_c_null").Trim()));
+                        }
+                        // CELL 2
+                        if (OSD_DataMainTable.Rows[i].Cells[1].Value == null || (string)OSD_DataMainTable.Rows[i].Cells[1].Value == "" || (string)OSD_DataMainTable.Rows[i].Cells[1].Value == string.Empty){
+                            OSD_DataMainTable.Rows[i].Cells[1].Value = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd_Content", "osd_c_null").Trim()));
+                        }
+                        // CELL 3
+                        if (OSD_DataMainTable.Rows[i].Cells[2].Value == null || (string)OSD_DataMainTable.Rows[i].Cells[2].Value == "" || (string)OSD_DataMainTable.Rows[i].Cells[2].Value == string.Empty){
+                            OSD_DataMainTable.Rows[i].Cells[2].Value = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd_Content", "osd_c_null").Trim()));
+                        }
+                        // CELL 4
+                        if (OSD_DataMainTable.Rows[i].Cells[3].Value == null || (string)OSD_DataMainTable.Rows[i].Cells[3].Value == "" || (string)OSD_DataMainTable.Rows[i].Cells[3].Value == string.Empty){
+                            OSD_DataMainTable.Rows[i].Cells[3].Value = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd_Content", "osd_c_null").Trim()));
+                        }
+                        // CELL 5
+                        if (OSD_DataMainTable.Rows[i].Cells[4].Value == null || (string)OSD_DataMainTable.Rows[i].Cells[4].Value == "" || (string)OSD_DataMainTable.Rows[i].Cells[4].Value == string.Empty){
+                            OSD_DataMainTable.Rows[i].Cells[4].Value = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd_Content", "osd_c_null").Trim()));
+                        }
+                    }
+                }
+            }catch (Exception){ }
             OSD_TYSS_V.Text = OSD_DataMainTable.Rows.Count.ToString();
             OSD_DataMainTable.Sort(OSD_DataMainTable.Columns[0], ListSortDirection.Ascending);
             OSD_DataMainTable.ClearSelection();
@@ -3250,6 +3281,33 @@ namespace Glow{
                     SERVICE_DataMainTable.Rows.Add(services_infos);
                 }
             }catch (ManagementException){ }
+            // CHECK NULL ROWS CELLS
+            try{
+                if (SERVICE_DataMainTable.Rows.Count > 0){
+                    for (int i = 0; i <= SERVICE_DataMainTable.Rows.Count - 1; i++){
+                        // CELL 1
+                        if (SERVICE_DataMainTable.Rows[i].Cells[0].Value == null || (string)SERVICE_DataMainTable.Rows[i].Cells[0].Value == "" || (string)SERVICE_DataMainTable.Rows[i].Cells[0].Value == string.Empty){
+                            SERVICE_DataMainTable.Rows[i].Cells[0].Value = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services_Content", "ss_c_null").Trim()));
+                        }
+                        // CELL 2
+                        if (SERVICE_DataMainTable.Rows[i].Cells[1].Value == null || (string)SERVICE_DataMainTable.Rows[i].Cells[1].Value == "" || (string)SERVICE_DataMainTable.Rows[i].Cells[1].Value == string.Empty){
+                            SERVICE_DataMainTable.Rows[i].Cells[1].Value = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services_Content", "ss_c_null").Trim()));
+                        }
+                        // CELL 3
+                        if (SERVICE_DataMainTable.Rows[i].Cells[2].Value == null || (string)SERVICE_DataMainTable.Rows[i].Cells[2].Value == "" || (string)SERVICE_DataMainTable.Rows[i].Cells[2].Value == string.Empty){
+                            SERVICE_DataMainTable.Rows[i].Cells[2].Value = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services_Content", "ss_c_null").Trim()));
+                        }
+                        // CELL 4
+                        if (SERVICE_DataMainTable.Rows[i].Cells[3].Value == null || (string)SERVICE_DataMainTable.Rows[i].Cells[3].Value == "" || (string)SERVICE_DataMainTable.Rows[i].Cells[3].Value == string.Empty){
+                            SERVICE_DataMainTable.Rows[i].Cells[3].Value = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services_Content", "ss_c_null").Trim()));
+                        }
+                        // CELL 5
+                        if (SERVICE_DataMainTable.Rows[i].Cells[4].Value == null || (string)SERVICE_DataMainTable.Rows[i].Cells[4].Value == "" || (string)SERVICE_DataMainTable.Rows[i].Cells[4].Value == string.Empty){
+                            SERVICE_DataMainTable.Rows[i].Cells[4].Value = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services_Content", "ss_c_null").Trim()));
+                        }
+                    }
+                }
+            }catch (Exception){ }
             SERVICE_TYS_V.Text = SERVICE_DataMainTable.Rows.Count.ToString();
             SERVICE_DataMainTable.Sort(SERVICE_DataMainTable.Columns[0], ListSortDirection.Ascending);
             SERVICE_DataMainTable.ClearSelection();
