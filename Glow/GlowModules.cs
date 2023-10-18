@@ -9,9 +9,10 @@ namespace Glow{
         // SAVE PATHS
         public static string glow_lf = @"g_langs";                              // Main Path
         public static string glow_lang_en = glow_lf + @"\English.ini";          // English    | en
+        public static string glow_lang_fr = glow_lf + @"\French.ini";           // French     | fr
         public static string glow_lang_tr = glow_lf + @"\Turkish.ini";          // Turkish    | tr
-        // Total Langs | Current Langs Count: 2
-        public static int g_langs_count = 2;
+        // Total Langs | Current Langs Count: 3
+        public static int g_langs_count = 3;
         // ======================================================================================================
         // GLOW SETTINGS SAVE CLASS
         public class GlowGetLangs{

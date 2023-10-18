@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Glow</RootNamespace>
     <AssemblyName>Glow</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.89.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.90.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -188,6 +188,12 @@
     <Compile Include="glow_tools\GlowSFCandDISMAutoTool.Designer.cs">
       <DependentUpon>GlowSFCandDISMAutoTool.cs</DependentUpon>
     </Compile>
+    <Compile Include="glow_tools\GlowTRIMAuditTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="glow_tools\GlowTRIMAuditTool.Designer.cs">
+      <DependentUpon>GlowTRIMAuditTool.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Glow.resx">
@@ -198,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="glow_tools\GlowSFCandDISMAutoTool.resx">
       <DependentUpon>GlowSFCandDISMAutoTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="glow_tools\GlowTRIMAuditTool.resx">
+      <DependentUpon>GlowTRIMAuditTool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -281,6 +290,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GlowFavicon.ico" />
+    <None Include="glow_images\glow_interface\top_menu\dark_theme\top_trim_dark.png" />
+    <None Include="glow_images\glow_interface\top_menu\light_theme\top_trim_light.png" />
     <None Include="glow_images\glow_interface\top_menu\dark_theme\top_tools_dark.png" />
     <None Include="glow_images\glow_interface\top_menu\dark_theme\top_sfc_and_dism_dark.png" />
     <None Include="glow_images\glow_interface\top_menu\dark_theme\top_cache_clean_dark.png" />

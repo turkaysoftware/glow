@@ -29,8 +29,8 @@ namespace Glow{
         // ======================================================================================================
         // VARIABLES
         int menu_btns = 1, menu_rp = 1, initial_status, hiding_status, hiding_mode_wrapper;
-        string wp_rotate, wp_resoulation, preloader_os;
-        bool loop_status = true, pe_loop_status = true, os_support_check_status;
+        string wp_rotate, wp_resoulation;
+        bool loop_status = true, pe_loop_status = true;
         readonly string github_link = "https://github.com/roines45";
         // ======================================================================================================
         // PRINT ENGINE ASYNC STATUS
@@ -81,73 +81,70 @@ namespace Glow{
             try{
                 // CHECK OS NAME
                 string ui_lang = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName.Trim();
-                ManagementObjectSearcher search_os = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_OperatingSystem");
-                foreach (ManagementObject query_os in search_os.Get()){
-                    var os_name = Convert.ToString(query_os["Caption"]).Trim();
-                    string os_name_process = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(os_name);
-                    //string os_name_process = "Windows 7";
-                    // PRELOADER OS GLOBAL STRING SET VALUE
-                    preloader_os = os_name_process;
-                    string[] supported_os = { "Windows 10", "Windows 11" };
-                    for (int i = 0; i <= supported_os.Length - 1; i++){
-                        //Console.WriteLine(supported_os[i]);
-                        if (os_name_process.Contains(supported_os[i])){
-                            os_support_check_status = true;
-                            break;
-                        }else{
-                            os_support_check_status = false;
-                        }
-                    }
-                }
-                // CHECK OS SUPPORTED MODE
-                if (os_support_check_status == true){
-                    // CHECK GLOW LANG FOLDER
-                    if (Directory.Exists(glow_lf)){
-                        // CHECK LANG FILES
-                        int get_langs_file = Directory.GetFiles(glow_lf, "*.ini", SearchOption.AllDirectories).Length;
-                        if (get_langs_file >= g_langs_count){
-                            // CHECK SETTINGS
-                            try{
-                                if (File.Exists(glow_sf)){
-                                    GetGlowSetting();
-                                }else{
-                                    // DETECT SYSTEM THEME
-                                    GlowSettingsSave glow_settings_save = new GlowSettingsSave(glow_sf);
-                                    string get_system_theme = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "SystemUsesLightTheme", "").ToString().Trim();
-                                    glow_settings_save.GlowWriteSettings("GlowSettings", "ThemeStatus", get_system_theme);
-                                    // DETECT SYSTEM LANG
-                                    glow_settings_save.GlowWriteSettings("GlowSettings", "LanguageStatus", ui_lang);
-                                    // SET INITIAL MODE
-                                    glow_settings_save.GlowWriteSettings("GlowSettings", "InitialStatus", "0");
-                                    // SET HIDING MODE
-                                    glow_settings_save.GlowWriteSettings("GlowSettings", "HidingStatus", "0");
-                                    GetGlowSetting();
-                                }
-                            }catch (Exception){ }
-                        }else{
-                            if (ui_lang == "tr"){
-                                MessageBox.Show($"Dil dosyaları eksik veya bulunamadı.\n{Application.ProductName} kapatılıyor", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // CHECK GLOW LANG FOLDER
+                if (Directory.Exists(glow_lf)){
+                    // CHECK LANG FILES
+                    int get_langs_file = Directory.GetFiles(glow_lf, "*.ini", SearchOption.AllDirectories).Length;
+                    if (get_langs_file >= g_langs_count){
+                        // CHECK SETTINGS
+                        try{
+                            if (File.Exists(glow_sf)){
+                                GetGlowSetting();
                             }else{
-                                MessageBox.Show($"Language files missing or not found.\n{Application.ProductName} is shutting down.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                // DETECT SYSTEM THEME
+                                GlowSettingsSave glow_settings_save = new GlowSettingsSave(glow_sf);
+                                string get_system_theme = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "SystemUsesLightTheme", "").ToString().Trim();
+                                glow_settings_save.GlowWriteSettings("GlowSettings", "ThemeStatus", get_system_theme);
+                                // DETECT SYSTEM LANG
+                                glow_settings_save.GlowWriteSettings("GlowSettings", "LanguageStatus", ui_lang);
+                                // SET INITIAL MODE
+                                glow_settings_save.GlowWriteSettings("GlowSettings", "InitialStatus", "0");
+                                // SET HIDING MODE
+                                glow_settings_save.GlowWriteSettings("GlowSettings", "HidingStatus", "0");
+                                GetGlowSetting();
                             }
-                            glow_exit();
-                        }
+                        }catch (Exception){ }
                     }else{
-                        if (ui_lang == "tr"){
-                            MessageBox.Show($"G_langs klasörü bulunamadı.\n{Application.ProductName} kapatılıyor", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }else{
-                            MessageBox.Show($"G_langs folder not found.\n{Application.ProductName} is shutting down.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        glow_exit();
+                        preloader_message(1, ui_lang);      // 1 = No lang file 
                     }
-                }else if (os_support_check_status == false){
-                    if (ui_lang == "tr"){
-                        MessageBox.Show($"{Application.ProductName}, Windows 10 altı hiçbir işletim sistemini desteklememektedir.\n\nKullandığınız işletim sistemi: {preloader_os}\n\n{Application.ProductName}'u kullanabilmek için işletim sisteminizi Windows 10 20H2 veya üzerine yükseltmeniz gerekiyor.\n\n{Application.ProductName} kapatılıyor.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }else{
-                        MessageBox.Show($"{Application.ProductName}, does not support any operating system below Windows 10.\n\nThe operating system you are using: {preloader_os}\n\nYou need to upgrade to Windows 10 20H2 or higher to use {Application.ProductName}.\n\n{Application.ProductName} is shutting down.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    glow_exit();
+                }else{
+                    preloader_message(2, ui_lang);          // 2 = No G_langs folder 
                 }
+            }catch (Exception){ }
+        }
+        // ======================================================================================================
+        // GLOW PRELOADER MESSAGE
+        private void preloader_message(int pre_mod, string pre_lang){
+            try{
+                switch (pre_mod){
+                    case 1:
+                        switch (pre_lang){
+                            case "fr":
+                                MessageBox.Show($"Fichiers de langue manquants ou non trouvés.\n{Application.ProductName} est en train de fermer.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+                            case "tr":
+                                MessageBox.Show($"Dil dosyaları eksik veya bulunamadı.\n{Application.ProductName} kapatılıyor.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+                            default:
+                                MessageBox.Show($"Language files missing or not found.\n{Application.ProductName} is shutting down.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+                        }
+                        break;
+                    case 2:
+                        switch (pre_lang){
+                            case "fr":
+                                MessageBox.Show($"Le dossier G_langs n'a pas été trouvé.\n{Application.ProductName} est en train de fermer.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+                            case "tr":
+                                MessageBox.Show($"G_langs klasörü bulunamadı.\n{Application.ProductName} kapatılıyor.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+                            default:
+                                MessageBox.Show($"G_langs folder not found.\n{Application.ProductName} is shutting down.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+                        }
+                        break;
+                }
+                glow_exit();
             }catch (Exception){ }
         }
         // ======================================================================================================
@@ -226,6 +223,10 @@ namespace Glow{
                 case "en":
                     lang_engine("en");
                     englishToolStripMenuItem.Checked = true;
+                    break;
+                case "fr":
+                    lang_engine("fr");
+                    frenchToolStripMenuItem.Checked = true;
                     break;
                 case "tr":
                     lang_engine("tr");
@@ -3610,6 +3611,9 @@ namespace Glow{
         private void englishToolStripMenuItem_Click(object sender, EventArgs e){
             if (lang != "en"){ lang_preload("en"); select_lang_active(sender); }
         }
+        private void frenchToolStripMenuItem_Click(object sender, EventArgs e){
+            if (lang != "fr"){ lang_preload("fr"); select_lang_active(sender); }
+        }
         private void turkishToolStripMenuItem_Click(object sender, EventArgs e){
             if (lang != "tr"){ lang_preload("tr"); select_lang_active(sender); }
         }
@@ -3630,6 +3634,10 @@ namespace Glow{
                     case "en":
                         lang = "en";
                         lang_path = glow_lang_en;
+                        break;
+                    case "fr":
+                        lang = "fr";
+                        lang_path = glow_lang_fr;
                         break;
                     case "tr":
                         lang = "tr";
@@ -3677,6 +3685,7 @@ namespace Glow{
                 // LANGS
                 languageToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_4").Trim()));
                 englishToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_en").Trim()));
+                frenchToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_fr").Trim()));
                 turkishToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_tr").Trim()));
                 // INITIAL VIEW
                 initialViewToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_5").Trim()));
@@ -3690,6 +3699,7 @@ namespace Glow{
                 toolsToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_7").Trim()));
                 sFCandDISMAutoToolToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderTools", "ht_1").Trim()));
                 cacheCleaningToolToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderTools", "ht_2").Trim()));
+                tRIMAuditToolToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderTools", "ht_3").Trim()));
                 // GITHUB
                 gitHubToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_8").Trim()));
                 // MENU
@@ -4002,6 +4012,7 @@ namespace Glow{
                 toolsToolStripMenuItem.Image = Properties.Resources.top_tools_light;
                 sFCandDISMAutoToolToolStripMenuItem.Image = Properties.Resources.top_sfc_and_dism_light;
                 cacheCleaningToolToolStripMenuItem.Image = Properties.Resources.top_cache_clean_light;
+                tRIMAuditToolToolStripMenuItem.Image = Properties.Resources.top_trim_light;
                 // MIDDLE CONTENT LOGO CHANGE
                 OS_MinidumpOpen.BackgroundImage = Properties.Resources.middle_ow_light;
                 OS_WallpaperOpen.BackgroundImage = Properties.Resources.middle_ow_light;
@@ -4070,6 +4081,7 @@ namespace Glow{
                 toolsToolStripMenuItem.Image = Properties.Resources.top_tools_dark;
                 sFCandDISMAutoToolToolStripMenuItem.Image = Properties.Resources.top_sfc_and_dism_dark;
                 cacheCleaningToolToolStripMenuItem.Image = Properties.Resources.top_cache_clean_dark;
+                tRIMAuditToolToolStripMenuItem.Image = Properties.Resources.top_trim_dark;
                 // MIDDLE CONTENT LOGO CHANGE
                 OS_MinidumpOpen.BackgroundImage = Properties.Resources.middle_ow_dark;
                 OS_WallpaperOpen.BackgroundImage = Properties.Resources.middle_ow_dark;
@@ -4119,6 +4131,8 @@ namespace Glow{
                 languageToolStripMenuItem.ForeColor = ui_colors[0];
                 englishToolStripMenuItem.BackColor = ui_colors[1];
                 englishToolStripMenuItem.ForeColor = ui_colors[0];
+                frenchToolStripMenuItem.BackColor = ui_colors[1];
+                frenchToolStripMenuItem.ForeColor = ui_colors[0];
                 turkishToolStripMenuItem.BackColor = ui_colors[1];
                 turkishToolStripMenuItem.ForeColor = ui_colors[0];
                 // INITIAL VIEW
@@ -4142,6 +4156,8 @@ namespace Glow{
                 sFCandDISMAutoToolToolStripMenuItem.ForeColor = ui_colors[0];
                 cacheCleaningToolToolStripMenuItem.BackColor = ui_colors[1];
                 cacheCleaningToolToolStripMenuItem.ForeColor = ui_colors[0];
+                tRIMAuditToolToolStripMenuItem.BackColor = ui_colors[1];
+                tRIMAuditToolToolStripMenuItem.ForeColor = ui_colors[0];
                 // GITHUB
                 gitHubToolStripMenuItem.BackColor = ui_colors[1];
                 gitHubToolStripMenuItem.ForeColor = ui_colors[0];
@@ -5208,8 +5224,7 @@ namespace Glow{
             string html_uifc = string.Format("#{0}{1}{2}", html_ui_fe_color.R.ToString("X2"), html_ui_fe_color.G.ToString("X2"), html_ui_fe_color.B.ToString("X2"));
             // HTML MAIN CODES
             PrintEngineList.Add("<!DOCTYPE html>");
-            if (lang == "tr"){ PrintEngineList.Add("<html lang='tr'>"); }
-            else if (lang == "en"){ PrintEngineList.Add("<html lang='en'>"); }
+            PrintEngineList.Add($"<html lang='{lang}'>");
             PrintEngineList.Add("<head>");
             PrintEngineList.Add("\t<meta charset='utf-8'>");
             PrintEngineList.Add("\t<meta name='author' content='" + Application.CompanyName + "'>");
@@ -5678,6 +5693,25 @@ namespace Glow{
                     }
                     Application.OpenForms[glow_tool_name].Activate();
                     MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderToolsInfo", "hti_info").Trim())), Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderTools", "ht_2").Trim()))), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }catch (Exception){ }
+        }
+        // ======================================================================================================
+        // TRIM AUDIT TOOL
+        private void tRIMAuditToolToolStripMenuItem_Click(object sender, EventArgs e){
+            try{
+                GlowGetLangs g_lang = new GlowGetLangs(lang_path);
+                GlowTRIMAuditTool trim_audit_tool = new GlowTRIMAuditTool();
+                string glow_tool_name = "glow_trim_audit_tool";
+                trim_audit_tool.Name = glow_tool_name;
+                if (Application.OpenForms[glow_tool_name] == null){
+                    trim_audit_tool.Show();
+                }else{
+                    if (Application.OpenForms[glow_tool_name].WindowState == FormWindowState.Minimized){
+                        Application.OpenForms[glow_tool_name].WindowState = FormWindowState.Normal;
+                    }
+                    Application.OpenForms[glow_tool_name].Activate();
+                    MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderToolsInfo", "hti_info").Trim())), Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderTools", "ht_3").Trim()))), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }catch (Exception){ }
         }

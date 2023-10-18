@@ -61,6 +61,7 @@
             this.darkThemeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.frenchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.turkishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.initialViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,6 +72,8 @@
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sFCandDISMAutoToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cacheCleaningToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tRIMAuditToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainContent = new System.Windows.Forms.TabControl();
             this.OS = new System.Windows.Forms.TabPage();
             this.OS_TLP = new System.Windows.Forms.TableLayoutPanel();
@@ -498,7 +501,6 @@
             this.HeaderImage = new System.Windows.Forms.PictureBox();
             this.HeaderText = new System.Windows.Forms.Label();
             this.MainToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.gitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LeftMenuPanel.SuspendLayout();
             this.HeaderMenu.SuspendLayout();
             this.MainContent.SuspendLayout();
@@ -950,7 +952,7 @@
             this.lightThemeToolStripMenuItem,
             this.darkThemeToolStripMenuItem});
             this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
-            this.themeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.themeToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.themeToolStripMenuItem.Text = "Theme";
             // 
             // lightThemeToolStripMenuItem
@@ -978,9 +980,10 @@
             this.languageToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.englishToolStripMenuItem,
+            this.frenchToolStripMenuItem,
             this.turkishToolStripMenuItem});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.languageToolStripMenuItem.Text = "Language";
             // 
             // englishToolStripMenuItem
@@ -988,18 +991,24 @@
             this.englishToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
             this.englishToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.englishToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.englishToolStripMenuItem.Text = "English";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
+            // 
+            // frenchToolStripMenuItem
+            // 
+            this.frenchToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.frenchToolStripMenuItem.Name = "frenchToolStripMenuItem";
+            this.frenchToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.frenchToolStripMenuItem.Text = "French";
+            this.frenchToolStripMenuItem.Click += new System.EventHandler(this.frenchToolStripMenuItem_Click);
             // 
             // turkishToolStripMenuItem
             // 
             this.turkishToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.turkishToolStripMenuItem.Name = "turkishToolStripMenuItem";
             this.turkishToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.turkishToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.turkishToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.turkishToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.turkishToolStripMenuItem.Text = "Turkish";
             this.turkishToolStripMenuItem.Click += new System.EventHandler(this.turkishToolStripMenuItem_Click);
             // 
@@ -1010,14 +1019,14 @@
             this.windowedToolStripMenuItem,
             this.fullScreenToolStripMenuItem});
             this.initialViewToolStripMenuItem.Name = "initialViewToolStripMenuItem";
-            this.initialViewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.initialViewToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.initialViewToolStripMenuItem.Text = "Initial View";
             // 
             // windowedToolStripMenuItem
             // 
             this.windowedToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.windowedToolStripMenuItem.Name = "windowedToolStripMenuItem";
-            this.windowedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
+            this.windowedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.windowedToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.windowedToolStripMenuItem.Text = "Windowed";
             this.windowedToolStripMenuItem.Click += new System.EventHandler(this.windowedToolStripMenuItem_Click);
@@ -1026,7 +1035,7 @@
             // 
             this.fullScreenToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.fullScreenToolStripMenuItem.Name = "fullScreenToolStripMenuItem";
-            this.fullScreenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
+            this.fullScreenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
             this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.fullScreenToolStripMenuItem.Text = "Full Screen";
             this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.fullScreenToolStripMenuItem_Click);
@@ -1038,15 +1047,15 @@
             this.hidingModeOnToolStripMenuItem,
             this.hidingModeOffToolStripMenuItem});
             this.hidingModeToolStripMenuItem.Name = "hidingModeToolStripMenuItem";
-            this.hidingModeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hidingModeToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.hidingModeToolStripMenuItem.Text = "Hiding Mode";
             // 
             // hidingModeOnToolStripMenuItem
             // 
             this.hidingModeOnToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.hidingModeOnToolStripMenuItem.Name = "hidingModeOnToolStripMenuItem";
-            this.hidingModeOnToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
-            this.hidingModeOnToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.hidingModeOnToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
+            this.hidingModeOnToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.hidingModeOnToolStripMenuItem.Text = "Hiding Mode On";
             this.hidingModeOnToolStripMenuItem.Click += new System.EventHandler(this.hidingModeOnToolStripMenuItem_Click);
             // 
@@ -1054,8 +1063,8 @@
             // 
             this.hidingModeOffToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.hidingModeOffToolStripMenuItem.Name = "hidingModeOffToolStripMenuItem";
-            this.hidingModeOffToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
-            this.hidingModeOffToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.hidingModeOffToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
+            this.hidingModeOffToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.hidingModeOffToolStripMenuItem.Text = "Hiding Mode Off";
             this.hidingModeOffToolStripMenuItem.Click += new System.EventHandler(this.hidingModeOffToolStripMenuItem_Click);
             // 
@@ -1063,7 +1072,8 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sFCandDISMAutoToolToolStripMenuItem,
-            this.cacheCleaningToolToolStripMenuItem});
+            this.cacheCleaningToolToolStripMenuItem,
+            this.tRIMAuditToolToolStripMenuItem});
             this.toolsToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
@@ -1086,6 +1096,24 @@
             this.cacheCleaningToolToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
             this.cacheCleaningToolToolStripMenuItem.Text = "CacheCleaningTool";
             this.cacheCleaningToolToolStripMenuItem.Click += new System.EventHandler(this.cacheCleaningToolToolStripMenuItem_Click);
+            // 
+            // tRIMAuditToolToolStripMenuItem
+            // 
+            this.tRIMAuditToolToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.tRIMAuditToolToolStripMenuItem.Name = "tRIMAuditToolToolStripMenuItem";
+            this.tRIMAuditToolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.tRIMAuditToolToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.tRIMAuditToolToolStripMenuItem.Text = "TRIMAuditTool";
+            this.tRIMAuditToolToolStripMenuItem.Click += new System.EventHandler(this.tRIMAuditToolToolStripMenuItem_Click);
+            // 
+            // gitHubToolStripMenuItem
+            // 
+            this.gitHubToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.gitHubToolStripMenuItem.Name = "gitHubToolStripMenuItem";
+            this.gitHubToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
+            this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.gitHubToolStripMenuItem.Text = "GitHub";
+            this.gitHubToolStripMenuItem.Click += new System.EventHandler(this.gitHubToolStripMenuItem_Click);
             // 
             // MainContent
             // 
@@ -7261,15 +7289,6 @@
             this.MainToolTip.OwnerDraw = true;
             this.MainToolTip.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.MainToolTip_Draw);
             // 
-            // gitHubToolStripMenuItem
-            // 
-            this.gitHubToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.gitHubToolStripMenuItem.Name = "gitHubToolStripMenuItem";
-            this.gitHubToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
-            this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.gitHubToolStripMenuItem.Text = "GitHub";
-            this.gitHubToolStripMenuItem.Click += new System.EventHandler(this.gitHubToolStripMenuItem_Click);
-            // 
             // Glow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -7853,6 +7872,8 @@
         internal System.Windows.Forms.Label USB_ConMan;
         internal System.Windows.Forms.Label USB_ConMan_V;
         private System.Windows.Forms.ToolStripMenuItem gitHubToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem frenchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tRIMAuditToolToolStripMenuItem;
     }
 }
 
