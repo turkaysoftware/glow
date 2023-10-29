@@ -5231,50 +5231,70 @@ namespace Glow{
             PrintEngineList.Add("\t<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
             PrintEngineList.Add($"\t<title>{Application.ProductName} - {string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "pe_3").Trim())), OS_ComputerName_V.Text)}</title>");
             PrintEngineList.Add("\t<style>");
-            PrintEngineList.Add("\t\t@import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');");
-            PrintEngineList.Add("\t\t*{ font-family: 'Alata', sans-serif; margin: 0; padding: 0; box-sizing: border-box; text-decoration: none; }");
+            PrintEngineList.Add("\t\t@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');");
+            PrintEngineList.Add("\t\t*{ font-family: 'Open Sans', sans-serif; margin: 0; padding: 0; box-sizing: border-box; text-decoration: none; }");
             if (theme == 1){ PrintEngineList.Add("\t\t:root { color-scheme: light; }"); }
             else if (theme == 2){ PrintEngineList.Add("\t\t:root { color-scheme: dark; }"); }
             PrintEngineList.Add("\t\ta:visited{ color: rgb(55, 162, 255); }");
-            PrintEngineList.Add("\t\t.ts_scroll_top{ position: fixed; bottom: -100px; right: 20px; width: auto; height: auto; justify-content: center; align-items: center; display: flex; font-size: 46px; border-radius: 50%; cursor: pointer; color: " + html_uifc + "; z-index: 999; transition: 0.2s; }");
+            PrintEngineList.Add("\t\t.ts_scroll_top{ position: fixed; bottom: -100px; right: 15px; width: auto; height: auto; justify-content: center; align-items: center; display: flex; font-size: 46px; border-radius: 50%; cursor: pointer; color: " + html_uifc + "; z-index: 999; transition: 0.2s; }");
             PrintEngineList.Add("\t\t.ts_scroll_top:hover{ color: rgb(55, 162, 255); }");
-            PrintEngineList.Add("\t\t.ts_scroll_top.active{ bottom: 20px; }");
-            PrintEngineList.Add("\t\t@media (max-width: 700px){ .ts_scroll_top{ font-size: 28px; bottom: -100px; right: 10px; } .ts_scroll_top.active{ bottom: 10px; } }");
+            PrintEngineList.Add("\t\t.ts_scroll_top.active{ bottom: 15px; }");
+            PrintEngineList.Add("\t\t@media (max-width: 700px){ .ts_scroll_top{ font-size: 30px; bottom: -100px; right: 10px; } .ts_scroll_top.active{ bottom: 10px; } }");
+            PrintEngineList.Add("\t\t.ts_page_wrapper{ background-color:" + html_mbgc + "; font-weight: 500; position:fixed; left: 15px; bottom: 15px; width: auto; height: 35px; padding: 0 5px; font-size: 16px; margin: 0; outline: none; border-radius: 5px; border: 1px solid " + html_uifc + "; transition: 0.2s; }");
+            PrintEngineList.Add("\t\t@media (max-width: 700px){ .ts_page_wrapper{ left: 10px; bottom: 10px; height: 30px; border-radius: 3px; } }");
             PrintEngineList.Add("\t\tbody{ background-color: " + html_bbgc + "; padding: 5px 0; justify-content: center; align-items: center; display: flex; }");
             PrintEngineList.Add("\t\t#main_container{ width: 100%; height: auto; justify-content: center; align-items: center; display: flex; flex-direction: column; }");
-            PrintEngineList.Add("\t\t#main_container > h2{ margin: 25px 0; color: " + html_uifc + "; }");
-            PrintEngineList.Add("\t\t#main_container > .middle_box{ background-color: " + html_mbgc + "; width: 1000px; height: auto; border-radius: 10px; margin: 5px 0; padding: 15px; box-sizing: border-box; display: inline-block; word-break: break-word; table-layout: fixed; }");
-            PrintEngineList.Add("\t\t#main_container > .middle_box:nth-child(1){ justify-content: center; align-items: center; display: flex; }");
-            PrintEngineList.Add("\t\t#main_container > .middle_box > h2{ color: " + html_uifc + "; }");
-            PrintEngineList.Add("\t\t#main_container > .middle_box > h3{ color: " + html_uifc + "; }");
-            PrintEngineList.Add("\t\t#main_container > .middle_box > h4{ font-weight: normal; margin: 13px 0 0 11px; }");
-            PrintEngineList.Add("\t\t#main_container > .middle_box > h4 > span{ margin: 0 5px 0 0; }");
-            PrintEngineList.Add("\t\t#main_container > .middle_box > h4 > span:nth-child(2){ color: " + html_uifc + "; font-weight: normal; }");
-            PrintEngineList.Add("\t\t#main_container > .middle_box > ul{ margin: 15px 0 0 30px; }");
-            PrintEngineList.Add("\t\t#main_container > .middle_box > ul > li{ margin: 5px 0; }");
-            PrintEngineList.Add("\t\t#main_container > .middle_box > ul > li > span{ margin: 0 7px 0 0; }");
-            PrintEngineList.Add("\t\t#main_container > .middle_box > ul > li > span:nth-child(2){ color: " + html_uifc + "; }");
-            PrintEngineList.Add("\t\t#main_container > .middle_box > ul > li > a{ color: " + html_uifc + "; transition: 0.3s; }");
-            PrintEngineList.Add("\t\t#main_container > .middle_box > ul > li > a:hover{ color: rgb(55, 162, 255); }");
-            PrintEngineList.Add("\t\t@media (max-width: 1030px){ #main_container > .middle_box{ width: 900px; } }");
-            PrintEngineList.Add("\t\t@media (max-width: 915px){ #main_container > .middle_box{ width: 720px; } }");
-            PrintEngineList.Add("\t\t@media (max-width: 735px){ #main_container > .middle_box{ width: 480px; padding: 10px; } #main_container > .middle_box > h3{ text-align: center; } }");
-            PrintEngineList.Add("\t\t@media (max-width: 495px){ #main_container > .middle_box{ width: 360px; } #main_container > .middle_box > ul{ margin: 15px 0 0 25px; } #main_container > .middle_box > h4{ margin: 13px 0 0 6px; } button{ padding: 5px 10px; bottom: 5px; right: 5px; } }");
+            PrintEngineList.Add("\t\t#main_container > h2{ margin: 25px 0; font-weight: 500; color: " + html_uifc + "; }");
+            PrintEngineList.Add("\t\t#main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ background-color: " + html_mbgc + "; width: 1000px; height: auto; border-radius: 10px; margin: 5px 0; padding: 15px; box-sizing: border-box; display: inline-block; word-break: break-word; table-layout: fixed; }");
+            PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper:nth-child(1){ justify-content: center; align-items: center; display: flex; }");
+            PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > h2{ color: " + html_uifc + "; font-weight: 500; text-align: center; }");
+            PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > h3{ color: " + html_uifc + "; font-weight: 500; }");
+            PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > h4{ margin: 13px 0 0 11px; font-weight: 600; }");
+            PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > h4 > span{ margin: 0 5px 0 0; }");
+            PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > h4 > span:nth-child(2){ color: " + html_uifc + "; font-weight: 600; }");
+            PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > ul{ margin: 15px 0 0 30px; }");
+            PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > ul > li{ margin: 5px 0; font-weight: 500; }");
+            PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > ul > li > span{ margin: 0 7px 0 0; }");
+            PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > ul > li > span:nth-child(2){ color: " + html_uifc + "; }");
+            PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > ul > li > a{ color: " + html_uifc + "; text-decoration: underline; transition: 0.3s; }");
+            PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > ul > li > a:hover{ color: rgb(55, 162, 255); }");
+            PrintEngineList.Add("\t\t@media (max-width: 1030px){ #main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ width: 900px; } }");
+            PrintEngineList.Add("\t\t@media (max-width: 915px){ #main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ width: 720px; } }");
+            PrintEngineList.Add("\t\t@media (max-width: 735px){ #main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ width: 480px; padding: 10px; } #main_container > .ts_box_wrapper > h3{ text-align: center; } }");
+            PrintEngineList.Add("\t\t@media (max-width: 495px){ #main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ width: 350px; } #main_container > .ts_box_wrapper > ul{ margin: 15px 0 0 25px; } #main_container > .ts_box_wrapper > h4{ margin: 13px 0 0 6px; } }");
             PrintEngineList.Add("\t</style>");
             PrintEngineList.Add("\t<link rel='icon' type='image/x-icon' href='https://raw.githubusercontent.com/roines45/glow/main/Glow/glow_images/glow_favicon/GlowFavicon.ico'>");
             PrintEngineList.Add("\t<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'>");
+            PrintEngineList.Add("\t<script src='https://code.jquery.com/jquery-3.7.1.min.js'></script>");
             PrintEngineList.Add("</head>");
             PrintEngineList.Add("<body>");
             // SCROOL TOP BUTTON
-            PrintEngineList.Add("\t\t<div class='ts_scroll_top' onclick='ts_scroll_to_up();'><i class='fa-solid fa-circle-chevron-up'></i></div>");
+            PrintEngineList.Add("\t<div class='ts_scroll_top' onclick='ts_scroll_to_up();'><i class='fa-solid fa-circle-chevron-up'></i></div>");
+            // SELECT WRAPPER
+            PrintEngineList.Add($"\t<select title='{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "pe_select").Trim()))}' class='ts_page_wrapper' id='ts_session_select'>");
+            PrintEngineList.Add($"\t\t<option value='b1'>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "pe_header").Trim()))}</option>");
+            PrintEngineList.Add($"\t\t<option value='b2'>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_1").Trim()))}</option>");
+            PrintEngineList.Add($"\t\t<option value='b3'>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_2").Trim()))}</option>");
+            PrintEngineList.Add($"\t\t<option value='b4'>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_3").Trim()))}</option>");
+            PrintEngineList.Add($"\t\t<option value='b5'>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_4").Trim()))}</option>");
+            PrintEngineList.Add($"\t\t<option value='b6'>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_5").Trim()))}</option>");
+            PrintEngineList.Add($"\t\t<option value='b7'>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_6").Trim()))}</option>");
+            PrintEngineList.Add($"\t\t<option value='b8'>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_7").Trim()))}</option>");
+            PrintEngineList.Add($"\t\t<option value='b9'>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_8").Trim()))}</option>");
+            PrintEngineList.Add($"\t\t<option value='b10'>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_9").Trim()))}</option>");
+            PrintEngineList.Add($"\t\t<option value='b11'>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_10").Trim()))}</option>");
+            PrintEngineList.Add($"\t\t<option value='b12'>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_11").Trim()))}</option>");
+            PrintEngineList.Add($"\t\t<option value='b13'>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_12").Trim()))}</option>");
+            PrintEngineList.Add($"\t\t<option value='b14'>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "pe_footer").Trim()))}</option>");
+            PrintEngineList.Add("\t</select>");
             // MAIN CONTAINER
             PrintEngineList.Add("\t<div id='main_container'>");
             // HEADER
-            PrintEngineList.Add("\t\t<div class='middle_box'>");
+            PrintEngineList.Add("\t\t<div class='b1 ts_box_wrapper'>");
             PrintEngineList.Add($"\t\t\t<h2>{Application.ProductName} - {string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "pe_3").Trim().ToUpper())), OS_ComputerName_V.Text)}</h2>");
             PrintEngineList.Add("\t\t</div>");
             // OS
-            PrintEngineList.Add("\t\t<div class='middle_box'>");
+            PrintEngineList.Add("\t\t<div class='b2 ts_box_wrapper'>");
             PrintEngineList.Add($"\t\t\t<h3>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_1").Trim()))}</h3>");
             PrintEngineList.Add("\t\t\t<ul>");
             PrintEngineList.Add($"\t\t\t\t<li><span>{OS_SystemUser.Text}</span><span>{OS_SystemUser_V.Text}</span></li>");
@@ -5317,7 +5337,7 @@ namespace Glow{
             PrintEngineList.Add("\t\t\t</ul>");
             PrintEngineList.Add("\t\t</div>");
             // MB
-            PrintEngineList.Add("\t\t<div class='middle_box'>");
+            PrintEngineList.Add("\t\t<div class='b3 ts_box_wrapper'>");
             PrintEngineList.Add($"\t\t\t<h3>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_2").Trim()))}</h3>");
             PrintEngineList.Add("\t\t\t<ul>");
             PrintEngineList.Add($"\t\t\t\t<li><span>{MB_MotherBoardName.Text}</span><span>{MB_MotherBoardName_V.Text}</span></li>");
@@ -5348,7 +5368,7 @@ namespace Glow{
             PrintEngineList.Add("\t\t\t</ul>");
             PrintEngineList.Add("\t\t</div>");
             // CPU
-            PrintEngineList.Add("\t\t<div class='middle_box'>");
+            PrintEngineList.Add("\t\t<div class='b4 ts_box_wrapper'>");
             PrintEngineList.Add($"\t\t\t<h3>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_3").Trim()))}</h3>");
             PrintEngineList.Add("\t\t\t<ul>");
             PrintEngineList.Add($"\t\t\t\t<li><span>{CPU_Name.Text}</span><span>{CPU_Name_V.Text}</span></li>");
@@ -5370,7 +5390,7 @@ namespace Glow{
             PrintEngineList.Add("\t\t\t</ul>");
             PrintEngineList.Add("\t\t</div>");
             // RAM
-            PrintEngineList.Add("\t\t<div class='middle_box'>");
+            PrintEngineList.Add("\t\t<div class='b5 ts_box_wrapper'>");
             PrintEngineList.Add($"\t\t\t<h3>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_4").Trim()))}</h3>");
             PrintEngineList.Add("\t\t\t<ul>");
             PrintEngineList.Add($"\t\t\t\t<li><span>{RAM_TotalRAM.Text}</span><span>{RAM_TotalRAM_V.Text}</span></li>");
@@ -5404,7 +5424,7 @@ namespace Glow{
             }catch (Exception){ }
             PrintEngineList.Add("\t\t</div>");
             // GPU
-            PrintEngineList.Add("\t\t<div class='middle_box'>");
+            PrintEngineList.Add("\t\t<div class='b6 ts_box_wrapper'>");
             PrintEngineList.Add($"\t\t\t<h3>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_5").Trim()))}</h3>");
             try{
                 int gpu_amount = GPU_Select.Items.Count;
@@ -5444,7 +5464,7 @@ namespace Glow{
             }catch (Exception) { }
             PrintEngineList.Add("\t\t</div>");
             // STORAGE
-            PrintEngineList.Add("\t\t<div class='middle_box'>");
+            PrintEngineList.Add("\t\t<div class='b7 ts_box_wrapper'>");
             PrintEngineList.Add($"\t\t\t<h3>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_6").Trim()))}</h3>");
             try{
                 int disk_amount = DISK_CaptionList.Items.Count;
@@ -5481,7 +5501,7 @@ namespace Glow{
             }catch (Exception) { }
             PrintEngineList.Add("\t\t</div>");
             // NETWORK
-            PrintEngineList.Add("\t\t<div class='middle_box'>");
+            PrintEngineList.Add("\t\t<div class='b8 ts_box_wrapper'>");
             PrintEngineList.Add($"\t\t\t<h3>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_7").Trim()))}</h3>");
             try{
                 int net_amount = NET_ListNetwork.Items.Count;
@@ -5511,7 +5531,7 @@ namespace Glow{
             }catch (Exception){ }
             PrintEngineList.Add("\t\t</div>");
             // USB
-            PrintEngineList.Add("\t\t<div class='middle_box'>");
+            PrintEngineList.Add("\t\t<div class='b9 ts_box_wrapper'>");
             PrintEngineList.Add($"\t\t\t<h3>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_8").Trim()))}</h3>");
             try{
                 int usb_con_amount = USB_ConList.Items.Count;
@@ -5547,7 +5567,7 @@ namespace Glow{
             }catch (Exception) { }
             PrintEngineList.Add("\t\t</div>");
             // SOUND
-            PrintEngineList.Add("\t\t<div class='middle_box'>");
+            PrintEngineList.Add("\t\t<div class='b10 ts_box_wrapper'>");
             PrintEngineList.Add($"\t\t\t<h3>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_9").Trim()))}</h3>");
             try{
                 int sound_amount = SOUND_Select.Items.Count;
@@ -5567,7 +5587,7 @@ namespace Glow{
             }catch (Exception){ }
             PrintEngineList.Add("\t\t</div>");
             // BATTERY
-            PrintEngineList.Add("\t\t<div class='middle_box'>");
+            PrintEngineList.Add("\t\t<div class='b11 ts_box_wrapper'>");
             PowerStatus power_status = SystemInformation.PowerStatus;
             String battery_charging = power_status.BatteryChargeStatus.ToString();
             if (battery_charging == "NoSystemBattery"){
@@ -5587,7 +5607,7 @@ namespace Glow{
             }
             PrintEngineList.Add("\t\t</div>");
             // OSD
-            PrintEngineList.Add("\t\t<div class='middle_box'>");
+            PrintEngineList.Add("\t\t<div class='b12 ts_box_wrapper'>");
             PrintEngineList.Add($"\t\t\t<h3>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_11").Trim()))}</h3>");
             char[] split_osd = { ':' };
             string osd_header = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "pe_4").Trim()));
@@ -5603,7 +5623,7 @@ namespace Glow{
             PrintEngineList.Add($"\t\t\t<h4><span>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_9").Trim()))}</span><span>{OSD_TYSS_V.Text}</span></h4>");
             PrintEngineList.Add("\t\t</div>");
             // SERVICE
-            PrintEngineList.Add("\t\t<div class='middle_box'>");
+            PrintEngineList.Add("\t\t<div class='b13 ts_box_wrapper'>");
             PrintEngineList.Add($"\t\t\t<h3>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_12").Trim()))}</h3>");
             char[] split_service = { ':' };
             string service_header = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "pe_5").Trim()));
@@ -5619,7 +5639,7 @@ namespace Glow{
             PrintEngineList.Add($"\t\t\t<h4><span>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_9").Trim()))}</span><span>{SERVICE_TYS_V.Text}</span></h4>");
             PrintEngineList.Add("\t\t</div>");
             // FOOTER V1
-            PrintEngineList.Add("\t\t<div class='middle_box'>");
+            PrintEngineList.Add("\t\t<div class='b14 ts_box_wrapper'>");
             PrintEngineList.Add($"\t\t\t<h3>{string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "pe_1").Trim())), Application.ProductName.ToUpper())}</h3>");
             PrintEngineList.Add("\t\t\t<ul>");
             PrintEngineList.Add($"\t\t\t\t<li>{Application.ProductName + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "pe_6").Trim())) + " " + Application.ProductVersion.Substring(0, 4)}</li>");
@@ -5632,6 +5652,14 @@ namespace Glow{
             PrintEngineList.Add("\t</div>");
             // SCROOL TOP SCRIPT
             PrintEngineList.Add("<script>");
+            PrintEngineList.Add("\t$('select').change(function(){ var ts_d_id = $(this).val(); $('html, body').animate({ scrollTop: $('.' + ts_d_id).offset().top }, 500); });");
+            PrintEngineList.Add("\tvar ts_output = [];");
+            PrintEngineList.Add("\t$.each($('select option'), function(key, value){ ts_output.push(value.value); });");
+            PrintEngineList.Add("\t$(window).on('scroll', function() {");
+            PrintEngineList.Add("\t\tif (!$('html, body').is(':animated')){ var ts_filtered = ts_output.filter(ts => { return $(this).scrollTop() >= $('.' + ts).position().top });");
+            PrintEngineList.Add("\t\t\tif (ts_filtered.length > 0){ $('select').val((ts_filtered[ts_filtered.length - 1])) }");
+            PrintEngineList.Add("\t\t}");
+            PrintEngineList.Add("\t});");
             PrintEngineList.Add("\tconst ts_scroll_top = document.querySelector('.ts_scroll_top');");
             PrintEngineList.Add("\twindow.addEventListener('scroll', function(){ ts_scroll_top.classList.toggle('active', window.scrollY > 350); });");
             PrintEngineList.Add("\tfunction ts_scroll_to_up(){ window.scrollTo({ top: 0, behavior: 'smooth' }); }");
