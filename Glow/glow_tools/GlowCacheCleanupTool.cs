@@ -59,6 +59,7 @@ namespace Glow.glow_tools{
             CCT_L1.Text = clean_path_list[0];
             CCT_L3.Text = clean_path_list[1];
             CCT_L5.Text = clean_path_list[2];
+            CCT_XX.Text = clean_path_list[3]; // The "XX" part must be edited for the required object name.
             // START FOLDER SIZE CHECK ALGORITHM
             Task check_folder_sizes_task = new Task(check_folder_sizes);
             check_folder_sizes_task.Start();
