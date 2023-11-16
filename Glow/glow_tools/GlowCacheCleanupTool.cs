@@ -18,7 +18,8 @@ namespace Glow.glow_tools{
         static string clean_path_1 = @"C:\Windows\Temp";
         static string clean_path_2 = @"C:\Users\" + SystemInformation.UserName + @"\AppData\Local\Temp";
         static string clean_path_3 = @"C:\Windows\Prefetch";
-        List<string> clean_path_list = new List<string>() { clean_path_1, clean_path_2, clean_path_3 };
+        static string clean_path_4 = @"C:\Windows\SoftwareDistribution\Download"; // Distributing software used for Windows update cleans the \Download folder, this process is safe. (This should not be done while updating with Windows update!)
+        List<string> clean_path_list = new List<string>() { clean_path_1, clean_path_2, clean_path_3 , clean_path_4 };
         List<double> clean_path_size_list = new List<double>();
         string cct_title;
         bool cct_auto_refresh_mode = true;
