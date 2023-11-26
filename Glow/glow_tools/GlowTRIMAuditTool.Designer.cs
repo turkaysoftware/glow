@@ -107,7 +107,7 @@
             this.TAT_EnabledBtn.Location = new System.Drawing.Point(0, 14);
             this.TAT_EnabledBtn.Name = "TAT_EnabledBtn";
             this.TAT_EnabledBtn.Size = new System.Drawing.Size(143, 47);
-            this.TAT_EnabledBtn.TabIndex = 1;
+            this.TAT_EnabledBtn.TabIndex = 0;
             this.TAT_EnabledBtn.Text = "AKTİF ET";
             this.TAT_EnabledBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.TAT_EnabledBtn.UseVisualStyleBackColor = false;
@@ -137,7 +137,7 @@
             this.TAT_L4.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.TAT_L4.Name = "TAT_L4";
             this.TAT_L4.Size = new System.Drawing.Size(356, 34);
-            this.TAT_L4.TabIndex = 3;
+            this.TAT_L4.TabIndex = 1;
             this.TAT_L4.Text = "TRIM Active Status Result";
             // 
             // TAT_L3
@@ -150,7 +150,7 @@
             this.TAT_L3.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.TAT_L3.Name = "TAT_L3";
             this.TAT_L3.Size = new System.Drawing.Size(356, 34);
-            this.TAT_L3.TabIndex = 2;
+            this.TAT_L3.TabIndex = 0;
             this.TAT_L3.Text = "TRIM Active Status:";
             this.TAT_L3.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
@@ -183,7 +183,7 @@
             this.TAT_CheckBtn.Location = new System.Drawing.Point(0, 14);
             this.TAT_CheckBtn.Name = "TAT_CheckBtn";
             this.TAT_CheckBtn.Size = new System.Drawing.Size(143, 46);
-            this.TAT_CheckBtn.TabIndex = 1;
+            this.TAT_CheckBtn.TabIndex = 0;
             this.TAT_CheckBtn.Text = "DENETLE";
             this.TAT_CheckBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.TAT_CheckBtn.UseVisualStyleBackColor = false;
@@ -213,7 +213,7 @@
             this.TAT_L2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.TAT_L2.Name = "TAT_L2";
             this.TAT_L2.Size = new System.Drawing.Size(356, 34);
-            this.TAT_L2.TabIndex = 3;
+            this.TAT_L2.TabIndex = 1;
             this.TAT_L2.Text = "TRIM Status Result";
             // 
             // TAT_L1
@@ -226,7 +226,7 @@
             this.TAT_L1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.TAT_L1.Name = "TAT_L1";
             this.TAT_L1.Size = new System.Drawing.Size(356, 34);
-            this.TAT_L1.TabIndex = 2;
+            this.TAT_L1.TabIndex = 0;
             this.TAT_L1.Text = "TRIM Status:";
             this.TAT_L1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
