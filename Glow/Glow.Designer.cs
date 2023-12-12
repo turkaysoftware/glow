@@ -59,6 +59,7 @@
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lightThemeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.darkThemeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nordThemeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.frenchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +74,7 @@
             this.sFCandDISMAutoToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cacheCleaningToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tRIMAuditToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.systemSoftwareToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainContent = new System.Windows.Forms.TabControl();
             this.OS = new System.Windows.Forms.TabPage();
@@ -480,9 +482,11 @@
             this.OSD = new System.Windows.Forms.TabPage();
             this.OSD_TLP = new System.Windows.Forms.TableLayoutPanel();
             this.osd_panel_1 = new System.Windows.Forms.Panel();
+            this.OSD_ModeTLP = new System.Windows.Forms.TableLayoutPanel();
+            this.OSD_FilePathMode = new System.Windows.Forms.CheckBox();
+            this.OSD_SortMode = new System.Windows.Forms.CheckBox();
             this.OSD_TextBoxClearBtn = new System.Windows.Forms.Button();
             this.OSD_TYSS = new System.Windows.Forms.Label();
-            this.OSD_SortMode = new System.Windows.Forms.CheckBox();
             this.OSD_SearchDriverLabel = new System.Windows.Forms.Label();
             this.OSD_DataMainTable = new System.Windows.Forms.DataGridView();
             this.OSD_TextBox = new System.Windows.Forms.TextBox();
@@ -490,9 +494,11 @@
             this.GSERVICE = new System.Windows.Forms.TabPage();
             this.SERVICE_TLP = new System.Windows.Forms.TableLayoutPanel();
             this.service_panel_1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.SERVICE_FilePathMode = new System.Windows.Forms.CheckBox();
+            this.SERVICE_SortMode = new System.Windows.Forms.CheckBox();
             this.SERVICE_TextBoxClearBtn = new System.Windows.Forms.Button();
             this.SERVICE_TYS = new System.Windows.Forms.Label();
-            this.SERVICE_SortMode = new System.Windows.Forms.CheckBox();
             this.SERVICE_SearchLabel = new System.Windows.Forms.Label();
             this.SERVICE_DataMainTable = new System.Windows.Forms.DataGridView();
             this.SERVICE_TextBox = new System.Windows.Forms.TextBox();
@@ -555,10 +561,12 @@
             this.OSD.SuspendLayout();
             this.OSD_TLP.SuspendLayout();
             this.osd_panel_1.SuspendLayout();
+            this.OSD_ModeTLP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OSD_DataMainTable)).BeginInit();
             this.GSERVICE.SuspendLayout();
             this.SERVICE_TLP.SuspendLayout();
             this.service_panel_1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SERVICE_DataMainTable)).BeginInit();
             this.HeaderPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderImage)).BeginInit();
@@ -950,9 +958,10 @@
             this.themeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.themeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lightThemeToolStripMenuItem,
-            this.darkThemeToolStripMenuItem});
+            this.darkThemeToolStripMenuItem,
+            this.nordThemeToolStripMenuItem});
             this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
-            this.themeToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.themeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.themeToolStripMenuItem.Text = "Theme";
             // 
             // lightThemeToolStripMenuItem
@@ -960,8 +969,7 @@
             this.lightThemeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.lightThemeToolStripMenuItem.Name = "lightThemeToolStripMenuItem";
             this.lightThemeToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.lightThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.lightThemeToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.lightThemeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.lightThemeToolStripMenuItem.Text = "Light Theme";
             this.lightThemeToolStripMenuItem.Click += new System.EventHandler(this.lightThemeToolStripMenuItem_Click);
             // 
@@ -970,10 +978,16 @@
             this.darkThemeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.darkThemeToolStripMenuItem.Name = "darkThemeToolStripMenuItem";
             this.darkThemeToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.darkThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.darkThemeToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.darkThemeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.darkThemeToolStripMenuItem.Text = "Dark Theme";
             this.darkThemeToolStripMenuItem.Click += new System.EventHandler(this.darkThemeToolStripMenuItem_Click);
+            // 
+            // nordThemeToolStripMenuItem
+            // 
+            this.nordThemeToolStripMenuItem.Name = "nordThemeToolStripMenuItem";
+            this.nordThemeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.nordThemeToolStripMenuItem.Text = "Nord Theme";
+            this.nordThemeToolStripMenuItem.Click += new System.EventHandler(this.nordThemeToolStripMenuItem_Click);
             // 
             // languageToolStripMenuItem
             // 
@@ -983,7 +997,7 @@
             this.frenchToolStripMenuItem,
             this.turkishToolStripMenuItem});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.languageToolStripMenuItem.Text = "Language";
             // 
             // englishToolStripMenuItem
@@ -1019,15 +1033,15 @@
             this.windowedToolStripMenuItem,
             this.fullScreenToolStripMenuItem});
             this.initialViewToolStripMenuItem.Name = "initialViewToolStripMenuItem";
-            this.initialViewToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.initialViewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.initialViewToolStripMenuItem.Text = "Initial View";
             // 
             // windowedToolStripMenuItem
             // 
             this.windowedToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.windowedToolStripMenuItem.Name = "windowedToolStripMenuItem";
-            this.windowedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.windowedToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.windowedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
+            this.windowedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.windowedToolStripMenuItem.Text = "Windowed";
             this.windowedToolStripMenuItem.Click += new System.EventHandler(this.windowedToolStripMenuItem_Click);
             // 
@@ -1035,8 +1049,8 @@
             // 
             this.fullScreenToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.fullScreenToolStripMenuItem.Name = "fullScreenToolStripMenuItem";
-            this.fullScreenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.fullScreenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F4;
+            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.fullScreenToolStripMenuItem.Text = "Full Screen";
             this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.fullScreenToolStripMenuItem_Click);
             // 
@@ -1047,14 +1061,14 @@
             this.hidingModeOnToolStripMenuItem,
             this.hidingModeOffToolStripMenuItem});
             this.hidingModeToolStripMenuItem.Name = "hidingModeToolStripMenuItem";
-            this.hidingModeToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.hidingModeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hidingModeToolStripMenuItem.Text = "Hiding Mode";
             // 
             // hidingModeOnToolStripMenuItem
             // 
             this.hidingModeOnToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.hidingModeOnToolStripMenuItem.Name = "hidingModeOnToolStripMenuItem";
-            this.hidingModeOnToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
+            this.hidingModeOnToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.hidingModeOnToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.hidingModeOnToolStripMenuItem.Text = "Hiding Mode On";
             this.hidingModeOnToolStripMenuItem.Click += new System.EventHandler(this.hidingModeOnToolStripMenuItem_Click);
@@ -1063,7 +1077,7 @@
             // 
             this.hidingModeOffToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.hidingModeOffToolStripMenuItem.Name = "hidingModeOffToolStripMenuItem";
-            this.hidingModeOffToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
+            this.hidingModeOffToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
             this.hidingModeOffToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.hidingModeOffToolStripMenuItem.Text = "Hiding Mode Off";
             this.hidingModeOffToolStripMenuItem.Click += new System.EventHandler(this.hidingModeOffToolStripMenuItem_Click);
@@ -1073,7 +1087,8 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sFCandDISMAutoToolToolStripMenuItem,
             this.cacheCleaningToolToolStripMenuItem,
-            this.tRIMAuditToolToolStripMenuItem});
+            this.tRIMAuditToolToolStripMenuItem,
+            this.systemSoftwareToolToolStripMenuItem});
             this.toolsToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
@@ -1106,11 +1121,19 @@
             this.tRIMAuditToolToolStripMenuItem.Text = "TRIMAuditTool";
             this.tRIMAuditToolToolStripMenuItem.Click += new System.EventHandler(this.tRIMAuditToolToolStripMenuItem_Click);
             // 
+            // systemSoftwareToolToolStripMenuItem
+            // 
+            this.systemSoftwareToolToolStripMenuItem.Name = "systemSoftwareToolToolStripMenuItem";
+            this.systemSoftwareToolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.systemSoftwareToolToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.systemSoftwareToolToolStripMenuItem.Text = "System Software Tool";
+            this.systemSoftwareToolToolStripMenuItem.Click += new System.EventHandler(this.systemSoftwareToolToolStripMenuItem_Click);
+            // 
             // gitHubToolStripMenuItem
             // 
             this.gitHubToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.gitHubToolStripMenuItem.Name = "gitHubToolStripMenuItem";
-            this.gitHubToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
+            this.gitHubToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
             this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.gitHubToolStripMenuItem.Text = "GitHub";
             this.gitHubToolStripMenuItem.Click += new System.EventHandler(this.gitHubToolStripMenuItem_Click);
@@ -6916,9 +6939,9 @@
             // 
             this.osd_panel_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.osd_panel_1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.osd_panel_1.Controls.Add(this.OSD_ModeTLP);
             this.osd_panel_1.Controls.Add(this.OSD_TextBoxClearBtn);
             this.osd_panel_1.Controls.Add(this.OSD_TYSS);
-            this.osd_panel_1.Controls.Add(this.OSD_SortMode);
             this.osd_panel_1.Controls.Add(this.OSD_SearchDriverLabel);
             this.osd_panel_1.Controls.Add(this.OSD_DataMainTable);
             this.osd_panel_1.Controls.Add(this.OSD_TextBox);
@@ -6929,6 +6952,47 @@
             this.osd_panel_1.Name = "osd_panel_1";
             this.osd_panel_1.Size = new System.Drawing.Size(777, 527);
             this.osd_panel_1.TabIndex = 0;
+            // 
+            // OSD_ModeTLP
+            // 
+            this.OSD_ModeTLP.BackColor = System.Drawing.Color.Transparent;
+            this.OSD_ModeTLP.ColumnCount = 2;
+            this.OSD_ModeTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.OSD_ModeTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.OSD_ModeTLP.Controls.Add(this.OSD_FilePathMode, 1, 0);
+            this.OSD_ModeTLP.Controls.Add(this.OSD_SortMode, 0, 0);
+            this.OSD_ModeTLP.Location = new System.Drawing.Point(9, 59);
+            this.OSD_ModeTLP.Name = "OSD_ModeTLP";
+            this.OSD_ModeTLP.RowCount = 1;
+            this.OSD_ModeTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.OSD_ModeTLP.Size = new System.Drawing.Size(420, 27);
+            this.OSD_ModeTLP.TabIndex = 5;
+            // 
+            // OSD_FilePathMode
+            // 
+            this.OSD_FilePathMode.AutoSize = true;
+            this.OSD_FilePathMode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.OSD_FilePathMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.OSD_FilePathMode.Location = new System.Drawing.Point(115, 3);
+            this.OSD_FilePathMode.Name = "OSD_FilePathMode";
+            this.OSD_FilePathMode.Size = new System.Drawing.Size(156, 21);
+            this.OSD_FilePathMode.TabIndex = 1;
+            this.OSD_FilePathMode.Text = "Dosya Yolu İle Göster";
+            this.OSD_FilePathMode.UseVisualStyleBackColor = true;
+            this.OSD_FilePathMode.Click += new System.EventHandler(this.OSD_FilePathMode_Click);
+            // 
+            // OSD_SortMode
+            // 
+            this.OSD_SortMode.AutoSize = true;
+            this.OSD_SortMode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.OSD_SortMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.OSD_SortMode.Location = new System.Drawing.Point(3, 3);
+            this.OSD_SortMode.Name = "OSD_SortMode";
+            this.OSD_SortMode.Size = new System.Drawing.Size(106, 21);
+            this.OSD_SortMode.TabIndex = 0;
+            this.OSD_SortMode.Text = "Tersten sırala";
+            this.OSD_SortMode.UseVisualStyleBackColor = true;
+            this.OSD_SortMode.CheckedChanged += new System.EventHandler(this.OSD_SortMode_CheckedChanged);
             // 
             // OSD_TextBoxClearBtn
             // 
@@ -6960,19 +7024,6 @@
             this.OSD_TYSS.TabIndex = 3;
             this.OSD_TYSS.Text = "Yüklü Sürücü";
             this.OSD_TYSS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // OSD_SortMode
-            // 
-            this.OSD_SortMode.AutoSize = true;
-            this.OSD_SortMode.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.OSD_SortMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
-            this.OSD_SortMode.Location = new System.Drawing.Point(12, 61);
-            this.OSD_SortMode.Name = "OSD_SortMode";
-            this.OSD_SortMode.Size = new System.Drawing.Size(106, 21);
-            this.OSD_SortMode.TabIndex = 5;
-            this.OSD_SortMode.Text = "Tersten sırala";
-            this.OSD_SortMode.UseVisualStyleBackColor = true;
-            this.OSD_SortMode.CheckedChanged += new System.EventHandler(this.OSD_SortMode_CheckedChanged);
             // 
             // OSD_SearchDriverLabel
             // 
@@ -7021,7 +7072,7 @@
             this.OSD_DataMainTable.DefaultCellStyle = dataGridViewCellStyle3;
             this.OSD_DataMainTable.EnableHeadersVisualStyles = false;
             this.OSD_DataMainTable.GridColor = System.Drawing.Color.Gray;
-            this.OSD_DataMainTable.Location = new System.Drawing.Point(12, 86);
+            this.OSD_DataMainTable.Location = new System.Drawing.Point(12, 89);
             this.OSD_DataMainTable.MultiSelect = false;
             this.OSD_DataMainTable.Name = "OSD_DataMainTable";
             this.OSD_DataMainTable.ReadOnly = true;
@@ -7036,7 +7087,7 @@
             this.OSD_DataMainTable.RowHeadersVisible = false;
             this.OSD_DataMainTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.OSD_DataMainTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.OSD_DataMainTable.Size = new System.Drawing.Size(753, 428);
+            this.OSD_DataMainTable.Size = new System.Drawing.Size(753, 425);
             this.OSD_DataMainTable.TabIndex = 6;
             this.OSD_DataMainTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.OSD_DataMainTable_CellDoubleClick);
             this.OSD_DataMainTable.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.OSD_DataMainTable_ColumnHeaderMouseClick);
@@ -7097,9 +7148,9 @@
             // 
             this.service_panel_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.service_panel_1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.service_panel_1.Controls.Add(this.tableLayoutPanel1);
             this.service_panel_1.Controls.Add(this.SERVICE_TextBoxClearBtn);
             this.service_panel_1.Controls.Add(this.SERVICE_TYS);
-            this.service_panel_1.Controls.Add(this.SERVICE_SortMode);
             this.service_panel_1.Controls.Add(this.SERVICE_SearchLabel);
             this.service_panel_1.Controls.Add(this.SERVICE_DataMainTable);
             this.service_panel_1.Controls.Add(this.SERVICE_TextBox);
@@ -7110,6 +7161,46 @@
             this.service_panel_1.Name = "service_panel_1";
             this.service_panel_1.Size = new System.Drawing.Size(777, 527);
             this.service_panel_1.TabIndex = 0;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.SERVICE_FilePathMode, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.SERVICE_SortMode, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(9, 59);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(420, 27);
+            this.tableLayoutPanel1.TabIndex = 5;
+            // 
+            // SERVICE_FilePathMode
+            // 
+            this.SERVICE_FilePathMode.AutoSize = true;
+            this.SERVICE_FilePathMode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SERVICE_FilePathMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.SERVICE_FilePathMode.Location = new System.Drawing.Point(115, 3);
+            this.SERVICE_FilePathMode.Name = "SERVICE_FilePathMode";
+            this.SERVICE_FilePathMode.Size = new System.Drawing.Size(156, 21);
+            this.SERVICE_FilePathMode.TabIndex = 1;
+            this.SERVICE_FilePathMode.Text = "Dosya Yolu İle Göster";
+            this.SERVICE_FilePathMode.UseVisualStyleBackColor = true;
+            this.SERVICE_FilePathMode.Click += new System.EventHandler(this.SERVICE_FilePathMode_Click);
+            // 
+            // SERVICE_SortMode
+            // 
+            this.SERVICE_SortMode.AutoSize = true;
+            this.SERVICE_SortMode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SERVICE_SortMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.SERVICE_SortMode.Location = new System.Drawing.Point(3, 3);
+            this.SERVICE_SortMode.Name = "SERVICE_SortMode";
+            this.SERVICE_SortMode.Size = new System.Drawing.Size(106, 21);
+            this.SERVICE_SortMode.TabIndex = 0;
+            this.SERVICE_SortMode.Text = "Tersten sırala";
+            this.SERVICE_SortMode.UseVisualStyleBackColor = true;
+            this.SERVICE_SortMode.CheckedChanged += new System.EventHandler(this.SERVICES_SortMode_CheckedChanged);
             // 
             // SERVICE_TextBoxClearBtn
             // 
@@ -7141,19 +7232,6 @@
             this.SERVICE_TYS.TabIndex = 3;
             this.SERVICE_TYS.Text = "Yüklü Hizmetler";
             this.SERVICE_TYS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // SERVICE_SortMode
-            // 
-            this.SERVICE_SortMode.AutoSize = true;
-            this.SERVICE_SortMode.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SERVICE_SortMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
-            this.SERVICE_SortMode.Location = new System.Drawing.Point(12, 61);
-            this.SERVICE_SortMode.Name = "SERVICE_SortMode";
-            this.SERVICE_SortMode.Size = new System.Drawing.Size(106, 21);
-            this.SERVICE_SortMode.TabIndex = 5;
-            this.SERVICE_SortMode.Text = "Tersten sırala";
-            this.SERVICE_SortMode.UseVisualStyleBackColor = true;
-            this.SERVICE_SortMode.CheckedChanged += new System.EventHandler(this.SERVICES_SortMode_CheckedChanged);
             // 
             // SERVICE_SearchLabel
             // 
@@ -7202,7 +7280,7 @@
             this.SERVICE_DataMainTable.DefaultCellStyle = dataGridViewCellStyle7;
             this.SERVICE_DataMainTable.EnableHeadersVisualStyles = false;
             this.SERVICE_DataMainTable.GridColor = System.Drawing.Color.Gray;
-            this.SERVICE_DataMainTable.Location = new System.Drawing.Point(12, 86);
+            this.SERVICE_DataMainTable.Location = new System.Drawing.Point(12, 89);
             this.SERVICE_DataMainTable.MultiSelect = false;
             this.SERVICE_DataMainTable.Name = "SERVICE_DataMainTable";
             this.SERVICE_DataMainTable.ReadOnly = true;
@@ -7217,7 +7295,7 @@
             this.SERVICE_DataMainTable.RowHeadersVisible = false;
             this.SERVICE_DataMainTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.SERVICE_DataMainTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.SERVICE_DataMainTable.Size = new System.Drawing.Size(753, 428);
+            this.SERVICE_DataMainTable.Size = new System.Drawing.Size(753, 425);
             this.SERVICE_DataMainTable.TabIndex = 6;
             this.SERVICE_DataMainTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SERVICE_DataMainTable_CellDoubleClick);
             this.SERVICE_DataMainTable.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.SERVICE_DataMainTable_ColumnHeaderMouseClick);
@@ -7396,11 +7474,15 @@
             this.OSD_TLP.ResumeLayout(false);
             this.osd_panel_1.ResumeLayout(false);
             this.osd_panel_1.PerformLayout();
+            this.OSD_ModeTLP.ResumeLayout(false);
+            this.OSD_ModeTLP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OSD_DataMainTable)).EndInit();
             this.GSERVICE.ResumeLayout(false);
             this.SERVICE_TLP.ResumeLayout(false);
             this.service_panel_1.ResumeLayout(false);
             this.service_panel_1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SERVICE_DataMainTable)).EndInit();
             this.HeaderPanel.ResumeLayout(false);
             this.HeaderPanel.PerformLayout();
@@ -7874,6 +7956,12 @@
         private System.Windows.Forms.ToolStripMenuItem gitHubToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem frenchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tRIMAuditToolToolStripMenuItem;
+        private System.Windows.Forms.TableLayoutPanel OSD_ModeTLP;
+        private System.Windows.Forms.CheckBox OSD_FilePathMode;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.CheckBox SERVICE_FilePathMode;
+        private System.Windows.Forms.ToolStripMenuItem systemSoftwareToolToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nordThemeToolStripMenuItem;
     }
 }
 

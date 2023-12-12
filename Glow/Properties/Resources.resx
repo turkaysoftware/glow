@@ -196,6 +196,36 @@
   <data name="middle_ow_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_interface\middle_content\light_theme\middle_ow_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="sst_amd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\sst_content\sst_amd.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sst_autoruns" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\sst_content\sst_autoruns.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sst_ddu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\sst_content\sst_ddu.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sst_directx" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\sst_content\sst_directx.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sst_intel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\sst_content\sst_intel.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sst_java" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\sst_content\sst_java.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sst_java_jdk" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\sst_content\sst_java_jdk.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sst_nvidia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\sst_content\sst_nvidia.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sst_vimera" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\sst_content\sst_vimera.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sst_vs" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\sst_content\sst_vs.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="top_cache_clean_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_interface\top_menu\dark_theme\top_cache_clean_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -249,6 +279,12 @@
   </data>
   <data name="top_sfc_and_dism_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_interface\top_menu\light_theme\top_sfc_and_dism_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="top_sst_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\top_menu\dark_theme\top_sst_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="top_sst_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\top_menu\light_theme\top_sst_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="top_theme_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_interface\top_menu\dark_theme\top_theme_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

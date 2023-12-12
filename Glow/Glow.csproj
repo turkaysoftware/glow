@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.92.0.%2a</ApplicationVersion>
+    <ApplicationVersion>2.00.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -188,6 +188,12 @@
     <Compile Include="glow_tools\GlowSFCandDISMAutoTool.Designer.cs">
       <DependentUpon>GlowSFCandDISMAutoTool.cs</DependentUpon>
     </Compile>
+    <Compile Include="glow_tools\GlowSystemSoftwareTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="glow_tools\GlowSystemSoftwareTool.Designer.cs">
+      <DependentUpon>GlowSystemSoftwareTool.cs</DependentUpon>
+    </Compile>
     <Compile Include="glow_tools\GlowTRIMAuditTool.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -204,6 +210,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="glow_tools\GlowSFCandDISMAutoTool.resx">
       <DependentUpon>GlowSFCandDISMAutoTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="glow_tools\GlowSystemSoftwareTool.resx">
+      <DependentUpon>GlowSystemSoftwareTool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="glow_tools\GlowTRIMAuditTool.resx">
       <DependentUpon>GlowTRIMAuditTool.cs</DependentUpon>
@@ -290,6 +299,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GlowFavicon.ico" />
+    <None Include="glow_images\glow_interface\top_menu\dark_theme\top_sst_dark.png" />
+    <None Include="glow_images\glow_interface\top_menu\light_theme\top_sst_light.png" />
+    <None Include="glow_images\glow_interface\sst_content\sst_vs.jpg" />
+    <None Include="glow_images\glow_interface\sst_content\sst_vimera.jpg" />
+    <None Include="glow_images\glow_interface\sst_content\sst_nvidia.jpg" />
+    <None Include="glow_images\glow_interface\sst_content\sst_java_jdk.jpg" />
+    <None Include="glow_images\glow_interface\sst_content\sst_java.jpg" />
+    <None Include="glow_images\glow_interface\sst_content\sst_intel.jpg" />
+    <None Include="glow_images\glow_interface\sst_content\sst_directx.jpg" />
+    <None Include="glow_images\glow_interface\sst_content\sst_ddu.jpg" />
+    <None Include="glow_images\glow_interface\sst_content\sst_autoruns.jpg" />
+    <None Include="glow_images\glow_interface\sst_content\sst_amd.jpg" />
     <None Include="glow_images\glow_interface\top_menu\dark_theme\top_trim_dark.png" />
     <None Include="glow_images\glow_interface\top_menu\light_theme\top_trim_light.png" />
     <None Include="glow_images\glow_interface\top_menu\dark_theme\top_tools_dark.png" />

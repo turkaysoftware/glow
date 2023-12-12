@@ -30,16 +30,17 @@ namespace Glow{
         // VARIABLES
         int menu_btns = 1, menu_rp = 1, initial_status, hiding_status, hiding_mode_wrapper;
         string wp_rotate, wp_resoulation;
-        bool loop_status = true, pe_loop_status = true;
+        bool loop_status = true, pe_loop_status = true, osd_file_path_mode, service_file_path_mode;
         readonly string github_link = "https://github.com/roines45";
         // ======================================================================================================
         // PRINT ENGINE ASYNC STATUS
         int os_status = 0, mb_status = 0, cpu_status = 0, ram_status = 0, gpu_status = 0, disk_status = 0, network_status = 0,
         usb_status = 0, sound_status = 0, battery_status = 0, osd_status = 0, service_status = 0;
         // ======================================================================================================
-        // COLOR MODES
+        // COLOR MODES / Index Mode | 0 = Dark - 1 = Light - 2 = Nord 
+        List<Color> btn_colors_active = new List<Color>() { Color.WhiteSmoke, Color.FromArgb(31, 31, 31), Color.FromArgb(46, 52, 64) };
+        List<Color> btn_colors_deactive = new List<Color>(){ Color.FromArgb(235, 235, 235), Color.FromArgb(24, 24, 24), Color.FromArgb(36, 41, 51) };
         public static List<Color> ui_colors = new List<Color>();
-        List<Color> btn_colors = new List<Color>(){ Color.FromArgb(235, 235, 235), Color.WhiteSmoke, Color.FromArgb(24, 24, 24), Color.FromArgb(31, 31, 31) };
         static List<Color> header_colors = new List<Color>();
         // ======================================================================================================
         // HEADER SETTINGS
@@ -73,9 +74,10 @@ namespace Glow{
         // ======================================================================================================
         // GLOW PRELOADER
         /*
-            -- THEME --      |  -- LANGUAGE --   |   -- INITIAL MODE --    |   -- HIDING MODE --   |   -- OS SUPPORTED --
-            0 = Dark Theme   |  Moved to         |   0 = Normal Windowed   |   0 = Off             |   True = Supported
-            1 = Light Theme  |  GlowModules.cs   |   1 = FullScreen Mode   |   1 = On              |   False = Not Supported
+            -- THEME --      |  -- LANGUAGE --   |   -- INITIAL MODE --    |   -- HIDING MODE --
+            0 = Dark Theme   |  Moved to         |   0 = Normal Windowed   |   0 = Off
+            1 = Light Theme  |  GlowModules.cs   |   1 = FullScreen Mode   |   1 = On
+            2 = Nord Theme
         */
         private void glow_preloader(){
             try{
@@ -101,6 +103,10 @@ namespace Glow{
                                 glow_settings_save.GlowWriteSettings("GlowSettings", "InitialStatus", "0");
                                 // SET HIDING MODE
                                 glow_settings_save.GlowWriteSettings("GlowSettings", "HidingStatus", "0");
+                                // SET OSD FILE PATH MODE
+                                glow_settings_save.GlowWriteSettings("GlowSettings", "OSDFilePathStatus", "0");
+                                // SET SERVICE FILE PATH MODE
+                                glow_settings_save.GlowWriteSettings("GlowSettings", "SERVICEFilePathStatus", "0");
                                 GetGlowSetting();
                             }
                         }catch (Exception){ }
@@ -169,7 +175,7 @@ namespace Glow{
                 SERVICE_Column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
             // ALL DGV AND PANEL WIDTH
-            int c1 = 120, c2 = 195, c3 = 90, c4 = 65, c5 = 95;
+            int c1 = 160, c2 = 160, c3 = 95, c4 = 95, c5 = 95;
             // INSTALLED DRIVERS
             OSD_DataMainTable.Columns[0].Width = c1;
             OSD_DataMainTable.Columns[1].Width = c2;
@@ -210,8 +216,12 @@ namespace Glow{
             string theme_mode = glow_read_settings.GlowReadSettings("GlowSettings", "ThemeStatus");
             switch (theme_mode){
                 case "0":
-                    color_mode(2);
+                    color_mode(0);
                     darkThemeToolStripMenuItem.Checked = true;
+                    break;
+                case "2":
+                    color_mode(2);
+                    nordThemeToolStripMenuItem.Checked = true;
                     break;
                 default:
                     color_mode(1);
@@ -271,6 +281,43 @@ namespace Glow{
                     hiding_status = 0;
                     hiding_mode_wrapper = 0;
                     hidingModeOffToolStripMenuItem.Checked = true;
+                    break;
+            }
+            GlowGetLangs g_lang = new GlowGetLangs(lang_path);
+            string osd_file_mode = glow_read_settings.GlowReadSettings("GlowSettings", "OSDFilePathStatus");
+            switch (osd_file_mode){
+                case "0":
+                    osd_file_path_mode = false;
+                    OSD_FilePathMode.Checked = false;
+                    OSD_DataMainTable.Columns[0].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_1").Trim()));
+                    break;
+                case "1":
+                    osd_file_path_mode = true;
+                    OSD_FilePathMode.Checked = true;
+                    OSD_DataMainTable.Columns[0].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_2").Trim()));
+                    break;
+                default:
+                    osd_file_path_mode = false;
+                    OSD_FilePathMode.Checked = false;
+                    OSD_DataMainTable.Columns[0].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_1").Trim()));
+                    break;
+            }
+            string service_file_mode = glow_read_settings.GlowReadSettings("GlowSettings", "SERVICEFilePathStatus");
+            switch (service_file_mode){
+                case "0":
+                    service_file_path_mode = false;
+                    SERVICE_FilePathMode.Checked = false;
+                    SERVICE_DataMainTable.Columns[0].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_1").Trim()));
+                    break;
+                case "1":
+                    service_file_path_mode = true;
+                    SERVICE_FilePathMode.Checked = true;
+                    SERVICE_DataMainTable.Columns[0].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_2").Trim()));
+                    break;
+                default:
+                    service_file_path_mode = false;
+                    SERVICE_FilePathMode.Checked = false;
+                    SERVICE_DataMainTable.Columns[0].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_1").Trim()));
                     break;
             }
             glow_load_tasks();
@@ -1815,13 +1862,13 @@ namespace Glow{
                     string m_bounds_v4 = m_bounds_v3.Replace("{", "");
                     string m_bounds_v5 = m_bounds_v4.Replace("}", "");
                     string m_bounds_v6 = m_bounds_v5.Replace(",", ", ");
-                    string m_bounds_v7 = m_bounds_v6.Replace("=", " = ");
+                    string m_bounds_v7 = m_bounds_v6.Replace("=", ": ");
                     string m_working_area_v2 = m_working_area.Replace("Width", Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu_Content", "gpu_c_29").Trim())));
                     string m_working_area_v3 = m_working_area_v2.Replace("Height", Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu_Content", "gpu_c_30").Trim())));
                     string m_working_area_v4 = m_working_area_v3.Replace("{", "");
                     string m_working_area_v5 = m_working_area_v4.Replace("}", "");
                     string m_working_area_v6 = m_working_area_v5.Replace(",", ", ");
-                    string m_working_area_v7 = m_working_area_v6.Replace("=", " = ");
+                    string m_working_area_v7 = m_working_area_v6.Replace("=", ": ");
                     string m_primary_screen_v2 = m_primary_screen.Replace("True", Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu_Content", "gpu_c_31").Trim())));
                     string m_primary_screen_v3 = m_primary_screen_v2.Replace("False", Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu_Content", "gpu_c_32").Trim())));
                     gpu_monitor_bounds_list.Add(m_bounds_v7);
@@ -3103,12 +3150,20 @@ namespace Glow{
         }
         // OSD
         // ======================================================================================================
+        string driver_names; // OSD DRIVERS NAME
         private void osd(){
             GlowGetLangs g_lang = new GlowGetLangs(lang_path);
             try{
                 ManagementObjectSearcher search_sd = new ManagementObjectSearcher("root\\CIMV2","SELECT * FROM Win32_SystemDriver");
                 foreach (ManagementObject query_sd_rotate in search_sd.Get()){
-                    string driver_names = Convert.ToString(query_sd_rotate["Name"]).Trim() + ".sys";
+                    switch (osd_file_path_mode){
+                        case true:
+                            driver_names = Convert.ToString(query_sd_rotate["PathName"]).Trim();
+                            break;
+                        case false:
+                            driver_names = Convert.ToString(query_sd_rotate["Name"]).Trim() + ".sys";
+                            break;
+                    }
                     string driver_paths = Convert.ToString(query_sd_rotate["DisplayName"]).Trim();
                     string driver_types = Convert.ToString(query_sd_rotate["ServiceType"]).Trim();
                     string driver_starts = Convert.ToString(query_sd_rotate["StartMode"]).Trim();
@@ -3230,14 +3285,39 @@ namespace Glow{
                 OSD_DataMainTable.ClearSelection();
             }catch (Exception){ }
         }
+        string osd_file_mode_save;
+        private void OSD_FilePathMode_Click(object sender, EventArgs e){
+            if (OSD_FilePathMode.Checked == true){
+                osd_file_mode_save = "1";
+            }else if (OSD_FilePathMode.Checked == false){
+                osd_file_mode_save = "0";
+            }
+            try{
+                GlowSettingsSave glow_setting_save = new GlowSettingsSave(glow_sf);
+                glow_setting_save.GlowWriteSettings("GlowSettings", "OSDFilePathStatus", osd_file_mode_save);
+            }catch (Exception){ }
+            // LANG CHANGE NOTIFICATION
+            GlowGetLangs g_lang = new GlowGetLangs(lang_path);
+            DialogResult lang_change_message = MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_file_mode_change").Trim())), "\n\n", "\n\n"), Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (lang_change_message == DialogResult.Yes){ Application.Restart(); }
+        }
         // GS SERVICE
         // ======================================================================================================
+        string service_path_names; // SERVICE DRIVERS NAME
         private void gs_services(){
             GlowGetLangs g_lang = new GlowGetLangs(lang_path);
             try{
                 ManagementObjectSearcher search_service = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Service");
                 foreach (ManagementObject query_service_rotate in search_service.Get()){
-                    string service_path_names = Convert.ToString(query_service_rotate["Name"]).Trim();
+                    switch (service_file_path_mode){
+                        case true:
+                            string process_services = Convert.ToString(query_service_rotate["PathName"]).Trim().Replace("\"", string.Empty);
+                            service_path_names = process_services;
+                            break;
+                        case false:
+                            service_path_names = Convert.ToString(query_service_rotate["Name"]).Trim() + ".exe";
+                            break;
+                    }
                     string service_captions = Convert.ToString(query_service_rotate["DisplayName"]).Trim();
                     string service_types = Convert.ToString(query_service_rotate["ServiceType"]).Trim();
                     string service_start_modes = Convert.ToString(query_service_rotate["StartMode"]).Trim();
@@ -3371,6 +3451,22 @@ namespace Glow{
                 SERVICE_DataMainTable.ClearSelection();
             }catch (Exception){ }
         }
+        string service_file_mode_save;
+        private void SERVICE_FilePathMode_Click(object sender, EventArgs e){
+            if (SERVICE_FilePathMode.Checked == true){
+                service_file_mode_save = "1";
+            }else if (SERVICE_FilePathMode.Checked == false){
+                service_file_mode_save = "0";
+            }
+            try{
+                GlowSettingsSave glow_setting_save = new GlowSettingsSave(glow_sf);
+                glow_setting_save.GlowWriteSettings("GlowSettings", "SERVICEFilePathStatus", service_file_mode_save);
+            }catch (Exception){ }
+            // LANG CHANGE NOTIFICATION
+            GlowGetLangs g_lang = new GlowGetLangs(lang_path);
+            DialogResult lang_change_message = MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_file_mode_change").Trim())), "\n\n", "\n\n"), Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (lang_change_message == DialogResult.Yes){ Application.Restart(); }
+        }
         // BUTTONS ROTATE
         // ======================================================================================================
         private Button active_btn;
@@ -3379,16 +3475,18 @@ namespace Glow{
             if (btn_target != null){
                 if (active_btn != (Button)btn_target){
                     active_btn = (Button)btn_target;
-                    if (theme == 1){ active_btn.BackColor = btn_colors[1]; }
-                    else if (theme == 2){ active_btn.BackColor = btn_colors[3]; }
+                    if (theme == 1){ active_btn.BackColor = btn_colors_active[0]; }
+                    else if (theme == 0){ active_btn.BackColor = btn_colors_active[1]; }
+                    else if (theme == 2) { active_btn.BackColor = btn_colors_active[2]; }
                     active_btn.Cursor = Cursors.Default;
                 }
             }
         }
         private void disabled_page(){
             foreach (Control disabled_btn in LeftMenuPanel.Controls){
-                if (theme == 1){ disabled_btn.BackColor = btn_colors[0]; }
-                else if (theme == 2){ disabled_btn.BackColor = btn_colors[2]; }
+                if (theme == 1){ disabled_btn.BackColor = btn_colors_deactive[0]; }
+                else if (theme == 0){ disabled_btn.BackColor = btn_colors_deactive[1]; }
+                else if (theme == 2) { disabled_btn.BackColor = btn_colors_deactive[2]; }
                 disabled_btn.Cursor = Cursors.Hand;
             }
         }
@@ -3482,7 +3580,7 @@ namespace Glow{
                             MainContent.SelectedTab = OS;
                             menu_btns = 1;
                             menu_rp = 1;
-                            if (OS_RotateBtn.BackColor != btn_colors[1] && OS_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+                            if (!btn_colors_active.Contains(OS_RotateBtn.BackColor)){ active_page(sender); }
                             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_1").Trim()));
                         }
                         break;
@@ -3491,7 +3589,7 @@ namespace Glow{
                             MainContent.SelectedTab = MB;
                             menu_btns = 2;
                             menu_rp = 2;
-                            if (MB_RotateBtn.BackColor != btn_colors[1] && MB_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+                            if (!btn_colors_active.Contains(MB_RotateBtn.BackColor)){ active_page(sender); }
                             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_2").Trim()));
                         }
                         break;
@@ -3500,7 +3598,7 @@ namespace Glow{
                             MainContent.SelectedTab = CPU;
                             menu_btns = 3;
                             menu_rp = 3;
-                            if (CPU_RotateBtn.BackColor != btn_colors[1] && CPU_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+                            if (!btn_colors_active.Contains(CPU_RotateBtn.BackColor)){ active_page(sender); }
                             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_3").Trim()));
                         }
                         break;
@@ -3509,7 +3607,7 @@ namespace Glow{
                             MainContent.SelectedTab = RAM;
                             menu_btns = 4;
                             menu_rp = 4;
-                            if (RAM_RotateBtn.BackColor != btn_colors[1] && RAM_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+                            if (!btn_colors_active.Contains(RAM_RotateBtn.BackColor)){ active_page(sender); }
                             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_4").Trim()));
                         }
                         break;
@@ -3518,7 +3616,7 @@ namespace Glow{
                             MainContent.SelectedTab = GPU;
                             menu_btns = 5;
                             menu_rp = 5;
-                            if (GPU_RotateBtn.BackColor != btn_colors[1] && GPU_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+                            if (!btn_colors_active.Contains(GPU_RotateBtn.BackColor)){ active_page(sender); }
                             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_5").Trim()));
                         }
                         break;
@@ -3527,7 +3625,7 @@ namespace Glow{
                             MainContent.SelectedTab = DISK;
                             menu_btns = 6;
                             menu_rp = 6;
-                            if (DISK_RotateBtn.BackColor != btn_colors[1] && DISK_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+                            if (!btn_colors_active.Contains(DISK_RotateBtn.BackColor)){ active_page(sender); }
                             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_6").Trim()));
                         }
                         break;
@@ -3536,7 +3634,7 @@ namespace Glow{
                             MainContent.SelectedTab = NETWORK;
                             menu_btns = 7;
                             menu_rp = 7;
-                            if (NET_RotateBtn.BackColor != btn_colors[1] && NET_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+                            if (!btn_colors_active.Contains(NET_RotateBtn.BackColor)){ active_page(sender); }
                             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_7").Trim()));
                         }
                         break;
@@ -3545,7 +3643,7 @@ namespace Glow{
                             MainContent.SelectedTab = USB;
                             menu_btns = 8;
                             menu_rp = 8;
-                            if (USB_RotateBtn.BackColor != btn_colors[1] && USB_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+                            if (!btn_colors_active.Contains(USB_RotateBtn.BackColor)){ active_page(sender); }
                             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_8").Trim()));
                         }
                         break;
@@ -3554,7 +3652,7 @@ namespace Glow{
                             MainContent.SelectedTab = SOUND;
                             menu_btns = 9;
                             menu_rp = 9;
-                            if (SOUND_RotateBtn.BackColor != btn_colors[1] && SOUND_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+                            if (!btn_colors_active.Contains(SOUND_RotateBtn.BackColor)){ active_page(sender); }
                             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_9").Trim()));
                         }
                         break;
@@ -3563,7 +3661,7 @@ namespace Glow{
                             MainContent.SelectedTab = BATTERY;
                             menu_btns = 10;
                             menu_rp = 10;
-                            if (BATTERY_RotateBtn.BackColor != btn_colors[1] && BATTERY_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+                            if (!btn_colors_active.Contains(BATTERY_RotateBtn.BackColor)){ active_page(sender); }
                             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_10").Trim()));
                         }
                         break;
@@ -3572,7 +3670,7 @@ namespace Glow{
                             MainContent.SelectedTab = OSD;
                             menu_btns = 11;
                             menu_rp = 11;
-                            if (OSD_RotateBtn.BackColor != btn_colors[1] && OSD_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+                            if (!btn_colors_active.Contains(OSD_RotateBtn.BackColor)){ active_page(sender); }
                             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_11").Trim()));
                         }
                         break;
@@ -3581,7 +3679,7 @@ namespace Glow{
                             MainContent.SelectedTab = GSERVICE;
                             menu_btns = 12;
                             menu_rp = 12;
-                            if (SERVICES_RotateBtn.BackColor != btn_colors[1] && SERVICES_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+                            if (!btn_colors_active.Contains(SERVICES_RotateBtn.BackColor)){ active_page(sender); }
                             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_12").Trim()));
                         }
                         break;
@@ -3682,6 +3780,7 @@ namespace Glow{
                 themeToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_3").Trim()));
                 lightThemeToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderThemes", "theme_light").Trim()));
                 darkThemeToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderThemes", "theme_dark").Trim()));
+                nordThemeToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderThemes", "theme_nord").Trim()));
                 // LANGS
                 languageToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_4").Trim()));
                 englishToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_en").Trim()));
@@ -3700,6 +3799,7 @@ namespace Glow{
                 sFCandDISMAutoToolToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderTools", "ht_1").Trim()));
                 cacheCleaningToolToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderTools", "ht_2").Trim()));
                 tRIMAuditToolToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderTools", "ht_3").Trim()));
+                systemSoftwareToolToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderTools", "ht_4").Trim()));
                 // GITHUB
                 gitHubToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_8").Trim()));
                 // MENU
@@ -3901,23 +4001,23 @@ namespace Glow{
                 BATTERY_Type.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery", "by_5").Trim()));
                 BATTERY_ReportBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery", "by_button").Trim()));
                 // OSD
-                OSD_DataMainTable.Columns[0].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_1").Trim()));
-                OSD_DataMainTable.Columns[1].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_2").Trim()));
-                OSD_DataMainTable.Columns[2].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_3").Trim()));
-                OSD_DataMainTable.Columns[3].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_4").Trim()));
-                OSD_DataMainTable.Columns[4].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_5").Trim()));
-                OSD_SearchDriverLabel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_6").Trim()));
-                OSD_TYSS.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_7").Trim()));
-                OSD_SortMode.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_8").Trim()));
+                OSD_DataMainTable.Columns[1].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_3").Trim()));
+                OSD_DataMainTable.Columns[2].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_4").Trim()));
+                OSD_DataMainTable.Columns[3].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_5").Trim()));
+                OSD_DataMainTable.Columns[4].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_6").Trim()));
+                OSD_SearchDriverLabel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_7").Trim()));
+                OSD_TYSS.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_8").Trim()));
+                OSD_SortMode.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_9").Trim()));
+                OSD_FilePathMode.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_10").Trim()));
                 // SERVICES
-                SERVICE_DataMainTable.Columns[0].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_1").Trim()));
-                SERVICE_DataMainTable.Columns[1].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_2").Trim()));
-                SERVICE_DataMainTable.Columns[2].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_3").Trim()));
-                SERVICE_DataMainTable.Columns[3].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_4").Trim()));
-                SERVICE_DataMainTable.Columns[4].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_5").Trim()));
-                SERVICE_SearchLabel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_6").Trim()));
-                SERVICE_TYS.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_7").Trim()));
-                SERVICE_SortMode.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_8").Trim()));
+                SERVICE_DataMainTable.Columns[1].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_3").Trim()));
+                SERVICE_DataMainTable.Columns[2].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_4").Trim()));
+                SERVICE_DataMainTable.Columns[3].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_5").Trim()));
+                SERVICE_DataMainTable.Columns[4].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_6").Trim()));
+                SERVICE_SearchLabel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_7").Trim()));
+                SERVICE_TYS.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_8").Trim()));
+                SERVICE_SortMode.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_9").Trim()));
+                SERVICE_FilePathMode.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_10").Trim()));
             }catch (Exception){ }
         }
         // ======================================================================================================
@@ -3943,17 +4043,13 @@ namespace Glow{
             if (theme != 1){ color_mode(1); select_theme_active(sender); }
         }
         private void darkThemeToolStripMenuItem_Click(object sender, EventArgs e){
+            if (theme != 0){ color_mode(0); select_theme_active(sender); }
+        }
+        private void nordThemeToolStripMenuItem_Click(object sender, EventArgs e){
             if (theme != 2){ color_mode(2); select_theme_active(sender); }
         }
         private void color_mode(int ts){
-            switch (ts){
-                case 1:
-                    theme = ts;
-                    break;
-                case 2:
-                    theme = ts;
-                    break;
-            }
+            theme = ts;
             if (theme == 1){
                 // TITLEBAR CHANGE 
                 try { if (DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4) != 1){ DwmSetWindowAttribute(Handle, 20, new[]{ 0 }, 4); } } catch (Exception){ }
@@ -4013,17 +4109,13 @@ namespace Glow{
                 sFCandDISMAutoToolToolStripMenuItem.Image = Properties.Resources.top_sfc_and_dism_light;
                 cacheCleaningToolToolStripMenuItem.Image = Properties.Resources.top_cache_clean_light;
                 tRIMAuditToolToolStripMenuItem.Image = Properties.Resources.top_trim_light;
+                systemSoftwareToolToolStripMenuItem.Image = Properties.Resources.top_sst_light;
                 // MIDDLE CONTENT LOGO CHANGE
                 OS_MinidumpOpen.BackgroundImage = Properties.Resources.middle_ow_light;
                 OS_WallpaperOpen.BackgroundImage = Properties.Resources.middle_ow_light;
                 // GITHUB
                 gitHubToolStripMenuItem.Image = Properties.Resources.top_github_light;
-                // SAVE THEME
-                try{
-                    GlowSettingsSave glow_setting_save = new GlowSettingsSave(glow_sf);
-                    glow_setting_save.GlowWriteSettings("GlowSettings", "ThemeStatus", "1");
-                }catch (Exception){ }
-            }else if (theme == 2){
+            }else if (theme == 0){
                 // TITLEBAR CHANGE
                 try { if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } } catch (Exception){ }
                 // CLEAR PRELOAD ITEMS
@@ -4082,17 +4174,83 @@ namespace Glow{
                 sFCandDISMAutoToolToolStripMenuItem.Image = Properties.Resources.top_sfc_and_dism_dark;
                 cacheCleaningToolToolStripMenuItem.Image = Properties.Resources.top_cache_clean_dark;
                 tRIMAuditToolToolStripMenuItem.Image = Properties.Resources.top_trim_dark;
+                systemSoftwareToolToolStripMenuItem.Image = Properties.Resources.top_sst_dark;
                 // MIDDLE CONTENT LOGO CHANGE
                 OS_MinidumpOpen.BackgroundImage = Properties.Resources.middle_ow_dark;
                 OS_WallpaperOpen.BackgroundImage = Properties.Resources.middle_ow_dark;
                 // GITHUB
                 gitHubToolStripMenuItem.Image = Properties.Resources.top_github_dark;
-                // SAVE THEME
-                try{
-                    GlowSettingsSave glow_setting_save = new GlowSettingsSave(glow_sf);
-                    glow_setting_save.GlowWriteSettings("GlowSettings", "ThemeStatus", "0");
-                }catch (Exception){ }
+            }else if (theme == 2){
+                // TITLEBAR CHANGE
+                try { if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } }catch (Exception){ }
+                // CLEAR PRELOAD ITEMS
+                if (ui_colors.Count > 0){ ui_colors.Clear(); }
+                if (header_colors.Count > 1){ header_colors.Clear(); }
+                // HEADER MENU COLOR MODE
+                header_colors.Add(Color.FromArgb(46, 52, 64));
+                header_colors.Add(Color.FromArgb(222, 222, 222));
+                // HEADER AND TOOLTIP COLOR MODE
+                ui_colors.Add(Color.WhiteSmoke);                    // 0
+                ui_colors.Add(Color.FromArgb(36, 41, 51));          // 1
+                // LEFT MENU COLOR MODE
+                ui_colors.Add(Color.FromArgb(36, 41, 51));          // 2
+                ui_colors.Add(Color.FromArgb(46, 52, 64));          // 3
+                ui_colors.Add(Color.WhiteSmoke);                    // 4
+                // CONTENT BG COLOR MODE
+                ui_colors.Add(Color.FromArgb(46, 52, 64));          // 5
+                // UI COLOR MODES
+                ui_colors.Add(Color.FromArgb(36, 41, 51));          // 6
+                ui_colors.Add(Color.WhiteSmoke);                    // 7
+                ui_colors.Add(Color.FromArgb(76, 194, 255));        // 8
+                ui_colors.Add(Color.FromArgb(46, 52, 64));          // 9
+                ui_colors.Add(Color.FromArgb(36, 41, 51));          // 10
+                ui_colors.Add(Color.FromArgb(46, 52, 64));          // 11
+                ui_colors.Add(Color.WhiteSmoke);                    // 12
+                ui_colors.Add(Color.FromArgb(36, 41, 51));          // 13
+                ui_colors.Add(Color.WhiteSmoke);                    // 14
+                ui_colors.Add(Color.FromArgb(59, 66, 82));          // 15
+                ui_colors.Add(Color.FromArgb(46, 52, 64));          // 16
+                ui_colors.Add(Color.FromArgb(76, 194, 255));        // 17
+                ui_colors.Add(Color.FromArgb(37, 37, 45));          // 18
+                ui_colors.Add(Color.FromArgb(46, 52, 64));          // 19
+                // LEFT MENU LOGO CHANGE
+                OS_RotateBtn.Image = Properties.Resources.left_os_dark;
+                MB_RotateBtn.Image = Properties.Resources.left_mb_dark;
+                CPU_RotateBtn.Image = Properties.Resources.left_cpu_dark;
+                RAM_RotateBtn.Image = Properties.Resources.left_ram_dark;
+                GPU_RotateBtn.Image = Properties.Resources.left_gpu_dark;
+                DISK_RotateBtn.Image = Properties.Resources.left_disk_dark;
+                NET_RotateBtn.Image = Properties.Resources.left_network_dark;
+                USB_RotateBtn.Image = Properties.Resources.left_usb_dark;
+                SOUND_RotateBtn.Image = Properties.Resources.left_sound_dark;
+                BATTERY_RotateBtn.Image = Properties.Resources.left_battery_dark;
+                OSD_RotateBtn.Image = Properties.Resources.left_osd_dark;
+                SERVICES_RotateBtn.Image = Properties.Resources.left_services_dark;
+                // TOP MENU LOGO CHANGE
+                printInformationToolStripMenuItem.Image = Properties.Resources.top_export_dark;
+                textDocumentToolStripMenuItem.Image = Properties.Resources.top_txt_dark;
+                hTMLDocumentToolStripMenuItem.Image = Properties.Resources.top_html_dark;
+                settingsToolStripMenuItem.Image = Properties.Resources.top_settings_dark;
+                themeToolStripMenuItem.Image = Properties.Resources.top_theme_dark;
+                languageToolStripMenuItem.Image = Properties.Resources.top_language_dark;
+                initialViewToolStripMenuItem.Image = Properties.Resources.top_launch_dark;
+                hidingModeToolStripMenuItem.Image = Properties.Resources.top_hiding_dark;
+                toolsToolStripMenuItem.Image = Properties.Resources.top_tools_dark;
+                sFCandDISMAutoToolToolStripMenuItem.Image = Properties.Resources.top_sfc_and_dism_dark;
+                cacheCleaningToolToolStripMenuItem.Image = Properties.Resources.top_cache_clean_dark;
+                tRIMAuditToolToolStripMenuItem.Image = Properties.Resources.top_trim_dark;
+                systemSoftwareToolToolStripMenuItem.Image = Properties.Resources.top_sst_dark;
+                // MIDDLE CONTENT LOGO CHANGE
+                OS_MinidumpOpen.BackgroundImage = Properties.Resources.middle_ow_dark;
+                OS_WallpaperOpen.BackgroundImage = Properties.Resources.middle_ow_dark;
+                // GITHUB
+                gitHubToolStripMenuItem.Image = Properties.Resources.top_github_dark;
             }
+            // SAVE THEME
+            try{
+                GlowSettingsSave glow_setting_save = new GlowSettingsSave(glow_sf);
+                glow_setting_save.GlowWriteSettings("GlowSettings", "ThemeStatus", Convert.ToString(ts));
+            }catch (Exception) { }
             theme_engine();
         }
         private void theme_engine(){
@@ -4126,6 +4284,8 @@ namespace Glow{
                 lightThemeToolStripMenuItem.ForeColor = ui_colors[0];
                 darkThemeToolStripMenuItem.BackColor = ui_colors[1];
                 darkThemeToolStripMenuItem.ForeColor = ui_colors[0];
+                nordThemeToolStripMenuItem.BackColor = ui_colors[1];
+                nordThemeToolStripMenuItem.ForeColor = ui_colors[0];
                 // LANGS
                 languageToolStripMenuItem.BackColor = ui_colors[1];
                 languageToolStripMenuItem.ForeColor = ui_colors[0];
@@ -4158,6 +4318,8 @@ namespace Glow{
                 cacheCleaningToolToolStripMenuItem.ForeColor = ui_colors[0];
                 tRIMAuditToolToolStripMenuItem.BackColor = ui_colors[1];
                 tRIMAuditToolToolStripMenuItem.ForeColor = ui_colors[0];
+                systemSoftwareToolToolStripMenuItem.BackColor = ui_colors[1];
+                systemSoftwareToolToolStripMenuItem.ForeColor = ui_colors[0];
                 // GITHUB
                 gitHubToolStripMenuItem.BackColor = ui_colors[1];
                 gitHubToolStripMenuItem.ForeColor = ui_colors[0];
@@ -4648,6 +4810,7 @@ namespace Glow{
                 OSD_TextBoxClearBtn.BackColor = ui_colors[17];
                 OSD_TextBoxClearBtn.ForeColor = ui_colors[18];
                 OSD_SortMode.ForeColor = ui_colors[7];
+                OSD_FilePathMode.ForeColor = ui_colors[7];
                 OSD_DataMainTable.BackgroundColor = ui_colors[13];
                 OSD_DataMainTable.GridColor = ui_colors[15];
                 OSD_DataMainTable.DefaultCellStyle.BackColor = ui_colors[13];
@@ -4668,6 +4831,7 @@ namespace Glow{
                 SERVICE_TextBoxClearBtn.BackColor = ui_colors[17];
                 SERVICE_TextBoxClearBtn.ForeColor = ui_colors[18];
                 SERVICE_SortMode.ForeColor = ui_colors[7];
+                SERVICE_FilePathMode.ForeColor = ui_colors[7];
                 SERVICE_DataMainTable.BackgroundColor = ui_colors[13];
                 SERVICE_DataMainTable.GridColor = ui_colors[15];
                 SERVICE_DataMainTable.DefaultCellStyle.BackColor = ui_colors[13];
@@ -4708,87 +4872,84 @@ namespace Glow{
         }
         private void header_image_reloader(int hi_value){
             try{
-                switch (theme){
-                    case 1:
-                        switch (hi_value){
-                            case 1:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_os_light;
-                                break;
-                            case 2:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_mb_light;
-                                break;
-                            case 3:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_cpu_light;
-                                break;
-                            case 4:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_ram_light;
-                                break;
-                            case 5:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_gpu_light;
-                                break;
-                            case 6:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_disk_light;
-                                break;
-                            case 7:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_network_light;
-                                break;
-                            case 8:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_usb_light;
-                                break;
-                            case 9:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_sound_light;
-                                break;
-                            case 10:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_battery_light;
-                                break;
-                            case 11:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_osd_light;
-                                break;
-                            case 12:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_services_light;
-                                break;
-                        }
-                        break;
-                    case 2:
-                        switch (hi_value){
-                            case 1:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_os_dark;
-                                break;
-                            case 2:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_mb_dark;
-                                break;
-                            case 3:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_cpu_dark;
-                                break;
-                            case 4:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_ram_dark;
-                                break;
-                            case 5:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_gpu_dark;
-                                break;
-                            case 6:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_disk_dark;
-                                break;
-                            case 7:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_network_dark;
-                                break;
-                            case 8:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_usb_dark;
-                                break;
-                            case 9:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_sound_dark;
-                                break;
-                            case 10:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_battery_dark;
-                                break;
-                            case 11:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_osd_dark;
-                                break;
-                            case 12:
-                                HeaderImage.BackgroundImage = Properties.Resources.left_services_dark;
-                                break;
-                        }
-                        break;
+                if (theme == 1){
+                    switch (hi_value){
+                        case 1:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_os_light;
+                            break;
+                        case 2:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_mb_light;
+                            break;
+                        case 3:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_cpu_light;
+                            break;
+                        case 4:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_ram_light;
+                            break;
+                        case 5:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_gpu_light;
+                            break;
+                        case 6:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_disk_light;
+                            break;
+                        case 7:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_network_light;
+                            break;
+                        case 8:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_usb_light;
+                            break;
+                        case 9:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_sound_light;
+                            break;
+                        case 10:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_battery_light;
+                            break;
+                        case 11:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_osd_light;
+                            break;
+                        case 12:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_services_light;
+                            break;
+                    }
+                }else if (theme == 0 || theme == 2){
+                    switch (hi_value){
+                        case 1:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_os_dark;
+                            break;
+                        case 2:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_mb_dark;
+                            break;
+                        case 3:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_cpu_dark;
+                            break;
+                        case 4:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_ram_dark;
+                            break;
+                        case 5:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_gpu_dark;
+                            break;
+                        case 6:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_disk_dark;
+                            break;
+                        case 7:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_network_dark;
+                            break;
+                        case 8:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_usb_dark;
+                            break;
+                        case 9:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_sound_dark;
+                            break;
+                        case 10:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_battery_dark;
+                            break;
+                        case 11:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_osd_dark;
+                            break;
+                        case 12:
+                            HeaderImage.BackgroundImage = Properties.Resources.left_services_dark;
+                            break;
+                    }
                 }
             }catch (Exception){ }
         }
@@ -5175,7 +5336,7 @@ namespace Glow{
                     PrintEngineList.Add(OSD_DataMainTable.Rows[i].Cells[0].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[1].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[2].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[3].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[4].Value.ToString() + Environment.NewLine + new string('-', 155));
                 }
             }catch (Exception){ }
-            PrintEngineList.Add(Environment.NewLine + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_9").Trim())) + " " + OSD_TYSS_V.Text + Environment.NewLine);
+            PrintEngineList.Add(Environment.NewLine + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_11").Trim())) + " " + OSD_TYSS_V.Text + Environment.NewLine);
             PrintEngineList.Add(new string('-', 60) + Environment.NewLine);
             // SERVICES
             PrintEngineList.Add($"<{new string('-', 7)} {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_12").Trim()))} {new string('-', 7)}>" + Environment.NewLine);
@@ -5185,7 +5346,7 @@ namespace Glow{
                     PrintEngineList.Add(SERVICE_DataMainTable.Rows[i].Cells[0].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[1].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[2].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[3].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[4].Value.ToString() + Environment.NewLine + new string('-', 155));
                 }
             }catch (Exception){ }
-            PrintEngineList.Add(Environment.NewLine + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_9").Trim())) + " " + SERVICE_TYS_V.Text + Environment.NewLine);
+            PrintEngineList.Add(Environment.NewLine + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_11").Trim())) + " " + SERVICE_TYS_V.Text + Environment.NewLine);
             PrintEngineList.Add(new string('-', 60) + Environment.NewLine);
             // FOOTER
             PrintEngineList.Add(Application.ProductName + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "pe_6").Trim())) + " " + Application.ProductVersion.Substring(0, 4));
@@ -5234,7 +5395,7 @@ namespace Glow{
             PrintEngineList.Add("\t\t@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');");
             PrintEngineList.Add("\t\t*{ font-family: 'Open Sans', sans-serif; margin: 0; padding: 0; box-sizing: border-box; text-decoration: none; }");
             if (theme == 1){ PrintEngineList.Add("\t\t:root { color-scheme: light; }"); }
-            else if (theme == 2){ PrintEngineList.Add("\t\t:root { color-scheme: dark; }"); }
+            else if (theme == 0 || theme == 2){ PrintEngineList.Add("\t\t:root { color-scheme: dark; }"); }
             PrintEngineList.Add("\t\ta:visited{ color: rgb(55, 162, 255); }");
             PrintEngineList.Add("\t\t.ts_scroll_top{ position: fixed; bottom: -100px; right: 15px; width: auto; height: auto; justify-content: center; align-items: center; display: flex; font-size: 46px; border-radius: 50%; cursor: pointer; color: " + html_uifc + "; z-index: 999; transition: 0.2s; }");
             PrintEngineList.Add("\t\t.ts_scroll_top:hover{ color: rgb(55, 162, 255); }");
@@ -5620,7 +5781,7 @@ namespace Glow{
                 }
                 PrintEngineList.Add("\t\t\t</ul>");
             }catch (Exception){ }
-            PrintEngineList.Add($"\t\t\t<h4><span>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_9").Trim()))}</span><span>{OSD_TYSS_V.Text}</span></h4>");
+            PrintEngineList.Add($"\t\t\t<h4><span>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_11").Trim()))}</span><span>{OSD_TYSS_V.Text}</span></h4>");
             PrintEngineList.Add("\t\t</div>");
             // SERVICE
             PrintEngineList.Add("\t\t<div class='b13 ts_box_wrapper'>");
@@ -5636,7 +5797,7 @@ namespace Glow{
                 }
                 PrintEngineList.Add("\t\t\t</ul>");
             }catch (Exception){ }
-            PrintEngineList.Add($"\t\t\t<h4><span>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_9").Trim()))}</span><span>{SERVICE_TYS_V.Text}</span></h4>");
+            PrintEngineList.Add($"\t\t\t<h4><span>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_11").Trim()))}</span><span>{SERVICE_TYS_V.Text}</span></h4>");
             PrintEngineList.Add("\t\t</div>");
             // FOOTER V1
             PrintEngineList.Add("\t\t<div class='b14 ts_box_wrapper'>");
@@ -5740,6 +5901,25 @@ namespace Glow{
                     }
                     Application.OpenForms[glow_tool_name].Activate();
                     MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderToolsInfo", "hti_info").Trim())), Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderTools", "ht_3").Trim()))), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }catch (Exception){ }
+        }
+        // ======================================================================================================
+        // SYSTEM SOFTWARE TOOL
+        private void systemSoftwareToolToolStripMenuItem_Click(object sender, EventArgs e){
+            try{
+                GlowGetLangs g_lang = new GlowGetLangs(lang_path);
+                GlowSystemSoftwareTool system_software_tool = new GlowSystemSoftwareTool();
+                string glow_tool_name = "glow_system_software_tool";
+                system_software_tool.Name = glow_tool_name;
+                if (Application.OpenForms[glow_tool_name] == null){
+                    system_software_tool.Show();
+                }else{
+                    if (Application.OpenForms[glow_tool_name].WindowState == FormWindowState.Minimized){
+                        Application.OpenForms[glow_tool_name].WindowState = FormWindowState.Normal;
+                    }
+                    Application.OpenForms[glow_tool_name].Activate();
+                    MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderToolsInfo", "hti_info").Trim())), Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderTools", "ht_4").Trim()))), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }catch (Exception){ }
         }

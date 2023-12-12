@@ -27,7 +27,7 @@ namespace Glow.glow_tools{
             try{
                 if (Glow.theme == 1){
                     try { if (DwmSetWindowAttribute(Handle, 20, new[] { 1 }, 4) != 1){ DwmSetWindowAttribute(Handle, 20, new[]{ 0 }, 4); } }catch (Exception){ }
-                }else if (Glow.theme == 2){
+                }else if (Glow.theme == 0 || Glow.theme == 2){
                     try { if (DwmSetWindowAttribute(Handle, 19, new[] { 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } }catch (Exception){ }
                 }
                 BackColor = Glow.ui_colors[5];

@@ -86,7 +86,7 @@
             this.TAT_P4.Location = new System.Drawing.Point(364, 79);
             this.TAT_P4.Margin = new System.Windows.Forms.Padding(0, 1, 3, 3);
             this.TAT_P4.Name = "TAT_P4";
-            this.TAT_P4.Padding = new System.Windows.Forms.Padding(0, 14, 10, 14);
+            this.TAT_P4.Padding = new System.Windows.Forms.Padding(0, 17, 10, 17);
             this.TAT_P4.Size = new System.Drawing.Size(153, 75);
             this.TAT_P4.TabIndex = 3;
             // 
@@ -104,9 +104,9 @@
             this.TAT_EnabledBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.TAT_EnabledBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.TAT_EnabledBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.TAT_EnabledBtn.Location = new System.Drawing.Point(0, 14);
+            this.TAT_EnabledBtn.Location = new System.Drawing.Point(0, 17);
             this.TAT_EnabledBtn.Name = "TAT_EnabledBtn";
-            this.TAT_EnabledBtn.Size = new System.Drawing.Size(143, 47);
+            this.TAT_EnabledBtn.Size = new System.Drawing.Size(143, 41);
             this.TAT_EnabledBtn.TabIndex = 0;
             this.TAT_EnabledBtn.Text = "AKTİF ET";
             this.TAT_EnabledBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -162,7 +162,7 @@
             this.TAT_P2.Location = new System.Drawing.Point(364, 3);
             this.TAT_P2.Margin = new System.Windows.Forms.Padding(0, 3, 3, 1);
             this.TAT_P2.Name = "TAT_P2";
-            this.TAT_P2.Padding = new System.Windows.Forms.Padding(0, 14, 10, 14);
+            this.TAT_P2.Padding = new System.Windows.Forms.Padding(0, 17, 10, 17);
             this.TAT_P2.Size = new System.Drawing.Size(153, 74);
             this.TAT_P2.TabIndex = 1;
             // 
@@ -180,9 +180,9 @@
             this.TAT_CheckBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.TAT_CheckBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.TAT_CheckBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.TAT_CheckBtn.Location = new System.Drawing.Point(0, 14);
+            this.TAT_CheckBtn.Location = new System.Drawing.Point(0, 17);
             this.TAT_CheckBtn.Name = "TAT_CheckBtn";
-            this.TAT_CheckBtn.Size = new System.Drawing.Size(143, 46);
+            this.TAT_CheckBtn.Size = new System.Drawing.Size(143, 40);
             this.TAT_CheckBtn.TabIndex = 0;
             this.TAT_CheckBtn.Text = "DENETLE";
             this.TAT_CheckBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
