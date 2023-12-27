@@ -12,7 +12,6 @@ Download: [Glow Latest Version](https://github.com/roines45/glow/releases/latest
 
 - English
 - Turkish
-- For language support: [Translation Guide](https://github.com/roines45/glow/discussions/2)
 
 # Supported Themes
 
