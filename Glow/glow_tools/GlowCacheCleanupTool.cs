@@ -12,7 +12,7 @@ namespace Glow.glow_tools{
         public GlowCacheCleanupTool(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
         // ======================================================================================================
         // GLOBAL LANGS PATH
-        GlowGetLangs g_lang = new GlowGetLangs(Glow.lang_path);
+        TSGetLangs g_lang = new TSGetLangs(Glow.lang_path);
         // ======================================================================================================
         // GLOBAL STRINGS AND LISTS
         static string clean_path_1 = @"C:\Windows\Temp";
@@ -29,14 +29,14 @@ namespace Glow.glow_tools{
             // GET THEME
             cct_theme_settings();
             // TEXT SET
-            cct_title = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("CacheCleanupTool", "cct_title").Trim())), Application.ProductName);
+            cct_title = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("CacheCleanupTool", "cct_title").Trim())), Application.ProductName);
             Text = cct_title;
             // BTN TEXT
-            CCT_CleanS_TempBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("CacheCleanupTool", "cct_clean").Trim()));
-            CCT_CleanU_TempBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("CacheCleanupTool", "cct_clean").Trim()));
+            CCT_CleanS_TempBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("CacheCleanupTool", "cct_clean").Trim()));
+            CCT_CleanU_TempBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("CacheCleanupTool", "cct_clean").Trim()));
             // LABEL PATH TEXT SET
-            path_names.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("CacheCleanupTool", "cct_system_temp").Trim())));
-            path_names.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("CacheCleanupTool", "cct_user_temp").Trim())));
+            path_names.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("CacheCleanupTool", "cct_system_temp").Trim())));
+            path_names.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("CacheCleanupTool", "cct_user_temp").Trim())));
             CCT_L1.Text = path_names[0];
             CCT_L3.Text = path_names[1];
             // START FOLDER SIZE CHECK ALGORITHM
@@ -124,14 +124,14 @@ namespace Glow.glow_tools{
                 }
             }else{
                 // Byte
-                return string.Format("{0:0.0} " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("CacheCleanupTool", "cct_byte").Trim())), get_size);
+                return string.Format("{0:0.0} " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("CacheCleanupTool", "cct_byte").Trim())), get_size);
             }
         }
         // CLEANUP SYSTEM TEMP FOLDER
         // ======================================================================================================
         private void CCT_CleanS_TempBtn_Click(object sender, EventArgs e){
             try{
-                DialogResult cct_check_delete_notifi = MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("CacheCleanupTool", "cct_check_delete_notification").Trim())), Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("CacheCleanupTool", "cct_system_temp").Trim())), clean_path_list[0], "\n\n"), cct_title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult cct_check_delete_notifi = MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("CacheCleanupTool", "cct_check_delete_notification").Trim())), Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("CacheCleanupTool", "cct_system_temp").Trim())), clean_path_list[0], "\n\n"), cct_title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (cct_check_delete_notifi == DialogResult.Yes){
                     cleanup_engine(clean_path_list[0]);
                 }
@@ -141,7 +141,7 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         private void CCT_CleanU_TempBtn_Click(object sender, EventArgs e){
             try{
-                DialogResult cct_check_delete_notifi = MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("CacheCleanupTool", "cct_check_delete_notification").Trim())), Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("CacheCleanupTool", "cct_user_temp").Trim())), clean_path_list[1], "\n\n"), cct_title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult cct_check_delete_notifi = MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("CacheCleanupTool", "cct_check_delete_notification").Trim())), Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("CacheCleanupTool", "cct_user_temp").Trim())), clean_path_list[1], "\n\n"), cct_title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (cct_check_delete_notifi == DialogResult.Yes){
                     cleanup_engine(clean_path_list[1]);
                 }
@@ -165,7 +165,7 @@ namespace Glow.glow_tools{
                 cct_auto_refresh_repat = true;
                 Task check_folder_sizes_task = new Task(check_folder_sizes);
                 check_folder_sizes_task.Start();
-                MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("CacheCleanupTool", "cct_delete_success_notification").Trim())), target_path), cct_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("CacheCleanupTool", "cct_delete_success_notification").Trim())), target_path), cct_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }catch (Exception){ }
         }
         // AUTO REFRESH FOLDER SIZE FUNCTION
@@ -180,9 +180,9 @@ namespace Glow.glow_tools{
                             break;
                         }
                         if (i != 0){
-                            Text = string.Format("{0} | {1}", cct_title, string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("CacheCleanupTool", "cct_refresh_title").Trim())), i));
+                            Text = string.Format("{0} | {1}", cct_title, string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("CacheCleanupTool", "cct_refresh_title").Trim())), i));
                         }else{
-                            Text = string.Format("{0} | {1}", cct_title, Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("CacheCleanupTool", "cct_refreshing_title").Trim())));
+                            Text = string.Format("{0} | {1}", cct_title, Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("CacheCleanupTool", "cct_refreshing_title").Trim())));
                             Task check_folder_sizes_task = new Task(check_folder_sizes);
                             check_folder_sizes_task.Start();
                         }

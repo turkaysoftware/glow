@@ -7,6 +7,9 @@ using static Glow.GlowModules;
 namespace Glow{
     public partial class GlowAbout : Form{
         public GlowAbout(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
+        // ======================================================================================================
+        // MEDIA LINK SYSTEM
+        TS_LinkSystem TS_LinkSystem = new TS_LinkSystem();
         private void GlowAbout_Load(object sender, EventArgs e){
             try{
                 // GET PRELOAD SETTINGS
@@ -15,8 +18,8 @@ namespace Glow{
                 About_Image.BackgroundImage = Properties.Resources.glow_logo;
             }catch (Exception){ }
         }
-        // DYNAMIC THEME VOID
         // ======================================================================================================
+        // DYNAMIC THEME VOID
         public void about_preloader(){
             try{
                 // COLOR SETTINGS
@@ -30,26 +33,48 @@ namespace Glow{
                 About_L1.ForeColor = Glow.ui_colors[7];
                 About_L2.ForeColor = Glow.ui_colors[7];
                 About_L3.ForeColor = Glow.ui_colors[7];
+                About_WebsiteBtn.BackColor = Glow.ui_colors[8];
+                About_WebsiteBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
+                About_WebsiteBtn.ForeColor = Glow.ui_colors[19];
+                About_TwitterBtn.BackColor = Glow.ui_colors[8];
+                About_TwitterBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
+                About_TwitterBtn.ForeColor = Glow.ui_colors[19];
                 About_GitHubBtn.BackColor = Glow.ui_colors[8];
                 About_GitHubBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
                 About_GitHubBtn.ForeColor = Glow.ui_colors[19];
                 // ======================================================================================================
                 // GLOBAL LANGS PATH
-                GlowGetLangs g_lang = new GlowGetLangs(Glow.lang_path);
+                TSGetLangs g_lang = new TSGetLangs(Glow.lang_path);
                 GlowVersionEngine glow_version = new GlowVersionEngine();
                 // TEXTS
-                Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("GlowAbout", "ga_title").Trim())), Application.ProductName);
-                About_L1.Text = glow_version.GlowVersion(Glow.g_version_mode);
-                About_L2.Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("GlowAbout", "ga_copyright").Trim())), "\u00a9", DateTime.Now.Year, Application.CompanyName);
-                About_L3.Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("GlowAbout", "ga_open_source").Trim())), Application.ProductName);
-                About_GitHubBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("GlowAbout", "ga_github_page").Trim()));
+                Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_title").Trim())), Application.ProductName);
+                About_L1.Text = glow_version.GlowVersion(0, Glow.g_version_mode);
+                About_L2.Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_copyright").Trim())), "\u00a9", DateTime.Now.Year, Application.CompanyName);
+                About_L3.Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_open_source").Trim())), Application.ProductName);
+                About_WebsiteBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_website_page").Trim()));
+                About_TwitterBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_twitter_page").Trim()));
+                About_GitHubBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_github_page").Trim()));
             }catch (Exception){ }
         }
-        // ABOUT GITHUB ROTATE BUTTON
         // ======================================================================================================
+        // ABOUT WEBSITE ROTATE BUTTON
+        private void About_WebsiteBtn_Click(object sender, EventArgs e){
+            try{
+                Process.Start(TS_LinkSystem.website_link);
+            }catch (Exception){ }
+        }
+        // ======================================================================================================
+        // ABOUT TWITTER ROTATE BUTTON
+        private void About_TwitterBtn_Click(object sender, EventArgs e){
+            try{
+                Process.Start(TS_LinkSystem.twitter_link);
+            }catch (Exception){ }
+        }
+        // ======================================================================================================
+        // ABOUT GITHUB ROTATE BUTTON
         private void About_GitHubBtn_Click(object sender, EventArgs e){
             try{
-                Process.Start(Glow.github_link + "/glow");
+                Process.Start(TS_LinkSystem.github_link + "/glow");
             }catch (Exception){ }
         }
     }

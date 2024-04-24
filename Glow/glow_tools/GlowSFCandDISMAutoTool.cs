@@ -10,9 +10,9 @@ namespace Glow.glow_tools{
         public GlowSFCandDISMAutoTool(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
         // ======================================================================================================
         // GLOBAL GLOBAL CLASS
-        GlowGetLangs g_lang = new GlowGetLangs(Glow.lang_path);
-        GlowSettingsSave glow_read_settings = new GlowSettingsSave(glow_sf);
-        GlowSettingsSave glow_setting_save = new GlowSettingsSave(glow_sf);
+        TSGetLangs g_lang = new TSGetLangs(Glow.lang_path);
+        TSSettingsSave glow_read_settings = new TSSettingsSave(ts_sf);
+        TSSettingsSave glow_setting_save = new TSSettingsSave(ts_sf);
         // ======================================================================================================
         // GLOBAL STRINGS
         string sadt_title, sadt_start, sadt_starter, sadt_rotate, sadt_ender, sadt_last_text;
@@ -26,25 +26,25 @@ namespace Glow.glow_tools{
             // GET THEME
             sadt_theme_settings();
             // SET TEXT
-            sadt_title = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("SFCandDISMTool", "sadt_title").Trim())), Application.ProductName);
+            sadt_title = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("SFCandDISMTool", "sadt_title").Trim())), Application.ProductName);
             // SET UI TEXT
             Text = sadt_title;
-            SADT_L1.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("SFCandDISMTool", "sadt_sub_title").Trim()));
-            SADT_L2.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("SFCandDISMTool", "sadt_description").Trim()));
-            SADT_L3.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("SFCandDISMTool", "sadt_last_repair_time").Trim()));
-            string last_sfc_and_dism_date = Encoding.UTF8.GetString(Encoding.Default.GetBytes(glow_read_settings.GlowReadSettings("GlowSettings", "SFCAndDISMDate").Trim()));
+            SADT_L1.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("SFCandDISMTool", "sadt_sub_title").Trim()));
+            SADT_L2.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("SFCandDISMTool", "sadt_description").Trim()));
+            SADT_L3.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("SFCandDISMTool", "sadt_last_repair_time").Trim()));
+            string last_sfc_and_dism_date = Encoding.UTF8.GetString(Encoding.Default.GetBytes(glow_read_settings.TSReadSettings("GlowSettings", "SFCAndDISMDate").Trim()));
             if (last_sfc_and_dism_date != "" && last_sfc_and_dism_date != string.Empty){
                 SADT_L4.Text = last_sfc_and_dism_date;
             }else{
-                SADT_L4.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("SFCandDISMTool", "sadt_not_start").Trim()));
+                SADT_L4.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("SFCandDISMTool", "sadt_not_start").Trim()));
             }
-            SADT_StartBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("SFCandDISMTool", "sadt_start_engine").Trim()));
+            SADT_StartBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("SFCandDISMTool", "sadt_start_engine").Trim()));
             // SET ENGINE TEXT
-            sadt_start = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("SFCandDISMTool", "sadt_starting_engine").Trim()));
-            sadt_starter = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("SFCandDISMTool", "sadt_command_starting").Trim()));
-            sadt_rotate = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("SFCandDISMTool", "sadt_command_success_and_next").Trim()));
-            sadt_ender = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("SFCandDISMTool", "sadt_command_last_success").Trim()));
-            sadt_last_text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("SFCandDISMTool", "sadt_stop_engine").Trim()));
+            sadt_start = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("SFCandDISMTool", "sadt_starting_engine").Trim()));
+            sadt_starter = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("SFCandDISMTool", "sadt_command_starting").Trim()));
+            sadt_rotate = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("SFCandDISMTool", "sadt_command_success_and_next").Trim()));
+            sadt_ender = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("SFCandDISMTool", "sadt_command_last_success").Trim()));
+            sadt_last_text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("SFCandDISMTool", "sadt_stop_engine").Trim()));
         }
         // DYNAMIC THEME VOID
         // ======================================================================================================
@@ -69,7 +69,7 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         private void SADT_StartBtn_Click(object sender, EventArgs e){
             try{
-                DialogResult sadt_start_check = MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("SFCandDISMTool", "sadt_engine_start_notification").Trim())), "\n"), sadt_title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                DialogResult sadt_start_check = MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("SFCandDISMTool", "sadt_engine_start_notification").Trim())), "\n"), sadt_title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (sadt_start_check == DialogResult.Yes){
                     Task sadt_engine_bg = new Task(sadt_engine);
                     sadt_engine_bg.Start();
@@ -92,7 +92,7 @@ namespace Glow.glow_tools{
                 try{
                     string current_time = DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss");
                     SADT_L4.Text = current_time;
-                    glow_setting_save.GlowWriteSettings("GlowSettings", "SFCAndDISMDate", current_time);
+                    glow_setting_save.TSWriteSettings("GlowSettings", "SFCAndDISMDate", current_time);
                 }catch (Exception){ }
             }catch (Exception){ }
         }
