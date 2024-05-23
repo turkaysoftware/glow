@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>24.05.0.%2a</ApplicationVersion>
+    <ApplicationVersion>24.06.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -188,6 +188,12 @@
     <Compile Include="glow_tools\GlowCacheCleanupTool.Designer.cs">
       <DependentUpon>GlowCacheCleanupTool.cs</DependentUpon>
     </Compile>
+    <Compile Include="glow_tools\GlowBenchCPU.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="glow_tools\GlowBenchCPU.Designer.cs">
+      <DependentUpon>GlowBenchCPU.cs</DependentUpon>
+    </Compile>
     <Compile Include="glow_tools\GlowSFCandDISMAutoTool.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -201,6 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GlowAbout.resx">
       <DependentUpon>GlowAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="glow_tools\GlowBenchCPU.resx">
+      <DependentUpon>GlowBenchCPU.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="glow_tools\GlowCacheCleanupTool.resx">
       <DependentUpon>GlowCacheCleanupTool.cs</DependentUpon>
@@ -329,6 +338,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GlowLogo.ico" />
+    <None Include="glow_images\glow_interface\nord_theme\nord_top_bench_cpu.png" />
+    <None Include="glow_images\glow_interface\light_theme\light_top_bench_cpu.png" />
+    <None Include="glow_images\glow_interface\dark_theme\dark_top_bench_cpu.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glow_images\glow_interface\about_images\glow_logo.png" />

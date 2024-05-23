@@ -157,6 +157,9 @@
   <data name="dark_middle_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_interface\dark_theme\dark_middle_open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="dark_top_bench_cpu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\dark_theme\dark_top_bench_cpu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="dark_top_menu_about" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_interface\dark_theme\dark_top_menu_about.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -241,6 +244,9 @@
   <data name="light_middle_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_interface\light_theme\light_middle_open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="light_top_bench_cpu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\light_theme\light_top_bench_cpu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="light_top_menu_about" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_interface\light_theme\light_top_menu_about.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -321,6 +327,9 @@
   </data>
   <data name="nord_middle_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_interface\nord_theme\nord_middle_open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="nord_top_bench_cpu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\nord_theme\nord_top_bench_cpu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="nord_top_menu_about" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_interface\nord_theme\nord_top_menu_about.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

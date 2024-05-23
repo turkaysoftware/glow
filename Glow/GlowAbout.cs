@@ -33,9 +33,6 @@ namespace Glow{
                 About_L1.ForeColor = Glow.ui_colors[7];
                 About_L2.ForeColor = Glow.ui_colors[7];
                 About_L3.ForeColor = Glow.ui_colors[7];
-                About_WebsiteBtn.BackColor = Glow.ui_colors[8];
-                About_WebsiteBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
-                About_WebsiteBtn.ForeColor = Glow.ui_colors[19];
                 About_TwitterBtn.BackColor = Glow.ui_colors[8];
                 About_TwitterBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
                 About_TwitterBtn.ForeColor = Glow.ui_colors[19];
@@ -51,16 +48,8 @@ namespace Glow{
                 About_L1.Text = glow_version.GlowVersion(0, Glow.g_version_mode);
                 About_L2.Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_copyright").Trim())), "\u00a9", DateTime.Now.Year, Application.CompanyName);
                 About_L3.Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_open_source").Trim())), Application.ProductName);
-                About_WebsiteBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_website_page").Trim()));
                 About_TwitterBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_twitter_page").Trim()));
                 About_GitHubBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_github_page").Trim()));
-            }catch (Exception){ }
-        }
-        // ======================================================================================================
-        // ABOUT WEBSITE ROTATE BUTTON
-        private void About_WebsiteBtn_Click(object sender, EventArgs e){
-            try{
-                Process.Start(TS_LinkSystem.website_link);
             }catch (Exception){ }
         }
         // ======================================================================================================

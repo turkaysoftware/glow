@@ -193,6 +193,16 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap dark_top_bench_cpu {
+            get {
+                object obj = ResourceManager.GetObject("dark_top_bench_cpu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap dark_top_menu_about {
             get {
                 object obj = ResourceManager.GetObject("dark_top_menu_about", resourceCulture);
@@ -473,6 +483,16 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap light_top_bench_cpu {
+            get {
+                object obj = ResourceManager.GetObject("light_top_bench_cpu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap light_top_menu_about {
             get {
                 object obj = ResourceManager.GetObject("light_top_menu_about", resourceCulture);
@@ -736,6 +756,16 @@ namespace Glow.Properties {
         internal static System.Drawing.Bitmap nord_middle_open {
             get {
                 object obj = ResourceManager.GetObject("nord_middle_open", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap nord_top_bench_cpu {
+            get {
+                object obj = ResourceManager.GetObject("nord_top_bench_cpu", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

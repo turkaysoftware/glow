@@ -9,9 +9,8 @@ namespace Glow{
         // ======================================================================================================
         public class TS_LinkSystem{
             public string
-            website_link        = "https://www.erayturkay.com/",
             github_link         = "https://github.com/roines45",
-            twitter_link        = "https://twitter.com/roines45";
+            twitter_link        = "https://x.com/roines45";
         }
         // ======================================================================================================
         // VERSIONS

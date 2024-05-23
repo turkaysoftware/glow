@@ -1,13 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Eray\\Desktop\\Main Files\\TS_Apps\\Glow\\",
+  "WorkspaceRootPath": "D:\\Main Files\\TS_Apps\\Glow\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6ED642BA-621C-49D2-BFEA-D2279D0A9377}|Glow.csproj|c:\\users\\eray\\desktop\\main files\\ts_apps\\glow\\glow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{6ED642BA-621C-49D2-BFEA-D2279D0A9377}|Glow.csproj|solutionrelative:glow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6ED642BA-621C-49D2-BFEA-D2279D0A9377}|Glow.csproj|C:\\Users\\Eray\\Desktop\\Main Files\\TS_Apps\\Glow\\glow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6ED642BA-621C-49D2-BFEA-D2279D0A9377}|Glow.csproj|d:\\main files\\ts_apps\\glow\\glow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6ED642BA-621C-49D2-BFEA-D2279D0A9377}|Glow.csproj|solutionrelative:glow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -18,32 +14,20 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Glow.cs",
-              "DocumentMoniker": "C:\\Users\\Eray\\Desktop\\Main Files\\TS_Apps\\Glow\\Glow.cs",
-              "RelativeDocumentMoniker": "Glow.cs",
-              "ToolTip": "C:\\Users\\Eray\\Desktop\\Main Files\\TS_Apps\\Glow\\Glow.cs",
-              "RelativeToolTip": "Glow.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAHQXAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-16T04:57:13.123Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Glow.cs [Tasar\u0131m]",
-              "DocumentMoniker": "C:\\Users\\Eray\\Desktop\\Main Files\\TS_Apps\\Glow\\Glow.cs",
+              "Title": "Glow.cs",
+              "DocumentMoniker": "D:\\Main Files\\TS_Apps\\Glow\\Glow.cs",
               "RelativeDocumentMoniker": "Glow.cs",
-              "ToolTip": "C:\\Users\\Eray\\Desktop\\Main Files\\TS_Apps\\Glow\\Glow.cs [Tasar\u0131m]",
-              "RelativeToolTip": "Glow.cs [Tasar\u0131m]",
+              "ToolTip": "D:\\Main Files\\TS_Apps\\Glow\\Glow.cs",
+              "RelativeToolTip": "Glow.cs",
+              "ViewState": "AQIAADwQAAAAAAAAAAAAAEgQAABOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-16T04:57:11.929Z",
-              "EditorCaption": " [Tasar\u0131m]"
+              "WhenOpened": "2024-05-23T19:51:22.831Z",
+              "EditorCaption": ""
             }
           ]
         }

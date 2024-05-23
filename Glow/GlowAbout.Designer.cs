@@ -31,13 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlowAbout));
             this.About_BG_Panel = new System.Windows.Forms.Panel();
             this.About_MediaTLP = new System.Windows.Forms.TableLayoutPanel();
-            this.About_TwitterBtn = new System.Windows.Forms.Button();
             this.About_GitHubBtn = new System.Windows.Forms.Button();
+            this.About_TwitterBtn = new System.Windows.Forms.Button();
             this.About_L2 = new System.Windows.Forms.Label();
             this.About_L3 = new System.Windows.Forms.Label();
             this.About_L1 = new System.Windows.Forms.Label();
             this.About_Image = new System.Windows.Forms.PictureBox();
-            this.About_WebsiteBtn = new System.Windows.Forms.Button();
             this.About_BG_Panel.SuspendLayout();
             this.About_MediaTLP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.About_Image)).BeginInit();
@@ -60,40 +59,19 @@
             // 
             // About_MediaTLP
             // 
-            this.About_MediaTLP.ColumnCount = 3;
-            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33444F));
-            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33444F));
-            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33112F));
-            this.About_MediaTLP.Controls.Add(this.About_GitHubBtn, 2, 0);
-            this.About_MediaTLP.Controls.Add(this.About_WebsiteBtn, 0, 0);
-            this.About_MediaTLP.Controls.Add(this.About_TwitterBtn, 1, 0);
+            this.About_MediaTLP.ColumnCount = 2;
+            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.00249F));
+            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.99751F));
+            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.About_MediaTLP.Controls.Add(this.About_GitHubBtn, 1, 0);
+            this.About_MediaTLP.Controls.Add(this.About_TwitterBtn, 0, 0);
             this.About_MediaTLP.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.About_MediaTLP.Location = new System.Drawing.Point(5, 206);
             this.About_MediaTLP.Name = "About_MediaTLP";
             this.About_MediaTLP.RowCount = 1;
             this.About_MediaTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.About_MediaTLP.Size = new System.Drawing.Size(464, 40);
-            this.About_MediaTLP.TabIndex = 3;
-            // 
-            // About_TwitterBtn
-            // 
-            this.About_TwitterBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
-            this.About_TwitterBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.About_TwitterBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.About_TwitterBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.About_TwitterBtn.FlatAppearance.BorderSize = 0;
-            this.About_TwitterBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.About_TwitterBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.About_TwitterBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.About_TwitterBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_TwitterBtn.Location = new System.Drawing.Point(157, 3);
-            this.About_TwitterBtn.Name = "About_TwitterBtn";
-            this.About_TwitterBtn.Size = new System.Drawing.Size(148, 34);
-            this.About_TwitterBtn.TabIndex = 2;
-            this.About_TwitterBtn.Text = "SAYFAYA GİT";
-            this.About_TwitterBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.About_TwitterBtn.UseVisualStyleBackColor = false;
-            this.About_TwitterBtn.Click += new System.EventHandler(this.About_TwitterBtn_Click);
+            this.About_MediaTLP.TabIndex = 0;
             // 
             // About_GitHubBtn
             // 
@@ -103,17 +81,37 @@
             this.About_GitHubBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.About_GitHubBtn.FlatAppearance.BorderSize = 0;
             this.About_GitHubBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.About_GitHubBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.About_GitHubBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.About_GitHubBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.About_GitHubBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_GitHubBtn.Location = new System.Drawing.Point(311, 3);
+            this.About_GitHubBtn.Location = new System.Drawing.Point(235, 3);
             this.About_GitHubBtn.Name = "About_GitHubBtn";
-            this.About_GitHubBtn.Size = new System.Drawing.Size(150, 34);
-            this.About_GitHubBtn.TabIndex = 0;
+            this.About_GitHubBtn.Size = new System.Drawing.Size(226, 34);
+            this.About_GitHubBtn.TabIndex = 1;
             this.About_GitHubBtn.Text = "SAYFAYA GİT";
             this.About_GitHubBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.About_GitHubBtn.UseVisualStyleBackColor = false;
             this.About_GitHubBtn.Click += new System.EventHandler(this.About_GitHubBtn_Click);
+            // 
+            // About_TwitterBtn
+            // 
+            this.About_TwitterBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
+            this.About_TwitterBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.About_TwitterBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.About_TwitterBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.About_TwitterBtn.FlatAppearance.BorderSize = 0;
+            this.About_TwitterBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.About_TwitterBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.About_TwitterBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.About_TwitterBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_TwitterBtn.Location = new System.Drawing.Point(3, 3);
+            this.About_TwitterBtn.Name = "About_TwitterBtn";
+            this.About_TwitterBtn.Size = new System.Drawing.Size(226, 34);
+            this.About_TwitterBtn.TabIndex = 0;
+            this.About_TwitterBtn.Text = "SAYFAYA GİT";
+            this.About_TwitterBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.About_TwitterBtn.UseVisualStyleBackColor = false;
+            this.About_TwitterBtn.Click += new System.EventHandler(this.About_TwitterBtn_Click);
             // 
             // About_L2
             // 
@@ -171,26 +169,6 @@
             this.About_Image.TabIndex = 0;
             this.About_Image.TabStop = false;
             // 
-            // About_WebsiteBtn
-            // 
-            this.About_WebsiteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
-            this.About_WebsiteBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.About_WebsiteBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.About_WebsiteBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.About_WebsiteBtn.FlatAppearance.BorderSize = 0;
-            this.About_WebsiteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.About_WebsiteBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.About_WebsiteBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.About_WebsiteBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_WebsiteBtn.Location = new System.Drawing.Point(3, 3);
-            this.About_WebsiteBtn.Name = "About_WebsiteBtn";
-            this.About_WebsiteBtn.Size = new System.Drawing.Size(148, 34);
-            this.About_WebsiteBtn.TabIndex = 4;
-            this.About_WebsiteBtn.Text = "SAYFAYA GİT";
-            this.About_WebsiteBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.About_WebsiteBtn.UseVisualStyleBackColor = false;
-            this.About_WebsiteBtn.Click += new System.EventHandler(this.About_WebsiteBtn_Click);
-            // 
             // GlowAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -226,6 +204,5 @@
         private System.Windows.Forms.TableLayoutPanel About_MediaTLP;
         private System.Windows.Forms.Button About_TwitterBtn;
         private System.Windows.Forms.Button About_GitHubBtn;
-        private System.Windows.Forms.Button About_WebsiteBtn;
     }
 }

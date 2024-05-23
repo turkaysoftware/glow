@@ -72,6 +72,8 @@
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sFCandDISMAutoToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cacheCleaningToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.benchCPUToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainContent = new System.Windows.Forms.TabControl();
             this.OS = new System.Windows.Forms.TabPage();
             this.OS_TLP = new System.Windows.Forms.TableLayoutPanel();
@@ -522,7 +524,6 @@
             this.HeaderImage = new System.Windows.Forms.PictureBox();
             this.HeaderText = new System.Windows.Forms.Label();
             this.MainToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LeftMenuPanel.SuspendLayout();
             this.HeaderMenu.SuspendLayout();
             this.MainContent.SuspendLayout();
@@ -930,9 +931,9 @@
             this.settingsToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.aboutToolStripMenuItem});
-            this.HeaderMenu.Location = new System.Drawing.Point(379, 11);
+            this.HeaderMenu.Location = new System.Drawing.Point(499, 11);
             this.HeaderMenu.Name = "HeaderMenu";
-            this.HeaderMenu.Size = new System.Drawing.Size(406, 24);
+            this.HeaderMenu.Size = new System.Drawing.Size(286, 24);
             this.HeaderMenu.TabIndex = 1;
             this.HeaderMenu.Text = "menuStrip1";
             // 
@@ -995,7 +996,8 @@
             this.lightThemeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.lightThemeToolStripMenuItem.Name = "lightThemeToolStripMenuItem";
             this.lightThemeToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.lightThemeToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.lightThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
+            this.lightThemeToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.lightThemeToolStripMenuItem.Text = "Light Theme";
             this.lightThemeToolStripMenuItem.Click += new System.EventHandler(this.lightThemeToolStripMenuItem_Click);
             // 
@@ -1004,7 +1006,8 @@
             this.darkThemeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.darkThemeToolStripMenuItem.Name = "darkThemeToolStripMenuItem";
             this.darkThemeToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.darkThemeToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.darkThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F4;
+            this.darkThemeToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.darkThemeToolStripMenuItem.Text = "Dark Theme";
             this.darkThemeToolStripMenuItem.Click += new System.EventHandler(this.darkThemeToolStripMenuItem_Click);
             // 
@@ -1012,7 +1015,8 @@
             // 
             this.nordThemeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.nordThemeToolStripMenuItem.Name = "nordThemeToolStripMenuItem";
-            this.nordThemeToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.nordThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.nordThemeToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.nordThemeToolStripMenuItem.Text = "Nord Theme";
             this.nordThemeToolStripMenuItem.Click += new System.EventHandler(this.nordThemeToolStripMenuItem_Click);
             // 
@@ -1031,7 +1035,7 @@
             this.englishToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
             this.englishToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.englishToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
+            this.englishToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
             this.englishToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.englishToolStripMenuItem.Text = "English";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
@@ -1041,7 +1045,7 @@
             this.turkishToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.turkishToolStripMenuItem.Name = "turkishToolStripMenuItem";
             this.turkishToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.turkishToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F4;
+            this.turkishToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
             this.turkishToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.turkishToolStripMenuItem.Text = "Turkish";
             this.turkishToolStripMenuItem.Click += new System.EventHandler(this.turkishToolStripMenuItem_Click);
@@ -1060,7 +1064,7 @@
             // 
             this.windowedToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.windowedToolStripMenuItem.Name = "windowedToolStripMenuItem";
-            this.windowedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.windowedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
             this.windowedToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.windowedToolStripMenuItem.Text = "Windowed";
             this.windowedToolStripMenuItem.Click += new System.EventHandler(this.windowedToolStripMenuItem_Click);
@@ -1069,7 +1073,7 @@
             // 
             this.fullScreenToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.fullScreenToolStripMenuItem.Name = "fullScreenToolStripMenuItem";
-            this.fullScreenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
+            this.fullScreenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
             this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.fullScreenToolStripMenuItem.Text = "Full Screen";
             this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.fullScreenToolStripMenuItem_Click);
@@ -1088,8 +1092,8 @@
             // 
             this.hidingModeOnToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.hidingModeOnToolStripMenuItem.Name = "hidingModeOnToolStripMenuItem";
-            this.hidingModeOnToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.hidingModeOnToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.hidingModeOnToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
+            this.hidingModeOnToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.hidingModeOnToolStripMenuItem.Text = "Hiding Mode On";
             this.hidingModeOnToolStripMenuItem.Click += new System.EventHandler(this.hidingModeOnToolStripMenuItem_Click);
             // 
@@ -1097,8 +1101,8 @@
             // 
             this.hidingModeOffToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.hidingModeOffToolStripMenuItem.Name = "hidingModeOffToolStripMenuItem";
-            this.hidingModeOffToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.hidingModeOffToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.hidingModeOffToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
+            this.hidingModeOffToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.hidingModeOffToolStripMenuItem.Text = "Hiding Mode Off";
             this.hidingModeOffToolStripMenuItem.Click += new System.EventHandler(this.hidingModeOffToolStripMenuItem_Click);
             // 
@@ -1106,7 +1110,8 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sFCandDISMAutoToolToolStripMenuItem,
-            this.cacheCleaningToolToolStripMenuItem});
+            this.cacheCleaningToolToolStripMenuItem,
+            this.benchCPUToolStripMenuItem});
             this.toolsToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
@@ -1129,6 +1134,22 @@
             this.cacheCleaningToolToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
             this.cacheCleaningToolToolStripMenuItem.Text = "CacheCleaningTool";
             this.cacheCleaningToolToolStripMenuItem.Click += new System.EventHandler(this.cacheCleaningToolToolStripMenuItem_Click);
+            // 
+            // benchCPUToolStripMenuItem
+            // 
+            this.benchCPUToolStripMenuItem.Name = "benchCPUToolStripMenuItem";
+            this.benchCPUToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.benchCPUToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.benchCPUToolStripMenuItem.Text = "BenchCPU";
+            this.benchCPUToolStripMenuItem.Click += new System.EventHandler(this.benchCPUToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // MainContent
             // 
@@ -7635,13 +7656,6 @@
             this.MainToolTip.OwnerDraw = true;
             this.MainToolTip.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.MainToolTip_Draw);
             // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
             // Glow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -8268,6 +8282,7 @@
         internal System.Windows.Forms.Label DISK_TTLP_P2_L2;
         internal System.Windows.Forms.Label DISK_TTLP_P2_L1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem benchCPUToolStripMenuItem;
     }
 }
 
