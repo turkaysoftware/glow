@@ -9,8 +9,10 @@ namespace Glow{
         // ======================================================================================================
         public class TS_LinkSystem{
             public string
+            twitter_link        = "https://x.com/roines45",
             github_link         = "https://github.com/roines45",
-            twitter_link        = "https://x.com/roines45";
+            github_link_vl      = "https://raw.githubusercontent.com/roines45/glow/main/Glow/GlowVersion.txt",
+            github_link_lr      = "https://github.com/roines45/glow/releases/latest";
         }
         // ======================================================================================================
         // VERSIONS
@@ -29,17 +31,21 @@ namespace Glow{
                     }else if (v_mode == 1){
                         version_mode = string.Format("v{0}", Application.ProductVersion.Substring(0, 7));
                     }
+                }else if (v_type == 2){
+                    if (v_mode == 0){
+                        version_mode = string.Format("{0}", Application.ProductVersion.Substring(0, 5));
+                    }else if (v_mode == 1){
+                        version_mode = string.Format("{0}", Application.ProductVersion.Substring(0, 7));
+                    }
                 }
                 return version_mode;
             }
         }
         // ======================================================================================================
-        // SAVE PATHS
+        // LANG PATHS
         public static string glow_lf = @"g_langs";                              // Main Path
         public static string glow_lang_en = glow_lf + @"\English.ini";          // English    | en
         public static string glow_lang_tr = glow_lf + @"\Turkish.ini";          // Turkish    | tr
-        // Total Langs | Current Langs Count: 2
-        public static int g_langs_count = 2;
         // ======================================================================================================
         // TS READ LANG MODULE
         public class TSGetLangs{
@@ -79,6 +85,10 @@ namespace Glow{
                 return WritePrivateProfileString(episode, setting_name, value, save_file_path);
             }
         }
+        // CPU CODE SETS
+        [DllImport("kernel32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsProcessorFeaturePresent(uint processorFeature);
         // ======================================================================================================
         // SCREEN API
         public const int ENUM_CURRENT_SETTINGS = -1;

@@ -46,38 +46,10 @@ namespace Glow.glow_tools{
         private void GlowBenchCPU_Load(object sender, EventArgs e){
             Task cpu_info = new Task(get_cpu_info);
             cpu_info.Start();
+            bench_cpu_theme_settings();
             //
             Bench_CPUName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_load").Trim()));
             Bench_CPUCores.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_load").Trim()));
-            //
-            bench_cpu_theme_settings();
-            //
-            Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_title").Trim())), Application.ProductName);
-            //
-            Bench_Label_Mode.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_level").Trim()));
-            Bench_Mode.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_level_1").Trim())));
-            Bench_Mode.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_level_2").Trim())));
-            Bench_Mode.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_level_3").Trim())));
-            Bench_Mode.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_level_4").Trim())));
-            Bench_Mode.SelectedIndex = 0;
-            //
-            Bench_Label_Time.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_time").Trim()));
-            Bench_Time.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_time_1").Trim())));
-            Bench_Time.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_time_2").Trim())));
-            Bench_Time.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_time_3").Trim())));
-            Bench_Time.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_time_4").Trim())));
-            Bench_Time.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_time_5").Trim())));
-            Bench_Time.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_time_6").Trim())));
-            Bench_Time.SelectedIndex = 0;
-            //
-            Bench_Label_RSingle.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_score_single").Trim()));
-            Bench_Label_RMulti.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_score_multi").Trim()));
-            //
-            Bench_Label_RSingleResult.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_score_start_await").Trim()));
-            Bench_Label_RMultiResult.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_score_start_await").Trim()));
-            //
-            Bench_Start.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_start_engine").Trim()));
-            Bench_Stop.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_stop_engine").Trim()));
         }
         // THEME SETTINGS
         public void bench_cpu_theme_settings(){
@@ -117,7 +89,36 @@ namespace Glow.glow_tools{
                 Bench_Start.ForeColor = Glow.ui_colors[19];
                 Bench_Stop.BackColor = Glow.ui_colors[8];
                 Bench_Stop.ForeColor = Glow.ui_colors[19];
-            }catch (Exception){ }
+                ///////
+                //
+                Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_title").Trim())), Application.ProductName);
+                //
+                Bench_Label_Mode.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_level").Trim()));
+                Bench_Mode.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_level_1").Trim())));
+                Bench_Mode.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_level_2").Trim())));
+                Bench_Mode.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_level_3").Trim())));
+                Bench_Mode.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_level_4").Trim())));
+                Bench_Mode.SelectedIndex = 0;
+                //
+                Bench_Label_Time.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_time").Trim()));
+                Bench_Time.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_time_1").Trim())));
+                Bench_Time.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_time_2").Trim())));
+                Bench_Time.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_time_3").Trim())));
+                Bench_Time.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_time_4").Trim())));
+                Bench_Time.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_time_5").Trim())));
+                Bench_Time.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_time_6").Trim())));
+                Bench_Time.SelectedIndex = 0;
+                //
+                Bench_Label_RSingle.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_score_single").Trim()));
+                Bench_Label_RMulti.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_score_multi").Trim()));
+                //
+                Bench_Label_RSingleResult.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_score_start_await").Trim()));
+                Bench_Label_RMultiResult.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_score_start_await").Trim()));
+                //
+                Bench_Start.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_start_engine").Trim()));
+                Bench_Stop.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_stop_engine").Trim()));
+            }
+            catch (Exception){ }
         }
         // CUSTOM TIME MODE
         private void Bench_Time_SelectedIndexChanged(object sender, EventArgs e){
@@ -136,8 +137,8 @@ namespace Glow.glow_tools{
         private void Bench_Start_Click(object sender, EventArgs e){
             try{
                 if (Bench_Mode.SelectedIndex == 3){
-                    DialogResult info_warning = MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_lethal_warning").Trim())), "\n\n", "\n\n", "\n\n"), Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                    if (info_warning == DialogResult.Yes){
+                    DialogResult info_warning_hard = MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_lethal_warning").Trim())), "\n\n", "\n\n", "\n\n"), Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    if (info_warning_hard == DialogResult.Yes){
                         bench_start_engine();
                     }
                 }else{
@@ -148,7 +149,10 @@ namespace Glow.glow_tools{
                             MessageBox.Show(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_time_custom_warning").Trim())), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }else{
-                        bench_start_engine();
+                        DialogResult info_warning_normal = MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_test_start_warning").Trim())), "\n\n", "\n\n", "\n"), Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        if (info_warning_normal == DialogResult.Yes){
+                            bench_start_engine();
+                        }
                     }
                 }
             }catch (Exception){ }
@@ -184,6 +188,7 @@ namespace Glow.glow_tools{
                 Bench_Stop.Enabled = true;
                 Bench_Mode.Enabled = false;
                 Bench_Time.Enabled = false;
+                Bench_TimeCustom.Enabled = false;
                 // CPU SYSTEM
                 double[] coreSpeeds = GetCoreSpeeds();
                 double averageSpeed = CalculateAverageSpeed(coreSpeeds);
@@ -253,6 +258,7 @@ namespace Glow.glow_tools{
                         Bench_Stop.Enabled = false;
                         Bench_Mode.Enabled = true;
                         Bench_Time.Enabled = true;
+                        Bench_TimeCustom.Enabled = true;
                         Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_title").Trim())) + " | " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_end_test").Trim())), Application.ProductName);
                     });
                     threads[i].Start();

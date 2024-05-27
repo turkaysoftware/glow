@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>24.06.0.%2a</ApplicationVersion>
+    <ApplicationVersion>24.07.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -156,6 +156,7 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
@@ -182,6 +183,12 @@
       <DependentUpon>GlowAbout.cs</DependentUpon>
     </Compile>
     <Compile Include="GlowModules.cs" />
+    <Compile Include="glow_tools\GlowBenchDisk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="glow_tools\GlowBenchDisk.Designer.cs">
+      <DependentUpon>GlowBenchDisk.cs</DependentUpon>
+    </Compile>
     <Compile Include="glow_tools\GlowCacheCleanupTool.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -193,6 +200,12 @@
     </Compile>
     <Compile Include="glow_tools\GlowBenchCPU.Designer.cs">
       <DependentUpon>GlowBenchCPU.cs</DependentUpon>
+    </Compile>
+    <Compile Include="glow_tools\GlowMonitorTestEngine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="glow_tools\GlowMonitorTestEngine.Designer.cs">
+      <DependentUpon>GlowMonitorTestEngine.cs</DependentUpon>
     </Compile>
     <Compile Include="glow_tools\GlowSFCandDISMAutoTool.cs">
       <SubType>Form</SubType>
@@ -211,8 +224,14 @@
     <EmbeddedResource Include="glow_tools\GlowBenchCPU.resx">
       <DependentUpon>GlowBenchCPU.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="glow_tools\GlowBenchDisk.resx">
+      <DependentUpon>GlowBenchDisk.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="glow_tools\GlowCacheCleanupTool.resx">
       <DependentUpon>GlowCacheCleanupTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="glow_tools\GlowMonitorTestEngine.resx">
+      <DependentUpon>GlowMonitorTestEngine.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="glow_tools\GlowSFCandDISMAutoTool.resx">
       <DependentUpon>GlowSFCandDISMAutoTool.cs</DependentUpon>
@@ -338,6 +357,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GlowLogo.ico" />
+    <None Include="glow_images\glow_interface\nord_theme\nord_top_monitor_test.png" />
+    <None Include="glow_images\glow_interface\nord_theme\nord_top_monitor_dynamic_range_test.png" />
+    <None Include="glow_images\glow_interface\nord_theme\nord_top_monitor_dead_pixel_test.png" />
+    <None Include="glow_images\glow_interface\light_theme\light_top_monitor_test.png" />
+    <None Include="glow_images\glow_interface\light_theme\light_top_monitor_dynamic_range_test.png" />
+    <None Include="glow_images\glow_interface\light_theme\light_top_monitor_dead_pixel_test.png" />
+    <None Include="glow_images\glow_interface\dark_theme\dark_top_monitor_test.png" />
+    <None Include="glow_images\glow_interface\dark_theme\dark_top_monitor_dynamic_range_test.png" />
+    <None Include="glow_images\glow_interface\dark_theme\dark_top_monitor_dead_pixel_test.png" />
+    <None Include="glow_images\glow_interface\nord_theme\nord_middle_bsod_zip.png" />
+    <None Include="glow_images\glow_interface\light_theme\light_middle_bsod_zip.png" />
+    <None Include="glow_images\glow_interface\dark_theme\dark_middle_bsod_zip.png" />
+    <None Include="glow_images\glow_interface\nord_theme\nord_top_update_check.png" />
+    <None Include="glow_images\glow_interface\light_theme\light_top_update_check.png" />
+    <None Include="glow_images\glow_interface\dark_theme\dark_top_update_check.png" />
+    <None Include="glow_images\glow_interface\nord_theme\nord_top_bench_disk.png" />
+    <None Include="glow_images\glow_interface\light_theme\light_top_bench_disk.png" />
+    <None Include="glow_images\glow_interface\dark_theme\dark_top_bench_disk.png" />
     <None Include="glow_images\glow_interface\nord_theme\nord_top_bench_cpu.png" />
     <None Include="glow_images\glow_interface\light_theme\light_top_bench_cpu.png" />
     <None Include="glow_images\glow_interface\dark_theme\dark_top_bench_cpu.png" />

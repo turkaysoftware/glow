@@ -183,6 +183,16 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap dark_middle_bsod_zip {
+            get {
+                object obj = ResourceManager.GetObject("dark_middle_bsod_zip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap dark_middle_open {
             get {
                 object obj = ResourceManager.GetObject("dark_middle_open", resourceCulture);
@@ -196,6 +206,16 @@ namespace Glow.Properties {
         internal static System.Drawing.Bitmap dark_top_bench_cpu {
             get {
                 object obj = ResourceManager.GetObject("dark_top_bench_cpu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap dark_top_bench_disk {
+            get {
+                object obj = ResourceManager.GetObject("dark_top_bench_disk", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -343,6 +363,46 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap dark_top_monitor_dead_pixel_test {
+            get {
+                object obj = ResourceManager.GetObject("dark_top_monitor_dead_pixel_test", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap dark_top_monitor_dynamic_range_test {
+            get {
+                object obj = ResourceManager.GetObject("dark_top_monitor_dynamic_range_test", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap dark_top_monitor_test {
+            get {
+                object obj = ResourceManager.GetObject("dark_top_monitor_test", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap dark_top_update_check {
+            get {
+                object obj = ResourceManager.GetObject("dark_top_update_check", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap glow_logo {
             get {
                 object obj = ResourceManager.GetObject("glow_logo", resourceCulture);
@@ -473,6 +533,16 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap light_middle_bsod_zip {
+            get {
+                object obj = ResourceManager.GetObject("light_middle_bsod_zip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap light_middle_open {
             get {
                 object obj = ResourceManager.GetObject("light_middle_open", resourceCulture);
@@ -486,6 +556,16 @@ namespace Glow.Properties {
         internal static System.Drawing.Bitmap light_top_bench_cpu {
             get {
                 object obj = ResourceManager.GetObject("light_top_bench_cpu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap light_top_bench_disk {
+            get {
+                object obj = ResourceManager.GetObject("light_top_bench_disk", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -633,6 +713,46 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap light_top_monitor_dead_pixel_test {
+            get {
+                object obj = ResourceManager.GetObject("light_top_monitor_dead_pixel_test", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap light_top_monitor_dynamic_range_test {
+            get {
+                object obj = ResourceManager.GetObject("light_top_monitor_dynamic_range_test", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap light_top_monitor_test {
+            get {
+                object obj = ResourceManager.GetObject("light_top_monitor_test", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap light_top_update_check {
+            get {
+                object obj = ResourceManager.GetObject("light_top_update_check", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap nord_left_menu_battery {
             get {
                 object obj = ResourceManager.GetObject("nord_left_menu_battery", resourceCulture);
@@ -753,6 +873,16 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap nord_middle_bsod_zip {
+            get {
+                object obj = ResourceManager.GetObject("nord_middle_bsod_zip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap nord_middle_open {
             get {
                 object obj = ResourceManager.GetObject("nord_middle_open", resourceCulture);
@@ -766,6 +896,16 @@ namespace Glow.Properties {
         internal static System.Drawing.Bitmap nord_top_bench_cpu {
             get {
                 object obj = ResourceManager.GetObject("nord_top_bench_cpu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap nord_top_bench_disk {
+            get {
+                object obj = ResourceManager.GetObject("nord_top_bench_disk", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -906,6 +1046,46 @@ namespace Glow.Properties {
         internal static System.Drawing.Bitmap nord_top_menu_txt {
             get {
                 object obj = ResourceManager.GetObject("nord_top_menu_txt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap nord_top_monitor_dead_pixel_test {
+            get {
+                object obj = ResourceManager.GetObject("nord_top_monitor_dead_pixel_test", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap nord_top_monitor_dynamic_range_test {
+            get {
+                object obj = ResourceManager.GetObject("nord_top_monitor_dynamic_range_test", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap nord_top_monitor_test {
+            get {
+                object obj = ResourceManager.GetObject("nord_top_monitor_test", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap nord_top_update_check {
+            get {
+                object obj = ResourceManager.GetObject("nord_top_update_check", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

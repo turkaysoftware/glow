@@ -71,7 +71,7 @@
             this.About_MediaTLP.RowCount = 1;
             this.About_MediaTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.About_MediaTLP.Size = new System.Drawing.Size(464, 40);
-            this.About_MediaTLP.TabIndex = 0;
+            this.About_MediaTLP.TabIndex = 3;
             // 
             // About_GitHubBtn
             // 

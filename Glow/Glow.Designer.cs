@@ -69,10 +69,15 @@
             this.hidingModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hidingModeOnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hidingModeOffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkforUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sFCandDISMAutoToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cacheCleaningToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.benchCPUToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.benchDiskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.monitorTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.monitorDeadPixelTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.monitorDynamicRangeTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainContent = new System.Windows.Forms.TabControl();
             this.OS = new System.Windows.Forms.TabPage();
@@ -93,10 +98,8 @@
             this.OS_SystemVersion = new System.Windows.Forms.Label();
             this.OS_SystemVersion_V = new System.Windows.Forms.Label();
             this.os_panel_5 = new System.Windows.Forms.Panel();
-            this.os_minidump_panel_1 = new System.Windows.Forms.Panel();
-            this.OS_MinidumpOpen = new System.Windows.Forms.PictureBox();
-            this.OS_Minidump = new System.Windows.Forms.Label();
-            this.OS_Minidump_V = new System.Windows.Forms.Label();
+            this.OS_MSEdge = new System.Windows.Forms.Label();
+            this.OS_MSEdge_V = new System.Windows.Forms.Label();
             this.OS_AntiSpywareProgram = new System.Windows.Forms.Label();
             this.OS_AntiSpywareProgram_V = new System.Windows.Forms.Label();
             this.OS_FirewallProgram = new System.Windows.Forms.Label();
@@ -155,6 +158,11 @@
             this.OS_EncryptionType_V = new System.Windows.Forms.Label();
             this.OS_EncryptionType = new System.Windows.Forms.Label();
             this.os_panel_6 = new System.Windows.Forms.Panel();
+            this.os_minidump_panel_1 = new System.Windows.Forms.Panel();
+            this.OS_BSoDZIP = new System.Windows.Forms.PictureBox();
+            this.OS_MinidumpOpen = new System.Windows.Forms.PictureBox();
+            this.OS_Minidump = new System.Windows.Forms.Label();
+            this.OS_Minidump_V = new System.Windows.Forms.Label();
             this.OS_BSODDate = new System.Windows.Forms.Label();
             this.OS_BSODDate_V = new System.Windows.Forms.Label();
             this.os_wallpaper_panel_1 = new System.Windows.Forms.Panel();
@@ -239,6 +247,8 @@
             this.CPU_L3_V = new System.Windows.Forms.Label();
             this.CPU_L3 = new System.Windows.Forms.Label();
             this.cpu_panel_2 = new System.Windows.Forms.Panel();
+            this.CPU_CodeSet_V = new System.Windows.Forms.Label();
+            this.CPU_CodeSet = new System.Windows.Forms.Label();
             this.CPU_Process = new System.Windows.Forms.Label();
             this.CPU_Process_V = new System.Windows.Forms.Label();
             this.CPU_VMMonitorExtension_V = new System.Windows.Forms.Label();
@@ -531,12 +541,13 @@
             this.OS_TLP.SuspendLayout();
             this.os_panel_1.SuspendLayout();
             this.os_panel_5.SuspendLayout();
-            this.os_minidump_panel_1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.OS_MinidumpOpen)).BeginInit();
             this.os_panel_2.SuspendLayout();
             this.os_panel_4.SuspendLayout();
             this.os_panel_3.SuspendLayout();
             this.os_panel_6.SuspendLayout();
+            this.os_minidump_panel_1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.OS_BSoDZIP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OS_MinidumpOpen)).BeginInit();
             this.os_wallpaper_panel_1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OS_WallpaperOpen)).BeginInit();
             this.MB.SuspendLayout();
@@ -974,7 +985,8 @@
             this.themeToolStripMenuItem,
             this.languageToolStripMenuItem,
             this.initialViewToolStripMenuItem,
-            this.hidingModeToolStripMenuItem});
+            this.hidingModeToolStripMenuItem,
+            this.checkforUpdatesToolStripMenuItem});
             this.settingsToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -988,7 +1000,7 @@
             this.darkThemeToolStripMenuItem,
             this.nordThemeToolStripMenuItem});
             this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
-            this.themeToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.themeToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.themeToolStripMenuItem.Text = "Theme";
             // 
             // lightThemeToolStripMenuItem
@@ -1027,7 +1039,7 @@
             this.englishToolStripMenuItem,
             this.turkishToolStripMenuItem});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.languageToolStripMenuItem.Text = "Language";
             // 
             // englishToolStripMenuItem
@@ -1057,7 +1069,7 @@
             this.windowedToolStripMenuItem,
             this.fullScreenToolStripMenuItem});
             this.initialViewToolStripMenuItem.Name = "initialViewToolStripMenuItem";
-            this.initialViewToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.initialViewToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.initialViewToolStripMenuItem.Text = "Initial View";
             // 
             // windowedToolStripMenuItem
@@ -1085,7 +1097,7 @@
             this.hidingModeOnToolStripMenuItem,
             this.hidingModeOffToolStripMenuItem});
             this.hidingModeToolStripMenuItem.Name = "hidingModeToolStripMenuItem";
-            this.hidingModeToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.hidingModeToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.hidingModeToolStripMenuItem.Text = "Hiding Mode";
             // 
             // hidingModeOnToolStripMenuItem
@@ -1106,12 +1118,24 @@
             this.hidingModeOffToolStripMenuItem.Text = "Hiding Mode Off";
             this.hidingModeOffToolStripMenuItem.Click += new System.EventHandler(this.hidingModeOffToolStripMenuItem_Click);
             // 
+            // checkforUpdatesToolStripMenuItem
+            // 
+            this.checkforUpdatesToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.checkforUpdatesToolStripMenuItem.Name = "checkforUpdatesToolStripMenuItem";
+            this.checkforUpdatesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.U)));
+            this.checkforUpdatesToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.checkforUpdatesToolStripMenuItem.Text = "CheckforUpdates";
+            this.checkforUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkforUpdatesToolStripMenuItem_Click);
+            // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sFCandDISMAutoToolToolStripMenuItem,
             this.cacheCleaningToolToolStripMenuItem,
-            this.benchCPUToolStripMenuItem});
+            this.benchCPUToolStripMenuItem,
+            this.benchDiskToolStripMenuItem,
+            this.monitorTestToolStripMenuItem});
             this.toolsToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
@@ -1137,11 +1161,49 @@
             // 
             // benchCPUToolStripMenuItem
             // 
+            this.benchCPUToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.benchCPUToolStripMenuItem.Name = "benchCPUToolStripMenuItem";
             this.benchCPUToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
             this.benchCPUToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
             this.benchCPUToolStripMenuItem.Text = "BenchCPU";
             this.benchCPUToolStripMenuItem.Click += new System.EventHandler(this.benchCPUToolStripMenuItem_Click);
+            // 
+            // benchDiskToolStripMenuItem
+            // 
+            this.benchDiskToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.benchDiskToolStripMenuItem.Name = "benchDiskToolStripMenuItem";
+            this.benchDiskToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.benchDiskToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.benchDiskToolStripMenuItem.Text = "BenchDisk";
+            this.benchDiskToolStripMenuItem.Click += new System.EventHandler(this.benchDiskToolStripMenuItem_Click);
+            // 
+            // monitorTestToolStripMenuItem
+            // 
+            this.monitorTestToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.monitorTestToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.monitorDeadPixelTestToolStripMenuItem,
+            this.monitorDynamicRangeTestToolStripMenuItem});
+            this.monitorTestToolStripMenuItem.Name = "monitorTestToolStripMenuItem";
+            this.monitorTestToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.monitorTestToolStripMenuItem.Text = "MonitorTest";
+            // 
+            // monitorDeadPixelTestToolStripMenuItem
+            // 
+            this.monitorDeadPixelTestToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.monitorDeadPixelTestToolStripMenuItem.Name = "monitorDeadPixelTestToolStripMenuItem";
+            this.monitorDeadPixelTestToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.monitorDeadPixelTestToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.monitorDeadPixelTestToolStripMenuItem.Text = "MonitorDeadPixelTest";
+            this.monitorDeadPixelTestToolStripMenuItem.Click += new System.EventHandler(this.monitorDeadPixelTestToolStripMenuItem_Click);
+            // 
+            // monitorDynamicRangeTestToolStripMenuItem
+            // 
+            this.monitorDynamicRangeTestToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.monitorDynamicRangeTestToolStripMenuItem.Name = "monitorDynamicRangeTestToolStripMenuItem";
+            this.monitorDynamicRangeTestToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.monitorDynamicRangeTestToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.monitorDynamicRangeTestToolStripMenuItem.Text = "MonitorDynamicRangeTest";
+            this.monitorDynamicRangeTestToolStripMenuItem.Click += new System.EventHandler(this.monitorDynamicRangeTestToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -1209,7 +1271,7 @@
             this.OS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.OS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.OS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.OS_TLP.Size = new System.Drawing.Size(772, 1708);
+            this.OS_TLP.Size = new System.Drawing.Size(772, 1758);
             this.OS_TLP.TabIndex = 2;
             // 
             // os_panel_1
@@ -1433,8 +1495,8 @@
             // os_panel_5
             // 
             this.os_panel_5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.os_panel_5.Controls.Add(this.os_minidump_panel_1);
-            this.os_panel_5.Controls.Add(this.OS_Minidump_V);
+            this.os_panel_5.Controls.Add(this.OS_MSEdge);
+            this.os_panel_5.Controls.Add(this.OS_MSEdge_V);
             this.os_panel_5.Controls.Add(this.OS_AntiSpywareProgram);
             this.os_panel_5.Controls.Add(this.OS_AntiSpywareProgram_V);
             this.os_panel_5.Controls.Add(this.OS_FirewallProgram);
@@ -1454,58 +1516,32 @@
             this.os_panel_5.Size = new System.Drawing.Size(761, 319);
             this.os_panel_5.TabIndex = 0;
             // 
-            // os_minidump_panel_1
+            // OS_MSEdge
             // 
-            this.os_minidump_panel_1.Controls.Add(this.OS_MinidumpOpen);
-            this.os_minidump_panel_1.Controls.Add(this.OS_Minidump);
-            this.os_minidump_panel_1.Location = new System.Drawing.Point(10, 283);
-            this.os_minidump_panel_1.Name = "os_minidump_panel_1";
-            this.os_minidump_panel_1.Size = new System.Drawing.Size(315, 20);
-            this.os_minidump_panel_1.TabIndex = 87;
+            this.OS_MSEdge.AutoSize = true;
+            this.OS_MSEdge.BackColor = System.Drawing.Color.Transparent;
+            this.OS_MSEdge.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.OS_MSEdge.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_MSEdge.Location = new System.Drawing.Point(10, 283);
+            this.OS_MSEdge.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.OS_MSEdge.Name = "OS_MSEdge";
+            this.OS_MSEdge.Size = new System.Drawing.Size(174, 20);
+            this.OS_MSEdge.TabIndex = 14;
+            this.OS_MSEdge.Text = "Microsoft Edge Sürümü:";
             // 
-            // OS_MinidumpOpen
+            // OS_MSEdge_V
             // 
-            this.OS_MinidumpOpen.BackColor = System.Drawing.Color.Transparent;
-            this.OS_MinidumpOpen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.OS_MinidumpOpen.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.OS_MinidumpOpen.Dock = System.Windows.Forms.DockStyle.Left;
-            this.OS_MinidumpOpen.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_MinidumpOpen.Location = new System.Drawing.Point(132, 0);
-            this.OS_MinidumpOpen.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
-            this.OS_MinidumpOpen.Name = "OS_MinidumpOpen";
-            this.OS_MinidumpOpen.Size = new System.Drawing.Size(25, 20);
-            this.OS_MinidumpOpen.TabIndex = 76;
-            this.OS_MinidumpOpen.TabStop = false;
-            this.OS_MinidumpOpen.Click += new System.EventHandler(this.OS_MinidumpOpen_Click);
-            // 
-            // OS_Minidump
-            // 
-            this.OS_Minidump.AutoSize = true;
-            this.OS_Minidump.BackColor = System.Drawing.Color.Transparent;
-            this.OS_Minidump.Dock = System.Windows.Forms.DockStyle.Left;
-            this.OS_Minidump.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
-            this.OS_Minidump.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_Minidump.Location = new System.Drawing.Point(0, 0);
-            this.OS_Minidump.Margin = new System.Windows.Forms.Padding(0);
-            this.OS_Minidump.Name = "OS_Minidump";
-            this.OS_Minidump.Size = new System.Drawing.Size(132, 20);
-            this.OS_Minidump.TabIndex = 0;
-            this.OS_Minidump.Text = "Mavi Ekran Sayısı:";
-            this.OS_Minidump.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // OS_Minidump_V
-            // 
-            this.OS_Minidump_V.AutoSize = true;
-            this.OS_Minidump_V.BackColor = System.Drawing.Color.Transparent;
-            this.OS_Minidump_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
-            this.OS_Minidump_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
-            this.OS_Minidump_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_Minidump_V.Location = new System.Drawing.Point(330, 283);
-            this.OS_Minidump_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
-            this.OS_Minidump_V.Name = "OS_Minidump_V";
-            this.OS_Minidump_V.Size = new System.Drawing.Size(37, 20);
-            this.OS_Minidump_V.TabIndex = 86;
-            this.OS_Minidump_V.Text = "N/A";
+            this.OS_MSEdge_V.AutoSize = true;
+            this.OS_MSEdge_V.BackColor = System.Drawing.Color.Transparent;
+            this.OS_MSEdge_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.OS_MSEdge_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            this.OS_MSEdge_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_MSEdge_V.Location = new System.Drawing.Point(330, 283);
+            this.OS_MSEdge_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.OS_MSEdge_V.Name = "OS_MSEdge_V";
+            this.OS_MSEdge_V.Size = new System.Drawing.Size(37, 20);
+            this.OS_MSEdge_V.TabIndex = 15;
+            this.OS_MSEdge_V.Text = "N/A";
             // 
             // OS_AntiSpywareProgram
             // 
@@ -2314,6 +2350,8 @@
             // os_panel_6
             // 
             this.os_panel_6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.os_panel_6.Controls.Add(this.os_minidump_panel_1);
+            this.os_panel_6.Controls.Add(this.OS_Minidump_V);
             this.os_panel_6.Controls.Add(this.OS_BSODDate);
             this.os_panel_6.Controls.Add(this.OS_BSODDate_V);
             this.os_panel_6.Controls.Add(this.os_wallpaper_panel_1);
@@ -2322,8 +2360,77 @@
             this.os_panel_6.Location = new System.Drawing.Point(7, 1612);
             this.os_panel_6.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.os_panel_6.Name = "os_panel_6";
-            this.os_panel_6.Size = new System.Drawing.Size(761, 95);
+            this.os_panel_6.Size = new System.Drawing.Size(761, 145);
             this.os_panel_6.TabIndex = 1;
+            // 
+            // os_minidump_panel_1
+            // 
+            this.os_minidump_panel_1.Controls.Add(this.OS_BSoDZIP);
+            this.os_minidump_panel_1.Controls.Add(this.OS_MinidumpOpen);
+            this.os_minidump_panel_1.Controls.Add(this.OS_Minidump);
+            this.os_minidump_panel_1.Location = new System.Drawing.Point(10, 13);
+            this.os_minidump_panel_1.Name = "os_minidump_panel_1";
+            this.os_minidump_panel_1.Size = new System.Drawing.Size(315, 20);
+            this.os_minidump_panel_1.TabIndex = 87;
+            // 
+            // OS_BSoDZIP
+            // 
+            this.OS_BSoDZIP.BackColor = System.Drawing.Color.Transparent;
+            this.OS_BSoDZIP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.OS_BSoDZIP.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.OS_BSoDZIP.Dock = System.Windows.Forms.DockStyle.Left;
+            this.OS_BSoDZIP.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_BSoDZIP.Location = new System.Drawing.Point(157, 0);
+            this.OS_BSoDZIP.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
+            this.OS_BSoDZIP.Name = "OS_BSoDZIP";
+            this.OS_BSoDZIP.Size = new System.Drawing.Size(25, 20);
+            this.OS_BSoDZIP.TabIndex = 77;
+            this.OS_BSoDZIP.TabStop = false;
+            this.OS_BSoDZIP.Click += new System.EventHandler(this.OS_BSoDZIP_Click);
+            // 
+            // OS_MinidumpOpen
+            // 
+            this.OS_MinidumpOpen.BackColor = System.Drawing.Color.Transparent;
+            this.OS_MinidumpOpen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.OS_MinidumpOpen.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.OS_MinidumpOpen.Dock = System.Windows.Forms.DockStyle.Left;
+            this.OS_MinidumpOpen.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_MinidumpOpen.Location = new System.Drawing.Point(132, 0);
+            this.OS_MinidumpOpen.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
+            this.OS_MinidumpOpen.Name = "OS_MinidumpOpen";
+            this.OS_MinidumpOpen.Size = new System.Drawing.Size(25, 20);
+            this.OS_MinidumpOpen.TabIndex = 76;
+            this.OS_MinidumpOpen.TabStop = false;
+            this.OS_MinidumpOpen.Click += new System.EventHandler(this.OS_MinidumpOpen_Click);
+            // 
+            // OS_Minidump
+            // 
+            this.OS_Minidump.AutoSize = true;
+            this.OS_Minidump.BackColor = System.Drawing.Color.Transparent;
+            this.OS_Minidump.Dock = System.Windows.Forms.DockStyle.Left;
+            this.OS_Minidump.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.OS_Minidump.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_Minidump.Location = new System.Drawing.Point(0, 0);
+            this.OS_Minidump.Margin = new System.Windows.Forms.Padding(0);
+            this.OS_Minidump.Name = "OS_Minidump";
+            this.OS_Minidump.Size = new System.Drawing.Size(132, 20);
+            this.OS_Minidump.TabIndex = 0;
+            this.OS_Minidump.Text = "Mavi Ekran Sayısı:";
+            this.OS_Minidump.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // OS_Minidump_V
+            // 
+            this.OS_Minidump_V.AutoSize = true;
+            this.OS_Minidump_V.BackColor = System.Drawing.Color.Transparent;
+            this.OS_Minidump_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.OS_Minidump_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            this.OS_Minidump_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_Minidump_V.Location = new System.Drawing.Point(330, 13);
+            this.OS_Minidump_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.OS_Minidump_V.Name = "OS_Minidump_V";
+            this.OS_Minidump_V.Size = new System.Drawing.Size(37, 20);
+            this.OS_Minidump_V.TabIndex = 86;
+            this.OS_Minidump_V.Text = "N/A";
             // 
             // OS_BSODDate
             // 
@@ -2331,7 +2438,7 @@
             this.OS_BSODDate.BackColor = System.Drawing.Color.Transparent;
             this.OS_BSODDate.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.OS_BSODDate.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_BSODDate.Location = new System.Drawing.Point(10, 13);
+            this.OS_BSODDate.Location = new System.Drawing.Point(10, 58);
             this.OS_BSODDate.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.OS_BSODDate.Name = "OS_BSODDate";
             this.OS_BSODDate.Size = new System.Drawing.Size(175, 20);
@@ -2345,7 +2452,7 @@
             this.OS_BSODDate_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.OS_BSODDate_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.OS_BSODDate_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_BSODDate_V.Location = new System.Drawing.Point(330, 13);
+            this.OS_BSODDate_V.Location = new System.Drawing.Point(330, 58);
             this.OS_BSODDate_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.OS_BSODDate_V.Name = "OS_BSODDate_V";
             this.OS_BSODDate_V.Size = new System.Drawing.Size(37, 20);
@@ -2356,7 +2463,7 @@
             // 
             this.os_wallpaper_panel_1.Controls.Add(this.OS_WallpaperOpen);
             this.os_wallpaper_panel_1.Controls.Add(this.OS_Wallpaper);
-            this.os_wallpaper_panel_1.Location = new System.Drawing.Point(10, 58);
+            this.os_wallpaper_panel_1.Location = new System.Drawing.Point(10, 103);
             this.os_wallpaper_panel_1.Name = "os_wallpaper_panel_1";
             this.os_wallpaper_panel_1.Size = new System.Drawing.Size(315, 20);
             this.os_wallpaper_panel_1.TabIndex = 85;
@@ -2398,7 +2505,7 @@
             this.OS_Wallpaper_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.OS_Wallpaper_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.OS_Wallpaper_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_Wallpaper_V.Location = new System.Drawing.Point(330, 58);
+            this.OS_Wallpaper_V.Location = new System.Drawing.Point(330, 103);
             this.OS_Wallpaper_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.OS_Wallpaper_V.Name = "OS_Wallpaper_V";
             this.OS_Wallpaper_V.Size = new System.Drawing.Size(37, 20);
@@ -2412,7 +2519,7 @@
             this.os_bottom_label.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.os_bottom_label.ForeColor = System.Drawing.Color.Black;
             this.os_bottom_label.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.os_bottom_label.Location = new System.Drawing.Point(10, 1700);
+            this.os_bottom_label.Location = new System.Drawing.Point(10, 1750);
             this.os_bottom_label.Margin = new System.Windows.Forms.Padding(3);
             this.os_bottom_label.Name = "os_bottom_label";
             this.os_bottom_label.Size = new System.Drawing.Size(333, 20);
@@ -3258,7 +3365,7 @@
             this.CPU_TLP.RowCount = 2;
             this.CPU_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.CPU_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.CPU_TLP.Size = new System.Drawing.Size(778, 744);
+            this.CPU_TLP.Size = new System.Drawing.Size(778, 791);
             this.CPU_TLP.TabIndex = 0;
             // 
             // cpu_panel_1
@@ -3508,6 +3615,8 @@
             // 
             this.cpu_panel_2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.cpu_panel_2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cpu_panel_2.Controls.Add(this.CPU_CodeSet_V);
+            this.cpu_panel_2.Controls.Add(this.CPU_CodeSet);
             this.cpu_panel_2.Controls.Add(this.CPU_Process);
             this.cpu_panel_2.Controls.Add(this.CPU_Process_V);
             this.cpu_panel_2.Controls.Add(this.CPU_VMMonitorExtension_V);
@@ -3528,8 +3637,35 @@
             this.cpu_panel_2.Location = new System.Drawing.Point(10, 377);
             this.cpu_panel_2.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.cpu_panel_2.Name = "cpu_panel_2";
-            this.cpu_panel_2.Size = new System.Drawing.Size(761, 366);
+            this.cpu_panel_2.Size = new System.Drawing.Size(761, 413);
             this.cpu_panel_2.TabIndex = 0;
+            // 
+            // CPU_CodeSet_V
+            // 
+            this.CPU_CodeSet_V.AutoSize = true;
+            this.CPU_CodeSet_V.BackColor = System.Drawing.Color.Transparent;
+            this.CPU_CodeSet_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.CPU_CodeSet_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            this.CPU_CodeSet_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.CPU_CodeSet_V.Location = new System.Drawing.Point(330, 373);
+            this.CPU_CodeSet_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.CPU_CodeSet_V.Name = "CPU_CodeSet_V";
+            this.CPU_CodeSet_V.Size = new System.Drawing.Size(37, 20);
+            this.CPU_CodeSet_V.TabIndex = 17;
+            this.CPU_CodeSet_V.Text = "N/A";
+            // 
+            // CPU_CodeSet
+            // 
+            this.CPU_CodeSet.AutoSize = true;
+            this.CPU_CodeSet.BackColor = System.Drawing.Color.Transparent;
+            this.CPU_CodeSet.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.CPU_CodeSet.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.CPU_CodeSet.Location = new System.Drawing.Point(10, 373);
+            this.CPU_CodeSet.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
+            this.CPU_CodeSet.Name = "CPU_CodeSet";
+            this.CPU_CodeSet.Size = new System.Drawing.Size(120, 20);
+            this.CPU_CodeSet.TabIndex = 16;
+            this.CPU_CodeSet.Text = "CPU Kod Setleri:";
             // 
             // CPU_Process
             // 
@@ -3754,7 +3890,7 @@
             this.cpu_bottom_1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.cpu_bottom_1.ForeColor = System.Drawing.Color.Black;
             this.cpu_bottom_1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.cpu_bottom_1.Location = new System.Drawing.Point(10, 733);
+            this.cpu_bottom_1.Location = new System.Drawing.Point(10, 780);
             this.cpu_bottom_1.Margin = new System.Windows.Forms.Padding(3);
             this.cpu_bottom_1.Name = "cpu_bottom_1";
             this.cpu_bottom_1.Size = new System.Drawing.Size(333, 20);
@@ -7685,9 +7821,6 @@
             this.os_panel_1.PerformLayout();
             this.os_panel_5.ResumeLayout(false);
             this.os_panel_5.PerformLayout();
-            this.os_minidump_panel_1.ResumeLayout(false);
-            this.os_minidump_panel_1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.OS_MinidumpOpen)).EndInit();
             this.os_panel_2.ResumeLayout(false);
             this.os_panel_2.PerformLayout();
             this.os_panel_4.ResumeLayout(false);
@@ -7696,6 +7829,10 @@
             this.os_panel_3.PerformLayout();
             this.os_panel_6.ResumeLayout(false);
             this.os_panel_6.PerformLayout();
+            this.os_minidump_panel_1.ResumeLayout(false);
+            this.os_minidump_panel_1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.OS_BSoDZIP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OS_MinidumpOpen)).EndInit();
             this.os_wallpaper_panel_1.ResumeLayout(false);
             this.os_wallpaper_panel_1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OS_WallpaperOpen)).EndInit();
@@ -8283,6 +8420,16 @@
         internal System.Windows.Forms.Label DISK_TTLP_P2_L1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem benchCPUToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem benchDiskToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkforUpdatesToolStripMenuItem;
+        internal System.Windows.Forms.Label CPU_CodeSet;
+        internal System.Windows.Forms.Label CPU_CodeSet_V;
+        internal System.Windows.Forms.Label OS_MSEdge;
+        internal System.Windows.Forms.Label OS_MSEdge_V;
+        internal System.Windows.Forms.PictureBox OS_BSoDZIP;
+        private System.Windows.Forms.ToolStripMenuItem monitorTestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem monitorDeadPixelTestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem monitorDynamicRangeTestToolStripMenuItem;
     }
 }
 
