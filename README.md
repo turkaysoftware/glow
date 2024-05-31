@@ -13,6 +13,7 @@ Download: [Glow Latest Version](https://github.com/roines45/glow/releases/latest
 - English
 - Korean (Beta)
 - Turkish
+- For translation support: [Glow Translation Guide](https://github.com/roines45/glow/discussions/16)
 
 # Supported Themes
 
