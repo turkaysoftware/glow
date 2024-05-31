@@ -534,6 +534,7 @@
             this.HeaderImage = new System.Windows.Forms.PictureBox();
             this.HeaderText = new System.Windows.Forms.Label();
             this.MainToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.koreanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LeftMenuPanel.SuspendLayout();
             this.HeaderMenu.SuspendLayout();
             this.MainContent.SuspendLayout();
@@ -1000,7 +1001,7 @@
             this.darkThemeToolStripMenuItem,
             this.nordThemeToolStripMenuItem});
             this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
-            this.themeToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.themeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.themeToolStripMenuItem.Text = "Theme";
             // 
             // lightThemeToolStripMenuItem
@@ -1008,8 +1009,7 @@
             this.lightThemeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.lightThemeToolStripMenuItem.Name = "lightThemeToolStripMenuItem";
             this.lightThemeToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.lightThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.lightThemeToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.lightThemeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.lightThemeToolStripMenuItem.Text = "Light Theme";
             this.lightThemeToolStripMenuItem.Click += new System.EventHandler(this.lightThemeToolStripMenuItem_Click);
             // 
@@ -1018,8 +1018,7 @@
             this.darkThemeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.darkThemeToolStripMenuItem.Name = "darkThemeToolStripMenuItem";
             this.darkThemeToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.darkThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.darkThemeToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.darkThemeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.darkThemeToolStripMenuItem.Text = "Dark Theme";
             this.darkThemeToolStripMenuItem.Click += new System.EventHandler(this.darkThemeToolStripMenuItem_Click);
             // 
@@ -1027,8 +1026,7 @@
             // 
             this.nordThemeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.nordThemeToolStripMenuItem.Name = "nordThemeToolStripMenuItem";
-            this.nordThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.nordThemeToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.nordThemeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.nordThemeToolStripMenuItem.Text = "Nord Theme";
             this.nordThemeToolStripMenuItem.Click += new System.EventHandler(this.nordThemeToolStripMenuItem_Click);
             // 
@@ -1037,9 +1035,10 @@
             this.languageToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.englishToolStripMenuItem,
+            this.koreanToolStripMenuItem,
             this.turkishToolStripMenuItem});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.languageToolStripMenuItem.Text = "Language";
             // 
             // englishToolStripMenuItem
@@ -1047,8 +1046,7 @@
             this.englishToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
             this.englishToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.englishToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.englishToolStripMenuItem.Text = "English";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
             // 
@@ -1057,8 +1055,7 @@
             this.turkishToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.turkishToolStripMenuItem.Name = "turkishToolStripMenuItem";
             this.turkishToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.turkishToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.turkishToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.turkishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.turkishToolStripMenuItem.Text = "Turkish";
             this.turkishToolStripMenuItem.Click += new System.EventHandler(this.turkishToolStripMenuItem_Click);
             // 
@@ -1069,15 +1066,14 @@
             this.windowedToolStripMenuItem,
             this.fullScreenToolStripMenuItem});
             this.initialViewToolStripMenuItem.Name = "initialViewToolStripMenuItem";
-            this.initialViewToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.initialViewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.initialViewToolStripMenuItem.Text = "Initial View";
             // 
             // windowedToolStripMenuItem
             // 
             this.windowedToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.windowedToolStripMenuItem.Name = "windowedToolStripMenuItem";
-            this.windowedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.windowedToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.windowedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.windowedToolStripMenuItem.Text = "Windowed";
             this.windowedToolStripMenuItem.Click += new System.EventHandler(this.windowedToolStripMenuItem_Click);
             // 
@@ -1085,8 +1081,7 @@
             // 
             this.fullScreenToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.fullScreenToolStripMenuItem.Name = "fullScreenToolStripMenuItem";
-            this.fullScreenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
-            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.fullScreenToolStripMenuItem.Text = "Full Screen";
             this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.fullScreenToolStripMenuItem_Click);
             // 
@@ -1097,15 +1092,14 @@
             this.hidingModeOnToolStripMenuItem,
             this.hidingModeOffToolStripMenuItem});
             this.hidingModeToolStripMenuItem.Name = "hidingModeToolStripMenuItem";
-            this.hidingModeToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.hidingModeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hidingModeToolStripMenuItem.Text = "Hiding Mode";
             // 
             // hidingModeOnToolStripMenuItem
             // 
             this.hidingModeOnToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.hidingModeOnToolStripMenuItem.Name = "hidingModeOnToolStripMenuItem";
-            this.hidingModeOnToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
-            this.hidingModeOnToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.hidingModeOnToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hidingModeOnToolStripMenuItem.Text = "Hiding Mode On";
             this.hidingModeOnToolStripMenuItem.Click += new System.EventHandler(this.hidingModeOnToolStripMenuItem_Click);
             // 
@@ -1113,8 +1107,7 @@
             // 
             this.hidingModeOffToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.hidingModeOffToolStripMenuItem.Name = "hidingModeOffToolStripMenuItem";
-            this.hidingModeOffToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
-            this.hidingModeOffToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.hidingModeOffToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hidingModeOffToolStripMenuItem.Text = "Hiding Mode Off";
             this.hidingModeOffToolStripMenuItem.Click += new System.EventHandler(this.hidingModeOffToolStripMenuItem_Click);
             // 
@@ -1122,9 +1115,7 @@
             // 
             this.checkforUpdatesToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.checkforUpdatesToolStripMenuItem.Name = "checkforUpdatesToolStripMenuItem";
-            this.checkforUpdatesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.U)));
-            this.checkforUpdatesToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.checkforUpdatesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.checkforUpdatesToolStripMenuItem.Text = "CheckforUpdates";
             this.checkforUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkforUpdatesToolStripMenuItem_Click);
             // 
@@ -2380,10 +2371,10 @@
             this.OS_BSoDZIP.Cursor = System.Windows.Forms.Cursors.Hand;
             this.OS_BSoDZIP.Dock = System.Windows.Forms.DockStyle.Left;
             this.OS_BSoDZIP.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_BSoDZIP.Location = new System.Drawing.Point(157, 0);
+            this.OS_BSoDZIP.Location = new System.Drawing.Point(162, 0);
             this.OS_BSoDZIP.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
             this.OS_BSoDZIP.Name = "OS_BSoDZIP";
-            this.OS_BSoDZIP.Size = new System.Drawing.Size(25, 20);
+            this.OS_BSoDZIP.Size = new System.Drawing.Size(30, 20);
             this.OS_BSoDZIP.TabIndex = 77;
             this.OS_BSoDZIP.TabStop = false;
             this.OS_BSoDZIP.Click += new System.EventHandler(this.OS_BSoDZIP_Click);
@@ -2398,7 +2389,7 @@
             this.OS_MinidumpOpen.Location = new System.Drawing.Point(132, 0);
             this.OS_MinidumpOpen.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
             this.OS_MinidumpOpen.Name = "OS_MinidumpOpen";
-            this.OS_MinidumpOpen.Size = new System.Drawing.Size(25, 20);
+            this.OS_MinidumpOpen.Size = new System.Drawing.Size(30, 20);
             this.OS_MinidumpOpen.TabIndex = 76;
             this.OS_MinidumpOpen.TabStop = false;
             this.OS_MinidumpOpen.Click += new System.EventHandler(this.OS_MinidumpOpen_Click);
@@ -2478,7 +2469,7 @@
             this.OS_WallpaperOpen.Location = new System.Drawing.Point(102, 0);
             this.OS_WallpaperOpen.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
             this.OS_WallpaperOpen.Name = "OS_WallpaperOpen";
-            this.OS_WallpaperOpen.Size = new System.Drawing.Size(25, 20);
+            this.OS_WallpaperOpen.Size = new System.Drawing.Size(30, 20);
             this.OS_WallpaperOpen.TabIndex = 76;
             this.OS_WallpaperOpen.TabStop = false;
             this.OS_WallpaperOpen.Click += new System.EventHandler(this.GoWallpaperRotate_Click);
@@ -7792,6 +7783,14 @@
             this.MainToolTip.OwnerDraw = true;
             this.MainToolTip.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.MainToolTip_Draw);
             // 
+            // koreanToolStripMenuItem
+            // 
+            this.koreanToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.koreanToolStripMenuItem.Name = "koreanToolStripMenuItem";
+            this.koreanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.koreanToolStripMenuItem.Text = "Korean";
+            this.koreanToolStripMenuItem.Click += new System.EventHandler(this.koreanToolStripMenuItem_Click);
+            // 
             // Glow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -8430,6 +8429,7 @@
         private System.Windows.Forms.ToolStripMenuItem monitorTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem monitorDeadPixelTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem monitorDynamicRangeTestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem koreanToolStripMenuItem;
     }
 }
 

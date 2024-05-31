@@ -17,26 +17,21 @@ namespace Glow{
         // ======================================================================================================
         // VERSIONS
         public class GlowVersionEngine{
-            string version_mode;
             public string GlowVersion(int v_type, int v_mode){
-                if (v_type == 0){
-                    if (v_mode == 0){
-                        version_mode = string.Format("{0} - v{1}", Application.ProductName, Application.ProductVersion.Substring(0, 5));
-                    }else if (v_mode == 1){
-                        version_mode = string.Format("{0} - v{1}", Application.ProductName, Application.ProductVersion.Substring(0, 7));
-                    }
-                }else if (v_type == 1){
-                    if (v_mode == 0){
-                        version_mode = string.Format("v{0}", Application.ProductVersion.Substring(0, 5));
-                    }else if (v_mode == 1){
-                        version_mode = string.Format("v{0}", Application.ProductVersion.Substring(0, 7));
-                    }
-                }else if (v_type == 2){
-                    if (v_mode == 0){
-                        version_mode = string.Format("{0}", Application.ProductVersion.Substring(0, 5));
-                    }else if (v_mode == 1){
-                        version_mode = string.Format("{0}", Application.ProductVersion.Substring(0, 7));
-                    }
+                string version_mode = "";
+                string versionSubstring = v_mode == 0 ? Application.ProductVersion.Substring(0, 5) : Application.ProductVersion.Substring(0, 7);
+                switch (v_type){
+                    case 0:
+                        version_mode = v_mode == 0 ? $"{Application.ProductName} - v{versionSubstring}" : $"{Application.ProductName} - v{Application.ProductVersion.Substring(0, 7)}";
+                        break;
+                    case 1:
+                        version_mode = $"v{versionSubstring}";
+                        break;
+                    case 2:
+                        version_mode = versionSubstring;
+                        break;
+                    default:
+                        break;
                 }
                 return version_mode;
             }
@@ -45,20 +40,17 @@ namespace Glow{
         // LANG PATHS
         public static string glow_lf = @"g_langs";                              // Main Path
         public static string glow_lang_en = glow_lf + @"\English.ini";          // English    | en
+        public static string glow_lang_ko = glow_lf + @"\Korean.ini";           // Korean     | ko
         public static string glow_lang_tr = glow_lf + @"\Turkish.ini";          // Turkish    | tr
-        // ======================================================================================================
-        // TS READ LANG MODULE
         public class TSGetLangs{
             [DllImport("kernel32.dll")]
             private static extern long GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
-            public TSGetLangs(string file_path){ save_file_path = file_path; }
-            private string save_file_path = glow_lf;
-            private string default_save_process { get; set; }
-            public string TSReadLangs(string episode, string setting_name){
-                default_save_process = default_save_process ?? string.Empty;
-                StringBuilder str_builder = new StringBuilder(256);
-                GetPrivateProfileString(episode, setting_name, default_save_process, str_builder, 255, save_file_path);
-                return str_builder.ToString();
+            private readonly string _saveFilePath;
+            public TSGetLangs(string filePath){ _saveFilePath = filePath; }
+            public string TSReadLangs(string episode, string settingName){
+                StringBuilder stringBuilder = new StringBuilder(512);
+                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 511, _saveFilePath);
+                return stringBuilder.ToString();
             }
         }
         // ======================================================================================================
@@ -72,19 +64,36 @@ namespace Glow{
             private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
             [DllImport("kernel32.dll")]
             private static extern long GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
-            public TSSettingsSave(string file_path){ save_file_path = file_path; }
-            private string save_file_path = ts_sf;
-            private string default_save_process { get; set; }
-            public string TSReadSettings(string episode, string setting_name){
-                default_save_process = default_save_process ?? string.Empty;
-                StringBuilder str_builder = new StringBuilder(256);
-                GetPrivateProfileString(episode, setting_name, default_save_process, str_builder, 255, save_file_path);
-                return str_builder.ToString();
+            private readonly string _saveFilePath;
+            public TSSettingsSave(string filePath){ _saveFilePath = filePath; }
+            public string TSReadSettings(string episode, string settingName){
+                StringBuilder stringBuilder = new StringBuilder(512);
+                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 511, _saveFilePath);
+                return stringBuilder.ToString();
             }
-            public long TSWriteSettings(string episode, string setting_name, string value){
-                return WritePrivateProfileString(episode, setting_name, value, save_file_path);
+            public long TSWriteSettings(string episode, string settingName, string value){
+                return WritePrivateProfileString(episode, settingName, value, _saveFilePath);
             }
         }
+        // DYNAMIC SIZE COUNT ALGORITHM
+        // ======================================================================================================
+        public static string TS_FormatSize(double bytes){
+            string[] suffixes = { "Byte", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+            int suffixIndex = 0;
+            double doubleBytes = bytes;
+            while (doubleBytes >= 1024 && suffixIndex < suffixes.Length - 1){
+                doubleBytes /= 1024;
+                suffixIndex++;
+            }
+            return $"{doubleBytes:0.##} {suffixes[suffixIndex]}";
+        }
+        public static double TS_FormatSizeNoType(double bytes){
+            while (bytes >= 1024){
+                bytes /= 1024;
+            }
+            return Math.Round(bytes, 2);
+        }
+        // ======================================================================================================
         // CPU CODE SETS
         [DllImport("kernel32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]

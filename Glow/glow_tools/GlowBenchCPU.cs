@@ -4,7 +4,6 @@ using System.Threading;
 using System.Management;
 using System.Diagnostics;
 using System.Windows.Forms;
-using System.Threading.Tasks;
 using static Glow.GlowModules;
 
 namespace Glow.glow_tools{
@@ -22,34 +21,11 @@ namespace Glow.glow_tools{
         bool loop_mode = true;
         //
         public GlowBenchCPU(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
-        // GET CPU INFO
-        private void get_cpu_info(){
-            ManagementObjectSearcher search_process = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
-            foreach (ManagementObject query_process_rotate in search_process.Get()){
-                try{
-                    string core;
-                    string thread;
-                    // CPU NAME
-                    Bench_CPUName.Text = Convert.ToString(query_process_rotate["Name"]).Trim();
-                    // CPU CORES
-                    core = Convert.ToString(query_process_rotate["NumberOfCores"]);
-                    thread = Convert.ToString(query_process_rotate["ThreadCount"]);
-                    // CPU LOGICAL CORES
-                    if (thread == String.Empty || thread == ""){
-                        thread = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Cpu_Content", "cpu_c_unknown").Trim()));
-                    }
-                    Bench_CPUCores.Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_core_thread").Trim())), core, thread);
-                }catch (Exception){ }
-            }
-        }
         // LOAD
         private void GlowBenchCPU_Load(object sender, EventArgs e){
-            Task cpu_info = new Task(get_cpu_info);
-            cpu_info.Start();
             bench_cpu_theme_settings();
-            //
-            Bench_CPUName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_load").Trim()));
-            Bench_CPUCores.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_load").Trim()));
+            Bench_CPUName.Text = Glow.bench_cpu_info[0];
+            Bench_CPUCores.Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_core_thread").Trim())), Glow.bench_cpu_info[1], Glow.bench_cpu_info[2]);
         }
         // THEME SETTINGS
         public void bench_cpu_theme_settings(){
@@ -64,7 +40,8 @@ namespace Glow.glow_tools{
                 Bench_TLP_T_P1.BackColor = Glow.ui_colors[6];
                 Bench_TLP_T_P2.BackColor = Glow.ui_colors[6];
                 Bench_TLP_T_P3.BackColor = Glow.ui_colors[6];
-                Bench_TLP_T_P4.BackColor = Glow.ui_colors[6];
+                Bench_TLP_R_P1.BackColor = Glow.ui_colors[6];
+                Bench_TLP_R_P2.BackColor = Glow.ui_colors[6];
                 //
                 Bench_CPUName.ForeColor = Glow.ui_colors[7];
                 Bench_CPUCores.ForeColor = Glow.ui_colors[8];
@@ -316,7 +293,7 @@ namespace Glow.glow_tools{
                 foreach (double result in results){
                     totalResult += result;
                 }
-               // Console.WriteLine($"Hesaplama süresi: {stopwatch.Elapsed.Seconds} saniye");
+                // Console.WriteLine($"Hesaplama süresi: {stopwatch.Elapsed.Seconds} saniye");
             }
         }
         // EXIT

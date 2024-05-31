@@ -3,6 +3,7 @@ using System.Text;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 using static Glow.GlowModules;
 
 namespace Glow.glow_tools{
@@ -26,28 +27,43 @@ namespace Glow.glow_tools{
                 }else if (Glow.theme == 0 || Glow.theme == 2){
                     try { if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } }catch (Exception){ }
                 }
-                BackColor = Glow.ui_colors[5];
-                if (Glow.monitor_engine_mode == 0){
-                    Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("MonitorTestTool", "mtt_title").Trim())), Application.ProductName, Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("MonitorTestTool", "mtt_title_dead_pixel").Trim())));
-                }else if (Glow.monitor_engine_mode == 1){
-                    Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("MonitorTestTool", "mtt_title").Trim())), Application.ProductName, Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("MonitorTestTool", "mtt_title_dynamic_range").Trim())));
-                }
+                InfoLabel.Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("MonitorTestTool", "mtt_esc_info").Trim())), "\n");
             }catch (Exception){ } 
         }
         // LOAD
         private void GlowMonitorTestEngine_Load(object sender, EventArgs e){
             monitor_test_loader(Glow.monitor_engine_mode);
             monitor_test_engine_theme_settings();
+            if (Glow.monitor_engine_mode == 0){
+                Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("MonitorTestTool", "mtt_title").Trim())), Application.ProductName, Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("MonitorTestTool", "mtt_title_dead_pixel").Trim())));
+            }
+            else if (Glow.monitor_engine_mode == 1){
+                Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("MonitorTestTool", "mtt_title").Trim())), Application.ProductName, Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("MonitorTestTool", "mtt_title_dynamic_range").Trim())));
+            }
+            InfoLabel.BackColor = Color.FromArgb(230, 230, 230);
+            InfoLabel.ForeColor = Color.FromArgb(34, 34, 34);
         }
         // MONITOR TEST LOADER
+        int size_mode;
         private void monitor_test_loader(int monitor_test_mode){
             if (monitor_test_mode == 0){
                 monitor_test_dead_pixel();
             }else if (monitor_test_mode == 1){
                 monitor_dynamic_range_test();
             }
-            WindowState = FormWindowState.Maximized;
             FormBorderStyle = FormBorderStyle.None;
+            WindowState = FormWindowState.Maximized;
+            size_mode = 1;
+            //
+            Task message_remove = new Task(message_dispose);
+            message_remove.Start();   
+        }
+        private void InfoLabel_Click(object sender, EventArgs e){
+            InfoLabel.Dispose();
+        }
+        private void message_dispose(){
+            Thread.Sleep(5500);
+            InfoLabel.Dispose();
         }
         // DEAD PIXEL TEST
         private int dead_pixel_index = 0;
@@ -57,7 +73,7 @@ namespace Glow.glow_tools{
                 try{
                     while (dead_pixel_test_status){
                         UpdateBackgroundColor();
-                        Thread.Sleep(5000);
+                        Thread.Sleep(4750);
                         dead_pixel_index = (dead_pixel_index + 1) % global_colors.Length;
                     }
                 }catch (Exception){ }
@@ -129,6 +145,18 @@ namespace Glow.glow_tools{
             if (e.KeyCode == Keys.Escape){
                 WindowState = FormWindowState.Normal;
                 FormBorderStyle = FormBorderStyle.Sizable;
+                size_mode = 0;
+            }
+            if (e.KeyCode == Keys.F12){
+                if (size_mode == 1){
+                    WindowState = FormWindowState.Normal;
+                    FormBorderStyle = FormBorderStyle.Sizable;
+                    size_mode = 0;
+                }else{
+                    FormBorderStyle = FormBorderStyle.None;
+                    WindowState = FormWindowState.Maximized;
+                    size_mode = 1;
+                }
             }
         }
         // EXIT

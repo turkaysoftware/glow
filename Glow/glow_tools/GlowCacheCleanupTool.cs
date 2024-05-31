@@ -18,7 +18,7 @@ namespace Glow.glow_tools{
         static string clean_path_1 = @"C:\Windows\Temp";
         static string clean_path_2 = @"C:\Users\" + SystemInformation.UserName + @"\AppData\Local\Temp";
         List<string> clean_path_list = new List<string>(){ clean_path_1, clean_path_2 };
-        List<double> clean_path_size_list = new List<double>();
+        List<long> clean_path_size_list = new List<long>();
         // PATH VALUES
         List<string> path_names = new List<string>();
         // ==========
@@ -93,39 +93,13 @@ namespace Glow.glow_tools{
                 }
                 for (int i = 0; i <= clean_path_size_list.Count - 1; i++){
                     if (i == 0){
-                        CCT_L2.Text = convert_size(clean_path_size_list[i]);
+                        CCT_L2.Text = TS_FormatSize(clean_path_size_list[i]);
                     }else if (i == 1){
-                        CCT_L4.Text = convert_size(clean_path_size_list[i]);
+                        CCT_L4.Text = TS_FormatSize(clean_path_size_list[i]);
                     }
                 }
                 clean_path_size_list.Clear();
             }catch (Exception){ }
-        }
-        // FOLDER SIZE CONVERT ALGORITHM
-        // ======================================================================================================
-        private string convert_size(double get_size){
-            if (get_size > 1024){
-                if ((get_size / 1024) > 1024){
-                    if ((get_size / 1024 / 1024) > 1024){
-                        if ((get_size / 1024 / 1024 / 1024) > 1024){
-                            // TB
-                           return string.Format("{0:0.00} TB", get_size / 1024 / 1024 / 1024 / 1024);
-                        }else{
-                            // GB
-                            return string.Format("{0:0.00} GB", get_size / 1024 / 1024 / 1024);
-                        }
-                    }else{
-                        // MB
-                        return string.Format("{0:0.00} MB", get_size / 1024 / 1024);
-                    }
-                }else{
-                    // KB
-                    return string.Format("{0:0.0} KB", get_size / 1024);
-                }
-            }else{
-                // Byte
-                return string.Format("{0:0.0} " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("CacheCleanupTool", "cct_byte").Trim())), get_size);
-            }
         }
         // CLEANUP SYSTEM TEMP FOLDER
         // ======================================================================================================

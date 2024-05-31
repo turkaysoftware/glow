@@ -29,13 +29,30 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlowMonitorTestEngine));
+            this.InfoLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // InfoLabel
+            // 
+            this.InfoLabel.AutoSize = true;
+            this.InfoLabel.BackColor = System.Drawing.Color.Transparent;
+            this.InfoLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.InfoLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.InfoLabel.Location = new System.Drawing.Point(16, 16);
+            this.InfoLabel.Margin = new System.Windows.Forms.Padding(7);
+            this.InfoLabel.Name = "InfoLabel";
+            this.InfoLabel.Padding = new System.Windows.Forms.Padding(3);
+            this.InfoLabel.Size = new System.Drawing.Size(202, 23);
+            this.InfoLabel.TabIndex = 0;
+            this.InfoLabel.Text = "Çıkmak için ESC tuşuna basınız.";
+            this.InfoLabel.Click += new System.EventHandler(this.InfoLabel_Click);
             // 
             // GlowMonitorTestEngine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(759, 411);
+            this.Controls.Add(this.InfoLabel);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(775, 450);
@@ -47,9 +64,12 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GlowMonitorTestEngine_KeyDown);
             this.Resize += new System.EventHandler(this.GlowMonitorTestEngine_Resize);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Label InfoLabel;
     }
 }

@@ -30,7 +30,7 @@ namespace Glow{
         public static int theme, g_version_mode = 0, monitor_engine_mode;
         // ======================================================================================================
         // VARIABLES
-        int menu_btns = 1, menu_rp = 1, initial_status, hiding_status, hiding_mode_wrapper;
+        int menu_btns = 1, menu_rp = 1, initial_status, hiding_status, hiding_mode_wrapper, windows_mode = 0;
         string wp_rotate, wp_resoulation;
         bool loop_status = true, pe_loop_status = true, osd_file_path_mode, service_file_path_mode;
         // ======================================================================================================
@@ -102,11 +102,8 @@ namespace Glow{
                         // CHECK SETTINGS
                         try{
                             // CHECK TR LANG
-                            if (!File.Exists(glow_lang_tr)){
-                                turkishToolStripMenuItem.Enabled = false;
-                            }else{
-                                alt_lang_available = true;
-                            }
+                            if (!File.Exists(glow_lang_ko)){ koreanToolStripMenuItem.Enabled = false; }else{ alt_lang_available = true; }
+                            if (!File.Exists(glow_lang_tr)){ turkishToolStripMenuItem.Enabled = false; }else{ alt_lang_available = true; }
                             // CHECK TR LANG
                             if (File.Exists(ts_sf)){
                                 GetGlowSetting(alt_lang_available);
@@ -115,14 +112,6 @@ namespace Glow{
                                 TSSettingsSave glow_settings_save = new TSSettingsSave(ts_sf);
                                 string get_system_theme = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "SystemUsesLightTheme", "").ToString().Trim();
                                 glow_settings_save.TSWriteSettings("GlowSettings", "ThemeStatus", get_system_theme);
-                                // SET INITIAL MODE
-                                glow_settings_save.TSWriteSettings("GlowSettings", "InitialStatus", "0");
-                                // SET HIDING MODE
-                                glow_settings_save.TSWriteSettings("GlowSettings", "HidingStatus", "0");
-                                // SET OSD FILE PATH MODE
-                                glow_settings_save.TSWriteSettings("GlowSettings", "OSDFilePathStatus", "0");
-                                // SET SERVICE FILE PATH MODE
-                                glow_settings_save.TSWriteSettings("GlowSettings", "SERVICEFilePathStatus", "0");
                                 // DETECT SYSTEM LANG / BYPASS LANGUAGE
                                 if (alt_lang_available){
                                     glow_settings_save.TSWriteSettings("GlowSettings", "LanguageStatus", ui_lang);
@@ -132,6 +121,14 @@ namespace Glow{
                                     glow_settings_save.TSWriteSettings("GlowSettings", "LanguageStatus", "en");
                                     GetGlowSetting(false);
                                 }
+                                // SET INITIAL MODE
+                                glow_settings_save.TSWriteSettings("GlowSettings", "InitialStatus", "0");
+                                // SET HIDING MODE
+                                glow_settings_save.TSWriteSettings("GlowSettings", "HidingStatus", "0");
+                                // SET OSD FILE PATH MODE
+                                glow_settings_save.TSWriteSettings("GlowSettings", "OSDFilePathStatus", "0");
+                                // SET SERVICE FILE PATH MODE
+                                glow_settings_save.TSWriteSettings("GlowSettings", "SERVICEFilePathStatus", "0");
                             }
                         }catch (Exception){ }
                     }else{
@@ -252,6 +249,10 @@ namespace Glow{
                     case "en":
                         lang_engine(glow_lang_en);
                         englishToolStripMenuItem.Checked = true;
+                        break;
+                    case "ko":
+                        lang_engine(glow_lang_ko);
+                        koreanToolStripMenuItem.Checked = true;
                         break;
                     case "tr":
                         lang_engine(glow_lang_tr);
@@ -493,7 +494,11 @@ namespace Glow{
                 }catch (Exception){ }
                 try{
                     // OS NAME
-                    OS_Name_V.Text = Convert.ToString(query_os_rotate["Caption"]);
+                    string os_name = Convert.ToString(query_os_rotate["Caption"]);
+                    OS_Name_V.Text = os_name;
+                    if (os_name.Trim().ToLower().Contains("windows 11")){
+                        windows_mode = 1;
+                    }
                 }catch (Exception){ }
                 try{
                     // OS MANUFACTURER
@@ -589,15 +594,10 @@ namespace Glow{
                 try{
                     // OS LAST BOOT
                     string last_bt = Convert.ToString(query_os_rotate["LastBootUpTime"]);
-                    string last_bt_year = last_bt.Substring(0, 4);
-                    string last_bt_month = last_bt.Substring(4, 2);
-                    string last_bt_day = last_bt.Substring(6, 2);
-                    string last_bt_hour = last_bt.Substring(8, 2);
-                    string last_bt_minute = last_bt.Substring(10, 2);
-                    string last_bt_second = last_bt.Substring(12, 2);
-                    string last_bt_process = last_bt_day + "." + last_bt_month + "." + last_bt_year + " - " + last_bt_hour + ":" + last_bt_minute + ":" + last_bt_second;
-                    OS_LastBootTime_V.Text = last_bt_process;
-                }catch (Exception){ }
+                    DateTime last_time = DateTime.ParseExact(last_bt.Substring(0, 14), "yyyyMMddHHmmss", null);
+                    OS_LastBootTime_V.Text = $"{last_time:d} - {last_time:HH:mm:ss}";
+                }
+                catch (Exception){ }
                 try{
                     // OS SHUTDOWN TIME
                     string sd_time_path = @"System\CurrentControlSet\Control\Windows";
@@ -756,38 +756,10 @@ namespace Glow{
                             // GET WALLPAPER SIZE
                             FileInfo wallpaper_size = new FileInfo(get_wallpaper);
                             double wallpaper_size_x64 = Convert.ToDouble(wallpaper_size.Length); // in byte
-                            if (wallpaper_size_x64 > 1024){
-                                if ((wallpaper_size_x64 / 1024) > 1024){
-                                    if ((wallpaper_size_x64 / 1024 / 1024) > 1024){
-                                        // GB
-                                        if (hiding_mode_wrapper != 1){
-                                            OS_Wallpaper_V.Text = Path.GetFileName(get_wallpaper) + " - " + wp_resoulation + " - " + string.Format("{0:0.00} GB", wallpaper_size_x64 / 1024 / 1024 / 1024);
-                                        }else{
-                                            OS_Wallpaper_V.Text = new string('*', Path.GetFileName(get_wallpaper).Length) + Path.GetExtension(get_wallpaper) + " - " + wp_resoulation + " - " + string.Format("{0:0.00} GB", wallpaper_size_x64 / 1024 / 1024 / 1024) + $" ({Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("HeaderHidingMode", "header_hiding_mode_on_ui").Trim()))})";
-                                        }
-                                    }else{
-                                        // MB
-                                        if (hiding_mode_wrapper != 1){
-                                            OS_Wallpaper_V.Text = Path.GetFileName(get_wallpaper) + " - " + wp_resoulation + " - " + string.Format("{0:0.00} MB", wallpaper_size_x64 / 1024 / 1024);
-                                        }else{
-                                            OS_Wallpaper_V.Text = new string('*', Path.GetFileName(get_wallpaper).Length) + Path.GetExtension(get_wallpaper) + " - " + wp_resoulation + " - " + string.Format("{0:0.00} MB", wallpaper_size_x64 / 1024 / 1024) + $" ({Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("HeaderHidingMode", "header_hiding_mode_on_ui").Trim()))})";
-                                        }
-                                    }
-                                }else{
-                                    // KB
-                                    if (hiding_mode_wrapper != 1){
-                                        OS_Wallpaper_V.Text = Path.GetFileName(get_wallpaper) + " - " + wp_resoulation + " - " + string.Format("{0:0.0} KB", wallpaper_size_x64 / 1024);
-                                    }else{
-                                        OS_Wallpaper_V.Text = new string('*', Path.GetFileName(get_wallpaper).Length) + Path.GetExtension(get_wallpaper) + " - " + wp_resoulation + " - " + string.Format("{0:0.0} KB", wallpaper_size_x64 / 1024) + $" ({Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("HeaderHidingMode", "header_hiding_mode_on_ui").Trim()))})";
-                                    }
-                                }
+                            if (hiding_mode_wrapper != 1){
+                                OS_Wallpaper_V.Text = Path.GetFileName(get_wallpaper) + " - " + wp_resoulation + " - " + TS_FormatSize(wallpaper_size_x64);
                             }else{
-                                // Byte
-                                if (hiding_mode_wrapper != 1){
-                                    OS_Wallpaper_V.Text = Path.GetFileName(get_wallpaper) + " - " + wp_resoulation + " - " + string.Format("{0:0.0} " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Os_Content", "os_c_byte").Trim())), wallpaper_size_x64);
-                                }else{
-                                    OS_Wallpaper_V.Text = new string('*', Path.GetFileName(get_wallpaper).Length) + Path.GetExtension(get_wallpaper) + " - " + wp_resoulation + " - " + string.Format("{0:0.0} " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Os_Content", "os_c_byte").Trim())), wallpaper_size_x64) + $" ({Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("HeaderHidingMode", "header_hiding_mode_on_ui").Trim()))})";
-                                }
+                                OS_Wallpaper_V.Text = new string('*', Path.GetFileName(get_wallpaper).Length) + Path.GetExtension(get_wallpaper) + " - " + wp_resoulation + " - " + TS_FormatSize(wallpaper_size_x64) + $" ({Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("HeaderHidingMode", "header_hiding_mode_on_ui").Trim()))})";
                             }
                             // HOVER HIDING WRAPPER
                             if (hiding_mode_wrapper != 1){
@@ -821,62 +793,42 @@ namespace Glow{
                     foreach (ManagementObject query_os_rotate in search_os.Get()){
                         try{
                             // FREE VIRTUAL RAM
-                            double free_virtual_ram = Convert.ToDouble(query_os_rotate["FreeVirtualMemory"]); // in kb
-                            double total_virtual_memory = Convert.ToDouble(query_os_rotate["TotalVirtualMemorySize"]); // in kb
-                            if (free_virtual_ram > 1024){
-                                if ((free_virtual_ram / 1024) > 1024){
-                                    // GB
-                                    RAM_EmptyVirtualRam_V.Text = string.Format("{0:0.00} GB", free_virtual_ram / 1024 / 1024);
-                                    RAM_UsageVirtualRam_V.Text = string.Format("{0:0.00} GB", (total_virtual_memory / 1024 / 1024) - (free_virtual_ram / 1024 / 1024));
-                                }else{
-                                    // MB
-                                    RAM_EmptyVirtualRam_V.Text = string.Format("{0:0.00} MB", free_virtual_ram / 1024);
-                                    RAM_UsageVirtualRam_V.Text = string.Format("{0:0.00} MB", (total_virtual_memory / 1024) - (free_virtual_ram / 1024));
-                                }
-                            }else{
-                                // KB
-                                RAM_EmptyVirtualRam_V.Text = string.Format("{0:0.0} KB", free_virtual_ram);
-                                RAM_UsageVirtualRam_V.Text = string.Format("{0:0.0} KB", total_virtual_memory - free_virtual_ram);
-                            }
+                            double free_virtual_ram = Convert.ToDouble(query_os_rotate["FreeVirtualMemory"]) * 1024; // in byte
+                            double total_virtual_memory = Convert.ToDouble(query_os_rotate["TotalVirtualMemorySize"]) * 1024; // in byte
+                            double tvm = total_virtual_memory - free_virtual_ram;
+                            RAM_EmptyVirtualRam_V.Text = TS_FormatSize(free_virtual_ram);
+                            RAM_UsageVirtualRam_V.Text = TS_FormatSize(tvm);
                             // GET LAST BOOT
+                            string oi_day = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Os_Content", "os_c_day").Trim()));
+                            string oi_hour = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Os_Content", "os_c_hour").Trim()));
+                            string oi_minute = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Os_Content", "os_c_minute").Trim()));
+                            string oi_second = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Os_Content", "os_c_second").Trim()));
+                            string oi_ago = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Os_Content", "os_c_ago").Trim()));
+                            //
                             string last_boot = Convert.ToString(query_os_rotate["LastBootUpTime"]);
-                            // Year - Month - Day - Hour - Minute - Second
-                            int year = Convert.ToInt32(last_boot.Substring(0, 4));
-                            int month = Convert.ToInt32(last_boot.Substring(4, 2));
-                            int day = Convert.ToInt32(last_boot.Substring(6, 2));
-                            int hour = Convert.ToInt32(last_boot.Substring(8, 2));
-                            int minute = Convert.ToInt32(last_boot.Substring(10, 2));
-                            int second = Convert.ToInt32(last_boot.Substring(12, 2));
                             // Convert DateTime
-                            var boot_date_x64 = new DateTime(year, month, day, hour, minute, second);
+                            DateTime boot_date_x64 = DateTime.ParseExact(last_boot.Substring(0, 14), "yyyyMMddHHmmss", null);
                             // Current Date and Hour
                             var now_date = DateTime.Now;
                             // System Uptime
                             var system_uptime = now_date.Subtract(boot_date_x64);
-                            string su_days = system_uptime.Days + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Os_Content", "os_c_day").Trim()));
-                            string su_hours = system_uptime.Hours + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Os_Content", "os_c_hour").Trim()));
-                            string su_minutes = system_uptime.Minutes + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Os_Content", "os_c_minute").Trim()));
-                            string su_seconds = system_uptime.Seconds + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Os_Content", "os_c_second").Trim()));
-                            string system_uptime_x64 = string.Format("{0}, {1}, {2}, {3}", su_days, su_hours, su_minutes, su_seconds);
+                            string system_uptime_x64 = $"{system_uptime.Days} {oi_day}, {system_uptime.Hours} {oi_hour}, {system_uptime.Minutes} {oi_minute}, {system_uptime.Seconds} {oi_second}";
                             OS_SystemWorkTime_V.Text = system_uptime_x64;
                             // SYSTEM INSTALL DATE
-                            string os_id = Convert.ToString(query_os_rotate["InstallDate"]);
-                            int os_id_year = Convert.ToInt32(os_id.Substring(0, 4));
-                            string os_id_month = os_id.Substring(4, 2);
-                            string os_id_day = os_id.Substring(6, 2);
-                            int os_id_hour = Convert.ToInt32(os_id.Substring(8, 2));
-                            int os_id_minute = Convert.ToInt32(os_id.Substring(10, 2));
-                            string os_id_second = os_id.Substring(12, 2);
-                            // Convert DateTime
-                            var os_id_x64 = new DateTime(os_id_year, Convert.ToInt32(os_id_month), Convert.ToInt32(os_id_day), os_id_hour, os_id_minute, Convert.ToInt32(os_id_second));
+                            string os_id = query_os_rotate["InstallDate"].ToString();
+                            DateTime osInstallDate = new DateTime(
+                                int.Parse(os_id.Substring(0, 4)),
+                                int.Parse(os_id.Substring(4, 2)),
+                                int.Parse(os_id.Substring(6, 2)),
+                                int.Parse(os_id.Substring(8, 2)),
+                                int.Parse(os_id.Substring(10, 2)),
+                                int.Parse(os_id.Substring(12, 2))
+                            );
                             // Current Date and Hour
-                            var os_id_now_date = DateTime.Now;
+                            DateTime currentDate = DateTime.Now;
                             // System Uptime
-                            var os_id_x128 = os_id_now_date.Subtract(os_id_x64);
-                            string os_id_days = os_id_x128.Days + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Os_Content", "os_c_day").Trim()));
-                            string os_id_hours = os_id_x128.Hours + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Os_Content", "os_c_hour").Trim()));
-                            string os_id_minutes = os_id_x128.Minutes + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Os_Content", "os_c_minute").Trim())) + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("Os_Content", "os_c_ago").Trim()));
-                            string os_id_x256 = string.Format("{0}.{1}.{2} - {3}:{4}:{5} - ", os_id_day, os_id_month, os_id_year, os_id_hour, os_id_minute, os_id_second) + string.Format("( {0}, {1}, {2} )", os_id_days, os_id_hours, os_id_minutes);
+                            TimeSpan uptime = currentDate - osInstallDate;
+                            string os_id_x256 = $"{osInstallDate:dd.MM.yyyy} - {osInstallDate:HH:mm:ss} - ({uptime.Days} {oi_day}, {uptime.Hours} {oi_hour}, {uptime.Minutes} {oi_minute} {oi_ago})";
                             OS_Install_V.Text = os_id_x256;
                         }catch (Exception){ }
                     }
@@ -1221,6 +1173,7 @@ namespace Glow{
         }
         // CPU
         // ======================================================================================================
+        public static List<string> bench_cpu_info = new List<string>();
         private void cpu(){
             // CPU MODE
             string cpu_mode = "";
@@ -1230,14 +1183,13 @@ namespace Glow{
                 try{
                     // CPU NAME
                     CPU_Name_V.Text = Convert.ToString(query_process_rotate["Name"]).Trim();
+                    bench_cpu_info.Add(CPU_Name_V.Text);
                 }catch (Exception){ }
                 try{
                     // CPU MANUFACTURER
                     string cpu_man = Convert.ToString(query_process_rotate["Manufacturer"]).Trim();
                     bool cpu_man_intel = cpu_man.Contains("Intel");
                     bool cpu_man_amd = cpu_man.Contains("Advanced Micro");
-                    // MessageBox.Show(cpu_man_intel.ToString());
-                    // MessageBox.Show(cpu_man_amd.ToString());
                     if (cpu_man_intel == true){
                         CPU_Manufacturer_V.Text = "Intel Corporation";
                         MB_Chipset_V.Text = "Intel";
@@ -1296,21 +1248,18 @@ namespace Glow{
                 }catch (Exception){ }
                 try{
                     // L2 CACHE
-                    double l2_size = Convert.ToDouble(query_process_rotate["L2CacheSize"]);
-                    if (l2_size >= 1024){
-                        CPU_L2_V.Text = (l2_size / 1024).ToString() + " MB";
-                    }else{
-                        CPU_L2_V.Text = l2_size.ToString() + " KB";
-                    }
+                    double l2_size = Convert.ToDouble(query_process_rotate["L2CacheSize"]) * 1024;
+                    CPU_L2_V.Text = TS_FormatSize(l2_size);
                 }catch (Exception){ }
                 try{
                     // L3 CACHE
-                    double l3_size = Convert.ToDouble(query_process_rotate["L3CacheSize"]);
-                    CPU_L3_V.Text = l3_size / 1024 + " MB";
+                    double l3_size = Convert.ToDouble(query_process_rotate["L3CacheSize"]) * 1024;
+                    CPU_L3_V.Text = TS_FormatSize(l3_size);
                 }catch (Exception){ }
                 try{
                     // CPU CORES
                     CPU_CoreCount_V.Text = Convert.ToString(query_process_rotate["NumberOfCores"]);
+                    bench_cpu_info.Add(CPU_CoreCount_V.Text);
                 }catch (Exception){ }
                 try{
                     // CPU LOGICAL CORES
@@ -1320,6 +1269,7 @@ namespace Glow{
                     }else{
                         CPU_LogicalCore_V.Text = thread_count;
                     }
+                    bench_cpu_info.Add(CPU_LogicalCore_V.Text);
                 }catch (Exception){ }
                 try{
                     // CPU SOCKET
@@ -1367,12 +1317,8 @@ namespace Glow{
             ManagementObjectSearcher search_cm = new ManagementObjectSearcher("root\\CIMV2", $"SELECT * FROM Win32_CacheMemory WHERE Level = {3}");
             foreach (ManagementObject query_cm_rotate in search_cm.Get()){
                 // L1 CACHE
-                double l1_size = Convert.ToDouble(query_cm_rotate["MaxCacheSize"]);
-                if (l1_size >= 1024){
-                    CPU_L1_V.Text = (l1_size / 1024).ToString() + " MB";
-                }else{
-                    CPU_L1_V.Text = l1_size.ToString() + " KB";
-                }
+                double l1_size = Convert.ToDouble(query_cm_rotate["MaxCacheSize"]) * 1024;
+                CPU_L1_V.Text = TS_FormatSize(l1_size);
             }
             try{
                 // CPU CODE SETS
@@ -1494,21 +1440,13 @@ namespace Glow{
                 // TOTAL RAM
                 ComputerInfo main_query = new ComputerInfo();
                 ulong total_ram_x64_tick = ulong.Parse(main_query.TotalPhysicalMemory.ToString());
-                double total_ram_isle = total_ram_x64_tick / (1024 * 1024);
-                if (total_ram_isle > 1024){
-                    if ((total_ram_isle / 1024) > 1024){
-                        RAM_TotalRAM_V.Text = string.Format("{0:0.00} TB", total_ram_isle / 1024 / 1024);
-                    }else{
-                        RAM_TotalRAM_V.Text = string.Format("{0:0.00} GB", total_ram_isle / 1024);
-                    }
-                }else{
-                    RAM_TotalRAM_V.Text = total_ram_isle.ToString() + " MB";
-                }
+                RAM_TotalRAM_V.Text = TS_FormatSize(total_ram_x64_tick);
             }catch (Exception){ }
             try{
                 foreach (ManagementObject query_os_rotate in search_os.Get()){
                     // TOTAL VIRTUAL RAM
-                    RAM_TotalVirtualRam_V.Text = string.Format("{0:0.00} GB", Convert.ToDouble(query_os_rotate["TotalVirtualMemorySize"]) / 1024 / 1024);
+                    double total_virtual_ram = Convert.ToDouble(query_os_rotate["TotalVirtualMemorySize"]) * 1024;
+                    RAM_TotalVirtualRam_V.Text = TS_FormatSize(total_virtual_ram);
                 }
             }catch (Exception){ }
             foreach (ManagementObject queryObj in search_pm.Get()){
@@ -1528,12 +1466,8 @@ namespace Glow{
                 }catch (Exception){ }
                 try{
                     // RAM CAPACITY
-                    double ram_amount = Convert.ToDouble(queryObj["Capacity"]) / 1024 / 1024;
-                    if (ram_amount > 1024){
-                        ram_amount_list.Add(ram_amount / 1024 + " GB");
-                    }else{
-                        ram_amount_list.Add(ram_amount + " MB");
-                    }
+                    double ram_amount = Convert.ToDouble(queryObj["Capacity"]);
+                    ram_amount_list.Add(TS_FormatSize(ram_amount));
                     RAM_Amount_V.Text = ram_amount_list[0];
                 }catch (Exception){ }
                 try{
@@ -1599,7 +1533,12 @@ namespace Glow{
                 }catch (Exception){ }
                 try{
                     // RAM SPEED
-                    ram_frekans_list.Add(Convert.ToInt32(queryObj["Speed"]) + " MHz");
+                    double ram_speed = Convert.ToInt32(queryObj["Speed"]);
+                    if (windows_mode != 1){
+                        ram_frekans_list.Add(Convert.ToInt32(queryObj["Speed"]) + " MHz");
+                    }else{
+                        ram_frekans_list.Add(Convert.ToInt32(queryObj["Speed"]) + " MT/s");
+                    }
                     RAM_Frequency_V.Text = ram_frekans_list[0];
                 }catch (Exception){ }
                 try{
@@ -1735,29 +1674,10 @@ namespace Glow{
                 do{
                     if (loop_status == false){ break; }
                     ulong total_ram = ulong.Parse(get_ram_info.TotalPhysicalMemory.ToString());
-                    double total_ram_x64 = total_ram / (1024 * 1024);
                     ulong usable_ram = ulong.Parse(get_ram_info.AvailablePhysicalMemory.ToString());
-                    double usable_ram_x64 = usable_ram / (1024 * 1024);
-                    double ram_process = total_ram_x64 - usable_ram_x64;
-                    double usage_ram_percentage = (total_ram_x64 - usable_ram_x64) / total_ram_x64 * 100;
-                    if (ram_process > 1024){
-                        if ((ram_process / 1024) > 1024){
-                            RAM_UsageRAMCount_V.Text = string.Format("{0:0.00} TB - ", ram_process / 1024 / 1024) + string.Format("%{0:0.0}", usage_ram_percentage);
-                        }else{
-                            RAM_UsageRAMCount_V.Text = string.Format("{0:0.00} GB - ", ram_process / 1024) + string.Format("%{0:0.0}", usage_ram_percentage);
-                        }
-                    }else{
-                        RAM_UsageRAMCount_V.Text = ram_process.ToString() + " MB - " + string.Format("%{0:0.0}", usage_ram_percentage);
-                    }
-                    if (usable_ram_x64 > 1024){
-                        if ((usable_ram_x64 / 1024) > 1024){
-                            RAM_EmptyRamCount_V.Text = string.Format("{0:0.00} TB", usable_ram_x64 / 1024 / 1024);
-                        }else{
-                            RAM_EmptyRamCount_V.Text = string.Format("{0:0.00} GB", usable_ram_x64 / 1024);
-                        }
-                    }else{
-                        RAM_EmptyRamCount_V.Text = usable_ram_x64.ToString() + " MB";
-                    }
+                    double usage_ram_percentage = (TS_FormatSizeNoType(total_ram) - TS_FormatSizeNoType(usable_ram)) / TS_FormatSizeNoType(total_ram) * 100;
+                    RAM_UsageRAMCount_V.Text = string.Format("{0} - {1}", TS_FormatSize(total_ram - usable_ram), string.Format("%{0:0.00}", usage_ram_percentage));
+                    RAM_EmptyRamCount_V.Text = TS_FormatSize(usable_ram);
                     Thread.Sleep(1000 - DateTime.Now.Millisecond);
                 }while (loop_status == true);
             }catch (Exception){ }
@@ -2074,9 +1994,16 @@ namespace Glow{
                                 // DISK MANUFACTURER
                                 List<string> disk_mfr = new List<string>(){ "acer", "adata", "a-data", "addlink", "alpin", "apacer", "apple",
                                 "asus", "biostar", "codegen", "colorful", "corsair", "crucial", "ezcool", "geil", "gigabyte", "goodram",
-                                "hi level", "hikvision", "hi-level", "hp", "intel", "intenso", "james donkey", "kingspec", "kingston", "kioxia",
+                                "hi level", "hikvision", "hp", "intel", "intenso", "james donkey", "kingspec", "kingston", "kioxia",
                                 "leven", "lexar", "micron", "mld", "msi", "mushkin", "neo forza", "neoforza", "netac", "patriot", "pioneer",
-                                "pny", "samsung", "san disk", "sandisk", "seagate", "siliconpower", "team", "toshiba", "turbox", "wd", "western digital" };
+                                "pny", "samsung", "sandisk", "seagate", "siliconpower", "team", "toshiba", "turbox", "wd", "western digital",
+                                "verbatim", "maxtor", "hitachi", "fujitsu", "transcend", "ocz", "hynix", "plextor", "liteon", "verico", "qnap",
+                                "lenovo", "maxell", "teac", "quantum", "panasonic", "nec", "iomega", "buffalo", "buslink", "busbi", "centon",
+                                "cm storm", "datawrite", "duracell", "dynamode", "emtec", "excelstor", "fuji", "hgst", "hyundai", "i-omega",
+                                "imation", "kanguru", "kingmax", "kodak", "lacie", "memorex", "minox", "mio", "olympus", "optiarc", "philips",
+                                "pinnacle", "pnypqi", "ramsta", "ricoh", "rokit", "sigma", "sk hynix", "sodimm", "smartbuy", "sony", "steve jobs",
+                                "stuart hughes", "super talent", "trimble", "traxdata", "viking", "xerox", "xmedia", "zotac", "zoostorm" };
+                                disk_mfr.Sort();
                                 var disk_index = Convert.ToString(drive_info.Properties["Index"].Value).Trim();
                                 ManagementObjectSearcher disk_model_and_man_query = new ManagementObjectSearcher("root\\Microsoft\\Windows\\Storage", $"SELECT * FROM MSFT_Disk WHERE Number={disk_index}");
                                 foreach (ManagementObject disk_model_and_man_search in disk_model_and_man_query.Get()){
@@ -2180,55 +2107,13 @@ namespace Glow{
                             try{
                                 // DISK TOTAL SIZE
                                 var disk_total_size = Convert.ToDouble(logical_drive_info.Properties["Size"].Value); // in byte
-                                if (disk_total_size > 1024){
-                                    if ((disk_total_size / 1024) > 1024){
-                                        if ((disk_total_size / 1024 / 1024) > 1024){
-                                            if ((disk_total_size / 1024 / 1024 / 1024) > 1024){
-                                                // TB
-                                                disk_total_space_list.Add(string.Format("{0:0.00} TB", disk_total_size / 1024 / 1024 / 1024 / 1024));
-                                            }else{
-                                                // GB
-                                                disk_total_space_list.Add(string.Format("{0:0.00} GB", disk_total_size / 1024 / 1024 / 1024));
-                                            }
-                                        }else{
-                                            // MB
-                                            disk_total_space_list.Add(string.Format("{0:0.00} MB", disk_total_size / 1024 / 1024));
-                                        }
-                                    }else{
-                                        // KB
-                                        disk_total_space_list.Add(string.Format("{0:0.0} KB", disk_total_size / 1024));
-                                    }
-                                }else{
-                                    // Byte
-                                    disk_total_space_list.Add(string.Format("{0:0.0} " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("StorageContent", "se_c_byte").Trim())), disk_total_size));
-                                }
+                                disk_total_space_list.Add(TS_FormatSize(disk_total_size));
                                 DISK_Size_V.Text = disk_total_space_list[0];
                             }catch (Exception){ }
                             try{
                                 // DISK FREE SPACE
                                 var disk_free_space = Convert.ToDouble(logical_drive_info.Properties["FreeSpace"].Value); // in byte
-                                if (disk_free_space > 1024){
-                                    if ((disk_free_space / 1024) > 1024){
-                                        if ((disk_free_space / 1024 / 1024) > 1024){
-                                            if ((disk_free_space / 1024 / 1024 / 1024) > 1024){
-                                                // TB
-                                                disk_free_space_list.Add(string.Format("{0:0.00} TB", disk_free_space / 1024 / 1024 / 1024 / 1024));
-                                            }else{
-                                                // GB
-                                                disk_free_space_list.Add(string.Format("{0:0.00} GB", disk_free_space / 1024 / 1024 / 1024));
-                                            }
-                                        }else{
-                                            // MB
-                                            disk_free_space_list.Add(string.Format("{0:0.00} MB", disk_free_space / 1024 / 1024));
-                                        }
-                                    }else{
-                                        // KB
-                                        disk_free_space_list.Add(string.Format("{0:0.0} KB", disk_free_space / 1024));
-                                    }
-                                }else{
-                                    // Byte
-                                    disk_free_space_list.Add(string.Format("{0:0.0} " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("StorageContent", "se_c_byte").Trim())), disk_free_space));
-                                }
+                                disk_free_space_list.Add(TS_FormatSize(disk_free_space));
                                 DISK_FreeSpace_V.Text = disk_free_space_list[0];
                             }catch (Exception){ }
                             try{
@@ -3811,6 +3696,9 @@ namespace Glow{
         private void englishToolStripMenuItem_Click(object sender, EventArgs e){
             if (lang != "en"){ lang_preload(glow_lang_en, "en"); select_lang_active(sender); }
         }
+        private void koreanToolStripMenuItem_Click(object sender, EventArgs e){
+            if (lang != "ko"){ lang_preload(glow_lang_ko, "ko"); select_lang_active(sender); }
+        }
         private void turkishToolStripMenuItem_Click(object sender, EventArgs e){
             if (lang != "tr"){ lang_preload(glow_lang_tr ,"tr"); select_lang_active(sender); }
         }
@@ -3870,6 +3758,7 @@ namespace Glow{
                 // LANGS
                 languageToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("HeaderMenu", "header_menu_language").Trim()));
                 englishToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("HeaderLangs", "lang_en").Trim()));
+                koreanToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("HeaderLangs", "lang_ko").Trim()));
                 turkishToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("HeaderLangs", "lang_tr").Trim()));
                 // INITIAL VIEW
                 initialViewToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("HeaderMenu", "header_menu_start").Trim()));
@@ -4411,14 +4300,21 @@ namespace Glow{
                     bench_disk_tool.bench_disk_theme_settings();
                 }
             }catch (Exception){ }
-            //  MONITOR TEST ENGINE TOOL
+            //  MONITOR TEST DEAD PIXEL TOOL
             try{
                 GlowMonitorTestEngine monitor_test_engine_tool = new GlowMonitorTestEngine();
-                string glow_tool_name = "glow_monitor_test_engine";
+                string glow_tool_name = "glow_monitor_test_engine_dead_pixel";
                 monitor_test_engine_tool.Name = glow_tool_name;
                 if (Application.OpenForms[glow_tool_name] != null){
                     monitor_test_engine_tool = (GlowMonitorTestEngine)Application.OpenForms[glow_tool_name];
                     monitor_test_engine_tool.monitor_test_engine_theme_settings();
+                }
+                GlowMonitorTestEngine monitor_test_engine_tool2 = new GlowMonitorTestEngine();
+                string glow_tool_name2 = "glow_monitor_test_engine_dynamic_range";
+                monitor_test_engine_tool2.Name = glow_tool_name2;
+                if (Application.OpenForms[glow_tool_name2] != null){
+                    monitor_test_engine_tool2 = (GlowMonitorTestEngine)Application.OpenForms[glow_tool_name2];
+                    monitor_test_engine_tool2.monitor_test_engine_theme_settings();
                 }
             }catch (Exception){ }
             // GLOW ABOUT
@@ -4470,6 +4366,8 @@ namespace Glow{
                 languageToolStripMenuItem.ForeColor = ui_colors[0];
                 englishToolStripMenuItem.BackColor = ui_colors[1];
                 englishToolStripMenuItem.ForeColor = ui_colors[0];
+                koreanToolStripMenuItem.BackColor = ui_colors[1];
+                koreanToolStripMenuItem.ForeColor = ui_colors[0];
                 turkishToolStripMenuItem.BackColor = ui_colors[1];
                 turkishToolStripMenuItem.ForeColor = ui_colors[0];
                 // INITIAL VIEW
@@ -6290,7 +6188,12 @@ namespace Glow{
         private void monitor_start_engine_select(){
             TSGetLangs g_lang = new TSGetLangs(lang_path);
             GlowMonitorTestEngine glow_monitor_engine_test = new GlowMonitorTestEngine();
-            string glow_tool_name = "glow_monitor_test_engine";
+            string glow_tool_name = "";
+            if (monitor_engine_mode == 0){
+                glow_tool_name = "glow_monitor_test_engine_dead_pixel";
+            }else if (monitor_engine_mode == 1){
+                glow_tool_name = "glow_monitor_test_engine_dynamic_range";
+            }
             glow_monitor_engine_test.Name = glow_tool_name;
             if (Application.OpenForms[glow_tool_name] == null){
                 glow_monitor_engine_test.Show();
