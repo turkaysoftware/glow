@@ -8,6 +8,10 @@
 
 Download: [Glow Latest Version](https://github.com/roines45/glow/releases/latest)
 
+# How to use Glow?
+
+Simply **unzip the ZIP file** you downloaded from the **[Release](https://github.com/roines45/glow/releases/latest)** section and run the ***Glow.exe*** file suitable for your processor architecture!
+
 # Supported Languages
 
 - English
