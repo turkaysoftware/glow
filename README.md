@@ -10,7 +10,7 @@ Download: [Glow Latest Version](https://github.com/roines45/glow/releases/latest
 
 # How to use Glow?
 
-**Extract the entire contents of the Glow ZIP file** you downloaded from the **[Release](https://github.com/roines45/glow/releases/latest)** section into a folder. Then just run the ***Glow.exe*** program suitable for your processor architecture!
+**Extract the entire contents of the Glow ZIP file** you downloaded from the **[Release](https://github.com/roines45/glow/releases/latest)** section into a folder. Just run *Glow_x64.exe* if you have an **x64 processor** or *Glow_arm64.exe* if you have an **ARM processor**!
 
 # Supported Languages
 
