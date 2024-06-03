@@ -15,6 +15,7 @@ Download: [Glow Latest Version](https://github.com/roines45/glow/releases/latest
 # Supported Languages
 
 - English
+- French (Coming soon)
 - German (Coming soon)
 - Korean
 - Spanish (Coming soon)
