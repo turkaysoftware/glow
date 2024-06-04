@@ -1,6 +1,10 @@
 # Glow - System Analysis Software
 
-**Glow** is a **system analysis software** developed by **Eray Türkay**. It allows you to show the hardware and software features of your computer in an easy way. Programmed only with **C# and .NET Framework**. And it's **completely free**!
+**Glow** is a **system analysis software** developed by **Eray Türkay**. It allows you to see the hardware and software features of your computer in an easy way. It is designed with a simple and understandable interface so that **even someone who does not understand computers can learn detailed information about the system**. 
+
+**No system information is transferred to any other medium outside your computer**. Therefore it is **completely secure**. Programmed with C# and .NET Framework only. **No external libraries**, no dependencies. 
+
+The best part is that it offers features that other paid programs **offer for free**.
 
 ![Glow UI](https://i.hizliresim.com/2sabgqj.png)
 
