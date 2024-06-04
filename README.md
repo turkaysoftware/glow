@@ -19,10 +19,10 @@ Download: [Glow Latest Version](https://github.com/roines45/glow/releases/latest
 # Supported Languages
 
 - English
-- French (Coming soon)
-- German (Coming soon)
+- French (Coming soon - v24.09)
+- German (Coming soon - v24.09)
 - Korean
-- Spanish (Coming soon)
+- Spanish (Coming soon - Translation in progress...)
 - Turkish
 - **For translation support: [Glow Translation Guide](https://github.com/roines45/glow/discussions/20)**
 
