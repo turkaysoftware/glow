@@ -4,7 +4,7 @@
 
 **No system information is transferred to any other medium outside your computer**. Therefore it is **completely secure**. Programmed with C# and .NET Framework only. **No external libraries**, no dependencies. 
 
-The best part is that it offers features that other paid programs **offer for free**.
+The best part is that it **offers for free** the features that other paid programs offer.
 
 ![Glow UI](https://i.hizliresim.com/2sabgqj.png)
 
