@@ -20,6 +20,7 @@ Download: [Glow Latest Version](https://github.com/roines45/glow/releases/latest
 - Korean
 - Spanish (Coming soon)
 - Turkish
+- For translation support: **[Glow Translation Guide](https://github.com/roines45/glow/discussions/20)**
 
 # Supported Themes
 
