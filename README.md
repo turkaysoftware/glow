@@ -6,7 +6,7 @@
 
 The best part is that it **offers for free** the features that other paid programs offer.
 
-![Glow UI](https://i.hizliresim.com/2sabgqj.png)
+![Glow UI](https://github.com/roines45/glow/assets/142736624/464b4300-20cc-4094-86ca-f84a2e53efc3)
 
 # Download Glow
 
@@ -19,11 +19,11 @@ Download: [Glow Latest Version](https://github.com/roines45/glow/releases/latest
 # Supported Languages
 
 - English
-- French (Coming soon - v24.09)
-- German (Coming soon - v24.09)
+- French
+- German
 - Korean
-- Russian (Coming soon - Translation in progress...)
-- Spanish (Coming soon - v24.09)
+- Russian
+- Spanish
 - Turkish
 - **For translation support: [Glow Translation Guide](https://github.com/roines45/glow/discussions/20)**
 
