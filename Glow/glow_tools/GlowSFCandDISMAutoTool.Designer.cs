@@ -56,7 +56,7 @@
             this.SADT_L2.Location = new System.Drawing.Point(5, 5);
             this.SADT_L2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.SADT_L2.Name = "SADT_L2";
-            this.SADT_L2.Size = new System.Drawing.Size(454, 90);
+            this.SADT_L2.Size = new System.Drawing.Size(554, 90);
             this.SADT_L2.TabIndex = 1;
             this.SADT_L2.Text = "N/A";
             this.SADT_L2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -70,7 +70,7 @@
             this.SADT_L1.Location = new System.Drawing.Point(0, 0);
             this.SADT_L1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.SADT_L1.Name = "SADT_L1";
-            this.SADT_L1.Size = new System.Drawing.Size(464, 27);
+            this.SADT_L1.Size = new System.Drawing.Size(564, 27);
             this.SADT_L1.TabIndex = 0;
             this.SADT_L1.Text = "SFC and DISM Auto Tool";
             this.SADT_L1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -88,7 +88,7 @@
             this.SADT_StartBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.SADT_StartBtn.Location = new System.Drawing.Point(0, 0);
             this.SADT_StartBtn.Name = "SADT_StartBtn";
-            this.SADT_StartBtn.Size = new System.Drawing.Size(464, 40);
+            this.SADT_StartBtn.Size = new System.Drawing.Size(564, 40);
             this.SADT_StartBtn.TabIndex = 2;
             this.SADT_StartBtn.Text = "Onarımı Başlat";
             this.SADT_StartBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -111,7 +111,7 @@
             this.SFCADISM_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48F));
             this.SFCADISM_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17F));
             this.SFCADISM_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.SFCADISM_TLP.Size = new System.Drawing.Size(470, 222);
+            this.SFCADISM_TLP.Size = new System.Drawing.Size(570, 222);
             this.SFCADISM_TLP.TabIndex = 3;
             // 
             // SFCADISM_P4
@@ -121,7 +121,7 @@
             this.SFCADISM_P4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SFCADISM_P4.Location = new System.Drawing.Point(3, 179);
             this.SFCADISM_P4.Name = "SFCADISM_P4";
-            this.SFCADISM_P4.Size = new System.Drawing.Size(464, 40);
+            this.SFCADISM_P4.Size = new System.Drawing.Size(564, 40);
             this.SFCADISM_P4.TabIndex = 3;
             // 
             // SFCADISM_P3
@@ -132,7 +132,7 @@
             this.SFCADISM_P3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SFCADISM_P3.Location = new System.Drawing.Point(3, 142);
             this.SFCADISM_P3.Name = "SFCADISM_P3";
-            this.SFCADISM_P3.Size = new System.Drawing.Size(464, 31);
+            this.SFCADISM_P3.Size = new System.Drawing.Size(564, 31);
             this.SFCADISM_P3.TabIndex = 2;
             // 
             // SADT_L4
@@ -174,7 +174,7 @@
             this.SFCADISM_P2.Location = new System.Drawing.Point(3, 36);
             this.SFCADISM_P2.Name = "SFCADISM_P2";
             this.SFCADISM_P2.Padding = new System.Windows.Forms.Padding(5);
-            this.SFCADISM_P2.Size = new System.Drawing.Size(464, 100);
+            this.SFCADISM_P2.Size = new System.Drawing.Size(564, 100);
             this.SFCADISM_P2.TabIndex = 1;
             // 
             // SFCADISM_P1
@@ -184,7 +184,7 @@
             this.SFCADISM_P1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SFCADISM_P1.Location = new System.Drawing.Point(3, 3);
             this.SFCADISM_P1.Name = "SFCADISM_P1";
-            this.SFCADISM_P1.Size = new System.Drawing.Size(464, 27);
+            this.SFCADISM_P1.Size = new System.Drawing.Size(564, 27);
             this.SFCADISM_P1.TabIndex = 0;
             // 
             // GlowSFCandDISMAutoTool
@@ -192,14 +192,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(484, 236);
+            this.ClientSize = new System.Drawing.Size(584, 236);
             this.Controls.Add(this.SFCADISM_TLP);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(500, 275);
-            this.MinimumSize = new System.Drawing.Size(500, 275);
+            this.MaximumSize = new System.Drawing.Size(600, 275);
+            this.MinimumSize = new System.Drawing.Size(600, 275);
             this.Name = "GlowSFCandDISMAutoTool";
             this.Padding = new System.Windows.Forms.Padding(7);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

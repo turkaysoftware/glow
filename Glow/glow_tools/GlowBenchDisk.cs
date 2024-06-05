@@ -240,7 +240,7 @@ namespace Glow.glow_tools{
         }
         // UPDATE PROGRESS
         private void UpdateProgress(double progress){
-            Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchDisk", "bd_title").Trim())), Application.ProductName) + " - " + progress.ToString("0.0") + "%";
+            Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchDisk", "bd_title").Trim())), Application.ProductName) + " - " + progress.ToString("0.00") + "%";
         }
         // DISK BENCHMARK
         private void RunBenchmark(string selectedDrive){

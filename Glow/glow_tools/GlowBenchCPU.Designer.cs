@@ -77,7 +77,7 @@
             this.Bench_Start.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Bench_Start.Location = new System.Drawing.Point(3, 3);
             this.Bench_Start.Name = "Bench_Start";
-            this.Bench_Start.Size = new System.Drawing.Size(293, 39);
+            this.Bench_Start.Size = new System.Drawing.Size(356, 39);
             this.Bench_Start.TabIndex = 0;
             this.Bench_Start.Text = "Başlat";
             this.Bench_Start.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -96,9 +96,9 @@
             this.Bench_Stop.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Bench_Stop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.Bench_Stop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Bench_Stop.Location = new System.Drawing.Point(302, 3);
+            this.Bench_Stop.Location = new System.Drawing.Point(365, 3);
             this.Bench_Stop.Name = "Bench_Stop";
-            this.Bench_Stop.Size = new System.Drawing.Size(294, 39);
+            this.Bench_Stop.Size = new System.Drawing.Size(356, 39);
             this.Bench_Stop.TabIndex = 1;
             this.Bench_Stop.Text = "Durdur";
             this.Bench_Stop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -111,11 +111,12 @@
             this.Bench_BG_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Bench_BG_Panel.Location = new System.Drawing.Point(5, 4);
             this.Bench_BG_Panel.Name = "Bench_BG_Panel";
-            this.Bench_BG_Panel.Size = new System.Drawing.Size(599, 267);
+            this.Bench_BG_Panel.Size = new System.Drawing.Size(724, 266);
             this.Bench_BG_Panel.TabIndex = 8;
             // 
             // Bench_TLP_Top
             // 
+            this.Bench_TLP_Top.AutoSize = true;
             this.Bench_TLP_Top.ColumnCount = 1;
             this.Bench_TLP_Top.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.Bench_TLP_Top.Controls.Add(this.Bench_TLP_Result, 0, 2);
@@ -130,7 +131,7 @@
             this.Bench_TLP_Top.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.Bench_TLP_Top.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.Bench_TLP_Top.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.Bench_TLP_Top.Size = new System.Drawing.Size(599, 267);
+            this.Bench_TLP_Top.Size = new System.Drawing.Size(724, 266);
             this.Bench_TLP_Top.TabIndex = 0;
             // 
             // Bench_TLP_Result
@@ -140,13 +141,13 @@
             this.Bench_TLP_Result.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.Bench_TLP_Result.Controls.Add(this.Bench_TLP_R_P2, 1, 0);
             this.Bench_TLP_Result.Controls.Add(this.Bench_TLP_R_P1, 0, 0);
-            this.Bench_TLP_Result.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Bench_TLP_Result.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Bench_TLP_Result.Location = new System.Drawing.Point(0, 151);
             this.Bench_TLP_Result.Margin = new System.Windows.Forms.Padding(0);
             this.Bench_TLP_Result.Name = "Bench_TLP_Result";
             this.Bench_TLP_Result.RowCount = 1;
             this.Bench_TLP_Result.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.Bench_TLP_Result.Size = new System.Drawing.Size(599, 70);
+            this.Bench_TLP_Result.Size = new System.Drawing.Size(724, 70);
             this.Bench_TLP_Result.TabIndex = 0;
             // 
             // Bench_TLP_R_P2
@@ -155,10 +156,10 @@
             this.Bench_TLP_R_P2.Controls.Add(this.Bench_Label_RMulti);
             this.Bench_TLP_R_P2.Controls.Add(this.Bench_Label_RMultiResult);
             this.Bench_TLP_R_P2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Bench_TLP_R_P2.Location = new System.Drawing.Point(302, 3);
+            this.Bench_TLP_R_P2.Location = new System.Drawing.Point(365, 3);
             this.Bench_TLP_R_P2.Name = "Bench_TLP_R_P2";
             this.Bench_TLP_R_P2.Padding = new System.Windows.Forms.Padding(5);
-            this.Bench_TLP_R_P2.Size = new System.Drawing.Size(294, 64);
+            this.Bench_TLP_R_P2.Size = new System.Drawing.Size(356, 64);
             this.Bench_TLP_R_P2.TabIndex = 0;
             // 
             // Bench_Label_RMulti
@@ -197,7 +198,7 @@
             this.Bench_TLP_R_P1.Location = new System.Drawing.Point(3, 3);
             this.Bench_TLP_R_P1.Name = "Bench_TLP_R_P1";
             this.Bench_TLP_R_P1.Padding = new System.Windows.Forms.Padding(5);
-            this.Bench_TLP_R_P1.Size = new System.Drawing.Size(293, 64);
+            this.Bench_TLP_R_P1.Size = new System.Drawing.Size(356, 64);
             this.Bench_TLP_R_P1.TabIndex = 1;
             // 
             // Bench_Label_RSingle
@@ -229,21 +230,21 @@
             // 
             // Bench_TLP_Bottom
             // 
+            this.Bench_TLP_Bottom.AutoSize = true;
             this.Bench_TLP_Bottom.ColumnCount = 2;
             this.Bench_TLP_Bottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.Bench_TLP_Bottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.Bench_TLP_Bottom.Controls.Add(this.Bench_Stop, 1, 0);
             this.Bench_TLP_Bottom.Controls.Add(this.Bench_Start, 0, 0);
-            this.Bench_TLP_Bottom.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Bench_TLP_Bottom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Bench_TLP_Bottom.Location = new System.Drawing.Point(0, 221);
             this.Bench_TLP_Bottom.Margin = new System.Windows.Forms.Padding(0);
+            this.Bench_TLP_Bottom.MaximumSize = new System.Drawing.Size(800, 45);
+            this.Bench_TLP_Bottom.MinimumSize = new System.Drawing.Size(600, 45);
             this.Bench_TLP_Bottom.Name = "Bench_TLP_Bottom";
             this.Bench_TLP_Bottom.RowCount = 1;
             this.Bench_TLP_Bottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.Bench_TLP_Bottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.Bench_TLP_Bottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.Bench_TLP_Bottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.Bench_TLP_Bottom.Size = new System.Drawing.Size(599, 45);
+            this.Bench_TLP_Bottom.Size = new System.Drawing.Size(724, 45);
             this.Bench_TLP_Bottom.TabIndex = 1;
             // 
             // Bench_TLP_T_P1
@@ -254,7 +255,7 @@
             this.Bench_TLP_T_P1.Location = new System.Drawing.Point(3, 3);
             this.Bench_TLP_T_P1.Name = "Bench_TLP_T_P1";
             this.Bench_TLP_T_P1.Padding = new System.Windows.Forms.Padding(5);
-            this.Bench_TLP_T_P1.Size = new System.Drawing.Size(593, 65);
+            this.Bench_TLP_T_P1.Size = new System.Drawing.Size(718, 65);
             this.Bench_TLP_T_P1.TabIndex = 0;
             // 
             // Bench_CPUName
@@ -291,13 +292,13 @@
             this.BenchMode_TLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.BenchMode_TLP.Controls.Add(this.Bench_TLP_T_P2, 1, 0);
             this.BenchMode_TLP.Controls.Add(this.Bench_TLP_T_P3, 0, 0);
-            this.BenchMode_TLP.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BenchMode_TLP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BenchMode_TLP.Location = new System.Drawing.Point(0, 71);
             this.BenchMode_TLP.Margin = new System.Windows.Forms.Padding(0);
             this.BenchMode_TLP.Name = "BenchMode_TLP";
             this.BenchMode_TLP.RowCount = 1;
             this.BenchMode_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.BenchMode_TLP.Size = new System.Drawing.Size(599, 80);
+            this.BenchMode_TLP.Size = new System.Drawing.Size(724, 80);
             this.BenchMode_TLP.TabIndex = 4;
             // 
             // Bench_TLP_T_P2
@@ -306,10 +307,10 @@
             this.Bench_TLP_T_P2.Controls.Add(this.Bench_Label_Mode);
             this.Bench_TLP_T_P2.Controls.Add(this.Bench_Mode);
             this.Bench_TLP_T_P2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Bench_TLP_T_P2.Location = new System.Drawing.Point(302, 3);
+            this.Bench_TLP_T_P2.Location = new System.Drawing.Point(365, 3);
             this.Bench_TLP_T_P2.Name = "Bench_TLP_T_P2";
             this.Bench_TLP_T_P2.Padding = new System.Windows.Forms.Padding(5);
-            this.Bench_TLP_T_P2.Size = new System.Drawing.Size(294, 74);
+            this.Bench_TLP_T_P2.Size = new System.Drawing.Size(356, 74);
             this.Bench_TLP_T_P2.TabIndex = 1;
             // 
             // Bench_Label_Mode
@@ -349,7 +350,7 @@
             this.Bench_TLP_T_P3.Location = new System.Drawing.Point(3, 3);
             this.Bench_TLP_T_P3.Name = "Bench_TLP_T_P3";
             this.Bench_TLP_T_P3.Padding = new System.Windows.Forms.Padding(5);
-            this.Bench_TLP_T_P3.Size = new System.Drawing.Size(293, 74);
+            this.Bench_TLP_T_P3.Size = new System.Drawing.Size(356, 74);
             this.Bench_TLP_T_P3.TabIndex = 2;
             // 
             // Bench_TimeCustom
@@ -399,14 +400,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(609, 276);
+            this.ClientSize = new System.Drawing.Size(734, 275);
             this.Controls.Add(this.Bench_BG_Panel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(625, 315);
-            this.MinimumSize = new System.Drawing.Size(625, 315);
             this.Name = "GlowBenchCPU";
             this.Padding = new System.Windows.Forms.Padding(5, 4, 5, 5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -414,7 +413,9 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GlowBenchCPU_FormClosing);
             this.Load += new System.EventHandler(this.GlowBenchCPU_Load);
             this.Bench_BG_Panel.ResumeLayout(false);
+            this.Bench_BG_Panel.PerformLayout();
             this.Bench_TLP_Top.ResumeLayout(false);
+            this.Bench_TLP_Top.PerformLayout();
             this.Bench_TLP_Result.ResumeLayout(false);
             this.Bench_TLP_R_P2.ResumeLayout(false);
             this.Bench_TLP_R_P2.PerformLayout();

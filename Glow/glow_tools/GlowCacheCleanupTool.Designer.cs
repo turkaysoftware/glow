@@ -56,7 +56,7 @@
             this.cct_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cct_panel.Location = new System.Drawing.Point(7, 7);
             this.cct_panel.Name = "cct_panel";
-            this.cct_panel.Size = new System.Drawing.Size(595, 147);
+            this.cct_panel.Size = new System.Drawing.Size(670, 172);
             this.cct_panel.TabIndex = 0;
             // 
             // CCT_TLP
@@ -75,7 +75,7 @@
             this.CCT_TLP.RowCount = 2;
             this.CCT_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.CCT_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.CCT_TLP.Size = new System.Drawing.Size(595, 147);
+            this.CCT_TLP.Size = new System.Drawing.Size(670, 172);
             this.CCT_TLP.TabIndex = 0;
             // 
             // CCT_Panel_1
@@ -88,7 +88,7 @@
             this.CCT_Panel_1.Margin = new System.Windows.Forms.Padding(3, 1, 0, 1);
             this.CCT_Panel_1.Name = "CCT_Panel_1";
             this.CCT_Panel_1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.CCT_Panel_1.Size = new System.Drawing.Size(443, 71);
+            this.CCT_Panel_1.Size = new System.Drawing.Size(499, 84);
             this.CCT_Panel_1.TabIndex = 0;
             // 
             // CCT_L2
@@ -98,10 +98,10 @@
             this.CCT_L2.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CCT_L2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.CCT_L2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CCT_L2.Location = new System.Drawing.Point(5, 37);
-            this.CCT_L2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.CCT_L2.Location = new System.Drawing.Point(5, 48);
+            this.CCT_L2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.CCT_L2.Name = "CCT_L2";
-            this.CCT_L2.Size = new System.Drawing.Size(438, 34);
+            this.CCT_L2.Size = new System.Drawing.Size(494, 36);
             this.CCT_L2.TabIndex = 1;
             this.CCT_L2.Text = "Folder size..";
             // 
@@ -113,9 +113,9 @@
             this.CCT_L1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CCT_L1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.CCT_L1.Location = new System.Drawing.Point(5, 0);
-            this.CCT_L1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.CCT_L1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.CCT_L1.Name = "CCT_L1";
-            this.CCT_L1.Size = new System.Drawing.Size(438, 34);
+            this.CCT_L1.Size = new System.Drawing.Size(494, 36);
             this.CCT_L1.TabIndex = 0;
             this.CCT_L1.Text = "Folder name..";
             this.CCT_L1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -127,11 +127,11 @@
             this.CCT_Panel_2.BackColor = System.Drawing.Color.Transparent;
             this.CCT_Panel_2.Controls.Add(this.CCT_CleanS_TempBtn);
             this.CCT_Panel_2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CCT_Panel_2.Location = new System.Drawing.Point(446, 1);
+            this.CCT_Panel_2.Location = new System.Drawing.Point(502, 1);
             this.CCT_Panel_2.Margin = new System.Windows.Forms.Padding(0, 1, 3, 1);
             this.CCT_Panel_2.Name = "CCT_Panel_2";
-            this.CCT_Panel_2.Padding = new System.Windows.Forms.Padding(0, 17, 10, 17);
-            this.CCT_Panel_2.Size = new System.Drawing.Size(146, 71);
+            this.CCT_Panel_2.Padding = new System.Windows.Forms.Padding(0, 20, 10, 20);
+            this.CCT_Panel_2.Size = new System.Drawing.Size(165, 84);
             this.CCT_Panel_2.TabIndex = 1;
             // 
             // CCT_CleanS_TempBtn
@@ -145,9 +145,9 @@
             this.CCT_CleanS_TempBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.CCT_CleanS_TempBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.CCT_CleanS_TempBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CCT_CleanS_TempBtn.Location = new System.Drawing.Point(0, 17);
+            this.CCT_CleanS_TempBtn.Location = new System.Drawing.Point(0, 20);
             this.CCT_CleanS_TempBtn.Name = "CCT_CleanS_TempBtn";
-            this.CCT_CleanS_TempBtn.Size = new System.Drawing.Size(136, 37);
+            this.CCT_CleanS_TempBtn.Size = new System.Drawing.Size(155, 44);
             this.CCT_CleanS_TempBtn.TabIndex = 0;
             this.CCT_CleanS_TempBtn.Text = "TEMİZLE";
             this.CCT_CleanS_TempBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -160,11 +160,11 @@
             this.CCT_Panel_3.Controls.Add(this.CCT_L4);
             this.CCT_Panel_3.Controls.Add(this.CCT_L3);
             this.CCT_Panel_3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CCT_Panel_3.Location = new System.Drawing.Point(3, 74);
+            this.CCT_Panel_3.Location = new System.Drawing.Point(3, 87);
             this.CCT_Panel_3.Margin = new System.Windows.Forms.Padding(3, 1, 0, 1);
             this.CCT_Panel_3.Name = "CCT_Panel_3";
             this.CCT_Panel_3.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.CCT_Panel_3.Size = new System.Drawing.Size(443, 72);
+            this.CCT_Panel_3.Size = new System.Drawing.Size(499, 84);
             this.CCT_Panel_3.TabIndex = 2;
             // 
             // CCT_L4
@@ -174,10 +174,10 @@
             this.CCT_L4.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CCT_L4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.CCT_L4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CCT_L4.Location = new System.Drawing.Point(5, 38);
-            this.CCT_L4.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.CCT_L4.Location = new System.Drawing.Point(5, 48);
+            this.CCT_L4.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.CCT_L4.Name = "CCT_L4";
-            this.CCT_L4.Size = new System.Drawing.Size(438, 34);
+            this.CCT_L4.Size = new System.Drawing.Size(494, 36);
             this.CCT_L4.TabIndex = 1;
             this.CCT_L4.Text = "Folder size..";
             // 
@@ -189,9 +189,9 @@
             this.CCT_L3.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CCT_L3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.CCT_L3.Location = new System.Drawing.Point(5, 0);
-            this.CCT_L3.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.CCT_L3.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.CCT_L3.Name = "CCT_L3";
-            this.CCT_L3.Size = new System.Drawing.Size(438, 34);
+            this.CCT_L3.Size = new System.Drawing.Size(494, 36);
             this.CCT_L3.TabIndex = 0;
             this.CCT_L3.Text = "Folder name..";
             this.CCT_L3.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -203,11 +203,11 @@
             this.CCT_Panel_4.BackColor = System.Drawing.Color.Transparent;
             this.CCT_Panel_4.Controls.Add(this.CCT_CleanU_TempBtn);
             this.CCT_Panel_4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CCT_Panel_4.Location = new System.Drawing.Point(446, 74);
+            this.CCT_Panel_4.Location = new System.Drawing.Point(502, 87);
             this.CCT_Panel_4.Margin = new System.Windows.Forms.Padding(0, 1, 3, 1);
             this.CCT_Panel_4.Name = "CCT_Panel_4";
-            this.CCT_Panel_4.Padding = new System.Windows.Forms.Padding(0, 17, 10, 17);
-            this.CCT_Panel_4.Size = new System.Drawing.Size(146, 72);
+            this.CCT_Panel_4.Padding = new System.Windows.Forms.Padding(0, 20, 10, 20);
+            this.CCT_Panel_4.Size = new System.Drawing.Size(165, 84);
             this.CCT_Panel_4.TabIndex = 3;
             // 
             // CCT_CleanU_TempBtn
@@ -221,9 +221,9 @@
             this.CCT_CleanU_TempBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.CCT_CleanU_TempBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.CCT_CleanU_TempBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CCT_CleanU_TempBtn.Location = new System.Drawing.Point(0, 17);
+            this.CCT_CleanU_TempBtn.Location = new System.Drawing.Point(0, 20);
             this.CCT_CleanU_TempBtn.Name = "CCT_CleanU_TempBtn";
-            this.CCT_CleanU_TempBtn.Size = new System.Drawing.Size(136, 38);
+            this.CCT_CleanU_TempBtn.Size = new System.Drawing.Size(155, 44);
             this.CCT_CleanU_TempBtn.TabIndex = 0;
             this.CCT_CleanU_TempBtn.Text = "TEMİZLE";
             this.CCT_CleanU_TempBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -235,14 +235,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(609, 161);
+            this.ClientSize = new System.Drawing.Size(684, 186);
             this.Controls.Add(this.cct_panel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(625, 200);
-            this.MinimumSize = new System.Drawing.Size(625, 200);
+            this.MaximumSize = new System.Drawing.Size(700, 225);
+            this.MinimumSize = new System.Drawing.Size(700, 225);
             this.Name = "GlowCacheCleanupTool";
             this.Padding = new System.Windows.Forms.Padding(7);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

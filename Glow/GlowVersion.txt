@@ -1,1 +1,1 @@
-glow_version = 24.08
+glow_version = 24.09

@@ -40,7 +40,11 @@ namespace Glow{
         // LANG PATHS
         public static string glow_lf = @"g_langs";                              // Main Path
         public static string glow_lang_en = glow_lf + @"\English.ini";          // English    | en
+        public static string glow_lang_fr = glow_lf + @"\French.ini";           // French     | fr
+        public static string glow_lang_de = glow_lf + @"\German.ini";           // German     | de
         public static string glow_lang_ko = glow_lf + @"\Korean.ini";           // Korean     | ko
+        public static string glow_lang_ru = glow_lf + @"\Russian.ini";          // Russian    | ru
+        public static string glow_lang_es = glow_lf + @"\Spanish.ini";          // Spanish    | es
         public static string glow_lang_tr = glow_lf + @"\Turkish.ini";          // Turkish    | tr
         public class TSGetLangs{
             [DllImport("kernel32.dll")]
