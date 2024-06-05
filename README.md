@@ -22,7 +22,7 @@ Download: [Glow Latest Version](https://github.com/roines45/glow/releases/latest
 - French (Coming soon - v24.09)
 - German (Coming soon - v24.09)
 - Korean
-- Spanish (Coming soon - Translation in progress...)
+- Spanish (Coming soon - v24.09)
 - Turkish
 - **For translation support: [Glow Translation Guide](https://github.com/roines45/glow/discussions/20)**
 
