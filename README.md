@@ -31,7 +31,6 @@ Download: [Glow Latest Version](https://github.com/roines45/glow/releases/latest
 
 - Light Theme
 - Dark Theme
-- Nord Theme
 
 # Supported Operating Systems
 
