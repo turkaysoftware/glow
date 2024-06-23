@@ -22,6 +22,7 @@ Download: [Glow Latest Version](https://github.com/roines45/glow/releases/latest
 - French
 - German
 - Korean
+- Portuguese (With Glow v24.11)
 - Russian
 - Spanish
 - Turkish
