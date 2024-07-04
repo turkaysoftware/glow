@@ -18,12 +18,12 @@ Download: [Glow Latest Version](https://github.com/roines45/glow/releases/latest
 
 # Supported Languages
 
-- Chinese (With Glow v24.11)
+- Chinese
 - English
 - French
 - German
 - Korean
-- Portuguese (With Glow v24.11)
+- Portuguese
 - Russian
 - Spanish
 - Turkish
