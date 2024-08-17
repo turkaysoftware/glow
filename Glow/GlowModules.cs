@@ -11,8 +11,10 @@ namespace Glow{
         // ======================================================================================================
         public class TS_LinkSystem{
             public string
-            twitter_link        = "https://x.com/roines45",
             github_link         = "https://github.com/roines45",
+            instagram_link      = "https://www.instagram.com/erayturkay45/",
+            twitter_link        = "https://x.com/erayturkay45",
+            //
             github_link_vl      = "https://raw.githubusercontent.com/roines45/glow/main/Glow/GlowVersion.txt",
             github_link_lr      = "https://github.com/roines45/glow/releases/latest";
         }
@@ -211,6 +213,13 @@ namespace Glow{
         [DllImport("kernel32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsProcessorFeaturePresent(uint processorFeature);
+        // ======================================================================================================
+        // NETWORK NAME REPLACER
+        public static string net_replacer(string get_adapter_name){
+            string a1 = get_adapter_name.Replace("[", "(");
+            string a2 = a1.Replace("]", ")");
+            return a2;
+        }
         // ======================================================================================================
         // SCREEN API
         public const int ENUM_CURRENT_SETTINGS = -1;

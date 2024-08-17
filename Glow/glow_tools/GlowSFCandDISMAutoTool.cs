@@ -53,6 +53,8 @@ namespace Glow.glow_tools{
                 SADT_L4.ForeColor = Glow.ui_colors[8];
                 SADT_StartBtn.BackColor = Glow.ui_colors[8];
                 SADT_StartBtn.ForeColor = Glow.ui_colors[18];
+                SADT_StartBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
+                SADT_StartBtn.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
                 //
                 TSGetLangs g_lang = new TSGetLangs(Glow.lang_path);
                 Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("SFCandDISMTool", "sadt_title").Trim())), Application.ProductName);

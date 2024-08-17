@@ -33,12 +33,18 @@ namespace Glow{
                 About_L1.ForeColor = Glow.ui_colors[7];
                 About_L2.ForeColor = Glow.ui_colors[7];
                 //
-                About_XBtn.BackColor = Glow.ui_colors[8];
-                About_XBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
-                About_XBtn.ForeColor = Glow.ui_colors[18];
                 About_GitHubBtn.BackColor = Glow.ui_colors[8];
+                About_GitHubBtn.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
                 About_GitHubBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
                 About_GitHubBtn.ForeColor = Glow.ui_colors[18];
+                About_InstagramBtn.BackColor = Glow.ui_colors[8];
+                About_InstagramBtn.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
+                About_InstagramBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
+                About_InstagramBtn.ForeColor = Glow.ui_colors[18];
+                About_XBtn.BackColor = Glow.ui_colors[8];
+                About_XBtn.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
+                About_XBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
+                About_XBtn.ForeColor = Glow.ui_colors[18];
                 // ======================================================================================================
                 // GLOBAL LANGS PATH
                 TSGetLangs g_lang = new TSGetLangs(Glow.lang_path);
@@ -47,15 +53,9 @@ namespace Glow{
                 Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_title").Trim())), Application.ProductName);
                 About_L1.Text = glow_version.GlowVersion(0, Glow.g_version_mode);
                 About_L2.Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_copyright").Trim())), "\u00a9", DateTime.Now.Year, Application.CompanyName);
-                About_XBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_twitter_page").Trim()));
                 About_GitHubBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_github_page").Trim()));
-            }catch (Exception){ }
-        }
-        // ======================================================================================================
-        // ABOUT X ROTATE BUTTON
-        private void About_XBtn_Click(object sender, EventArgs e){
-            try{
-                Process.Start(TS_LinkSystem.twitter_link);
+                About_InstagramBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_instagram_page").Trim()));
+                About_XBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("GlowAbout", "ga_twitter_page").Trim()));
             }catch (Exception){ }
         }
         // ======================================================================================================
@@ -63,6 +63,20 @@ namespace Glow{
         private void About_GitHubBtn_Click(object sender, EventArgs e){
             try{
                 Process.Start(TS_LinkSystem.github_link + "/glow");
+            }catch (Exception){ }
+        }
+        // ======================================================================================================
+        // ABOUT INSTAGRAM ROTATE BUTTON
+        private void About_InstagramBtn_Click(object sender, EventArgs e){
+            try{
+                Process.Start(TS_LinkSystem.instagram_link);
+            }catch (Exception){ }
+        }
+        // ======================================================================================================
+        // ABOUT X ROTATE BUTTON
+        private void About_XBtn_Click(object sender, EventArgs e){
+            try{
+                Process.Start(TS_LinkSystem.twitter_link);
             }catch (Exception){ }
         }
     }

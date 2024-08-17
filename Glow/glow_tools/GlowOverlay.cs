@@ -44,6 +44,7 @@ namespace Glow.glow_tools{
             OVERLAY_BGPanel.BackColor = Color.FromArgb(50, 32, 32, 32);
             OVERLAY_ExitBtn.BackColor = panelcolor;
             OVERLAY_ExitBtn.FlatAppearance.BorderColor = panelcolor;
+            OVERLAY_ExitBtn.FlatAppearance.MouseDownBackColor = panelcolor;
             //
             OVERLAY_P1.BackColor = panelcolor;
             OVERLAY_P2.BackColor = panelcolor;
@@ -93,6 +94,7 @@ namespace Glow.glow_tools{
             try{
                 ManagementObjectSearcher cpuSearcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name, PercentProcessorTime FROM Win32_PerfFormattedData_PerfOS_Processor");
                 do{
+                    if (overlay_loop == false){ break; }
                     ManagementObjectCollection cpuResults = cpuSearcher.Get();
                     // Console.WriteLine("CPU Kullanımı:");
                     ulong totalCpuUsage = 0;
@@ -120,6 +122,7 @@ namespace Glow.glow_tools{
             try{
                 ComputerInfo get_ram_info = new ComputerInfo();
                 do{
+                    if (overlay_loop == false){ break; }
                     ulong total_ram = ulong.Parse(get_ram_info.TotalPhysicalMemory.ToString());
                     ulong usable_ram = ulong.Parse(get_ram_info.AvailablePhysicalMemory.ToString());
                     double usage_ram_percentage = (TS_FormatSizeNoType(total_ram) - TS_FormatSizeNoType(usable_ram)) / TS_FormatSizeNoType(total_ram) * 100;
@@ -133,6 +136,7 @@ namespace Glow.glow_tools{
         private void disk_engine(){
             try{
                 do{
+                    if (overlay_loop == false){ break; }
                     ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name, DiskReadBytesPersec, DiskWriteBytesPersec FROM Win32_PerfFormattedData_PerfDisk_PhysicalDisk");
                     ManagementObjectCollection results = searcher.Get();
                     StringBuilder diskInformation = new StringBuilder();
@@ -168,11 +172,12 @@ namespace Glow.glow_tools{
         // NETWORK MOVE
         private void network_engine(){
             try{
-                string activeAdapter = GetActiveNetworkAdapter();
+                string activeAdapter = net_replacer(GetActiveNetworkAdapter());
                 ManagementObjectSearcher searcher_net_speed = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PerfFormattedData_Tcpip_NetworkInterface");
                 do{
+                    if (overlay_loop == false){ break; }
                     foreach (ManagementObject search_active_speed in searcher_net_speed.Get()){
-                        if (search_active_speed["Name"].ToString().Trim() == activeAdapter){
+                        if (net_replacer(search_active_speed["Name"].ToString().Trim()) == activeAdapter){
                             ulong bytesReceived = (ulong)search_active_speed["BytesReceivedPerSec"];
                             ulong bytesSent = (ulong)search_active_speed["BytesSentPerSec"];
                             double mbpsReceived = Math.Round(bytesReceived * 8 / 1000000.0, 1);

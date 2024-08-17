@@ -37,6 +37,7 @@
             this.About_L1 = new System.Windows.Forms.Label();
             this.About_L2 = new System.Windows.Forms.Label();
             this.About_Image = new System.Windows.Forms.PictureBox();
+            this.About_InstagramBtn = new System.Windows.Forms.Button();
             this.About_BG_Panel.SuspendLayout();
             this.About_MediaTLP.SuspendLayout();
             this.About_HeaderTextPanel.SuspendLayout();
@@ -61,15 +62,17 @@
             this.About_MediaTLP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.About_MediaTLP.BackColor = System.Drawing.Color.Transparent;
-            this.About_MediaTLP.ColumnCount = 2;
-            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.About_MediaTLP.Controls.Add(this.About_XBtn, 0, 0);
-            this.About_MediaTLP.Controls.Add(this.About_GitHubBtn, 1, 0);
+            this.About_MediaTLP.ColumnCount = 3;
+            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.About_MediaTLP.Controls.Add(this.About_InstagramBtn, 1, 0);
+            this.About_MediaTLP.Controls.Add(this.About_XBtn, 2, 0);
+            this.About_MediaTLP.Controls.Add(this.About_GitHubBtn, 0, 0);
             this.About_MediaTLP.Location = new System.Drawing.Point(8, 90);
             this.About_MediaTLP.Name = "About_MediaTLP";
             this.About_MediaTLP.RowCount = 1;
-            this.About_MediaTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.About_MediaTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.About_MediaTLP.Size = new System.Drawing.Size(487, 32);
             this.About_MediaTLP.TabIndex = 8;
             // 
@@ -84,10 +87,10 @@
             this.About_XBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.About_XBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.About_XBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_XBtn.Location = new System.Drawing.Point(0, 0);
-            this.About_XBtn.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
+            this.About_XBtn.Location = new System.Drawing.Point(325, 0);
+            this.About_XBtn.Margin = new System.Windows.Forms.Padding(1, 0, 0, 0);
             this.About_XBtn.Name = "About_XBtn";
-            this.About_XBtn.Size = new System.Drawing.Size(242, 32);
+            this.About_XBtn.Size = new System.Drawing.Size(162, 32);
             this.About_XBtn.TabIndex = 6;
             this.About_XBtn.Text = "Başlat";
             this.About_XBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -105,10 +108,10 @@
             this.About_GitHubBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.About_GitHubBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.About_GitHubBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_GitHubBtn.Location = new System.Drawing.Point(244, 0);
-            this.About_GitHubBtn.Margin = new System.Windows.Forms.Padding(1, 0, 0, 0);
+            this.About_GitHubBtn.Location = new System.Drawing.Point(0, 0);
+            this.About_GitHubBtn.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.About_GitHubBtn.Name = "About_GitHubBtn";
-            this.About_GitHubBtn.Size = new System.Drawing.Size(243, 32);
+            this.About_GitHubBtn.Size = new System.Drawing.Size(161, 32);
             this.About_GitHubBtn.TabIndex = 7;
             this.About_GitHubBtn.Text = "Başlat";
             this.About_GitHubBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -167,6 +170,27 @@
             this.About_Image.TabIndex = 2;
             this.About_Image.TabStop = false;
             // 
+            // About_InstagramBtn
+            // 
+            this.About_InstagramBtn.BackColor = System.Drawing.Color.RosyBrown;
+            this.About_InstagramBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.About_InstagramBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.About_InstagramBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.About_InstagramBtn.FlatAppearance.BorderSize = 0;
+            this.About_InstagramBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.About_InstagramBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.About_InstagramBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.About_InstagramBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_InstagramBtn.Location = new System.Drawing.Point(163, 0);
+            this.About_InstagramBtn.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.About_InstagramBtn.Name = "About_InstagramBtn";
+            this.About_InstagramBtn.Size = new System.Drawing.Size(160, 32);
+            this.About_InstagramBtn.TabIndex = 8;
+            this.About_InstagramBtn.Text = "Başlat";
+            this.About_InstagramBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.About_InstagramBtn.UseVisualStyleBackColor = false;
+            this.About_InstagramBtn.Click += new System.EventHandler(this.About_InstagramBtn_Click);
+            // 
             // GlowAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -203,5 +227,6 @@
         private System.Windows.Forms.Button About_GitHubBtn;
         private System.Windows.Forms.Button About_XBtn;
         private System.Windows.Forms.TableLayoutPanel About_MediaTLP;
+        private System.Windows.Forms.Button About_InstagramBtn;
     }
 }

@@ -37,8 +37,12 @@ namespace Glow.glow_tools{
                 //
                 Bench_MStart.BackColor = Glow.ui_colors[8];
                 Bench_MStart.ForeColor = Glow.ui_colors[18];
+                Bench_MStart.FlatAppearance.BorderColor = Glow.ui_colors[8];
+                Bench_MStart.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
                 Bench_MStop.BackColor = Glow.ui_colors[8];
                 Bench_MStop.ForeColor = Glow.ui_colors[18];
+                Bench_MStop.FlatAppearance.BorderColor = Glow.ui_colors[8];
+                Bench_MStop.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
                 //
                 Bench_TLP.BackgroundColor = Glow.ui_colors[12];
                 Bench_TLP.GridColor = Glow.ui_colors[14];

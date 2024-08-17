@@ -29,6 +29,7 @@ namespace Glow.glow_tools{
                         render_color_button.ForeColor = Glow.ui_colors[18];
                         render_color_button.BackColor = Glow.ui_colors[8];
                         render_color_button.FlatAppearance.BorderColor = Glow.ui_colors[8];
+                        render_color_button.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
                     }
                 }
                 //

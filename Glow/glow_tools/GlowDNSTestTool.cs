@@ -100,10 +100,16 @@ namespace Glow.glow_tools{
                 //
                 DNS_TestStartBtn.BackColor = Glow.ui_colors[8];
                 DNS_TestStartBtn.ForeColor = Glow.ui_colors[18];
+                DNS_TestStartBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
+                DNS_TestStartBtn.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
                 DNS_CustomTestBtn.BackColor = Glow.ui_colors[8];
                 DNS_CustomTestBtn.ForeColor = Glow.ui_colors[18];
+                DNS_CustomTestBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
+                DNS_CustomTestBtn.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
                 DNS_TestExportBtn.BackColor = Glow.ui_colors[8];
                 DNS_TestExportBtn.ForeColor = Glow.ui_colors[18];
+                DNS_TestExportBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
+                DNS_TestExportBtn.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
                 //
                 Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("DNSTestTool", "dtt_title").Trim())), Application.ProductName);
                 ping_time_text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("DNSTestTool", "dtt_success").Trim()));

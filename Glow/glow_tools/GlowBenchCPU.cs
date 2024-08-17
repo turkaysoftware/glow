@@ -63,8 +63,12 @@ namespace Glow.glow_tools{
                 //
                 Bench_Start.BackColor = Glow.ui_colors[8];
                 Bench_Start.ForeColor = Glow.ui_colors[18];
+                Bench_Start.FlatAppearance.BorderColor = Glow.ui_colors[8];
+                Bench_Start.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
                 Bench_Stop.BackColor = Glow.ui_colors[8];
                 Bench_Stop.ForeColor = Glow.ui_colors[18];
+                Bench_Stop.FlatAppearance.BorderColor = Glow.ui_colors[8];
+                Bench_Stop.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
                 ///////
                 TSGetLangs g_lang = new TSGetLangs(Glow.lang_path);
                 Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("BenchCPU", "bc_title").Trim())), Application.ProductName);

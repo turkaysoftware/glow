@@ -60,8 +60,12 @@ namespace Glow.glow_tools{
                 CCT_L4.ForeColor = Glow.ui_colors[8];
                 CCT_CleanS_TempBtn.BackColor = Glow.ui_colors[8];
                 CCT_CleanS_TempBtn.ForeColor = Glow.ui_colors[18];
+                CCT_CleanS_TempBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
+                CCT_CleanS_TempBtn.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
                 CCT_CleanU_TempBtn.BackColor = Glow.ui_colors[8];
                 CCT_CleanU_TempBtn.ForeColor = Glow.ui_colors[18];
+                CCT_CleanU_TempBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
+                CCT_CleanU_TempBtn.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
                 //
                 TSGetLangs g_lang = new TSGetLangs(Glow.lang_path);
                 Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.TSReadLangs("CacheCleanupTool", "cct_title").Trim())), Application.ProductName);

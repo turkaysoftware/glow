@@ -573,6 +573,7 @@
             this.HeaderText = new System.Windows.Forms.Label();
             this.MainToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.HeaderPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.MB_BIOSUpdateBtn = new System.Windows.Forms.Button();
             this.LeftMenuPanel.SuspendLayout();
             this.HeaderMenu.SuspendLayout();
             this.MainContent.SuspendLayout();
@@ -2765,13 +2766,14 @@
             this.MB_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.MB_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.MB_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MB_TLP.Size = new System.Drawing.Size(796, 1159);
+            this.MB_TLP.Size = new System.Drawing.Size(796, 1153);
             this.MB_TLP.TabIndex = 2;
             // 
             // mb_panel_1
             // 
             this.mb_panel_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.mb_panel_1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.mb_panel_1.Controls.Add(this.MB_BIOSUpdateBtn);
             this.mb_panel_1.Controls.Add(this.MB_SystemSKU);
             this.mb_panel_1.Controls.Add(this.MB_SystemSKU_V);
             this.mb_panel_1.Controls.Add(this.MB_SystemFamily);
@@ -2784,13 +2786,11 @@
             this.mb_panel_1.Controls.Add(this.MB_MotherBoardMan_V);
             this.mb_panel_1.Controls.Add(this.MB_MotherBoardSerial);
             this.mb_panel_1.Controls.Add(this.MB_MotherBoardSerial_V);
-            this.mb_panel_1.Controls.Add(this.MB_BiosManufacturer);
-            this.mb_panel_1.Controls.Add(this.MB_BiosManufacturer_V);
             this.mb_panel_1.Dock = System.Windows.Forms.DockStyle.Top;
             this.mb_panel_1.Location = new System.Drawing.Point(2, 1);
             this.mb_panel_1.Margin = new System.Windows.Forms.Padding(2, 1, 0, 1);
             this.mb_panel_1.Name = "mb_panel_1";
-            this.mb_panel_1.Size = new System.Drawing.Size(794, 319);
+            this.mb_panel_1.Size = new System.Drawing.Size(794, 275);
             this.mb_panel_1.TabIndex = 0;
             // 
             // MB_SystemSKU
@@ -2961,7 +2961,7 @@
             this.MB_BiosManufacturer.BackColor = System.Drawing.Color.Transparent;
             this.MB_BiosManufacturer.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_BiosManufacturer.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_BiosManufacturer.Location = new System.Drawing.Point(10, 283);
+            this.MB_BiosManufacturer.Location = new System.Drawing.Point(11, 13);
             this.MB_BiosManufacturer.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_BiosManufacturer.Name = "MB_BiosManufacturer";
             this.MB_BiosManufacturer.Size = new System.Drawing.Size(111, 20);
@@ -2975,7 +2975,7 @@
             this.MB_BiosManufacturer_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_BiosManufacturer_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_BiosManufacturer_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_BiosManufacturer_V.Location = new System.Drawing.Point(330, 283);
+            this.MB_BiosManufacturer_V.Location = new System.Drawing.Point(331, 13);
             this.MB_BiosManufacturer_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_BiosManufacturer_V.Name = "MB_BiosManufacturer_V";
             this.MB_BiosManufacturer_V.Size = new System.Drawing.Size(37, 20);
@@ -2987,6 +2987,8 @@
             this.mb_panel_3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.mb_panel_3.Controls.Add(this.MB_TPMMan);
             this.mb_panel_3.Controls.Add(this.MB_TPMMan_V);
+            this.mb_panel_3.Controls.Add(this.MB_TPMStatus);
+            this.mb_panel_3.Controls.Add(this.MB_TPMStatus_V);
             this.mb_panel_3.Controls.Add(this.MB_TPMPhysicalVersion);
             this.mb_panel_3.Controls.Add(this.MB_TPMPhysicalVersion_V);
             this.mb_panel_3.Controls.Add(this.MB_TPMManPublisher);
@@ -2997,10 +2999,8 @@
             this.mb_panel_3.Controls.Add(this.MB_TPMManVersion_V);
             this.mb_panel_3.Controls.Add(this.MB_TPMManID);
             this.mb_panel_3.Controls.Add(this.MB_TPMManID_V);
-            this.mb_panel_3.Controls.Add(this.MB_Model);
-            this.mb_panel_3.Controls.Add(this.MB_Model_V);
             this.mb_panel_3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.mb_panel_3.Location = new System.Drawing.Point(2, 643);
+            this.mb_panel_3.Location = new System.Drawing.Point(2, 599);
             this.mb_panel_3.Margin = new System.Windows.Forms.Padding(2, 1, 0, 1);
             this.mb_panel_3.Name = "mb_panel_3";
             this.mb_panel_3.Size = new System.Drawing.Size(794, 323);
@@ -3012,7 +3012,7 @@
             this.MB_TPMMan.BackColor = System.Drawing.Color.Transparent;
             this.MB_TPMMan.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_TPMMan.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_TPMMan.Location = new System.Drawing.Point(10, 58);
+            this.MB_TPMMan.Location = new System.Drawing.Point(10, 103);
             this.MB_TPMMan.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_TPMMan.Name = "MB_TPMMan";
             this.MB_TPMMan.Size = new System.Drawing.Size(103, 20);
@@ -3026,7 +3026,7 @@
             this.MB_TPMMan_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_TPMMan_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_TPMMan_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_TPMMan_V.Location = new System.Drawing.Point(330, 58);
+            this.MB_TPMMan_V.Location = new System.Drawing.Point(330, 103);
             this.MB_TPMMan_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_TPMMan_V.Name = "MB_TPMMan_V";
             this.MB_TPMMan_V.Size = new System.Drawing.Size(37, 20);
@@ -3039,7 +3039,7 @@
             this.MB_TPMPhysicalVersion.BackColor = System.Drawing.Color.Transparent;
             this.MB_TPMPhysicalVersion.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_TPMPhysicalVersion.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_TPMPhysicalVersion.Location = new System.Drawing.Point(10, 13);
+            this.MB_TPMPhysicalVersion.Location = new System.Drawing.Point(10, 58);
             this.MB_TPMPhysicalVersion.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_TPMPhysicalVersion.Name = "MB_TPMPhysicalVersion";
             this.MB_TPMPhysicalVersion.Size = new System.Drawing.Size(198, 20);
@@ -3053,7 +3053,7 @@
             this.MB_TPMPhysicalVersion_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_TPMPhysicalVersion_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_TPMPhysicalVersion_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_TPMPhysicalVersion_V.Location = new System.Drawing.Point(330, 13);
+            this.MB_TPMPhysicalVersion_V.Location = new System.Drawing.Point(330, 58);
             this.MB_TPMPhysicalVersion_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_TPMPhysicalVersion_V.Name = "MB_TPMPhysicalVersion_V";
             this.MB_TPMPhysicalVersion_V.Size = new System.Drawing.Size(37, 20);
@@ -3066,7 +3066,7 @@
             this.MB_TPMManPublisher.BackColor = System.Drawing.Color.Transparent;
             this.MB_TPMManPublisher.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_TPMManPublisher.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_TPMManPublisher.Location = new System.Drawing.Point(10, 240);
+            this.MB_TPMManPublisher.Location = new System.Drawing.Point(10, 285);
             this.MB_TPMManPublisher.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_TPMManPublisher.Name = "MB_TPMManPublisher";
             this.MB_TPMManPublisher.Size = new System.Drawing.Size(159, 20);
@@ -3080,7 +3080,7 @@
             this.MB_TPMManPublisher_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_TPMManPublisher_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_TPMManPublisher_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_TPMManPublisher_V.Location = new System.Drawing.Point(330, 240);
+            this.MB_TPMManPublisher_V.Location = new System.Drawing.Point(330, 285);
             this.MB_TPMManPublisher_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_TPMManPublisher_V.Name = "MB_TPMManPublisher_V";
             this.MB_TPMManPublisher_V.Size = new System.Drawing.Size(37, 20);
@@ -3093,7 +3093,7 @@
             this.MB_TPMManFullVersion.BackColor = System.Drawing.Color.Transparent;
             this.MB_TPMManFullVersion.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_TPMManFullVersion.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_TPMManFullVersion.Location = new System.Drawing.Point(10, 195);
+            this.MB_TPMManFullVersion.Location = new System.Drawing.Point(10, 240);
             this.MB_TPMManFullVersion.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_TPMManFullVersion.Name = "MB_TPMManFullVersion";
             this.MB_TPMManFullVersion.Size = new System.Drawing.Size(183, 20);
@@ -3107,7 +3107,7 @@
             this.MB_TPMManFullVersion_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_TPMManFullVersion_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_TPMManFullVersion_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_TPMManFullVersion_V.Location = new System.Drawing.Point(330, 195);
+            this.MB_TPMManFullVersion_V.Location = new System.Drawing.Point(330, 240);
             this.MB_TPMManFullVersion_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_TPMManFullVersion_V.Name = "MB_TPMManFullVersion_V";
             this.MB_TPMManFullVersion_V.Size = new System.Drawing.Size(37, 20);
@@ -3120,7 +3120,7 @@
             this.MB_TPMManVersion.BackColor = System.Drawing.Color.Transparent;
             this.MB_TPMManVersion.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_TPMManVersion.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_TPMManVersion.Location = new System.Drawing.Point(10, 150);
+            this.MB_TPMManVersion.Location = new System.Drawing.Point(10, 195);
             this.MB_TPMManVersion.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_TPMManVersion.Name = "MB_TPMManVersion";
             this.MB_TPMManVersion.Size = new System.Drawing.Size(151, 20);
@@ -3134,7 +3134,7 @@
             this.MB_TPMManVersion_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_TPMManVersion_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_TPMManVersion_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_TPMManVersion_V.Location = new System.Drawing.Point(330, 150);
+            this.MB_TPMManVersion_V.Location = new System.Drawing.Point(330, 195);
             this.MB_TPMManVersion_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_TPMManVersion_V.Name = "MB_TPMManVersion_V";
             this.MB_TPMManVersion_V.Size = new System.Drawing.Size(37, 20);
@@ -3147,7 +3147,7 @@
             this.MB_TPMManID.BackColor = System.Drawing.Color.Transparent;
             this.MB_TPMManID.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_TPMManID.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_TPMManID.Location = new System.Drawing.Point(10, 103);
+            this.MB_TPMManID.Location = new System.Drawing.Point(10, 148);
             this.MB_TPMManID.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_TPMManID.Name = "MB_TPMManID";
             this.MB_TPMManID.Size = new System.Drawing.Size(144, 20);
@@ -3161,7 +3161,7 @@
             this.MB_TPMManID_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_TPMManID_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_TPMManID_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_TPMManID_V.Location = new System.Drawing.Point(330, 103);
+            this.MB_TPMManID_V.Location = new System.Drawing.Point(330, 148);
             this.MB_TPMManID_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_TPMManID_V.Name = "MB_TPMManID_V";
             this.MB_TPMManID_V.Size = new System.Drawing.Size(37, 20);
@@ -3174,7 +3174,7 @@
             this.MB_Model.BackColor = System.Drawing.Color.Transparent;
             this.MB_Model.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_Model.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_Model.Location = new System.Drawing.Point(10, 285);
+            this.MB_Model.Location = new System.Drawing.Point(10, 13);
             this.MB_Model.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_Model.Name = "MB_Model";
             this.MB_Model.Size = new System.Drawing.Size(173, 20);
@@ -3188,7 +3188,7 @@
             this.MB_Model_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_Model_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_Model_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_Model_V.Location = new System.Drawing.Point(330, 285);
+            this.MB_Model_V.Location = new System.Drawing.Point(330, 13);
             this.MB_Model_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_Model_V.Name = "MB_Model_V";
             this.MB_Model_V.Size = new System.Drawing.Size(37, 20);
@@ -3201,8 +3201,6 @@
             this.mb_panel_2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.mb_panel_2.Controls.Add(this.MB_LastBIOSTime);
             this.mb_panel_2.Controls.Add(this.MB_LastBIOSTime_V);
-            this.mb_panel_2.Controls.Add(this.MB_TPMStatus);
-            this.mb_panel_2.Controls.Add(this.MB_TPMStatus_V);
             this.mb_panel_2.Controls.Add(this.MB_BiosMode);
             this.mb_panel_2.Controls.Add(this.MB_BiosMode_V);
             this.mb_panel_2.Controls.Add(this.MB_SecureBoot);
@@ -3213,8 +3211,10 @@
             this.mb_panel_2.Controls.Add(this.MB_BiosVersion);
             this.mb_panel_2.Controls.Add(this.MB_SmBiosVersion_V);
             this.mb_panel_2.Controls.Add(this.MB_BiosVersion_V);
+            this.mb_panel_2.Controls.Add(this.MB_BiosManufacturer);
+            this.mb_panel_2.Controls.Add(this.MB_BiosManufacturer_V);
             this.mb_panel_2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.mb_panel_2.Location = new System.Drawing.Point(2, 322);
+            this.mb_panel_2.Location = new System.Drawing.Point(2, 278);
             this.mb_panel_2.Margin = new System.Windows.Forms.Padding(2, 1, 0, 1);
             this.mb_panel_2.Name = "mb_panel_2";
             this.mb_panel_2.Size = new System.Drawing.Size(794, 319);
@@ -3226,7 +3226,7 @@
             this.MB_LastBIOSTime.BackColor = System.Drawing.Color.Transparent;
             this.MB_LastBIOSTime.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_LastBIOSTime.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_LastBIOSTime.Location = new System.Drawing.Point(10, 193);
+            this.MB_LastBIOSTime.Location = new System.Drawing.Point(10, 238);
             this.MB_LastBIOSTime.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_LastBIOSTime.Name = "MB_LastBIOSTime";
             this.MB_LastBIOSTime.Size = new System.Drawing.Size(130, 20);
@@ -3240,7 +3240,7 @@
             this.MB_LastBIOSTime_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_LastBIOSTime_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_LastBIOSTime_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_LastBIOSTime_V.Location = new System.Drawing.Point(330, 193);
+            this.MB_LastBIOSTime_V.Location = new System.Drawing.Point(330, 238);
             this.MB_LastBIOSTime_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_LastBIOSTime_V.Name = "MB_LastBIOSTime_V";
             this.MB_LastBIOSTime_V.Size = new System.Drawing.Size(37, 20);
@@ -3253,7 +3253,7 @@
             this.MB_TPMStatus.BackColor = System.Drawing.Color.Transparent;
             this.MB_TPMStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_TPMStatus.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_TPMStatus.Location = new System.Drawing.Point(10, 283);
+            this.MB_TPMStatus.Location = new System.Drawing.Point(10, 13);
             this.MB_TPMStatus.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_TPMStatus.Name = "MB_TPMStatus";
             this.MB_TPMStatus.Size = new System.Drawing.Size(105, 20);
@@ -3267,7 +3267,7 @@
             this.MB_TPMStatus_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_TPMStatus_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_TPMStatus_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_TPMStatus_V.Location = new System.Drawing.Point(330, 283);
+            this.MB_TPMStatus_V.Location = new System.Drawing.Point(330, 13);
             this.MB_TPMStatus_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_TPMStatus_V.Name = "MB_TPMStatus_V";
             this.MB_TPMStatus_V.Size = new System.Drawing.Size(37, 20);
@@ -3280,7 +3280,7 @@
             this.MB_BiosMode.BackColor = System.Drawing.Color.Transparent;
             this.MB_BiosMode.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_BiosMode.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_BiosMode.Location = new System.Drawing.Point(10, 148);
+            this.MB_BiosMode.Location = new System.Drawing.Point(10, 193);
             this.MB_BiosMode.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_BiosMode.Name = "MB_BiosMode";
             this.MB_BiosMode.Size = new System.Drawing.Size(90, 20);
@@ -3294,7 +3294,7 @@
             this.MB_BiosMode_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_BiosMode_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_BiosMode_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_BiosMode_V.Location = new System.Drawing.Point(330, 148);
+            this.MB_BiosMode_V.Location = new System.Drawing.Point(330, 193);
             this.MB_BiosMode_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_BiosMode_V.Name = "MB_BiosMode_V";
             this.MB_BiosMode_V.Size = new System.Drawing.Size(37, 20);
@@ -3307,7 +3307,7 @@
             this.MB_SecureBoot.BackColor = System.Drawing.Color.Transparent;
             this.MB_SecureBoot.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_SecureBoot.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_SecureBoot.Location = new System.Drawing.Point(10, 238);
+            this.MB_SecureBoot.Location = new System.Drawing.Point(10, 283);
             this.MB_SecureBoot.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_SecureBoot.Name = "MB_SecureBoot";
             this.MB_SecureBoot.Size = new System.Drawing.Size(208, 20);
@@ -3321,7 +3321,7 @@
             this.MB_SecureBoot_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_SecureBoot_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_SecureBoot_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_SecureBoot_V.Location = new System.Drawing.Point(330, 238);
+            this.MB_SecureBoot_V.Location = new System.Drawing.Point(330, 283);
             this.MB_SecureBoot_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_SecureBoot_V.Name = "MB_SecureBoot_V";
             this.MB_SecureBoot_V.Size = new System.Drawing.Size(37, 20);
@@ -3334,7 +3334,7 @@
             this.MB_BiosDate.BackColor = System.Drawing.Color.Transparent;
             this.MB_BiosDate.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_BiosDate.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_BiosDate.Location = new System.Drawing.Point(10, 13);
+            this.MB_BiosDate.Location = new System.Drawing.Point(10, 58);
             this.MB_BiosDate.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_BiosDate.Name = "MB_BiosDate";
             this.MB_BiosDate.Size = new System.Drawing.Size(87, 20);
@@ -3348,7 +3348,7 @@
             this.MB_BiosDate_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_BiosDate_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_BiosDate_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_BiosDate_V.Location = new System.Drawing.Point(330, 13);
+            this.MB_BiosDate_V.Location = new System.Drawing.Point(330, 58);
             this.MB_BiosDate_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_BiosDate_V.Name = "MB_BiosDate_V";
             this.MB_BiosDate_V.Size = new System.Drawing.Size(37, 20);
@@ -3361,7 +3361,7 @@
             this.MB_SmBiosVersion.BackColor = System.Drawing.Color.Transparent;
             this.MB_SmBiosVersion.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_SmBiosVersion.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_SmBiosVersion.Location = new System.Drawing.Point(10, 103);
+            this.MB_SmBiosVersion.Location = new System.Drawing.Point(10, 148);
             this.MB_SmBiosVersion.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_SmBiosVersion.Name = "MB_SmBiosVersion";
             this.MB_SmBiosVersion.Size = new System.Drawing.Size(136, 20);
@@ -3374,7 +3374,7 @@
             this.MB_BiosVersion.BackColor = System.Drawing.Color.Transparent;
             this.MB_BiosVersion.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_BiosVersion.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_BiosVersion.Location = new System.Drawing.Point(10, 58);
+            this.MB_BiosVersion.Location = new System.Drawing.Point(10, 103);
             this.MB_BiosVersion.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_BiosVersion.Name = "MB_BiosVersion";
             this.MB_BiosVersion.Size = new System.Drawing.Size(108, 20);
@@ -3388,7 +3388,7 @@
             this.MB_SmBiosVersion_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_SmBiosVersion_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_SmBiosVersion_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_SmBiosVersion_V.Location = new System.Drawing.Point(330, 103);
+            this.MB_SmBiosVersion_V.Location = new System.Drawing.Point(330, 148);
             this.MB_SmBiosVersion_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_SmBiosVersion_V.Name = "MB_SmBiosVersion_V";
             this.MB_SmBiosVersion_V.Size = new System.Drawing.Size(37, 20);
@@ -3402,7 +3402,7 @@
             this.MB_BiosVersion_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_BiosVersion_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_BiosVersion_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_BiosVersion_V.Location = new System.Drawing.Point(330, 58);
+            this.MB_BiosVersion_V.Location = new System.Drawing.Point(330, 103);
             this.MB_BiosVersion_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_BiosVersion_V.Name = "MB_BiosVersion_V";
             this.MB_BiosVersion_V.Size = new System.Drawing.Size(37, 20);
@@ -3420,11 +3420,13 @@
             this.mb_panel_4.Controls.Add(this.MB_SecondaryBusType_V);
             this.mb_panel_4.Controls.Add(this.MB_PrimaryBusType);
             this.mb_panel_4.Controls.Add(this.MB_PrimaryBusType_V);
+            this.mb_panel_4.Controls.Add(this.MB_Model);
+            this.mb_panel_4.Controls.Add(this.MB_Model_V);
             this.mb_panel_4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.mb_panel_4.Location = new System.Drawing.Point(3, 968);
+            this.mb_panel_4.Location = new System.Drawing.Point(3, 924);
             this.mb_panel_4.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.mb_panel_4.Name = "mb_panel_4";
-            this.mb_panel_4.Size = new System.Drawing.Size(790, 187);
+            this.mb_panel_4.Size = new System.Drawing.Size(790, 225);
             this.mb_panel_4.TabIndex = 0;
             // 
             // MB_SecondaryBusType
@@ -3433,7 +3435,7 @@
             this.MB_SecondaryBusType.BackColor = System.Drawing.Color.Transparent;
             this.MB_SecondaryBusType.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_SecondaryBusType.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_SecondaryBusType.Location = new System.Drawing.Point(10, 58);
+            this.MB_SecondaryBusType.Location = new System.Drawing.Point(10, 103);
             this.MB_SecondaryBusType.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_SecondaryBusType.Name = "MB_SecondaryBusType";
             this.MB_SecondaryBusType.Size = new System.Drawing.Size(147, 20);
@@ -3447,7 +3449,7 @@
             this.MB_SMBiosMajorMinor_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_SMBiosMajorMinor_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_SMBiosMajorMinor_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_SMBiosMajorMinor_V.Location = new System.Drawing.Point(330, 148);
+            this.MB_SMBiosMajorMinor_V.Location = new System.Drawing.Point(330, 193);
             this.MB_SMBiosMajorMinor_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_SMBiosMajorMinor_V.Name = "MB_SMBiosMajorMinor_V";
             this.MB_SMBiosMajorMinor_V.Size = new System.Drawing.Size(37, 20);
@@ -3461,7 +3463,7 @@
             this.MB_BiosMajorMinor_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_BiosMajorMinor_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_BiosMajorMinor_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_BiosMajorMinor_V.Location = new System.Drawing.Point(330, 103);
+            this.MB_BiosMajorMinor_V.Location = new System.Drawing.Point(330, 148);
             this.MB_BiosMajorMinor_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_BiosMajorMinor_V.Name = "MB_BiosMajorMinor_V";
             this.MB_BiosMajorMinor_V.Size = new System.Drawing.Size(37, 20);
@@ -3474,7 +3476,7 @@
             this.MB_SMBiosMajorMinor.BackColor = System.Drawing.Color.Transparent;
             this.MB_SMBiosMajorMinor.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_SMBiosMajorMinor.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_SMBiosMajorMinor.Location = new System.Drawing.Point(10, 148);
+            this.MB_SMBiosMajorMinor.Location = new System.Drawing.Point(10, 193);
             this.MB_SMBiosMajorMinor.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_SMBiosMajorMinor.Name = "MB_SMBiosMajorMinor";
             this.MB_SMBiosMajorMinor.Size = new System.Drawing.Size(194, 20);
@@ -3487,7 +3489,7 @@
             this.MB_BiosMajorMinor.BackColor = System.Drawing.Color.Transparent;
             this.MB_BiosMajorMinor.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_BiosMajorMinor.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_BiosMajorMinor.Location = new System.Drawing.Point(10, 103);
+            this.MB_BiosMajorMinor.Location = new System.Drawing.Point(10, 148);
             this.MB_BiosMajorMinor.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_BiosMajorMinor.Name = "MB_BiosMajorMinor";
             this.MB_BiosMajorMinor.Size = new System.Drawing.Size(201, 20);
@@ -3501,7 +3503,7 @@
             this.MB_SecondaryBusType_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_SecondaryBusType_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_SecondaryBusType_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_SecondaryBusType_V.Location = new System.Drawing.Point(330, 58);
+            this.MB_SecondaryBusType_V.Location = new System.Drawing.Point(330, 103);
             this.MB_SecondaryBusType_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_SecondaryBusType_V.Name = "MB_SecondaryBusType_V";
             this.MB_SecondaryBusType_V.Size = new System.Drawing.Size(37, 20);
@@ -3514,7 +3516,7 @@
             this.MB_PrimaryBusType.BackColor = System.Drawing.Color.Transparent;
             this.MB_PrimaryBusType.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_PrimaryBusType.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_PrimaryBusType.Location = new System.Drawing.Point(10, 13);
+            this.MB_PrimaryBusType.Location = new System.Drawing.Point(10, 58);
             this.MB_PrimaryBusType.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_PrimaryBusType.Name = "MB_PrimaryBusType";
             this.MB_PrimaryBusType.Size = new System.Drawing.Size(154, 20);
@@ -3528,7 +3530,7 @@
             this.MB_PrimaryBusType_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.MB_PrimaryBusType_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.MB_PrimaryBusType_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.MB_PrimaryBusType_V.Location = new System.Drawing.Point(330, 13);
+            this.MB_PrimaryBusType_V.Location = new System.Drawing.Point(330, 58);
             this.MB_PrimaryBusType_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.MB_PrimaryBusType_V.Name = "MB_PrimaryBusType_V";
             this.MB_PrimaryBusType_V.Size = new System.Drawing.Size(37, 20);
@@ -8375,6 +8377,28 @@
             this.HeaderPanel.Size = new System.Drawing.Size(817, 42);
             this.HeaderPanel.TabIndex = 1;
             // 
+            // MB_BIOSUpdateBtn
+            // 
+            this.MB_BIOSUpdateBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.MB_BIOSUpdateBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
+            this.MB_BIOSUpdateBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.MB_BIOSUpdateBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.MB_BIOSUpdateBtn.Enabled = false;
+            this.MB_BIOSUpdateBtn.FlatAppearance.BorderSize = 0;
+            this.MB_BIOSUpdateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MB_BIOSUpdateBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.MB_BIOSUpdateBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.MB_BIOSUpdateBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MB_BIOSUpdateBtn.Location = new System.Drawing.Point(627, 7);
+            this.MB_BIOSUpdateBtn.Name = "MB_BIOSUpdateBtn";
+            this.MB_BIOSUpdateBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.MB_BIOSUpdateBtn.Size = new System.Drawing.Size(160, 30);
+            this.MB_BIOSUpdateBtn.TabIndex = 14;
+            this.MB_BIOSUpdateBtn.Text = "BIOS Güncelle";
+            this.MB_BIOSUpdateBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.MB_BIOSUpdateBtn.UseVisualStyleBackColor = false;
+            this.MB_BIOSUpdateBtn.Click += new System.EventHandler(this.MB_BIOSUpdateBtn_Click);
+            // 
             // Glow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -9070,6 +9094,7 @@
         private System.Windows.Forms.Panel os_winkey_panel_1;
         internal System.Windows.Forms.PictureBox OS_WinKeyCopy;
         internal System.Windows.Forms.Label OS_WinKey;
+        private System.Windows.Forms.Button MB_BIOSUpdateBtn;
     }
 }
 
