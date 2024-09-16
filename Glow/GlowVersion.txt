@@ -1,1 +1,0 @@
-glow_version = 24.12
