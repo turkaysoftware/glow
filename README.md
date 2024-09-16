@@ -6,7 +6,7 @@
 
 The best part is that it **offers for free** the features that other paid programs offer.
 
-![Glow UI](https://github.com/user-attachments/assets/0eb80482-6271-4205-a382-5138ed76d1c2)
+![Glow UI](https://github.com/user-attachments/assets/ffe863e5-c23c-41a5-b26a-44cf435cfbc6)
 
 # Download Glow
 
