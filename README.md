@@ -10,11 +10,11 @@ The best part is that it **offers for free** the features that other paid progra
 
 # Download Glow
 
-Download: [Glow Latest Version](https://github.com/roines45/glow/releases/latest)
+Download: [Glow Latest Version](https://github.com/turkaysoftware/glow/releases/latest)
 
 # How to use Glow?
 
-**Extract the entire contents of the Glow ZIP file** you downloaded from the **[Release](https://github.com/roines45/glow/releases/latest)** section into a folder. Just run *Glow_x64.exe* if you have an **x64 processor** or *Glow_arm64.exe* if you have an **ARM processor**!
+**Extract the entire contents of the Glow ZIP file** you downloaded from the **[Release](https://github.com/turkaysoftware/glow/releases/latest)** section into a folder. Just run *Glow_x64.exe* if you have an **x64 processor** or *Glow_arm64.exe* if you have an **ARM processor**!
 
 # Supported Languages
 
@@ -27,7 +27,7 @@ Download: [Glow Latest Version](https://github.com/roines45/glow/releases/latest
 - Russian
 - Spanish
 - Turkish
-- **For translation support: [Glow Translation Guide](https://github.com/roines45/glow/discussions/20)**
+- **For translation support: [Glow Translation Guide](https://github.com/turkaysoftware/glow/discussions/20)**
 
 # Supported Themes
 
