@@ -45,16 +45,16 @@ namespace Glow.glow_tools{
                 }else if (Glow.theme == 0){
                     try { if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } }catch (Exception){ }
                 }
-                BackColor = Glow.ui_colors[5];
-                SFCAndDISM_TLP.BackColor = Glow.ui_colors[6];
-                SADT_L1.ForeColor = Glow.ui_colors[8];
-                SADT_L2.ForeColor = Glow.ui_colors[7];
-                SADT_L3.ForeColor = Glow.ui_colors[7];
-                SADT_L4.ForeColor = Glow.ui_colors[8];
-                SADT_StartBtn.BackColor = Glow.ui_colors[8];
-                SADT_StartBtn.ForeColor = Glow.ui_colors[18];
-                SADT_StartBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
-                SADT_StartBtn.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
+                BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "PageContainerBGAndPageContentTotalColors");
+                SFCAndDISM_TLP.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
+                SADT_L1.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                SADT_L2.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
+                SADT_L3.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
+                SADT_L4.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                SADT_StartBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                SADT_StartBtn.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
+                SADT_StartBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                SADT_StartBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("SFCandDISMTool", "sadt_title").Trim())), Application.ProductName);

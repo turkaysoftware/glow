@@ -42,9 +42,6 @@ namespace Glow.glow_tools{
             Color panelcolor = Color.FromArgb(42, 42, 42);
             //
             OVERLAY_BGPanel.BackColor = Color.FromArgb(50, 32, 32, 32);
-            OVERLAY_ExitBtn.BackColor = panelcolor;
-            OVERLAY_ExitBtn.FlatAppearance.BorderColor = panelcolor;
-            OVERLAY_ExitBtn.FlatAppearance.MouseDownBackColor = panelcolor;
             //
             OVERLAY_P1.BackColor = panelcolor;
             OVERLAY_P2.BackColor = panelcolor;
@@ -220,9 +217,11 @@ namespace Glow.glow_tools{
         // OVERLAY MOVE
         // ======================================================================================================
         // EXIT
-        private void OVERLAY_ExitBtn_Click(object sender, EventArgs e){
-            overlay_loop = false;
-            Close();
+        private void GlowOverlay_KeyDown(object sender, KeyEventArgs e){
+            if (e.KeyCode == Keys.Escape){
+                overlay_loop = false;
+                Close();
+            }
         }
     }
 }

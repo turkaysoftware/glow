@@ -28,577 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlowDNSTestTool));
-            this.DNS_TLP = new System.Windows.Forms.TableLayoutPanel();
-            this.DNS_Quad9_P2 = new System.Windows.Forms.Panel();
-            this.DNS_Quad9_L2 = new System.Windows.Forms.Label();
-            this.DNS_Lumen_P2 = new System.Windows.Forms.Panel();
-            this.DNS_LumenDNS_L2 = new System.Windows.Forms.Label();
-            this.DNS_Lumen_P1 = new System.Windows.Forms.Panel();
-            this.DNS_LumenDNS_L1 = new System.Windows.Forms.Label();
-            this.DNS_Google_P2 = new System.Windows.Forms.Panel();
-            this.DNS_Google_L2 = new System.Windows.Forms.Label();
-            this.DNS_Google_P1 = new System.Windows.Forms.Panel();
-            this.DNS_Google_L1 = new System.Windows.Forms.Label();
-            this.DNS_DNSWatch_P2 = new System.Windows.Forms.Panel();
-            this.DNS_DNSWatch_L2 = new System.Windows.Forms.Label();
-            this.DNS_DNSWatch_P1 = new System.Windows.Forms.Panel();
-            this.DNS_DNSWatch_L1 = new System.Windows.Forms.Label();
-            this.DNS_ControlD_P2 = new System.Windows.Forms.Panel();
-            this.DNS_ControlD_L2 = new System.Windows.Forms.Label();
-            this.DNS_ControlD_P1 = new System.Windows.Forms.Panel();
-            this.DNS_ControlD_L1 = new System.Windows.Forms.Label();
-            this.DNS_Comodo_P2 = new System.Windows.Forms.Panel();
-            this.DNS_Comodo_L2 = new System.Windows.Forms.Label();
-            this.DNS_Comodo_P1 = new System.Windows.Forms.Panel();
-            this.DNS_Comodo_L1 = new System.Windows.Forms.Label();
-            this.DNS_Cloudflare_P2 = new System.Windows.Forms.Panel();
-            this.DNS_Cloudflare_L2 = new System.Windows.Forms.Label();
-            this.DNS_Cloudflare_P1 = new System.Windows.Forms.Panel();
-            this.DNS_Cloudflare_L1 = new System.Windows.Forms.Label();
-            this.DNS_Alternate_P2 = new System.Windows.Forms.Panel();
-            this.DNS_Alternate_L2 = new System.Windows.Forms.Label();
-            this.DNS_Alternate_P1 = new System.Windows.Forms.Panel();
-            this.DNS_Alternate_L1 = new System.Windows.Forms.Label();
-            this.DNS_OpenDNS_P1 = new System.Windows.Forms.Panel();
-            this.DNS_OpenDNS_L1 = new System.Windows.Forms.Label();
-            this.DNS_OpenDNS_P2 = new System.Windows.Forms.Panel();
-            this.DNS_OpenDNS_L2 = new System.Windows.Forms.Label();
-            this.DNS_Quad9_P1 = new System.Windows.Forms.Panel();
-            this.DNS_Quad9_L1 = new System.Windows.Forms.Label();
             this.DNS_TestExportBtn = new System.Windows.Forms.Button();
             this.DNS_TestStartBtn = new System.Windows.Forms.Button();
             this.DNS_BtnTLP = new System.Windows.Forms.TableLayoutPanel();
             this.DNS_CustomTestBtn = new System.Windows.Forms.Button();
-            this.DNS_TLP.SuspendLayout();
-            this.DNS_Quad9_P2.SuspendLayout();
-            this.DNS_Lumen_P2.SuspendLayout();
-            this.DNS_Lumen_P1.SuspendLayout();
-            this.DNS_Google_P2.SuspendLayout();
-            this.DNS_Google_P1.SuspendLayout();
-            this.DNS_DNSWatch_P2.SuspendLayout();
-            this.DNS_DNSWatch_P1.SuspendLayout();
-            this.DNS_ControlD_P2.SuspendLayout();
-            this.DNS_ControlD_P1.SuspendLayout();
-            this.DNS_Comodo_P2.SuspendLayout();
-            this.DNS_Comodo_P1.SuspendLayout();
-            this.DNS_Cloudflare_P2.SuspendLayout();
-            this.DNS_Cloudflare_P1.SuspendLayout();
-            this.DNS_Alternate_P2.SuspendLayout();
-            this.DNS_Alternate_P1.SuspendLayout();
-            this.DNS_OpenDNS_P1.SuspendLayout();
-            this.DNS_OpenDNS_P2.SuspendLayout();
-            this.DNS_Quad9_P1.SuspendLayout();
+            this.DNSTable = new System.Windows.Forms.DataGridView();
             this.DNS_BtnTLP.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DNSTable)).BeginInit();
             this.SuspendLayout();
-            // 
-            // DNS_TLP
-            // 
-            this.DNS_TLP.ColumnCount = 2;
-            this.DNS_TLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.DNS_TLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.DNS_TLP.Controls.Add(this.DNS_Quad9_P2, 1, 8);
-            this.DNS_TLP.Controls.Add(this.DNS_Lumen_P2, 1, 6);
-            this.DNS_TLP.Controls.Add(this.DNS_Lumen_P1, 0, 6);
-            this.DNS_TLP.Controls.Add(this.DNS_Google_P2, 1, 5);
-            this.DNS_TLP.Controls.Add(this.DNS_Google_P1, 0, 5);
-            this.DNS_TLP.Controls.Add(this.DNS_DNSWatch_P2, 1, 4);
-            this.DNS_TLP.Controls.Add(this.DNS_DNSWatch_P1, 0, 4);
-            this.DNS_TLP.Controls.Add(this.DNS_ControlD_P2, 1, 3);
-            this.DNS_TLP.Controls.Add(this.DNS_ControlD_P1, 0, 3);
-            this.DNS_TLP.Controls.Add(this.DNS_Comodo_P2, 1, 2);
-            this.DNS_TLP.Controls.Add(this.DNS_Comodo_P1, 0, 2);
-            this.DNS_TLP.Controls.Add(this.DNS_Cloudflare_P2, 1, 1);
-            this.DNS_TLP.Controls.Add(this.DNS_Cloudflare_P1, 0, 1);
-            this.DNS_TLP.Controls.Add(this.DNS_Alternate_P2, 1, 0);
-            this.DNS_TLP.Controls.Add(this.DNS_Alternate_P1, 0, 0);
-            this.DNS_TLP.Controls.Add(this.DNS_OpenDNS_P1, 0, 7);
-            this.DNS_TLP.Controls.Add(this.DNS_OpenDNS_P2, 1, 7);
-            this.DNS_TLP.Controls.Add(this.DNS_Quad9_P1, 0, 8);
-            this.DNS_TLP.Dock = System.Windows.Forms.DockStyle.Top;
-            this.DNS_TLP.Location = new System.Drawing.Point(3, 3);
-            this.DNS_TLP.Name = "DNS_TLP";
-            this.DNS_TLP.RowCount = 9;
-            this.DNS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.DNS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.DNS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.DNS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.DNS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.DNS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.DNS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.DNS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.DNS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.DNS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.DNS_TLP.Size = new System.Drawing.Size(578, 450);
-            this.DNS_TLP.TabIndex = 0;
-            // 
-            // DNS_Quad9_P2
-            // 
-            this.DNS_Quad9_P2.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_Quad9_P2.Controls.Add(this.DNS_Quad9_L2);
-            this.DNS_Quad9_P2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Quad9_P2.Location = new System.Drawing.Point(232, 401);
-            this.DNS_Quad9_P2.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_Quad9_P2.Name = "DNS_Quad9_P2";
-            this.DNS_Quad9_P2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_Quad9_P2.TabIndex = 19;
-            // 
-            // DNS_Quad9_L2
-            // 
-            this.DNS_Quad9_L2.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_Quad9_L2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Quad9_L2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_Quad9_L2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_Quad9_L2.Location = new System.Drawing.Point(0, 0);
-            this.DNS_Quad9_L2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_Quad9_L2.Name = "DNS_Quad9_L2";
-            this.DNS_Quad9_L2.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_Quad9_L2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_Quad9_L2.TabIndex = 4;
-            this.DNS_Quad9_L2.Text = "Yükleniyor...";
-            this.DNS_Quad9_L2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_Lumen_P2
-            // 
-            this.DNS_Lumen_P2.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_Lumen_P2.Controls.Add(this.DNS_LumenDNS_L2);
-            this.DNS_Lumen_P2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Lumen_P2.Location = new System.Drawing.Point(232, 301);
-            this.DNS_Lumen_P2.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_Lumen_P2.Name = "DNS_Lumen_P2";
-            this.DNS_Lumen_P2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_Lumen_P2.TabIndex = 13;
-            // 
-            // DNS_LumenDNS_L2
-            // 
-            this.DNS_LumenDNS_L2.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_LumenDNS_L2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_LumenDNS_L2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_LumenDNS_L2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_LumenDNS_L2.Location = new System.Drawing.Point(0, 0);
-            this.DNS_LumenDNS_L2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_LumenDNS_L2.Name = "DNS_LumenDNS_L2";
-            this.DNS_LumenDNS_L2.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_LumenDNS_L2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_LumenDNS_L2.TabIndex = 4;
-            this.DNS_LumenDNS_L2.Text = "Yükleniyor...";
-            this.DNS_LumenDNS_L2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_Lumen_P1
-            // 
-            this.DNS_Lumen_P1.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_Lumen_P1.Controls.Add(this.DNS_LumenDNS_L1);
-            this.DNS_Lumen_P1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Lumen_P1.Location = new System.Drawing.Point(1, 301);
-            this.DNS_Lumen_P1.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_Lumen_P1.Name = "DNS_Lumen_P1";
-            this.DNS_Lumen_P1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_Lumen_P1.TabIndex = 12;
-            // 
-            // DNS_LumenDNS_L1
-            // 
-            this.DNS_LumenDNS_L1.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_LumenDNS_L1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_LumenDNS_L1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_LumenDNS_L1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_LumenDNS_L1.Location = new System.Drawing.Point(0, 0);
-            this.DNS_LumenDNS_L1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_LumenDNS_L1.Name = "DNS_LumenDNS_L1";
-            this.DNS_LumenDNS_L1.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_LumenDNS_L1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_LumenDNS_L1.TabIndex = 4;
-            this.DNS_LumenDNS_L1.Text = "Level3/Lumen DNS:";
-            this.DNS_LumenDNS_L1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_Google_P2
-            // 
-            this.DNS_Google_P2.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_Google_P2.Controls.Add(this.DNS_Google_L2);
-            this.DNS_Google_P2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Google_P2.Location = new System.Drawing.Point(232, 251);
-            this.DNS_Google_P2.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_Google_P2.Name = "DNS_Google_P2";
-            this.DNS_Google_P2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_Google_P2.TabIndex = 11;
-            // 
-            // DNS_Google_L2
-            // 
-            this.DNS_Google_L2.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_Google_L2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Google_L2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_Google_L2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_Google_L2.Location = new System.Drawing.Point(0, 0);
-            this.DNS_Google_L2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_Google_L2.Name = "DNS_Google_L2";
-            this.DNS_Google_L2.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_Google_L2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_Google_L2.TabIndex = 3;
-            this.DNS_Google_L2.Text = "Yükleniyor...";
-            this.DNS_Google_L2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_Google_P1
-            // 
-            this.DNS_Google_P1.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_Google_P1.Controls.Add(this.DNS_Google_L1);
-            this.DNS_Google_P1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Google_P1.Location = new System.Drawing.Point(1, 251);
-            this.DNS_Google_P1.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_Google_P1.Name = "DNS_Google_P1";
-            this.DNS_Google_P1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_Google_P1.TabIndex = 10;
-            // 
-            // DNS_Google_L1
-            // 
-            this.DNS_Google_L1.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_Google_L1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Google_L1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_Google_L1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_Google_L1.Location = new System.Drawing.Point(0, 0);
-            this.DNS_Google_L1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_Google_L1.Name = "DNS_Google_L1";
-            this.DNS_Google_L1.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_Google_L1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_Google_L1.TabIndex = 3;
-            this.DNS_Google_L1.Text = "Google:";
-            this.DNS_Google_L1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_DNSWatch_P2
-            // 
-            this.DNS_DNSWatch_P2.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_DNSWatch_P2.Controls.Add(this.DNS_DNSWatch_L2);
-            this.DNS_DNSWatch_P2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_DNSWatch_P2.Location = new System.Drawing.Point(232, 201);
-            this.DNS_DNSWatch_P2.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_DNSWatch_P2.Name = "DNS_DNSWatch_P2";
-            this.DNS_DNSWatch_P2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_DNSWatch_P2.TabIndex = 9;
-            // 
-            // DNS_DNSWatch_L2
-            // 
-            this.DNS_DNSWatch_L2.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_DNSWatch_L2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_DNSWatch_L2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_DNSWatch_L2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_DNSWatch_L2.Location = new System.Drawing.Point(0, 0);
-            this.DNS_DNSWatch_L2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_DNSWatch_L2.Name = "DNS_DNSWatch_L2";
-            this.DNS_DNSWatch_L2.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_DNSWatch_L2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_DNSWatch_L2.TabIndex = 3;
-            this.DNS_DNSWatch_L2.Text = "Yükleniyor...";
-            this.DNS_DNSWatch_L2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_DNSWatch_P1
-            // 
-            this.DNS_DNSWatch_P1.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_DNSWatch_P1.Controls.Add(this.DNS_DNSWatch_L1);
-            this.DNS_DNSWatch_P1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_DNSWatch_P1.Location = new System.Drawing.Point(1, 201);
-            this.DNS_DNSWatch_P1.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_DNSWatch_P1.Name = "DNS_DNSWatch_P1";
-            this.DNS_DNSWatch_P1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_DNSWatch_P1.TabIndex = 8;
-            // 
-            // DNS_DNSWatch_L1
-            // 
-            this.DNS_DNSWatch_L1.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_DNSWatch_L1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_DNSWatch_L1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_DNSWatch_L1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_DNSWatch_L1.Location = new System.Drawing.Point(0, 0);
-            this.DNS_DNSWatch_L1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_DNSWatch_L1.Name = "DNS_DNSWatch_L1";
-            this.DNS_DNSWatch_L1.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_DNSWatch_L1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_DNSWatch_L1.TabIndex = 3;
-            this.DNS_DNSWatch_L1.Text = "DNS.WATCH:";
-            this.DNS_DNSWatch_L1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_ControlD_P2
-            // 
-            this.DNS_ControlD_P2.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_ControlD_P2.Controls.Add(this.DNS_ControlD_L2);
-            this.DNS_ControlD_P2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_ControlD_P2.Location = new System.Drawing.Point(232, 151);
-            this.DNS_ControlD_P2.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_ControlD_P2.Name = "DNS_ControlD_P2";
-            this.DNS_ControlD_P2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_ControlD_P2.TabIndex = 7;
-            // 
-            // DNS_ControlD_L2
-            // 
-            this.DNS_ControlD_L2.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_ControlD_L2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_ControlD_L2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_ControlD_L2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_ControlD_L2.Location = new System.Drawing.Point(0, 0);
-            this.DNS_ControlD_L2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_ControlD_L2.Name = "DNS_ControlD_L2";
-            this.DNS_ControlD_L2.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_ControlD_L2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_ControlD_L2.TabIndex = 2;
-            this.DNS_ControlD_L2.Text = "Yükleniyor...";
-            this.DNS_ControlD_L2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_ControlD_P1
-            // 
-            this.DNS_ControlD_P1.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_ControlD_P1.Controls.Add(this.DNS_ControlD_L1);
-            this.DNS_ControlD_P1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_ControlD_P1.Location = new System.Drawing.Point(1, 151);
-            this.DNS_ControlD_P1.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_ControlD_P1.Name = "DNS_ControlD_P1";
-            this.DNS_ControlD_P1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_ControlD_P1.TabIndex = 6;
-            // 
-            // DNS_ControlD_L1
-            // 
-            this.DNS_ControlD_L1.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_ControlD_L1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_ControlD_L1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_ControlD_L1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_ControlD_L1.Location = new System.Drawing.Point(0, 0);
-            this.DNS_ControlD_L1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_ControlD_L1.Name = "DNS_ControlD_L1";
-            this.DNS_ControlD_L1.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_ControlD_L1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_ControlD_L1.TabIndex = 2;
-            this.DNS_ControlD_L1.Text = "Control D:";
-            this.DNS_ControlD_L1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_Comodo_P2
-            // 
-            this.DNS_Comodo_P2.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_Comodo_P2.Controls.Add(this.DNS_Comodo_L2);
-            this.DNS_Comodo_P2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Comodo_P2.Location = new System.Drawing.Point(232, 101);
-            this.DNS_Comodo_P2.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_Comodo_P2.Name = "DNS_Comodo_P2";
-            this.DNS_Comodo_P2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_Comodo_P2.TabIndex = 5;
-            // 
-            // DNS_Comodo_L2
-            // 
-            this.DNS_Comodo_L2.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_Comodo_L2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Comodo_L2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_Comodo_L2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_Comodo_L2.Location = new System.Drawing.Point(0, 0);
-            this.DNS_Comodo_L2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_Comodo_L2.Name = "DNS_Comodo_L2";
-            this.DNS_Comodo_L2.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_Comodo_L2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_Comodo_L2.TabIndex = 2;
-            this.DNS_Comodo_L2.Text = "Yükleniyor...";
-            this.DNS_Comodo_L2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_Comodo_P1
-            // 
-            this.DNS_Comodo_P1.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_Comodo_P1.Controls.Add(this.DNS_Comodo_L1);
-            this.DNS_Comodo_P1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Comodo_P1.Location = new System.Drawing.Point(1, 101);
-            this.DNS_Comodo_P1.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_Comodo_P1.Name = "DNS_Comodo_P1";
-            this.DNS_Comodo_P1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_Comodo_P1.TabIndex = 4;
-            // 
-            // DNS_Comodo_L1
-            // 
-            this.DNS_Comodo_L1.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_Comodo_L1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Comodo_L1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_Comodo_L1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_Comodo_L1.Location = new System.Drawing.Point(0, 0);
-            this.DNS_Comodo_L1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_Comodo_L1.Name = "DNS_Comodo_L1";
-            this.DNS_Comodo_L1.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_Comodo_L1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_Comodo_L1.TabIndex = 2;
-            this.DNS_Comodo_L1.Text = "Comodo:";
-            this.DNS_Comodo_L1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_Cloudflare_P2
-            // 
-            this.DNS_Cloudflare_P2.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_Cloudflare_P2.Controls.Add(this.DNS_Cloudflare_L2);
-            this.DNS_Cloudflare_P2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Cloudflare_P2.Location = new System.Drawing.Point(232, 51);
-            this.DNS_Cloudflare_P2.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_Cloudflare_P2.Name = "DNS_Cloudflare_P2";
-            this.DNS_Cloudflare_P2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_Cloudflare_P2.TabIndex = 3;
-            // 
-            // DNS_Cloudflare_L2
-            // 
-            this.DNS_Cloudflare_L2.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_Cloudflare_L2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Cloudflare_L2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_Cloudflare_L2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_Cloudflare_L2.Location = new System.Drawing.Point(0, 0);
-            this.DNS_Cloudflare_L2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_Cloudflare_L2.Name = "DNS_Cloudflare_L2";
-            this.DNS_Cloudflare_L2.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_Cloudflare_L2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_Cloudflare_L2.TabIndex = 2;
-            this.DNS_Cloudflare_L2.Text = "Yükleniyor...";
-            this.DNS_Cloudflare_L2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_Cloudflare_P1
-            // 
-            this.DNS_Cloudflare_P1.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_Cloudflare_P1.Controls.Add(this.DNS_Cloudflare_L1);
-            this.DNS_Cloudflare_P1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Cloudflare_P1.Location = new System.Drawing.Point(1, 51);
-            this.DNS_Cloudflare_P1.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_Cloudflare_P1.Name = "DNS_Cloudflare_P1";
-            this.DNS_Cloudflare_P1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_Cloudflare_P1.TabIndex = 2;
-            // 
-            // DNS_Cloudflare_L1
-            // 
-            this.DNS_Cloudflare_L1.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_Cloudflare_L1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Cloudflare_L1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_Cloudflare_L1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_Cloudflare_L1.Location = new System.Drawing.Point(0, 0);
-            this.DNS_Cloudflare_L1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_Cloudflare_L1.Name = "DNS_Cloudflare_L1";
-            this.DNS_Cloudflare_L1.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_Cloudflare_L1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_Cloudflare_L1.TabIndex = 2;
-            this.DNS_Cloudflare_L1.Text = "Cloudflare:";
-            this.DNS_Cloudflare_L1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_Alternate_P2
-            // 
-            this.DNS_Alternate_P2.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_Alternate_P2.Controls.Add(this.DNS_Alternate_L2);
-            this.DNS_Alternate_P2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Alternate_P2.Location = new System.Drawing.Point(232, 1);
-            this.DNS_Alternate_P2.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_Alternate_P2.Name = "DNS_Alternate_P2";
-            this.DNS_Alternate_P2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_Alternate_P2.TabIndex = 1;
-            // 
-            // DNS_Alternate_L2
-            // 
-            this.DNS_Alternate_L2.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_Alternate_L2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Alternate_L2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_Alternate_L2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_Alternate_L2.Location = new System.Drawing.Point(0, 0);
-            this.DNS_Alternate_L2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_Alternate_L2.Name = "DNS_Alternate_L2";
-            this.DNS_Alternate_L2.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_Alternate_L2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_Alternate_L2.TabIndex = 2;
-            this.DNS_Alternate_L2.Text = "Yükleniyor...";
-            this.DNS_Alternate_L2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_Alternate_P1
-            // 
-            this.DNS_Alternate_P1.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_Alternate_P1.Controls.Add(this.DNS_Alternate_L1);
-            this.DNS_Alternate_P1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Alternate_P1.Location = new System.Drawing.Point(1, 1);
-            this.DNS_Alternate_P1.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_Alternate_P1.Name = "DNS_Alternate_P1";
-            this.DNS_Alternate_P1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_Alternate_P1.TabIndex = 0;
-            // 
-            // DNS_Alternate_L1
-            // 
-            this.DNS_Alternate_L1.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_Alternate_L1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Alternate_L1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_Alternate_L1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_Alternate_L1.Location = new System.Drawing.Point(0, 0);
-            this.DNS_Alternate_L1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_Alternate_L1.Name = "DNS_Alternate_L1";
-            this.DNS_Alternate_L1.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_Alternate_L1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_Alternate_L1.TabIndex = 1;
-            this.DNS_Alternate_L1.Text = "Alternate DNS:";
-            this.DNS_Alternate_L1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_OpenDNS_P1
-            // 
-            this.DNS_OpenDNS_P1.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_OpenDNS_P1.Controls.Add(this.DNS_OpenDNS_L1);
-            this.DNS_OpenDNS_P1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_OpenDNS_P1.Location = new System.Drawing.Point(1, 351);
-            this.DNS_OpenDNS_P1.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_OpenDNS_P1.Name = "DNS_OpenDNS_P1";
-            this.DNS_OpenDNS_P1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_OpenDNS_P1.TabIndex = 16;
-            // 
-            // DNS_OpenDNS_L1
-            // 
-            this.DNS_OpenDNS_L1.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_OpenDNS_L1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_OpenDNS_L1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_OpenDNS_L1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_OpenDNS_L1.Location = new System.Drawing.Point(0, 0);
-            this.DNS_OpenDNS_L1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_OpenDNS_L1.Name = "DNS_OpenDNS_L1";
-            this.DNS_OpenDNS_L1.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_OpenDNS_L1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_OpenDNS_L1.TabIndex = 4;
-            this.DNS_OpenDNS_L1.Text = "OpenDNS:";
-            this.DNS_OpenDNS_L1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_OpenDNS_P2
-            // 
-            this.DNS_OpenDNS_P2.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_OpenDNS_P2.Controls.Add(this.DNS_OpenDNS_L2);
-            this.DNS_OpenDNS_P2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_OpenDNS_P2.Location = new System.Drawing.Point(232, 351);
-            this.DNS_OpenDNS_P2.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_OpenDNS_P2.Name = "DNS_OpenDNS_P2";
-            this.DNS_OpenDNS_P2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_OpenDNS_P2.TabIndex = 17;
-            // 
-            // DNS_OpenDNS_L2
-            // 
-            this.DNS_OpenDNS_L2.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_OpenDNS_L2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_OpenDNS_L2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_OpenDNS_L2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_OpenDNS_L2.Location = new System.Drawing.Point(0, 0);
-            this.DNS_OpenDNS_L2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_OpenDNS_L2.Name = "DNS_OpenDNS_L2";
-            this.DNS_OpenDNS_L2.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_OpenDNS_L2.Size = new System.Drawing.Size(345, 48);
-            this.DNS_OpenDNS_L2.TabIndex = 4;
-            this.DNS_OpenDNS_L2.Text = "Yükleniyor...";
-            this.DNS_OpenDNS_L2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DNS_Quad9_P1
-            // 
-            this.DNS_Quad9_P1.BackColor = System.Drawing.Color.RosyBrown;
-            this.DNS_Quad9_P1.Controls.Add(this.DNS_Quad9_L1);
-            this.DNS_Quad9_P1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Quad9_P1.Location = new System.Drawing.Point(1, 401);
-            this.DNS_Quad9_P1.Margin = new System.Windows.Forms.Padding(1);
-            this.DNS_Quad9_P1.Name = "DNS_Quad9_P1";
-            this.DNS_Quad9_P1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_Quad9_P1.TabIndex = 18;
-            // 
-            // DNS_Quad9_L1
-            // 
-            this.DNS_Quad9_L1.BackColor = System.Drawing.Color.Transparent;
-            this.DNS_Quad9_L1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_Quad9_L1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.DNS_Quad9_L1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DNS_Quad9_L1.Location = new System.Drawing.Point(0, 0);
-            this.DNS_Quad9_L1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.DNS_Quad9_L1.Name = "DNS_Quad9_L1";
-            this.DNS_Quad9_L1.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.DNS_Quad9_L1.Size = new System.Drawing.Size(229, 48);
-            this.DNS_Quad9_L1.TabIndex = 4;
-            this.DNS_Quad9_L1.Text = "Quad9:";
-            this.DNS_Quad9_L1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // DNS_TestExportBtn
             // 
@@ -615,8 +57,8 @@
             this.DNS_TestExportBtn.Location = new System.Drawing.Point(1, 73);
             this.DNS_TestExportBtn.Margin = new System.Windows.Forms.Padding(1);
             this.DNS_TestExportBtn.Name = "DNS_TestExportBtn";
-            this.DNS_TestExportBtn.Size = new System.Drawing.Size(576, 36);
-            this.DNS_TestExportBtn.TabIndex = 15;
+            this.DNS_TestExportBtn.Size = new System.Drawing.Size(626, 36);
+            this.DNS_TestExportBtn.TabIndex = 2;
             this.DNS_TestExportBtn.Text = "DIŞA AKTAR";
             this.DNS_TestExportBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.DNS_TestExportBtn.UseVisualStyleBackColor = false;
@@ -636,8 +78,8 @@
             this.DNS_TestStartBtn.Location = new System.Drawing.Point(1, 1);
             this.DNS_TestStartBtn.Margin = new System.Windows.Forms.Padding(1);
             this.DNS_TestStartBtn.Name = "DNS_TestStartBtn";
-            this.DNS_TestStartBtn.Size = new System.Drawing.Size(576, 34);
-            this.DNS_TestStartBtn.TabIndex = 14;
+            this.DNS_TestStartBtn.Size = new System.Drawing.Size(626, 34);
+            this.DNS_TestStartBtn.TabIndex = 0;
             this.DNS_TestStartBtn.Text = "Başlat";
             this.DNS_TestStartBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.DNS_TestStartBtn.UseVisualStyleBackColor = false;
@@ -647,17 +89,17 @@
             // 
             this.DNS_BtnTLP.ColumnCount = 1;
             this.DNS_BtnTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.DNS_BtnTLP.Controls.Add(this.DNS_TestStartBtn, 0, 0);
             this.DNS_BtnTLP.Controls.Add(this.DNS_CustomTestBtn, 0, 1);
             this.DNS_BtnTLP.Controls.Add(this.DNS_TestExportBtn, 0, 2);
-            this.DNS_BtnTLP.Controls.Add(this.DNS_TestStartBtn, 0, 0);
-            this.DNS_BtnTLP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DNS_BtnTLP.Location = new System.Drawing.Point(3, 453);
+            this.DNS_BtnTLP.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DNS_BtnTLP.Location = new System.Drawing.Point(3, 298);
             this.DNS_BtnTLP.Name = "DNS_BtnTLP";
             this.DNS_BtnTLP.RowCount = 3;
             this.DNS_BtnTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.DNS_BtnTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.DNS_BtnTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.DNS_BtnTLP.Size = new System.Drawing.Size(578, 110);
+            this.DNS_BtnTLP.Size = new System.Drawing.Size(628, 110);
             this.DNS_BtnTLP.TabIndex = 1;
             // 
             // DNS_CustomTestBtn
@@ -674,97 +116,94 @@
             this.DNS_CustomTestBtn.Location = new System.Drawing.Point(1, 37);
             this.DNS_CustomTestBtn.Margin = new System.Windows.Forms.Padding(1);
             this.DNS_CustomTestBtn.Name = "DNS_CustomTestBtn";
-            this.DNS_CustomTestBtn.Size = new System.Drawing.Size(576, 34);
-            this.DNS_CustomTestBtn.TabIndex = 16;
+            this.DNS_CustomTestBtn.Size = new System.Drawing.Size(626, 34);
+            this.DNS_CustomTestBtn.TabIndex = 1;
             this.DNS_CustomTestBtn.Text = "Başlat";
             this.DNS_CustomTestBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.DNS_CustomTestBtn.UseVisualStyleBackColor = false;
             this.DNS_CustomTestBtn.Click += new System.EventHandler(this.DNS_CustomTestBtn_Click);
             // 
+            // DNSTable
+            // 
+            this.DNSTable.AllowUserToAddRows = false;
+            this.DNSTable.AllowUserToDeleteRows = false;
+            this.DNSTable.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
+            this.DNSTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.DNSTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DNSTable.BackgroundColor = System.Drawing.Color.White;
+            this.DNSTable.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.DNSTable.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DNSTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.DNSTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DNSTable.Cursor = System.Windows.Forms.Cursors.Hand;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DNSTable.DefaultCellStyle = dataGridViewCellStyle3;
+            this.DNSTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DNSTable.EnableHeadersVisualStyles = false;
+            this.DNSTable.GridColor = System.Drawing.Color.Gray;
+            this.DNSTable.Location = new System.Drawing.Point(3, 3);
+            this.DNSTable.MultiSelect = false;
+            this.DNSTable.Name = "DNSTable";
+            this.DNSTable.ReadOnly = true;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DNSTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.DNSTable.RowHeadersVisible = false;
+            this.DNSTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.DNSTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DNSTable.Size = new System.Drawing.Size(628, 295);
+            this.DNSTable.TabIndex = 0;
+            this.DNSTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DNSTable_CellDoubleClick);
+            // 
             // GlowDNSTestTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(584, 566);
+            this.ClientSize = new System.Drawing.Size(634, 411);
+            this.Controls.Add(this.DNSTable);
             this.Controls.Add(this.DNS_BtnTLP);
-            this.Controls.Add(this.DNS_TLP);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(600, 605);
-            this.MinimumSize = new System.Drawing.Size(600, 605);
+            this.MaximumSize = new System.Drawing.Size(650, 450);
+            this.MinimumSize = new System.Drawing.Size(650, 450);
             this.Name = "GlowDNSTestTool";
             this.Padding = new System.Windows.Forms.Padding(3);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GlowDNSTestTool";
             this.Load += new System.EventHandler(this.GlowDNSTestTool_Load);
-            this.DNS_TLP.ResumeLayout(false);
-            this.DNS_Quad9_P2.ResumeLayout(false);
-            this.DNS_Lumen_P2.ResumeLayout(false);
-            this.DNS_Lumen_P1.ResumeLayout(false);
-            this.DNS_Google_P2.ResumeLayout(false);
-            this.DNS_Google_P1.ResumeLayout(false);
-            this.DNS_DNSWatch_P2.ResumeLayout(false);
-            this.DNS_DNSWatch_P1.ResumeLayout(false);
-            this.DNS_ControlD_P2.ResumeLayout(false);
-            this.DNS_ControlD_P1.ResumeLayout(false);
-            this.DNS_Comodo_P2.ResumeLayout(false);
-            this.DNS_Comodo_P1.ResumeLayout(false);
-            this.DNS_Cloudflare_P2.ResumeLayout(false);
-            this.DNS_Cloudflare_P1.ResumeLayout(false);
-            this.DNS_Alternate_P2.ResumeLayout(false);
-            this.DNS_Alternate_P1.ResumeLayout(false);
-            this.DNS_OpenDNS_P1.ResumeLayout(false);
-            this.DNS_OpenDNS_P2.ResumeLayout(false);
-            this.DNS_Quad9_P1.ResumeLayout(false);
             this.DNS_BtnTLP.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DNSTable)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TableLayoutPanel DNS_TLP;
-        private System.Windows.Forms.Panel DNS_Lumen_P2;
-        private System.Windows.Forms.Panel DNS_Lumen_P1;
-        private System.Windows.Forms.Panel DNS_Google_P2;
-        private System.Windows.Forms.Panel DNS_Google_P1;
-        private System.Windows.Forms.Panel DNS_DNSWatch_P2;
-        private System.Windows.Forms.Panel DNS_DNSWatch_P1;
-        private System.Windows.Forms.Panel DNS_ControlD_P2;
-        private System.Windows.Forms.Panel DNS_ControlD_P1;
-        private System.Windows.Forms.Panel DNS_Comodo_P2;
-        private System.Windows.Forms.Panel DNS_Comodo_P1;
-        private System.Windows.Forms.Panel DNS_Cloudflare_P2;
-        private System.Windows.Forms.Panel DNS_Cloudflare_P1;
-        private System.Windows.Forms.Panel DNS_Alternate_P2;
-        private System.Windows.Forms.Panel DNS_Alternate_P1;
         private System.Windows.Forms.Button DNS_TestStartBtn;
-        internal System.Windows.Forms.Label DNS_Alternate_L1;
-        internal System.Windows.Forms.Label DNS_ControlD_L1;
-        internal System.Windows.Forms.Label DNS_Comodo_L1;
-        internal System.Windows.Forms.Label DNS_Cloudflare_L1;
-        internal System.Windows.Forms.Label DNS_ControlD_L2;
-        internal System.Windows.Forms.Label DNS_Comodo_L2;
-        internal System.Windows.Forms.Label DNS_Cloudflare_L2;
-        internal System.Windows.Forms.Label DNS_Alternate_L2;
-        private System.Windows.Forms.Panel DNS_OpenDNS_P1;
-        private System.Windows.Forms.Panel DNS_OpenDNS_P2;
-        internal System.Windows.Forms.Label DNS_Google_L2;
-        internal System.Windows.Forms.Label DNS_Google_L1;
-        internal System.Windows.Forms.Label DNS_DNSWatch_L2;
-        internal System.Windows.Forms.Label DNS_DNSWatch_L1;
-        private System.Windows.Forms.Panel DNS_Quad9_P2;
         private System.Windows.Forms.Button DNS_TestExportBtn;
-        private System.Windows.Forms.Panel DNS_Quad9_P1;
-        internal System.Windows.Forms.Label DNS_Quad9_L2;
-        internal System.Windows.Forms.Label DNS_OpenDNS_L1;
-        internal System.Windows.Forms.Label DNS_OpenDNS_L2;
-        internal System.Windows.Forms.Label DNS_Quad9_L1;
-        internal System.Windows.Forms.Label DNS_LumenDNS_L2;
-        internal System.Windows.Forms.Label DNS_LumenDNS_L1;
         private System.Windows.Forms.TableLayoutPanel DNS_BtnTLP;
         private System.Windows.Forms.Button DNS_CustomTestBtn;
+        private System.Windows.Forms.DataGridView DNSTable;
     }
 }

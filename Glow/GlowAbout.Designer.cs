@@ -34,6 +34,7 @@
             this.About_WebsiteBtn = new System.Windows.Forms.Button();
             this.About_GitHubBtn = new System.Windows.Forms.Button();
             this.About_XBtn = new System.Windows.Forms.Button();
+            this.About_InstagramBtn = new System.Windows.Forms.Button();
             this.About_HeaderTextPanel = new System.Windows.Forms.Panel();
             this.About_L1 = new System.Windows.Forms.Label();
             this.About_L2 = new System.Windows.Forms.Label();
@@ -54,7 +55,7 @@
             this.About_BG_Panel.Location = new System.Drawing.Point(3, 3);
             this.About_BG_Panel.Name = "About_BG_Panel";
             this.About_BG_Panel.Padding = new System.Windows.Forms.Padding(5);
-            this.About_BG_Panel.Size = new System.Drawing.Size(478, 132);
+            this.About_BG_Panel.Size = new System.Drawing.Size(478, 175);
             this.About_BG_Panel.TabIndex = 0;
             // 
             // About_MediaTLP
@@ -62,19 +63,20 @@
             this.About_MediaTLP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.About_MediaTLP.BackColor = System.Drawing.Color.Transparent;
-            this.About_MediaTLP.ColumnCount = 3;
-            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.About_MediaTLP.ColumnCount = 2;
+            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.About_MediaTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.About_MediaTLP.Controls.Add(this.About_WebsiteBtn, 0, 0);
-            this.About_MediaTLP.Controls.Add(this.About_GitHubBtn, 2, 0);
+            this.About_MediaTLP.Controls.Add(this.About_GitHubBtn, 1, 1);
             this.About_MediaTLP.Controls.Add(this.About_XBtn, 1, 0);
-            this.About_MediaTLP.Location = new System.Drawing.Point(8, 90);
+            this.About_MediaTLP.Controls.Add(this.About_InstagramBtn, 0, 1);
+            this.About_MediaTLP.Location = new System.Drawing.Point(8, 92);
             this.About_MediaTLP.Name = "About_MediaTLP";
-            this.About_MediaTLP.RowCount = 1;
-            this.About_MediaTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.About_MediaTLP.Size = new System.Drawing.Size(462, 32);
-            this.About_MediaTLP.TabIndex = 8;
+            this.About_MediaTLP.RowCount = 2;
+            this.About_MediaTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.About_MediaTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.About_MediaTLP.Size = new System.Drawing.Size(462, 75);
+            this.About_MediaTLP.TabIndex = 1;
             // 
             // About_WebsiteBtn
             // 
@@ -88,9 +90,9 @@
             this.About_WebsiteBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.About_WebsiteBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.About_WebsiteBtn.Location = new System.Drawing.Point(0, 0);
-            this.About_WebsiteBtn.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
+            this.About_WebsiteBtn.Margin = new System.Windows.Forms.Padding(0, 0, 2, 2);
             this.About_WebsiteBtn.Name = "About_WebsiteBtn";
-            this.About_WebsiteBtn.Size = new System.Drawing.Size(153, 32);
+            this.About_WebsiteBtn.Size = new System.Drawing.Size(229, 35);
             this.About_WebsiteBtn.TabIndex = 0;
             this.About_WebsiteBtn.Text = "Website";
             this.About_WebsiteBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -108,11 +110,11 @@
             this.About_GitHubBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.About_GitHubBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.About_GitHubBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_GitHubBtn.Location = new System.Drawing.Point(309, 0);
-            this.About_GitHubBtn.Margin = new System.Windows.Forms.Padding(1, 0, 0, 0);
+            this.About_GitHubBtn.Location = new System.Drawing.Point(231, 37);
+            this.About_GitHubBtn.Margin = new System.Windows.Forms.Padding(0);
             this.About_GitHubBtn.Name = "About_GitHubBtn";
-            this.About_GitHubBtn.Size = new System.Drawing.Size(153, 32);
-            this.About_GitHubBtn.TabIndex = 2;
+            this.About_GitHubBtn.Size = new System.Drawing.Size(231, 38);
+            this.About_GitHubBtn.TabIndex = 3;
             this.About_GitHubBtn.Text = "GitHub";
             this.About_GitHubBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.About_GitHubBtn.UseVisualStyleBackColor = false;
@@ -129,15 +131,36 @@
             this.About_XBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.About_XBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.About_XBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_XBtn.Location = new System.Drawing.Point(154, 0);
-            this.About_XBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.About_XBtn.Location = new System.Drawing.Point(231, 0);
+            this.About_XBtn.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
             this.About_XBtn.Name = "About_XBtn";
-            this.About_XBtn.Size = new System.Drawing.Size(154, 32);
+            this.About_XBtn.Size = new System.Drawing.Size(231, 35);
             this.About_XBtn.TabIndex = 1;
             this.About_XBtn.Text = "Twitter X";
             this.About_XBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.About_XBtn.UseVisualStyleBackColor = false;
             this.About_XBtn.Click += new System.EventHandler(this.About_XBtn_Click);
+            // 
+            // About_InstagramBtn
+            // 
+            this.About_InstagramBtn.BackColor = System.Drawing.Color.RosyBrown;
+            this.About_InstagramBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.About_InstagramBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.About_InstagramBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.About_InstagramBtn.FlatAppearance.BorderSize = 0;
+            this.About_InstagramBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.About_InstagramBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.About_InstagramBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.About_InstagramBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_InstagramBtn.Location = new System.Drawing.Point(0, 37);
+            this.About_InstagramBtn.Margin = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.About_InstagramBtn.Name = "About_InstagramBtn";
+            this.About_InstagramBtn.Size = new System.Drawing.Size(229, 38);
+            this.About_InstagramBtn.TabIndex = 2;
+            this.About_InstagramBtn.Text = "Instagram";
+            this.About_InstagramBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.About_InstagramBtn.UseVisualStyleBackColor = false;
+            this.About_InstagramBtn.Click += new System.EventHandler(this.About_InstagramBtn_Click);
             // 
             // About_HeaderTextPanel
             // 
@@ -145,11 +168,11 @@
             this.About_HeaderTextPanel.BackColor = System.Drawing.Color.Transparent;
             this.About_HeaderTextPanel.Controls.Add(this.About_L1);
             this.About_HeaderTextPanel.Controls.Add(this.About_L2);
-            this.About_HeaderTextPanel.Location = new System.Drawing.Point(79, 9);
+            this.About_HeaderTextPanel.Location = new System.Drawing.Point(79, 8);
             this.About_HeaderTextPanel.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.About_HeaderTextPanel.Name = "About_HeaderTextPanel";
             this.About_HeaderTextPanel.Size = new System.Drawing.Size(391, 65);
-            this.About_HeaderTextPanel.TabIndex = 5;
+            this.About_HeaderTextPanel.TabIndex = 0;
             // 
             // About_L1
             // 
@@ -187,7 +210,7 @@
             this.About_Image.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.About_Image.Name = "About_Image";
             this.About_Image.Size = new System.Drawing.Size(65, 65);
-            this.About_Image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.About_Image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.About_Image.TabIndex = 2;
             this.About_Image.TabStop = false;
             // 
@@ -196,20 +219,21 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(484, 138);
+            this.ClientSize = new System.Drawing.Size(484, 181);
             this.Controls.Add(this.About_BG_Panel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(500, 177);
-            this.MinimumSize = new System.Drawing.Size(500, 177);
+            this.MaximumSize = new System.Drawing.Size(500, 220);
+            this.MinimumSize = new System.Drawing.Size(500, 220);
             this.Name = "GlowAbout";
             this.Padding = new System.Windows.Forms.Padding(3);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GlowAbout";
             this.Load += new System.EventHandler(this.GlowAbout_Load);
             this.About_BG_Panel.ResumeLayout(false);
+            this.About_BG_Panel.PerformLayout();
             this.About_MediaTLP.ResumeLayout(false);
             this.About_HeaderTextPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.About_Image)).EndInit();
@@ -222,11 +246,12 @@
         private System.Windows.Forms.Panel About_BG_Panel;
         private System.Windows.Forms.TableLayoutPanel About_MediaTLP;
         private System.Windows.Forms.Button About_XBtn;
-        private System.Windows.Forms.Button About_GitHubBtn;
         private System.Windows.Forms.Panel About_HeaderTextPanel;
         internal System.Windows.Forms.Label About_L1;
         internal System.Windows.Forms.Label About_L2;
         private System.Windows.Forms.PictureBox About_Image;
         private System.Windows.Forms.Button About_WebsiteBtn;
+        private System.Windows.Forms.Button About_GitHubBtn;
+        private System.Windows.Forms.Button About_InstagramBtn;
     }
 }

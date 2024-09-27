@@ -93,6 +93,7 @@
             this.Bench_TLP.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.Bench_TLP.Size = new System.Drawing.Size(503, 90);
             this.Bench_TLP.TabIndex = 7;
+            this.Bench_TLP.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Bench_TLP_CellClick);
             // 
             // Bench_MStart
             // 

@@ -48,7 +48,6 @@
             this.OVERLAY_P1 = new System.Windows.Forms.Panel();
             this.OVERLAY_CPU = new System.Windows.Forms.Label();
             this.OVERLAY_TopPanel = new System.Windows.Forms.Panel();
-            this.OVERLAY_ExitBtn = new System.Windows.Forms.Button();
             this.OVERLAY_BGPanel.SuspendLayout();
             this.OVERLAY_TLP.SuspendLayout();
             this.OVERLAY_P8.SuspendLayout();
@@ -59,7 +58,6 @@
             this.OVERLAY_P3.SuspendLayout();
             this.OVERLAY_P2.SuspendLayout();
             this.OVERLAY_P1.SuspendLayout();
-            this.OVERLAY_TopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // OVERLAY_BGPanel
@@ -314,7 +312,6 @@
             // 
             // OVERLAY_TopPanel
             // 
-            this.OVERLAY_TopPanel.Controls.Add(this.OVERLAY_ExitBtn);
             this.OVERLAY_TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.OVERLAY_TopPanel.Location = new System.Drawing.Point(0, 0);
             this.OVERLAY_TopPanel.Name = "OVERLAY_TopPanel";
@@ -323,26 +320,6 @@
             this.OVERLAY_TopPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OVERLAY_TopPanel_MouseDown);
             this.OVERLAY_TopPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OVERLAY_TopPanel_MouseMove);
             this.OVERLAY_TopPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.OVERLAY_TopPanel_MouseUp);
-            // 
-            // OVERLAY_ExitBtn
-            // 
-            this.OVERLAY_ExitBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.OVERLAY_ExitBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.OVERLAY_ExitBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.OVERLAY_ExitBtn.Dock = System.Windows.Forms.DockStyle.Right;
-            this.OVERLAY_ExitBtn.FlatAppearance.BorderSize = 0;
-            this.OVERLAY_ExitBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OVERLAY_ExitBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.OVERLAY_ExitBtn.ForeColor = System.Drawing.Color.White;
-            this.OVERLAY_ExitBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.OVERLAY_ExitBtn.Location = new System.Drawing.Point(400, 0);
-            this.OVERLAY_ExitBtn.Name = "OVERLAY_ExitBtn";
-            this.OVERLAY_ExitBtn.Size = new System.Drawing.Size(25, 25);
-            this.OVERLAY_ExitBtn.TabIndex = 1;
-            this.OVERLAY_ExitBtn.Text = "X";
-            this.OVERLAY_ExitBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.OVERLAY_ExitBtn.UseVisualStyleBackColor = false;
-            this.OVERLAY_ExitBtn.Click += new System.EventHandler(this.OVERLAY_ExitBtn_Click);
             // 
             // GlowOverlay
             // 
@@ -363,6 +340,7 @@
             this.Text = "GlowOverlay";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.GlowOverlay_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GlowOverlay_KeyDown);
             this.OVERLAY_BGPanel.ResumeLayout(false);
             this.OVERLAY_TLP.ResumeLayout(false);
             this.OVERLAY_P8.ResumeLayout(false);
@@ -373,7 +351,6 @@
             this.OVERLAY_P3.ResumeLayout(false);
             this.OVERLAY_P2.ResumeLayout(false);
             this.OVERLAY_P1.ResumeLayout(false);
-            this.OVERLAY_TopPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -382,7 +359,6 @@
 
         private System.Windows.Forms.Panel OVERLAY_BGPanel;
         private System.Windows.Forms.Panel OVERLAY_TopPanel;
-        private System.Windows.Forms.Button OVERLAY_ExitBtn;
         private System.Windows.Forms.TableLayoutPanel OVERLAY_TLP;
         private System.Windows.Forms.Panel OVERLAY_P1;
         private System.Windows.Forms.Panel OVERLAY_P8;

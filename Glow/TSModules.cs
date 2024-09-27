@@ -1,9 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Drawing;
 using Microsoft.Win32;
 using System.Collections;
 using System.Windows.Forms;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Glow{
@@ -13,8 +15,9 @@ namespace Glow{
         public class TS_LinkSystem{
             public string
             website_link = "https://www.turkaysoftware.com",
-            github_link = "https://github.com/turkaysoftware",
             twitter_link = "https://x.com/turkaysoftware",
+            instagram_link = "https://www.instagram.com/erayturkayy/",
+            github_link = "https://github.com/turkaysoftware",
             //
             github_link_lt = "https://raw.githubusercontent.com/turkaysoftware/glow/main/Glow/SoftwareVersion.txt",
             github_link_lr = "https://github.com/turkaysoftware/glow/releases/latest";
@@ -62,6 +65,89 @@ namespace Glow{
                 StringBuilder stringBuilder = new StringBuilder(512);
                 GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 511, _saveFilePath);
                 return stringBuilder.ToString();
+            }
+        }
+        // TS THEME ENGINE
+        // ======================================================================================================
+        public class TS_ThemeEngine{
+            // Light Theme Colors
+            public static readonly Dictionary<string, Color> LightTheme = new Dictionary<string, Color>{
+                // HEADER MENU COLOR MODE
+                { "HeaderBGColorMain", Color.FromArgb(222, 222, 222) },
+                { "HeaderFEColorMain", Color.FromArgb(31, 31, 31) },
+                // ACTIVE PAGE COLOR
+                { "BtnActiveColor", Color.WhiteSmoke },
+                { "BtnDeActiveColor", Color.FromArgb(235, 235, 235) },
+                // UI COLOR
+                { "HeaderFEColor", Color.FromArgb(32, 32, 32) },
+                { "HeaderBGColor", Color.FromArgb(235, 235, 235) },
+                { "LeftMenuBGAndBorderColor", Color.FromArgb(235, 235, 235) },
+                { "LeftMenuButtonHoverAndMouseDownColor", Color.WhiteSmoke },
+                { "LeftMenuButtonFEColor", Color.FromArgb(32, 32, 32) },
+                { "PageContainerBGAndPageContentTotalColors", Color.WhiteSmoke },
+                { "ContentPanelBGColor", Color.FromArgb(235, 235, 235) },
+                { "ContentLabelLeft", Color.FromArgb(32, 32, 32) },
+                { "ContentLabelRight", Color.FromArgb(54, 95, 146) },
+                { "ContentLabelRightHover", Color.FromArgb(64, 112, 171) },
+                { "SelectBoxBGColor", Color.FromArgb(235, 235, 235) },
+                { "TextBoxBGColor", Color.WhiteSmoke },
+                { "TextBoxFEColor", Color.FromArgb(32, 32, 32) },
+                { "DataGridBGColor", Color.White },
+                { "DataGridFEColor", Color.FromArgb(32, 32, 32) },
+                { "DataGridColor", Color.FromArgb(217, 217, 217) },
+                { "DataGridAlternatingColor", Color.FromArgb(235, 235, 235) },
+                { "OSDAndServicesPageBG", Color.FromArgb(54, 95, 146) },
+                { "OSDAndServicesPageFE", Color.White },
+                { "DynamicThemeActiveBtnBG", Color.WhiteSmoke },
+                // DISK TOTAL BG
+                { "DiskTotalSSDBG", Color.FromArgb(54, 95, 146) },
+                { "DiskTotalHDDBG", Color.FromArgb(123, 27, 193) },
+                { "DiskTotalUSBBG", Color.FromArgb(193, 27, 92) },
+                { "DiskTotalTotalBG", Color.FromArgb(21, 140, 84) }
+            };
+            // Dark Theme Colors
+            public static readonly Dictionary<string, Color> DarkTheme = new Dictionary<string, Color>{
+                // HEADER MENU COLOR MODE
+                { "HeaderBGColorMain", Color.FromArgb(31, 31, 31) },
+                { "HeaderFEColorMain", Color.FromArgb(222, 222, 222) },
+                 // ACTIVE PAGE COLOR
+                { "BtnActiveColor", Color.FromArgb(31, 31, 31) },
+                { "BtnDeActiveColor", Color.FromArgb(24, 24, 24) },
+                // UI COLOR
+                { "HeaderFEColor", Color.WhiteSmoke },
+                { "HeaderBGColor", Color.FromArgb(24, 24, 24) },
+                { "LeftMenuBGAndBorderColor", Color.FromArgb(24, 24, 24) },
+                { "LeftMenuButtonHoverAndMouseDownColor", Color.FromArgb(31, 31, 31) },
+                { "LeftMenuButtonFEColor", Color.WhiteSmoke },
+                { "PageContainerBGAndPageContentTotalColors", Color.FromArgb(31, 31, 31) },
+                { "ContentPanelBGColor", Color.FromArgb(24, 24, 24) },
+                { "ContentLabelLeft", Color.WhiteSmoke },
+                { "ContentLabelRight", Color.FromArgb(88, 153, 233) },
+                { "ContentLabelRightHover", Color.FromArgb(61, 137, 231) },
+                { "SelectBoxBGColor", Color.FromArgb(24, 24, 24) },
+                { "TextBoxBGColor", Color.FromArgb(31, 31, 31) },
+                { "TextBoxFEColor", Color.WhiteSmoke },
+                { "DataGridBGColor", Color.FromArgb(24, 24, 24) },
+                { "DataGridFEColor", Color.WhiteSmoke },
+                { "DataGridColor", Color.FromArgb(50, 50, 50) },
+                { "DataGridAlternatingColor", Color.FromArgb(31, 31, 31) },
+                { "OSDAndServicesPageBG", Color.FromArgb(88, 153, 233) },
+                { "OSDAndServicesPageFE", Color.FromArgb(37, 37, 45) },
+                { "DynamicThemeActiveBtnBG", Color.FromArgb(31, 31, 31) },
+                // DISK TOTAL BG
+                { "DiskTotalSSDBG", Color.FromArgb(88, 153, 233) },
+                { "DiskTotalHDDBG", Color.FromArgb(202, 35, 251) },
+                { "DiskTotalUSBBG", Color.FromArgb(237, 37, 115) },
+                { "DiskTotalTotalBG", Color.FromArgb(29, 181, 110) }
+            };
+            // Method to get color for the current theme
+            public static Color ColorMode(int theme, string key){
+                if (theme == 0){
+                    return DarkTheme.ContainsKey(key) ? DarkTheme[key] : Color.Transparent;
+                }else if (theme == 1){
+                    return LightTheme.ContainsKey(key) ? LightTheme[key] : Color.Transparent;
+                }
+                return Color.Transparent;
             }
         }
         // ======================================================================================================

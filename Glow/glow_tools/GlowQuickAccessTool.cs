@@ -21,15 +21,15 @@ namespace Glow.glow_tools{
                     try { if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } }catch (Exception){ }
                 }
                 //
-                BackColor = Glow.ui_colors[5];
-                QUICK_FLY.BackColor = Glow.ui_colors[6];
+                BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "PageContainerBGAndPageContentTotalColors");
+                QUICK_FLY.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
                 //
                 foreach (Control ui_buttons in QUICK_FLY.Controls){
                     if (ui_buttons is Button render_color_button){
-                        render_color_button.ForeColor = Glow.ui_colors[18];
-                        render_color_button.BackColor = Glow.ui_colors[8];
-                        render_color_button.FlatAppearance.BorderColor = Glow.ui_colors[8];
-                        render_color_button.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
+                        render_color_button.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
+                        render_color_button.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                        render_color_button.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                        render_color_button.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
                     }
                 }
                 //

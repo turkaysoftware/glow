@@ -28,25 +28,30 @@ namespace Glow{
                 }else if (Glow.theme == 0){
                     try { if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } }catch (Exception){ }
                 }
-                BackColor = Glow.ui_colors[5];
-                About_BG_Panel.BackColor = Glow.ui_colors[6];
-                About_L1.ForeColor = Glow.ui_colors[7];
-                About_L2.ForeColor = Glow.ui_colors[7];
+                BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "PageContainerBGAndPageContentTotalColors");
+                About_BG_Panel.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
+                About_L1.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
+                About_L2.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
                 //
-                About_WebsiteBtn.BackColor = Glow.ui_colors[8];
-                About_WebsiteBtn.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
-                About_WebsiteBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
-                About_WebsiteBtn.ForeColor = Glow.ui_colors[18];
+                About_WebsiteBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                About_WebsiteBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                About_WebsiteBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                About_WebsiteBtn.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
                 //
-                About_GitHubBtn.BackColor = Glow.ui_colors[8];
-                About_GitHubBtn.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
-                About_GitHubBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
-                About_GitHubBtn.ForeColor = Glow.ui_colors[18];
+                About_XBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                About_XBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                About_XBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                About_XBtn.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
                 //
-                About_XBtn.BackColor = Glow.ui_colors[8];
-                About_XBtn.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
-                About_XBtn.FlatAppearance.BorderColor = Glow.ui_colors[8];
-                About_XBtn.ForeColor = Glow.ui_colors[18];
+                About_InstagramBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                About_InstagramBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                About_InstagramBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                About_InstagramBtn.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
+                //
+                About_GitHubBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                About_GitHubBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                About_GitHubBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                About_GitHubBtn.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
                 // ======================================================================================================
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 TS_VersionEngine glow_version = new TS_VersionEngine();
@@ -55,8 +60,9 @@ namespace Glow{
                 About_L1.Text = glow_version.TS_SofwareVersion(0, Glow.ts_version_mode);
                 About_L2.Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("SoftwareAbout", "sa_copyright").Trim())), "\u00a9", DateTime.Now.Year, Application.CompanyName);
                 About_WebsiteBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("SoftwareAbout", "sa_website_page").Trim()));
-                About_GitHubBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("SoftwareAbout", "sa_github_page").Trim()));
                 About_XBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("SoftwareAbout", "sa_twitter_page").Trim()));
+                About_InstagramBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("SoftwareAbout", "sa_instagram_page").Trim()));
+                About_GitHubBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("SoftwareAbout", "sa_github_page").Trim()));
             }catch (Exception){ }
         }
         // WEBSITE LINK
@@ -72,11 +78,18 @@ namespace Glow{
                 Process.Start(TS_LinkSystem.twitter_link);
             }catch (Exception){ }
         }
+        // INSTAGRAM LINK
+        // ======================================================================================================
+        private void About_InstagramBtn_Click(object sender, EventArgs e){
+            try{
+                Process.Start(TS_LinkSystem.instagram_link);
+            }catch (Exception){ }
+        }
         // GITHUB LINK
         // ======================================================================================================
         private void About_GitHubBtn_Click(object sender, EventArgs e){
             try{
-                Process.Start(TS_LinkSystem.github_link + "/glow");
+                Process.Start(TS_LinkSystem.github_link);
             }catch (Exception){ }
         }
     }

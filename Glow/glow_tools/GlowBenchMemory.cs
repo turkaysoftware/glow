@@ -33,28 +33,29 @@ namespace Glow.glow_tools{
                 }else if (Glow.theme == 0){
                     try { if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } }catch (Exception){ }
                 }
-                BackColor = Glow.ui_colors[5];
-                Bench_Panel.BackColor = Glow.ui_colors[6];
+                BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "PageContainerBGAndPageContentTotalColors");
+                Bench_Panel.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
                 //
-                Bench_MStart.BackColor = Glow.ui_colors[8];
-                Bench_MStart.ForeColor = Glow.ui_colors[18];
-                Bench_MStart.FlatAppearance.BorderColor = Glow.ui_colors[8];
-                Bench_MStart.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
-                Bench_MStop.BackColor = Glow.ui_colors[8];
-                Bench_MStop.ForeColor = Glow.ui_colors[18];
-                Bench_MStop.FlatAppearance.BorderColor = Glow.ui_colors[8];
-                Bench_MStop.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
+                Bench_MStart.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_MStart.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
+                Bench_MStart.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_MStart.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_MStop.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_MStop.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
+                Bench_MStop.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_MStop.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
                 //
-                Bench_TLP.BackgroundColor = Glow.ui_colors[12];
-                Bench_TLP.GridColor = Glow.ui_colors[14];
-                Bench_TLP.DefaultCellStyle.BackColor = Glow.ui_colors[12];
-                Bench_TLP.DefaultCellStyle.ForeColor = Glow.ui_colors[13];
-                Bench_TLP.AlternatingRowsDefaultCellStyle.BackColor = Glow.ui_colors[15];
-                Bench_TLP.ColumnHeadersDefaultCellStyle.BackColor = Glow.ui_colors[16];
-                Bench_TLP.ColumnHeadersDefaultCellStyle.SelectionBackColor = Glow.ui_colors[16];
-                Bench_TLP.ColumnHeadersDefaultCellStyle.ForeColor = Glow.ui_colors[17];
-                Bench_TLP.DefaultCellStyle.SelectionBackColor = Glow.ui_colors[16];
-                Bench_TLP.DefaultCellStyle.SelectionForeColor = Glow.ui_colors[17];
+                Bench_TLP.BackgroundColor = TS_ThemeEngine.ColorMode(Glow.theme, "DataGridBGColor");
+                Bench_TLP.GridColor = TS_ThemeEngine.ColorMode(Glow.theme, "DataGridColor");
+                Bench_TLP.DefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "DataGridBGColor");
+                Bench_TLP.DefaultCellStyle.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DataGridFEColor");
+                Bench_TLP.AlternatingRowsDefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "DataGridAlternatingColor");
+                Bench_TLP.ColumnHeadersDefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "OSDAndServicesPageBG");
+                Bench_TLP.ColumnHeadersDefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "OSDAndServicesPageBG");
+                Bench_TLP.ColumnHeadersDefaultCellStyle.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "OSDAndServicesPageFE");
+                Bench_TLP.DefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "DataGridBGColor");
+                Bench_TLP.DefaultCellStyle.SelectionForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DataGridFEColor");
+                Bench_TLP.ReadOnly = true;  // VeriGrid'i sadece okunabilir yapar
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("BenchRAM", "br_title").Trim())), Application.ProductName);
@@ -67,6 +68,9 @@ namespace Glow.glow_tools{
                 Bench_MStart.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("BenchRAM", "br_start").Trim()));
                 Bench_MStop.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("BenchRAM", "br_stop").Trim()));
             }catch (Exception){ }
+        }
+        private void Bench_TLP_CellClick(object sender, DataGridViewCellEventArgs e){
+            Bench_TLP.ClearSelection();
         }
         // MAIN LOAD
         private void GlowBenchMemory_Load(object sender, EventArgs e){

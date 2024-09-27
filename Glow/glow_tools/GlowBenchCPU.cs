@@ -34,41 +34,41 @@ namespace Glow.glow_tools{
                 }else if (Glow.theme == 0){
                     try { if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } }catch (Exception){ }
                 }
-                BackColor = Glow.ui_colors[5];
+                BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "PageContainerBGAndPageContentTotalColors");
                 //
-                Bench_TLP_T_P1.BackColor = Glow.ui_colors[6];
-                Bench_TLP_T_P2.BackColor = Glow.ui_colors[6];
-                Bench_TLP_T_P3.BackColor = Glow.ui_colors[6];
-                Bench_TLP_R_P1.BackColor = Glow.ui_colors[6];
-                Bench_TLP_R_P2.BackColor = Glow.ui_colors[6];
+                Bench_TLP_T_P1.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
+                Bench_TLP_T_P2.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
+                Bench_TLP_T_P3.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
+                Bench_TLP_R_P1.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
+                Bench_TLP_R_P2.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
                 //
-                Bench_CPUName.ForeColor = Glow.ui_colors[7];
-                Bench_CPUCores.ForeColor = Glow.ui_colors[8];
+                Bench_CPUName.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
+                Bench_CPUCores.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
                 //
-                Bench_Label_RSingle.ForeColor = Glow.ui_colors[7];
-                Bench_Label_RSingleResult.ForeColor = Glow.ui_colors[8];
-                Bench_Label_RMulti.ForeColor = Glow.ui_colors[7];
-                Bench_Label_RMultiResult.ForeColor = Glow.ui_colors[8];
+                Bench_Label_RSingle.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
+                Bench_Label_RSingleResult.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Label_RMulti.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
+                Bench_Label_RMultiResult.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
                 //
-                Bench_Label_Mode.ForeColor = Glow.ui_colors[7];
-                Bench_Mode.BackColor = Glow.ui_colors[9];
-                Bench_Mode.ForeColor = Glow.ui_colors[8];
+                Bench_Label_Mode.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
+                Bench_Mode.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "SelectBoxBGColor");
+                Bench_Mode.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
                 //
-                Bench_Label_Time.ForeColor = Glow.ui_colors[7];
-                Bench_Time.BackColor = Glow.ui_colors[9];
-                Bench_Time.ForeColor = Glow.ui_colors[8];
+                Bench_Label_Time.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
+                Bench_Time.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "SelectBoxBGColor");
+                Bench_Time.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
                 //
-                Bench_TimeCustom.BackColor = Glow.ui_colors[10];
-                Bench_TimeCustom.ForeColor = Glow.ui_colors[11];
+                Bench_TimeCustom.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "TextBoxBGColor");
+                Bench_TimeCustom.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "TextBoxFEColor");
                 //
-                Bench_Start.BackColor = Glow.ui_colors[8];
-                Bench_Start.ForeColor = Glow.ui_colors[18];
-                Bench_Start.FlatAppearance.BorderColor = Glow.ui_colors[8];
-                Bench_Start.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
-                Bench_Stop.BackColor = Glow.ui_colors[8];
-                Bench_Stop.ForeColor = Glow.ui_colors[18];
-                Bench_Stop.FlatAppearance.BorderColor = Glow.ui_colors[8];
-                Bench_Stop.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
+                Bench_Start.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Start.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
+                Bench_Start.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Start.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Stop.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Stop.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
+                Bench_Stop.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Stop.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
                 ///////
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("BenchCPU", "bc_title").Trim())), Application.ProductName);

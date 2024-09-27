@@ -28,14 +28,12 @@ namespace Glow{
         public Glow(){
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-            // Windows mode check
+            // Windows mode check 
             ManagementObjectSearcher search_os = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_OperatingSystem");
             foreach (ManagementObject query_os_rotate in search_os.Get()){
                 try{
                     string os_name = Convert.ToString(query_os_rotate["Caption"]);
-                    if (os_name.ToLower().Contains("windows 11")){
-                        windows_mode = 1;
-                    }
+                    if (os_name.ToLower().Contains("windows 11")){ windows_mode = 1; }
                 }catch (Exception){ }
             } 
         }
@@ -60,14 +58,9 @@ namespace Glow{
         static List<int> vn_range = new List<int>(){ 10, 24 };
         static Random vis_m_property = new Random();
         // ======================================================================================================
-        // COLOR MODES / Index Mode | 0 = Dark - 1 = Light
-        List<Color> btn_colors_active = new List<Color>(){ Color.WhiteSmoke, Color.FromArgb(31, 31, 31) };
-        List<Color> btn_colors_deactive = new List<Color>(){ Color.FromArgb(235, 235, 235), Color.FromArgb(24, 24, 24) };
         // UI COLORS
-        public static List<Color> ui_colors = new List<Color>();
-        static List<Color> header_colors = new List<Color>();
-        List<Color> disk_total_light = new List<Color>(){ Color.FromArgb(54, 95, 146), Color.FromArgb(123, 27, 193), Color.FromArgb(193, 27, 92) , Color.FromArgb(21, 140, 84) };
-        List<Color> disk_total_dark = new List<Color>(){ Color.FromArgb(88, 153, 233), Color.FromArgb(202, 35, 251), Color.FromArgb(237, 37, 115), Color.FromArgb(29, 181, 110) };
+        List<Color> btn_colors_active = new List<Color>(){ Color.Transparent };
+        static List<Color> header_colors = new List<Color>() { Color.Transparent, Color.Transparent };
         // ======================================================================================================
         // HEADER SETTINGS
         private class HeaderMenuColors : ToolStripProfessionalRenderer{
@@ -250,11 +243,11 @@ namespace Glow{
             string theme_mode = software_read_settings.TSReadSettings(ts_settings_container, "ThemeStatus");
             switch (theme_mode){
                 case "0":
-                    color_mode(0);
+                    theme_engine(0);
                     darkThemeToolStripMenuItem.Checked = true;
                     break;
                 default:
-                    color_mode(1);
+                    theme_engine(1);
                     lightThemeToolStripMenuItem.Checked = true;
                     break;
             }
@@ -1277,9 +1270,9 @@ namespace Glow{
             try{
                 string bios_prompt = "";
                 if (laptop_mode == true){
-                    bios_prompt = string.Format("{0} {1}", OS_SystemModel_V.Text.Trim(), "BIOS Driver");
+                    bios_prompt = string.Format("{0} {1}", OS_SystemModel_V.Text.Trim(), "BIOS Update");
                 }else if (laptop_mode == false){
-                    bios_prompt = string.Format("{0} {1} {2}", MB_MotherBoardMan_V.Text.Trim(), MB_MotherBoardName_V.Text.Trim(), "BIOS Driver");
+                    bios_prompt = string.Format("{0} {1} {2}", MB_MotherBoardMan_V.Text.Trim(), MB_MotherBoardName_V.Text.Trim(), "BIOS Update");
                 }
                 Process.Start(new ProcessStartInfo($"https://www.google.com/search?q={bios_prompt}"){ UseShellExecute = true });
             }catch (Exception){ }
@@ -1292,6 +1285,9 @@ namespace Glow{
             string cpu_mode = "";
             TSGetLangs software_lang = new TSGetLangs(lang_path);
             ManagementObjectSearcher search_process = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
+            double cpu_l1_total_size = 0;
+            double cpu_l2_total_size = 0;
+            double cpu_l3_total_size = 0;
             foreach (ManagementObject query_process_rotate in search_process.Get()){
                 try{
                     // CPU NAME
@@ -1360,12 +1356,14 @@ namespace Glow{
                 try{
                     // L2 CACHE
                     double l2_size = Convert.ToDouble(query_process_rotate["L2CacheSize"]) * 1024;
-                    CPU_L2_V.Text = TS_FormatSize(l2_size);
+                    cpu_l2_total_size += l2_size;
+                    CPU_L2_V.Text = TS_FormatSize(cpu_l2_total_size);
                 }catch (Exception){ }
                 try{
                     // L3 CACHE
                     double l3_size = Convert.ToDouble(query_process_rotate["L3CacheSize"]) * 1024;
-                    CPU_L3_V.Text = TS_FormatSize(l3_size);
+                    cpu_l3_total_size += l3_size;
+                    CPU_L3_V.Text = TS_FormatSize(cpu_l3_total_size);
                 }catch (Exception){ }
                 try{
                     // CPU CORES
@@ -1419,7 +1417,8 @@ namespace Glow{
             foreach (ManagementObject query_cm_rotate in search_cm.Get()){
                 // L1 CACHE
                 double l1_size = Convert.ToDouble(query_cm_rotate["MaxCacheSize"]) * 1024;
-                CPU_L1_V.Text = TS_FormatSize(l1_size);
+                cpu_l1_total_size += l1_size;
+                CPU_L1_V.Text = TS_FormatSize(cpu_l1_total_size);
             }
             try{
                 // CPU CODE SETS
@@ -2155,7 +2154,8 @@ namespace Glow{
                                     }
                                     // DISK MAN
                                     var disk_man = Convert.ToString(disk_model_and_man_search["Manufacturer"]).Trim();
-                                    if (disk_man == string.Empty || disk_man == ""){
+                                    if (disk_man.ToLower().ToLower() == "nvme"){ disk_man = string.Empty; }
+                                    if (string.IsNullOrEmpty(disk_man)){
                                         string disk_mod_lowercase = disk_model.ToLower().Replace("ı", "i");
                                         for (int i = 0; i <= disk_mfr.Count - 1; i++){
                                             bool target_detect_disk = disk_mod_lowercase.Contains(disk_mfr[i]);
@@ -3785,16 +3785,14 @@ namespace Glow{
             if (btn_target != null){
                 if (active_btn != (Button)btn_target){
                     active_btn = (Button)btn_target;
-                    if (theme == 1){ active_btn.BackColor = btn_colors_active[0]; }
-                    else if (theme == 0){ active_btn.BackColor = btn_colors_active[1]; }
+                    active_btn.BackColor = TS_ThemeEngine.ColorMode(theme, "BtnActiveColor");
                     active_btn.Cursor = Cursors.Default;
                 }
             }
         }
         private void disabled_page(){
             foreach (Control disabled_btn in LeftMenuPanel.Controls){
-                if (theme == 1){ disabled_btn.BackColor = btn_colors_deactive[0]; }
-                else if (theme == 0){ disabled_btn.BackColor = btn_colors_deactive[1]; }
+                disabled_btn.BackColor = TS_ThemeEngine.ColorMode(theme, "BtnDeActiveColor");
                 disabled_btn.Cursor = Cursors.Hand;
             }
         }
@@ -4384,1009 +4382,836 @@ namespace Glow{
         // THEME SWAP
         // ======================================================================================================
         private void lightThemeToolStripMenuItem_Click(object sender, EventArgs e){
-            if (theme != 1){ color_mode(1); select_theme_active(sender); }
+            if (theme != 1) { theme_engine(1); select_theme_active(sender); }
         }
         private void darkThemeToolStripMenuItem_Click(object sender, EventArgs e){
-            if (theme != 0){ color_mode(0); select_theme_active(sender); }
+            if (theme != 0) { theme_engine(0); select_theme_active(sender); }
         }
-        private void color_mode(int ts){
-            theme = ts;
-            if (theme == 1){
-                // TITLEBAR CHANGE 
-                try { if (DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4) != 1){ DwmSetWindowAttribute(Handle, 20, new[]{ 0 }, 4); } } catch (Exception){ }
-                // CLEAR PRELOAD ITEMS
-                if (ui_colors.Count > 0){ ui_colors.Clear(); }
-                if (header_colors.Count > 1){ header_colors.Clear(); }
-                // HEADER MENU COLOR MODE
-                header_colors.Add(Color.FromArgb(222, 222, 222));   // 0/1 - Header BG Color
-                header_colors.Add(Color.FromArgb(31, 31, 31));      // 1/1 - Header FE Color
-                // HEADER AND TOOLTIP COLOR MODE
-                ui_colors.Add(Color.FromArgb(32, 32, 32));          // 0  - Header FE Color
-                ui_colors.Add(Color.FromArgb(235, 235, 235));       // 1  - Header BG Color
-                // LEFT MENU COLOR MODE
-                ui_colors.Add(Color.FromArgb(235, 235, 235));       // 2  - Left Menu BG And Border Color
-                ui_colors.Add(Color.WhiteSmoke);                    // 3  - Left Menu Button Hover & Mouse Down Colors
-                ui_colors.Add(Color.FromArgb(32, 32, 32));          // 4  - Left Menu Button FE Color
-                // CONTENT BG COLOR MODE
-                ui_colors.Add(Color.WhiteSmoke);                    // 5  - Page Container BG & Page Content Total Colors
-                // UI COLOR MODES
-                ui_colors.Add(Color.FromArgb(235, 235, 235));       // 6  - Content Panel BG Color
-                ui_colors.Add(Color.FromArgb(32, 32, 32));          // 7  - Content Label Left
-                ui_colors.Add(Color.FromArgb(54, 95, 146));         // 8  - Content Label Right
-                ui_colors.Add(Color.FromArgb(235, 235, 235));       // 9  - SelectBox BG Color
-                ui_colors.Add(Color.WhiteSmoke);                    // 10 - Textbox BG Color
-                ui_colors.Add(Color.FromArgb(32, 32, 32));          // 11 - Textbox FE Color
-                ui_colors.Add(Color.White);                         // 12 - DataGrid BG Color
-                ui_colors.Add(Color.FromArgb(32, 32, 32));          // 13 - DataGrid FE Color
-                ui_colors.Add(Color.FromArgb(217, 217, 217));       // 14 - DataGrid Grid Color
-                ui_colors.Add(Color.FromArgb(235, 235, 235));       // 15 - DataGrid Alternating Color
-                ui_colors.Add(Color.FromArgb(54, 95, 146));         // 16 - OSD & Service Clear BTN BG & DataGrid Column BG & DataGrid Selection BG Color
-                ui_colors.Add(Color.White);                         // 17 - OSD & Service Clear BTN FE & DataGrid Column FE & DataGrid Selection FE Color
-                ui_colors.Add(Color.WhiteSmoke);                    // 18 - Dynamic Theme Active Btn BG Color & Tools Btn FE Color
-                // LEFT MENU LOGO CHANGE
-                if (windows_mode == 1){
-                    OS_RotateBtn.Image = Properties.Resources.left_os_w11_light;
-                }else{
-                    OS_RotateBtn.Image = Properties.Resources.left_os_w10_light;
-                }
-                MB_RotateBtn.Image = Properties.Resources.lm_mb_light;
-                CPU_RotateBtn.Image = Properties.Resources.lm_cpu_light;
-                RAM_RotateBtn.Image = Properties.Resources.lm_ram_light;
-                GPU_RotateBtn.Image = Properties.Resources.lm_gpu_light;
-                DISK_RotateBtn.Image = Properties.Resources.lm_disk_light;
-                NET_RotateBtn.Image = Properties.Resources.lm_net_light;
-                USB_RotateBtn.Image = Properties.Resources.lm_usb_light;
-                SOUND_RotateBtn.Image = Properties.Resources.lm_sound_light;
-                BATTERY_RotateBtn.Image = Properties.Resources.lm_battery_light;
-                OSD_RotateBtn.Image = Properties.Resources.lm_drivers_light;
-                SERVICES_RotateBtn.Image = Properties.Resources.lm_services_light;
-                PRINT_RotateBtn.Image = Properties.Resources.lm_export_light;
-                // TOP MENU LOGO CHANGE
-                settingsToolStripMenuItem.Image = Properties.Resources.tm_settings_light;
-                themeToolStripMenuItem.Image = Properties.Resources.tm_theme_light;
-                languageToolStripMenuItem.Image = Properties.Resources.tm_lang_light;
-                initialViewToolStripMenuItem.Image = Properties.Resources.tm_start_light;
-                hidingModeToolStripMenuItem.Image = Properties.Resources.tm_hidden_light;
-                checkforUpdatesToolStripMenuItem.Image = Properties.Resources.tm_update_light;
-                toolsToolStripMenuItem.Image = Properties.Resources.tm_tools_light;
-                sFCandDISMAutoToolToolStripMenuItem.Image = Properties.Resources.tm_sfc_and_dism_light;
-                cacheCleaningToolToolStripMenuItem.Image = Properties.Resources.tm_cache_clean_light;
-                benchCPUToolStripMenuItem.Image = Properties.Resources.tm_bench_cpu_light;
-                benchRAMToolStripMenuItem.Image = Properties.Resources.tm_bench_ram_light;
-                benchDiskToolStripMenuItem.Image = Properties.Resources.tm_bench_disk_light;
-                screenOverlayToolStripMenuItem.Image = Properties.Resources.tm_overlay_light;
-                dNSTestToolStripMenuItem.Image = Properties.Resources.tm_dns_light;
-                quickAccessToolStripMenuItem.Image = Properties.Resources.tm_quick_access_light;
-                monitorTestToolStripMenuItem.Image = Properties.Resources.tm_test_monitor_light;
-                monitorDeadPixelTestToolStripMenuItem.Image = Properties.Resources.tm_test_dead_pixel_light;
-                monitorDynamicRangeTestToolStripMenuItem.Image = Properties.Resources.tm_test_dynamic_range_light;
-                // MIDDLE CONTENT LOGO CHANGE
-                OS_WinKeyCopy.BackgroundImage = Properties.Resources.mid_copy_light;
-                OS_MinidumpOpen.BackgroundImage = Properties.Resources.mid_link_light;
-                OS_BSoDZIP.BackgroundImage = Properties.Resources.mid_zip_light;
-                OS_WallpaperOpen.BackgroundImage = Properties.Resources.mid_link_light;
-                // HELP
-                aboutToolStripMenuItem.Image = Properties.Resources.tm_about_light;
-            }else if (theme == 0){
-                // TITLEBAR CHANGE
-                try { if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } } catch (Exception){ }
-                // CLEAR PRELOAD ITEMS
-                if (ui_colors.Count > 0){ ui_colors.Clear(); }
-                if (header_colors.Count > 1){ header_colors.Clear(); }
-                // HEADER MENU COLOR MODE
-                header_colors.Add(Color.FromArgb(31, 31, 31));      // 0/1 - Header BG Color
-                header_colors.Add(Color.FromArgb(222, 222, 222));   // 1/1 - Header FE Color
-                // HEADER AND TOOLTIP COLOR MODE
-                ui_colors.Add(Color.WhiteSmoke);                    // 0  - Header FE Color
-                ui_colors.Add(Color.FromArgb(24, 24, 24));          // 1  - Header BG Color
-                // LEFT MENU COLOR MODE
-                ui_colors.Add(Color.FromArgb(24, 24, 24));          // 2  - Left Menu BG And Border Color
-                ui_colors.Add(Color.FromArgb(31, 31, 31));          // 3  - Left Menu Button Hover & Mouse Down Colors
-                ui_colors.Add(Color.WhiteSmoke);                    // 4  - Left Menu Button FE Color
-                // CONTENT BG COLOR MODE
-                ui_colors.Add(Color.FromArgb(31, 31, 31));          // 5  - Page Container BG & Page Content Total Colors
-                // UI COLOR MODES
-                ui_colors.Add(Color.FromArgb(24, 24, 24));          // 6  - Content Panel BG Color
-                ui_colors.Add(Color.WhiteSmoke);                    // 7  - Content Label Left
-                ui_colors.Add(Color.FromArgb(88, 153, 233));        // 8  - Content Label Right
-                ui_colors.Add(Color.FromArgb(24, 24, 24));          // 9  - SelectBox BG Color
-                ui_colors.Add(Color.FromArgb(31, 31, 31));          // 10 - Textbox BG Color
-                ui_colors.Add(Color.WhiteSmoke);                    // 11 - Textbox FE Color
-                ui_colors.Add(Color.FromArgb(24, 24, 24));          // 12 - DataGrid BG Color
-                ui_colors.Add(Color.WhiteSmoke);                    // 13 - DataGrid FE Color
-                ui_colors.Add(Color.FromArgb(50, 50, 50));          // 14 - DataGrid Grid Color
-                ui_colors.Add(Color.FromArgb(31, 31, 31));          // 15 - DataGrid Alternating Color
-                ui_colors.Add(Color.FromArgb(88, 153, 233));        // 16 - OSD & Service Clear BTN BG & DataGrid Column BG & DataGrid Selection BG Color
-                ui_colors.Add(Color.FromArgb(37, 37, 45));          // 17 - OSD & Service Clear BTN FE & DataGrid Column FE & DataGrid Selection FE Color
-                ui_colors.Add(Color.FromArgb(31, 31, 31));          // 18 - Dynamic Theme Active Btn BG Color & Tools Btn FE Color
-                // LEFT MENU LOGO CHANGE
-                if (windows_mode == 1){
-                    OS_RotateBtn.Image = Properties.Resources.left_os_w11_dark;
-                }else{
-                    OS_RotateBtn.Image = Properties.Resources.left_os_w10_dark;
-                }
-                MB_RotateBtn.Image = Properties.Resources.lm_mb_dark;
-                CPU_RotateBtn.Image = Properties.Resources.lm_cpu_dark;
-                RAM_RotateBtn.Image = Properties.Resources.lm_ram_dark;
-                GPU_RotateBtn.Image = Properties.Resources.lm_gpu_dark;
-                DISK_RotateBtn.Image = Properties.Resources.lm_disk_dark;
-                NET_RotateBtn.Image = Properties.Resources.lm_net_dark;
-                USB_RotateBtn.Image = Properties.Resources.lm_usb_dark;
-                SOUND_RotateBtn.Image = Properties.Resources.lm_sound_dark;
-                BATTERY_RotateBtn.Image = Properties.Resources.lm_battery_dark;
-                OSD_RotateBtn.Image = Properties.Resources.lm_drivers_dark;
-                SERVICES_RotateBtn.Image = Properties.Resources.lm_services_dark;
-                PRINT_RotateBtn.Image = Properties.Resources.lm_export_dark;
-                // TOP MENU LOGO CHANGE
-                settingsToolStripMenuItem.Image = Properties.Resources.tm_settings_dark;
-                themeToolStripMenuItem.Image = Properties.Resources.tm_theme_dark;
-                languageToolStripMenuItem.Image = Properties.Resources.tm_lang_dark;
-                initialViewToolStripMenuItem.Image = Properties.Resources.tm_start_dark;
-                hidingModeToolStripMenuItem.Image = Properties.Resources.tm_hidden_dark;
-                checkforUpdatesToolStripMenuItem.Image = Properties.Resources.tm_update_dark;
-                toolsToolStripMenuItem.Image = Properties.Resources.tm_tools_dark;
-                sFCandDISMAutoToolToolStripMenuItem.Image = Properties.Resources.tm_sfc_and_dism_dark;
-                cacheCleaningToolToolStripMenuItem.Image = Properties.Resources.tm_cache_clean_dark;
-                benchCPUToolStripMenuItem.Image = Properties.Resources.tm_bench_cpu_dark;
-                benchRAMToolStripMenuItem.Image = Properties.Resources.tm_bench_ram_dark;
-                benchDiskToolStripMenuItem.Image = Properties.Resources.tm_bench_disk_dark;
-                screenOverlayToolStripMenuItem.Image = Properties.Resources.tm_overlay_dark;
-                dNSTestToolStripMenuItem.Image = Properties.Resources.tm_dns_dark;
-                quickAccessToolStripMenuItem.Image = Properties.Resources.tm_quick_access_dark;
-                monitorTestToolStripMenuItem.Image = Properties.Resources.tm_test_monitor_dark;
-                monitorDeadPixelTestToolStripMenuItem.Image = Properties.Resources.tm_test_dead_pixel_dark;
-                monitorDynamicRangeTestToolStripMenuItem.Image = Properties.Resources.tm_test_dynamic_range_dark;
-                // MIDDLE CONTENT LOGO CHANGE
-                OS_WinKeyCopy.BackgroundImage = Properties.Resources.mid_copy_dark;
-                OS_MinidumpOpen.BackgroundImage = Properties.Resources.mid_link_dark;
-                OS_BSoDZIP.BackgroundImage = Properties.Resources.mid_zip_dark;
-                OS_WallpaperOpen.BackgroundImage = Properties.Resources.mid_link_dark;
-                // HELP
-                aboutToolStripMenuItem.Image = Properties.Resources.tm_about_dark;
-            }
-            // SAVE THEME
+        // THEME ENGINE
+        // ======================================================================================================
+        private void theme_engine(int ts){
             try{
-                TSSettingsSave software_setting_save = new TSSettingsSave(ts_sf);
-                software_setting_save.TSWriteSettings(ts_settings_container, "ThemeStatus", Convert.ToString(ts));
-            }catch (Exception) { }
-            theme_engine();
-            // OTHER PAGE DYNAMIC UI
-            glow_other_page_dynamic_ui();
-        }
-        private void glow_other_page_dynamic_ui(){
-            // SFC AND DISM TOOL
-            try{
-                GlowSFCandDISMAutoTool sfc_and_dism_tool = new GlowSFCandDISMAutoTool();
-                string glow_tool_name = "glow_sfc_and_dism_tool";
-                sfc_and_dism_tool.Name = glow_tool_name;
-                if (Application.OpenForms[glow_tool_name] != null){
-                    sfc_and_dism_tool = (GlowSFCandDISMAutoTool)Application.OpenForms[glow_tool_name];
-                    sfc_and_dism_tool.sadt_theme_settings();
-                }
-            }catch (Exception){ }
-            // CACHE CLEANUP TOOL
-            try{
-                GlowCacheCleanupTool cache_cleanup_tool = new GlowCacheCleanupTool();
-                string glow_tool_name = "glow_cache_cleanup_tool";
-                cache_cleanup_tool.Name = glow_tool_name;
-                if (Application.OpenForms[glow_tool_name] != null){
-                    cache_cleanup_tool = (GlowCacheCleanupTool)Application.OpenForms[glow_tool_name];
-                    cache_cleanup_tool.cct_theme_settings();
-                }
-            }catch (Exception){ }
-            // BENCH CPU TOOL
-            try{
-                GlowBenchCPU bench_cpu_tool = new GlowBenchCPU();
-                string glow_tool_name = "glow_bench_cpu_tool";
-                bench_cpu_tool.Name = glow_tool_name;
-                if (Application.OpenForms[glow_tool_name] != null){
-                    bench_cpu_tool = (GlowBenchCPU)Application.OpenForms[glow_tool_name];
-                    bench_cpu_tool.bench_cpu_theme_settings();
-                }
-            }catch (Exception){ }
-            // BENCH RAM TOOL
-            try{
-                GlowBenchMemory bench_cpu_tool = new GlowBenchMemory();
-                string glow_tool_name = "glow_bench_ram_tool";
-                bench_cpu_tool.Name = glow_tool_name;
-                if (Application.OpenForms[glow_tool_name] != null)
-                {
-                    bench_cpu_tool = (GlowBenchMemory)Application.OpenForms[glow_tool_name];
-                    bench_cpu_tool.bench_ram_settings();
-                }
-            }catch (Exception){ }
-            // BENCH DISK TOOL
-            try{
-                GlowBenchDisk bench_disk_tool = new GlowBenchDisk();
-                string glow_tool_name = "glow_bench_disk_tool";
-                bench_disk_tool.Name = glow_tool_name;
-                if (Application.OpenForms[glow_tool_name] != null){
-                    bench_disk_tool = (GlowBenchDisk)Application.OpenForms[glow_tool_name];
-                    bench_disk_tool.bench_disk_theme_settings();
-                }
-            }catch (Exception){ }
-            // SCREEN OVERLAY
-            try{
-                GlowOverlay screen_overlay_tool = new GlowOverlay();
-                string glow_tool_name = "glow_screen_overlay_tool";
-                screen_overlay_tool.Name = glow_tool_name;
-                if (Application.OpenForms[glow_tool_name] != null){
-                    screen_overlay_tool = (GlowOverlay)Application.OpenForms[glow_tool_name];
-                    screen_overlay_tool.screen_overlay_settings();
-                }
-            }catch (Exception){ }
-            // DNS TEST TOOL
-            try{
-                GlowDNSTestTool dns_test_tool = new GlowDNSTestTool();
-                string glow_tool_name = "glow_dns_test_tool";
-                dns_test_tool.Name = glow_tool_name;
-                if (Application.OpenForms[glow_tool_name] != null){
-                    dns_test_tool = (GlowDNSTestTool)Application.OpenForms[glow_tool_name];
-                    dns_test_tool.dns_test_settings();
-                }
-            }catch (Exception){ }
-            // DNS TEST TOOL
-            try{
-                GlowQuickAccessTool quick_access_tool = new GlowQuickAccessTool();
-                string glow_tool_name = "glow_quick_access_tool";
-                quick_access_tool.Name = glow_tool_name;
-                if (Application.OpenForms[glow_tool_name] != null){
-                    quick_access_tool = (GlowQuickAccessTool)Application.OpenForms[glow_tool_name];
-                    quick_access_tool.quick_access_settings();
-                }
-            }catch (Exception){ }
-            // MONITOR TEST DEAD PIXEL TOOL
-            try{
-                GlowMonitorTestEngine monitor_test_engine_tool = new GlowMonitorTestEngine();
-                string glow_tool_name = "glow_monitor_test_engine_dead_pixel";
-                monitor_test_engine_tool.Name = glow_tool_name;
-                if (Application.OpenForms[glow_tool_name] != null){
-                    monitor_test_engine_tool = (GlowMonitorTestEngine)Application.OpenForms[glow_tool_name];
-                    monitor_test_engine_tool.monitor_test_engine_theme_settings();
-                }
-                GlowMonitorTestEngine monitor_test_engine_tool2 = new GlowMonitorTestEngine();
-                string glow_tool_name2 = "glow_monitor_test_engine_dynamic_range";
-                monitor_test_engine_tool2.Name = glow_tool_name2;
-                if (Application.OpenForms[glow_tool_name2] != null){
-                    monitor_test_engine_tool2 = (GlowMonitorTestEngine)Application.OpenForms[glow_tool_name2];
-                    monitor_test_engine_tool2.monitor_test_engine_theme_settings();
-                }
-            }catch (Exception){ }
-            // GLOW ABOUT
-            try{
-                GlowAbout software_about = new GlowAbout();
-                string software_about_name = "glow_about";
-                software_about.Name = software_about_name;
-                if (Application.OpenForms[software_about_name] != null){
-                    software_about = (GlowAbout)Application.OpenForms[software_about_name];
-                    software_about.about_preloader();
-                }
-            }catch (Exception){ }
-        }
-        private void theme_engine(){
-            try{
-                header_image_reloader(menu_btns);
-                HeaderMenu.Renderer = new HeaderMenuColors();
-                // TOOLTIP
-                MainToolTip.ForeColor = ui_colors[0];
-                MainToolTip.BackColor = ui_colors[1];
-                // HEADER PANEL
-                //HeaderPanel.BackColor = ui_colors[1];
-                Header_InPanel.BackColor = ui_colors[1];
-                // HEADER PANEL TEXT
-                HeaderText.ForeColor = ui_colors[0];
-                // HEADER MENU
-                HeaderMenu.ForeColor = ui_colors[0];
-                HeaderMenu.BackColor = ui_colors[1];
-                // SETTINGS
-                settingsToolStripMenuItem.ForeColor = ui_colors[0];
-                settingsToolStripMenuItem.BackColor = ui_colors[1];
-                // THEMES
-                themeToolStripMenuItem.BackColor = ui_colors[1];
-                themeToolStripMenuItem.ForeColor = ui_colors[0];
-                lightThemeToolStripMenuItem.BackColor = ui_colors[1];
-                lightThemeToolStripMenuItem.ForeColor = ui_colors[0];
-                darkThemeToolStripMenuItem.BackColor = ui_colors[1];
-                darkThemeToolStripMenuItem.ForeColor = ui_colors[0];
-                // LANGS
-                languageToolStripMenuItem.BackColor = ui_colors[1];
-                languageToolStripMenuItem.ForeColor = ui_colors[0];
-                chineseToolStripMenuItem.BackColor = ui_colors[1];
-                chineseToolStripMenuItem.ForeColor = ui_colors[0];
-                englishToolStripMenuItem.BackColor = ui_colors[1];
-                englishToolStripMenuItem.ForeColor = ui_colors[0];
-                frenchToolStripMenuItem.BackColor = ui_colors[1];
-                frenchToolStripMenuItem.ForeColor = ui_colors[0];
-                germanToolStripMenuItem.BackColor = ui_colors[1];
-                germanToolStripMenuItem.ForeColor = ui_colors[0];
-                koreanToolStripMenuItem.BackColor = ui_colors[1];
-                koreanToolStripMenuItem.ForeColor = ui_colors[0];
-                portugueseToolStripMenuItem.BackColor = ui_colors[1];
-                portugueseToolStripMenuItem.ForeColor = ui_colors[0];
-                russianToolStripMenuItem.BackColor = ui_colors[1];
-                russianToolStripMenuItem.ForeColor = ui_colors[0];
-                spanishToolStripMenuItem.BackColor = ui_colors[1];
-                spanishToolStripMenuItem.ForeColor = ui_colors[0];
-                turkishToolStripMenuItem.BackColor = ui_colors[1];
-                turkishToolStripMenuItem.ForeColor = ui_colors[0];
-                // INITIAL VIEW
-                initialViewToolStripMenuItem.BackColor = ui_colors[1];
-                initialViewToolStripMenuItem.ForeColor = ui_colors[0];
-                windowedToolStripMenuItem.BackColor = ui_colors[1];
-                windowedToolStripMenuItem.ForeColor = ui_colors[0];
-                fullScreenToolStripMenuItem.BackColor = ui_colors[1];
-                fullScreenToolStripMenuItem.ForeColor = ui_colors[0];
-                // HIDING MODE
-                hidingModeToolStripMenuItem.BackColor = ui_colors[1];
-                hidingModeToolStripMenuItem.ForeColor = ui_colors[0];
-                hidingModeOnToolStripMenuItem.BackColor = ui_colors[1];
-                hidingModeOnToolStripMenuItem.ForeColor = ui_colors[0];
-                hidingModeOffToolStripMenuItem.BackColor = ui_colors[1];
-                hidingModeOffToolStripMenuItem.ForeColor = ui_colors[0];
-                // UPDATE ENGINE
-                checkforUpdatesToolStripMenuItem.BackColor = ui_colors[1];
-                checkforUpdatesToolStripMenuItem.ForeColor = ui_colors[0];
-                // TOOLS
-                toolsToolStripMenuItem.BackColor = ui_colors[1];
-                toolsToolStripMenuItem.ForeColor = ui_colors[0];
-                sFCandDISMAutoToolToolStripMenuItem.BackColor = ui_colors[1];
-                sFCandDISMAutoToolToolStripMenuItem.ForeColor = ui_colors[0];
-                cacheCleaningToolToolStripMenuItem.BackColor = ui_colors[1];
-                cacheCleaningToolToolStripMenuItem.ForeColor = ui_colors[0];
-                benchCPUToolStripMenuItem.BackColor = ui_colors[1];
-                benchCPUToolStripMenuItem.ForeColor = ui_colors[0];
-                benchRAMToolStripMenuItem.BackColor = ui_colors[1];
-                benchRAMToolStripMenuItem.ForeColor = ui_colors[0];
-                benchDiskToolStripMenuItem.BackColor = ui_colors[1];
-                benchDiskToolStripMenuItem.ForeColor = ui_colors[0];
-                screenOverlayToolStripMenuItem.BackColor = ui_colors[1];
-                screenOverlayToolStripMenuItem.ForeColor = ui_colors[0];
-                dNSTestToolStripMenuItem.BackColor = ui_colors[1];
-                dNSTestToolStripMenuItem.ForeColor = ui_colors[0];
-                quickAccessToolStripMenuItem.BackColor = ui_colors[1];
-                quickAccessToolStripMenuItem.ForeColor = ui_colors[0];
-                monitorTestToolStripMenuItem.BackColor = ui_colors[1];
-                monitorTestToolStripMenuItem.ForeColor = ui_colors[0];
-                monitorDeadPixelTestToolStripMenuItem.BackColor = ui_colors[1];
-                monitorDeadPixelTestToolStripMenuItem.ForeColor = ui_colors[0];
-                monitorDynamicRangeTestToolStripMenuItem.BackColor = ui_colors[1];
-                monitorDynamicRangeTestToolStripMenuItem.ForeColor = ui_colors[0];
-                // ABOUT
-                aboutToolStripMenuItem.BackColor = ui_colors[1];
-                aboutToolStripMenuItem.ForeColor = ui_colors[0];
-                // LEFT MENU
-                LeftMenuPanel.BackColor = ui_colors[2];
-                OS_RotateBtn.BackColor = ui_colors[2];
-                MB_RotateBtn.BackColor = ui_colors[2];
-                CPU_RotateBtn.BackColor = ui_colors[2];
-                RAM_RotateBtn.BackColor = ui_colors[2];
-                GPU_RotateBtn.BackColor = ui_colors[2];
-                DISK_RotateBtn.BackColor = ui_colors[2];
-                NET_RotateBtn.BackColor = ui_colors[2];
-                USB_RotateBtn.BackColor = ui_colors[2];
-                SOUND_RotateBtn.BackColor = ui_colors[2];
-                BATTERY_RotateBtn.BackColor = ui_colors[2];
-                OSD_RotateBtn.BackColor = ui_colors[2];
-                SERVICES_RotateBtn.BackColor = ui_colors[2];
-                PRINT_RotateBtn.BackColor = ui_colors[2];
-                // LEFT MENU BORDER
-                OS_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                MB_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                CPU_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                RAM_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                GPU_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                DISK_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                NET_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                USB_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                SOUND_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                BATTERY_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                OSD_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                SERVICES_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                PRINT_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                // LEFT MENU MOUSE HOVER
-                OS_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                MB_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                CPU_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                RAM_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                GPU_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                DISK_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                NET_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                USB_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                SOUND_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                BATTERY_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                OSD_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                SERVICES_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                PRINT_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                // LEFT MENU MOUSE DOWN
-                OS_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                MB_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                CPU_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                RAM_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                GPU_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                DISK_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                NET_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                USB_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                SOUND_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                BATTERY_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                OSD_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                SERVICES_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                PRINT_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                // LEFT MENU BUTTON TEXT COLOR
-                OS_RotateBtn.ForeColor = ui_colors[4];
-                MB_RotateBtn.ForeColor = ui_colors[4];
-                CPU_RotateBtn.ForeColor = ui_colors[4];
-                RAM_RotateBtn.ForeColor = ui_colors[4];
-                GPU_RotateBtn.ForeColor = ui_colors[4];
-                DISK_RotateBtn.ForeColor = ui_colors[4];
-                NET_RotateBtn.ForeColor = ui_colors[4];
-                USB_RotateBtn.ForeColor = ui_colors[4];
-                SOUND_RotateBtn.ForeColor = ui_colors[4];
-                BATTERY_RotateBtn.ForeColor = ui_colors[4];
-                OSD_RotateBtn.ForeColor = ui_colors[4];
-                SERVICES_RotateBtn.ForeColor = ui_colors[4];
-                PRINT_RotateBtn.ForeColor = ui_colors[4];
-                // CONTENT BG
-                BackColor = ui_colors[5];
-                OS.BackColor = ui_colors[5];
-                MB.BackColor = ui_colors[5];
-                CPU.BackColor = ui_colors[5];
-                RAM.BackColor = ui_colors[5];
-                GPU.BackColor = ui_colors[5];
-                DISK.BackColor = ui_colors[5];
-                NETWORK.BackColor = ui_colors[5];
-                USB.BackColor = ui_colors[5];
-                SOUND.BackColor = ui_colors[5];
-                BATTERY.BackColor = ui_colors[5];
-                OSD.BackColor = ui_colors[5];
-                GSERVICE.BackColor = ui_colors[5];
-                PRINT.BackColor = ui_colors[5];
-                // OS
-                os_panel_1.BackColor = ui_colors[6];
-                os_panel_2.BackColor = ui_colors[6];
-                os_panel_3.BackColor = ui_colors[6];
-                os_panel_4.BackColor = ui_colors[6];
-                os_panel_5.BackColor = ui_colors[6];
-                os_panel_6.BackColor = ui_colors[6];
-                OS_SystemUser.ForeColor = ui_colors[7];
-                OS_SystemUser_V.ForeColor = ui_colors[8];
-                OS_ComputerName.ForeColor = ui_colors[7];
-                OS_ComputerName_V.ForeColor = ui_colors[8];
-                OS_SystemModel.ForeColor = ui_colors[7];
-                OS_SystemModel_V.ForeColor = ui_colors[8];
-                OS_SavedUser.ForeColor = ui_colors[7];
-                OS_SavedUser_V.ForeColor = ui_colors[8];
-                OS_Name.ForeColor = ui_colors[7];
-                OS_Name_V.ForeColor = ui_colors[8];
-                OS_Manufacturer.ForeColor = ui_colors[7];
-                OS_Manufacturer_V.ForeColor = ui_colors[8];
-                OS_SystemVersion.ForeColor = ui_colors[7];
-                OS_SystemVersion_V.ForeColor = ui_colors[8];
-                OS_Build.ForeColor = ui_colors[7];
-                OS_Build_V.ForeColor = ui_colors[8];
-                OS_SystemBuild.ForeColor = ui_colors[7];
-                OS_SystemBuild_V.ForeColor = ui_colors[8];
-                OS_SystemArchitectural.ForeColor = ui_colors[7];
-                OS_SystemArchitectural_V.ForeColor = ui_colors[8];
-                OS_Family.ForeColor = ui_colors[7];
-                OS_Family_V.ForeColor = ui_colors[8];
-                OS_DeviceID.ForeColor = ui_colors[7];
-                OS_DeviceID_V.ForeColor = ui_colors[8];
-                OS_Serial.ForeColor = ui_colors[7];
-                OS_Serial_V.ForeColor = ui_colors[8];
-                OS_Country.ForeColor = ui_colors[7];
-                OS_Country_V.ForeColor = ui_colors[8];
-                OS_TimeZone.ForeColor = ui_colors[7];
-                OS_TimeZone_V.ForeColor = ui_colors[8];
-                OS_CharacterSet.ForeColor = ui_colors[7];
-                OS_CharacterSet_V.ForeColor = ui_colors[8];
-                OS_EncryptionType.ForeColor = ui_colors[7];
-                OS_EncryptionType_V.ForeColor = ui_colors[8];
-                OS_SystemRootIndex.ForeColor = ui_colors[7];
-                OS_SystemRootIndex_V.ForeColor = ui_colors[8];
-                OS_SystemBuildPart.ForeColor = ui_colors[7];
-                OS_SystemBuildPart_V.ForeColor = ui_colors[8];
-                OS_SystemTime.ForeColor = ui_colors[7];
-                OS_SystemTime_V.ForeColor = ui_colors[8];
-                OS_Install.ForeColor = ui_colors[7];
-                OS_Install_V.ForeColor = ui_colors[8];
-                OS_SystemWorkTime.ForeColor = ui_colors[7];
-                OS_SystemWorkTime_V.ForeColor = ui_colors[8];
-                OS_LastBootTime.ForeColor = ui_colors[7];
-                OS_LastBootTime_V.ForeColor = ui_colors[8];
-                OS_SystemLastShutDown.ForeColor = ui_colors[7];
-                OS_SystemLastShutDown_V.ForeColor = ui_colors[8];
-                OS_PortableOS.ForeColor = ui_colors[7];
-                OS_PortableOS_V.ForeColor = ui_colors[8];
-                OS_MouseWheelStatus.ForeColor = ui_colors[7];
-                OS_MouseWheelStatus_V.ForeColor = ui_colors[8];
-                OS_ScrollLockStatus.ForeColor = ui_colors[7];
-                OS_ScrollLockStatus_V.ForeColor = ui_colors[8];
-                OS_NumLockStatus.ForeColor = ui_colors[7];
-                OS_NumLockStatus_V.ForeColor = ui_colors[8];
-                OS_CapsLockStatus.ForeColor = ui_colors[7];
-                OS_CapsLockStatus_V.ForeColor = ui_colors[8];
-                OS_BootPartition.ForeColor = ui_colors[7];
-                OS_BootPartition_V.ForeColor = ui_colors[8];
-                OS_SystemPartition.ForeColor = ui_colors[7];
-                OS_SystemPartition_V.ForeColor = ui_colors[8];
-                OS_AVProgram.ForeColor = ui_colors[7];
-                OS_AVProgram_V.ForeColor = ui_colors[8];
-                OS_FirewallProgram.ForeColor = ui_colors[7];
-                OS_FirewallProgram_V.ForeColor = ui_colors[8];
-                OS_AntiSpywareProgram.ForeColor = ui_colors[7];
-                OS_AntiSpywareProgram_V.ForeColor = ui_colors[8];
-                OS_MSEdge.ForeColor = ui_colors[7];
-                OS_MSEdge_V.ForeColor = ui_colors[8];
-                OS_WinKey.ForeColor = ui_colors[7];
-                OS_WinKey_V.ForeColor = ui_colors[8];
-                OS_NETFrameworkVersion.ForeColor = ui_colors[7];
-                OS_NETFrameworkVersion_V.ForeColor = ui_colors[8];
-                OS_Minidump.ForeColor = ui_colors[7];
-                OS_Minidump_V.ForeColor = ui_colors[8];
-                OS_BSODDate.ForeColor = ui_colors[7];
-                OS_BSODDate_V.ForeColor = ui_colors[8];
-                OS_Wallpaper.ForeColor = ui_colors[7];
-                OS_Wallpaper_V.ForeColor = ui_colors[8];
-                // MB
-                mb_panel_1.BackColor = ui_colors[6];
-                mb_panel_2.BackColor = ui_colors[6];
-                mb_panel_3.BackColor = ui_colors[6];
-                mb_panel_4.BackColor = ui_colors[6];
-                MB_BIOSUpdateBtn.ForeColor = ui_colors[18];
-                MB_BIOSUpdateBtn.BackColor = ui_colors[8];
-                MB_BIOSUpdateBtn.FlatAppearance.BorderColor = ui_colors[8];
-                MB_BIOSUpdateBtn.FlatAppearance.MouseDownBackColor = ui_colors[8];
-                MB_MotherBoardName.ForeColor = ui_colors[7];
-                MB_MotherBoardName_V.ForeColor = ui_colors[8];
-                MB_MotherBoardMan.ForeColor = ui_colors[7];
-                MB_MotherBoardMan_V.ForeColor = ui_colors[8];
-                MB_MotherBoardSerial.ForeColor = ui_colors[7];
-                MB_MotherBoardSerial_V.ForeColor = ui_colors[8];
-                MB_SystemFamily.ForeColor = ui_colors[7];
-                MB_SystemFamily_V.ForeColor = ui_colors[8];
-                MB_SystemSKU.ForeColor = ui_colors[7];
-                MB_SystemSKU_V.ForeColor = ui_colors[8];
-                MB_Chipset.ForeColor = ui_colors[7];
-                MB_Chipset_V.ForeColor = ui_colors[8];
-                MB_BiosManufacturer.ForeColor = ui_colors[7];
-                MB_BiosManufacturer_V.ForeColor = ui_colors[8];
-                MB_BiosDate.ForeColor = ui_colors[7];
-                MB_BiosDate_V.ForeColor = ui_colors[8];
-                MB_BiosVersion.ForeColor = ui_colors[7];
-                MB_BiosVersion_V.ForeColor = ui_colors[8];
-                MB_SmBiosVersion.ForeColor = ui_colors[7];
-                MB_SmBiosVersion_V.ForeColor = ui_colors[8];
-                MB_BiosMode.ForeColor = ui_colors[7];
-                MB_BiosMode_V.ForeColor = ui_colors[8];
-                MB_LastBIOSTime.ForeColor = ui_colors[7];
-                MB_LastBIOSTime_V.ForeColor = ui_colors[8];
-                MB_SecureBoot.ForeColor = ui_colors[7];
-                MB_SecureBoot_V.ForeColor = ui_colors[8];
-                MB_TPMStatus.ForeColor = ui_colors[7];
-                MB_TPMStatus_V.ForeColor = ui_colors[8];
-                MB_TPMPhysicalVersion.ForeColor = ui_colors[7];
-                MB_TPMPhysicalVersion_V.ForeColor = ui_colors[8];
-                MB_TPMMan.ForeColor = ui_colors[7];
-                MB_TPMMan_V.ForeColor = ui_colors[8];
-                MB_TPMManID.ForeColor = ui_colors[7];
-                MB_TPMManID_V.ForeColor = ui_colors[8];
-                MB_TPMManVersion.ForeColor = ui_colors[7];
-                MB_TPMManVersion_V.ForeColor = ui_colors[8];
-                MB_TPMManFullVersion.ForeColor = ui_colors[7];
-                MB_TPMManFullVersion_V.ForeColor = ui_colors[8];
-                MB_TPMManPublisher.ForeColor = ui_colors[7];
-                MB_TPMManPublisher_V.ForeColor = ui_colors[8];
-                MB_Model.ForeColor = ui_colors[7];
-                MB_Model_V.ForeColor = ui_colors[8];
-                MB_PrimaryBusType.ForeColor = ui_colors[7];
-                MB_PrimaryBusType_V.ForeColor = ui_colors[8];
-                MB_SecondaryBusType.ForeColor = ui_colors[7];
-                MB_SecondaryBusType_V.ForeColor = ui_colors[8];
-                MB_BiosMajorMinor.ForeColor = ui_colors[7];
-                MB_BiosMajorMinor_V.ForeColor = ui_colors[8];
-                MB_SMBiosMajorMinor.ForeColor = ui_colors[7];
-                MB_SMBiosMajorMinor_V.ForeColor = ui_colors[8];
-                // CPU
-                cpu_panel_1.BackColor = ui_colors[6];
-                cpu_panel_2.BackColor = ui_colors[6];
-                CPU_Name.ForeColor = ui_colors[7];
-                CPU_Name_V.ForeColor = ui_colors[8];
-                CPU_Manufacturer.ForeColor = ui_colors[7];
-                CPU_Manufacturer_V.ForeColor = ui_colors[8];
-                CPU_Architectural.ForeColor = ui_colors[7];
-                CPU_Architectural_V.ForeColor = ui_colors[8];
-                CPU_NormalSpeed.ForeColor = ui_colors[7];
-                CPU_NormalSpeed_V.ForeColor = ui_colors[8];
-                CPU_DefaultSpeed.ForeColor = ui_colors[7];
-                CPU_DefaultSpeed_V.ForeColor = ui_colors[8];
-                CPU_L1.ForeColor = ui_colors[7];
-                CPU_L1_V.ForeColor = ui_colors[8];
-                CPU_L2.ForeColor = ui_colors[7];
-                CPU_L2_V.ForeColor = ui_colors[8];
-                CPU_L3.ForeColor = ui_colors[7];
-                CPU_L3_V.ForeColor = ui_colors[8];
-                CPU_CoreCount.ForeColor = ui_colors[7];
-                CPU_CoreCount_V.ForeColor = ui_colors[8];
-                CPU_LogicalCore.ForeColor = ui_colors[7];
-                CPU_LogicalCore_V.ForeColor = ui_colors[8];
-                CPU_Usage.ForeColor = ui_colors[7];
-                CPU_Usage_V.ForeColor = ui_colors[8];
-                CPU_Process.ForeColor = ui_colors[7];
-                CPU_Process_V.ForeColor = ui_colors[8];
-                CPU_SocketDefinition.ForeColor = ui_colors[7];
-                CPU_SocketDefinition_V.ForeColor = ui_colors[8];
-                CPU_Family.ForeColor = ui_colors[7];
-                CPU_Family_V.ForeColor = ui_colors[8];
-                CPU_Virtualization.ForeColor = ui_colors[7];
-                CPU_Virtualization_V.ForeColor = ui_colors[8];
-                CPU_SerialName.ForeColor = ui_colors[7];
-                CPU_SerialName_V.ForeColor = ui_colors[8];
-                CPU_CodeSet.ForeColor = ui_colors[7];
-                CPU_CodeSet_V.BackColor = ui_colors[6];
-                CPU_CodeSet_V.ForeColor = ui_colors[8];
-                // RAM
-                ram_panel_1.BackColor = ui_colors[6];
-                ram_panel_2.BackColor = ui_colors[6];
-                RAM_TotalRAM.ForeColor = ui_colors[7];
-                RAM_TotalRAM_V.ForeColor = ui_colors[8];
-                RAM_UsageRAMCount.ForeColor = ui_colors[7];
-                RAM_UsageRAMCount_V.ForeColor = ui_colors[8];
-                RAM_EmptyRamCount.ForeColor = ui_colors[7];
-                RAM_EmptyRamCount_V.ForeColor = ui_colors[8];
-                RAM_TotalVirtualRam.ForeColor = ui_colors[7];
-                RAM_TotalVirtualRam_V.ForeColor = ui_colors[8];
-                RAM_UsageVirtualRam.ForeColor = ui_colors[7];
-                RAM_UsageVirtualRam_V.ForeColor = ui_colors[8];
-                RAM_EmptyVirtualRam.ForeColor = ui_colors[7];
-                RAM_EmptyVirtualRam_V.ForeColor = ui_colors[8];
-                RAM_SlotStatus.ForeColor = ui_colors[7];
-                RAM_SlotStatus_V.ForeColor = ui_colors[8];
-                RAM_SlotSelectLabel.ForeColor = ui_colors[7];
-                RAM_SelectList.BackColor = ui_colors[9];
-                RAM_SelectList.ForeColor = ui_colors[8];
-                RAM_Amount.ForeColor = ui_colors[7];
-                RAM_Amount_V.ForeColor = ui_colors[8];
-                RAM_Type.ForeColor = ui_colors[7];
-                RAM_Type_V.ForeColor = ui_colors[8];
-                RAM_Frequency.ForeColor = ui_colors[7];
-                RAM_Frequency_V.ForeColor = ui_colors[8];
-                RAM_Volt.ForeColor = ui_colors[7];
-                RAM_Volt_V.ForeColor = ui_colors[8];
-                RAM_FormFactor.ForeColor = ui_colors[7];
-                RAM_FormFactor_V.ForeColor = ui_colors[8];
-                RAM_Serial.ForeColor = ui_colors[7];
-                RAM_Serial_V.ForeColor = ui_colors[8];
-                RAM_Manufacturer.ForeColor = ui_colors[7];
-                RAM_Manufacturer_V.ForeColor = ui_colors[8];
-                RAM_BankLabel.ForeColor = ui_colors[7];
-                RAM_BankLabel_V.ForeColor = ui_colors[8];
-                RAM_DataWidth.ForeColor = ui_colors[7];
-                RAM_DataWidth_V.ForeColor = ui_colors[8];
-                RAM_BellekType.ForeColor = ui_colors[7];
-                RAM_BellekType_V.ForeColor = ui_colors[8];
-                RAM_PartNumber.ForeColor = ui_colors[7];
-                RAM_PartNumber_V.ForeColor = ui_colors[8];
-                RAM_ProgressBGPanel.BackColor = ui_colors[5];
-                RAM_ProgressFEPanel.BackColor = ui_colors[8];
-                RAM_ProgressLabel.ForeColor = ui_colors[8];
-                // GPU
-                gpu_panel_1.BackColor = ui_colors[6];
-                gpu_panel_2.BackColor = ui_colors[6];
-                GPU_Name.ForeColor = ui_colors[7];
-                GPU_Select.BackColor = ui_colors[9];
-                GPU_Select.ForeColor = ui_colors[8];
-                GPU_Manufacturer.ForeColor = ui_colors[7];
-                GPU_Manufacturer_V.ForeColor = ui_colors[8];
-                GPU_Version.ForeColor = ui_colors[7];
-                GPU_Version_V.ForeColor = ui_colors[8];
-                GPU_DriverDate.ForeColor = ui_colors[7];
-                GPU_DriverDate_V.ForeColor = ui_colors[8];
-                GPU_Status.ForeColor = ui_colors[7];
-                GPU_Status_V.ForeColor = ui_colors[8];
-                GPU_DeviceID.ForeColor = ui_colors[7];
-                GPU_DeviceID_V.ForeColor = ui_colors[8];
-                GPU_DacType.ForeColor = ui_colors[7];
-                GPU_DacType_V.ForeColor = ui_colors[8];
-                GPU_GraphicDriversName.ForeColor = ui_colors[7];
-                GPU_GraphicDriversName_V.ForeColor = ui_colors[8];
-                GPU_InfFileName.ForeColor = ui_colors[7];
-                GPU_InfFileName_V.ForeColor = ui_colors[8];
-                GPU_INFSectionFile.ForeColor = ui_colors[7];
-                GPU_INFSectionFile_V.ForeColor = ui_colors[8];
-                GPU_CurrentColor.ForeColor = ui_colors[7];
-                GPU_CurrentColor_V.ForeColor = ui_colors[8];
-                GPU_MonitorSelectList.BackColor = ui_colors[9];
-                GPU_MonitorSelectList.ForeColor = ui_colors[8];
-                GPU_MonitorSelect.ForeColor = ui_colors[7];
-                GPU_MonitorBounds.ForeColor = ui_colors[7];
-                GPU_MonitorBounds_V.ForeColor = ui_colors[8];
-                GPU_MonitorWorking.ForeColor = ui_colors[7];
-                GPU_MonitorWorking_V.ForeColor = ui_colors[8];
-                GPU_MonitorResLabel.ForeColor = ui_colors[7];
-                GPU_MonitorResLabel_V.ForeColor = ui_colors[8];
-                GPU_MonitorVirtualRes.ForeColor = ui_colors[7];
-                GPU_MonitorVirtualRes_V.ForeColor = ui_colors[8];
-                GPU_ScreenRefreshRate.ForeColor = ui_colors[7];
-                GPU_ScreenRefreshRate_V.ForeColor = ui_colors[8];
-                GPU_ScreenBit.ForeColor = ui_colors[7];
-                GPU_ScreenBit_V.ForeColor = ui_colors[8];
-                GPU_MonitorPrimary.ForeColor = ui_colors[7];
-                GPU_MonitorPrimary_V.ForeColor = ui_colors[8];
-                // DISK
-                disk_panel_1.BackColor = ui_colors[6];
-                disk_panel_2.BackColor = ui_colors[6];
-                disk_panel_3.BackColor = ui_colors[6];
-                //
-                DISK_TTLP_L1.ForeColor = ui_colors[7];
-                DISK_TTLP_P1_L1.ForeColor = ui_colors[7];
-                DISK_TTLP_P2_L1.ForeColor = ui_colors[7];
-                DISK_TTLP_P3_L1.ForeColor = ui_colors[7];
-                DISK_TTLP_P4_L1.ForeColor = ui_colors[7];
+                theme = ts;
                 if (theme == 1){
-                    DISK_TLP_PB_1.BackColor = disk_total_light[0];
-                    DISK_TLP_PB_2.BackColor = disk_total_light[1];
-                    DISK_TLP_PB_3.BackColor = disk_total_light[2];
-                    DISK_TLP_PB_4.BackColor = disk_total_light[3];
-                    DISK_TTLP_P1_L2.ForeColor = disk_total_light[0];
-                    DISK_TTLP_P2_L2.ForeColor = disk_total_light[1];
-                    DISK_TTLP_P3_L2.ForeColor = disk_total_light[2];
-                    DISK_TTLP_P4_L2.ForeColor = disk_total_light[3];
+                    // TITLEBAR CHANGE 
+                    try { if (DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4) != 1){ DwmSetWindowAttribute(Handle, 20, new[]{ 0 }, 4); } }catch (Exception){ }
+                    // LEFT MENU LOGO CHANGE
+                    if (windows_mode == 1){
+                        OS_RotateBtn.Image = Properties.Resources.left_os_w11_light;
+                    }else{
+                        OS_RotateBtn.Image = Properties.Resources.left_os_w10_light;
+                    }
+                    MB_RotateBtn.Image = Properties.Resources.lm_mb_light;
+                    CPU_RotateBtn.Image = Properties.Resources.lm_cpu_light;
+                    RAM_RotateBtn.Image = Properties.Resources.lm_ram_light;
+                    GPU_RotateBtn.Image = Properties.Resources.lm_gpu_light;
+                    DISK_RotateBtn.Image = Properties.Resources.lm_disk_light;
+                    NET_RotateBtn.Image = Properties.Resources.lm_net_light;
+                    USB_RotateBtn.Image = Properties.Resources.lm_usb_light;
+                    SOUND_RotateBtn.Image = Properties.Resources.lm_sound_light;
+                    BATTERY_RotateBtn.Image = Properties.Resources.lm_battery_light;
+                    OSD_RotateBtn.Image = Properties.Resources.lm_drivers_light;
+                    SERVICES_RotateBtn.Image = Properties.Resources.lm_services_light;
+                    PRINT_RotateBtn.Image = Properties.Resources.lm_export_light;
+                    // TOP MENU LOGO CHANGE
+                    settingsToolStripMenuItem.Image = Properties.Resources.tm_settings_light;
+                    themeToolStripMenuItem.Image = Properties.Resources.tm_theme_light;
+                    languageToolStripMenuItem.Image = Properties.Resources.tm_lang_light;
+                    initialViewToolStripMenuItem.Image = Properties.Resources.tm_start_light;
+                    hidingModeToolStripMenuItem.Image = Properties.Resources.tm_hidden_light;
+                    checkforUpdatesToolStripMenuItem.Image = Properties.Resources.tm_update_light;
+                    toolsToolStripMenuItem.Image = Properties.Resources.tm_tools_light;
+                    sFCandDISMAutoToolToolStripMenuItem.Image = Properties.Resources.tm_sfc_and_dism_light;
+                    cacheCleaningToolToolStripMenuItem.Image = Properties.Resources.tm_cache_clean_light;
+                    benchCPUToolStripMenuItem.Image = Properties.Resources.tm_bench_cpu_light;
+                    benchRAMToolStripMenuItem.Image = Properties.Resources.tm_bench_ram_light;
+                    benchDiskToolStripMenuItem.Image = Properties.Resources.tm_bench_disk_light;
+                    screenOverlayToolStripMenuItem.Image = Properties.Resources.tm_overlay_light;
+                    dNSTestToolStripMenuItem.Image = Properties.Resources.tm_dns_light;
+                    quickAccessToolStripMenuItem.Image = Properties.Resources.tm_quick_access_light;
+                    monitorTestToolStripMenuItem.Image = Properties.Resources.tm_test_monitor_light;
+                    monitorDeadPixelTestToolStripMenuItem.Image = Properties.Resources.tm_test_dead_pixel_light;
+                    monitorDynamicRangeTestToolStripMenuItem.Image = Properties.Resources.tm_test_dynamic_range_light;
+                    // MIDDLE CONTENT LOGO CHANGE
+                    OS_WinKeyCopy.BackgroundImage = Properties.Resources.mid_copy_light;
+                    OS_MinidumpOpen.BackgroundImage = Properties.Resources.mid_link_light;
+                    OS_BSoDZIP.BackgroundImage = Properties.Resources.mid_zip_light;
+                    OS_WallpaperOpen.BackgroundImage = Properties.Resources.mid_link_light;
+                    // HELP
+                    aboutToolStripMenuItem.Image = Properties.Resources.tm_about_light;
                 }else if (theme == 0){
-                    DISK_TLP_PB_1.BackColor = disk_total_dark[0];
-                    DISK_TLP_PB_2.BackColor = disk_total_dark[1];
-                    DISK_TLP_PB_3.BackColor = disk_total_dark[2];
-                    DISK_TLP_PB_4.BackColor = disk_total_dark[3];
-                    DISK_TTLP_P1_L2.ForeColor = disk_total_dark[0];
-                    DISK_TTLP_P2_L2.ForeColor = disk_total_dark[1];
-                    DISK_TTLP_P3_L2.ForeColor = disk_total_dark[2];
-                    DISK_TTLP_P4_L2.ForeColor = disk_total_dark[3];
+                    // TITLEBAR CHANGE
+                    try { if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } }catch (Exception){ }
+                    // LEFT MENU LOGO CHANGE
+                    if (windows_mode == 1){
+                        OS_RotateBtn.Image = Properties.Resources.left_os_w11_dark;
+                    }else{
+                        OS_RotateBtn.Image = Properties.Resources.left_os_w10_dark;
+                    }
+                    MB_RotateBtn.Image = Properties.Resources.lm_mb_dark;
+                    CPU_RotateBtn.Image = Properties.Resources.lm_cpu_dark;
+                    RAM_RotateBtn.Image = Properties.Resources.lm_ram_dark;
+                    GPU_RotateBtn.Image = Properties.Resources.lm_gpu_dark;
+                    DISK_RotateBtn.Image = Properties.Resources.lm_disk_dark;
+                    NET_RotateBtn.Image = Properties.Resources.lm_net_dark;
+                    USB_RotateBtn.Image = Properties.Resources.lm_usb_dark;
+                    SOUND_RotateBtn.Image = Properties.Resources.lm_sound_dark;
+                    BATTERY_RotateBtn.Image = Properties.Resources.lm_battery_dark;
+                    OSD_RotateBtn.Image = Properties.Resources.lm_drivers_dark;
+                    SERVICES_RotateBtn.Image = Properties.Resources.lm_services_dark;
+                    PRINT_RotateBtn.Image = Properties.Resources.lm_export_dark;
+                    // TOP MENU LOGO CHANGE
+                    settingsToolStripMenuItem.Image = Properties.Resources.tm_settings_dark;
+                    themeToolStripMenuItem.Image = Properties.Resources.tm_theme_dark;
+                    languageToolStripMenuItem.Image = Properties.Resources.tm_lang_dark;
+                    initialViewToolStripMenuItem.Image = Properties.Resources.tm_start_dark;
+                    hidingModeToolStripMenuItem.Image = Properties.Resources.tm_hidden_dark;
+                    checkforUpdatesToolStripMenuItem.Image = Properties.Resources.tm_update_dark;
+                    toolsToolStripMenuItem.Image = Properties.Resources.tm_tools_dark;
+                    sFCandDISMAutoToolToolStripMenuItem.Image = Properties.Resources.tm_sfc_and_dism_dark;
+                    cacheCleaningToolToolStripMenuItem.Image = Properties.Resources.tm_cache_clean_dark;
+                    benchCPUToolStripMenuItem.Image = Properties.Resources.tm_bench_cpu_dark;
+                    benchRAMToolStripMenuItem.Image = Properties.Resources.tm_bench_ram_dark;
+                    benchDiskToolStripMenuItem.Image = Properties.Resources.tm_bench_disk_dark;
+                    screenOverlayToolStripMenuItem.Image = Properties.Resources.tm_overlay_dark;
+                    dNSTestToolStripMenuItem.Image = Properties.Resources.tm_dns_dark;
+                    quickAccessToolStripMenuItem.Image = Properties.Resources.tm_quick_access_dark;
+                    monitorTestToolStripMenuItem.Image = Properties.Resources.tm_test_monitor_dark;
+                    monitorDeadPixelTestToolStripMenuItem.Image = Properties.Resources.tm_test_dead_pixel_dark;
+                    monitorDynamicRangeTestToolStripMenuItem.Image = Properties.Resources.tm_test_dynamic_range_dark;
+                    // MIDDLE CONTENT LOGO CHANGE
+                    OS_WinKeyCopy.BackgroundImage = Properties.Resources.mid_copy_dark;
+                    OS_MinidumpOpen.BackgroundImage = Properties.Resources.mid_link_dark;
+                    OS_BSoDZIP.BackgroundImage = Properties.Resources.mid_zip_dark;
+                    OS_WallpaperOpen.BackgroundImage = Properties.Resources.mid_link_dark;
+                    // HELP
+                    aboutToolStripMenuItem.Image = Properties.Resources.tm_about_dark;
                 }
-                DISK_TTLP_Panel_1.BackColor = ui_colors[5];
-                DISK_TTLP_Panel_2.BackColor = ui_colors[5];
-                DISK_TTLP_Panel_3.BackColor = ui_colors[5];
-                DISK_TTLP_Panel_4.BackColor = ui_colors[5];
+                // OTHER PAGE DYNAMIC UI
+                glow_other_page_dynamic_ui();
+                // HEADER
+                header_image_reloader(menu_btns);
+                header_colors[0] = TS_ThemeEngine.ColorMode(theme, "HeaderBGColorMain");
+                header_colors[1] = TS_ThemeEngine.ColorMode(theme, "HeaderFEColorMain");
+                HeaderMenu.Renderer = new HeaderMenuColors();
+                // ACTIVE BTN 
+                btn_colors_active[0] = TS_ThemeEngine.ColorMode(theme, "BtnActiveColor");
+                // TOOLTIP
+                MainToolTip.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                MainToolTip.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                // HEADER PANEL
+                HeaderPanel.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                Header_InPanel.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                // HEADER PANEL TEXT
+                HeaderText.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                // HEADER MENU
+                HeaderMenu.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                HeaderMenu.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                // SETTINGS
+                settingsToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                settingsToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                // THEMES
+                themeToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                themeToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                lightThemeToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                lightThemeToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                darkThemeToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                darkThemeToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                // LANGS
+                languageToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                languageToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                chineseToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                chineseToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                englishToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                englishToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                frenchToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                frenchToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                germanToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                germanToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                koreanToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                koreanToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                portugueseToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                portugueseToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                russianToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                russianToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                spanishToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                spanishToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                turkishToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                turkishToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                // INITIAL VIEW
+                initialViewToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                initialViewToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                windowedToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                windowedToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                fullScreenToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                fullScreenToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                // HIDING MODE
+                hidingModeToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                hidingModeToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                hidingModeOnToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                hidingModeOnToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                hidingModeOffToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                hidingModeOffToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                // UPDATE ENGINE
+                checkforUpdatesToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                checkforUpdatesToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                // TOOLS
+                toolsToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                toolsToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                sFCandDISMAutoToolToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                sFCandDISMAutoToolToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                cacheCleaningToolToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                cacheCleaningToolToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                benchCPUToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                benchCPUToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                benchRAMToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                benchRAMToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                benchDiskToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                benchDiskToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                screenOverlayToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                screenOverlayToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                dNSTestToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                dNSTestToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                quickAccessToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                quickAccessToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                monitorTestToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                monitorTestToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                monitorDeadPixelTestToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                monitorDeadPixelTestToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                monitorDynamicRangeTestToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                monitorDynamicRangeTestToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                // ABOUT
+                aboutToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                aboutToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                // LEFT MENU
+                LeftMenuPanel.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                OS_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                MB_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                CPU_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                RAM_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                GPU_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                DISK_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                NET_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                USB_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                SOUND_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                BATTERY_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                OSD_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                SERVICES_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                PRINT_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                // LEFT MENU BORDER
+                OS_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                MB_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                CPU_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                RAM_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                GPU_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                DISK_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                NET_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                USB_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                SOUND_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                BATTERY_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                OSD_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                SERVICES_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                PRINT_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                // LEFT MENU MOUSE HOVER
+                OS_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                MB_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                CPU_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                RAM_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                GPU_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                DISK_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                NET_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                USB_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                SOUND_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                BATTERY_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                OSD_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                SERVICES_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                PRINT_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                // LEFT MENU MOUSE DOWN
+                OS_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                MB_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                CPU_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                RAM_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                GPU_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                DISK_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                NET_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                USB_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                SOUND_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                BATTERY_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                OSD_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                SERVICES_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                PRINT_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                // LEFT MENU BUTTON TEXT COLOR
+                OS_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
+                MB_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
+                CPU_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
+                RAM_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
+                GPU_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
+                DISK_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
+                NET_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
+                USB_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
+                SOUND_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
+                BATTERY_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
+                OSD_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
+                SERVICES_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
+                PRINT_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
+                // CONTENT BG
+                BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                OS.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                MB.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                CPU.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                RAM.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                GPU.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                DISK.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                NETWORK.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                USB.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                SOUND.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                BATTERY.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                OSD.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                GSERVICE.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                PRINT.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                // OS
+                os_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                os_panel_2.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                os_panel_3.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                os_panel_4.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                os_panel_5.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                os_panel_6.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                OS_SystemUser.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_SystemUser_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_ComputerName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_ComputerName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_SystemModel.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_SystemModel_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_SavedUser.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_SavedUser_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_Name.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_Name_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_Manufacturer.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_Manufacturer_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_SystemVersion.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_SystemVersion_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_Build.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_Build_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_SystemBuild.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_SystemBuild_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_SystemArchitectural.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_SystemArchitectural_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_Family.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_Family_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_DeviceID.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_DeviceID_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_Serial.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_Serial_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_Country.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_Country_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_TimeZone.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_TimeZone_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_CharacterSet.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_CharacterSet_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_EncryptionType.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_EncryptionType_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_SystemRootIndex.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_SystemRootIndex_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_SystemBuildPart.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_SystemBuildPart_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_SystemTime.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_SystemTime_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_Install.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_Install_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_SystemWorkTime.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_SystemWorkTime_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_LastBootTime.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_LastBootTime_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_SystemLastShutDown.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_SystemLastShutDown_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_PortableOS.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_PortableOS_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_MouseWheelStatus.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_MouseWheelStatus_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_ScrollLockStatus.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_ScrollLockStatus_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_NumLockStatus.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_NumLockStatus_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_CapsLockStatus.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_CapsLockStatus_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_BootPartition.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_BootPartition_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_SystemPartition.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_SystemPartition_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_AVProgram.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_AVProgram_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_FirewallProgram.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_FirewallProgram_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_AntiSpywareProgram.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_AntiSpywareProgram_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_MSEdge.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_MSEdge_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_WinKey.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_WinKey_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_NETFrameworkVersion.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_NETFrameworkVersion_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_Minidump.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_Minidump_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_BSODDate.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_BSODDate_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OS_Wallpaper.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_Wallpaper_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                // MB
+                mb_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                mb_panel_2.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                mb_panel_3.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                mb_panel_4.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                MB_BIOSUpdateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
+                MB_BIOSUpdateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_BIOSUpdateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_BIOSUpdateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_MotherBoardName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_MotherBoardName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_MotherBoardMan.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_MotherBoardMan_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_MotherBoardSerial.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_MotherBoardSerial_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_SystemFamily.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_SystemFamily_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_SystemSKU.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_SystemSKU_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_Chipset.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_Chipset_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_BiosManufacturer.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_BiosManufacturer_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_BiosDate.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_BiosDate_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_BiosVersion.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_BiosVersion_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_SmBiosVersion.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_SmBiosVersion_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_BiosMode.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_BiosMode_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_LastBIOSTime.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_LastBIOSTime_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_SecureBoot.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_SecureBoot_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_TPMStatus.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_TPMStatus_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_TPMPhysicalVersion.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_TPMPhysicalVersion_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_TPMMan.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_TPMMan_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_TPMManID.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_TPMManID_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_TPMManVersion.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_TPMManVersion_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_TPMManFullVersion.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_TPMManFullVersion_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_TPMManPublisher.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_TPMManPublisher_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_Model.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_Model_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_PrimaryBusType.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_PrimaryBusType_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_SecondaryBusType.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_SecondaryBusType_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_BiosMajorMinor.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_BiosMajorMinor_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                MB_SMBiosMajorMinor.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_SMBiosMajorMinor_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                // CPU
+                cpu_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                cpu_panel_2.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                CPU_Name.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_Name_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_Manufacturer.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_Manufacturer_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_Architectural.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_Architectural_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_NormalSpeed.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_NormalSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_DefaultSpeed.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_DefaultSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_L1.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_L1_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_L2.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_L2_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_L3.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_L3_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_CoreCount.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_CoreCount_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_LogicalCore.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_LogicalCore_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_Usage.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_Usage_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_Process.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_Process_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_SocketDefinition.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_SocketDefinition_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_Family.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_Family_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_Virtualization.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_Virtualization_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_SerialName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_SerialName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                CPU_CodeSet.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                CPU_CodeSet_V.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                CPU_CodeSet_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                // RAM
+                ram_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                ram_panel_2.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                RAM_TotalRAM.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_TotalRAM_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_UsageRAMCount.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_UsageRAMCount_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_EmptyRamCount.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_EmptyRamCount_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_TotalVirtualRam.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_TotalVirtualRam_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_UsageVirtualRam.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_UsageVirtualRam_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_EmptyVirtualRam.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_EmptyVirtualRam_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_SlotStatus.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_SlotStatus_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_SlotSelectLabel.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_SelectList.BackColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
+                RAM_SelectList.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_Amount.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_Amount_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_Type.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_Type_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_Frequency.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_Frequency_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_Volt.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_Volt_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_FormFactor.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_FormFactor_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_Serial.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_Serial_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_Manufacturer.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_Manufacturer_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_BankLabel.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_BankLabel_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_DataWidth.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_DataWidth_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_BellekType.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_BellekType_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_PartNumber.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                RAM_PartNumber_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_ProgressBGPanel.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                RAM_ProgressFEPanel.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                RAM_ProgressLabel.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                // GPU
+                gpu_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                gpu_panel_2.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                GPU_Name.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_Select.BackColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
+                GPU_Select.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_Manufacturer.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_Manufacturer_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_Version.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_Version_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_DriverDate.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_DriverDate_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_Status.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_Status_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_DeviceID.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_DeviceID_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_DacType.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_DacType_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_GraphicDriversName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_GraphicDriversName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_InfFileName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_InfFileName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_INFSectionFile.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_INFSectionFile_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_CurrentColor.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_CurrentColor_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_MonitorSelectList.BackColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
+                GPU_MonitorSelectList.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_MonitorSelect.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_MonitorBounds.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_MonitorBounds_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_MonitorWorking.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_MonitorWorking_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_MonitorResLabel.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_MonitorResLabel_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_MonitorVirtualRes.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_MonitorVirtualRes_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_ScreenRefreshRate.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_ScreenRefreshRate_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_ScreenBit.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_ScreenBit_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                GPU_MonitorPrimary.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                GPU_MonitorPrimary_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                // DISK
+                disk_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                disk_panel_2.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                disk_panel_3.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
                 //
-                DISK_Caption.ForeColor = ui_colors[7];
-                DISK_CaptionList.BackColor = ui_colors[9];
-                DISK_CaptionList.ForeColor = ui_colors[8];
-                DISK_Model.ForeColor = ui_colors[7];
-                DISK_Model_V.ForeColor = ui_colors[8];
-                DISK_Man.ForeColor = ui_colors[7];
-                DISK_Man_V.ForeColor = ui_colors[8];
-                DISK_VolumeID.ForeColor = ui_colors[7];
-                DISK_VolumeID_V.ForeColor = ui_colors[8];
-                DISK_VolumeName.ForeColor = ui_colors[7];
-                DISK_VolumeName_V.ForeColor = ui_colors[8];
-                DISK_PhysicalName.ForeColor = ui_colors[7];
-                DISK_PhysicalName_V.ForeColor = ui_colors[8];
-                DISK_Firmware.ForeColor = ui_colors[7];
-                DISK_Firmware_V.ForeColor = ui_colors[8];
-                DISK_Serial.ForeColor = ui_colors[7];
-                DISK_Serial_V.ForeColor = ui_colors[8];
-                DISK_VolumeSerial.ForeColor = ui_colors[7];
-                DISK_VolumeSerial_V.ForeColor = ui_colors[8];
-                DISK_Size.ForeColor = ui_colors[7];
-                DISK_Size_V.ForeColor = ui_colors[8];
-                DISK_FreeSpace.ForeColor = ui_colors[7];
-                DISK_FreeSpace_V.ForeColor = ui_colors[8];
-                DISK_Speed.ForeColor = ui_colors[7];
-                DISK_Speed_V.ForeColor = ui_colors[8];
-                DISK_FileSystem.ForeColor = ui_colors[7];
-                DISK_FileSystem_V.ForeColor = ui_colors[8];
-                DISK_FormattingType.ForeColor = ui_colors[7];
-                DISK_FormattingType_V.ForeColor = ui_colors[8];
-                DISK_Type.ForeColor = ui_colors[7];
-                DISK_Type_V.ForeColor = ui_colors[8];
-                DISK_DriveType.ForeColor = ui_colors[7];
-                DISK_DriveType_V.ForeColor = ui_colors[8];
-                DISK_InterFace.ForeColor = ui_colors[7];
-                DISK_InterFace_V.ForeColor = ui_colors[8];
-                DISK_PartitionCount.ForeColor = ui_colors[7];
-                DISK_PartitionCount_V.ForeColor = ui_colors[8];
-                DISK_MediaLoaded.ForeColor = ui_colors[7];
-                DISK_MediaLoaded_V.ForeColor = ui_colors[8];
-                DISK_MediaStatus.ForeColor = ui_colors[7];
-                DISK_MediaStatus_V.ForeColor = ui_colors[8];
-                DISK_Health.ForeColor = ui_colors[7];
-                DISK_Health_V.ForeColor = ui_colors[8];
-                DISK_Boot.ForeColor = ui_colors[7];
-                DISK_Boot_V.ForeColor = ui_colors[8];
-                DISK_Bootable.ForeColor = ui_colors[7];
-                DISK_Bootable_V.ForeColor = ui_colors[8];
-                DISK_DriveCompressed.ForeColor = ui_colors[7];
-                DISK_DriveCompressed_V.ForeColor = ui_colors[8];
+                DISK_TTLP_L1.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_TTLP_P1_L1.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_TTLP_P2_L1.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_TTLP_P3_L1.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_TTLP_P4_L1.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                //
+                DISK_TLP_PB_1.BackColor = TS_ThemeEngine.ColorMode(theme, "DiskTotalSSDBG");
+                DISK_TLP_PB_2.BackColor = TS_ThemeEngine.ColorMode(theme, "DiskTotalHDDBG");
+                DISK_TLP_PB_3.BackColor = TS_ThemeEngine.ColorMode(theme, "DiskTotalUSBBG");
+                DISK_TLP_PB_4.BackColor = TS_ThemeEngine.ColorMode(theme, "DiskTotalTotalBG");
+                DISK_TTLP_P1_L2.ForeColor = TS_ThemeEngine.ColorMode(theme, "DiskTotalSSDBG");
+                DISK_TTLP_P2_L2.ForeColor = TS_ThemeEngine.ColorMode(theme, "DiskTotalHDDBG");
+                DISK_TTLP_P3_L2.ForeColor = TS_ThemeEngine.ColorMode(theme, "DiskTotalUSBBG");
+                DISK_TTLP_P4_L2.ForeColor = TS_ThemeEngine.ColorMode(theme, "DiskTotalTotalBG");
+                //
+                DISK_TTLP_Panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                DISK_TTLP_Panel_2.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                DISK_TTLP_Panel_3.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                DISK_TTLP_Panel_4.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                //
+                DISK_Caption.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_CaptionList.BackColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
+                DISK_CaptionList.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_Model.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_Model_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_Man.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_Man_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_VolumeID.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_VolumeID_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_VolumeName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_VolumeName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_PhysicalName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_PhysicalName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_Firmware.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_Firmware_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_Serial.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_Serial_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_VolumeSerial.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_VolumeSerial_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_Size.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_Size_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_FreeSpace.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_FreeSpace_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_Speed.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_Speed_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_FileSystem.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_FileSystem_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_FormattingType.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_FormattingType_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_Type.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_Type_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_DriveType.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_DriveType_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_InterFace.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_InterFace_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_PartitionCount.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_PartitionCount_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_MediaLoaded.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_MediaLoaded_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_MediaStatus.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_MediaStatus_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_Health.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_Health_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_Boot.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_Boot_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_Bootable.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_Bootable_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_DriveCompressed.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_DriveCompressed_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
                 // NETWORK
-                network_panel_1.BackColor = ui_colors[6];
-                network_panel_2.BackColor = ui_colors[6];
-                network_panel_3.BackColor = ui_colors[6];
+                network_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                network_panel_2.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                network_panel_3.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
                 //
-                NET_LT_Device.ForeColor = ui_colors[7];
-                NET_LT_Device_V.ForeColor = ui_colors[8];
-                NET_LT_P1.BackColor = ui_colors[5];
-                NET_LT_P2.BackColor = ui_colors[5];
-                NET_LT_DL1.ForeColor = ui_colors[7];
-                NET_LT_DL2.ForeColor = ui_colors[8];
-                NET_LT_UL1.ForeColor = ui_colors[7];
-                NET_LT_UL2.ForeColor = ui_colors[8];
+                NET_LT_Device.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_LT_Device_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_LT_P1.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                NET_LT_P2.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                NET_LT_DL1.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_LT_DL2.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_LT_UL1.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_LT_UL2.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
                 //
-                NET_ListNetwork.BackColor = ui_colors[9];
-                NET_ListNetwork.ForeColor = ui_colors[8];
-                NET_ConnType.ForeColor = ui_colors[7];
-                NET_MacAdress.ForeColor = ui_colors[7];
-                NET_MacAdress_V.ForeColor = ui_colors[8];
-                NET_NetMan.ForeColor = ui_colors[7];
-                NET_NetMan_V.ForeColor = ui_colors[8];
-                NET_ServiceName.ForeColor = ui_colors[7];
-                NET_ServiceName_V.ForeColor = ui_colors[8];
-                NET_AdapterType.ForeColor = ui_colors[7];
-                NET_AdapterType_V.ForeColor = ui_colors[8];
-                NET_Physical.ForeColor = ui_colors[7];
-                NET_Physical_V.ForeColor = ui_colors[8];
-                NET_DeviceID.ForeColor = ui_colors[7];
-                NET_DeviceID_V.ForeColor = ui_colors[8];
-                NET_Guid.ForeColor = ui_colors[7];
-                NET_Guid_V.ForeColor = ui_colors[8];
-                NET_ConnectionType.ForeColor = ui_colors[7];
-                NET_ConnectionType_V.ForeColor = ui_colors[8];
-                NET_Dhcp_status.ForeColor = ui_colors[7];
-                NET_Dhcp_status_V.ForeColor = ui_colors[8];
-                NET_Dhcp_server.ForeColor = ui_colors[7];
-                NET_Dhcp_server_V.ForeColor = ui_colors[8];
-                NET_LocalConSpeed.ForeColor = ui_colors[7];
-                NET_LocalConSpeed_V.ForeColor = ui_colors[8];
-                NET_IPv4Adress.ForeColor = ui_colors[7];
-                NET_IPv4Adress_V.ForeColor = ui_colors[8];
-                NET_IPv6Adress.ForeColor = ui_colors[7];
-                NET_IPv6Adress_V.ForeColor = ui_colors[8];
-                NET_DNS1.ForeColor = ui_colors[7];
-                NET_DNS1_V.ForeColor = ui_colors[8];
-                NET_DNS2.ForeColor = ui_colors[7];
-                NET_DNS2_V.ForeColor = ui_colors[8];
+                NET_ListNetwork.BackColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
+                NET_ListNetwork.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_ConnType.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_MacAdress.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_MacAdress_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_NetMan.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_NetMan_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_ServiceName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_ServiceName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_AdapterType.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_AdapterType_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_Physical.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_Physical_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_DeviceID.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_DeviceID_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_Guid.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_Guid_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_ConnectionType.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_ConnectionType_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_Dhcp_status.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_Dhcp_status_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_Dhcp_server.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_Dhcp_server_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_LocalConSpeed.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_LocalConSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_IPv4Adress.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_IPv4Adress_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_IPv6Adress.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_IPv6Adress_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_DNS1.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_DNS1_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                NET_DNS2.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_DNS2_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
                 // USB
-                usb_panel_1.BackColor = ui_colors[6];
-                usb_panel_2.BackColor = ui_colors[6];
-                USB_Con.ForeColor = ui_colors[7];
-                USB_ConList.BackColor = ui_colors[9];
-                USB_ConList.ForeColor = ui_colors[8];
-                USB_ConName.ForeColor = ui_colors[7];
-                USB_ConName_V.ForeColor = ui_colors[8];
-                USB_ConMan.ForeColor = ui_colors[7];
-                USB_ConMan_V.ForeColor = ui_colors[8];
-                USB_ConDeviceID.ForeColor = ui_colors[7];
-                USB_ConDeviceID_V.ForeColor = ui_colors[8];
-                USB_ConPNPDeviceID.ForeColor = ui_colors[7];
-                USB_ConPNPDeviceID_V.ForeColor = ui_colors[8];
-                USB_ConDeviceStatus.ForeColor = ui_colors[7];
-                USB_ConDeviceStatus_V.ForeColor = ui_colors[8];
-                USB_Device.ForeColor = ui_colors[7];
-                USB_Select.BackColor = ui_colors[9];
-                USB_Select.ForeColor = ui_colors[8];
-                USB_DeviceName.ForeColor = ui_colors[7];
-                USB_DeviceName_V.ForeColor = ui_colors[8];
-                USB_DeviceID.ForeColor = ui_colors[7];
-                USB_DeviceID_V.ForeColor = ui_colors[8];
-                USB_PNPDeviceID.ForeColor = ui_colors[7];
-                USB_PNPDeviceID_V.ForeColor = ui_colors[8];
-                USB_DeviceStatus.ForeColor = ui_colors[7];
-                USB_DeviceStatus_V.ForeColor = ui_colors[8];
+                usb_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                usb_panel_2.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                USB_Con.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                USB_ConList.BackColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
+                USB_ConList.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                USB_ConName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                USB_ConName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                USB_ConMan.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                USB_ConMan_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                USB_ConDeviceID.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                USB_ConDeviceID_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                USB_ConPNPDeviceID.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                USB_ConPNPDeviceID_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                USB_ConDeviceStatus.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                USB_ConDeviceStatus_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                USB_Device.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                USB_Select.BackColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
+                USB_Select.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                USB_DeviceName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                USB_DeviceName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                USB_DeviceID.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                USB_DeviceID_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                USB_PNPDeviceID.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                USB_PNPDeviceID_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                USB_DeviceStatus.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                USB_DeviceStatus_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
                 // SOUND
-                sound_panel_1.BackColor = ui_colors[6];
-                SOUND_Device.ForeColor = ui_colors[7];
-                SOUND_Select.BackColor = ui_colors[9];
-                SOUND_Select.ForeColor = ui_colors[8];
-                SOUND_DeviceName.ForeColor = ui_colors[7];
-                SOUND_DeviceName_V.ForeColor = ui_colors[8];
-                SOUND_DeviceManufacturer.ForeColor = ui_colors[7];
-                SOUND_DeviceManufacturer_V.ForeColor = ui_colors[8];
-                SOUND_DeviceID.ForeColor = ui_colors[7];
-                SOUND_DeviceID_V.ForeColor = ui_colors[8];
-                SOUND_PNPDeviceID.ForeColor = ui_colors[7];
-                SOUND_PNPDeviceID_V.ForeColor = ui_colors[8];
-                SOUND_DeviceStatus.ForeColor = ui_colors[7];
-                SOUND_DeviceStatus_V.ForeColor = ui_colors[8];
+                sound_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                SOUND_Device.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                SOUND_Select.BackColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
+                SOUND_Select.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                SOUND_DeviceName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                SOUND_DeviceName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                SOUND_DeviceManufacturer.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                SOUND_DeviceManufacturer_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                SOUND_DeviceID.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                SOUND_DeviceID_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                SOUND_PNPDeviceID.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                SOUND_PNPDeviceID_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                SOUND_DeviceStatus.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                SOUND_DeviceStatus_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
                 // BATTERY
-                battery_panel_1.BackColor = ui_colors[6];
-                BATTERY_Status.ForeColor = ui_colors[7];
-                BATTERY_Status_V.ForeColor = ui_colors[8];
-                BATTERY_Model.ForeColor = ui_colors[7];
-                BATTERY_Model_V.ForeColor = ui_colors[8];
-                BATTERY_Name.ForeColor = ui_colors[7];
-                BATTERY_Name_V.ForeColor = ui_colors[8];
-                BATTERY_Voltage.ForeColor = ui_colors[7];
-                BATTERY_Voltage_V.ForeColor = ui_colors[8];
-                BATTERY_Type.ForeColor = ui_colors[7];
-                BATTERY_Type_V.ForeColor = ui_colors[8];
-                BATTERY_ReportBtn.ForeColor = ui_colors[18];
-                BATTERY_ReportBtn.BackColor = ui_colors[8];
-                BATTERY_ReportBtn.FlatAppearance.BorderColor = ui_colors[8];
-                BATTERY_ReportBtn.FlatAppearance.MouseDownBackColor = ui_colors[8];
-                BATTERY_PBG_Panel.BackColor = ui_colors[5];
-                BATTERY_PFE_Panel.BackColor = ui_colors[8];
-                BATTERY_ProgressLabel.ForeColor = ui_colors[8];
+                battery_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                BATTERY_Status.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                BATTERY_Status_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                BATTERY_Model.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                BATTERY_Model_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                BATTERY_Name.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                BATTERY_Name_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                BATTERY_Voltage.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                BATTERY_Voltage_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                BATTERY_Type.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                BATTERY_Type_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                BATTERY_ReportBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
+                BATTERY_ReportBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                BATTERY_ReportBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                BATTERY_ReportBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                BATTERY_PBG_Panel.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                BATTERY_PFE_Panel.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                BATTERY_ProgressLabel.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
                 // INSTALLED DRIVERS
-                osd_panel_1.BackColor = ui_colors[6];
-                OSD_TextBox.BackColor = ui_colors[10];
-                OSD_TextBox.ForeColor = ui_colors[11];
-                OSD_TYSS.ForeColor = ui_colors[7];
-                OSD_TYSS_V.ForeColor = ui_colors[8];
-                OSD_SearchDriverLabel.ForeColor = ui_colors[7];
-                OSD_TextBoxClearBtn.BackColor = ui_colors[16];
-                OSD_TextBoxClearBtn.ForeColor = ui_colors[17];
-                OSD_TextBoxClearBtn.FlatAppearance.BorderColor = ui_colors[8];
-                OSD_TextBoxClearBtn.FlatAppearance.MouseDownBackColor = ui_colors[8];
-                OSD_SortMode.ForeColor = ui_colors[7];
-                OSD_DataMainTable.BackgroundColor = ui_colors[12];
-                OSD_DataMainTable.GridColor = ui_colors[14];
-                OSD_DataMainTable.DefaultCellStyle.BackColor = ui_colors[12];
-                OSD_DataMainTable.DefaultCellStyle.ForeColor = ui_colors[13];
-                OSD_DataMainTable.AlternatingRowsDefaultCellStyle.BackColor = ui_colors[15];
-                OSD_DataMainTable.ColumnHeadersDefaultCellStyle.BackColor = ui_colors[16];
-                OSD_DataMainTable.ColumnHeadersDefaultCellStyle.SelectionBackColor = ui_colors[16];
-                OSD_DataMainTable.ColumnHeadersDefaultCellStyle.ForeColor = ui_colors[17];
-                OSD_DataMainTable.DefaultCellStyle.SelectionBackColor = ui_colors[16];
-                OSD_DataMainTable.DefaultCellStyle.SelectionForeColor = ui_colors[17];
+                osd_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                OSD_TextBox.BackColor = TS_ThemeEngine.ColorMode(theme, "TextBoxBGColor");
+                OSD_TextBox.ForeColor = TS_ThemeEngine.ColorMode(theme, "TextBoxFEColor");
+                OSD_TYSS.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OSD_TYSS_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OSD_SearchDriverLabel.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OSD_TextBoxClearBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageBG");
+                OSD_TextBoxClearBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageFE");
+                OSD_TextBoxClearBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OSD_TextBoxClearBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                OSD_SortMode.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OSD_DataMainTable.BackgroundColor = TS_ThemeEngine.ColorMode(theme, "DataGridBGColor");
+                OSD_DataMainTable.GridColor = TS_ThemeEngine.ColorMode(theme, "DataGridColor");
+                OSD_DataMainTable.DefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(theme, "DataGridBGColor");
+                OSD_DataMainTable.DefaultCellStyle.ForeColor = TS_ThemeEngine.ColorMode(theme, "DataGridFEColor");
+                OSD_DataMainTable.AlternatingRowsDefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(theme, "DataGridAlternatingColor");
+                OSD_DataMainTable.ColumnHeadersDefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageBG");
+                OSD_DataMainTable.ColumnHeadersDefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageBG");
+                OSD_DataMainTable.ColumnHeadersDefaultCellStyle.ForeColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageFE");
+                OSD_DataMainTable.DefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageBG");
+                OSD_DataMainTable.DefaultCellStyle.SelectionForeColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageFE");
                 // SERVICES
-                service_panel_1.BackColor = ui_colors[6];
-                SERVICE_TextBox.BackColor = ui_colors[10];
-                SERVICE_TextBox.ForeColor = ui_colors[11];
-                SERVICE_TYS.ForeColor = ui_colors[7];
-                SERVICE_TYS_V.ForeColor = ui_colors[8];
-                SERVICE_SearchLabel.ForeColor = ui_colors[7];
-                SERVICE_TextBoxClearBtn.BackColor = ui_colors[16];
-                SERVICE_TextBoxClearBtn.ForeColor = ui_colors[17];
-                SERVICE_TextBoxClearBtn.FlatAppearance.BorderColor = ui_colors[8];
-                SERVICE_TextBoxClearBtn.FlatAppearance.MouseDownBackColor = ui_colors[8];
-                SERVICE_SortMode.ForeColor = ui_colors[7];
-                SERVICE_DataMainTable.BackgroundColor = ui_colors[12];
-                SERVICE_DataMainTable.GridColor = ui_colors[14];
-                SERVICE_DataMainTable.DefaultCellStyle.BackColor = ui_colors[12];
-                SERVICE_DataMainTable.DefaultCellStyle.ForeColor = ui_colors[13];
-                SERVICE_DataMainTable.AlternatingRowsDefaultCellStyle.BackColor = ui_colors[15];
-                SERVICE_DataMainTable.ColumnHeadersDefaultCellStyle.BackColor = ui_colors[16];
-                SERVICE_DataMainTable.ColumnHeadersDefaultCellStyle.SelectionBackColor = ui_colors[16];
-                SERVICE_DataMainTable.ColumnHeadersDefaultCellStyle.ForeColor = ui_colors[17];
-                SERVICE_DataMainTable.DefaultCellStyle.SelectionBackColor = ui_colors[16];
-                SERVICE_DataMainTable.DefaultCellStyle.SelectionForeColor = ui_colors[17];
+                service_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                SERVICE_TextBox.BackColor = TS_ThemeEngine.ColorMode(theme, "TextBoxBGColor");
+                SERVICE_TextBox.ForeColor = TS_ThemeEngine.ColorMode(theme, "TextBoxFEColor");
+                SERVICE_TYS.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                SERVICE_TYS_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                SERVICE_SearchLabel.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                SERVICE_TextBoxClearBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageBG");
+                SERVICE_TextBoxClearBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageFE");
+                SERVICE_TextBoxClearBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                SERVICE_TextBoxClearBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                SERVICE_SortMode.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                SERVICE_DataMainTable.BackgroundColor = TS_ThemeEngine.ColorMode(theme, "DataGridBGColor");
+                SERVICE_DataMainTable.GridColor = TS_ThemeEngine.ColorMode(theme, "DataGridColor");
+                SERVICE_DataMainTable.DefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(theme, "DataGridBGColor");
+                SERVICE_DataMainTable.DefaultCellStyle.ForeColor = TS_ThemeEngine.ColorMode(theme, "DataGridFEColor");
+                SERVICE_DataMainTable.AlternatingRowsDefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(theme, "DataGridAlternatingColor");
+                SERVICE_DataMainTable.ColumnHeadersDefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageBG");
+                SERVICE_DataMainTable.ColumnHeadersDefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageBG");
+                SERVICE_DataMainTable.ColumnHeadersDefaultCellStyle.ForeColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageFE");
+                SERVICE_DataMainTable.DefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageBG");
+                SERVICE_DataMainTable.DefaultCellStyle.SelectionForeColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageFE");
                 // PRINT
-                print_panel_1.BackColor = ui_colors[6];
-                EXPORT_HeaderLabel.ForeColor = ui_colors[7];
-                EXPORT_Select.BackColor = ui_colors[9];
-                EXPORT_Select.ForeColor = ui_colors[8];
-                EXPORT_ProgressBGPanel.BackColor = ui_colors[5];
-                EXPORT_ProgressFEPanel.BackColor = ui_colors[8];
-                EXPORT_ProgessLabel.ForeColor = ui_colors[8];
-                EXPORT_StartEngineBtn.ForeColor = ui_colors[18];
-                EXPORT_StartEngineBtn.BackColor = ui_colors[8];
-                EXPORT_StartEngineBtn.FlatAppearance.BorderColor = ui_colors[8];
-                EXPORT_StartEngineBtn.FlatAppearance.MouseDownBackColor = ui_colors[8];
+                print_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                EXPORT_HeaderLabel.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                EXPORT_Select.BackColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
+                EXPORT_Select.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                EXPORT_ProgressBGPanel.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                EXPORT_ProgressFEPanel.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                EXPORT_ProgessLabel.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                EXPORT_StartEngineBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
+                EXPORT_StartEngineBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                EXPORT_StartEngineBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                EXPORT_StartEngineBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
                 // ROTATE MENU
                 if (menu_btns == 1){
-                    OS_RotateBtn.BackColor = ui_colors[18];
+                    OS_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
                 }else if (menu_btns == 2){
-                    MB_RotateBtn.BackColor = ui_colors[18];
+                    MB_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
                 }else if (menu_btns == 3){
-                    CPU_RotateBtn.BackColor = ui_colors[18];
+                    CPU_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
                 }else if (menu_btns == 4){
-                    RAM_RotateBtn.BackColor = ui_colors[18];
+                    RAM_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
                 }else if (menu_btns == 5){
-                    GPU_RotateBtn.BackColor = ui_colors[18];
+                    GPU_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
                 }else if (menu_btns == 6){
-                    DISK_RotateBtn.BackColor = ui_colors[18];
+                    DISK_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
                 }else if (menu_btns == 7){
-                    NET_RotateBtn.BackColor = ui_colors[18];
+                    NET_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
                 }else if (menu_btns == 8){
-                    USB_RotateBtn.BackColor = ui_colors[18];
+                    USB_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
                 }else if (menu_btns == 9){
-                    SOUND_RotateBtn.BackColor = ui_colors[18];
+                    SOUND_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
                 }else if (menu_btns == 10){
-                    BATTERY_RotateBtn.BackColor = ui_colors[18];
+                    BATTERY_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
                 }else if (menu_btns == 11){
-                    OSD_RotateBtn.BackColor = ui_colors[18];
+                    OSD_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
                 }else if (menu_btns == 12){
-                    SERVICES_RotateBtn.BackColor = ui_colors[18];
+                    SERVICES_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
                 }else if (menu_btns == 13){
-                    PRINT_RotateBtn.BackColor = ui_colors[18];
+                    PRINT_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
                 }
+                // SAVE CURRENT THEME
+                try{
+                    TSSettingsSave software_setting_save = new TSSettingsSave(ts_sf);
+                    software_setting_save.TSWriteSettings(ts_settings_container, "ThemeStatus", Convert.ToString(ts));
+                }catch (Exception) { }
             }catch (Exception){ }
         }
         private void header_image_reloader(int hi_value){
@@ -5483,6 +5308,118 @@ namespace Glow{
                             HeaderImage.Image = Properties.Resources.lm_export_dark;
                             break;
                     }
+                }
+            }catch (Exception){ }
+        }
+        // MODULES PAGE DYNAMIC UI
+        // ======================================================================================================
+        private void glow_other_page_dynamic_ui(){
+            // SFC AND DISM TOOL
+            try{
+                GlowSFCandDISMAutoTool sfc_and_dism_tool = new GlowSFCandDISMAutoTool();
+                string glow_tool_name = "glow_sfc_and_dism_tool";
+                sfc_and_dism_tool.Name = glow_tool_name;
+                if (Application.OpenForms[glow_tool_name] != null){
+                    sfc_and_dism_tool = (GlowSFCandDISMAutoTool)Application.OpenForms[glow_tool_name];
+                    sfc_and_dism_tool.sadt_theme_settings();
+                }
+            }catch (Exception){ }
+            // CACHE CLEANUP TOOL
+            try{
+                GlowCacheCleanupTool cache_cleanup_tool = new GlowCacheCleanupTool();
+                string glow_tool_name = "glow_cache_cleanup_tool";
+                cache_cleanup_tool.Name = glow_tool_name;
+                if (Application.OpenForms[glow_tool_name] != null){
+                    cache_cleanup_tool = (GlowCacheCleanupTool)Application.OpenForms[glow_tool_name];
+                    cache_cleanup_tool.cct_theme_settings();
+                }
+            }catch (Exception){ }
+            // BENCH CPU TOOL
+            try{
+                GlowBenchCPU bench_cpu_tool = new GlowBenchCPU();
+                string glow_tool_name = "glow_bench_cpu_tool";
+                bench_cpu_tool.Name = glow_tool_name;
+                if (Application.OpenForms[glow_tool_name] != null){
+                    bench_cpu_tool = (GlowBenchCPU)Application.OpenForms[glow_tool_name];
+                    bench_cpu_tool.bench_cpu_theme_settings();
+                }
+            }catch (Exception){ }
+            // BENCH RAM TOOL
+            try{
+                GlowBenchMemory bench_cpu_tool = new GlowBenchMemory();
+                string glow_tool_name = "glow_bench_ram_tool";
+                bench_cpu_tool.Name = glow_tool_name;
+                if (Application.OpenForms[glow_tool_name] != null){
+                    bench_cpu_tool = (GlowBenchMemory)Application.OpenForms[glow_tool_name];
+                    bench_cpu_tool.bench_ram_settings();
+                }
+            }catch (Exception){ }
+            // BENCH DISK TOOL
+            try{
+                GlowBenchDisk bench_disk_tool = new GlowBenchDisk();
+                string glow_tool_name = "glow_bench_disk_tool";
+                bench_disk_tool.Name = glow_tool_name;
+                if (Application.OpenForms[glow_tool_name] != null)
+                {
+                    bench_disk_tool = (GlowBenchDisk)Application.OpenForms[glow_tool_name];
+                    bench_disk_tool.bench_disk_theme_settings();
+                }
+            }catch (Exception){ }
+            // SCREEN OVERLAY
+            try{
+                GlowOverlay screen_overlay_tool = new GlowOverlay();
+                string glow_tool_name = "glow_screen_overlay_tool";
+                screen_overlay_tool.Name = glow_tool_name;
+                if (Application.OpenForms[glow_tool_name] != null){
+                    screen_overlay_tool = (GlowOverlay)Application.OpenForms[glow_tool_name];
+                    screen_overlay_tool.screen_overlay_settings();
+                }
+            }catch (Exception){ }
+            // DNS TEST TOOL
+            try{
+                GlowDNSTestTool dns_test_tool = new GlowDNSTestTool();
+                string glow_tool_name = "glow_dns_test_tool";
+                dns_test_tool.Name = glow_tool_name;
+                if (Application.OpenForms[glow_tool_name] != null){
+                    dns_test_tool = (GlowDNSTestTool)Application.OpenForms[glow_tool_name];
+                    dns_test_tool.dns_test_settings();
+                }
+            }catch (Exception){ }
+            // DNS TEST TOOL
+            try{
+                GlowQuickAccessTool quick_access_tool = new GlowQuickAccessTool();
+                string glow_tool_name = "glow_quick_access_tool";
+                quick_access_tool.Name = glow_tool_name;
+                if (Application.OpenForms[glow_tool_name] != null){
+                    quick_access_tool = (GlowQuickAccessTool)Application.OpenForms[glow_tool_name];
+                    quick_access_tool.quick_access_settings();
+                }
+            }catch (Exception){ }
+            // MONITOR TEST DEAD PIXEL TOOL
+            try{
+                GlowMonitorTestEngine monitor_test_engine_tool = new GlowMonitorTestEngine();
+                string glow_tool_name = "glow_monitor_test_engine_dead_pixel";
+                monitor_test_engine_tool.Name = glow_tool_name;
+                if (Application.OpenForms[glow_tool_name] != null){
+                    monitor_test_engine_tool = (GlowMonitorTestEngine)Application.OpenForms[glow_tool_name];
+                    monitor_test_engine_tool.monitor_test_engine_theme_settings();
+                }
+                GlowMonitorTestEngine monitor_test_engine_tool2 = new GlowMonitorTestEngine();
+                string glow_tool_name2 = "glow_monitor_test_engine_dynamic_range";
+                monitor_test_engine_tool2.Name = glow_tool_name2;
+                if (Application.OpenForms[glow_tool_name2] != null){
+                    monitor_test_engine_tool2 = (GlowMonitorTestEngine)Application.OpenForms[glow_tool_name2];
+                    monitor_test_engine_tool2.monitor_test_engine_theme_settings();
+                }
+            }catch (Exception){ }
+            // GLOW ABOUT
+            try{
+                GlowAbout software_about = new GlowAbout();
+                string software_about_name = "glow_about";
+                software_about.Name = software_about_name;
+                if (Application.OpenForms[software_about_name] != null){
+                    software_about = (GlowAbout)Application.OpenForms[software_about_name];
+                    software_about.about_preloader();
                 }
             }catch (Exception){ }
         }
@@ -6051,6 +5988,7 @@ namespace Glow{
             PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_process_time").Trim())) + " " + DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss"));
             PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_website").Trim())) + " " + TS_LinkSystem.website_link);
             PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_twitter").Trim())) + " " + TS_LinkSystem.twitter_link);
+            PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_instagram").Trim())) + " " + TS_LinkSystem.instagram_link);
             PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_github").Trim())) + " " + TS_LinkSystem.github_link);
             print_engine_progress_update(13);
             SaveFileDialog save_engine = new SaveFileDialog{
@@ -6061,17 +5999,18 @@ namespace Glow{
                 Filter = Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_save_txt").Trim())) + " (*.txt)|*.txt"
             };
             if (save_engine.ShowDialog() == DialogResult.OK){
-                String[] text_engine = new String[PrintEngineList.Count];
-                PrintEngineList.CopyTo(text_engine, 0);
-                File.WriteAllLines(save_engine.FileName, text_engine);
+                string combinedText = String.Join(Environment.NewLine, PrintEngineList);
+                File.WriteAllText(save_engine.FileName, combinedText);
                 DialogResult glow_print_engine_query = MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_save_success").Trim())) + Environment.NewLine + Environment.NewLine + Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_save_info_open").Trim())), Application.ProductName, save_engine.FileName), Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (glow_print_engine_query == DialogResult.Yes){ Process.Start(save_engine.FileName); }
-                PrintEngineList.Clear(); save_engine.Dispose();
-                //
+                if (glow_print_engine_query == DialogResult.Yes){
+                    Process.Start(save_engine.FileName);
+                }
+                PrintEngineList.Clear();
+                save_engine.Dispose();
                 print_after_mode();
             }else{
-                PrintEngineList.Clear(); save_engine.Dispose();
-                //
+                PrintEngineList.Clear();
+                save_engine.Dispose();
                 print_after_mode();
             }
         }
@@ -6081,17 +6020,17 @@ namespace Glow{
             // HEADER
             TSGetLangs software_lang = new TSGetLangs(lang_path);
             // COLOR MODES
-            Color html_body_bg_color = ui_colors[6];
+            Color html_body_bg_color = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
             string html_bbgc = string.Format("#{0}{1}{2}", html_body_bg_color.R.ToString("X2"), html_body_bg_color.G.ToString("X2"), html_body_bg_color.B.ToString("X2"));
-            Color html_middle_bg_color = ui_colors[5];
+            Color html_middle_bg_color = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
             string html_mbgc = string.Format("#{0}{1}{2}", html_middle_bg_color.R.ToString("X2"), html_middle_bg_color.G.ToString("X2"), html_middle_bg_color.B.ToString("X2"));
-            Color html_ui_fe_color = ui_colors[8];
+            Color html_ui_fe_color = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
             string html_uifc = string.Format("#{0}{1}{2}", html_ui_fe_color.R.ToString("X2"), html_ui_fe_color.G.ToString("X2"), html_ui_fe_color.B.ToString("X2"));
+            Color html_ui_fe_hover_color = TS_ThemeEngine.ColorMode(theme, "ContentLabelRightHover");
+            string html_uifhc = string.Format("#{0}{1}{2}", html_ui_fe_hover_color.R.ToString("X2"), html_ui_fe_hover_color.G.ToString("X2"), html_ui_fe_hover_color.B.ToString("X2"));
             // EXTERNAL LINKS
             string print_html_font_url          = @"https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap";
             string print_html_glow_logo_url     = @"https://raw.githubusercontent.com/roines45/glow/main/Glow/glow_images/glow_logo/GlowLogo.ico";
-            string print_html_font_awesome_url  = @"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css";
-            string print_html_jquery_url        = @"https://code.jquery.com/jquery-3.7.1.min.js";
             // HTML MAIN CODES
             PrintEngineList.Add("<!DOCTYPE html>");
             PrintEngineList.Add($"<html lang='{lang}'>");
@@ -6105,14 +6044,15 @@ namespace Glow{
             PrintEngineList.Add("\t\t*{ font-family: 'Open Sans', sans-serif; margin: 0; padding: 0; box-sizing: border-box; text-decoration: none; }");
             if (theme == 1){ PrintEngineList.Add("\t\t:root { color-scheme: light; }"); }
             else if (theme == 0){ PrintEngineList.Add("\t\t:root { color-scheme: dark; }"); }
-            PrintEngineList.Add("\t\ta:visited{ color: rgb(55, 162, 255); }");
-            PrintEngineList.Add("\t\t.ts_scroll_top{ position: fixed; bottom: -100px; right: 15px; width: auto; height: auto; justify-content: center; align-items: center; display: flex; font-size: 46px; border-radius: 50%; cursor: pointer; color: " + html_uifc + "; z-index: 999; transition: 0.2s; }");
-            PrintEngineList.Add("\t\t.ts_scroll_top:hover{ color: rgb(55, 162, 255); }");
+            PrintEngineList.Add("\t\ta:visited{ color: " + html_uifhc + "; }");
+            PrintEngineList.Add("\t\t.ts_scroll_top{ background-color: " + html_uifc + "; position: fixed; bottom: -100px; right: 15px; width: 45px; height: 45px; justify-content: center; align-items: center; display: flex; border-radius: 50%; cursor: pointer; z-index: 999; transition: 0.2s; }");
+            PrintEngineList.Add("\t\t.ts_scroll_top > .ts_arrow_up { border-bottom: 15px solid " + html_mbgc + "; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; }");
+            PrintEngineList.Add("\t\t.ts_scroll_top:hover{ background-color: " + html_uifhc + "; }");
             PrintEngineList.Add("\t\t.ts_scroll_top.active{ bottom: 15px; }");
-            PrintEngineList.Add("\t\t@media (max-width: 700px){ .ts_scroll_top{ font-size: 30px; bottom: -100px; right: 10px; } .ts_scroll_top.active{ bottom: 10px; } }");
-            PrintEngineList.Add("\t\t.ts_page_wrapper{ background-color:" + html_mbgc + "; font-weight: 500; position:fixed; left: 15px; bottom: 15px; width: auto; height: 35px; padding: 0 5px; font-size: 16px; margin: 0; outline: none; border-radius: 5px; border: 1px solid " + html_uifc + "; transition: 0.2s; }");
+            PrintEngineList.Add("\t\t@media (max-width: 700px){ .ts_scroll_top{ bottom: -100px; right: 10px; } .ts_scroll_top.active{ bottom: 10px; } }");
+            PrintEngineList.Add("\t\t.ts_page_wrapper{ background-color:" + html_mbgc + "; font-weight: 500; position:fixed; left: 15px; bottom: 15px; width: auto; height: 35px; padding: 0 5px; font-size: 16px; margin: 0; outline: none; border-radius: 5px; border: 1px solid " + html_uifc + "; transition: 0.2s; -webkit-box-shadow: 0px 0px 13px -3px rgba(0,0,0,0.7); -moz-box-shadow: 0px 0px 13px -3px rgba(0,0,0,0.7); box-shadow: 0px 0px 13px -3px rgba(0,0,0,0.7); }");
             PrintEngineList.Add("\t\t@media (max-width: 700px){ .ts_page_wrapper{ left: 10px; bottom: 10px; height: 30px; border-radius: 3px; } }");
-            PrintEngineList.Add("\t\tbody{ background-color: " + html_bbgc + "; padding: 5px 0; justify-content: center; align-items: center; display: flex; }");
+            PrintEngineList.Add("\t\tbody{ background-color: " + html_bbgc + "; padding: 5px 10px; justify-content: center; align-items: center; display: flex; }");
             PrintEngineList.Add("\t\t#main_container{ width: 100%; height: auto; justify-content: center; align-items: center; display: flex; flex-direction: column; }");
             PrintEngineList.Add("\t\t#main_container > h2{ margin: 25px 0; font-weight: 500; color: " + html_uifc + "; }");
             PrintEngineList.Add("\t\t#main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ background-color: " + html_mbgc + "; width: 1250px; height: auto; border-radius: 10px; margin: 5px 0; padding: 15px; box-sizing: border-box; display: inline-block; word-break: break-word; table-layout: fixed; }");
@@ -6133,22 +6073,18 @@ namespace Glow{
             PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > ul > li > span{ margin: 0 7px 0 0; }");
             PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > ul > li > span:nth-child(2){ color: " + html_uifc + "; }");
             PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > ul > li > a{ color: " + html_uifc + "; text-decoration: underline; transition: 0.3s; }");
-            PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > ul > li > a:hover{ color: rgb(55, 162, 255); }");
+            PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > ul > li > a:hover{ color: " + html_uifhc + "; }");
             PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > hr{ height: 1px; background-color: " + html_uifc + "; border: none; margin: 20px 0; padding: 0; }");
             PrintEngineList.Add("\t\t#main_container > .b14 > ul > li > span{ color: " + html_uifc + "; }");
-            PrintEngineList.Add("\t\t@media (max-width: 1260px){ #main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ width: 1020px; } }");
-            PrintEngineList.Add("\t\t@media (max-width: 1030px){ #main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ width: 900px; } }");
-            PrintEngineList.Add("\t\t@media (max-width: 915px){ #main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ width: 720px; } }");
-            PrintEngineList.Add("\t\t@media (max-width: 735px){ #main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ width: 480px; padding: 10px; } #main_container > .ts_box_wrapper > h3{ text-align: center; } }");
-            PrintEngineList.Add("\t\t@media (max-width: 495px){ #main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ width: 350px; } #main_container > .ts_box_wrapper:nth-child(1){ flex-direction: column; justify-content: center; gap: 10px; } #main_container > .ts_box_wrapper:nth-child(1) > .ts_box_text{ text-align: center; align-items: center; } #main_container > .ts_box_wrapper > ul{ margin: 15px 0 0 25px; } #main_container > .ts_box_wrapper > h4{ margin: 13px 0 0 6px; } }");
+            PrintEngineList.Add("\t\t@media (max-width: 1260px){ #main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ width: 100%; } }");
+            PrintEngineList.Add("\t\t@media (max-width: 735px){ #main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ padding: 10px; } #main_container > .ts_box_wrapper > h3{ text-align: center; } }");
+            PrintEngineList.Add("\t\t@media (max-width: 495px){ #main_container > .ts_box_wrapper:nth-child(1){ flex-direction: column; justify-content: center; gap: 10px; } #main_container > .ts_box_wrapper:nth-child(1) > .ts_box_text{ text-align: center; align-items: center; } #main_container > .ts_box_wrapper > ul{ margin: 15px 0 0 25px; } #main_container > .ts_box_wrapper > h4{ margin: 13px 0 0 6px; } }");
             PrintEngineList.Add("\t</style>");
             PrintEngineList.Add("\t<link rel='icon' type='image/x-icon' href='" + print_html_glow_logo_url + "'>");
-            PrintEngineList.Add("\t<link rel='stylesheet' href='" + print_html_font_awesome_url + "'>");
-            PrintEngineList.Add("\t<script src='" + print_html_jquery_url + "'></script>");
             PrintEngineList.Add("</head>");
             PrintEngineList.Add("<body>");
             // SCROOL TOP BUTTON
-            PrintEngineList.Add("\t<div class='ts_scroll_top' onclick='ts_scroll_to_up();'><i class='fa-solid fa-circle-chevron-up'></i></div>");
+            PrintEngineList.Add($"\t<div class='ts_scroll_top' onclick='ts_scroll_to_up();' title='{Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_scroll_top_select").Trim()))}'><span class='ts_arrow_up'></span></div>");
             // SELECT WRAPPER
             PrintEngineList.Add($"\t<select title='{Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_html_partition_select").Trim()))}' class='ts_page_wrapper' id='ts_session_select'>");
             PrintEngineList.Add($"\t\t<option value='b1'>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_html_header_select").Trim()))}</option>");
@@ -6576,6 +6512,7 @@ namespace Glow{
             PrintEngineList.Add($"\t\t\t\t<li>(C) {DateTime.Now.Year} {Application.CompanyName}.</li>");
             PrintEngineList.Add($"\t\t\t\t<li>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_website").Trim())) + " " + "<a target='_blank' href='" + TS_LinkSystem.website_link + "'>" + TS_LinkSystem.website_link + "</a>"}</li>");
             PrintEngineList.Add($"\t\t\t\t<li>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_twitter").Trim())) + " " + "<a target='_blank' href='" + TS_LinkSystem.twitter_link + "'>" + TS_LinkSystem.twitter_link + "</a>"}</li>");
+            PrintEngineList.Add($"\t\t\t\t<li>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_instagram").Trim())) + " " + "<a target='_blank' href='" + TS_LinkSystem.instagram_link + "'>" + TS_LinkSystem.instagram_link + "</a>"}</li>");
             PrintEngineList.Add($"\t\t\t\t<li>{Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_github").Trim())) + " " + "<a target='_blank' href='" + TS_LinkSystem.github_link + "'>" + TS_LinkSystem.github_link + "</a>"}</li>");
             PrintEngineList.Add("\t\t\t</ul>");
             PrintEngineList.Add("\t\t</div>");
@@ -6583,16 +6520,10 @@ namespace Glow{
             PrintEngineList.Add("\t</div>");
             // SCROOL TOP SCRIPT
             PrintEngineList.Add("<script>");
-            PrintEngineList.Add("\t$('select').change(function(){ var ts_d_id = $(this).val(); $('html, body').animate({ scrollTop: $('.' + ts_d_id).offset().top }, 500); });");
-            PrintEngineList.Add("\tvar ts_output = [];");
-            PrintEngineList.Add("\t$.each($('select option'), function(key, value){ ts_output.push(value.value); });");
-            PrintEngineList.Add("\t$(window).on('scroll', function() {");
-            PrintEngineList.Add("\t\tif (!$('html, body').is(':animated')){ var ts_filtered = ts_output.filter(ts => { return $(this).scrollTop() >= $('.' + ts).position().top });");
-            PrintEngineList.Add("\t\t\tif (ts_filtered.length > 0){ $('select').val((ts_filtered[ts_filtered.length - 1])) }");
-            PrintEngineList.Add("\t\t}");
-            PrintEngineList.Add("\t});");
-            PrintEngineList.Add("\tconst ts_scroll_top = document.querySelector('.ts_scroll_top');");
-            PrintEngineList.Add("\twindow.addEventListener('scroll', function(){ ts_scroll_top.classList.toggle('active', window.scrollY > 350); });");
+            PrintEngineList.Add("\tdocument.querySelector('select').addEventListener('change', function(){ var ts_d_id = this.value; var targetElement = document.querySelector('.' + ts_d_id); window.scrollTo({ top: targetElement.offsetTop, behavior: 'smooth' }); });");
+            PrintEngineList.Add("\tvar ts_output = []; document.querySelectorAll('select option').forEach(function(option){ ts_output.push(option.value); });");
+            PrintEngineList.Add("\twindow.addEventListener('scroll', function(){ if (!document.documentElement.classList.contains('animated')){ var ts_filtered = ts_output.filter(function(ts){ var targetElement = document.querySelector('.' + ts); return window.scrollY >= targetElement.offsetTop; }); if (ts_filtered.length > 0){ document.querySelector('select').value = ts_filtered[ts_filtered.length - 1]; } } });");
+            PrintEngineList.Add("\tconst ts_scroll_top = document.querySelector('.ts_scroll_top'); window.addEventListener('scroll', function(){ ts_scroll_top.classList.toggle('active', window.scrollY > 350); });");
             PrintEngineList.Add("\tfunction ts_scroll_to_up(){ window.scrollTo({ top: 0, behavior: 'smooth' }); }");
             PrintEngineList.Add("</script>");
             // DOCUMENT END
@@ -6608,18 +6539,18 @@ namespace Glow{
                 Filter = Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_save_html").Trim())) + " (*.html)|*.html"
             };
             if (save_engine.ShowDialog() == DialogResult.OK){
-                String[] text_engine = new String[PrintEngineList.Count];
-                PrintEngineList.CopyTo(text_engine, 0);
-                File.WriteAllLines(save_engine.FileName, text_engine);
+                string combinedText = String.Join(Environment.NewLine, PrintEngineList);
+                File.WriteAllText(save_engine.FileName, combinedText);
                 DialogResult glow_print_engine_query = MessageBox.Show(string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_save_success").Trim())) + Environment.NewLine + Environment.NewLine + Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_save_info_open").Trim())), Application.ProductName, save_engine.FileName), Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (glow_print_engine_query == DialogResult.Yes){ Process.Start(save_engine.FileName); }
-                PrintEngineList.Clear(); save_engine.Dispose();
-                //
+                if (glow_print_engine_query == DialogResult.Yes){
+                    Process.Start(save_engine.FileName);
+                }
+                PrintEngineList.Clear();
+                save_engine.Dispose();
                 print_after_mode();
-            }
-            else{
-                PrintEngineList.Clear(); save_engine.Dispose();
-                //
+            }else{
+                PrintEngineList.Clear();
+                save_engine.Dispose();
                 print_after_mode();
             }
         }

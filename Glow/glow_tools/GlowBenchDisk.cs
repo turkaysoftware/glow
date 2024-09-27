@@ -36,47 +36,47 @@ namespace Glow.glow_tools{
                 }else if (Glow.theme == 0){
                     try { if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } }catch (Exception){ }
                 }
-                BackColor = Glow.ui_colors[5];
+                BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "PageContainerBGAndPageContentTotalColors");
                 //
-                Bench_P1.BackColor = Glow.ui_colors[6];
-                Bench_P2.BackColor = Glow.ui_colors[6];
-                Bench_P3.BackColor = Glow.ui_colors[6];
-                Bench_P4.BackColor = Glow.ui_colors[6];
-                Bench_P5.BackColor = Glow.ui_colors[6];
-                Bench_P6.BackColor = Glow.ui_colors[6];
-                Bench_P7.BackColor = Glow.ui_colors[6];
+                Bench_P1.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
+                Bench_P2.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
+                Bench_P3.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
+                Bench_P4.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
+                Bench_P5.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
+                Bench_P6.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
+                Bench_P7.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
                 //
-                Bench_Label_Disk.ForeColor = Glow.ui_colors[7];
-                Bench_Disk.BackColor = Glow.ui_colors[9];
-                Bench_Disk.ForeColor = Glow.ui_colors[8];
+                Bench_Label_Disk.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
+                Bench_Disk.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "SelectBoxBGColor");
+                Bench_Disk.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
                 //
-                Bench_Label_Size.ForeColor = Glow.ui_colors[7];
-                Bench_Size.BackColor = Glow.ui_colors[9];
-                Bench_Size.ForeColor = Glow.ui_colors[8];
-                Bench_SizeCustom.BackColor = Glow.ui_colors[10];
-                Bench_SizeCustom.ForeColor = Glow.ui_colors[11];
+                Bench_Label_Size.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
+                Bench_Size.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "SelectBoxBGColor");
+                Bench_Size.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_SizeCustom.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "TextBoxBGColor");
+                Bench_SizeCustom.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "TextBoxFEColor");
                 //
-                Bench_Label_Buffer.ForeColor = Glow.ui_colors[7];
-                Bench_Buffer.BackColor = Glow.ui_colors[9];
-                Bench_Buffer.ForeColor = Glow.ui_colors[8];
+                Bench_Label_Buffer.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
+                Bench_Buffer.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "SelectBoxBGColor");
+                Bench_Buffer.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
                 //
-                Bench_L_WriteSpeed.ForeColor = Glow.ui_colors[7];
-                Bench_L_WriteSpeed_V.ForeColor = Glow.ui_colors[8];
-                Bench_R_ReadSpeed.ForeColor = Glow.ui_colors[7];
-                Bench_R_ReadSpeed_V.ForeColor = Glow.ui_colors[8];
-                Bench_L_Max_WriteSpeed.ForeColor = Glow.ui_colors[7];
-                Bench_L_Max_WriteSpeed_V.ForeColor = Glow.ui_colors[8];
-                Bench_R_Max_ReadSpeed.ForeColor = Glow.ui_colors[7];
-                Bench_R_Max_ReadSpeed_V.ForeColor = Glow.ui_colors[8];
+                Bench_L_WriteSpeed.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
+                Bench_L_WriteSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_R_ReadSpeed.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
+                Bench_R_ReadSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_L_Max_WriteSpeed.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
+                Bench_L_Max_WriteSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_R_Max_ReadSpeed.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
+                Bench_R_Max_ReadSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
                 //
-                Bench_Start.BackColor = Glow.ui_colors[8];
-                Bench_Start.ForeColor = Glow.ui_colors[18];
-                Bench_Start.FlatAppearance.BorderColor = Glow.ui_colors[8];
-                Bench_Start.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
-                Bench_Stop.BackColor = Glow.ui_colors[8];
-                Bench_Stop.ForeColor = Glow.ui_colors[18];
-                Bench_Stop.FlatAppearance.BorderColor = Glow.ui_colors[8];
-                Bench_Stop.FlatAppearance.MouseDownBackColor = Glow.ui_colors[8];
+                Bench_Start.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Start.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
+                Bench_Start.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Start.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Stop.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Stop.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
+                Bench_Stop.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Stop.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("BenchDisk", "bd_title").Trim())), Application.ProductName);
