@@ -6,6 +6,8 @@
 
 The best part is that it **offers for free** the features that other paid programs offer.
 
+[Click here](https://www.turkaysoftware.com/glow) for full specifications.
+
 ![Glow UI](https://github.com/user-attachments/assets/94f803b9-38ae-4cee-a118-d88a102aa809)
 
 # Download Glow
@@ -22,6 +24,7 @@ Download: [Glow Latest Version](https://github.com/turkaysoftware/glow/releases/
 - English
 - French
 - German
+- Italian (Coming Soon)
 - Korean
 - Portuguese
 - Russian
@@ -49,5 +52,5 @@ Download: [Glow Latest Version](https://github.com/turkaysoftware/glow/releases/
 |  | Minimum Requirements | Recommended Requirements |
 | -- | :--: | :--: |
 | OS: | Windows 10 x64 | Windows 10 22H2 x64|
-| RAM: | 50 MB Free RAM | 100 MB Free RAM |
+| RAM: | 75 MB Free RAM | 100 MB Free RAM |
 | .NET: | .NET Framework 4.8.1 | .NET Framework 4.8.1 |
