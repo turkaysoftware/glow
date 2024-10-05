@@ -52,6 +52,6 @@ Download: [Glow Latest Version](https://github.com/turkaysoftware/glow/releases/
 
 |  | Minimum Requirements | Recommended Requirements |
 | -- | :--: | :--: |
-| OS: | Windows 10 x64 | Windows 10 22H2 x64|
+| OS: | Windows 10 | Windows 10 22H2 x64|
 | RAM: | 75 MB Free RAM | 100 MB Free RAM |
 | .NET: | .NET Framework 4.8.1 | .NET Framework 4.8.1 |
