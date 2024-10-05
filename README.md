@@ -16,7 +16,7 @@ Download: [Glow Latest Version](https://github.com/turkaysoftware/glow/releases/
 
 # How to use Glow?
 
-**Extract the entire contents of the Glow ZIP file** you downloaded from the **[Release](https://github.com/turkaysoftware/glow/releases/latest)** section into a folder. Just run *Glow_x64.exe* if you have an **x64 processor** or *Glow_arm64.exe* if you have an **ARM processor**! (**Optional:** You can also run *Glow_x86.exe* for **32 Bit**, **x86** architecture).
+**Extract the entire contents of the Glow ZIP file** you downloaded from the **[Release](https://github.com/turkaysoftware/glow/releases/latest)** section into a folder. Just run *Glow_x64.exe* if you have an **x64 processor** or *Glow_arm64.exe* if you have an **ARM processor**! (**Optional:** You can also run *Glow_x86.exe* for **32 Bit x86** architecture).
 
 # Supported Languages
 
