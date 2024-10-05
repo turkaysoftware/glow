@@ -44,6 +44,7 @@ Download: [Glow Latest Version](https://github.com/turkaysoftware/glow/releases/
 
 # Supported Architectures
 
+- 32 Bit (x86) (Coming Soon)
 - 64 Bit (x64)
 - ARM64 (ARM CPU)
 
