@@ -18,6 +18,23 @@ Download: [Glow Latest Version](https://github.com/turkaysoftware/glow/releases/
 
 **Extract the entire contents of the Glow ZIP file** you downloaded from the **[Release](https://github.com/turkaysoftware/glow/releases/latest)** section into a folder. Just run *Glow_x64.exe* if you have an **x64 processor** or *Glow_arm64.exe* if you have an **ARM processor**!
 
+# User Friendly Features
+
+- Light / Dark Theme Support
+- 10 Different Language Support
+- Hiding Mode Feature
+- Ability to Export Information as TXT or HTML
+- Automatic Blue Screen Report Generation
+- System Repair Feature
+- System Cleanup Feature
+- CPU/RAM/Disk Benchmark Tool
+- DNS Test Tool
+- Screen Overlay Feature
+- Quick Access Tool
+- Network Repair Feature
+- Saved Wi-Fi Password Display Feature
+- Monitor Test Tools
+
 # Supported Languages
 
 - Chinese
