@@ -20,7 +20,7 @@ Download: [Glow Latest Version](https://github.com/turkaysoftware/glow/releases/
 
 # User Friendly Features
 
-- Very detailed and informative for Operating System, Motherboard, Processor, RAM, Storage, Network, USB, Sound, Battery, Installed Drivers and Installed Services sections.
+- Very detailed and informative for Operating System, Motherboard, Processor, RAM, Graphics Card, Storage, Network, USB, Sound, Battery, Installed Drivers and Installed Services sections.
 - Light / Dark Theme Support
 - 10 Different Language Support
 - Hiding Mode Feature
