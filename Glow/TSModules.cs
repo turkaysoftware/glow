@@ -22,8 +22,8 @@ namespace Glow{
             github_link_lt = "https://raw.githubusercontent.com/turkaysoftware/glow/main/Glow/SoftwareVersion.txt",
             github_link_lr = "https://github.com/turkaysoftware/glow/releases/latest";
         }
-        // ======================================================================================================
         // VERSIONS
+        // ======================================================================================================
         public class TS_VersionEngine{
             public string TS_SofwareVersion(int v_type, int v_mode){
                 string version_mode = "";
@@ -44,13 +44,19 @@ namespace Glow{
                 return version_mode;
             }
         }
+        // TS SOFTWARE COPYRIGHT DATE
         // ======================================================================================================
+        public class TS_SoftwareCopyrightDate{
+            public static string ts_scd = string.Format("2019 - {0}", DateTime.Now.Year);
+        }
         // LANG PATHS
+        // ======================================================================================================
         public static string glow_lf = @"g_langs";                              // Main Path
         public static string glow_lang_zh = glow_lf + @"\Chinese.ini";          // Chinese      | zh
         public static string glow_lang_en = glow_lf + @"\English.ini";          // English      | en
         public static string glow_lang_fr = glow_lf + @"\French.ini";           // French       | fr
         public static string glow_lang_de = glow_lf + @"\German.ini";           // German       | de
+        public static string glow_lang_it = glow_lf + @"\Italian.ini";          // Italian      | it
         public static string glow_lang_ko = glow_lf + @"\Korean.ini";           // Korean       | ko
         public static string glow_lang_pt = glow_lf + @"\Portuguese.ini";       // Portuguese   | pt
         public static string glow_lang_ru = glow_lf + @"\Russian.ini";          // Russian      | ru
@@ -62,8 +68,8 @@ namespace Glow{
             private readonly string _saveFilePath;
             public TSGetLangs(string filePath){ _saveFilePath = filePath; }
             public string TSReadLangs(string episode, string settingName){
-                StringBuilder stringBuilder = new StringBuilder(512);
-                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 511, _saveFilePath);
+                StringBuilder stringBuilder = new StringBuilder(1024);
+                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 1023, _saveFilePath);
                 return stringBuilder.ToString();
             }
         }
@@ -150,13 +156,13 @@ namespace Glow{
                 return Color.Transparent;
             }
         }
-        // ======================================================================================================
         // SAVE PATHS
+        // ======================================================================================================
         public static string ts_df = Application.StartupPath;
         public static string ts_sf = ts_df + @"\GlowSettings.ini";
         public static string ts_settings_container = Path.GetFileNameWithoutExtension(ts_sf);
-        // ======================================================================================================
         // GLOW SETTINGS SAVE CLASS
+        // ======================================================================================================
         public class TSSettingsSave{
             [DllImport("kernel32.dll")]
             private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
@@ -165,8 +171,8 @@ namespace Glow{
             private readonly string _saveFilePath;
             public TSSettingsSave(string filePath){ _saveFilePath = filePath; }
             public string TSReadSettings(string episode, string settingName){
-                StringBuilder stringBuilder = new StringBuilder(512);
-                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 511, _saveFilePath);
+                StringBuilder stringBuilder = new StringBuilder(1024);
+                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 1023, _saveFilePath);
                 return stringBuilder.ToString();
             }
             public long TSWriteSettings(string episode, string settingName, string value){
@@ -270,8 +276,8 @@ namespace Glow{
                 return key_latest;
             }
         }
-        // ======================================================================================================
         // CPU VIRTUALIZATION
+        // ======================================================================================================
         [DllImport("kernel32.dll")]
         public static extern void GetSystemInfo(out CPU_VIRTUALIZATION lpCPU_INFO);
         [StructLayout(LayoutKind.Sequential)]
@@ -296,20 +302,20 @@ namespace Glow{
                    ts_cpu_virtualization.processorArchitecture == 6 || // Itanium
                    ts_cpu_virtualization.processorArchitecture == 9;   // x64
         }
-        // ======================================================================================================
         // CPU CODE SETS
+        // ======================================================================================================
         [DllImport("kernel32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsProcessorFeaturePresent(uint processorFeature);
-        // ======================================================================================================
         // NETWORK NAME REPLACER
+        // ======================================================================================================
         public static string net_replacer(string get_adapter_name){
             string a1 = get_adapter_name.Replace("[", "(");
             string a2 = a1.Replace("]", ")");
             return a2;
         }
-        // ======================================================================================================
         // SCREEN API
+        // ======================================================================================================
         public const int ENUM_CURRENT_SETTINGS = -1;
         [DllImport("user32.dll")]
         public static extern bool EnumDisplaySettings(string lpszDeviceName, int iModeNum, ref DEVMODE lpDevMode);
@@ -352,8 +358,8 @@ namespace Glow{
         // ======================================================================================================
         [DllImport("DwmApi")]
         public static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
-        // ======================================================================================================
         // DPI AWARE
+        // ======================================================================================================
         [DllImport("user32.dll")]
         public static extern bool SetProcessDPIAware();
     }

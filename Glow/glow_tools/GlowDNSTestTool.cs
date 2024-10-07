@@ -111,6 +111,11 @@ namespace Glow.glow_tools{
                     DNSTable.Rows.Add(dns_server_list[i], Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("DNSTestTool", "dtt_start_await").Trim())));
                 }
                 DNSTable.Columns[0].Width = 175;
+                //
+                foreach (DataGridViewColumn DNS_Column in DNSTable.Columns){
+                    DNS_Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
+                //
                 DNSTable.ClearSelection();
             }catch (Exception){ }
         }
@@ -419,7 +424,7 @@ namespace Glow.glow_tools{
                 PrintDNSList.Add(Environment.NewLine + new string('-', 75) + Environment.NewLine);
                 // FOOTER
                 PrintDNSList.Add(Application.ProductName + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_version").Trim())) + " " + glow_version.TS_SofwareVersion(1, Glow.ts_version_mode));
-                PrintDNSList.Add($"(C) {DateTime.Now.Year} {Application.CompanyName}.");
+                PrintDNSList.Add($"{string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("SoftwareAbout", "sa_copyright").Trim())), "\u00a9", TS_SoftwareCopyrightDate.ts_scd, Application.CompanyName)}");
                 PrintDNSList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_process_time").Trim())) + " " + DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss"));
                 PrintDNSList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_website").Trim())) + " " + TS_LinkSystem.website_link);
                 PrintDNSList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("PrintEngine", "pe_twitter").Trim())) + " " + TS_LinkSystem.twitter_link);

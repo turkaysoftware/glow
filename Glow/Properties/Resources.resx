@@ -271,6 +271,12 @@
   <data name="tm_lang_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_interface\light_theme\tm_lang_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="tm_network_fix_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\dark_theme\tm_network_fix_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tm_network_fix_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\light_theme\tm_network_fix_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="tm_overlay_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_interface\dark_theme\tm_overlay_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -300,6 +306,12 @@
   </data>
   <data name="tm_start_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_interface\light_theme\tm_start_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tm_swpt_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\dark_theme\tm_swpt_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tm_swpt_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_interface\light_theme\tm_swpt_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tm_test_dead_pixel_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_interface\dark_theme\tm_test_dead_pixel_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

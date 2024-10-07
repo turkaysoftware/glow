@@ -158,11 +158,11 @@
             this.Bench_TLP_R_P2.Controls.Add(this.Bench_Label_RMulti);
             this.Bench_TLP_R_P2.Controls.Add(this.Bench_Label_RMultiResult);
             this.Bench_TLP_R_P2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Bench_TLP_R_P2.Location = new System.Drawing.Point(369, 1);
-            this.Bench_TLP_R_P2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.Bench_TLP_R_P2.Location = new System.Drawing.Point(368, 1);
+            this.Bench_TLP_R_P2.Margin = new System.Windows.Forms.Padding(1, 1, 2, 1);
             this.Bench_TLP_R_P2.Name = "Bench_TLP_R_P2";
             this.Bench_TLP_R_P2.Padding = new System.Windows.Forms.Padding(5);
-            this.Bench_TLP_R_P2.Size = new System.Drawing.Size(363, 68);
+            this.Bench_TLP_R_P2.Size = new System.Drawing.Size(364, 68);
             this.Bench_TLP_R_P2.TabIndex = 0;
             // 
             // Bench_Label_RMulti
@@ -312,11 +312,11 @@
             this.Bench_TLP_T_P2.Controls.Add(this.Bench_Label_Mode);
             this.Bench_TLP_T_P2.Controls.Add(this.Bench_Mode);
             this.Bench_TLP_T_P2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Bench_TLP_T_P2.Location = new System.Drawing.Point(369, 1);
-            this.Bench_TLP_T_P2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.Bench_TLP_T_P2.Location = new System.Drawing.Point(368, 1);
+            this.Bench_TLP_T_P2.Margin = new System.Windows.Forms.Padding(1, 1, 2, 1);
             this.Bench_TLP_T_P2.Name = "Bench_TLP_T_P2";
             this.Bench_TLP_T_P2.Padding = new System.Windows.Forms.Padding(5);
-            this.Bench_TLP_T_P2.Size = new System.Drawing.Size(363, 78);
+            this.Bench_TLP_T_P2.Size = new System.Drawing.Size(364, 78);
             this.Bench_TLP_T_P2.TabIndex = 1;
             // 
             // Bench_Label_Mode

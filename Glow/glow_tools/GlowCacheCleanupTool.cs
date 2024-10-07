@@ -22,8 +22,8 @@ namespace Glow.glow_tools{
             @"C:\Windows\Temp",
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Temp",
             @"C:\Windows\Prefetch",
-            @"C:\Windows\SoftwareDistribution\Download",
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "AppData", "Local", "Microsoft", "Windows", "Explorer")
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "AppData", "Local", "Microsoft", "Windows", "Explorer"),
+            @"C:\Windows\SoftwareDistribution\Download"
         };
         //
         List<long> cct_path_size_list = new List<long>();
@@ -43,6 +43,8 @@ namespace Glow.glow_tools{
                 //
                 BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "PageContainerBGAndPageContentTotalColors");
                 //
+                BG_Panel.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
+                //
                 CCTTable.BackgroundColor = TS_ThemeEngine.ColorMode(Glow.theme, "DataGridBGColor");
                 CCTTable.GridColor = TS_ThemeEngine.ColorMode(Glow.theme, "DataGridColor");
                 CCTTable.DefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "DataGridBGColor");
@@ -53,6 +55,9 @@ namespace Glow.glow_tools{
                 CCTTable.ColumnHeadersDefaultCellStyle.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "OSDAndServicesPageFE");
                 CCTTable.DefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "OSDAndServicesPageBG");
                 CCTTable.DefaultCellStyle.SelectionForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "OSDAndServicesPageFE");
+                //
+                CCT_SelectLabel.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "PageContainerBGAndPageContentTotalColors");
+                CCT_SelectLabel.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
                 //
                 CCT_StartBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
                 CCT_StartBtn.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
@@ -80,16 +85,21 @@ namespace Glow.glow_tools{
                 Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("CacheCleanupTool", "cct_p_system_temp").Trim())),
                 Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("CacheCleanupTool", "cct_p_temp_user").Trim())),
                 Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("CacheCleanupTool", "cct_p_windows_temp").Trim())),
-                Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("CacheCleanupTool", "cct_p_windows_update_temp").Trim())),
-                Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("CacheCleanupTool", "cct_p_windows_icon_temp").Trim()))
+                Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("CacheCleanupTool", "cct_p_windows_icon_temp").Trim())),
+                Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("CacheCleanupTool", "cct_p_windows_update_temp").Trim()))
             };
             //
             for (int i = 0; i <= cct_path_list.Count - 1; i++){
-                CCTTable.Rows.Add(cct_folder_name[i], cct_path_list[i], "x");
+                CCTTable.Rows.Add(cct_folder_name[i], cct_path_list[i], Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("CacheCleanupTool", "cct_refreshing_title").Trim())));
             }
             //
             CCTTable.Columns[0].Width = 175;
             CCTTable.Columns[2].Width = 125;
+            //
+            foreach (DataGridViewColumn CCT_Column in CCTTable.Columns){
+                CCT_Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+            //
             CCTTable.ClearSelection();
             //
             cct_title = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("CacheCleanupTool", "cct_title").Trim())), Application.ProductName);
@@ -105,19 +115,38 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         private void check_folder_sizes(){
             try{
-                long path_sizes = 0;
-                for (int i = 0; i <= cct_path_list.Count - 1; i++){
-                    string[] path_file_size = Directory.GetFiles(cct_path_list[i], "*.*", SearchOption.AllDirectories); // Byte
-                    foreach (string path_files in path_file_size){
-                        path_sizes += new FileInfo(path_files).Length;
+                cct_path_size_list.Clear();
+                foreach (var get_file_path in cct_path_list){
+                    long path_size = 0;
+                    IEnumerable<string> path_file_size = Directory.EnumerateFiles(get_file_path, "*.*", SearchOption.AllDirectories);
+                    foreach (var get_current_file in path_file_size){
+                        try{
+                            if (File.Exists(get_current_file)){
+                                path_size += new FileInfo(get_current_file).Length;
+                            }
+                        }catch (Exception){
+                           // Console.WriteLine($"Error accessing file {file}: {ex.Message}");
+                        }
                     }
-                    cct_path_size_list.Add(path_sizes);
-                    path_sizes = 0;
+                    cct_path_size_list.Add(path_size);
                 }
-                for (int i = 0; i <= cct_path_size_list.Count - 1; i++){
+                for (int i = 0; i < cct_path_size_list.Count && i < CCTTable.Rows.Count; i++){
                     CCTTable.Rows[i].Cells[2].Value = TS_FormatSize(cct_path_size_list[i]);
                 }
+            }catch (Exception){ }
+            finally{
                 cct_path_size_list.Clear();
+            }
+        }
+        // SELECT LABEL WRITE PATH
+        // ======================================================================================================
+        private void CCTTable_CellClick(object sender, DataGridViewCellEventArgs e){
+            try{
+                if (e.RowIndex >= 0){
+                    TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
+                    DataGridViewRow get_selected_path = CCTTable.Rows[e.RowIndex];
+                    CCT_SelectLabel.Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(software_lang.TSReadLangs("CacheCleanupTool", "cct_selected_path").Trim())), get_selected_path.Cells[1].Value.ToString());
+                }
             }catch (Exception){ }
         }
         // START CLEAN BTN
@@ -162,7 +191,7 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         private async void AutoFolderSizeRefreshAsync(){
             try{
-                int RefreshIntervalInSeconds = 10;
+                int RefreshIntervalInSeconds = 15;
                 //
                 var softwareLang = new TSGetLangs(Glow.lang_path);
                 var refreshTitleFormat = softwareLang.TSReadLangs("CacheCleanupTool", "cct_refresh_title").Trim();

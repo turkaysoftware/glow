@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>24.14.0.%2a</ApplicationVersion>
+    <ApplicationVersion>24.15.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -220,6 +220,12 @@
     <Compile Include="glow_tools\GlowMonitorTestEngine.Designer.cs">
       <DependentUpon>GlowMonitorTestEngine.cs</DependentUpon>
     </Compile>
+    <Compile Include="glow_tools\GlowNetworkFixTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="glow_tools\GlowNetworkFixTool.Designer.cs">
+      <DependentUpon>GlowNetworkFixTool.cs</DependentUpon>
+    </Compile>
     <Compile Include="glow_tools\GlowOverlay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,6 +243,12 @@
     </Compile>
     <Compile Include="glow_tools\GlowSFCandDISMAutoTool.Designer.cs">
       <DependentUpon>GlowSFCandDISMAutoTool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="glow_tools\GlowShowWiFiPasswordTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="glow_tools\GlowShowWiFiPasswordTool.Designer.cs">
+      <DependentUpon>GlowShowWiFiPasswordTool.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -265,6 +277,9 @@
     <EmbeddedResource Include="glow_tools\GlowMonitorTestEngine.resx">
       <DependentUpon>GlowMonitorTestEngine.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="glow_tools\GlowNetworkFixTool.resx">
+      <DependentUpon>GlowNetworkFixTool.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="glow_tools\GlowOverlay.resx">
       <DependentUpon>GlowOverlay.cs</DependentUpon>
     </EmbeddedResource>
@@ -273,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="glow_tools\GlowSFCandDISMAutoTool.resx">
       <DependentUpon>GlowSFCandDISMAutoTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="glow_tools\GlowShowWiFiPasswordTool.resx">
+      <DependentUpon>GlowShowWiFiPasswordTool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -312,6 +330,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GlowLogo.ico" />
+    <None Include="glow_images\glow_interface\dark_theme\tm_network_fix_dark.png" />
+    <None Include="glow_images\glow_interface\light_theme\tm_network_fix_light.png" />
+    <None Include="glow_images\glow_interface\dark_theme\tm_swpt_dark.png" />
+    <None Include="glow_images\glow_interface\light_theme\tm_swpt_light.png" />
     <None Include="glow_images\glow_interface\dark_theme\left_os_w11_dark.png" />
     <None Include="glow_images\glow_interface\dark_theme\left_os_w10_dark.png" />
     <None Include="glow_images\glow_interface\light_theme\left_os_w11_light.png" />

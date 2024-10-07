@@ -573,6 +573,26 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap tm_network_fix_dark {
+            get {
+                object obj = ResourceManager.GetObject("tm_network_fix_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap tm_network_fix_light {
+            get {
+                object obj = ResourceManager.GetObject("tm_network_fix_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap tm_overlay_dark {
             get {
                 object obj = ResourceManager.GetObject("tm_overlay_dark", resourceCulture);
@@ -666,6 +686,26 @@ namespace Glow.Properties {
         internal static System.Drawing.Bitmap tm_start_light {
             get {
                 object obj = ResourceManager.GetObject("tm_start_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap tm_swpt_dark {
+            get {
+                object obj = ResourceManager.GetObject("tm_swpt_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap tm_swpt_light {
+            get {
+                object obj = ResourceManager.GetObject("tm_swpt_light", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
