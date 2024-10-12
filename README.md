@@ -48,7 +48,7 @@ Download: [Glow Latest Version](https://github.com/turkaysoftware/glow/releases/
 - Russian
 - Spanish
 - Turkish
-- **For translation support: [Glow Translation Guide](https://github.com/turkaysoftware/glow/discussions/20)**
+- **For translation support: [Translation Guide for Glow](https://github.com/turkaysoftware/glow/discussions/20)**
 
 # Supported Themes
 
