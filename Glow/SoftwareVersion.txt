@@ -1,1 +1,0 @@
-software_version = 24.15
