@@ -8,7 +8,7 @@ The best part is that it **offers for free** the features that other paid progra
 
 [Click here](https://www.turkaysoftware.com/glow) for full specifications.
 
-![Glow UI](https://github.com/user-attachments/assets/25e3b98e-1fba-4337-88ed-d58c06911c44)
+![Glow UI](https://github.com/user-attachments/assets/079f121e-b851-484f-a85d-a7c08391b03a)
 
 # Download Glow
 
