@@ -6,6 +6,8 @@
 
 The best part is that it **offers for free** the features that other paid programs offer.
 
+**With over 250 features, Glow is the software in its field with the most features, designed as a modern and next-generation solution!**
+
 [Click here](https://www.turkaysoftware.com/glow) for full specifications.
 
 ![Glow UI](https://github.com/user-attachments/assets/079f121e-b851-484f-a85d-a7c08391b03a)
