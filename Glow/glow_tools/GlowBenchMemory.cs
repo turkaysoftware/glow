@@ -25,6 +25,7 @@ namespace Glow.glow_tools{
         bool ram_mode_loop_status = true;
         bool loop_mode;
         // LOAD
+        // ======================================================================================================
         public void bench_ram_settings(){
             try{
                 int set_attribute = Glow.theme == 1 ? 20 : 19;
@@ -73,6 +74,7 @@ namespace Glow.glow_tools{
             Bench_TLP.ClearSelection();
         }
         // MAIN LOAD
+        // ======================================================================================================
         private void GlowBenchMemory_Load(object sender, EventArgs e){
             Bench_TLP.Columns.Add("x", "x");
             Bench_TLP.Columns.Add("x", "x");
@@ -95,6 +97,7 @@ namespace Glow.glow_tools{
             dynamic_ram_info.Start();
         }
         // DYNAMIC RAM STATUS
+        // ======================================================================================================
         private void dynamic_ram_status(){
             try{
                 ComputerInfo get_ram_info = new ComputerInfo();
@@ -114,6 +117,7 @@ namespace Glow.glow_tools{
             }catch (Exception){ }
         }
         // TIMER
+        // ======================================================================================================
         private void BenchTimer(){
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -136,6 +140,7 @@ namespace Glow.glow_tools{
             }catch (Exception){ }
         }
         // START ENGINE
+        // ======================================================================================================
         private async void Bench_MStart_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
@@ -154,6 +159,7 @@ namespace Glow.glow_tools{
             }catch (Exception){ }
         }
         // STOP ENGINE
+        // ======================================================================================================
         private void Bench_MStop_Click(object sender, EventArgs e){
             try{
                 _cancellationTokenSource.Cancel();
@@ -163,6 +169,7 @@ namespace Glow.glow_tools{
             }catch (Exception){ }
         }
         // GC RUN
+        // ======================================================================================================
         private void gc_run(){
             _allocations.Clear();
             GC.Collect();
@@ -170,6 +177,7 @@ namespace Glow.glow_tools{
             GC.Collect();
         }
         // RAM BENCHMARK ENGINE
+        // ======================================================================================================
         private void RAMBenchmarkEngine(CancellationToken cancellationToken){
             try{
                 while (_totalAllocated < TargetMemoryUsage && !cancellationToken.IsCancellationRequested){
@@ -205,6 +213,7 @@ namespace Glow.glow_tools{
             }
         }
         // EXIT
+        // ======================================================================================================
         private void GlowBenchMemory_FormClosing(object sender, FormClosingEventArgs e){
             gc_run();
             ram_mode_loop_status = false;

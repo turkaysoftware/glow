@@ -49,30 +49,30 @@ namespace Glow{
         public class TS_SoftwareCopyrightDate{
             public static string ts_scd_preloader = string.Format("\u00a9 2019-{0}, {1}.", DateTime.Now.Year, Application.CompanyName);
         }
-        // SAVE PATHS
+        // SETTINGS SAVE PATHS
         // ======================================================================================================
         public static string ts_df = Application.StartupPath;
         public static string ts_sf = ts_df + @"\" + Application.ProductName + "Settings.ini";
         public static string ts_settings_container = Path.GetFileNameWithoutExtension(ts_sf);
-        // GLOW SETTINGS SAVE CLASS
+        // SETTINGS SAVE CLASS
         // ======================================================================================================
         public class TSSettingsSave{
             [DllImport("kernel32.dll")]
             private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
             [DllImport("kernel32.dll")]
             private static extern long GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
-            private readonly string _saveFilePath;
-            public TSSettingsSave(string filePath) { _saveFilePath = filePath; }
+            private readonly string _settingFilePath;
+            public TSSettingsSave(string filePath) { _settingFilePath = filePath; }
             public string TSReadSettings(string episode, string settingName){
                 StringBuilder stringBuilder = new StringBuilder(2048);
-                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 2047, _saveFilePath);
+                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 2047, _settingFilePath);
                 return stringBuilder.ToString();
             }
             public long TSWriteSettings(string episode, string settingName, string value){
-                return WritePrivateProfileString(episode, settingName, value, _saveFilePath);
+                return WritePrivateProfileString(episode, settingName, value, _settingFilePath);
             }
         }
-        // LANG PATHS
+        // READ LANG PATHS
         // ======================================================================================================
         public static string ts_lf = @"g_langs";                            // Main Path
         public static string ts_lang_zh = ts_lf + @"\Chinese.ini";          // Chinese      | zh
@@ -85,14 +85,16 @@ namespace Glow{
         public static string ts_lang_ru = ts_lf + @"\Russian.ini";          // Russian      | ru
         public static string ts_lang_es = ts_lf + @"\Spanish.ini";          // Spanish      | es
         public static string ts_lang_tr = ts_lf + @"\Turkish.ini";          // Turkish      | tr
+        // READ LANG CLASS
+        // ======================================================================================================
         public class TSGetLangs{
             [DllImport("kernel32.dll")]
             private static extern long GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
-            private readonly string _saveFilePath;
-            public TSGetLangs(string filePath){ _saveFilePath = filePath; }
+            private readonly string _readFilePath;
+            public TSGetLangs(string filePath) { _readFilePath = filePath; }
             public string TSReadLangs(string episode, string settingName){
                 StringBuilder stringBuilder = new StringBuilder(2048);
-                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 2047, _saveFilePath);
+                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 2047, _readFilePath);
                 return stringBuilder.ToString();
             }
         }
@@ -116,7 +118,7 @@ namespace Glow{
                 { "TSBT_CloseBG", Color.FromArgb(200, 255, 255, 255) },
                 // HEADER MENU COLOR MODE
                 { "HeaderBGColorMain", Color.White },
-                { "HeaderFEColorMain", Color.FromArgb(31, 31, 31) },
+                { "HeaderFEColorMain", Color.FromArgb(51, 51, 51) },
                 // ACTIVE PAGE COLOR
                 { "BtnActiveColor", Color.White },
                 { "BtnDeActiveColor", Color.FromArgb(236, 242, 248) },

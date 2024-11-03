@@ -14,8 +14,8 @@ using static Glow.TSModules;
 
 namespace Glow.glow_tools{
     public partial class GlowDNSTestTool : Form{
-        // ======================================================================================================
         // GLOBAL LANGS PATH
+        // ======================================================================================================
         TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
         static TS_LinkSystem TS_LinkSystem = new TS_LinkSystem();
         static TS_VersionEngine glow_version = new TS_VersionEngine();
@@ -42,8 +42,8 @@ namespace Glow.glow_tools{
              opendns_dns_status     = false,
              quad9_dns_status       = false;
 
-        // ======================================================================================================
         // DNS SERVERS
+        // ======================================================================================================
         List<string> alternate_dns_list = new List<string>(){ "76.76.19.19", "76.223.122.150" };
         List<string> cloudflare_dns_list = new List<string>(){ "1.1.1.1", "1.0.0.1" };
         List<string> comodo_dns_list = new List<string>(){ "8.26.56.26", "8.20.247.20" };

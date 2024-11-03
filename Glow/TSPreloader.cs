@@ -181,6 +181,8 @@ namespace Glow{
                 if (open_last_release == DialogResult.Yes){
                     TS_LinkSystem TS_LinkSystem = new TS_LinkSystem();
                     Process.Start(TS_LinkSystem.github_link_lr);
+                }else{
+                    Application.Exit();
                 }
             }
         }

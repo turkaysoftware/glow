@@ -7,15 +7,15 @@ using static Glow.TSModules;
 namespace Glow.glow_tools{
     public partial class GlowSFCandDISMAutoTool : Form{
         public GlowSFCandDISMAutoTool(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
-        // ======================================================================================================
         // GLOBAL GLOBAL CLASS
+        // ======================================================================================================
         TSSettingsSave software_read_settings = new TSSettingsSave(ts_sf);
         TSSettingsSave software_setting_save = new TSSettingsSave(ts_sf);
-        // ======================================================================================================
         // GLOBAL STRINGS
-        string sadt_title, sadt_start, sadt_starter, sadt_rotate, sadt_ender, sadt_last_text, cmd_c_mode;
         // ======================================================================================================
+        string sadt_title, sadt_start, sadt_starter, sadt_rotate, sadt_ender, sadt_last_text, cmd_c_mode;
         // REPAIR CODES
+        // ======================================================================================================
         string sadt_code_1 = "sfc /scannow";
         string sadt_code_2 = "DISM /Online /Cleanup-Image /CheckHealth";
         string sadt_code_3 = "DISM /Online /Cleanup-Image /ScanHealth";

@@ -7,15 +7,15 @@ using static Glow.TSModules;
 
 namespace Glow.glow_tools{
     public partial class GlowMonitorTestEngine : Form {
-
-        // ======================================================================================================
         // GLOBAL LANGS PATH
+        // ======================================================================================================
         TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
         public GlowMonitorTestEngine() {
             InitializeComponent();
             Resize += GlowMonitorTestEngine_Resize;
         }
         // COLORS
+        // ======================================================================================================
         private Color[] global_colors = { Color.Black, Color.White, Color.Red, Color.FromArgb(0, 255, 0), Color.FromArgb(0, 0, 255) };
         private Color[] global_colors_2 = { Color.FromArgb(34, 34, 34), Color.White, Color.Red, Color.FromArgb(0, 255, 0), Color.FromArgb(0, 0, 255) };
         //
@@ -28,6 +28,7 @@ namespace Glow.glow_tools{
             }catch (Exception){ } 
         }
         // LOAD
+        // ======================================================================================================
         private void GlowMonitorTestEngine_Load(object sender, EventArgs e){
             monitor_test_loader(Glow.monitor_engine_mode);
             monitor_test_engine_theme_settings();
@@ -64,8 +65,8 @@ namespace Glow.glow_tools{
             Thread.Sleep(7000);
             InfoLabel.Dispose();
         }
-        // ======================================================================================================
         // DEAD PIXEL TEST
+        // ======================================================================================================
         private int dead_pixel_index = 0;
         private bool dead_pixel_test_status = true;
         private bool pause_toggle = false;
@@ -112,8 +113,8 @@ namespace Glow.glow_tools{
         }
         // DEAD PIXEL TEST
         // ======================================================================================================
-        // ======================================================================================================
         // DYNAMIC RANGE TEST
+        // ======================================================================================================
         private const int box_count = 15 * 5; // 15 Shades
         private const int color_count = 5; // Total 5 Color
         private Panel[] boxs;
@@ -184,6 +185,7 @@ namespace Glow.glow_tools{
             }
         }
         // EXIT
+        // ======================================================================================================
         private void GlowMonitorTestEngine_FormClosing(object sender, FormClosingEventArgs e){
             dead_pixel_test_status = false;
         }

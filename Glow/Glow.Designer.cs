@@ -8957,7 +8957,7 @@
             this.Header_InPanel.Name = "Header_InPanel";
             this.Header_InPanel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Header_InPanel.Size = new System.Drawing.Size(814, 42);
-            this.Header_InPanel.TabIndex = 5;
+            this.Header_InPanel.TabIndex = 0;
             // 
             // HeaderImage
             // 

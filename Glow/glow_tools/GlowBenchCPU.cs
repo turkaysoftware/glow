@@ -18,6 +18,7 @@ namespace Glow.glow_tools{
         //
         public GlowBenchCPU(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
         // LOAD
+        // ======================================================================================================
         private void GlowBenchCPU_Load(object sender, EventArgs e){
             cpu_bench_add_mode();
             bench_cpu_theme_settings();
@@ -26,6 +27,7 @@ namespace Glow.glow_tools{
             Bench_CPUCores.Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_core_thread")), Glow.bench_cpu_info[1], Glow.bench_cpu_info[2]);
         }
         // THEME SETTINGS
+        // ======================================================================================================
         public void bench_cpu_theme_settings(){
             try{
                 int set_attribute = Glow.theme == 1 ? 20 : 19;
@@ -119,6 +121,7 @@ namespace Glow.glow_tools{
             }catch (Exception){ }
         }
         // CUSTOM TIME MODE
+        // ======================================================================================================
         private void Bench_Time_SelectedIndexChanged(object sender, EventArgs e){
             if (Bench_Time.SelectedIndex == 5){
                 Bench_TimeCustom.Visible = true;
@@ -132,6 +135,7 @@ namespace Glow.glow_tools{
             }
         }
         // START BTN
+        // ======================================================================================================
         private void Bench_Start_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
@@ -157,6 +161,7 @@ namespace Glow.glow_tools{
             }catch (Exception){ }
         }
         // TIMER
+        // ======================================================================================================
         private void BenchTimer(){
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -180,6 +185,7 @@ namespace Glow.glow_tools{
             }catch (Exception){ }
         }
         // CPU BENCHMARK ENGINE
+        // ======================================================================================================
         private void bench_start_engine(){
             if (!isRunning){
                 bench_mode = true;
@@ -270,6 +276,7 @@ namespace Glow.glow_tools{
             }
         }
         // SINGLE THREAD SCORE
+        // ======================================================================================================
         private int CalculateSingleThreadScore(int coreCount, double averageSpeed){
             double singleThreadPerformance = averageSpeed;
             double referencePerformance = coreCount * 2.0;
@@ -277,6 +284,7 @@ namespace Glow.glow_tools{
             return singleThreadScore;
         }
         // MULTI THREAD SCORE
+        // ======================================================================================================
         private int CalculateMultiThreadScore(int coreCount, double averageSpeed){
             double multiThreadPerformance = averageSpeed * coreCount;
             double referencePerformance = coreCount * 2.0;
@@ -284,6 +292,7 @@ namespace Glow.glow_tools{
             return multiThreadScore;
         }
         // CPU SPEED
+        // ======================================================================================================
         private double[] GetCoreSpeeds(){
             double[] speeds = new double[Environment.ProcessorCount];
             ManagementObjectSearcher ts_search = new ManagementObjectSearcher("SELECT * FROM Win32_Processor");
@@ -295,6 +304,7 @@ namespace Glow.glow_tools{
             return speeds;
         }
         // AVERAGE SPEED
+        // ======================================================================================================
         private double CalculateAverageSpeed(double[] speeds){
             double sum = 0;
             foreach (double speed in speeds){
@@ -303,10 +313,12 @@ namespace Glow.glow_tools{
             return sum / speeds.Length;
         }
         // ENGINE STOP BTN
+        // ======================================================================================================
         private void Bench_Stop_Click(object sender, EventArgs e){
             bench_stop_engine();
         }
         // ENGINE STOP MODE
+        // ======================================================================================================
         private void bench_stop_engine() {
             if (isRunning){
                 bench_mode = false;
@@ -327,6 +339,7 @@ namespace Glow.glow_tools{
             }
         }
         // EXIT
+        // ======================================================================================================
         private void GlowBenchCPU_FormClosing(object sender, FormClosingEventArgs e){
             if (bench_mode == true){
                 e.Cancel = true;

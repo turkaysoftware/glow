@@ -28,6 +28,7 @@ namespace Glow.glow_tools{
         List<long> testSizes = new List<long>();
         public GlowBenchDisk(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
         // THEME MODE
+        // ======================================================================================================
         public void bench_disk_theme_settings(){
             try{
                 int set_attribute = Glow.theme == 1 ? 20 : 19;
@@ -96,6 +97,7 @@ namespace Glow.glow_tools{
             }catch (Exception){ }
         }
         // LOAD
+        // ======================================================================================================
         private void GlowBenchDisk_Load(object sender, EventArgs e){
             RefreshDriveList();
             TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
@@ -135,6 +137,7 @@ namespace Glow.glow_tools{
             bench_disk_theme_settings();
         }
         // DISK LIST
+        // ======================================================================================================
         private void RefreshDriveList(){
             TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
             Bench_Disk.Items.Clear();
@@ -154,6 +157,7 @@ namespace Glow.glow_tools{
             Bench_Disk.SelectedIndex = 0;
         }
         // START BTN
+        // ======================================================================================================
         private void Bench_Start_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
@@ -181,6 +185,7 @@ namespace Glow.glow_tools{
             }catch (Exception){ }
         }
         // CHECK DISK USER INFO
+        // ======================================================================================================
         private void check_info_user_warning(int info_mode){
             try{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
@@ -212,6 +217,7 @@ namespace Glow.glow_tools{
             select_disk = benchmarkDiskList[Bench_Disk.SelectedIndex].Trim().Replace("\\", string.Empty);
         }
         // TIMER
+        // ======================================================================================================
         private void BenchTimer(){
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -234,6 +240,7 @@ namespace Glow.glow_tools{
             }catch (Exception){ }
         }
         // START ENGINE
+        // ======================================================================================================
         private void start_engine(){
             //
             loop_mode = true;
@@ -270,6 +277,7 @@ namespace Glow.glow_tools{
             Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_title")), Application.ProductName) + " - " + global_timer + " - " + progress.ToString("0.00") + "%";
         }
         // DISK BENCHMARK
+        // ======================================================================================================
         private void RunBenchmark(string selectedDrive){
             Thread timer_start = new Thread(BenchTimer);
             timer_start.Start();
@@ -393,6 +401,7 @@ namespace Glow.glow_tools{
             }catch (Exception) { }
         }
         // STOP BENCHMARK
+        // ======================================================================================================
         private void Bench_Stop_Click(object sender, EventArgs e){
             stop_engine();
         }
@@ -424,6 +433,7 @@ namespace Glow.glow_tools{
             }
         }
         // CUSTOM SIZE CHANGE
+        // ======================================================================================================
         private void Bench_Size_SelectedIndexChanged(object sender, EventArgs e){
             if (Bench_Size.SelectedIndex == Bench_Size.Items.Count - 1){
                 Bench_SizeCustom.Visible = true;
@@ -432,12 +442,14 @@ namespace Glow.glow_tools{
             }
         }
         // NUMERIC INPUT
+        // ======================================================================================================
         private void Bench_SizeCustom_KeyPress(object sender, KeyPressEventArgs e){
             if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar)){
                 e.Handled = true;
             }
         }
         // EXIT STOP ENGINE
+        // ======================================================================================================
         private void GlowBenchDisk_FormClosing(object sender, FormClosingEventArgs e){
             if (bench_mode == true && loop_mode == true){
                 e.Cancel = true;

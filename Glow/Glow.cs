@@ -28,35 +28,38 @@ namespace Glow{
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
             // Windows mode check 
-            string os_name = new ManagementObjectSearcher("root\\CIMV2", "SELECT Caption FROM Win32_OperatingSystem").Get().Cast<ManagementObject>().FirstOrDefault()?["Caption"]?.ToString();
-            windows_mode = os_name?.ToLower().Contains("windows 11") == true ? 1 : 0;
+            try{
+                string os_name = new ManagementObjectSearcher("root\\CIMV2", "SELECT Caption FROM Win32_OperatingSystem").Get().Cast<ManagementObject>().FirstOrDefault()?["Caption"]?.ToString();
+                windows_mode = os_name?.ToLower().Contains("windows 11") == true ? 1 : 0;
+            }catch (Exception){ }
         }
         // GLOBAL VARIABLES
+        // ======================================================================================================
         public static string lang, lang_path;
         public static int theme, monitor_engine_mode;
-        // ======================================================================================================
         // VARIABLES
+        // ======================================================================================================
         int menu_btns = 1, menu_rp = 1, initial_status, hiding_status, hiding_mode_wrapper, windows_mode = 0;
         string wp_rotate, wp_resoulation;
         bool loop_status = true, pe_loop_status = true, laptop_mode = false, debug_mode = false;
-        // ======================================================================================================
         // PRINT ENGINE ASYNC STATUS
+        // ======================================================================================================
         int os_status = 0, mb_status = 0, cpu_status = 0, ram_status = 0, gpu_status = 0, disk_status = 0, network_status = 0,
         usb_status = 0, sound_status = 0, battery_status_global = 0, osd_status = 0, service_status = 0;
-        // ======================================================================================================
         // GLOW VERSION - MEDIA LINK SYSTEM
+        // ======================================================================================================
         static TS_LinkSystem TS_LinkSystem = new TS_LinkSystem();
         static TS_VersionEngine TS_SoftwareVersion = new TS_VersionEngine();
-        // ======================================================================================================
         // VISIBLE MODE DYNAMIC STAR
+        // ======================================================================================================
         static List<int> vn_range = new List<int>(){ 10, 24 };
         static Random vis_m_property = new Random();
         // ======================================================================================================
         // UI COLORS
         List<Color> btn_colors_active = new List<Color>(){ Color.Transparent };
         static List<Color> header_colors = new List<Color>() { Color.Transparent, Color.Transparent };
-        // ======================================================================================================
         // HEADER SETTINGS
+        // ======================================================================================================
         private class HeaderMenuColors : ToolStripProfessionalRenderer{
             public HeaderMenuColors() : base(new HeaderColors()){ }
             protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e){ e.ArrowColor = header_colors[1]; base.OnRenderArrow(e); }
@@ -81,11 +84,11 @@ namespace Glow{
             public override Color SeparatorLight => header_colors[1];
             public override Color SeparatorDark => header_colors[1];
         }
-        // ======================================================================================================
         // TOOLTIP SETTINGS
-        private void MainToolTip_Draw(object sender, DrawToolTipEventArgs e){ e.DrawBackground(); e.DrawBorder(); e.DrawText(); }
         // ======================================================================================================
-        // GLOW LOAD LANGS SETTINGS
+        private void MainToolTip_Draw(object sender, DrawToolTipEventArgs e){ e.DrawBackground(); e.DrawBorder(); e.DrawText(); }
+        // LOAD SOFTWARE SETTINGS
+        // ======================================================================================================
         private void RunSoftwareEngine(){
             var rotateButtons = new[] {
                 /*OS_RotateBtn,*/ MB_RotateBtn, CPU_RotateBtn, RAM_RotateBtn, GPU_RotateBtn,
@@ -100,29 +103,29 @@ namespace Glow{
                 (Control)BATTERY, (Control)OSD, (Control)GSERVICE, (Control)PRINT
             };
             foreach (var r_pages in rotatePages) r_pages.Enabled = false;
-            // ======================================================================================================
             // INSTALLED DRIVERS
+            // ======================================================================================================
             for (int i = 0; i < 6; i++) OSD_DataMainTable.Columns.Add($"osd_file_{i}", "osd_variable");
             foreach (DataGridViewColumn OSD_Column in OSD_DataMainTable.Columns) OSD_Column.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // ======================================================================================================
             // SERVICES
+            // ======================================================================================================
             for (int i = 0; i < 6; i++) SERVICE_DataMainTable.Columns.Add($"ss_file_{i}", "ss_variable");
             foreach (DataGridViewColumn SERVICE_Column in SERVICE_DataMainTable.Columns) SERVICE_Column.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // ======================================================================================================
             // ALL DGV AND PANEL WIDTH
+            // ======================================================================================================
             int[] columnWidths = { 160, 120, 120, 120, 100, 100 };
             for (int i = 0; i < columnWidths.Length; i++) OSD_DataMainTable.Columns[i].Width = columnWidths[i];
             for (int i = 0; i < columnWidths.Length; i++) SERVICE_DataMainTable.Columns[i].Width = columnWidths[i];
-            // ======================================================================================================
             // OSD AND SERVICE CLEAR BTN DPI HEIGHT
+            // ======================================================================================================
             OSD_TextBoxClearBtn.Height = OSD_TextBox.Height;
             SERVICE_TextBoxClearBtn.Height = SERVICE_TextBox.Height;
-            // ======================================================================================================
             // DGV DOUBLE BUFFER
+            // ======================================================================================================
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, OSD_DataMainTable, new object[]{ true });
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, SERVICE_DataMainTable, new object[]{ true });
-            // ======================================================================================================
             // THEME - LANG - VIEW MODE PRELOADER
+            // ======================================================================================================
             TSSettingsSave software_read_settings = new TSSettingsSave(ts_sf);
             //
             int theme_mode = int.TryParse(TS_String_Encoder(software_read_settings.TSReadSettings(ts_settings_container, "ThemeStatus")), out int the_status) ? the_status : 1;
@@ -162,13 +165,13 @@ namespace Glow{
             //
             software_load_tasks();
         }
-        // ======================================================================================================
         // GLOW TASK ALL PROCESS
+        // ======================================================================================================
         private void software_load_tasks(){
             // PARALLEL LOADER METHOD
             void tsRunTask(Action get_action){ Task task = new Task(get_action); task.Start(); }
-            // ======================================================================================================
             // START PAGES TASK
+            // ======================================================================================================
             tsRunTask(os);
             tsRunTask(mb);
             tsRunTask(cpu);
@@ -193,8 +196,8 @@ namespace Glow{
                 ((Control)BATTERY).Enabled = true;
                 if (debug_mode){ Console.WriteLine("<--- Pil Bölümü Yüklendi --->"); }
             }
-            // ======================================================================================================
             // START BACK WORKER TASK
+            // ======================================================================================================
             tsRunTask(async () => await osd());
             tsRunTask(async () => await gs_services());
             tsRunTask(os_bg_process);
@@ -203,13 +206,13 @@ namespace Glow{
             tsRunTask(ram_bg_process);
             tsRunTask(live_network_process);
             tsRunTask(print_engine_async);
-            // ======================================================================================================
             // ARROWS KEYS PRELOADER SET
+            // ======================================================================================================
             MainContent.SelectedTab = SOUND;
             MainContent.SelectedTab = OS;
         }
+        // SOFTWARE LOAD
         // ======================================================================================================
-        // GLOW LOAD
         private void Glow_Load(object sender, EventArgs e){ 
             Text = TS_SoftwareVersion.TS_SofwareVersion(0, Program.ts_version_mode);
             HeaderMenu.Cursor = Cursors.Hand;
@@ -219,8 +222,8 @@ namespace Glow{
             Task softwareUpdateCheck = Task.Run(() => software_update_check(0));
         }
         #region OS_Section
-        // ======================================================================================================
         // OPERATING SYSTEM
+        // ======================================================================================================
         List<string> minidump_files_list = new List<string>();
         List<string> minidump_files_date_list = new List<string>();
         private void os(){
@@ -348,9 +351,8 @@ namespace Glow{
                     // OS LAST BOOT
                     string last_bt = Convert.ToString(query_os_rotate["LastBootUpTime"]);
                     DateTime last_time = DateTime.ParseExact(last_bt.Substring(0, 14), "yyyyMMddHHmmss", null);
-                    OS_LastBootTime_V.Text = $"{last_time:d} - {last_time:HH:mm:ss}";
-                }
-                catch (Exception){ }
+                    OS_LastBootTime_V.Text = $"{last_time:dd.MM.yyyy} - {last_time:HH:mm:ss}";
+                }catch (Exception){ }
                 try{
                     // OS SHUTDOWN TIME
                     string sd_time_path = @"System\CurrentControlSet\Control\Windows";
@@ -1438,8 +1440,8 @@ namespace Glow{
                 }while (loop_status == true);
             }catch (Exception){ }
         }
-        // ======================================================================================================
         // CPU ENGINE
+        // ======================================================================================================
         private void cpu_usage_process(){
             try{
                 ManagementObjectSearcher cpuSearcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name, PercentProcessorTime FROM Win32_PerfFormattedData_PerfOS_Processor");
@@ -1467,107 +1469,82 @@ namespace Glow{
             }catch (Exception){ }
         }
         private void ts_cpu_code_sets(string cpu_mode){
-            // INTEL CODE SETS
-            Dictionary<uint, string> intelFeatures = new Dictionary<uint, string> {
-                { 0x03, "MMX" },
-                { 0x06, "SSE" },
-                { 0x07, "SSE2" },
-                { 0x0A, "SSE3" },
-                { 0x0B, "SSSE3" },
-                { 0x0C, "SSE4.1" },
-                { 0x0D, "SSE4.2" },
-                { 0x29, "EM64T" },
-                { 0x35, "VT-x" },
-                { 0x48, "TSX" },
-                { 0x0E, "AES" },
-                { 0x1E, "AVX" },
-                { 0x1F, "AVX2" },
-                { 0x0F, "FMA3" },
-                { 0x33, "SHA" },
-                { 0x3C, "AVX512BW" },
-                { 0x3D, "AVX512DQ" },
-                { 0x3E, "AVX512VL" },
-                { 0x3A, "AVX512F" },
-                { 0x3B, "AVX512CD" },
-                { 0x3F, "AVX512IFMA" },
-                { 0x41, "SGX" },
-                { 0x42, "BMI1" },
-                { 0x43, "BMI2" },
-                { 0x44, "Hyper-Threading" },
-                { 0x45, "FCMOV" },
-                { 0x46, "CMPXCHG16B" },
-                { 0x47, "LAHF/SAHF" }
-            };
-            // AMD CODE SETS
-            Dictionary<uint, string> amdFeatures = new Dictionary<uint, string> {
-                { 0x07, "3DNOW!" },
-                { 0x08, "3DNOW! Extended" },
-                { 0x0F, "MISALIGNED SSE" },
-                { 0x0A, "SSE4a" },
-                { 0x14, "FMA4" },
-                { 0x15, "ABM" },
-                { 0x17, "SSE5" },
-                { 0x19, "SKINIT/STGI" },
-                { 0x1A, "WDT" },
-                { 0x1B, "TCE" },
-                { 0x1C, "NODEID_MSR" },
-                { 0x1D, "TBM" },
-                { 0x1E, "TOPOLOGY_EXTENSIONS" },
-                { 0x1F, "CLZERO" },
-                { 0x20, "AVX" },
-                { 0x21, "AVX2" },
-                { 0x22, "XOP" },
-                { 0x23, "FMA3" },
-                { 0x24, "SHA" },
-                { 0x25, "MPX" },
-                { 0x26, "SSE4.2" },
-                { 0x27, "LWP" },
-                { 0x28, "PrefetchW" },
-                { 0x3A, "AVX512F" },
-                { 0x3B, "AVX512CD" },
-                { 0x3C, "AVX512DQ" },
-                { 0x3D, "AVX512BW" },
-                { 0x3E, "AVX512VL" },
-                { 0x44, "AVX512PF" },
-                { 0x45, "AVX512ER" },
-                { 0x46, "AVX512VNNI" }
-            };
-            Dictionary<uint, string> allFeatures = new Dictionary<uint, string>();
-            if (cpu_mode == "intel"){
-                foreach (var feature in intelFeatures){
-                    allFeatures[feature.Key] = feature.Value;
+            try{
+                // INTEL CODE SETS
+                Dictionary<uint, string> intelFeatures = new Dictionary<uint, string>{
+                    { 0x03, "MMX" },
+                    { 0x06, "SSE" },
+                    { 0x07, "SSE2" },
+                    { 0x0A, "SSE3" },
+                    { 0x0B, "SSSE3" },
+                    { 0x0C, "SSE4.1" },
+                    { 0x0D, "SSE4.2" },
+                    { 0x29, "EM64T" },
+                    { 0x35, "VT-x" },
+                    { 0x0E, "AES" },
+                    { 0x1E, "AVX" },
+                    { 0x1F, "AVX2" },
+                    { 0x0F, "FMA3" },
+                    { 0x33, "SHA" },
+                    { 0x48, "TSX" }
+                    // OTHER INTEL CODE SET
+                };
+                // AMD CODE SETS
+                Dictionary<uint, string> amdFeatures = new Dictionary<uint, string>{
+                    { 0x07, "3DNOW!" },
+                    { 0x08, "3DNOW! Extended" },
+                    { 0x0F, "MISALIGNED SSE" },
+                    { 0x0A, "SSE4a" },
+                    { 0x14, "MISALIGNED SSE" },
+                    { 0x15, "ABM" },
+                    { 0x17, "SSE5" },
+                    { 0x19, "SKINIT/STGI" },
+                    { 0x1A, "WDT" },
+                    { 0x1B, "TCE" },
+                    { 0x1C, "NODEID_MSR" },
+                    { 0x1D, "TBM" },
+                    { 0x1E, "TOPOLOGY_EXTENSIONS" }
+                    // OTHER AMD CODE SET
+                };
+                Dictionary<uint, string> allFeatures = new Dictionary<uint, string>();
+                if (cpu_mode == "intel"){
+                    foreach (var feature in intelFeatures){
+                        allFeatures[feature.Key] = feature.Value;
+                    }
+                }else if (cpu_mode == "amd"){
+                    foreach (var feature in amdFeatures){
+                        allFeatures[feature.Key] = feature.Value;
+                    }
+                }else{
+                    foreach (var feature in intelFeatures){
+                        allFeatures[feature.Key] = feature.Value;
+                    }
+                    foreach (var feature in amdFeatures){
+                        allFeatures[feature.Key] = feature.Value;
+                    }
                 }
-            }else if (cpu_mode == "amd"){
-                foreach (var feature in amdFeatures){
-                    allFeatures[feature.Key] = feature.Value;
-                }
-            }else{
-                foreach (var feature in intelFeatures){
-                    allFeatures[feature.Key] = feature.Value;
-                }
-                foreach (var feature in amdFeatures){
-                    allFeatures[feature.Key] = feature.Value;
-                }
-            }
-            PrintSupportedFeatures(allFeatures);
+                PrintSupportedFeatures(allFeatures);
+            }catch (Exception){ }
         }
         void PrintSupportedFeatures(Dictionary<uint, string> features){
-            List<string> supported_code_sets = new List<string>();
-            foreach (var feature in features){
-                bool isSupported = IsProcessorFeaturePresent(feature.Key);
-                if (isSupported){
-                    supported_code_sets.Add(feature.Value);
+            try{
+                List<string> supported_code_sets = new List<string>();
+                foreach (var feature in features){
+                    bool isSupported = IsProcessorFeaturePresent(feature.Key);
+                    if (isSupported){
+                        supported_code_sets.Add(feature.Value);
+                    }
                 }
-            }
-            if (supported_code_sets.Count > 0){
-                supported_code_sets.Sort();
-                string scs_sort = string.Join(", ", supported_code_sets);
-                CPU_CodeSet_V.Text = scs_sort.Trim();
-            }else{
-                TSGetLangs software_lang = new TSGetLangs(lang_path);
-                CPU_CodeSet_V.Text = TS_String_Encoder(software_lang.TSReadLangs("Cpu_Content", "cpu_code_sets_not"));
-            }
-            supported_code_sets.Clear();
+                if (supported_code_sets.Count > 0){
+                    supported_code_sets.Sort();
+                    string scs_sort = string.Join(", ", supported_code_sets);
+                    CPU_CodeSet_V.Text = scs_sort.Trim();
+                }else{
+                    TSGetLangs software_lang = new TSGetLangs(lang_path);
+                    CPU_CodeSet_V.Text = TS_String_Encoder(software_lang.TSReadLangs("Cpu_Content", "cpu_code_sets_not"));
+                }
+                supported_code_sets.Clear();
+            }catch (Exception){ }
         }
         #endregion
         #region RAM_Section
@@ -4105,8 +4082,8 @@ namespace Glow{
                 glow_other_page_dynamic_ui();
             }catch (Exception){ }
         }
-        // ======================================================================================================
         // THEME SETTINGS
+        // ======================================================================================================
         private void select_theme_active(object target_theme){
             ToolStripMenuItem selected_theme = null;
             select_theme_deactive();
@@ -5025,7 +5002,8 @@ namespace Glow{
         // MODULES PAGE DYNAMIC UI
         // ======================================================================================================
         private void glow_other_page_dynamic_ui(){
-            var glow_other_pages = new (string name, Func<object> createTool, Action<object> applySettings)[]{
+            try{
+                var glow_other_pages = new (string name, Func<object> createTool, Action<object> applySettings)[]{
                 ("glow_sfc_and_dism_tool", () => new GlowSFCandDISMAutoTool(), tool => ((GlowSFCandDISMAutoTool)tool).sadt_theme_settings()),
                 ("glow_cache_cleanup_tool", () => new GlowCacheCleanupTool(), tool => ((GlowCacheCleanupTool)tool).cct_theme_settings()),
                 ("glow_bench_cpu_tool", () => new GlowBenchCPU(), tool => ((GlowBenchCPU)tool).bench_cpu_theme_settings()),
@@ -5040,16 +5018,17 @@ namespace Glow{
                 ("glow_monitor_test_engine_dynamic_range", () => new GlowMonitorTestEngine(), tool => ((GlowMonitorTestEngine)tool).monitor_test_engine_theme_settings()),
                 ("glow_about", () => new GlowAbout(), tool => ((GlowAbout)tool).about_preloader()),
             };
-            foreach (var (toolName, createTool, applySettings) in glow_other_pages){
-                try{
-                    var tool = createTool();
-                    tool.GetType().GetProperty("Name")?.SetValue(tool, toolName);
-                    if (Application.OpenForms[toolName] != null){
-                        tool = Application.OpenForms[toolName];
-                        applySettings(tool);
-                    }
-                }catch (Exception){ }
-            }
+                foreach (var (toolName, createTool, applySettings) in glow_other_pages){
+                    try{
+                        var tool = createTool();
+                        tool.GetType().GetProperty("Name")?.SetValue(tool, toolName);
+                        if (Application.OpenForms[toolName] != null){
+                            tool = Application.OpenForms[toolName];
+                            applySettings(tool);
+                        }
+                    }catch (Exception){ }
+                }
+            }catch (Exception){ }
         }
         // INITIAL SETINGS
         // ======================================================================================================
@@ -5145,14 +5124,14 @@ namespace Glow{
                     //
                     if (client_num_version < last_num_version){
                         // Update available
-                        string message = string.Format(TS_String_Encoder(software_lang.TSReadLangs("GlowUpdate", "gu_message")), Application.ProductName, "\n\n", client_version, "\n", last_version, "\n\n");
-                        DialogResult info_update = MessageBox.Show(message, string.Format(TS_String_Encoder(software_lang.TSReadLangs("GlowUpdate", "gu_title")), Application.ProductName), MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        string message = string.Format(TS_String_Encoder(software_lang.TSReadLangs("SoftwareUpdate", "su_message")), Application.ProductName, "\n\n", client_version, "\n", last_version, "\n\n");
+                        DialogResult info_update = MessageBox.Show(message, string.Format(TS_String_Encoder(software_lang.TSReadLangs("SoftwareUpdate", "su_title")), Application.ProductName), MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (info_update == DialogResult.Yes){
                             Process.Start(TS_LinkSystem.github_link_lr);
                         }
                     }else if (_check_update_ui == 1 && client_num_version == last_num_version){
                         // No update available
-                        MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("GlowUpdate", "gu_no_update")), Application.ProductName, "\n", client_version), string.Format(TS_String_Encoder(software_lang.TSReadLangs("GlowUpdate", "gu_title")), Application.ProductName), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("SoftwareUpdate", "su_no_update")), Application.ProductName, "\n", client_version), string.Format(TS_String_Encoder(software_lang.TSReadLangs("SoftwareUpdate", "su_title")), Application.ProductName), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }catch (WebException){ }
             }
@@ -5639,8 +5618,8 @@ namespace Glow{
                 print_after_mode();
             }
         }
-        // ======================================================================================================
         // PRINT ENGINE HTML
+        // ======================================================================================================
         private void print_engine_html(){
             // HEADER
             TSGetLangs software_lang = new TSGetLangs(lang_path);
@@ -6196,8 +6175,8 @@ namespace Glow{
                 print_after_mode();
             }
         }
-        // ======================================================================================================
         // SFC AND DISM AUTO TOOL
+        // ======================================================================================================
         private void sFCandDISMAutoToolToolStripMenuItem_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
@@ -6215,8 +6194,8 @@ namespace Glow{
                 }
             }catch (Exception){ }
         }
-        // ======================================================================================================
         // CACHE CLEANUP TOOL
+        // ======================================================================================================
         private void cacheCleaningToolToolStripMenuItem_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
@@ -6234,8 +6213,8 @@ namespace Glow{
                 }
             }catch (Exception){ }
         }
-        // ======================================================================================================
         // CPU BENCH TOOL
+        // ======================================================================================================
         private void benchCPUToolStripMenuItem_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
@@ -6253,8 +6232,8 @@ namespace Glow{
                 }
             }catch (Exception){ }
         }
-        // ======================================================================================================
         // RAM BENCH TOOL
+        // ======================================================================================================
         private void benchRAMToolStripMenuItem_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
@@ -6273,8 +6252,8 @@ namespace Glow{
             }catch (Exception){ }
 
         }
-        // ======================================================================================================
         // DISK BENCH TOOL
+        // ======================================================================================================
         private void benchDiskToolStripMenuItem_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
@@ -6292,8 +6271,8 @@ namespace Glow{
                 }
             }catch (Exception){ }
         }
-        // ======================================================================================================
         // SCREEN OVERLAY
+        // ======================================================================================================
         private void screenOverlayToolStripMenuItem_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
@@ -6311,8 +6290,8 @@ namespace Glow{
                 }
             }catch (Exception){ }
         }
-        // ======================================================================================================
         // DNS TEST TOOL
+        // ======================================================================================================
         private void dNSTestToolStripMenuItem_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
@@ -6330,8 +6309,8 @@ namespace Glow{
                 }
             }catch (Exception){ }
         }
-        // ======================================================================================================
         // QUICK ACCESS TOOL
+        // ======================================================================================================
         private void quickAccessToolStripMenuItem_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
@@ -6350,6 +6329,7 @@ namespace Glow{
             }catch (Exception){ }
         }
         // NETWORK FIX TOOL
+        // ======================================================================================================
         private void networkFixToolToolStripMenuItem_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
@@ -6367,8 +6347,8 @@ namespace Glow{
                 }
             }catch (Exception){ }
         }
-        // ======================================================================================================
         // SHOW WIFI PASSWORD TOOL
+        // ======================================================================================================
         private void showWiFiPasswordToolToolStripMenuItem_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
@@ -6386,8 +6366,8 @@ namespace Glow{
                 }
             }catch (Exception){ }
         }
-        // ======================================================================================================
         // MONITOR TEST TOOL
+        // ======================================================================================================
         private void monitorDeadPixelTestToolStripMenuItem_Click(object sender, EventArgs e){
             monitor_engine_mode = 0;
             monitor_start_engine_pending();
@@ -6433,8 +6413,8 @@ namespace Glow{
                 }
             }
         }
-        // ======================================================================================================
         // GLOW ABOUT
+        // ======================================================================================================
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
@@ -6452,8 +6432,8 @@ namespace Glow{
                 }
             }catch (Exception){ }
         }
-        // ======================================================================================================
         // GLOW EXIT
+        // ======================================================================================================
         private void software_exit(){ loop_status = false; Application.Exit(); }
         private void Glow_FormClosing(object sender, FormClosingEventArgs e){ software_exit(); }
     }

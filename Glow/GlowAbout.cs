@@ -59,11 +59,10 @@ namespace Glow{
                 AboutTable.ClearSelection();
                 // GET PRELOAD SETTINGS
                 about_preloader();
-                // IMAGES
             }catch (Exception){ }
         }
-        // ======================================================================================================
         // DYNAMIC THEME VOID
+        // ======================================================================================================
         public void about_preloader(){
             try{
                 // COLOR SETTINGS
@@ -118,6 +117,7 @@ namespace Glow{
             }catch (Exception){ }
         }
         // DGV CLEAR SELECTION
+        // ======================================================================================================
         private void AboutTable_SelectionChanged(object sender, EventArgs e){ AboutTable.ClearSelection(); }
         // MEDIA LINK SYSTEM
         // ======================================================================================================

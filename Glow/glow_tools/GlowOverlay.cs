@@ -12,8 +12,8 @@ using static Glow.TSModules;
 
 namespace Glow.glow_tools{
     public partial class GlowOverlay : Form{
-        // ======================================================================================================
         // GLOBAL LANGS PATH
+        // ======================================================================================================
         TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
         // DRAG MODES
         private bool dragging = false;
@@ -76,8 +76,8 @@ namespace Glow.glow_tools{
             //
             screen_overlay_settings();
         }
-        // ======================================================================================================
         // OVERLAY THEME
+        // ======================================================================================================
         public void screen_overlay_settings(){
             Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("ScreenOverlayTool", "sot_title")), Application.ProductName);
             OVERLAY_CPU.Text = TS_String_Encoder(software_lang.TSReadLangs("ScreenOverlayTool", "sot_cpu"));
@@ -113,8 +113,8 @@ namespace Glow.glow_tools{
                 }while (overlay_loop == true);
             }catch (Exception){ }
         }
-        // ======================================================================================================
         // RAM ENGINE
+        // ======================================================================================================
         private void ram_engine(){
             try{
                 ComputerInfo get_ram_info = new ComputerInfo();
@@ -128,8 +128,8 @@ namespace Glow.glow_tools{
                 }while (overlay_loop == true);
             }catch (Exception){ }
         }
-        // ======================================================================================================
         // DISK ENGINE
+        // ======================================================================================================
         private void disk_engine(){
             try{
                 do{
@@ -165,8 +165,8 @@ namespace Glow.glow_tools{
                 }while (overlay_loop == true);
             }catch (Exception){ }
         }
-        // ======================================================================================================
         // NETWORK MOVE
+        // ======================================================================================================
         private void network_engine(){
             try{
                 string activeAdapter = net_replacer(GetActiveNetworkAdapter());
@@ -198,8 +198,8 @@ namespace Glow.glow_tools{
             }catch (Exception){ }
             return null;
         }
-        // ======================================================================================================
         // OVERLAY MOVE
+        // ======================================================================================================
         private void OVERLAY_TopPanel_MouseDown(object sender, MouseEventArgs e){
             dragging = true;
             dragCursorPoint = Cursor.Position;
@@ -217,6 +217,7 @@ namespace Glow.glow_tools{
         // OVERLAY MOVE
         // ======================================================================================================
         // EXIT
+        // ======================================================================================================
         private void GlowOverlay_KeyDown(object sender, KeyEventArgs e){
             if (e.KeyCode == Keys.Escape){
                 overlay_loop = false;

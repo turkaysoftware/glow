@@ -76,6 +76,7 @@ namespace Glow.glow_tools{
             }catch (Exception){ }
         }
         // LOAD
+        // ======================================================================================================
         private void GlowQuickAccessTool_Load(object sender, EventArgs e){
             typeof(FlowLayoutPanel).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, QUICK_FLY, new object[]{ true });
             quick_access_settings();

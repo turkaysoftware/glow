@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Türkay Software")]
 [assembly: AssemblyProduct("Glow")]
-[assembly: AssemblyCopyright("© 2019 - 2025, Eray Türkay.")]
+[assembly: AssemblyCopyright("© 2019-2025, Eray Türkay.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,6 +33,6 @@ using System.Runtime.InteropServices;
 // Tüm değerleri belirtebilir veya varsayılan Derleme ve Düzeltme Numaralarını kullanmak için
 // aşağıda gösterildiği gibi '*' kullanabilirsiniz:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("24.17.0.0")]
-[assembly: AssemblyFileVersion("24.17.0.0")]
+[assembly: AssemblyVersion("24.18.0.0")]
+[assembly: AssemblyFileVersion("24.18.0.0")]
 [assembly: NeutralResourcesLanguage("tr-TR")]
