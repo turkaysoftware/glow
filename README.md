@@ -10,9 +10,9 @@ The best part is that it **offers for free** the features that other paid progra
 
 [Click here](https://www.turkaysoftware.com/glow) for full specifications.
 
-![Glow UI Dark](https://github.com/user-attachments/assets/20678af9-51b7-49a2-bd2a-090d307de06f)
+![Glow UI Dark](https://github.com/user-attachments/assets/6e68ab06-115e-469b-8942-54c3aa8eaf19)
 
-![Glow UI Light](https://github.com/user-attachments/assets/a1eaa067-4529-4778-9f69-6aa26c112f75)
+![Glow UI Light](https://github.com/user-attachments/assets/61008240-b942-4669-83d5-cad1b4c6b988)
 
 # Download Glow
 
