@@ -27,8 +27,8 @@ namespace Glow{
         public Glow(){
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-            // Windows mode check 
             try{
+                // Windows mode check 
                 string os_name = new ManagementObjectSearcher("root\\CIMV2", "SELECT Caption FROM Win32_OperatingSystem").Get().Cast<ManagementObject>().FirstOrDefault()?["Caption"]?.ToString();
                 windows_mode = os_name?.ToLower().Contains("windows 11") == true ? 1 : 0;
             }catch (Exception){ }
@@ -181,25 +181,27 @@ namespace Glow{
             tsRunTask(network);
             tsRunTask(usb);
             tsRunTask(sound);
-            // DESKTOP / LAPTOP BATTERY CHECK
-            PowerStatus power_status = SystemInformation.PowerStatus;
-            bool isBatteryPresent = power_status.BatteryChargeStatus != BatteryChargeStatus.NoSystemBattery;
-            laptop_mode = isBatteryPresent;
-            battery_status_global = isBatteryPresent ? 0 : 1;
-            if (isBatteryPresent){
-                battery_visible_on(); // LAPTOP
-                tsRunTask(battery);
-                tsRunTask(laptop_bg_process);
-            }else{
-                battery_visible_off();
-                BATTERY_RotateBtn.Enabled = true;
-                ((Control)BATTERY).Enabled = true;
-                if (debug_mode){ Console.WriteLine("<--- Pil Bölümü Yüklendi --->"); }
-            }
+            try{
+                // DESKTOP / LAPTOP BATTERY CHECK
+                PowerStatus power_status = SystemInformation.PowerStatus;
+                bool isBatteryPresent = power_status.BatteryChargeStatus != BatteryChargeStatus.NoSystemBattery;
+                laptop_mode = isBatteryPresent;
+                battery_status_global = isBatteryPresent ? 0 : 1;
+                if (isBatteryPresent){
+                    battery_visible_on(); // LAPTOP
+                    tsRunTask(battery);
+                    tsRunTask(laptop_bg_process);
+                }else{
+                    battery_visible_off();
+                    BATTERY_RotateBtn.Enabled = true;
+                    ((Control)BATTERY).Enabled = true;
+                    if (debug_mode) { Console.WriteLine("<--- Pil Bölümü Yüklendi --->"); }
+                }
+            }catch (Exception){ }
             // START BACK WORKER TASK
             // ======================================================================================================
-            tsRunTask(async () => await osd());
-            tsRunTask(async () => await gs_services());
+            try{ tsRunTask(async () => await osd()); }catch (Exception){ }
+            try{ tsRunTask(async () => await gs_services()); }catch (Exception){ }
             tsRunTask(os_bg_process);
             tsRunTask(processor_bg_process);
             tsRunTask(cpu_usage_process);
@@ -746,24 +748,26 @@ namespace Glow{
         }
         // GET MS STORE VERSION
         private void ms_store_version(){
-            TSGetLangs software_lang = new TSGetLangs(lang_path);
-            using (Process get_ms_store_version = new Process()){
-                get_ms_store_version.StartInfo.FileName = "powershell.exe";
-                get_ms_store_version.StartInfo.Arguments = "(Get-AppxPackage -Name Microsoft.WindowsStore).Version";
-                get_ms_store_version.StartInfo.RedirectStandardOutput = true;
-                get_ms_store_version.StartInfo.UseShellExecute = false;
-                get_ms_store_version.StartInfo.CreateNoWindow = true;
-                get_ms_store_version.Start();
-                //
-                string get_ms_s_version = get_ms_store_version.StandardOutput.ReadToEnd();
-                get_ms_store_version.WaitForExit();
-                //
-                if (!string.IsNullOrEmpty(get_ms_s_version)){
-                    OS_MSStoreVersion_V.Text = get_ms_s_version.Trim();
-                }else{
-                    OS_MSStoreVersion_V.Text = TS_String_Encoder(software_lang.TSReadLangs("Os_Content", "os_c_unknown"));
+            try{
+                TSGetLangs software_lang = new TSGetLangs(lang_path);
+                using (Process get_ms_store_version = new Process()){
+                    get_ms_store_version.StartInfo.FileName = "powershell.exe";
+                    get_ms_store_version.StartInfo.Arguments = "(Get-AppxPackage -Name Microsoft.WindowsStore).Version";
+                    get_ms_store_version.StartInfo.RedirectStandardOutput = true;
+                    get_ms_store_version.StartInfo.UseShellExecute = false;
+                    get_ms_store_version.StartInfo.CreateNoWindow = true;
+                    get_ms_store_version.Start();
+                    //
+                    string get_ms_s_version = get_ms_store_version.StandardOutput.ReadToEnd();
+                    get_ms_store_version.WaitForExit();
+                    //
+                    if (!string.IsNullOrEmpty(get_ms_s_version)){
+                        OS_MSStoreVersion_V.Text = get_ms_s_version.Trim();
+                    }else{
+                        OS_MSStoreVersion_V.Text = TS_String_Encoder(software_lang.TSReadLangs("Os_Content", "os_c_unknown"));
+                    }
                 }
-            }
+            }catch (Exception){ }
         }
         // WIN KEY COPY
         private void OS_WinKeyCopy_Click(object sender, EventArgs e){
@@ -775,34 +779,36 @@ namespace Glow{
         }
         // WIN LICENSE TYPE
         private void win_license_type(){
-            TSGetLangs software_lang = new TSGetLangs(lang_path);
-            var get_win_license_mode = new Process{
-                StartInfo = new ProcessStartInfo{
-                    FileName = "cmd.exe",
-                    Arguments = "/c set LANG=en && cscript //NoLogo C:/Windows/System32/slmgr.vbs /dli",
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                }
-            };
-            get_win_license_mode.Start();
-            string win_license_mode = get_win_license_mode.StandardOutput.ReadToEnd();
-            get_win_license_mode.WaitForExit();
-            if (!string.IsNullOrWhiteSpace(win_license_mode)){
-                string[] get_lines = win_license_mode.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                if (get_lines.Length > 1){
-                    string[] explode_get_data = get_lines[1].Split(new[] { ',' }, 2);
-                    if (explode_get_data.Length > 1){
-                        OS_WinActiveChannel_V.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(explode_get_data[1].Trim());
+            try{
+                TSGetLangs software_lang = new TSGetLangs(lang_path);
+                var get_win_license_mode = new Process{
+                    StartInfo = new ProcessStartInfo{
+                        FileName = "cmd.exe",
+                        Arguments = "/c set LANG=en && cscript //NoLogo C:/Windows/System32/slmgr.vbs /dli",
+                        RedirectStandardOutput = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                    }
+                };
+                get_win_license_mode.Start();
+                string win_license_mode = get_win_license_mode.StandardOutput.ReadToEnd();
+                get_win_license_mode.WaitForExit();
+                if (!string.IsNullOrWhiteSpace(win_license_mode)){
+                    string[] get_lines = win_license_mode.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                    if (get_lines.Length > 1){
+                        string[] explode_get_data = get_lines[1].Split(new[] { ',' }, 2);
+                        if (explode_get_data.Length > 1){
+                            OS_WinActiveChannel_V.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(explode_get_data[1].Trim());
+                        }else{
+                            OS_WinActiveChannel_V.Text = TS_String_Encoder(software_lang.TSReadLangs("Os_Content", "os_c_unknown"));
+                        }
                     }else{
                         OS_WinActiveChannel_V.Text = TS_String_Encoder(software_lang.TSReadLangs("Os_Content", "os_c_unknown"));
                     }
                 }else{
                     OS_WinActiveChannel_V.Text = TS_String_Encoder(software_lang.TSReadLangs("Os_Content", "os_c_unknown"));
                 }
-            }else{
-                OS_WinActiveChannel_V.Text = TS_String_Encoder(software_lang.TSReadLangs("Os_Content", "os_c_unknown"));
-            }
+            }catch (Exception){ }
         }
         // BSOD TIME DYNAMIC
         private void bsod_time_dynamic(){
@@ -1188,7 +1194,6 @@ namespace Glow{
         public static List<string> bench_cpu_info = new List<string>();
         private void cpu(){
             // CPU MODE
-            string cpu_mode = "";
             TSGetLangs software_lang = new TSGetLangs(lang_path);
             ManagementObjectSearcher search_process = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
             ManagementObjectSearcher search_intel_me = new ManagementObjectSearcher("root\\Intel_ME", "SELECT * FROM ME_System");
@@ -1209,15 +1214,12 @@ namespace Glow{
                     if (cpu_man_intel == true){
                         CPU_Manufacturer_V.Text = "Intel Corporation";
                         MB_Chipset_V.Text = "Intel";
-                        cpu_mode = "intel";
                     }else if (cpu_man_amd == true){
                         CPU_Manufacturer_V.Text = cpu_man;
                         MB_Chipset_V.Text = "AMD";
-                        cpu_mode = "amd";
                     }else{
                         CPU_Manufacturer_V.Text = cpu_man;
                         MB_Chipset_V.Text = cpu_man;
-                        cpu_mode = "other";
                     }
                 }catch (Exception){ }
                 try{
@@ -1416,10 +1418,6 @@ namespace Glow{
                     }
                 }
             }catch (Exception){ }
-            try{
-                // CPU CODE SETS
-                ts_cpu_code_sets(cpu_mode);
-            }catch (Exception){ }
             // CPU PROCESS END ENABLED
             CPU_RotateBtn.Enabled = true;
             ((Control)CPU).Enabled = true;
@@ -1466,84 +1464,6 @@ namespace Glow{
                     }
                     Thread.Sleep(1000 - DateTime.Now.Millisecond);
                 }while (loop_status == true);
-            }catch (Exception){ }
-        }
-        private void ts_cpu_code_sets(string cpu_mode){
-            try{
-                // INTEL CODE SETS
-                Dictionary<uint, string> intelFeatures = new Dictionary<uint, string>{
-                    { 0x03, "MMX" },
-                    { 0x06, "SSE" },
-                    { 0x07, "SSE2" },
-                    { 0x0A, "SSE3" },
-                    { 0x0B, "SSSE3" },
-                    { 0x0C, "SSE4.1" },
-                    { 0x0D, "SSE4.2" },
-                    { 0x29, "EM64T" },
-                    { 0x35, "VT-x" },
-                    { 0x0E, "AES" },
-                    { 0x1E, "AVX" },
-                    { 0x1F, "AVX2" },
-                    { 0x0F, "FMA3" },
-                    { 0x33, "SHA" },
-                    { 0x48, "TSX" }
-                    // OTHER INTEL CODE SET
-                };
-                // AMD CODE SETS
-                Dictionary<uint, string> amdFeatures = new Dictionary<uint, string>{
-                    { 0x07, "3DNOW!" },
-                    { 0x08, "3DNOW! Extended" },
-                    { 0x0F, "MISALIGNED SSE" },
-                    { 0x0A, "SSE4a" },
-                    { 0x14, "MISALIGNED SSE" },
-                    { 0x15, "ABM" },
-                    { 0x17, "SSE5" },
-                    { 0x19, "SKINIT/STGI" },
-                    { 0x1A, "WDT" },
-                    { 0x1B, "TCE" },
-                    { 0x1C, "NODEID_MSR" },
-                    { 0x1D, "TBM" },
-                    { 0x1E, "TOPOLOGY_EXTENSIONS" }
-                    // OTHER AMD CODE SET
-                };
-                Dictionary<uint, string> allFeatures = new Dictionary<uint, string>();
-                if (cpu_mode == "intel"){
-                    foreach (var feature in intelFeatures){
-                        allFeatures[feature.Key] = feature.Value;
-                    }
-                }else if (cpu_mode == "amd"){
-                    foreach (var feature in amdFeatures){
-                        allFeatures[feature.Key] = feature.Value;
-                    }
-                }else{
-                    foreach (var feature in intelFeatures){
-                        allFeatures[feature.Key] = feature.Value;
-                    }
-                    foreach (var feature in amdFeatures){
-                        allFeatures[feature.Key] = feature.Value;
-                    }
-                }
-                PrintSupportedFeatures(allFeatures);
-            }catch (Exception){ }
-        }
-        void PrintSupportedFeatures(Dictionary<uint, string> features){
-            try{
-                List<string> supported_code_sets = new List<string>();
-                foreach (var feature in features){
-                    bool isSupported = IsProcessorFeaturePresent(feature.Key);
-                    if (isSupported){
-                        supported_code_sets.Add(feature.Value);
-                    }
-                }
-                if (supported_code_sets.Count > 0){
-                    supported_code_sets.Sort();
-                    string scs_sort = string.Join(", ", supported_code_sets);
-                    CPU_CodeSet_V.Text = scs_sort.Trim();
-                }else{
-                    TSGetLangs software_lang = new TSGetLangs(lang_path);
-                    CPU_CodeSet_V.Text = TS_String_Encoder(software_lang.TSReadLangs("Cpu_Content", "cpu_code_sets_not"));
-                }
-                supported_code_sets.Clear();
             }catch (Exception){ }
         }
         #endregion
@@ -3933,7 +3853,6 @@ namespace Glow{
                 CPU_OldRevision.Text = TS_String_Encoder(software_lang.TSReadLangs("Processor", "pr_cpu_old_revision"));
                 CPU_Virtualization.Text = TS_String_Encoder(software_lang.TSReadLangs("Processor", "pr_cpu_virtualization"));
                 CPU_SerialName.Text = TS_String_Encoder(software_lang.TSReadLangs("Processor", "pr_unique_processor_id"));
-                CPU_CodeSet.Text = TS_String_Encoder(software_lang.TSReadLangs("Processor", "pr_code_sets"));
                 // RAM
                 RAM_TotalRAM.Text = TS_String_Encoder(software_lang.TSReadLangs("Memory", "my_total_ram_amount"));
                 RAM_UsageRAMCount.Text = TS_String_Encoder(software_lang.TSReadLangs("Memory", "my_usage_ram_amount"));
@@ -4610,8 +4529,6 @@ namespace Glow{
                 CPU_Virtualization_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
                 CPU_SerialName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 CPU_SerialName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
-                CPU_CodeSet.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                CPU_CodeSet_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
                 // RAM
                 ram_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
                 ram_panel_2.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
@@ -5343,8 +5260,7 @@ namespace Glow{
             PrintEngineList.Add(CPU_Revision.Text + " " + CPU_Revision_V.Text);
             PrintEngineList.Add(CPU_OldRevision.Text + " " + CPU_OldRevision_V.Text);
             PrintEngineList.Add(CPU_Virtualization.Text + " " + CPU_Virtualization_V.Text);
-            PrintEngineList.Add(CPU_SerialName.Text + " " + CPU_SerialName_V.Text);
-            PrintEngineList.Add(CPU_CodeSet.Text + " " + CPU_CodeSet_V.Text + Environment.NewLine + Environment.NewLine + new string('-', 60) + Environment.NewLine);
+            PrintEngineList.Add(CPU_SerialName.Text + " " + CPU_SerialName_V.Text + Environment.NewLine + Environment.NewLine + new string('-', 60) + Environment.NewLine);
             // RAM
             print_engine_progress_update(4);
             PrintEngineList.Add($"<{new string('-', 7)} {TS_String_Encoder(software_lang.TSReadLangs("Header", "header_ram"))} {new string('-', 7)}>" + Environment.NewLine);
@@ -5829,7 +5745,6 @@ namespace Glow{
             PrintEngineList.Add($"\t\t\t\t<li><span>{CPU_OldRevision.Text}</span><span>{CPU_OldRevision_V.Text}</span></li>");
             PrintEngineList.Add($"\t\t\t\t<li><span>{CPU_Virtualization.Text}</span><span>{CPU_Virtualization_V.Text}</span></li>");
             PrintEngineList.Add($"\t\t\t\t<li><span>{CPU_SerialName.Text}</span><span>{CPU_SerialName_V.Text}</span></li>");
-            PrintEngineList.Add($"\t\t\t\t<li><span>{CPU_CodeSet.Text}</span><span>{CPU_CodeSet_V.Text}</span></li>");
             PrintEngineList.Add("\t\t\t</ul>");
             PrintEngineList.Add("\t\t</div>");
             // RAM

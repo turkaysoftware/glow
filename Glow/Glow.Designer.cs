@@ -305,9 +305,7 @@
             this.cpu_panel_3 = new System.Windows.Forms.Panel();
             this.CPU_Virtualization = new System.Windows.Forms.Label();
             this.CPU_Virtualization_V = new System.Windows.Forms.Label();
-            this.CPU_CodeSet_V = new System.Windows.Forms.Label();
             this.CPU_SerialName = new System.Windows.Forms.Label();
-            this.CPU_CodeSet = new System.Windows.Forms.Label();
             this.CPU_SerialName_V = new System.Windows.Forms.Label();
             this.RAM = new System.Windows.Forms.TabPage();
             this.RAM_TLP = new System.Windows.Forms.TableLayoutPanel();
@@ -3875,7 +3873,7 @@
             this.CPU_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.CPU_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.CPU_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.CPU_TLP.Size = new System.Drawing.Size(802, 1066);
+            this.CPU_TLP.Size = new System.Drawing.Size(802, 1018);
             this.CPU_TLP.TabIndex = 0;
             // 
             // cpu_panel_1
@@ -4485,15 +4483,13 @@
             this.cpu_panel_3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.cpu_panel_3.Controls.Add(this.CPU_Virtualization);
             this.cpu_panel_3.Controls.Add(this.CPU_Virtualization_V);
-            this.cpu_panel_3.Controls.Add(this.CPU_CodeSet_V);
             this.cpu_panel_3.Controls.Add(this.CPU_SerialName);
-            this.cpu_panel_3.Controls.Add(this.CPU_CodeSet);
             this.cpu_panel_3.Controls.Add(this.CPU_SerialName_V);
             this.cpu_panel_3.Dock = System.Windows.Forms.DockStyle.Top;
             this.cpu_panel_3.Location = new System.Drawing.Point(5, 922);
             this.cpu_panel_3.Margin = new System.Windows.Forms.Padding(2, 1, 3, 1);
             this.cpu_panel_3.Name = "cpu_panel_3";
-            this.cpu_panel_3.Size = new System.Drawing.Size(794, 140);
+            this.cpu_panel_3.Size = new System.Drawing.Size(794, 92);
             this.cpu_panel_3.TabIndex = 0;
             // 
             // CPU_Virtualization
@@ -4523,20 +4519,6 @@
             this.CPU_Virtualization_V.TabIndex = 1;
             this.CPU_Virtualization_V.Text = "N/A";
             // 
-            // CPU_CodeSet_V
-            // 
-            this.CPU_CodeSet_V.AutoSize = true;
-            this.CPU_CodeSet_V.BackColor = System.Drawing.Color.Transparent;
-            this.CPU_CodeSet_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
-            this.CPU_CodeSet_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
-            this.CPU_CodeSet_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPU_CodeSet_V.Location = new System.Drawing.Point(382, 103);
-            this.CPU_CodeSet_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
-            this.CPU_CodeSet_V.Name = "CPU_CodeSet_V";
-            this.CPU_CodeSet_V.Size = new System.Drawing.Size(37, 20);
-            this.CPU_CodeSet_V.TabIndex = 5;
-            this.CPU_CodeSet_V.Text = "N/A";
-            // 
             // CPU_SerialName
             // 
             this.CPU_SerialName.AutoSize = true;
@@ -4549,19 +4531,6 @@
             this.CPU_SerialName.Size = new System.Drawing.Size(178, 20);
             this.CPU_SerialName.TabIndex = 2;
             this.CPU_SerialName.Text = "İşlemci Benzersiz Kimliği:";
-            // 
-            // CPU_CodeSet
-            // 
-            this.CPU_CodeSet.AutoSize = true;
-            this.CPU_CodeSet.BackColor = System.Drawing.Color.Transparent;
-            this.CPU_CodeSet.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
-            this.CPU_CodeSet.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPU_CodeSet.Location = new System.Drawing.Point(10, 103);
-            this.CPU_CodeSet.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
-            this.CPU_CodeSet.Name = "CPU_CodeSet";
-            this.CPU_CodeSet.Size = new System.Drawing.Size(120, 20);
-            this.CPU_CodeSet.TabIndex = 4;
-            this.CPU_CodeSet.Text = "CPU Kod Setleri:";
             // 
             // CPU_SerialName_V
             // 
@@ -9606,8 +9575,6 @@
         private System.Windows.Forms.ToolStripMenuItem benchCPUToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem benchDiskToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem checkforUpdatesToolStripMenuItem;
-        internal System.Windows.Forms.Label CPU_CodeSet;
-        internal System.Windows.Forms.Label CPU_CodeSet_V;
         internal System.Windows.Forms.Label OS_MSEdge;
         internal System.Windows.Forms.Label OS_MSEdge_V;
         internal System.Windows.Forms.PictureBox OS_BSoDZIP;

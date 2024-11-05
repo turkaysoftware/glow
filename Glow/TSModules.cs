@@ -58,17 +58,17 @@ namespace Glow{
         // ======================================================================================================
         public class TSSettingsSave{
             [DllImport("kernel32.dll")]
-            private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
+            private static extern int WritePrivateProfileString(string section, string key, string val, string filePath);
             [DllImport("kernel32.dll")]
-            private static extern long GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
+            private static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
             private readonly string _settingFilePath;
-            public TSSettingsSave(string filePath) { _settingFilePath = filePath; }
+            public TSSettingsSave(string filePath){ _settingFilePath = filePath; }
             public string TSReadSettings(string episode, string settingName){
-                StringBuilder stringBuilder = new StringBuilder(2048);
-                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 2047, _settingFilePath);
+                StringBuilder stringBuilder = new StringBuilder(4096);
+                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 4096, _settingFilePath);
                 return stringBuilder.ToString();
             }
-            public long TSWriteSettings(string episode, string settingName, string value){
+            public int TSWriteSettings(string episode, string settingName, string value){
                 return WritePrivateProfileString(episode, settingName, value, _settingFilePath);
             }
         }
@@ -89,12 +89,12 @@ namespace Glow{
         // ======================================================================================================
         public class TSGetLangs{
             [DllImport("kernel32.dll")]
-            private static extern long GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
+            private static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size,string filePath);
             private readonly string _readFilePath;
-            public TSGetLangs(string filePath) { _readFilePath = filePath; }
+            public TSGetLangs(string filePath){ _readFilePath = filePath; }
             public string TSReadLangs(string episode, string settingName){
-                StringBuilder stringBuilder = new StringBuilder(2048);
-                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 2047, _readFilePath);
+                StringBuilder stringBuilder = new StringBuilder(4096);
+                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 4096, _readFilePath);
                 return stringBuilder.ToString();
             }
         }
@@ -327,11 +327,6 @@ namespace Glow{
                    ts_cpu_virtualization.processorArchitecture == 6 || // Itanium
                    ts_cpu_virtualization.processorArchitecture == 9;   // x64
         }
-        // CPU CODE SETS
-        // ======================================================================================================
-        [DllImport("kernel32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool IsProcessorFeaturePresent(uint processorFeature);
         // SCREEN API
         // ======================================================================================================
         public const int ENUM_CURRENT_SETTINGS = -1;

@@ -44,7 +44,7 @@ namespace Glow{
         //
         private async Task lp_animation(){
             int progress_interval = 0;
-            int progress_increment = 3;
+            int progress_increment = 2;
             int progress_delay = 10;
             //
             while (progress_interval < 100){
@@ -85,7 +85,6 @@ namespace Glow{
             //
             ImageWelcome.BackgroundImage = Properties.Resources.ts_preloader;
             ImageWelcome.BackgroundImageLayout = ImageLayout.Zoom;
-            //LabelVersion.Parent = ImageWelcome;
             //
             software_preloader();
             login_system_preloader();
