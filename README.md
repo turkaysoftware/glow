@@ -59,15 +59,6 @@ Download: [Glow Latest Version](https://github.com/turkaysoftware/glow/releases/
 - Light Theme
 - Dark Theme
 
-# Supported Operating Systems
-
-- Windows 11 x64
-- Windows 10 x64
-
-# Supported Architectures
-
-- 64 Bit (x64)
-
 # System Requirements
 
 |  | Minimum Requirements | Recommended Requirements |
