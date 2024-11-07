@@ -16,10 +16,6 @@ The best part is that it **offers for free** the features that other paid progra
 
 Download: [Glow Latest Version](https://github.com/turkaysoftware/glow/releases/latest)
 
-# How to use Glow?
-
-**Extract the entire contents of the Glow ZIP file** you downloaded from the **[Release](https://github.com/turkaysoftware/glow/releases/latest)** section into a folder. Just run *Glow_x64.exe* if you have an **x64 processor** or *Glow_arm64.exe* if you have an **ARM processor**!
-
 # User Friendly Features
 
 - Very detailed and informative for Operating System, Motherboard, Processor, RAM, Graphics Card, Storage, Network, USB, Sound, Battery, Installed Drivers and Installed Services sections.
