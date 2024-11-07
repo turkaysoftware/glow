@@ -12,8 +12,6 @@ The best part is that it **offers for free** the features that other paid progra
 
 ![Glow UI Dark](https://github.com/user-attachments/assets/6e68ab06-115e-469b-8942-54c3aa8eaf19)
 
-![Glow UI Light](https://github.com/user-attachments/assets/61008240-b942-4669-83d5-cad1b4c6b988)
-
 # Download Glow
 
 Download: [Glow Latest Version](https://github.com/turkaysoftware/glow/releases/latest)
