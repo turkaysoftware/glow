@@ -2,7 +2,7 @@
 
 **Glow** is a powerful **system analysis tool** created by **Eray Türkay**, designed to provide an intuitive overview of both the hardware and software capabilities of your computer. With its **simple, user-friendly interface**, even users with limited technical knowledge can access detailed system information with ease.
 
-- **Privacy-First**: All system data remains on your computer; **no information is transferred externally**, ensuring your privacy and security.
+- **Privacy First**: All system data remains on your computer; **no information is transferred externally**, ensuring your privacy and security.
 - **Purely Built**: Developed entirely in **C# and .NET Framework**, Glow operates **without external libraries or dependencies**.
 - **Free and Feature-Rich**: Glow provides, at no cost, features that are often locked behind paywalls in other software solutions.
   
