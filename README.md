@@ -16,6 +16,26 @@
 
 Download: [Glow Latest Version](https://github.com/turkaysoftware/glow/releases/latest)
 
+# How to use Glow?
+
+After downloading the Glow application, you will find two options: **Glow_x64.exe** and **Glow_arm64.exe**. Which file to choose depends on your computer’s processor architecture. Here’s a guide to help you decide which version is right for you:
+
+#### 1. Glow_x64.exe
+- **Glow_x64.exe** is designed for computers with an x64 (64-bit) processor architecture.
+- If you’re using a standard Windows PC or laptop, you likely need the x64 version.
+- Most devices with Intel or AMD processors use the x64 architecture.
+
+#### 2. Glow_arm64.exe
+- **Glow_arm64.exe** is specifically developed for devices with an ARM64 architecture.
+- It’s suitable for Windows devices that use **ARM processors** (such as some Surface models).
+- ARM architecture is commonly found in devices that prioritize lower power consumption and portability.
+
+#### Usage Instructions
+1. **After downloading the zip file, make sure to extract all files from the zip**. The Glow application is a portable software, so it doesn’t require installation, but all files must be in the same folder for it to run correctly.
+2. Once extracted, run the appropriate file for your device (**Glow_x64.exe** or **Glow_arm64.exe**) to start using the application immediately.
+
+With these instructions, you can download and use the correct version of Glow for your device. If you need further assistance, please feel free to reach out!
+
 # User Friendly Features
 
 - Very detailed and informative for Operating System, Motherboard, Processor, RAM, Graphics Card, Storage, Network, USB, Sound, Battery, Installed Drivers and Installed Services sections.
