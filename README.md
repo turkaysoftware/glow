@@ -31,7 +31,7 @@ After downloading the Glow application, you will find two options: **Glow_x64.ex
 - ARM architecture is commonly found in devices that prioritize lower power consumption and portability.
 
 #### Usage Instructions
-1. **After downloading the zip file, make sure to extract all files from the zip**. The Glow application is a portable software, so it doesn’t require installation, but all files must be in the same folder for it to run correctly.
+1. **After downloading the ZIP file, make sure to extract all files from the ZIP**. The Glow application is a portable software, so it doesn’t require installation, but all files must be in the same folder for it to run correctly.
 2. Once extracted, run the appropriate file for your device (**Glow_x64.exe** or **Glow_arm64.exe**) to start using the application immediately.
 
 With these instructions, you can download and use the correct version of Glow for your device. If you need further assistance, please feel free to reach out!
