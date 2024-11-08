@@ -38,21 +38,21 @@ With these instructions, you can download and use the correct version of Glow fo
 
 # User Friendly Features
 
-- Very detailed and informative for Operating System, Motherboard, Processor, RAM, Graphics Card, Storage, Network, USB, Sound, Battery, Installed Drivers and Installed Services sections.
-- **Light / Dark Theme Support**
-- 10 Different Language Support
-- **Hiding Mode Feature (Hides private information from the interface and printing!)**
-- Ability to Export Information as TXT or HTML
-- Automatic Blue Screen Report Generation
-- System Repair Feature
-- System Cleanup Feature
-- **CPU/RAM/Disk Benchmark Tool**
-- DNS Test Tool
-- **Screen Overlay Feature**
-- **Quick Access Tool**
-- **Network Repair Feature**
-- Saved Wi-Fi Password Display Feature
-- Monitor Test Tools
+- **Comprehensive System Information:** Provides detailed information about your Operating System, Motherboard, Processor, RAM, Graphics Card, Storage, Network, USB, Sound, Battery, Installed Drivers, and Installed Services.
+- **Light and Dark Theme Support:** Switch between light and dark themes to reduce eye strain and enhance your viewing experience.
+- **Multi-Language Support:** Available in 10 different languages for better accessibility.
+- **Privacy Mode:** Hides sensitive information from both the interface and printouts to protect your privacy.
+- **Export Options:** Save system information as TXT or HTML files for easy sharing and reference.
+- **Automatic Blue Screen Analysis:** Automatically generates reports on Blue Screen errors to speed up troubleshooting.
+- **System Repair Tools:** Includes tools to help detect and fix common system issues.
+- **System Cleanup Tools:** Improves system performance by cleaning up unnecessary files and system clutter.
+- **Benchmarking Tools:** Test CPU, RAM, and Disk performance to measure system speed and capabilities.
+- **DNS Test Tool:** Tests the connection to the world’s most popular DNS providers to evaluate network speed and security.
+- **Screen Overlay (System Status Monitoring) Feature:** A small system status monitoring window that stays on top of other windows, providing real-time information.
+- **Quick Access Tool:** Quickly access important settings and tools for easier navigation.
+- **Network Repair Tool:** Helps diagnose and resolve common network connection issues.
+- **Saved Wi-Fi Password Viewer:** Allows you to view saved Wi-Fi passwords when needed.
+- **Monitor Test Tools:** Provides built-in tools to evaluate monitor performance.
 
 # Supported Languages
 
@@ -72,6 +72,11 @@ With these instructions, you can download and use the correct version of Glow fo
 
 - Light Theme
 - Dark Theme
+
+# Supported Processor Architectures
+
+- x64 (64 Bit)
+- ARM64 (ARM CPU)
 
 # System Requirements
 
