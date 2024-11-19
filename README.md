@@ -10,7 +10,9 @@
 
 [Click here](https://www.turkaysoftware.com/glow) for full specifications.
 
-![Glow UI Dark](https://github.com/user-attachments/assets/6e68ab06-115e-469b-8942-54c3aa8eaf19)
+![Glow UI Dark](https://github.com/user-attachments/assets/3c51fee5-4f9d-4526-be79-51f024f22d85)
+
+![Glow UI Light](https://github.com/user-attachments/assets/15d4c700-2ebe-45e0-9308-ad9b78f2cd9e)
 
 # Download Glow
 
