@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+//
 using static Glow.TSModules;
 
 namespace Glow.glow_tools{
@@ -43,7 +44,7 @@ namespace Glow.glow_tools{
         // MONITOR TEST LOADER
         // ======================================================================================================
         int size_mode;
-        private void monitor_test_loader(int monitor_test_mode){
+        private async void monitor_test_loader(int monitor_test_mode){
             if (monitor_test_mode == 0){
                 InfoLabel.Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("MonitorTestTool", "mtt_esc_info_dead_pixel")), "\n");
                 monitor_test_dead_pixel();
@@ -55,14 +56,13 @@ namespace Glow.glow_tools{
             WindowState = FormWindowState.Maximized;
             size_mode = 1;
             //
-            Task message_remove = new Task(message_dispose);
-            message_remove.Start();   
+            await Task.Run(() => message_dispose());
         }
         private void InfoLabel_Click(object sender, EventArgs e){
             InfoLabel.Dispose();
         }
-        private void message_dispose(){
-            Thread.Sleep(7000);
+        private async void message_dispose(){
+            await Task.Delay(7000);
             InfoLabel.Dispose();
         }
         // DEAD PIXEL TEST

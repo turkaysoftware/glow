@@ -29,8 +29,7 @@ namespace Glow{
             try{
                 LabelDeveloper.Text = Application.CompanyName;
                 LabelSoftware.Text = Application.ProductName;
-                TS_VersionEngine TS_SoftwareVersion = new TS_VersionEngine();
-                LabelVersion.Text = TS_SoftwareVersion.TS_SofwareVersion(1, Program.ts_version_mode);
+                LabelVersion.Text = TS_VersionEngine.TS_SofwareVersion(1, Program.ts_version_mode);
                 LabelCopyright.Text = TS_SoftwareCopyrightDate.ts_scd_preloader;
                 //
                 AboutTable.Columns.Add("x", "x");
@@ -119,35 +118,32 @@ namespace Glow{
         // DGV CLEAR SELECTION
         // ======================================================================================================
         private void AboutTable_SelectionChanged(object sender, EventArgs e){ AboutTable.ClearSelection(); }
-        // MEDIA LINK SYSTEM
-        // ======================================================================================================
-        TS_LinkSystem TS_LinkSystem = new TS_LinkSystem();
         // WEBSITE LINK
         // ======================================================================================================
         private void About_WebsiteBtn_Click(object sender, EventArgs e){
             try{
-                Process.Start(TS_LinkSystem.website_link);
+                Process.Start(new ProcessStartInfo(TS_LinkSystem.website_link){ UseShellExecute = true });
             }catch (Exception){ }
         }
         // X LINK
         // ======================================================================================================
         private void About_XBtn_Click(object sender, EventArgs e){
             try{
-                Process.Start(TS_LinkSystem.twitter_x_link);
+                Process.Start(new ProcessStartInfo(TS_LinkSystem.twitter_x_link){ UseShellExecute = true });
             }catch (Exception){ }
         }
         // INSTAGRAM LINK
         // ======================================================================================================
         private void About_InstagramBtn_Click(object sender, EventArgs e){
             try{
-                Process.Start(TS_LinkSystem.instagram_link);
+                Process.Start(new ProcessStartInfo(TS_LinkSystem.instagram_link){ UseShellExecute = true });
             }catch (Exception){ }
         }
         // GITHUB LINK
         // ======================================================================================================
         private void About_GitHubBtn_Click(object sender, EventArgs e){
             try{
-                Process.Start(TS_LinkSystem.github_link);
+                Process.Start(new ProcessStartInfo(TS_LinkSystem.github_link){ UseShellExecute = true });
             }catch (Exception){ }
         }
         // FORM DRAGGING SYSTEM

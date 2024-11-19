@@ -17,8 +17,6 @@ namespace Glow.glow_tools{
         // GLOBAL LANGS PATH
         // ======================================================================================================
         TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-        static TS_LinkSystem TS_LinkSystem = new TS_LinkSystem();
-        static TS_VersionEngine glow_version = new TS_VersionEngine();
         //
         public GlowDNSTestTool(){
             InitializeComponent();
@@ -317,13 +315,13 @@ namespace Glow.glow_tools{
                 if (alternate_dns_status == true && cloudflare_dns_status == true && comodo_dns_status == true && control_d_dns_status == true && dns_watch_dns_status == true && google_dns_status == true && lumen_dns_status == true && opendns_dns_status == true && quad9_dns_status == true){
                     if (DNSTable.SelectedRows.Count > 0){
                         Clipboard.SetText(DNSTable.Rows[e.RowIndex].Cells[0].Value.ToString() + ": " + DNSTable.Rows[e.RowIndex].Cells[1].Value.ToString());
-                        MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_copy_success")), DNSTable.Rows[e.RowIndex].Cells[0].Value), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_copy_success")), DNSTable.Rows[e.RowIndex].Cells[0].Value));
                     }
                 }else{
-                    MessageBox.Show(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_copy_info")), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    TS_MessageBoxEngine.TS_MessageBox(this, 2, TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_copy_info")));
                 }
             }catch (Exception){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_copy_failed")), DNSTable.Rows[e.RowIndex].Cells[0].Value, "\n"), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_copy_failed")), DNSTable.Rows[e.RowIndex].Cells[0].Value, "\n"));
             }
         }
         // START ENGINE
@@ -334,35 +332,25 @@ namespace Glow.glow_tools{
             //
             Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_title")), Application.ProductName) + " | " + TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_title_test_ruining"));
             // Alternate DNS
-            Task alternate_dns_test = new Task(alternate_dns_check);
-            alternate_dns_test.Start();
+            Task.Run(() => alternate_dns_check());
             // Cloudflare
-            Task cloudflare_dns_test = new Task(cloudflare_dns_check);
-            cloudflare_dns_test.Start();
+            Task.Run(() => cloudflare_dns_check());
             // Comodo
-            Task comodo_dns_test = new Task(comodo_dns_check);
-            comodo_dns_test.Start();
+            Task.Run(() => comodo_dns_check());
             // Control D
-            Task control_d_dns_test = new Task(control_d_dns_check);
-            control_d_dns_test.Start();
+            Task.Run(() => control_d_dns_check());
             // DNS.WATCH
-            Task dns_watch_dns_test = new Task(dns_watchdns_check);
-            dns_watch_dns_test.Start();
+            Task.Run(() => dns_watchdns_check());
             // Google
-            Task google_dns_test = new Task(google_dns_check);
-            google_dns_test.Start();
+            Task.Run(() => google_dns_check());
             // Lumen
-            Task lumen_dns_test = new Task(lumen_dns_check);
-            lumen_dns_test.Start();
+            Task.Run(() => lumen_dns_check());
             // OpenDNS
-            Task opendns_dns_test = new Task(opendns_dns_check);
-            opendns_dns_test.Start();
+            Task.Run(() => opendns_dns_check());
             // Quad9
-            Task quad9_dns_test = new Task(quad9_dns_check);
-            quad9_dns_test.Start();
+            Task.Run(() => quad9_dns_check());
             // TEST AFTER ASYNC
-            Task test_after_async = new Task(test_after_mode);
-            test_after_async.Start();
+            Task.Run(() => test_after_mode());
         }
         // CHECK TEST COMPLATE
         // ======================================================================================================
@@ -387,12 +375,12 @@ namespace Glow.glow_tools{
                         Ping pingSender = new Ping();
                         PingReply reply = pingSender.Send(custom_ip);
                         if (reply.Status == IPStatus.Success){
-                            MessageBox.Show(string.Format("IP: {0}\n{1} {2} ms", custom_ip.Trim(), ping_time_text, reply.RoundtripTime), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format("IP: {0}\n{1} {2} ms", custom_ip.Trim(), ping_time_text, reply.RoundtripTime));
                         }else{
-                            MessageBox.Show($"({custom_ip}) - {ping_time_text_error} (({reply.Status}))", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            TS_MessageBoxEngine.TS_MessageBox(this, 2, $"({custom_ip}) - {ping_time_text_error} (({reply.Status}))");
                         }
                     }else{
-                        DialogResult restart_custom_ip = MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_custom_message_error")), "\n"), Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        DialogResult restart_custom_ip = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_custom_message_error")), "\n"));
                         if (restart_custom_ip == DialogResult.Yes){
                             DNS_CustomTestBtn.PerformClick();
                         }
@@ -425,7 +413,7 @@ namespace Glow.glow_tools{
                 //
                 PrintDNSList.Add(Environment.NewLine + new string('-', 75) + Environment.NewLine);
                 // FOOTER
-                PrintDNSList.Add(Application.ProductName + " " + TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_version")) + " " + glow_version.TS_SofwareVersion(1, Program.ts_version_mode));
+                PrintDNSList.Add(Application.ProductName + " " + TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_version")) + " " + TS_VersionEngine.TS_SofwareVersion(1, Program.ts_version_mode));
                 PrintDNSList.Add(TS_SoftwareCopyrightDate.ts_scd_preloader);
                 PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_process_time")) + " " + DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss"));
                 PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_website")) + " " + TS_LinkSystem.website_link);
@@ -443,7 +431,7 @@ namespace Glow.glow_tools{
                 if (save_engine.ShowDialog() == DialogResult.OK){
                     string combinedText = String.Join(Environment.NewLine, PrintDNSList);
                     File.WriteAllText(save_engine.FileName, combinedText);
-                    DialogResult glow_print_engine_query = MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_save_success")) + Environment.NewLine + Environment.NewLine + TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_save_info_open")), Application.ProductName, save_engine.FileName), Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    DialogResult glow_print_engine_query = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_save_success")) + Environment.NewLine + Environment.NewLine + TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_save_info_open")), Application.ProductName, save_engine.FileName));
                     if (glow_print_engine_query == DialogResult.Yes){
                         Process.Start(save_engine.FileName);
                     }

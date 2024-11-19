@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+//
 using static Glow.TSModules;
 
 namespace Glow.glow_tools{
@@ -75,10 +76,9 @@ namespace Glow.glow_tools{
         private void SADT_StartBtn_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                DialogResult sadt_start_check = MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_engine_start_notification")), "\n"), sadt_title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                DialogResult sadt_start_check = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_engine_start_notification")), "\n"), sadt_title);
                 if (sadt_start_check == DialogResult.Yes){
-                    Task sadt_engine_bg = new Task(sadt_engine);
-                    sadt_engine_bg.Start();
+                    Task sadt_engine_bg = Task.Run(() => sadt_engine());
                 }
             }catch (Exception){ }
         }

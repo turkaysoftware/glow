@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Management;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Threading.Tasks;
+//
 using static Glow.TSModules;
 
 namespace Glow.glow_tools{
     public partial class GlowBenchCPU : Form{
         private bool isRunning = false;
-        private Thread[] threads;
+        private Task[] tasks;
         private Stopwatch stopwatch;
         private double[] results;
         private int singleThreadScore = 0;
@@ -16,7 +19,13 @@ namespace Glow.glow_tools{
         bool loop_mode = true;
         bool bench_mode = false;
         //
-        public GlowBenchCPU(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
+        public GlowBenchCPU(){
+            InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
+            //
+            Program.TS_TokenEngine = new CancellationTokenSource();
+            //
+        }
         // LOAD
         // ======================================================================================================
         private void GlowBenchCPU_Load(object sender, EventArgs e){
@@ -140,19 +149,22 @@ namespace Glow.glow_tools{
             try{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 if (Bench_Mode.SelectedIndex == 3){
-                    DialogResult info_warning_hard = MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_lethal_warning")), "\n\n", "\n\n", "\n\n"), Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    DialogResult info_warning_hard = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_lethal_warning")), "\n\n", "\n\n", "\n\n"));
                     if (info_warning_hard == DialogResult.Yes){
                         bench_start_engine();
                     }
                 }else{
                     if (Bench_Time.SelectedIndex == 5){
-                        if (Bench_TimeCustom.Text != "" || Bench_TimeCustom.Text != string.Empty){
-                            bench_start_engine();
+                        if (!string.IsNullOrEmpty(Bench_TimeCustom.Text.Trim())){
+                            DialogResult info_warning_normal = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_test_start_warning")), "\n\n", "\n\n", "\n\n"));
+                            if (info_warning_normal == DialogResult.Yes){
+                                bench_start_engine();
+                            }
                         }else{
-                            MessageBox.Show(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time_custom_warning")), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            TS_MessageBoxEngine.TS_MessageBox(this, 6, TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time_custom_warning")));
                         }
                     }else{
-                        DialogResult info_warning_normal = MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_test_start_warning")), "\n\n", "\n\n", "\n"), Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        DialogResult info_warning_normal = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_test_start_warning")), "\n\n", "\n\n", "\n\n"));
                         if (info_warning_normal == DialogResult.Yes){
                             bench_start_engine();
                         }
@@ -162,12 +174,12 @@ namespace Glow.glow_tools{
         }
         // TIMER
         // ======================================================================================================
-        private void BenchTimer(){
-            Stopwatch stopwatch = new Stopwatch();
+        private async Task BenchTimerAsync(){
+            var stopwatch = new Stopwatch();
             stopwatch.Start();
             //
-            TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-            string titleFormat = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_title"));
+            var software_lang = new TSGetLangs(Glow.lang_path);
+            string titleFormat = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_title")), Application.ProductName);
             string elapsedTimeFormat = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_elapsed_time"));
             //
             try{
@@ -178,20 +190,20 @@ namespace Glow.glow_tools{
                     int fh_minute = (int)(elapsed.TotalMinutes % 60);
                     int fh_hour = (int)(elapsed.TotalHours);
                     //
-                    Text = string.Format(titleFormat, Application.ProductName) + " - " + elapsedTimeFormat + " " + string.Format("{0:D2}:{1:D2}:{2:D2}", fh_hour, fh_minute, fh_second);
+                    Text = $"{titleFormat} - {elapsedTimeFormat} {fh_hour:D2}:{fh_minute:D2}:{fh_second:D2}";
                     //
-                    Thread.Sleep(1000);
+                    await Task.Delay(1000);
                 }
             }catch (Exception){ }
         }
         // CPU BENCHMARK ENGINE
         // ======================================================================================================
-        private void bench_start_engine(){
+        private async void bench_start_engine(){
             if (!isRunning){
                 bench_mode = true;
-                // MODE
                 loop_mode = true;
                 isRunning = true;
+                //
                 Bench_Start.Enabled = false;
                 Bench_Stop.Enabled = true;
                 Bench_Mode.Enabled = false;
@@ -201,56 +213,53 @@ namespace Glow.glow_tools{
                 double[] coreSpeeds = GetCoreSpeeds();
                 double averageSpeed = CalculateAverageSpeed(coreSpeeds);
                 int coreCount = Environment.ProcessorCount;
-                if (Bench_Mode.SelectedIndex == 0){
+                if (Bench_Mode.SelectedIndex == 0)
                     coreCount /= 3;
-                }else if (Bench_Mode.SelectedIndex == 1){
+                else if (Bench_Mode.SelectedIndex == 1)
                     coreCount /= 2;
-                }else if (Bench_Mode.SelectedIndex == 2){
+                else if (Bench_Mode.SelectedIndex == 2)
                     coreCount -= 1;
-                }
                 // CPU SCORE
-                Thread updateScoreThread = new Thread(() =>{
+                var updateScoreTask = Task.Run(async () =>{
                     while (isRunning){
                         singleThreadScore = CalculateSingleThreadScore(coreCount, averageSpeed);
                         multiThreadScore = CalculateMultiThreadScore(coreCount, averageSpeed);
+                        //
                         try{
                             Invoke((MethodInvoker)delegate {
                                 Bench_Label_RSingleResult.Text = singleThreadScore.ToString();
                                 Bench_Label_RMultiResult.Text = multiThreadScore.ToString();
                             });
-                        }catch (Exception){ }
-                        Thread.Sleep(100);
+                        }
+                        catch (Exception) { }
+                        await Task.Delay(100);
                     }
                 });
-                updateScoreThread.Start();
                 // ENGINE STARTER
                 stopwatch = new Stopwatch();
                 results = new double[coreCount];
-                Thread timer_start = new Thread(BenchTimer);
-                timer_start.Start();
+                //
+                var timerTask = BenchTimerAsync();
+                //
                 stopwatch.Start();
-                // ALL CORE WITH THREADS
-                threads = new Thread[coreCount];
+                // ALL CORE WITH TASKS
+                tasks = new Task[coreCount];
                 for (int i = 0; i < coreCount; i++){
                     int coreIndex = i;
-                    threads[i] = new Thread(() =>{
+                    tasks[i] = Task.Run(() =>{
                         DateTime endTime = DateTime.Now.AddMinutes(1);
-                        if (Bench_Time.SelectedIndex == 0){
-                            endTime = DateTime.Now.AddSeconds(30);  // 30 second
-                        }else if (Bench_Time.SelectedIndex == 1){
-                            endTime = DateTime.Now.AddMinutes(1);   // 1 minute
-                        }else if (Bench_Time.SelectedIndex == 2){
-                            endTime = DateTime.Now.AddMinutes(15);  // 15 minute
-                        }else if (Bench_Time.SelectedIndex == 3){
-                            endTime = DateTime.Now.AddMinutes(30);  // 30 minute
-                        }else if (Bench_Time.SelectedIndex == 1){
-                            endTime = DateTime.Now.AddHours(1);     // 1 hour
-                        }else{
-                            // CUSTOM TIME
-                            if (Bench_TimeCustom.Text != "" || Bench_TimeCustom.Text != string.Empty){
-                                endTime = DateTime.Now.AddMinutes(Convert.ToDouble(Bench_TimeCustom.Text.Trim()));
-                            }
-                        }
+                        if (Bench_Time.SelectedIndex == 0)
+                            endTime = DateTime.Now.AddSeconds(30);
+                        else if (Bench_Time.SelectedIndex == 1)
+                            endTime = DateTime.Now.AddMinutes(1);
+                        else if (Bench_Time.SelectedIndex == 2)
+                            endTime = DateTime.Now.AddMinutes(15);
+                        else if (Bench_Time.SelectedIndex == 3)
+                            endTime = DateTime.Now.AddMinutes(30);
+                        else if (Bench_Time.SelectedIndex == 1)
+                            endTime = DateTime.Now.AddHours(1);
+                        else if (!string.IsNullOrEmpty(Bench_TimeCustom.Text))
+                            endTime = DateTime.Now.AddMinutes(Convert.ToDouble(Bench_TimeCustom.Text.Trim()));
                         // ENGINE MODE
                         Random random = new Random();
                         while (isRunning && DateTime.Now < endTime){
@@ -258,21 +267,30 @@ namespace Glow.glow_tools{
                             double result = Math.Sqrt(number);
                             results[coreIndex] += result;
                         }
-                        // ENGINE STOPER
-                        stopwatch.Stop();
-                        isRunning = false;
-                        loop_mode = false;
-                        Bench_Start.Enabled = true;
-                        Bench_Stop.Enabled = false;
-                        Bench_Mode.Enabled = true;
-                        Bench_Time.Enabled = true;
-                        Bench_TimeCustom.Enabled = true;
-                        TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                        Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_title")) + " | " + TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_end_test")), Application.ProductName);
-                        bench_mode = false;
+                        // ENGINE STOPPER
+                        if (coreIndex == coreCount - 1){
+                            stopwatch.Stop();
+                            isRunning = false;
+                            loop_mode = false;
+                            // UI güncelleme
+                            Invoke((MethodInvoker)delegate{
+                                Bench_Start.Enabled = true;
+                                Bench_Stop.Enabled = false;
+                                Bench_Mode.Enabled = true;
+                                Bench_Time.Enabled = true;
+                                Bench_TimeCustom.Enabled = true;
+                                //
+                                TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
+                                Text = $"{string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_title")), Application.ProductName)} | {TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_end_test"))}";
+                                bench_mode = false;
+                            });
+                        }
                     });
-                    threads[i].Start();
                 }
+                //
+                await Task.WhenAll(tasks);
+                await updateScoreTask;
+                await timerTask;
             }
         }
         // SINGLE THREAD SCORE
@@ -319,22 +337,26 @@ namespace Glow.glow_tools{
         }
         // ENGINE STOP MODE
         // ======================================================================================================
-        private void bench_stop_engine() {
+        private async void bench_stop_engine(){
             if (isRunning){
                 bench_mode = false;
                 isRunning = false;
+                //
                 Bench_Start.Enabled = true;
                 Bench_Stop.Enabled = false;
-                foreach (Thread thread in threads){
-                    thread.Join();
-                }
+                //
+                try{
+                    if (tasks != null){
+                        await Task.WhenAll(tasks);
+                    }
+                }catch (Exception){ }
+                //
                 stopwatch.Stop();
-                double totalResult = 0;
-                foreach (double result in results){
-                    totalResult += result;
-                }
+                double totalResult = results.Sum();
+                //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_title")) + " | " + TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_stop_engine_message")), Application.ProductName);
+                Text = $"{string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_title")), Application.ProductName)} | {TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_stop_engine_message"))}";
+                //
                 // Console.WriteLine($"Hesaplama süresi: {stopwatch.Elapsed.Seconds} saniye");
             }
         }

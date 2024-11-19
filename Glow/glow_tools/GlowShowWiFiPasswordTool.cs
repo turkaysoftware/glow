@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 //
 using static Glow.TSModules;
@@ -45,18 +46,23 @@ namespace Glow.glow_tools{
         }
         // LOAD SWPT
         // ======================================================================================================
-        private void GlowShowWiFiPasswordTool_Load(object sender, EventArgs e){
+        private async void GlowShowWiFiPasswordTool_Load(object sender, EventArgs e){
             swpt_theme_settings();
             //
             try{
-                TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                string[] wifi_profileNames = ts_ExtractWiFiProfileNames(ts_GetWiFiPassword("netsh wlan show profile"));
-                if (wifi_profileNames.Length == 0){
-                    MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_no_profile")), "\n", TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_show_wifi_password_tool"))), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                var wifiProfilesTask = Task.Run(() =>{
+                    TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
+                    string[] wifi_profileNames = ts_ExtractWiFiProfileNames(ts_GetWiFiPassword("netsh wlan show profile"));
+                    return new { software_lang, wifi_profileNames };
+                });
+                var get_result = await wifiProfilesTask;
+                if (get_result.wifi_profileNames.Length == 0){
+                    TS_MessageBoxEngine.TS_MessageBox(this, 2, string.Format(TS_String_Encoder(get_result.software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_no_profile")), "\n", TS_String_Encoder(get_result.software_lang.TSReadLangs("HeaderTools", "ht_show_wifi_password_tool"))));
                     Close();
-                }
-                foreach (var wifi_profile in wifi_profileNames){
-                    SWPT_SelectBox.Items.Add(wifi_profile.Trim());
+                }else{
+                    foreach (var wifi_profile in get_result.wifi_profileNames){
+                        SWPT_SelectBox.Items.Add(wifi_profile.Trim());
+                    }
                 }
             }catch (Exception){ }
         }
@@ -120,8 +126,9 @@ namespace Glow.glow_tools{
             try{
                 Clipboard.SetText(SWPT_ResultBox.Text.Trim());
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                MessageBox.Show(TS_String_Encoder(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_copy_txt")), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }catch (Exception){ }
+                TS_MessageBoxEngine.TS_MessageBox(this, 1, TS_String_Encoder(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_copy_txt")));
+            }
+            catch (Exception){ }
         }
     }
 }

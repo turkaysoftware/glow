@@ -1,18 +1,18 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Management;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using static Glow.TSModules;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Glow.glow_tools{
     public partial class GlowBenchDisk : Form{
         // VARIABLES
-        private Thread benchmarkThread;
+        private Task benchmarkTask;
         private bool isBenchmarking = false;
         string benchmarkFilePath;
         int global_buffer;
@@ -167,10 +167,10 @@ namespace Glow.glow_tools{
                             if (benchmarkDiskListFreeSpace[Bench_Disk.SelectedIndex] > Convert.ToInt32(Bench_SizeCustom.Text.Trim())){
                                 check_info_user_warning(Bench_Disk.SelectedIndex);
                             }else{
-                                MessageBox.Show(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_low_space")), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                TS_MessageBoxEngine.TS_MessageBox(this, 2, TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_low_space")));
                             }
                         }else{
-                            MessageBox.Show(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_space_req")), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            TS_MessageBoxEngine.TS_MessageBox(this, 2, TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_space_req")));
                             Bench_SizeCustom.Text = string.Empty;
                             Bench_SizeCustom.Focus();
                         }
@@ -179,7 +179,7 @@ namespace Glow.glow_tools{
                     if (benchmarkDiskListFreeSpace[Bench_Disk.SelectedIndex] > testSizes[Bench_Disk.SelectedIndex]){
                         check_info_user_warning(Bench_Disk.SelectedIndex);
                     }else{
-                        MessageBox.Show(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_low_space")), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        TS_MessageBoxEngine.TS_MessageBox(this, 2, TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_low_space")));
                     }
                 }
             }catch (Exception){ }
@@ -206,7 +206,10 @@ namespace Glow.glow_tools{
                 string message = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", messageKey)), "\n\n", "\n\n", "\n", "\n\n");
                 string caption = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_start_engine_disk")) + " " + Bench_Disk.SelectedItem.ToString().Trim();
                 //
-                success_warning = MessageBox.Show(message, caption, startEngine ? MessageBoxButtons.YesNo : MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                success_warning = TS_MessageBoxEngine.TS_MessageBox(this, 6, message, caption);
+                if (!startEngine){
+                    success_warning = TS_MessageBoxEngine.TS_MessageBox(this, 1, message, caption);
+                }
                 //
                 if (startEngine && success_warning == DialogResult.Yes){
                     start_engine();
@@ -218,7 +221,8 @@ namespace Glow.glow_tools{
         }
         // TIMER
         // ======================================================================================================
-        private void BenchTimer(){
+        private async Task BenchTimerAsync()
+        {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             //
@@ -235,7 +239,7 @@ namespace Glow.glow_tools{
                     //
                     global_timer = $"{elapsedTimeFormat} {fh_hour:D2}:{fh_minute:D2}:{fh_second:D2}";
                     //
-                    Thread.Sleep(1000);
+                    await Task.Delay(1000);
                 }
             }catch (Exception){ }
         }
@@ -252,8 +256,7 @@ namespace Glow.glow_tools{
             // WARNING MESSAGE
             try{
                 isBenchmarking = true;
-                benchmarkThread = new Thread(() => RunBenchmark(selectedDrive));
-                benchmarkThread.Start();
+                benchmarkTask = Task.Run(() => RunBenchmark(selectedDrive));
                 Bench_Start.Enabled = false;
                 Bench_Stop.Enabled = true;
                 Bench_Disk.Enabled = false;
@@ -279,8 +282,7 @@ namespace Glow.glow_tools{
         // DISK BENCHMARK
         // ======================================================================================================
         private void RunBenchmark(string selectedDrive){
-            Thread timer_start = new Thread(BenchTimer);
-            timer_start.Start();
+            var timerTask = BenchTimerAsync();
             // FILE PATH
             benchmarkFilePath = Path.Combine(selectedDrive, "GlowBenchDiskTestFile_" + new Random().Next(1000, 9999) + ".glow");
             // BENCH SIZE
@@ -344,7 +346,7 @@ namespace Glow.glow_tools{
                             Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_title")), Application.ProductName);
                             bench_mode = false;
                             loop_mode = false;
-                            MessageBox.Show(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_result_success")), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            TS_MessageBoxEngine.TS_MessageBox(this, 1, TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_result_success")));
                         }));
                     }
                     //
@@ -361,7 +363,7 @@ namespace Glow.glow_tools{
         }
         // ======================================================================================================
         // DISK ENGINE
-        private void disk_engine(){
+        private async void disk_engine(){
             ulong maxReadSpeed = 0;
             ulong maxWriteSpeed = 0;
             try{
@@ -396,8 +398,8 @@ namespace Glow.glow_tools{
                             //Console.WriteLine($"{diskEntry.Key}: - {diskReadSpeedMB:F1} MB/s (R) - {diskWriteSpeedMB:F1} MB/s (W) ");
                         }
                     }
-                    Thread.Sleep(1000 - DateTime.Now.Millisecond);
-                }while (loop_mode == true);
+                    await Task.Delay(1000 - DateTime.Now.Millisecond);
+                } while (loop_mode == true);
             }catch (Exception) { }
         }
         // STOP BENCHMARK
@@ -405,12 +407,12 @@ namespace Glow.glow_tools{
         private void Bench_Stop_Click(object sender, EventArgs e){
             stop_engine();
         }
-        private void stop_engine(){
+        private async void stop_engine(){
             bench_mode = false;
             loop_mode = false;
             isBenchmarking = false;
-            if (benchmarkThread != null && benchmarkThread.IsAlive){
-                benchmarkThread.Join();
+            if (benchmarkTask != null){
+                await benchmarkTask;
             }
             Bench_Start.Enabled = true;
             Bench_Stop.Enabled = false;
@@ -429,7 +431,7 @@ namespace Glow.glow_tools{
             if (File.Exists(benchmarkFilePath)){
                 File.Delete(benchmarkFilePath);
                 Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_title")), Application.ProductName);
-                MessageBox.Show(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_result_exit")), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                TS_MessageBoxEngine.TS_MessageBox(this, 1, TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_result_exit")));
             }
         }
         // CUSTOM SIZE CHANGE

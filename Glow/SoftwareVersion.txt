@@ -1,1 +1,1 @@
-software_version = 24.19
+software_version = 24.20

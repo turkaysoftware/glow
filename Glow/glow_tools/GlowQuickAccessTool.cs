@@ -86,7 +86,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:about");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // ADVANCED SCREEN SETTINGS
@@ -94,7 +94,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:display-advancedgraphics");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // BACKGROUND
@@ -102,7 +102,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:personalization-background");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // BLUETOOTH
@@ -110,7 +110,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:bluetooth");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // COLORS
@@ -118,7 +118,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:personalization-colors");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // CONTROL PANEL
@@ -126,7 +126,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("control");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // COUNTRY / REGION
@@ -134,7 +134,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:regionformatting");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // DATA USAGE
@@ -142,7 +142,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:datausage");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // DATE AND TIME
@@ -150,7 +150,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:dateandtime");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // DEFAULT APPS
@@ -158,7 +158,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:defaultapps");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
 
@@ -167,7 +167,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("devmgmt.msc");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // DIRECT-X
@@ -175,7 +175,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("dxdiag");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // DISK MANAGEMENT
@@ -183,7 +183,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("diskmgmt.msc");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // EVENT VIEWER
@@ -191,7 +191,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("eventvwr.msc");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // GAMING MODE
@@ -199,7 +199,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:gaming-gamemode");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // LANGUAGE
@@ -207,7 +207,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:regionlanguage");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // LICENSE STATUS
@@ -215,7 +215,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:activation");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // LOCK SCREEN
@@ -223,7 +223,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:lockscreen");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // MOUSE SETTINGS
@@ -231,7 +231,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:mousetouchpad");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // NOTIFICATION SETTINGS
@@ -239,7 +239,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:notifications");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // PHONE
@@ -247,7 +247,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:mobile-devices");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // SCREEN SETTINGS
@@ -255,7 +255,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:display");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // SETTINGS
@@ -263,7 +263,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // SOUND
@@ -271,7 +271,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:sound");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // START
@@ -279,7 +279,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:personalization-start");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // STORAGE
@@ -287,7 +287,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:storagesense");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // TASKBAR
@@ -295,7 +295,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:taskbar");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // USB
@@ -303,7 +303,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:usb");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // WINDOWS DEFENDER
@@ -311,7 +311,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:windowsdefender");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
         // WINDOWS UPDATE
@@ -319,7 +319,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start("ms-settings:windowsupdate");
             }catch (Exception ex){
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
             }
         }
     }

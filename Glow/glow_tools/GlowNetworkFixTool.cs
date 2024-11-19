@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+//
 using static Glow.TSModules;
 
 namespace Glow.glow_tools{
@@ -57,7 +58,7 @@ namespace Glow.glow_tools{
         private void NFT_StartBtn_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                DialogResult start_engine_query = MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_process_start_query")), "\n"), Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult start_engine_query = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_process_start_query")), "\n"));
                 if (start_engine_query == DialogResult.Yes){
                     start_network_fix_engine();
                     NFT_TitleLabel.Text = TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_title_label_in_process"));
@@ -79,7 +80,7 @@ namespace Glow.glow_tools{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 NFT_TitleLabel.Text = TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_title_label_after_end"));
                 // Process After Dialog
-                DialogResult end_engine_query = MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_process_after_query")), "\n\n", "\n\n", "\n\n"), Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult end_engine_query = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_process_after_query")), "\n\n", "\n\n", "\n\n"));
                 if (end_engine_query == DialogResult.Yes){
                     try{
                         ProcessStartInfo pc_restart_query = new ProcessStartInfo{
@@ -94,7 +95,7 @@ namespace Glow.glow_tools{
                             pc_restart_starter.WaitForExit();
                         }
                     }catch (Exception){
-                        MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_process_after_restart_info")), "\n"), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_process_after_restart_info")), "\n"));
                     }
                 }
             }catch (Exception){ }

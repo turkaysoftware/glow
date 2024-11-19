@@ -64,7 +64,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Bench_TLP.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.Bench_TLP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Bench_TLP.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Bench_TLP.Cursor = System.Windows.Forms.Cursors.Default;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -91,7 +91,7 @@
             this.Bench_TLP.RowHeadersVisible = false;
             this.Bench_TLP.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.Bench_TLP.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Bench_TLP.Size = new System.Drawing.Size(503, 90);
+            this.Bench_TLP.Size = new System.Drawing.Size(553, 90);
             this.Bench_TLP.TabIndex = 7;
             this.Bench_TLP.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Bench_TLP_CellClick);
             // 
@@ -109,7 +109,7 @@
             this.Bench_MStart.Location = new System.Drawing.Point(0, 0);
             this.Bench_MStart.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.Bench_MStart.Name = "Bench_MStart";
-            this.Bench_MStart.Size = new System.Drawing.Size(250, 39);
+            this.Bench_MStart.Size = new System.Drawing.Size(275, 39);
             this.Bench_MStart.TabIndex = 8;
             this.Bench_MStart.Text = "BAŞLAT";
             this.Bench_MStart.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -128,10 +128,10 @@
             this.Bench_MStop.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Bench_MStop.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.Bench_MStop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Bench_MStop.Location = new System.Drawing.Point(252, 0);
+            this.Bench_MStop.Location = new System.Drawing.Point(277, 0);
             this.Bench_MStop.Margin = new System.Windows.Forms.Padding(1, 0, 0, 0);
             this.Bench_MStop.Name = "Bench_MStop";
-            this.Bench_MStop.Size = new System.Drawing.Size(251, 39);
+            this.Bench_MStop.Size = new System.Drawing.Size(276, 39);
             this.Bench_MStop.TabIndex = 9;
             this.Bench_MStop.Text = "DURDUR";
             this.Bench_MStop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -145,7 +145,7 @@
             this.Bench_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Bench_Panel.Location = new System.Drawing.Point(3, 3);
             this.Bench_Panel.Name = "Bench_Panel";
-            this.Bench_Panel.Size = new System.Drawing.Size(503, 135);
+            this.Bench_Panel.Size = new System.Drawing.Size(553, 135);
             this.Bench_Panel.TabIndex = 11;
             // 
             // Bench_ControlTLP
@@ -160,21 +160,21 @@
             this.Bench_ControlTLP.Name = "Bench_ControlTLP";
             this.Bench_ControlTLP.RowCount = 1;
             this.Bench_ControlTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.Bench_ControlTLP.Size = new System.Drawing.Size(503, 39);
+            this.Bench_ControlTLP.Size = new System.Drawing.Size(553, 39);
             this.Bench_ControlTLP.TabIndex = 11;
             // 
             // GlowBenchMemory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(509, 141);
+            this.ClientSize = new System.Drawing.Size(559, 141);
             this.Controls.Add(this.Bench_Panel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(525, 180);
-            this.MinimumSize = new System.Drawing.Size(525, 180);
+            this.MaximumSize = new System.Drawing.Size(575, 180);
+            this.MinimumSize = new System.Drawing.Size(575, 180);
             this.Name = "GlowBenchMemory";
             this.Padding = new System.Windows.Forms.Padding(3);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

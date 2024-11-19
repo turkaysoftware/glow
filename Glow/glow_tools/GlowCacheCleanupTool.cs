@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+//
 using static Glow.TSModules;
 
 namespace Glow.glow_tools{
@@ -18,11 +19,11 @@ namespace Glow.glow_tools{
         // CLEAN SYSTEM
         // ======================================================================================================
         List<string> cct_path_list = new List<string>(){
-            @"C:\Windows\Temp",
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Temp",
-            @"C:\Windows\Prefetch",
+            Path.Combine(Glow.windows_disk, "Windows", "Temp"),
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Temp"),
+            Path.Combine(Glow.windows_disk, "Windows", "Prefetch"),
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "AppData", "Local", "Microsoft", "Windows", "Explorer"),
-            @"C:\Windows\SoftwareDistribution\Download"
+            Path.Combine(Glow.windows_disk, "Windows", "SoftwareDistribution", "Download")
         };
         //
         List<long> cct_path_size_list = new List<long>();
@@ -75,7 +76,7 @@ namespace Glow.glow_tools{
         }
         // CCT LOAD
         // ======================================================================================================
-        private void GlowCacheCleanupTool_Load(object sender, EventArgs e){
+        private async void GlowCacheCleanupTool_Load(object sender, EventArgs e){
             TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
             // GET THEME
             cct_theme_settings();
@@ -103,12 +104,9 @@ namespace Glow.glow_tools{
             //
             cct_title = string.Format(TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_title")), Application.ProductName);
             //
-            // START FOLDER SIZE CHECK ALGORITHM
-            Task check_folder_sizes_task = new Task(check_folder_sizes);
-            check_folder_sizes_task.Start();
-            // START AUTO FOLDER SIZE ALGORITHM
-            Task check_folder_size_auto_task = new Task(AutoFolderSizeRefreshAsync);
-            check_folder_size_auto_task.Start();
+            // START FOLDER SIZE CHECK ALGORITHM & START AUTO FOLDER SIZE ALGORITHM
+            await Task.Run(() => check_folder_sizes());
+            await Task.Run(() => AutoFolderSizeRefreshAsync());
         }
         // CHECK FOLDER SIZE ALGORITHM
         // ======================================================================================================
@@ -150,22 +148,22 @@ namespace Glow.glow_tools{
         }
         // START CLEAN BTN
         // ======================================================================================================
-        private void CCT_StartBtn_Click(object sender, EventArgs e){
+        private async void CCT_StartBtn_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 if (CCTTable.SelectedCells.Count > 0){
-                    DialogResult cct_check_delete_notifi = MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_check_delete_notification")), CCTTable.Rows[CCTTable.SelectedCells[0].RowIndex].Cells[1].Value.ToString().Trim(), "\n\n"), cct_title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    DialogResult cct_check_delete_notifi = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_check_delete_notification")), CCTTable.Rows[CCTTable.SelectedCells[0].RowIndex].Cells[1].Value.ToString().Trim(), "\n\n"));
                     if (cct_check_delete_notifi == DialogResult.Yes){
-                        cleanup_engine(CCTTable.Rows[CCTTable.SelectedCells[0].RowIndex].Cells[1].Value.ToString().Trim());
+                        await Task.Run(() => cleanup_engine(CCTTable.Rows[CCTTable.SelectedCells[0].RowIndex].Cells[1].Value.ToString().Trim()));
                     }
                 }else{
-                    MessageBox.Show(TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_check_select_clean_patch_info")), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    TS_MessageBoxEngine.TS_MessageBox(this, 2, TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_check_select_clean_patch_info")));
                 }
             }catch (Exception){ }
         }
         // CLEANUP ENGINE
         // ======================================================================================================
-        private void cleanup_engine(string target_path){
+        private async void cleanup_engine(string target_path){
             try{
                 DirectoryInfo target_folder = new DirectoryInfo(target_path);
                 foreach (FileInfo target_files in target_folder.GetFiles()){
@@ -179,11 +177,10 @@ namespace Glow.glow_tools{
                     }catch (Exception){ }
                 }
                 cct_auto_refresh_repat = true;
-                Task check_folder_sizes_task = new Task(check_folder_sizes);
-                check_folder_sizes_task.Start();
+                await Task.Run(() => check_folder_sizes());
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 CCTTable.ClearSelection();
-                MessageBox.Show(string.Format(TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_delete_success_notification")), target_path), cct_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format(TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_delete_success_notification")), target_path));
             }catch (Exception){ }
         }
         // AUTO REFRESH FOLDER SIZE FUNCTION

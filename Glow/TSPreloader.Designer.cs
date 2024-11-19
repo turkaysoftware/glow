@@ -63,7 +63,6 @@
             // 
             // LabelVersion
             // 
-            this.LabelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.LabelVersion.AutoSize = true;
             this.LabelVersion.BackColor = System.Drawing.Color.Transparent;
             this.LabelVersion.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -103,6 +102,7 @@
             // 
             // LabelLoader
             // 
+            this.LabelLoader.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LabelLoader.AutoSize = true;
             this.LabelLoader.BackColor = System.Drawing.Color.Transparent;
             this.LabelLoader.Font = new System.Drawing.Font("Segoe UI Semibold", 11.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -116,6 +116,7 @@
             // 
             // PanelLoaderBG
             // 
+            this.PanelLoaderBG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.PanelLoaderBG.BackColor = System.Drawing.Color.Transparent;
             this.PanelLoaderBG.Controls.Add(this.PanelLoaderFE);
             this.PanelLoaderBG.Location = new System.Drawing.Point(21, 372);
@@ -135,8 +136,8 @@
             // 
             // LabelCopyright
             // 
+            this.LabelCopyright.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LabelCopyright.BackColor = System.Drawing.Color.Transparent;
-            this.LabelCopyright.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.LabelCopyright.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.LabelCopyright.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
             this.LabelCopyright.Location = new System.Drawing.Point(15, 410);

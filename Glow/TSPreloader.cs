@@ -1,23 +1,34 @@
 ﻿using System;
+// File and I/O Operations
 using System.IO;
+// LINQ Queries
 using System.Linq;
+// Windows Registry Operations
 using Microsoft.Win32;
-using System.Reflection;
-using System.Diagnostics;
-using System.Globalization;
-using System.Windows.Forms;
+// Multithreading and Parallel Processing
+using System.Threading;
 using System.Threading.Tasks;
+// Reflection and Runtime Operations
+using System.Reflection;
+// Diagnostics and Management Tools
+using System.Diagnostics;
+// Language and Culture Settings
+using System.Globalization;
+// User Interface Operations
+using System.Windows.Forms;
+// General Collections
 using System.Collections.Generic;
-//
+// TS Modules
 using static Glow.TSModules;
 
 namespace Glow{
     public partial class TSPreloader : Form{
         public TSPreloader(){
             InitializeComponent();
-            //
             CheckForIllegalCrossThreadCalls = false;
-            TSSetInnerProgressSize(0);
+            //
+            Program.TS_TokenEngine = new CancellationTokenSource();
+            //
             TSSetImagePanelPadding(0);
             //
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, PanelLoaderBG, new object[] { true });
@@ -25,50 +36,9 @@ namespace Glow{
         }
         // VARIABLES
         // ======================================================================================================
-        private bool loop_mode = true;
         private string load_text;
-        //
-        private void TSSetInnerProgressSize(int get_percentage){
-            PanelLoaderFE.Width = (int)(PanelLoaderBG.Width * (get_percentage / 100.0));
-        }
-        //
-        private async Task lt_animation(){
-            int dotCount = 0;
-            while (loop_mode){
-                LabelLoader.Text = load_text + new string('.', dotCount);
-                dotCount = (dotCount + 1) % 4;
-                await Task.Delay(350);
-            }
-            LabelLoader.Text = load_text + new string('.', 3);
-        }
-        //
-        private async Task lp_animation(){
-            int progress_interval = 0;
-            int progress_increment = 2;
-            int progress_delay = 10;
-            //
-            while (progress_interval < 100){
-                TSSetInnerProgressSize(progress_interval);
-                if (progress_interval + progress_increment >= 100){
-                    progress_interval = 100;
-                    TSSetInnerProgressSize(progress_interval);
-                    break;
-                }
-                progress_interval += progress_increment;
-                await Task.Delay(progress_delay);
-            }
-            //
-            loop_mode = false;
-            await Task.Run(() => {
-                this.Invoke(new Action(() => {
-                    Glow glow = new Glow();
-                    glow.Show();
-                    //
-                    Hide();
-                }));
-            });
-        }
-        //
+        // LOAD IMAGE PADDING
+        // ======================================================================================================
         private void TSSetImagePanelPadding(int get_padding){
             PanelImg.Padding = new Padding(get_padding, get_padding, get_padding, get_padding);
         }
@@ -77,20 +47,21 @@ namespace Glow{
         private void TSPreloader_Load(object sender, EventArgs e){
             LabelDeveloper.Text = Application.CompanyName;
             LabelSoftware.Text = Application.ProductName;
-            //
-            TS_VersionEngine TS_SoftwareVersion = new TS_VersionEngine();
-            LabelVersion.Text = TS_SoftwareVersion.TS_SofwareVersion(1, Program.ts_version_mode);
-            //
+            LabelVersion.Text = TS_VersionEngine.TS_SofwareVersion(1, Program.ts_version_mode);
             LabelCopyright.Text = TS_SoftwareCopyrightDate.ts_scd_preloader;
             //
             ImageWelcome.BackgroundImage = Properties.Resources.ts_preloader;
             ImageWelcome.BackgroundImageLayout = ImageLayout.Zoom;
             //
             software_preloader();
-            login_system_preloader();
+            software_set_launch();
             //
-            Task lta_task = Task.Run(() => lt_animation());
-            Task ltp_task = Task.Run(() => lp_animation());
+            if (Program.ts_pre_debug_mode == true){
+                LabelLoader.Text = "Loading - 50%";
+                PanelLoaderFE.Width = (int)(PanelLoaderBG.Width * 0.5);
+            }else{
+                Task.Run(() => load_animation(), Program.TS_TokenEngine.Token);
+            }
         }
         // SOFTWARE PRELOADER
         // ======================================================================================================
@@ -114,7 +85,7 @@ namespace Glow{
                     software_prelaoder_alert(1);
                     return;
                 }
-                // CHECK ENGLISH AND ALTERNATIFE LANGS
+                // CHECK ENGLISH LANG FILE
                 if (!File.Exists(ts_lang_en)){
                     software_prelaoder_alert(2);
                     return;
@@ -124,7 +95,7 @@ namespace Glow{
                     try{
                         string ui_lang = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName.Trim();
                         TSSettingsSave software_settings_save = new TSSettingsSave(ts_sf);
-                        // DETECH & SET SYSTEM THEME
+                        // SET SYSTEM THEME
                         string get_system_theme = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "SystemUsesLightTheme", "").ToString().Trim();
                         software_settings_save.TSWriteSettings(ts_settings_container, "ThemeStatus", get_system_theme);
                         // SET SOFTWARE LANGUAGE
@@ -145,18 +116,18 @@ namespace Glow{
                         // SET HIDING MODE
                         software_settings_save.TSWriteSettings(ts_settings_container, "HidingStatus", "0");
                     }catch (Exception ex){
-                        // SET ERROR CHECK
+                        // ERROR LOG
                         LogError(ex);
                     }
                 }
             }catch (IOException ioEx){
-                // IO ERROR CHECK
+                // IO ERROR LOG
                 LogError(ioEx);
             }catch (UnauthorizedAccessException uaEx){
-                // ACCESS ERROR CHECK
+                // ACCESS ERROR LOG
                 LogError(uaEx);
             }catch (Exception ex){
-                // OTHER ERRORS
+                // OTHER ERROR LOG
                 LogError(ex);
             }
         }
@@ -176,10 +147,9 @@ namespace Glow{
                     break;
             }
             if (!string.IsNullOrEmpty(set_message)){
-                DialogResult open_last_release = MessageBox.Show(set_message, Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                DialogResult open_last_release = TS_MessageBoxEngine.TS_MessageBox(this, 7, set_message);
                 if (open_last_release == DialogResult.Yes){
-                    TS_LinkSystem TS_LinkSystem = new TS_LinkSystem();
-                    Process.Start(TS_LinkSystem.github_link_lr);
+                    Process.Start(new ProcessStartInfo(TS_LinkSystem.github_link_lr){ UseShellExecute = true });
                 }else{
                     Application.Exit();
                 }
@@ -188,11 +158,11 @@ namespace Glow{
         // ERROR LOG FUNCTION
         // ======================================================================================================
         private void LogError(Exception ex){
-            MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TS_MessageBoxEngine.TS_MessageBox(this, 3, ex.Message);
         }
         // BOOTSTRAPPER PRELOADER
         // ======================================================================================================
-        public void login_system_preloader(){
+        public void software_set_launch(){
             try{
                 TSSettingsSave software_read_settings = new TSSettingsSave(ts_sf);
                 //
@@ -217,7 +187,7 @@ namespace Glow{
                 LabelLoader.ForeColor = TS_ThemeEngine.ColorMode(global_theme, "TSBT_LabelColor1");
                 LabelCopyright.ForeColor = TS_ThemeEngine.ColorMode(global_theme, "TSBT_LabelColor2");
                 // DICTIONARY SYSTEM FOR LANGUAGE
-                var languageFiles = new Dictionary<string, string>{
+                var languageFiles = new Dictionary<string, string> {
                     { "zh", ts_lang_zh },
                     { "en", ts_lang_en },
                     { "fr", ts_lang_fr },
@@ -231,12 +201,66 @@ namespace Glow{
                 };
                 //
                 string lang_mode = TS_String_Encoder(software_read_settings.TSReadSettings(ts_settings_container, "LanguageStatus")) ?? "en";
-                string lang_file = languageFiles.ContainsKey(lang_mode) ? languageFiles[lang_mode] : ts_lang_en;
+                string lang_file;
+                bool isFileExist = languageFiles.ContainsKey(lang_mode) && File.Exists(languageFiles[lang_mode]);
+                //
+                if (isFileExist){
+                    lang_file = languageFiles[lang_mode];
+                }else{
+                    lang_file = languageFiles.ContainsKey("en") && File.Exists(languageFiles["en"]) ? languageFiles["en"] : ts_lang_en;
+                    lang_mode = "en";
+                }
+                //
+                try{
+                    if (!isFileExist){
+                        TSSettingsSave software_setting_save = new TSSettingsSave(ts_sf);
+                        software_setting_save.TSWriteSettings(ts_settings_container, "LanguageStatus", lang_mode);
+                    }
+                }catch (Exception){ }
                 //
                 TSGetLangs software_lang = new TSGetLangs(lang_file);
                 Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("TSPreloader", "tsbt_title")), Application.CompanyName);
                 load_text = TS_String_Encoder(software_lang.TSReadLangs("TSPreloader", "tsbt_load"));
             }catch (Exception){ }
+        }
+        // PROGRESS BAR & PROGRESS TEXT PROCESS
+        // ======================================================================================================
+        private void TSProgressExecutive(int get_per){
+            if (InvokeRequired){
+                Invoke(new Action<int>(TSProgressExecutive), get_per);
+                return;
+            }
+            PanelLoaderFE.Width = (int)(PanelLoaderBG.Width * (get_per / 100.0));
+            LabelLoader.Text = string.Format("{0} - {1}%", load_text, get_per);
+        }
+        // LOAD ANIMATION
+        // ======================================================================================================
+        private async Task load_animation(){
+            int progress_interval = 0;
+            int progress_increment = 2;
+            int progress_delay = 5;
+            //
+            TSProgressExecutive(0);
+            //
+            while (progress_interval < 100){
+                TSProgressExecutive(progress_interval);
+                if (progress_interval + progress_increment >= 100){
+                    progress_interval = 100;
+                    TSProgressExecutive(progress_interval);
+                    break;
+                }
+                progress_interval += progress_increment;
+                await Task.Delay(progress_delay);
+            }
+            //
+            await Task.Run(() => {
+                Invoke(new Action(() => {
+                    Glow glow = new Glow();
+                    glow.Show();
+                    //
+                    Hide();
+                }));
+            });
         }
     }
 }

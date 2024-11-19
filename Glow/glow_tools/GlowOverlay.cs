@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.VisualBasic.Devices;
+//
 using static Glow.TSModules;
 
 namespace Glow.glow_tools{
@@ -146,12 +147,12 @@ namespace Glow.glow_tools{
                             diskData[diskName] = (diskReadSpeed, diskWriteSpeed);
                         }
                     }
-                    var cDiskEntry = diskData.FirstOrDefault(kvp => kvp.Key.EndsWith("C:"));
+                    var cDiskEntry = diskData.FirstOrDefault(kvp => kvp.Key.EndsWith(Glow.windows_disk.Replace("\\", string.Empty)));
                     if (!cDiskEntry.Equals(default(KeyValuePair<string, (ulong readSpeed, ulong writeSpeed)>))){
                         var cDisk = cDiskEntry.Value;
                         float cDiskReadSpeedMB = cDisk.readSpeed / (1024 * 1024);
                         float cDiskWriteSpeedMB = cDisk.writeSpeed / (1024 * 1024);
-                        diskInformation.AppendLine($"C: - {cDiskReadSpeedMB:F1} MB/s (R) - {cDiskWriteSpeedMB:F1} MB/s (W)");
+                        diskInformation.AppendLine($"{Glow.windows_disk.Replace("\\", string.Empty)} - {cDiskReadSpeedMB:F1} MB/s (R) - {cDiskWriteSpeedMB:F1} MB/s (W)");
                     }
                     var dDiskEntry = diskData.FirstOrDefault(kvp => kvp.Key.EndsWith("D:"));
                     if (!dDiskEntry.Equals(default(KeyValuePair<string, (ulong readSpeed, ulong writeSpeed)>))){
