@@ -3405,7 +3405,7 @@ namespace Glow{
                 var search_drivers = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_SystemDriver");
                 var get_drivers_result = await Task.Run(() => search_drivers.Get().Cast<ManagementObject>().ToList(), Program.TS_TokenEngine.Token);
                 foreach (var queryDriver in get_drivers_result){
-                    string driverPath = Path.GetDirectoryName(Convert.ToString(queryDriver["PathName"])?.Trim().Replace("\"", string.Empty)) ?? string.Empty;
+                    string driverPath = Convert.ToString(queryDriver["PathName"])?.Trim().Replace("\"", string.Empty) ?? string.Empty;
                     string driverName = Path.GetFileName(Convert.ToString(queryDriver["PathName"])?.Trim()) ?? string.Empty;
                     string displayName = Convert.ToString(queryDriver["DisplayName"])?.Trim() ?? string.Empty;
                     // Mapping process
@@ -3526,7 +3526,7 @@ namespace Glow{
                 var search_services = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Service");
                 var get_services_result = await Task.Run(() => search_services.Get().Cast<ManagementObject>().ToList(), Program.TS_TokenEngine.Token);
                 foreach (var queryService in get_services_result){
-                    string processPath = Path.GetDirectoryName(Convert.ToString(queryService["PathName"])?.Trim().Replace("\"", string.Empty)) ?? string.Empty;
+                    string processPath = Convert.ToString(queryService["PathName"])?.Trim().Replace("\"", string.Empty) ?? string.Empty;
                     string serviceName = Path.GetFileName(Convert.ToString(queryService["Name"])?.Trim()) ?? string.Empty;
                     string displayName = Convert.ToString(queryService["DisplayName"])?.Trim() ?? string.Empty;
                     //
