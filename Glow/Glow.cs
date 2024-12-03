@@ -37,6 +37,8 @@ using Microsoft.Win32;
 using Microsoft.VisualBasic.Devices;
 // Component Modeling
 using System.ComponentModel;
+// Text Regular Expressions
+using System.Text.RegularExpressions;
 // Glow Modules
 using Glow.glow_tools;
 using static Glow.TSModules;
@@ -269,7 +271,7 @@ namespace Glow{
         // SOFTWARE LOAD
         // ======================================================================================================
         private void Glow_Load(object sender, EventArgs e){ 
-            Text = TS_VersionEngine.TS_SofwareVersion(0, Program.ts_version_mode);
+            Text = TS_VersionEngine.TS_SofwareVersion(0, Program.ts_version_mode); 
             // GLOW LAUNCH PROCESS
             // ====================================
             RunSoftwareEngine();
@@ -344,8 +346,8 @@ namespace Glow{
                 }catch (Exception){ }
                 try{
                     // OS ARCHITECTURE
-                    string system_bit = Convert.ToString(query_os_rotate["OSArchitecture"]).Replace("bit", "");
-                    OS_SystemArchitectural_V.Text = system_bit.Trim() + " " + TS_String_Encoder(software_lang.TSReadLangs("Os_Content", "os_c_bit")) + " - " + string.Format("(x{0})", system_bit.Trim());
+                    string system_bit = Regex.Replace(Convert.ToString(query_os_rotate["OSArchitecture"]), @"\D", string.Empty).Trim();
+                    OS_SystemArchitectural_V.Text = system_bit + " " + TS_String_Encoder(software_lang.TSReadLangs("Os_Content", "os_c_bit")) + " - " + string.Format("(x{0})", system_bit);
                 }catch (Exception){ }
                 try{
                     // OS FAMILY
@@ -2851,10 +2853,11 @@ namespace Glow{
             // NETWORK SELECT
             try{
                 int net_moduler = 0;
-                for (int i = 0; i<= NET_ListNetwork.Items.Count - 1; i++){
-                    if (NET_ListNetwork.Items[i].ToString().ToLower().Contains("realtek") || NET_ListNetwork.Items[i].ToString().ToLower().Contains("qualcomm") || NET_ListNetwork.Items[i].ToString().ToLower().Contains("killer")){
+                var targetBrands = new[] { "realtek", "qualcomm", "killer", "mediatek" };
+                for (int i = 0; i < NET_ListNetwork.Items.Count; i++){
+                    string net_list_item = NET_ListNetwork.Items[i].ToString().ToLower();
+                    if (targetBrands.Any(brand => net_list_item.Contains(brand))){
                         NET_ListNetwork.SelectedIndex = net_moduler;
-                        net_moduler = 0;
                         break;
                     }else{
                         NET_ListNetwork.SelectedIndex = 1;
@@ -3405,7 +3408,7 @@ namespace Glow{
                 var search_drivers = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_SystemDriver");
                 var get_drivers_result = await Task.Run(() => search_drivers.Get().Cast<ManagementObject>().ToList(), Program.TS_TokenEngine.Token);
                 foreach (var queryDriver in get_drivers_result){
-                    string driverPath = Convert.ToString(queryDriver["PathName"])?.Trim().Replace("\"", string.Empty) ?? string.Empty;
+                    string driverPath = Convert.ToString(queryDriver["PathName"])?.Replace("\"", string.Empty).Replace("\\??\\", string.Empty).Trim() ?? string.Empty;
                     string driverName = Path.GetFileName(Convert.ToString(queryDriver["PathName"])?.Trim()) ?? string.Empty;
                     string displayName = Convert.ToString(queryDriver["DisplayName"])?.Trim() ?? string.Empty;
                     // Mapping process
@@ -3526,7 +3529,7 @@ namespace Glow{
                 var search_services = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Service");
                 var get_services_result = await Task.Run(() => search_services.Get().Cast<ManagementObject>().ToList(), Program.TS_TokenEngine.Token);
                 foreach (var queryService in get_services_result){
-                    string processPath = Convert.ToString(queryService["PathName"])?.Trim().Replace("\"", string.Empty) ?? string.Empty;
+                    string processPath = Convert.ToString(queryService["PathName"])?.Replace("\"", string.Empty).Replace("\\??\\", string.Empty).Trim() ?? string.Empty;
                     string serviceName = Path.GetFileName(Convert.ToString(queryService["Name"])?.Trim()) ?? string.Empty;
                     string displayName = Convert.ToString(queryService["DisplayName"])?.Trim() ?? string.Empty;
                     //
@@ -4099,6 +4102,7 @@ namespace Glow{
                 BATTERY_Voltage.Text = TS_String_Encoder(software_lang.TSReadLangs("Battery", "by_voltage"));
                 BATTERY_Type.Text = TS_String_Encoder(software_lang.TSReadLangs("Battery", "by_structure"));
                 BATTERY_ReportBtn.Text = TS_String_Encoder(software_lang.TSReadLangs("Battery", "by_report_create"));
+                TS_AdjustButtonWidth(BATTERY_ReportBtn); // Dynamic Width
                 // OSD
                 OSD_DataMainTable.Columns[0].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("Osd", "osd_file_path"));
                 OSD_DataMainTable.Columns[1].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("Osd", "osd_file_name"));

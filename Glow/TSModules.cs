@@ -266,6 +266,16 @@ namespace Glow{
             }
             return Math.Round(bytes, 2);
         }
+        // DYNAMIC BUTTON WIDTH
+        // ======================================================================================================
+        public static void TS_AdjustButtonWidth(Button render_button){
+            using (Graphics btn_graphics = render_button.CreateGraphics()){
+                SizeF text_size = btn_graphics.MeasureString(render_button.Text, render_button.Font);
+                int padding_btn = render_button.Padding.Left + render_button.Padding.Right;
+                render_button.Width = (int)(text_size.Width * 1.24) + padding_btn + 15;
+                // render_button.Height = Math.Max(render_button.Height, (int)(text_size.Height * 1.2) + render_button.Padding.Top + render_button.Padding.Bottom);
+            }
+        }
         // WINDOWS PROD KEY ALGORITHM
         // ======================================================================================================
         public static class TSWindowsProductKey{

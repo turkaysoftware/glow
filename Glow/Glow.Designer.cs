@@ -8381,7 +8381,6 @@
             this.BATTERY_ReportBtn.Size = new System.Drawing.Size(353, 37);
             this.BATTERY_ReportBtn.TabIndex = 10;
             this.BATTERY_ReportBtn.Text = "Pil Raporu Oluştur";
-            this.BATTERY_ReportBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BATTERY_ReportBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BATTERY_ReportBtn.UseVisualStyleBackColor = false;
             this.BATTERY_ReportBtn.Click += new System.EventHandler(this.BATTERY_ReportBtn_Click);
