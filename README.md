@@ -1,5 +1,7 @@
 # Glow - System Analysis Software
 
+>_**Note:** We are releasing the final Glow update of 2024. Thank you for your continued support, and we are excited to announce that new versions will be available starting from the second quarter of 2025._
+
 **Glow** is a powerful **system analysis tool** created by **Eray Türkay**, designed to provide an intuitive overview of both the hardware and software capabilities of your computer. With its **simple, user-friendly interface**, even users with limited technical knowledge can access detailed system information with ease.
 
 - **Privacy First**: All system data remains on your computer; **no information is transferred externally**, ensuring your privacy and security.
