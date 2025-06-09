@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using static Glow.TSModules;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Glow.glow_tools{
     public partial class GlowBenchDisk : Form{

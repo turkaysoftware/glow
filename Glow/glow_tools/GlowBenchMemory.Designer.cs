@@ -109,7 +109,7 @@
             this.Bench_MStart.Location = new System.Drawing.Point(0, 0);
             this.Bench_MStart.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.Bench_MStart.Name = "Bench_MStart";
-            this.Bench_MStart.Size = new System.Drawing.Size(275, 39);
+            this.Bench_MStart.Size = new System.Drawing.Size(275, 45);
             this.Bench_MStart.TabIndex = 8;
             this.Bench_MStart.Text = "BAŞLAT";
             this.Bench_MStart.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -131,7 +131,7 @@
             this.Bench_MStop.Location = new System.Drawing.Point(277, 0);
             this.Bench_MStop.Margin = new System.Windows.Forms.Padding(1, 0, 0, 0);
             this.Bench_MStop.Name = "Bench_MStop";
-            this.Bench_MStop.Size = new System.Drawing.Size(276, 39);
+            this.Bench_MStop.Size = new System.Drawing.Size(276, 45);
             this.Bench_MStop.TabIndex = 9;
             this.Bench_MStop.Text = "DURDUR";
             this.Bench_MStop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -155,12 +155,12 @@
             this.Bench_ControlTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.Bench_ControlTLP.Controls.Add(this.Bench_MStart, 0, 0);
             this.Bench_ControlTLP.Controls.Add(this.Bench_MStop, 1, 0);
-            this.Bench_ControlTLP.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Bench_ControlTLP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Bench_ControlTLP.Location = new System.Drawing.Point(0, 0);
             this.Bench_ControlTLP.Name = "Bench_ControlTLP";
             this.Bench_ControlTLP.RowCount = 1;
             this.Bench_ControlTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.Bench_ControlTLP.Size = new System.Drawing.Size(553, 39);
+            this.Bench_ControlTLP.Size = new System.Drawing.Size(553, 45);
             this.Bench_ControlTLP.TabIndex = 11;
             // 
             // GlowBenchMemory
