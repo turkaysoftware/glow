@@ -1,7 +1,5 @@
 # Glow - System Analysis Software
 
->_**Note:** We are releasing the final Glow update of 2024. Thank you for your continued support, and we are excited to announce that new versions will be available starting from the second quarter of 2025._
-
 **Glow** is a powerful **system analysis tool** created by **Eray Türkay**, designed to provide an intuitive overview of both the hardware and software capabilities of your computer. With its **simple, user-friendly interface**, even users with limited technical knowledge can access detailed system information with ease.
 
 - **Privacy First**: All system data remains on your computer; **no information is transferred externally**, ensuring your privacy and security.
@@ -12,9 +10,9 @@
 
 [Click here](https://www.turkaysoftware.com/glow) for full specifications.
 
-![Glow UI Dark](https://github.com/user-attachments/assets/85fb412c-131d-4949-9228-b00dbfde0d92)
+![Glow UI Dark](https://github.com/user-attachments/assets/4e314c09-d12d-4f87-9cd2-132a5de41e9c)
 
-![Glow UI Light](https://github.com/user-attachments/assets/79d4b1fd-c51e-4c87-a56b-cec2835022d8)
+![Glow UI Light](https://github.com/user-attachments/assets/0468448c-7537-43e7-9956-e5ac442fab21)
 
 # Download Glow
 
