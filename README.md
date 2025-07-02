@@ -88,7 +88,7 @@ With these instructions, you can download and use the correct version of Glow fo
 | RAM: | 75 MB Free RAM | 100 MB Free RAM |
 | .NET: | .NET Framework 4.8.1 | .NET Framework 4.8.1 |
 
-# Glow - Shortcut Key Layouts
+# Shortcut Key Layouts
 
 | Main Features | Key |
 | -- | :--: |
