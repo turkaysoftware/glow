@@ -87,3 +87,35 @@ With these instructions, you can download and use the correct version of Glow fo
 | OS: | Windows 10 x64 | Windows 10 22H2 x64|
 | RAM: | 75 MB Free RAM | 100 MB Free RAM |
 | .NET: | .NET Framework 4.8.1 | .NET Framework 4.8.1 |
+
+# Glow - Shortcut Key Layouts
+
+| Main Features | Key |
+| -- | :--: |
+| **Theme:** Light | F1 |
+| **Theme:** Dark | F2 |
+| **Start:** Windowed | F3 |
+| **Start:** Full Screen | F4 |
+| **Hiding Mode:** On | F5 |
+| **Hiding Mode:** Off | F6 |
+
+| Tools | Key |
+| -- | :--: |
+| **SFC and DISM Automation Tool** | CTRL + Q |
+| **Cache Cleanup Tool** | CTRL + W |
+| **CPU Benchmark Tool** | CTRL + E |
+| **RAM Test Tool** | CTRL + R |
+| **Disk Benchmark Tool** | CTRL + T |
+| **Screen Overlay** | CTRL + Y |
+| **DNS Test Tool** | CTRL + U |
+| **Quick Access Tool** | CTRL + I |
+| **Network Troubleshooting Tool** | CTRL + O |
+| **Wi-Fi Password Showing Tool** | CTRL + P |
+| **Monitor Test Tools:** Dead Pixel Test | CTRL + Z |
+| **Monitor Test Tools:** Dynamic Color Range Test | CTRL + X |
+
+| Extras | Key |
+| -- | :--: |
+| **Check Update** | F11 |
+| **About** | F12 |
+| **TS Wizard** | CTRL + Shift + S |
