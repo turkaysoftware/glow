@@ -6,7 +6,7 @@ Every little bit helps—it keeps me motivated and gives me more time to improve
 
 👉 [Buy Me a Coffee - @turkaysoftware](https://buymeacoffee.com/turkaysoftware)
 
-![Buy Me a Coffee - @turkaysoftware](https://github.com/user-attachments/assets/49bd55a0-254c-4848-9b43-2c243b018150)
+![Buy Me a Coffee - @turkaysoftware](https://github.com/user-attachments/assets/e2b6d354-d5a4-4ff3-9648-88510a59818c)
 
 **Glow** is a powerful **system analysis tool** created by **Eray Türkay**, designed to provide an intuitive overview of both the hardware and software capabilities of your computer. With its **simple, user-friendly interface**, even users with limited technical knowledge can access detailed system information with ease.
 
