@@ -1,5 +1,7 @@
 # Glow - System Analysis Software
 
+<a href="https://www.buymeacoffee.com/turkaysoftware"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=turkaysoftware&button_colour=5F7FFF&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00" /></a>
+
 **Glow** is a powerful **system analysis tool** created by **Eray Türkay**, designed to provide an intuitive overview of both the hardware and software capabilities of your computer. With its **simple, user-friendly interface**, even users with limited technical knowledge can access detailed system information with ease.
 
 - **Privacy First**: All system data remains on your computer; **no information is transferred externally**, ensuring your privacy and security.
