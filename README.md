@@ -48,6 +48,8 @@ With these instructions, you can download and use the correct version of Glow fo
 
 # User Friendly Features
 
+>To view the **Extra Tools**, you **need to right-click on an area in Glow**.
+
 - **Comprehensive System Information:** Provides detailed information about your Operating System, Motherboard, Processor, RAM, Graphics Card, Storage, Network, USB, Sound, Battery, Installed Drivers, and Installed Services.
 - **Light and Dark Theme Support:** Switch between light and dark themes to reduce eye strain and enhance your viewing experience.
 - **Multi-Language Support:** Available in 10 different languages for better accessibility.
@@ -63,6 +65,8 @@ With these instructions, you can download and use the correct version of Glow fo
 - **Network Repair Tool:** Helps diagnose and resolve common network connection issues.
 - **Saved Wi-Fi Password Viewer:** Allows you to view saved Wi-Fi passwords when needed.
 - **Monitor Test Tools:** Provides built-in tools to evaluate monitor performance.
+
+>To view the **Extra Tools**, you **need to right-click on an area in Glow**.
 
 # Supported Languages
 
