@@ -18,9 +18,9 @@ Every little bit helps—it keeps me motivated and gives me more time to improve
 
 [Click here](https://www.turkaysoftware.com/glow) for full specifications.
 
-![Glow UI Dark](https://github.com/user-attachments/assets/c9c61bad-1a9b-47cf-ba9a-ef1f4f4e886e)
+![Glow UI - Dark](https://github.com/user-attachments/assets/95a848d5-5468-44d2-ae0d-ba8010aabcc0)
 
-![Glow UI Light](https://github.com/user-attachments/assets/d1d7e0c5-a7e2-4323-ab2c-4b826ca79f5a)
+![Glow UI - Light](https://github.com/user-attachments/assets/ee6c2528-d644-4367-b1b6-ffd89e8e19c5)
 
 # Download Glow
 
