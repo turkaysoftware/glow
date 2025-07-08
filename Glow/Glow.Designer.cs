@@ -37,9 +37,14 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Glow));
             this.LeftMenuPanel = new System.Windows.Forms.Panel();
             this.PRINT_RotateBtn = new System.Windows.Forms.Button();
+            this.INSTALLED_RotateBtn = new System.Windows.Forms.Button();
             this.SERVICES_RotateBtn = new System.Windows.Forms.Button();
             this.OSD_RotateBtn = new System.Windows.Forms.Button();
             this.BATTERY_RotateBtn = new System.Windows.Forms.Button();
@@ -75,20 +80,8 @@
             this.hidingModeOnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hidingModeOffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkforUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sFCandDISMAutoToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cacheCleaningToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.benchCPUToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.benchRAMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.benchDiskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.screenOverlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dNSTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.quickAccessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.networkFixToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showWiFiPasswordToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.monitorTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.monitorDeadPixelTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.monitorDynamicRangeTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tSWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bmacToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainContent = new System.Windows.Forms.TabControl();
             this.OS = new System.Windows.Forms.TabPage();
@@ -437,6 +430,10 @@
             this.DISK_MediaStatus = new System.Windows.Forms.Label();
             this.DISK_MediaLoaded_V = new System.Windows.Forms.Label();
             this.disk_panel_2 = new System.Windows.Forms.Panel();
+            this.DISK_CaptionList = new System.Windows.Forms.ComboBox();
+            this.DISK_PBar_BG = new System.Windows.Forms.Panel();
+            this.DISK_PBar_FE = new System.Windows.Forms.Panel();
+            this.DISK_PBar_Label = new System.Windows.Forms.Label();
             this.DISK_Man_V = new System.Windows.Forms.Label();
             this.DISK_Man = new System.Windows.Forms.Label();
             this.DISK_VolumeName_V = new System.Windows.Forms.Label();
@@ -458,7 +455,6 @@
             this.DISK_VolumeSerial_V = new System.Windows.Forms.Label();
             this.DISK_Serial_V = new System.Windows.Forms.Label();
             this.DISK_VolumeSerial = new System.Windows.Forms.Label();
-            this.DISK_CaptionList = new System.Windows.Forms.ComboBox();
             this.disk_panel_1 = new System.Windows.Forms.Panel();
             this.DISK_TotalTLP = new System.Windows.Forms.TableLayoutPanel();
             this.DISK_TTLP_Panel_4 = new System.Windows.Forms.Panel();
@@ -604,6 +600,16 @@
             this.SERVICE_DataMainTable = new System.Windows.Forms.DataGridView();
             this.SERVICE_TextBox = new System.Windows.Forms.TextBox();
             this.SERVICE_TYS_V = new System.Windows.Forms.Label();
+            this.INSTAPPS = new System.Windows.Forms.TabPage();
+            this.INSTAPPS_TLP = new System.Windows.Forms.TableLayoutPanel();
+            this.instapps_panel_1 = new System.Windows.Forms.Panel();
+            this.INSTAPPS_SortMode = new System.Windows.Forms.CheckBox();
+            this.INSTAPPS_TextBoxClearBtn = new System.Windows.Forms.Button();
+            this.INSTAPPS_TYUS = new System.Windows.Forms.Label();
+            this.INSTAPPS_SearchAppsLabel = new System.Windows.Forms.Label();
+            this.INSTAPPS_DataMainTable = new System.Windows.Forms.DataGridView();
+            this.INSTAPPS_TextBox = new System.Windows.Forms.TextBox();
+            this.INSTAPPS_TYUS_V = new System.Windows.Forms.Label();
             this.PRINT = new System.Windows.Forms.TabPage();
             this.EXPORT_TLP = new System.Windows.Forms.TableLayoutPanel();
             this.print_panel_1 = new System.Windows.Forms.Panel();
@@ -618,6 +624,20 @@
             this.HeaderText = new System.Windows.Forms.Label();
             this.MainToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.HeaderPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.RightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.sFCandDISMAutoTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.cacheCleaningTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.benchCPUTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.benchRAMTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.benchDiskTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.screenOverlayTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.dNSTestTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.quickAccessTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.networkFixToolTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.showWiFiPasswordTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.monitorTestTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.monitorDeadPixelTestTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.monitorDynamicRangeTestTool = new System.Windows.Forms.ToolStripMenuItem();
             this.LeftMenuPanel.SuspendLayout();
             this.HeaderMenu.SuspendLayout();
             this.MainContent.SuspendLayout();
@@ -662,6 +682,7 @@
             this.DISK_TLP.SuspendLayout();
             this.disk_panel_3.SuspendLayout();
             this.disk_panel_2.SuspendLayout();
+            this.DISK_PBar_BG.SuspendLayout();
             this.disk_panel_1.SuspendLayout();
             this.DISK_TotalTLP.SuspendLayout();
             this.DISK_TTLP_Panel_4.SuspendLayout();
@@ -699,6 +720,10 @@
             this.SERVICE_TLP.SuspendLayout();
             this.service_panel_1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SERVICE_DataMainTable)).BeginInit();
+            this.INSTAPPS.SuspendLayout();
+            this.INSTAPPS_TLP.SuspendLayout();
+            this.instapps_panel_1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.INSTAPPS_DataMainTable)).BeginInit();
             this.PRINT.SuspendLayout();
             this.EXPORT_TLP.SuspendLayout();
             this.print_panel_1.SuspendLayout();
@@ -706,6 +731,7 @@
             this.Header_InPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderImage)).BeginInit();
             this.HeaderPanel.SuspendLayout();
+            this.RightClickMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // LeftMenuPanel
@@ -713,6 +739,7 @@
             this.LeftMenuPanel.AutoScroll = true;
             this.LeftMenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.LeftMenuPanel.Controls.Add(this.PRINT_RotateBtn);
+            this.LeftMenuPanel.Controls.Add(this.INSTALLED_RotateBtn);
             this.LeftMenuPanel.Controls.Add(this.SERVICES_RotateBtn);
             this.LeftMenuPanel.Controls.Add(this.OSD_RotateBtn);
             this.LeftMenuPanel.Controls.Add(this.BATTERY_RotateBtn);
@@ -745,16 +772,41 @@
             this.PRINT_RotateBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.PRINT_RotateBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.PRINT_RotateBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.PRINT_RotateBtn.Location = new System.Drawing.Point(0, 504);
+            this.PRINT_RotateBtn.Location = new System.Drawing.Point(0, 546);
             this.PRINT_RotateBtn.Name = "PRINT_RotateBtn";
             this.PRINT_RotateBtn.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
             this.PRINT_RotateBtn.Size = new System.Drawing.Size(191, 42);
-            this.PRINT_RotateBtn.TabIndex = 12;
+            this.PRINT_RotateBtn.TabIndex = 13;
             this.PRINT_RotateBtn.Text = " Dışa Aktar";
             this.PRINT_RotateBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.PRINT_RotateBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.PRINT_RotateBtn.UseVisualStyleBackColor = false;
             this.PRINT_RotateBtn.Click += new System.EventHandler(this.PRINT_RotateBtn_Click);
+            // 
+            // INSTALLED_RotateBtn
+            // 
+            this.INSTALLED_RotateBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.INSTALLED_RotateBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.INSTALLED_RotateBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.INSTALLED_RotateBtn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.INSTALLED_RotateBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.INSTALLED_RotateBtn.FlatAppearance.BorderSize = 0;
+            this.INSTALLED_RotateBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.INSTALLED_RotateBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.INSTALLED_RotateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.INSTALLED_RotateBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.INSTALLED_RotateBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.INSTALLED_RotateBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.INSTALLED_RotateBtn.Location = new System.Drawing.Point(0, 504);
+            this.INSTALLED_RotateBtn.Name = "INSTALLED_RotateBtn";
+            this.INSTALLED_RotateBtn.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
+            this.INSTALLED_RotateBtn.Size = new System.Drawing.Size(191, 42);
+            this.INSTALLED_RotateBtn.TabIndex = 12;
+            this.INSTALLED_RotateBtn.Text = " Yüklü Uygulamalar";
+            this.INSTALLED_RotateBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.INSTALLED_RotateBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.INSTALLED_RotateBtn.UseVisualStyleBackColor = false;
+            this.INSTALLED_RotateBtn.Click += new System.EventHandler(this.INSTALLED_RotateBtn_Click);
             // 
             // SERVICES_RotateBtn
             // 
@@ -1063,11 +1115,12 @@
             this.HeaderMenu.Dock = System.Windows.Forms.DockStyle.None;
             this.HeaderMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
-            this.toolsToolStripMenuItem,
+            this.tSWizardToolStripMenuItem,
+            this.bmacToolStripMenuItem,
             this.aboutToolStripMenuItem});
-            this.HeaderMenu.Location = new System.Drawing.Point(637, 9);
+            this.HeaderMenu.Location = new System.Drawing.Point(567, 9);
             this.HeaderMenu.Name = "HeaderMenu";
-            this.HeaderMenu.Size = new System.Drawing.Size(168, 24);
+            this.HeaderMenu.Size = new System.Drawing.Size(238, 24);
             this.HeaderMenu.TabIndex = 1;
             this.HeaderMenu.Text = "menuStrip1";
             // 
@@ -1279,143 +1332,25 @@
             this.checkforUpdatesToolStripMenuItem.Text = "CheckforUpdates";
             this.checkforUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkforUpdatesToolStripMenuItem_Click);
             // 
-            // toolsToolStripMenuItem
+            // tSWizardToolStripMenuItem
             // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sFCandDISMAutoToolToolStripMenuItem,
-            this.cacheCleaningToolToolStripMenuItem,
-            this.benchCPUToolStripMenuItem,
-            this.benchRAMToolStripMenuItem,
-            this.benchDiskToolStripMenuItem,
-            this.screenOverlayToolStripMenuItem,
-            this.dNSTestToolStripMenuItem,
-            this.quickAccessToolStripMenuItem,
-            this.networkFixToolToolStripMenuItem,
-            this.showWiFiPasswordToolToolStripMenuItem,
-            this.monitorTestToolStripMenuItem});
-            this.toolsToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
+            this.tSWizardToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.tSWizardToolStripMenuItem.Name = "tSWizardToolStripMenuItem";
+            this.tSWizardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.tSWizardToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.tSWizardToolStripMenuItem.Text = "TSWizard";
+            this.tSWizardToolStripMenuItem.Click += new System.EventHandler(this.tSWizardToolStripMenuItem_Click);
             // 
-            // sFCandDISMAutoToolToolStripMenuItem
+            // bmacToolStripMenuItem
             // 
-            this.sFCandDISMAutoToolToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.sFCandDISMAutoToolToolStripMenuItem.Name = "sFCandDISMAutoToolToolStripMenuItem";
-            this.sFCandDISMAutoToolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.sFCandDISMAutoToolToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.sFCandDISMAutoToolToolStripMenuItem.Text = "SFC And DISM Tool";
-            this.sFCandDISMAutoToolToolStripMenuItem.Click += new System.EventHandler(this.sFCandDISMAutoToolToolStripMenuItem_Click);
-            // 
-            // cacheCleaningToolToolStripMenuItem
-            // 
-            this.cacheCleaningToolToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.cacheCleaningToolToolStripMenuItem.Name = "cacheCleaningToolToolStripMenuItem";
-            this.cacheCleaningToolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.cacheCleaningToolToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.cacheCleaningToolToolStripMenuItem.Text = "CacheCleaningTool";
-            this.cacheCleaningToolToolStripMenuItem.Click += new System.EventHandler(this.cacheCleaningToolToolStripMenuItem_Click);
-            // 
-            // benchCPUToolStripMenuItem
-            // 
-            this.benchCPUToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.benchCPUToolStripMenuItem.Enabled = false;
-            this.benchCPUToolStripMenuItem.Name = "benchCPUToolStripMenuItem";
-            this.benchCPUToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.benchCPUToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.benchCPUToolStripMenuItem.Text = "BenchCPU";
-            this.benchCPUToolStripMenuItem.Click += new System.EventHandler(this.benchCPUToolStripMenuItem_Click);
-            // 
-            // benchRAMToolStripMenuItem
-            // 
-            this.benchRAMToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.benchRAMToolStripMenuItem.Name = "benchRAMToolStripMenuItem";
-            this.benchRAMToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.benchRAMToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.benchRAMToolStripMenuItem.Text = "BenchRAM";
-            this.benchRAMToolStripMenuItem.Click += new System.EventHandler(this.benchRAMToolStripMenuItem_Click);
-            // 
-            // benchDiskToolStripMenuItem
-            // 
-            this.benchDiskToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.benchDiskToolStripMenuItem.Name = "benchDiskToolStripMenuItem";
-            this.benchDiskToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.benchDiskToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.benchDiskToolStripMenuItem.Text = "BenchDisk";
-            this.benchDiskToolStripMenuItem.Click += new System.EventHandler(this.benchDiskToolStripMenuItem_Click);
-            // 
-            // screenOverlayToolStripMenuItem
-            // 
-            this.screenOverlayToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.screenOverlayToolStripMenuItem.Name = "screenOverlayToolStripMenuItem";
-            this.screenOverlayToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.screenOverlayToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.screenOverlayToolStripMenuItem.Text = "ScreenOverlay";
-            this.screenOverlayToolStripMenuItem.Click += new System.EventHandler(this.screenOverlayToolStripMenuItem_Click);
-            // 
-            // dNSTestToolStripMenuItem
-            // 
-            this.dNSTestToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.dNSTestToolStripMenuItem.Name = "dNSTestToolStripMenuItem";
-            this.dNSTestToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
-            this.dNSTestToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.dNSTestToolStripMenuItem.Text = "DNSTest";
-            this.dNSTestToolStripMenuItem.Click += new System.EventHandler(this.dNSTestToolStripMenuItem_Click);
-            // 
-            // quickAccessToolStripMenuItem
-            // 
-            this.quickAccessToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.quickAccessToolStripMenuItem.Name = "quickAccessToolStripMenuItem";
-            this.quickAccessToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.quickAccessToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.quickAccessToolStripMenuItem.Text = "Quick Access";
-            this.quickAccessToolStripMenuItem.Click += new System.EventHandler(this.quickAccessToolStripMenuItem_Click);
-            // 
-            // networkFixToolToolStripMenuItem
-            // 
-            this.networkFixToolToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.networkFixToolToolStripMenuItem.Name = "networkFixToolToolStripMenuItem";
-            this.networkFixToolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.networkFixToolToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.networkFixToolToolStripMenuItem.Text = "Network Fix Tool";
-            this.networkFixToolToolStripMenuItem.Click += new System.EventHandler(this.networkFixToolToolStripMenuItem_Click);
-            // 
-            // showWiFiPasswordToolToolStripMenuItem
-            // 
-            this.showWiFiPasswordToolToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.showWiFiPasswordToolToolStripMenuItem.Name = "showWiFiPasswordToolToolStripMenuItem";
-            this.showWiFiPasswordToolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.showWiFiPasswordToolToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.showWiFiPasswordToolToolStripMenuItem.Text = "Show Wi-Fi Password";
-            this.showWiFiPasswordToolToolStripMenuItem.Click += new System.EventHandler(this.showWiFiPasswordToolToolStripMenuItem_Click);
-            // 
-            // monitorTestToolStripMenuItem
-            // 
-            this.monitorTestToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.monitorTestToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.monitorDeadPixelTestToolStripMenuItem,
-            this.monitorDynamicRangeTestToolStripMenuItem});
-            this.monitorTestToolStripMenuItem.Name = "monitorTestToolStripMenuItem";
-            this.monitorTestToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.monitorTestToolStripMenuItem.Text = "MonitorTest";
-            // 
-            // monitorDeadPixelTestToolStripMenuItem
-            // 
-            this.monitorDeadPixelTestToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.monitorDeadPixelTestToolStripMenuItem.Name = "monitorDeadPixelTestToolStripMenuItem";
-            this.monitorDeadPixelTestToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.monitorDeadPixelTestToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
-            this.monitorDeadPixelTestToolStripMenuItem.Text = "MonitorDeadPixelTest";
-            this.monitorDeadPixelTestToolStripMenuItem.Click += new System.EventHandler(this.monitorDeadPixelTestToolStripMenuItem_Click);
-            // 
-            // monitorDynamicRangeTestToolStripMenuItem
-            // 
-            this.monitorDynamicRangeTestToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.monitorDynamicRangeTestToolStripMenuItem.Name = "monitorDynamicRangeTestToolStripMenuItem";
-            this.monitorDynamicRangeTestToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.monitorDynamicRangeTestToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
-            this.monitorDynamicRangeTestToolStripMenuItem.Text = "MonitorDynamicRangeTest";
-            this.monitorDynamicRangeTestToolStripMenuItem.Click += new System.EventHandler(this.monitorDynamicRangeTestToolStripMenuItem_Click);
+            this.bmacToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.bmacToolStripMenuItem.Name = "bmacToolStripMenuItem";
+            this.bmacToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.D)));
+            this.bmacToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.bmacToolStripMenuItem.Text = "Bmac";
+            this.bmacToolStripMenuItem.Click += new System.EventHandler(this.bmacToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -1443,6 +1378,7 @@
             this.MainContent.Controls.Add(this.BATTERY);
             this.MainContent.Controls.Add(this.OSD);
             this.MainContent.Controls.Add(this.GSERVICE);
+            this.MainContent.Controls.Add(this.INSTAPPS);
             this.MainContent.Controls.Add(this.PRINT);
             this.MainContent.Location = new System.Drawing.Point(185, 19);
             this.MainContent.Name = "MainContent";
@@ -6403,6 +6339,9 @@
             // 
             this.disk_panel_2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.disk_panel_2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.disk_panel_2.Controls.Add(this.DISK_CaptionList);
+            this.disk_panel_2.Controls.Add(this.DISK_PBar_BG);
+            this.disk_panel_2.Controls.Add(this.DISK_PBar_Label);
             this.disk_panel_2.Controls.Add(this.DISK_Man_V);
             this.disk_panel_2.Controls.Add(this.DISK_Man);
             this.disk_panel_2.Controls.Add(this.DISK_VolumeName_V);
@@ -6424,13 +6363,62 @@
             this.disk_panel_2.Controls.Add(this.DISK_VolumeSerial_V);
             this.disk_panel_2.Controls.Add(this.DISK_Serial_V);
             this.disk_panel_2.Controls.Add(this.DISK_VolumeSerial);
-            this.disk_panel_2.Controls.Add(this.DISK_CaptionList);
             this.disk_panel_2.Dock = System.Windows.Forms.DockStyle.Top;
             this.disk_panel_2.Location = new System.Drawing.Point(5, 97);
             this.disk_panel_2.Margin = new System.Windows.Forms.Padding(2, 1, 3, 1);
             this.disk_panel_2.Name = "disk_panel_2";
+            this.disk_panel_2.Padding = new System.Windows.Forms.Padding(10);
             this.disk_panel_2.Size = new System.Drawing.Size(794, 501);
             this.disk_panel_2.TabIndex = 0;
+            // 
+            // DISK_CaptionList
+            // 
+            this.DISK_CaptionList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.DISK_CaptionList.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DISK_CaptionList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DISK_CaptionList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DISK_CaptionList.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.DISK_CaptionList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            this.DISK_CaptionList.FormattingEnabled = true;
+            this.DISK_CaptionList.Location = new System.Drawing.Point(382, 9);
+            this.DISK_CaptionList.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
+            this.DISK_CaptionList.Name = "DISK_CaptionList";
+            this.DISK_CaptionList.Size = new System.Drawing.Size(345, 28);
+            this.DISK_CaptionList.TabIndex = 1;
+            this.DISK_CaptionList.SelectedIndexChanged += new System.EventHandler(this.DISK_CaptionList_SelectedIndexChanged);
+            // 
+            // DISK_PBar_BG
+            // 
+            this.DISK_PBar_BG.Controls.Add(this.DISK_PBar_FE);
+            this.DISK_PBar_BG.Dock = System.Windows.Forms.DockStyle.Right;
+            this.DISK_PBar_BG.Location = new System.Drawing.Point(775, 10);
+            this.DISK_PBar_BG.Name = "DISK_PBar_BG";
+            this.DISK_PBar_BG.Size = new System.Drawing.Size(9, 481);
+            this.DISK_PBar_BG.TabIndex = 23;
+            // 
+            // DISK_PBar_FE
+            // 
+            this.DISK_PBar_FE.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
+            this.DISK_PBar_FE.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DISK_PBar_FE.Location = new System.Drawing.Point(0, 481);
+            this.DISK_PBar_FE.Name = "DISK_PBar_FE";
+            this.DISK_PBar_FE.Size = new System.Drawing.Size(9, 0);
+            this.DISK_PBar_FE.TabIndex = 0;
+            // 
+            // DISK_PBar_Label
+            // 
+            this.DISK_PBar_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DISK_PBar_Label.BackColor = System.Drawing.Color.Transparent;
+            this.DISK_PBar_Label.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.DISK_PBar_Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            this.DISK_PBar_Label.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.DISK_PBar_Label.Location = new System.Drawing.Point(708, 471);
+            this.DISK_PBar_Label.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.DISK_PBar_Label.Name = "DISK_PBar_Label";
+            this.DISK_PBar_Label.Size = new System.Drawing.Size(78, 20);
+            this.DISK_PBar_Label.TabIndex = 22;
+            this.DISK_PBar_Label.Text = "N/A";
+            this.DISK_PBar_Label.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // DISK_Man_V
             // 
@@ -6714,22 +6702,6 @@
             this.DISK_VolumeSerial.Size = new System.Drawing.Size(142, 20);
             this.DISK_VolumeSerial.TabIndex = 16;
             this.DISK_VolumeSerial.Text = "Disk Bölüm Düzeni:";
-            // 
-            // DISK_CaptionList
-            // 
-            this.DISK_CaptionList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.DISK_CaptionList.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DISK_CaptionList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.DISK_CaptionList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DISK_CaptionList.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.DISK_CaptionList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
-            this.DISK_CaptionList.FormattingEnabled = true;
-            this.DISK_CaptionList.Location = new System.Drawing.Point(382, 9);
-            this.DISK_CaptionList.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
-            this.DISK_CaptionList.Name = "DISK_CaptionList";
-            this.DISK_CaptionList.Size = new System.Drawing.Size(365, 28);
-            this.DISK_CaptionList.TabIndex = 1;
-            this.DISK_CaptionList.SelectedIndexChanged += new System.EventHandler(this.DISK_CaptionList_SelectedIndexChanged);
             // 
             // disk_panel_1
             // 
@@ -8883,6 +8855,187 @@
             this.SERVICE_TYS_V.Text = "N/A";
             this.SERVICE_TYS_V.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // INSTAPPS
+            // 
+            this.INSTAPPS.Controls.Add(this.INSTAPPS_TLP);
+            this.INSTAPPS.Location = new System.Drawing.Point(4, 22);
+            this.INSTAPPS.Name = "INSTAPPS";
+            this.INSTAPPS.Size = new System.Drawing.Size(819, 561);
+            this.INSTAPPS.TabIndex = 16;
+            this.INSTAPPS.Text = "INSTAPPS";
+            this.INSTAPPS.UseVisualStyleBackColor = true;
+            // 
+            // INSTAPPS_TLP
+            // 
+            this.INSTAPPS_TLP.ColumnCount = 1;
+            this.INSTAPPS_TLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.INSTAPPS_TLP.Controls.Add(this.instapps_panel_1, 0, 0);
+            this.INSTAPPS_TLP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.INSTAPPS_TLP.Location = new System.Drawing.Point(0, 0);
+            this.INSTAPPS_TLP.Name = "INSTAPPS_TLP";
+            this.INSTAPPS_TLP.Padding = new System.Windows.Forms.Padding(3, 3, 0, 3);
+            this.INSTAPPS_TLP.RowCount = 1;
+            this.INSTAPPS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.INSTAPPS_TLP.Size = new System.Drawing.Size(819, 561);
+            this.INSTAPPS_TLP.TabIndex = 0;
+            // 
+            // instapps_panel_1
+            // 
+            this.instapps_panel_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.instapps_panel_1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.instapps_panel_1.Controls.Add(this.INSTAPPS_SortMode);
+            this.instapps_panel_1.Controls.Add(this.INSTAPPS_TextBoxClearBtn);
+            this.instapps_panel_1.Controls.Add(this.INSTAPPS_TYUS);
+            this.instapps_panel_1.Controls.Add(this.INSTAPPS_SearchAppsLabel);
+            this.instapps_panel_1.Controls.Add(this.INSTAPPS_DataMainTable);
+            this.instapps_panel_1.Controls.Add(this.INSTAPPS_TextBox);
+            this.instapps_panel_1.Controls.Add(this.INSTAPPS_TYUS_V);
+            this.instapps_panel_1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.instapps_panel_1.Location = new System.Drawing.Point(5, 4);
+            this.instapps_panel_1.Margin = new System.Windows.Forms.Padding(2, 1, 3, 1);
+            this.instapps_panel_1.Name = "instapps_panel_1";
+            this.instapps_panel_1.Size = new System.Drawing.Size(811, 553);
+            this.instapps_panel_1.TabIndex = 0;
+            // 
+            // INSTAPPS_SortMode
+            // 
+            this.INSTAPPS_SortMode.AutoSize = true;
+            this.INSTAPPS_SortMode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.INSTAPPS_SortMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.INSTAPPS_SortMode.Location = new System.Drawing.Point(12, 63);
+            this.INSTAPPS_SortMode.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.INSTAPPS_SortMode.Name = "INSTAPPS_SortMode";
+            this.INSTAPPS_SortMode.Size = new System.Drawing.Size(106, 21);
+            this.INSTAPPS_SortMode.TabIndex = 5;
+            this.INSTAPPS_SortMode.Text = "Tersten sırala";
+            this.INSTAPPS_SortMode.UseVisualStyleBackColor = true;
+            this.INSTAPPS_SortMode.CheckedChanged += new System.EventHandler(this.INSTAPPS_SortMode_CheckedChanged);
+            // 
+            // INSTAPPS_TextBoxClearBtn
+            // 
+            this.INSTAPPS_TextBoxClearBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            this.INSTAPPS_TextBoxClearBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.INSTAPPS_TextBoxClearBtn.Enabled = false;
+            this.INSTAPPS_TextBoxClearBtn.FlatAppearance.BorderSize = 0;
+            this.INSTAPPS_TextBoxClearBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.INSTAPPS_TextBoxClearBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.INSTAPPS_TextBoxClearBtn.ForeColor = System.Drawing.Color.White;
+            this.INSTAPPS_TextBoxClearBtn.Location = new System.Drawing.Point(261, 32);
+            this.INSTAPPS_TextBoxClearBtn.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.INSTAPPS_TextBoxClearBtn.Name = "INSTAPPS_TextBoxClearBtn";
+            this.INSTAPPS_TextBoxClearBtn.Size = new System.Drawing.Size(25, 25);
+            this.INSTAPPS_TextBoxClearBtn.TabIndex = 2;
+            this.INSTAPPS_TextBoxClearBtn.Text = "X";
+            this.INSTAPPS_TextBoxClearBtn.UseVisualStyleBackColor = false;
+            this.INSTAPPS_TextBoxClearBtn.Click += new System.EventHandler(this.INSTAPPS_TextBoxClearBtn_Click);
+            // 
+            // INSTAPPS_TYUS
+            // 
+            this.INSTAPPS_TYUS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.INSTAPPS_TYUS.BackColor = System.Drawing.Color.Transparent;
+            this.INSTAPPS_TYUS.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.INSTAPPS_TYUS.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.INSTAPPS_TYUS.Location = new System.Drawing.Point(498, 21);
+            this.INSTAPPS_TYUS.Name = "INSTAPPS_TYUS";
+            this.INSTAPPS_TYUS.Size = new System.Drawing.Size(300, 25);
+            this.INSTAPPS_TYUS.TabIndex = 3;
+            this.INSTAPPS_TYUS.Text = "Yüklü Uygulamalar";
+            this.INSTAPPS_TYUS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // INSTAPPS_SearchAppsLabel
+            // 
+            this.INSTAPPS_SearchAppsLabel.AutoSize = true;
+            this.INSTAPPS_SearchAppsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.INSTAPPS_SearchAppsLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.INSTAPPS_SearchAppsLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.INSTAPPS_SearchAppsLabel.Location = new System.Drawing.Point(9, 10);
+            this.INSTAPPS_SearchAppsLabel.Name = "INSTAPPS_SearchAppsLabel";
+            this.INSTAPPS_SearchAppsLabel.Size = new System.Drawing.Size(100, 19);
+            this.INSTAPPS_SearchAppsLabel.TabIndex = 0;
+            this.INSTAPPS_SearchAppsLabel.Text = "Uygulama Ara:";
+            // 
+            // INSTAPPS_DataMainTable
+            // 
+            this.INSTAPPS_DataMainTable.AllowUserToAddRows = false;
+            this.INSTAPPS_DataMainTable.AllowUserToDeleteRows = false;
+            this.INSTAPPS_DataMainTable.AllowUserToResizeRows = false;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
+            this.INSTAPPS_DataMainTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            this.INSTAPPS_DataMainTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.INSTAPPS_DataMainTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.INSTAPPS_DataMainTable.BackgroundColor = System.Drawing.Color.White;
+            this.INSTAPPS_DataMainTable.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.INSTAPPS_DataMainTable.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.INSTAPPS_DataMainTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.INSTAPPS_DataMainTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.INSTAPPS_DataMainTable.Cursor = System.Windows.Forms.Cursors.Hand;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.INSTAPPS_DataMainTable.DefaultCellStyle = dataGridViewCellStyle11;
+            this.INSTAPPS_DataMainTable.EnableHeadersVisualStyles = false;
+            this.INSTAPPS_DataMainTable.GridColor = System.Drawing.Color.Gray;
+            this.INSTAPPS_DataMainTable.Location = new System.Drawing.Point(12, 89);
+            this.INSTAPPS_DataMainTable.MultiSelect = false;
+            this.INSTAPPS_DataMainTable.Name = "INSTAPPS_DataMainTable";
+            this.INSTAPPS_DataMainTable.ReadOnly = true;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.INSTAPPS_DataMainTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.INSTAPPS_DataMainTable.RowHeadersVisible = false;
+            this.INSTAPPS_DataMainTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.INSTAPPS_DataMainTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.INSTAPPS_DataMainTable.Size = new System.Drawing.Size(787, 451);
+            this.INSTAPPS_DataMainTable.TabIndex = 6;
+            this.INSTAPPS_DataMainTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.INSTAPPS_DataMainTable_CellDoubleClick);
+            this.INSTAPPS_DataMainTable.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.INSTAPPS_DataMainTable_ColumnHeaderMouseClick);
+            // 
+            // INSTAPPS_TextBox
+            // 
+            this.INSTAPPS_TextBox.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.INSTAPPS_TextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.INSTAPPS_TextBox.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.INSTAPPS_TextBox.ForeColor = System.Drawing.Color.Black;
+            this.INSTAPPS_TextBox.Location = new System.Drawing.Point(12, 32);
+            this.INSTAPPS_TextBox.MaxLength = 256;
+            this.INSTAPPS_TextBox.Name = "INSTAPPS_TextBox";
+            this.INSTAPPS_TextBox.Size = new System.Drawing.Size(250, 25);
+            this.INSTAPPS_TextBox.TabIndex = 1;
+            this.INSTAPPS_TextBox.TextChanged += new System.EventHandler(this.INSTAPPS_TextBox_TextChanged);
+            // 
+            // INSTAPPS_TYUS_V
+            // 
+            this.INSTAPPS_TYUS_V.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.INSTAPPS_TYUS_V.BackColor = System.Drawing.Color.Transparent;
+            this.INSTAPPS_TYUS_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.INSTAPPS_TYUS_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            this.INSTAPPS_TYUS_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.INSTAPPS_TYUS_V.Location = new System.Drawing.Point(548, 44);
+            this.INSTAPPS_TYUS_V.Name = "INSTAPPS_TYUS_V";
+            this.INSTAPPS_TYUS_V.Size = new System.Drawing.Size(250, 18);
+            this.INSTAPPS_TYUS_V.TabIndex = 4;
+            this.INSTAPPS_TYUS_V.Text = "N/A";
+            this.INSTAPPS_TYUS_V.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // PRINT
             // 
             this.PRINT.Controls.Add(this.EXPORT_TLP);
@@ -9064,12 +9217,136 @@
             this.HeaderPanel.Size = new System.Drawing.Size(817, 42);
             this.HeaderPanel.TabIndex = 1;
             // 
+            // RightClickMenu
+            // 
+            this.RightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sFCandDISMAutoTool,
+            this.cacheCleaningTool,
+            this.benchCPUTool,
+            this.benchRAMTool,
+            this.benchDiskTool,
+            this.screenOverlayTool,
+            this.dNSTestTool,
+            this.quickAccessTool,
+            this.networkFixToolTool,
+            this.showWiFiPasswordTool,
+            this.monitorTestTool});
+            this.RightClickMenu.Name = "RightClickMenu";
+            this.RightClickMenu.Size = new System.Drawing.Size(240, 246);
+            // 
+            // sFCandDISMAutoTool
+            // 
+            this.sFCandDISMAutoTool.Name = "sFCandDISMAutoTool";
+            this.sFCandDISMAutoTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.sFCandDISMAutoTool.Size = new System.Drawing.Size(239, 22);
+            this.sFCandDISMAutoTool.Text = "sFCandDISMAutoTool";
+            this.sFCandDISMAutoTool.Click += new System.EventHandler(this.sFCandDISMAutoTool_Click);
+            // 
+            // cacheCleaningTool
+            // 
+            this.cacheCleaningTool.Name = "cacheCleaningTool";
+            this.cacheCleaningTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+            this.cacheCleaningTool.Size = new System.Drawing.Size(239, 22);
+            this.cacheCleaningTool.Text = "cacheCleaningTool";
+            this.cacheCleaningTool.Click += new System.EventHandler(this.cacheCleaningTool_Click);
+            // 
+            // benchCPUTool
+            // 
+            this.benchCPUTool.Enabled = false;
+            this.benchCPUTool.Name = "benchCPUTool";
+            this.benchCPUTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.benchCPUTool.Size = new System.Drawing.Size(239, 22);
+            this.benchCPUTool.Text = "benchCPUTool";
+            this.benchCPUTool.Click += new System.EventHandler(this.benchCPUTool_Click);
+            // 
+            // benchRAMTool
+            // 
+            this.benchRAMTool.Name = "benchRAMTool";
+            this.benchRAMTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.benchRAMTool.Size = new System.Drawing.Size(239, 22);
+            this.benchRAMTool.Text = "benchRAMTool";
+            this.benchRAMTool.Click += new System.EventHandler(this.benchRAMTool_Click);
+            // 
+            // benchDiskTool
+            // 
+            this.benchDiskTool.Name = "benchDiskTool";
+            this.benchDiskTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.benchDiskTool.Size = new System.Drawing.Size(239, 22);
+            this.benchDiskTool.Text = "benchDiskTool";
+            this.benchDiskTool.Click += new System.EventHandler(this.benchDiskTool_Click);
+            // 
+            // screenOverlayTool
+            // 
+            this.screenOverlayTool.Name = "screenOverlayTool";
+            this.screenOverlayTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.screenOverlayTool.Size = new System.Drawing.Size(239, 22);
+            this.screenOverlayTool.Text = "screenOverlayTool";
+            this.screenOverlayTool.Click += new System.EventHandler(this.screenOverlayTool_Click);
+            // 
+            // dNSTestTool
+            // 
+            this.dNSTestTool.Name = "dNSTestTool";
+            this.dNSTestTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
+            this.dNSTestTool.Size = new System.Drawing.Size(239, 22);
+            this.dNSTestTool.Text = "dNSTestTool";
+            this.dNSTestTool.Click += new System.EventHandler(this.dNSTestTool_Click);
+            // 
+            // quickAccessTool
+            // 
+            this.quickAccessTool.Name = "quickAccessTool";
+            this.quickAccessTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.quickAccessTool.Size = new System.Drawing.Size(239, 22);
+            this.quickAccessTool.Text = "quickAccessTool";
+            this.quickAccessTool.Click += new System.EventHandler(this.quickAccessTool_Click);
+            // 
+            // networkFixToolTool
+            // 
+            this.networkFixToolTool.Name = "networkFixToolTool";
+            this.networkFixToolTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.networkFixToolTool.Size = new System.Drawing.Size(239, 22);
+            this.networkFixToolTool.Text = "networkFixToolTool";
+            this.networkFixToolTool.Click += new System.EventHandler(this.networkFixToolTool_Click);
+            // 
+            // showWiFiPasswordTool
+            // 
+            this.showWiFiPasswordTool.Name = "showWiFiPasswordTool";
+            this.showWiFiPasswordTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.showWiFiPasswordTool.Size = new System.Drawing.Size(239, 22);
+            this.showWiFiPasswordTool.Text = "showWiFiPasswordTool";
+            this.showWiFiPasswordTool.Click += new System.EventHandler(this.showWiFiPasswordTool_Click);
+            // 
+            // monitorTestTool
+            // 
+            this.monitorTestTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.monitorDeadPixelTestTool,
+            this.monitorDynamicRangeTestTool});
+            this.monitorTestTool.Name = "monitorTestTool";
+            this.monitorTestTool.Size = new System.Drawing.Size(239, 22);
+            this.monitorTestTool.Text = "monitorTestTool";
+            // 
+            // monitorDeadPixelTestTool
+            // 
+            this.monitorDeadPixelTestTool.Name = "monitorDeadPixelTestTool";
+            this.monitorDeadPixelTestTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.monitorDeadPixelTestTool.Size = new System.Drawing.Size(282, 22);
+            this.monitorDeadPixelTestTool.Text = "monitorDeadPixelTestTool";
+            this.monitorDeadPixelTestTool.Click += new System.EventHandler(this.monitorDeadPixelTestTool_Click);
+            // 
+            // monitorDynamicRangeTestTool
+            // 
+            this.monitorDynamicRangeTestTool.Name = "monitorDynamicRangeTestTool";
+            this.monitorDynamicRangeTestTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.monitorDynamicRangeTestTool.Size = new System.Drawing.Size(282, 22);
+            this.monitorDynamicRangeTestTool.Text = "monitorDynamicRangeTestTool";
+            this.monitorDynamicRangeTestTool.Click += new System.EventHandler(this.monitorDynamicRangeTestTool_Click);
+            // 
             // Glow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1008, 601);
+            this.ContextMenuStrip = this.RightClickMenu;
             this.Controls.Add(this.HeaderPanel);
             this.Controls.Add(this.LeftMenuPanel);
             this.Controls.Add(this.MainContent);
@@ -9157,6 +9434,7 @@
             this.disk_panel_3.PerformLayout();
             this.disk_panel_2.ResumeLayout(false);
             this.disk_panel_2.PerformLayout();
+            this.DISK_PBar_BG.ResumeLayout(false);
             this.disk_panel_1.ResumeLayout(false);
             this.disk_panel_1.PerformLayout();
             this.DISK_TotalTLP.ResumeLayout(false);
@@ -9214,6 +9492,11 @@
             this.service_panel_1.ResumeLayout(false);
             this.service_panel_1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SERVICE_DataMainTable)).EndInit();
+            this.INSTAPPS.ResumeLayout(false);
+            this.INSTAPPS_TLP.ResumeLayout(false);
+            this.instapps_panel_1.ResumeLayout(false);
+            this.instapps_panel_1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.INSTAPPS_DataMainTable)).EndInit();
             this.PRINT.ResumeLayout(false);
             this.PRINT.PerformLayout();
             this.EXPORT_TLP.ResumeLayout(false);
@@ -9224,6 +9507,7 @@
             this.Header_InPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderImage)).EndInit();
             this.HeaderPanel.ResumeLayout(false);
+            this.RightClickMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -9625,8 +9909,6 @@
         internal System.Windows.Forms.Label OS_Minidump;
         internal System.Windows.Forms.Label OS_Minidump_V;
         private System.Windows.Forms.Panel os_panel_6;
-        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cacheCleaningToolToolStripMenuItem;
         internal System.Windows.Forms.Label OS_BSODDate;
         internal System.Windows.Forms.Label OS_BSODDate_V;
         internal System.Windows.Forms.Label MB_LastBIOSTime;
@@ -9664,15 +9946,10 @@
         internal System.Windows.Forms.Label DISK_TTLP_P2_L2;
         internal System.Windows.Forms.Label DISK_TTLP_P2_L1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem benchCPUToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem benchDiskToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem checkforUpdatesToolStripMenuItem;
         internal System.Windows.Forms.Label OS_MSEdge;
         internal System.Windows.Forms.Label OS_MSEdge_V;
         internal System.Windows.Forms.PictureBox OS_BSoDZIP;
-        private System.Windows.Forms.ToolStripMenuItem monitorTestToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem monitorDeadPixelTestToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem monitorDynamicRangeTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem koreanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem frenchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem germanToolStripMenuItem;
@@ -9718,10 +9995,8 @@
         internal System.Windows.Forms.Label NET_DNS1;
         internal System.Windows.Forms.Label NET_DNS2;
         internal System.Windows.Forms.Label NET_DNS1_V;
-        private System.Windows.Forms.ToolStripMenuItem screenOverlayToolStripMenuItem;
         internal System.Windows.Forms.Label CPU_Usage;
         internal System.Windows.Forms.Label CPU_Usage_V;
-        private System.Windows.Forms.ToolStripMenuItem dNSTestToolStripMenuItem;
         private System.Windows.Forms.Button PRINT_RotateBtn;
         private System.Windows.Forms.TabPage PRINT;
         private System.Windows.Forms.Panel BATTERY_PBG_Panel;
@@ -9748,11 +10023,9 @@
         internal System.Windows.Forms.Label NET_LT_DL1;
         internal System.Windows.Forms.Label NET_LT_UL2;
         internal System.Windows.Forms.Label NET_LT_UL1;
-        private System.Windows.Forms.ToolStripMenuItem quickAccessToolStripMenuItem;
         private System.Windows.Forms.Panel Header_InPanel;
         private System.Windows.Forms.ToolStripMenuItem portugueseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem chineseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem benchRAMToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel HeaderPanel;
         internal System.Windows.Forms.Label OS_WinKey_V;
         private System.Windows.Forms.Panel os_winkey_panel_1;
@@ -9786,8 +10059,6 @@
         internal System.Windows.Forms.Label DISK_BitLockerEncryptMehod;
         internal System.Windows.Forms.Label DISK_BitLockerConversionStatus_V;
         internal System.Windows.Forms.Label DISK_BitLockerConversionStatus;
-        private System.Windows.Forms.ToolStripMenuItem showWiFiPasswordToolToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sFCandDISMAutoToolToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem italianToolStripMenuItem;
         internal System.Windows.Forms.Label OS_MSEdgeWebView;
         internal System.Windows.Forms.Label OS_MSEdgeWebView_V;
@@ -9796,7 +10067,6 @@
         internal System.Windows.Forms.Label OS_WinDefCoreIsolation;
         internal System.Windows.Forms.Label OS_WinDefCoreIsolation_V;
         private System.Windows.Forms.Panel os_panel_7;
-        private System.Windows.Forms.ToolStripMenuItem networkFixToolToolStripMenuItem;
         internal System.Windows.Forms.Label NET_LT_BandWidth;
         internal System.Windows.Forms.Label NET_LT_BandWidth_V;
         internal System.Windows.Forms.Label OS_MSStoreVersion;
@@ -9810,6 +10080,36 @@
         internal System.Windows.Forms.Label OS_Hiberfil_V;
         internal System.Windows.Forms.Label OS_TempWinPageFile;
         internal System.Windows.Forms.Label OS_TempWinPageFile_V;
+        internal System.Windows.Forms.Label DISK_PBar_Label;
+        private System.Windows.Forms.Panel DISK_PBar_BG;
+        private System.Windows.Forms.Panel DISK_PBar_FE;
+        private System.Windows.Forms.ToolStripMenuItem bmacToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tSWizardToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip RightClickMenu;
+        private System.Windows.Forms.ToolStripMenuItem sFCandDISMAutoTool;
+        private System.Windows.Forms.ToolStripMenuItem cacheCleaningTool;
+        private System.Windows.Forms.ToolStripMenuItem benchCPUTool;
+        private System.Windows.Forms.ToolStripMenuItem benchRAMTool;
+        private System.Windows.Forms.ToolStripMenuItem benchDiskTool;
+        private System.Windows.Forms.ToolStripMenuItem screenOverlayTool;
+        private System.Windows.Forms.ToolStripMenuItem dNSTestTool;
+        private System.Windows.Forms.ToolStripMenuItem quickAccessTool;
+        private System.Windows.Forms.ToolStripMenuItem networkFixToolTool;
+        private System.Windows.Forms.ToolStripMenuItem showWiFiPasswordTool;
+        private System.Windows.Forms.ToolStripMenuItem monitorTestTool;
+        private System.Windows.Forms.ToolStripMenuItem monitorDeadPixelTestTool;
+        private System.Windows.Forms.ToolStripMenuItem monitorDynamicRangeTestTool;
+        private System.Windows.Forms.Button INSTALLED_RotateBtn;
+        private System.Windows.Forms.TabPage INSTAPPS;
+        private System.Windows.Forms.TableLayoutPanel INSTAPPS_TLP;
+        internal System.Windows.Forms.Panel instapps_panel_1;
+        private System.Windows.Forms.CheckBox INSTAPPS_SortMode;
+        private System.Windows.Forms.Button INSTAPPS_TextBoxClearBtn;
+        internal System.Windows.Forms.Label INSTAPPS_TYUS;
+        internal System.Windows.Forms.Label INSTAPPS_SearchAppsLabel;
+        private System.Windows.Forms.DataGridView INSTAPPS_DataMainTable;
+        internal System.Windows.Forms.TextBox INSTAPPS_TextBox;
+        internal System.Windows.Forms.Label INSTAPPS_TYUS_V;
     }
 }
 

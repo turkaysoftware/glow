@@ -103,6 +103,26 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap lm_apps_dark {
+            get {
+                object obj = ResourceManager.GetObject("lm_apps_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap lm_apps_light {
+            get {
+                object obj = ResourceManager.GetObject("lm_apps_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap lm_battery_dark {
             get {
                 object obj = ResourceManager.GetObject("lm_battery_dark", resourceCulture);
@@ -483,6 +503,26 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap tm_bmac_dark {
+            get {
+                object obj = ResourceManager.GetObject("tm_bmac_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap tm_bmac_light {
+            get {
+                object obj = ResourceManager.GetObject("tm_bmac_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap tm_cache_clean_dark {
             get {
                 object obj = ResourceManager.GetObject("tm_cache_clean_dark", resourceCulture);
@@ -783,9 +823,9 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static System.Drawing.Bitmap tm_tools_dark {
+        internal static System.Drawing.Bitmap tm_tswizard_dark {
             get {
-                object obj = ResourceManager.GetObject("tm_tools_dark", resourceCulture);
+                object obj = ResourceManager.GetObject("tm_tswizard_dark", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -793,9 +833,9 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static System.Drawing.Bitmap tm_tools_light {
+        internal static System.Drawing.Bitmap tm_tswizard_light {
             get {
-                object obj = ResourceManager.GetObject("tm_tools_light", resourceCulture);
+                object obj = ResourceManager.GetObject("tm_tswizard_light", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -823,9 +863,9 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static System.Drawing.Bitmap ts_preloader {
+        internal static System.Drawing.Bitmap ts_preloader_release {
             get {
-                object obj = ResourceManager.GetObject("ts_preloader", resourceCulture);
+                object obj = ResourceManager.GetObject("ts_preloader_release", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

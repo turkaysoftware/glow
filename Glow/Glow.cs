@@ -7,40 +7,41 @@
 // GitHub: https://github.com/turkaysoftware/glow
 // ======================================================================================================
 
+// Glow Modules & UI Engines
+using Glow.glow_tools;
+using Microsoft.VisualBasic.Devices;
+// Windows-based Application Development
+using Microsoft.Win32;
 using System;
+// General Collections and LINQ Queries
+using System.Collections.Generic;
+// Component Modeling
+using System.ComponentModel;
+// Diagnostics and Management Tools
+using System.Diagnostics;
+// Graphics and User Interface Operations
+using System.Drawing;
+using System.Drawing.Drawing2D;
+// Language and Culture Settings
+using System.Globalization;
 // File and I/O Operations
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
+using System.Management;
 // Network and Protocol Operations
 using System.Net;
 using System.Net.Sockets;
-using System.Net.NetworkInformation;
-// Graphics and User Interface Operations
-using System.Drawing;
-using System.Windows.Forms;
-// Language and Culture Settings
-using System.Globalization;
-// Multithreading and Parallel Processing
-using System.Threading;
-using System.Threading.Tasks;
 // Reflection and Runtime Operations
 using System.Reflection;
 using System.Runtime.InteropServices;
-// Diagnostics and Management Tools
-using System.Diagnostics;
-using System.Management;
-// General Collections and LINQ Queries
-using System.Collections.Generic;
-using System.Linq;
-// Windows-based Application Development
-using Microsoft.Win32;
-using Microsoft.VisualBasic.Devices;
-// Component Modeling
-using System.ComponentModel;
 // Text Regular Expressions
 using System.Text.RegularExpressions;
-// Glow Modules & UI Engines
-using Glow.glow_tools;
+// Multithreading and Parallel Processing
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+// TS MODULES
 using static Glow.TSModules;
 
 namespace Glow{
@@ -69,7 +70,7 @@ namespace Glow{
         // ======================================================================================================
         int menu_btns = 1, menu_rp = 1, initial_status, hiding_status, hiding_mode_wrapper, windows_mode = 0;
         bool loop_status = true, laptop_mode = false, ts_token_engine_stopper = false;
-        string wp_rotate;
+        string ts_wizard_name = "TS Wizard", wp_rotate, iapps_unknown;
         // VISIBLE MODE DYNAMIC STAR
         // ======================================================================================================
         static List<int> vn_range = new List<int>(){ 10, 24 };
@@ -77,12 +78,22 @@ namespace Glow{
         // ======================================================================================================
         // UI COLORS
         List<Color> btn_colors_active = new List<Color>(){ Color.Transparent };
-        static List<Color> header_colors = new List<Color>() { Color.Transparent, Color.Transparent };
+        static List<Color> header_colors = new List<Color>() { Color.Transparent, Color.Transparent, Color.Transparent };
         // HEADER SETTINGS
         // ======================================================================================================
         private class HeaderMenuColors : ToolStripProfessionalRenderer{
             public HeaderMenuColors() : base(new HeaderColors()){ }
             protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e){ e.ArrowColor = header_colors[1]; base.OnRenderArrow(e); }
+            protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e){
+                // e.Graphics.FillRectangle(new SolidBrush(header_colors[0]), e.ImageRectangle); // BG Color Check
+                using (Pen anti_alias_pen = new Pen(header_colors[2], 3)){
+                    Point p1 = new Point(e.ImageRectangle.Left + 3, e.ImageRectangle.Top + e.ImageRectangle.Height / 2);
+                    Point p2 = new Point(e.ImageRectangle.Left + 7, e.ImageRectangle.Bottom - 4);
+                    Point p3 = new Point(e.ImageRectangle.Right - 2, e.ImageRectangle.Top + 3);
+                    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                    e.Graphics.DrawLines(anti_alias_pen, new Point[] { p1, p2, p3 });
+                }
+            }
         }
         private class HeaderColors : ProfessionalColorTable{
             public override Color MenuItemSelected => header_colors[0];
@@ -111,18 +122,19 @@ namespace Glow{
         // ======================================================================================================
         private void RunSoftwareEngine(){
             HeaderMenu.Cursor = Cursors.Hand;
+            RightClickMenu.Cursor = Cursors.Hand;
             //
             var rotateButtons = new[] {
                 /*OS_RotateBtn,*/ MB_RotateBtn, CPU_RotateBtn, RAM_RotateBtn, GPU_RotateBtn,
                 DISK_RotateBtn, NET_RotateBtn, USB_RotateBtn, SOUND_RotateBtn,
-                BATTERY_RotateBtn, OSD_RotateBtn, SERVICES_RotateBtn, PRINT_RotateBtn
+                BATTERY_RotateBtn, OSD_RotateBtn, SERVICES_RotateBtn, INSTALLED_RotateBtn, PRINT_RotateBtn
             };
             foreach (var r_btns in rotateButtons) r_btns.Enabled = false;
             //
             var rotatePages = new[] {
                 /*(Control)OS,*/ (Control)MB, (Control)CPU, (Control)RAM, (Control)GPU,
                 (Control)DISK, (Control)NETWORK, (Control)USB, (Control)SOUND,
-                (Control)BATTERY, (Control)OSD, (Control)GSERVICE, (Control)PRINT
+                (Control)BATTERY, (Control)OSD, (Control)GSERVICE, (Control)INSTAPPS, (Control)PRINT
             };
             foreach (var r_pages in rotatePages) r_pages.Enabled = false;
             // INSTALLED DRIVERS
@@ -133,19 +145,30 @@ namespace Glow{
             // ======================================================================================================
             for (int i = 0; i < 6; i++) SERVICE_DataMainTable.Columns.Add($"ss_file_{i}", "ss_variable");
             foreach (DataGridViewColumn SERVICE_Column in SERVICE_DataMainTable.Columns) SERVICE_Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // INSTALLED APPS
+            // ======================================================================================================
+            var icon_renderer = new DataGridViewImageColumn{ Name = "Icon", Width = 40, ImageLayout = DataGridViewImageCellLayout.Zoom };
+            INSTAPPS_DataMainTable.Columns.Add(icon_renderer);
+            INSTAPPS_DataMainTable.RowTemplate.Height = 36;
+            for (int i = 0; i < 4; i++) INSTAPPS_DataMainTable.Columns.Add($"iapps_file_{i}", "iapps_variable");
+            foreach (DataGridViewColumn OSD_Column in INSTAPPS_DataMainTable.Columns) OSD_Column.SortMode = DataGridViewColumnSortMode.NotSortable;
             // ALL DGV AND PANEL WIDTH
             // ======================================================================================================
             int[] columnWidths = { 160, 120, 120, 120, 100, 100 };
+            int[] columnWidthsApps = { 65, 175, 100, 120, 175 };
             for (int i = 0; i < columnWidths.Length; i++) OSD_DataMainTable.Columns[i].Width = columnWidths[i];
             for (int i = 0; i < columnWidths.Length; i++) SERVICE_DataMainTable.Columns[i].Width = columnWidths[i];
+            for (int i = 0; i < columnWidthsApps.Length; i++) INSTAPPS_DataMainTable.Columns[i].Width = columnWidthsApps[i];
             // OSD AND SERVICE CLEAR BTN DPI HEIGHT
             // ======================================================================================================
             OSD_TextBoxClearBtn.Height = OSD_TextBox.Height;
             SERVICE_TextBoxClearBtn.Height = SERVICE_TextBox.Height;
+            INSTAPPS_TextBoxClearBtn.Height = INSTAPPS_TextBox.Height;
             // DGV DOUBLE BUFFER
             // ======================================================================================================
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, OSD_DataMainTable, new object[]{ true });
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, SERVICE_DataMainTable, new object[]{ true });
+            typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, INSTAPPS_DataMainTable, new object[]{ true });
             // THEME - LANG - VIEW MODE PRELOADER
             // ======================================================================================================
             TSSettingsSave software_read_settings = new TSSettingsSave(ts_sf);
@@ -233,6 +256,7 @@ namespace Glow{
                 try{
                     taskList.Add(RunTaskAsync(() => osd(), cancellationToken));
                     taskList.Add(RunTaskAsync(() => gs_services(), cancellationToken));
+                    taskList.Add(RunTaskAsync(() => iapps(), cancellationToken));
                 }catch (Exception){ }
                 //
                 taskList.Add(RunTaskAsync(() => Task.Run(() => os_bg_process(), cancellationToken), cancellationToken));
@@ -1394,7 +1418,7 @@ namespace Glow{
                     bench_cpu_info.Add(CPU_LogicalCore_V.Text);
                 }catch (Exception){ }
                 //
-                benchCPUToolStripMenuItem.Enabled = true;
+                benchCPUTool.Enabled = true;
                 //
                 try{
                     // CPU SOCKET
@@ -2622,9 +2646,46 @@ namespace Glow{
             ((Control)DISK).Enabled = true;
             if (Program.debug_mode){ Console.WriteLine("<--- Storage Section Loaded --->"); }
         }
+        // DISK RIGHT PROGRESS FUNCTION
+        private void disk_progress_function(int _pb_disk){
+            try{
+                string totalDiskSpaceStr = disk_total_space_list[_pb_disk];
+                string freeDiskSpaceStr = disk_free_space_list[_pb_disk];
+                //
+                long ConvertToMB(string sizeStr){
+                    sizeStr = sizeStr.Trim().ToUpper();
+                    //
+                    string pattern = @"([\d.,]+)\s*(B|KB|MB|GB|TB|PB|EB|ZB|YB)";
+                    Match match = Regex.Match(sizeStr, pattern);
+                    string numericValueStr = match.Groups[1].Value.Replace(',', '.');
+                    string unit = match.Groups[2].Value;
+                    //
+                    double numericValue = double.Parse(numericValueStr, CultureInfo.InvariantCulture);
+                    string[] unitScale = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+                    int unitIndex = Array.IndexOf(unitScale, unit);
+                    double sizeInMB = unitIndex >= 2 ? numericValue * Math.Pow(1024, unitIndex - 2) : numericValue / Math.Pow(1024, 2 - unitIndex);
+                    //
+                    return (long)Math.Floor(sizeInMB);
+                }
+                //
+                long totalDiskSpaceMB = ConvertToMB(totalDiskSpaceStr);
+                long freeDiskSpaceMB = ConvertToMB(freeDiskSpaceStr);
+                long usedDiskSpaceMB = totalDiskSpaceMB - freeDiskSpaceMB;
+                int usagePercentage = (int)((double)usedDiskSpaceMB / totalDiskSpaceMB * 100);
+                //
+                DISK_PBar_FE.Height = (int)(DISK_PBar_BG.Height * (usagePercentage / 100.0));
+                DISK_PBar_Label.Text = usagePercentage + "%";
+                if (usagePercentage <= 7){
+                    DISK_PBar_Label.Top = DISK_PBar_FE.Top - 2;
+                }else{
+                    DISK_PBar_Label.Top = DISK_PBar_FE.Top + 6;
+                }
+            }catch (Exception){ }
+        }
         private void DISK_CaptionList_SelectedIndexChanged(object sender, EventArgs e){
             try{
                 int disk_percent = DISK_CaptionList.SelectedIndex;
+                try{ disk_progress_function(disk_percent); }catch(Exception){ }
                 try{ DISK_Model_V.Text = disk_model_list[disk_percent]; }catch(Exception){ }
                 try{ DISK_Man_V.Text = disk_man_list[disk_percent]; }catch(Exception){ }
                 try{ DISK_VolumeID_V.Text = disk_volume_id_list[disk_percent]; }catch(Exception){ }
@@ -3619,6 +3680,208 @@ namespace Glow{
             }catch (Exception){ }
         }
         #endregion
+        #region INSTAPPS
+        private async Task iapps(){
+            try{
+                await Task.Run(() => LoadInstalledApplications(), Program.TS_TokenEngine.Token);
+                INSTAPPS_TYUS_V.Text = INSTAPPS_DataMainTable.Rows.Count.ToString();
+                INSTAPPS_DataMainTable.ClearSelection();
+            }catch (Exception){
+            }finally{
+                INSTALLED_RotateBtn.Enabled = true;
+                ((Control)INSTAPPS).Enabled = true;
+                //
+                INSTAPPS_DataMainTable.Width++;
+                INSTAPPS_DataMainTable.Width--;
+                //
+                if (Program.debug_mode){ Console.WriteLine("<--- Installed Application Section Installed --->"); }
+            }
+        }
+        private void INSTAPPS_TextBox_TextChanged(object sender, EventArgs e){
+            string searchText = INSTAPPS_TextBox.Text.Trim().ToLower();
+            bool isTextBoxEmpty = string.IsNullOrEmpty(searchText);
+            INSTAPPS_DataMainTable.ClearSelection();
+            INSTAPPS_TextBoxClearBtn.Enabled = !isTextBoxEmpty;
+            if (!isTextBoxEmpty){
+                try{
+                    foreach (DataGridViewRow service_row in INSTAPPS_DataMainTable.Rows){
+                        if (service_row.Cells[1].Value.ToString().ToLower().Contains(searchText)){
+                            service_row.Selected = true;
+                            INSTAPPS_DataMainTable.FirstDisplayedScrollingRowIndex = service_row.Index;
+                            break;
+                        }
+                    }
+                }catch (Exception){ }
+            }
+        }
+        private void INSTAPPS_DataMainTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e){
+            if (INSTAPPS_DataMainTable.SelectedRows.Count == 0) return;
+            //
+            TSGetLangs software_lang = new TSGetLangs(lang_path);
+            var selected_row = INSTAPPS_DataMainTable.SelectedRows[0];
+            //
+            DialogResult open_apps_folder = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(TS_String_Encoder(software_lang.TSReadLangs("Instapps_Content", "ia_open_apps")), selected_row.Cells[1].Value));
+            if (open_apps_folder == DialogResult.Yes){
+                var installPath = selected_row.Cells[4].Value as string;
+                if (string.IsNullOrWhiteSpace(installPath) || installPath == iapps_unknown || !Directory.Exists(installPath)){
+                    TS_MessageBoxEngine.TS_MessageBox(this, 2, TS_String_Encoder(software_lang.TSReadLangs("Instapps_Content", "ia_not_path")));
+                    return;
+                }
+                try{
+                    var exePath = Directory.GetFiles(installPath, "*.exe").FirstOrDefault();
+                    if (exePath == null){
+                        TS_MessageBoxEngine.TS_MessageBox(this, 2, TS_String_Encoder(software_lang.TSReadLangs("Instapps_Content", "ia_not_exe")));
+                        return;
+                    }
+                    Process.Start(new ProcessStartInfo("explorer.exe", $"/select,\"{exePath}\"") { UseShellExecute = true });
+                }catch (Exception ex){
+                    TS_MessageBoxEngine.TS_MessageBox(this, 2, string.Format(TS_String_Encoder(software_lang.TSReadLangs("Instapps_Content", "ia_file_path_not_oppened")), ex.Message));
+                }
+            }
+        }
+        private void INSTAPPS_DataMainTable_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e){
+            try{
+                if (INSTAPPS_DataMainTable.SelectedRows.Count > 0){
+                    INSTAPPS_DataMainTable.ClearSelection();
+                }
+            }catch (Exception){ }
+        }
+        private void INSTAPPS_TextBoxClearBtn_Click(object sender, EventArgs e){
+            try{
+                INSTAPPS_TextBox.Text = string.Empty;
+                INSTAPPS_TextBox.Focus();
+            }catch (Exception){ }
+        }
+        private void INSTAPPS_SortMode_CheckedChanged(object sender, EventArgs e){
+            try{
+                if (INSTAPPS_SortMode.CheckState == CheckState.Checked){
+                    INSTAPPS_DataMainTable.Sort(INSTAPPS_DataMainTable.Columns[1], ListSortDirection.Descending);
+                }else if (INSTAPPS_SortMode.CheckState == CheckState.Unchecked){
+                    INSTAPPS_DataMainTable.Sort(INSTAPPS_DataMainTable.Columns[1], ListSortDirection.Ascending);
+                }
+                INSTAPPS_DataMainTable.ClearSelection();
+            }catch (Exception){ }
+        }
+        public class InstalledAppConfig{
+            public string Name { get; set; }
+            public string Version { get; set; }
+            public string Publisher { get; set; }
+            public string InstallLocation { get; set; }
+            public string DisplayIcon { get; set; }
+            public Icon AppIcon { get; set; }
+        }
+        public static class AppWindowIcon{
+            [DllImport("Shell32.dll", CharSet = CharSet.Auto)]
+            private static extern IntPtr ExtractIcon(IntPtr hInst, string lpszExeFileName, int nIconIndex);
+            public static Icon ExtractIconFromFile(string filePath, int index){
+                IntPtr hIcon = ExtractIcon(IntPtr.Zero, filePath, index);
+                if (hIcon != IntPtr.Zero){
+                    return Icon.FromHandle(hIcon);
+                }
+                return null;
+            }
+        }
+        [DllImport("Shell32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr ExtractIcon(IntPtr hInst, string lpszExeFileName, int nIconIndex);
+        private Image GetDefaultIcon(){
+            IntPtr hIcon = ExtractIcon(IntPtr.Zero, "shell32.dll", 2); // usually classic window icon
+            if (hIcon != IntPtr.Zero){
+                Icon icon = Icon.FromHandle(hIcon);
+                return icon.ToBitmap();
+            }
+            Bitmap bmp = new Bitmap(32, 32);
+            using (Graphics g = Graphics.FromImage(bmp)){
+                g.Clear(Color.Gray);
+                g.DrawRectangle(Pens.Black, 4, 4, 24, 24);
+            }
+            return bmp;
+        }
+        private void LoadInstalledApplications(){
+            var apps = GetInstalledApplications();
+            INSTAPPS_DataMainTable.Rows.Clear();
+            //
+            foreach (var app in apps){
+                Image iconImage = null;
+                // Let's try if DisplayIcon is available
+                if (!string.IsNullOrWhiteSpace(app.DisplayIcon)){
+                    try{
+                        string iconPath = app.DisplayIcon;
+                        int iconIndex = 0;
+                        //
+                        if (iconPath.Contains(",")){
+                            var parts = iconPath.Split(',');
+                            iconPath = parts[0].Trim();
+                            int.TryParse(parts[1], out iconIndex);
+                        }
+                        //
+                        if (File.Exists(iconPath)){
+                            Icon icon = AppWindowIcon.ExtractIconFromFile(iconPath, iconIndex);
+                            if (icon != null){ iconImage = icon.ToBitmap(); }
+                        }
+                    }catch{ }
+                }
+                // If the icon is not found, get the icon of the first exe under InstallLocation
+                if (iconImage == null && !string.IsNullOrWhiteSpace(app.InstallLocation) && Directory.Exists(app.InstallLocation)){
+                    try{
+                        var exe = Directory.GetFiles(app.InstallLocation, "*.exe").FirstOrDefault();
+                        if (!string.IsNullOrEmpty(exe)){
+                            Icon icon = Icon.ExtractAssociatedIcon(exe);
+                            if (icon != null){ iconImage = icon.ToBitmap(); }
+                        }
+                    }catch{ }
+                }
+                //
+                if (iconImage == null){ iconImage = GetDefaultIcon(); }
+                //
+                var installLoc = string.IsNullOrWhiteSpace(app.InstallLocation) ? iapps_unknown : app.InstallLocation;
+                var versionText = string.IsNullOrWhiteSpace(app.Version) ? iapps_unknown : app.Version;
+                var publisherText = string.IsNullOrWhiteSpace(app.Publisher) ? iapps_unknown : app.Publisher;
+                //
+                INSTAPPS_DataMainTable.Rows.Add(iconImage, app.Name, versionText, publisherText, installLoc);
+            }
+        }
+        private List<InstalledAppConfig> GetInstalledApplications(){
+            var apps = new List<InstalledAppConfig>();
+            var registryViews = new[]{ RegistryView.Registry64, RegistryView.Registry32 };
+            var registryRoots = new[]{ RegistryHive.LocalMachine, RegistryHive.CurrentUser };
+            //
+            foreach (var view in registryViews){
+                foreach (var root in registryRoots){
+                    using (var baseKey = RegistryKey.OpenBaseKey(root, view))
+                    using (var uninstallKey = baseKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall")){
+                        if (uninstallKey == null) continue;
+                        foreach (var subkeyName in uninstallKey.GetSubKeyNames()){
+                            using (var subkey = uninstallKey.OpenSubKey(subkeyName)){
+                                if (subkey == null) continue;
+                                //
+                                var name = (subkey.GetValue("DisplayName") as string)?.Trim();
+                                if (string.IsNullOrWhiteSpace(name)) continue;
+                                //
+                                var version = (subkey.GetValue("DisplayVersion") as string)?.Trim();
+                                var publisher = (subkey.GetValue("Publisher") as string)?.Trim();
+                                //
+                                var installLocationRaw = (subkey.GetValue("InstallLocation") as string)?.Trim();
+                                var installLocation = installLocationRaw?.Trim('\"');
+                                //
+                                var displayIconRaw = (subkey.GetValue("DisplayIcon") as string)?.Trim();
+                                var displayIcon = displayIconRaw?.Trim('\"');
+                                //
+                                apps.Add(new InstalledAppConfig{
+                                    Name = name,
+                                    Version = version,
+                                    Publisher = publisher,
+                                    InstallLocation = installLocation,
+                                    DisplayIcon = displayIcon
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            var distinctApps = apps.GroupBy(a => a.Name, StringComparer.OrdinalIgnoreCase).Select(g => g.First()).OrderBy(a => a.Name).ToList();
+            return distinctApps;
+        }
+        #endregion
         // BUTTONS ROTATE
         // ======================================================================================================
         private void active_page(object btn_target){
@@ -3675,8 +3938,11 @@ namespace Glow{
         private void ServicesRotateBtn_Click(object sender, EventArgs e){
             left_menu_preloader(12, sender);
         }
-        private void PRINT_RotateBtn_Click(object sender, EventArgs e){
+        private void INSTALLED_RotateBtn_Click(object sender, EventArgs e){
             left_menu_preloader(13, sender);
+        }
+        private void PRINT_RotateBtn_Click(object sender, EventArgs e){
+            left_menu_preloader(14, sender);
         }
         // GLOW DYNAMIC ARROW KEYS ROTATE
         private void MainContent_Selecting(object sender, TabControlCancelEventArgs e){
@@ -3694,7 +3960,8 @@ namespace Glow{
                     { 9, BATTERY_RotateBtn },
                     { 10, OSD_RotateBtn },
                     { 11, SERVICES_RotateBtn },
-                    { 12, PRINT_RotateBtn }
+                    { 12, INSTALLED_RotateBtn },
+                    { 13, PRINT_RotateBtn }
                 };
                 if (!e.TabPage.Enabled){
                     e.Cancel = true;
@@ -3720,7 +3987,8 @@ namespace Glow{
                     { 10, (BATTERY, BATTERY_RotateBtn, "header_battery") },
                     { 11, (OSD, OSD_RotateBtn, "header_installed_drivers") },
                     { 12, (GSERVICE, SERVICES_RotateBtn, "header_installed_services") },
-                    { 13, (PRINT, PRINT_RotateBtn, "header_export") }
+                    { 13, (INSTAPPS, INSTALLED_RotateBtn, "header_installed_apps") },
+                    { 14, (PRINT, PRINT_RotateBtn, "header_export") }
                 };
                 if (menu_btns != target_menu && menuTargets.TryGetValue(target_menu, out var target)){
                     MainContent.SelectedTab = target.tab;
@@ -3815,7 +4083,8 @@ namespace Glow{
                     { 10, "header_battery" },
                     { 11, "header_installed_drivers" },
                     { 12, "header_installed_services" },
-                    { 13, "header_export" }
+                    { 13, "header_installed_apps" },
+                    { 14, "header_export" }
                 };
                 if (headers.TryGetValue(menu_rp, out string headerKey)){
                     HeaderText.Text = TS_String_Encoder(software_lang.TSReadLangs("Header", headerKey));
@@ -3849,20 +4118,23 @@ namespace Glow{
                 // UPDATE CHECK
                 checkforUpdatesToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderMenu", "header_menu_update"));
                 // TOOLS
-                toolsToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderMenu", "header_menu_tools"));
-                sFCandDISMAutoToolToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_sfc_and_dism_tool"));
-                cacheCleaningToolToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_cache_cleanup_tool"));
-                benchCPUToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_bench_cpu"));
-                benchRAMToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_bench_ram"));
-                benchDiskToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_bench_disk"));
-                screenOverlayToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_overlay"));
-                dNSTestToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_dns_test_tool"));
-                quickAccessToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_quick_access_tool"));
-                networkFixToolToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_network_fix_tool"));
-                showWiFiPasswordToolToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_show_wifi_password_tool"));
-                monitorTestToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_monitor_test"));
-                monitorDeadPixelTestToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_monitor_test_dead_pixel"));
-                monitorDynamicRangeTestToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_monitor_test_dynamic_range"));
+                sFCandDISMAutoTool.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_sfc_and_dism_tool"));
+                cacheCleaningTool.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_cache_cleanup_tool"));
+                benchCPUTool.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_bench_cpu"));
+                benchRAMTool.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_bench_ram"));
+                benchDiskTool.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_bench_disk"));
+                screenOverlayTool.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_overlay"));
+                dNSTestTool.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_dns_test_tool"));
+                quickAccessTool.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_quick_access_tool"));
+                networkFixToolTool.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_network_fix_tool"));
+                showWiFiPasswordTool.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_show_wifi_password_tool"));
+                monitorTestTool.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_monitor_test"));
+                monitorDeadPixelTestTool.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_monitor_test_dead_pixel"));
+                monitorDynamicRangeTestTool.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_monitor_test_dynamic_range"));
+                // TS WIZARD
+                tSWizardToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderMenu", "header_menu_ts_wizard"));
+                // BMAC
+                bmacToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderMenu", "header_menu_bmac"));
                 // ABOUT
                 aboutToolStripMenuItem.Text = TS_String_Encoder(software_lang.TSReadLangs("HeaderMenu", "header_menu_about"));
                 // MENU
@@ -3878,6 +4150,7 @@ namespace Glow{
                 BATTERY_RotateBtn.Text = " " + " " + TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_battery"));
                 OSD_RotateBtn.Text = " " + " " + TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_installed_drivers"));
                 SERVICES_RotateBtn.Text = " " + " " + TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_installed_services"));
+                INSTALLED_RotateBtn.Text = " " + " " + TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_installed_apps"));
                 PRINT_RotateBtn.Text = " " + " " + TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_export"));
                 // OS
                 OS_SystemUser.Text = TS_String_Encoder(software_lang.TSReadLangs("OperatingSystem", "os_user"));
@@ -4123,6 +4396,16 @@ namespace Glow{
                 SERVICE_SearchLabel.Text = TS_String_Encoder(software_lang.TSReadLangs("Services", "ss_search_service"));
                 SERVICE_TYS.Text = TS_String_Encoder(software_lang.TSReadLangs("Services", "ss_installed_service_count"));
                 SERVICE_SortMode.Text = TS_String_Encoder(software_lang.TSReadLangs("Services", "ss_order_in_reverse"));
+                // INSTALLED APPS
+                INSTAPPS_DataMainTable.Columns[0].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("Instapps", "ia_apps_icon"));
+                INSTAPPS_DataMainTable.Columns[1].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("Instapps", "ia_apps_name"));
+                INSTAPPS_DataMainTable.Columns[2].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("Instapps", "ia_apps_version"));
+                INSTAPPS_DataMainTable.Columns[3].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("Instapps", "ia_apps_developer"));
+                INSTAPPS_DataMainTable.Columns[4].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("Instapps", "ia_apps_path"));
+                INSTAPPS_SearchAppsLabel.Text = TS_String_Encoder(software_lang.TSReadLangs("Instapps", "ia_search_apps"));
+                INSTAPPS_TYUS.Text = TS_String_Encoder(software_lang.TSReadLangs("Instapps", "ia_installed_apps_count"));
+                INSTAPPS_SortMode.Text = TS_String_Encoder(software_lang.TSReadLangs("Instapps", "ia_order_in_reverse"));
+                iapps_unknown = TS_String_Encoder(software_lang.TSReadLangs("Instapps_Content", "ia_unknown"));
                 // EXPORT
                 EXPORT_HeaderLabel.Text = TS_String_Encoder(software_lang.TSReadLangs("Export", "e_mode_title"));
                 EXPORT_StartEngineBtn.Text = TS_String_Encoder(software_lang.TSReadLangs("Export", "e_mode_report_start"));
@@ -4184,6 +4467,7 @@ namespace Glow{
                     BATTERY_RotateBtn.Image = Properties.Resources.lm_battery_light;
                     OSD_RotateBtn.Image = Properties.Resources.lm_drivers_light;
                     SERVICES_RotateBtn.Image = Properties.Resources.lm_services_light;
+                    INSTALLED_RotateBtn.Image = Properties.Resources.lm_apps_light;
                     PRINT_RotateBtn.Image = Properties.Resources.lm_export_light;
                     // TOP MENU LOGO CHANGE
                     settingsToolStripMenuItem.Image = Properties.Resources.tm_settings_light;
@@ -4192,27 +4476,30 @@ namespace Glow{
                     initialViewToolStripMenuItem.Image = Properties.Resources.tm_start_light;
                     hidingModeToolStripMenuItem.Image = Properties.Resources.tm_hidden_light;
                     checkforUpdatesToolStripMenuItem.Image = Properties.Resources.tm_update_light;
-                    toolsToolStripMenuItem.Image = Properties.Resources.tm_tools_light;
-                    sFCandDISMAutoToolToolStripMenuItem.Image = Properties.Resources.tm_sfc_and_dism_light;
-                    cacheCleaningToolToolStripMenuItem.Image = Properties.Resources.tm_cache_clean_light;
-                    benchCPUToolStripMenuItem.Image = Properties.Resources.tm_bench_cpu_light;
-                    benchRAMToolStripMenuItem.Image = Properties.Resources.tm_bench_ram_light;
-                    benchDiskToolStripMenuItem.Image = Properties.Resources.tm_bench_disk_light;
-                    screenOverlayToolStripMenuItem.Image = Properties.Resources.tm_overlay_light;
-                    dNSTestToolStripMenuItem.Image = Properties.Resources.tm_dns_light;
-                    quickAccessToolStripMenuItem.Image = Properties.Resources.tm_quick_access_light;
-                    networkFixToolToolStripMenuItem.Image = Properties.Resources.tm_network_fix_light;
-                    showWiFiPasswordToolToolStripMenuItem.Image = Properties.Resources.tm_swpt_light;
-                    monitorTestToolStripMenuItem.Image = Properties.Resources.tm_test_monitor_light;
-                    monitorDeadPixelTestToolStripMenuItem.Image = Properties.Resources.tm_test_dead_pixel_light;
-                    monitorDynamicRangeTestToolStripMenuItem.Image = Properties.Resources.tm_test_dynamic_range_light;
+                    sFCandDISMAutoTool.Image = Properties.Resources.tm_sfc_and_dism_light;
+                    cacheCleaningTool.Image = Properties.Resources.tm_cache_clean_light;
+                    benchCPUTool.Image = Properties.Resources.tm_bench_cpu_light;
+                    benchRAMTool.Image = Properties.Resources.tm_bench_ram_light;
+                    benchDiskTool.Image = Properties.Resources.tm_bench_disk_light;
+                    screenOverlayTool.Image = Properties.Resources.tm_overlay_light;
+                    dNSTestTool.Image = Properties.Resources.tm_dns_light;
+                    quickAccessTool.Image = Properties.Resources.tm_quick_access_light;
+                    networkFixToolTool.Image = Properties.Resources.tm_network_fix_light;
+                    showWiFiPasswordTool.Image = Properties.Resources.tm_swpt_light;
+                    monitorTestTool.Image = Properties.Resources.tm_test_monitor_light;
+                    monitorDeadPixelTestTool.Image = Properties.Resources.tm_test_dead_pixel_light;
+                    monitorDynamicRangeTestTool.Image = Properties.Resources.tm_test_dynamic_range_light;
                     // MIDDLE CONTENT LOGO CHANGE
                     OS_WinKeyCopy.BackgroundImage = Properties.Resources.mid_copy_light;
                     OS_MinidumpOpen.BackgroundImage = Properties.Resources.mid_link_light;
                     OS_BSoDZIP.BackgroundImage = Properties.Resources.mid_zip_light;
                     OS_WallpaperOpen.BackgroundImage = Properties.Resources.mid_link_light;
+                    // BMAC
+                    bmacToolStripMenuItem.Image = Properties.Resources.tm_bmac_light;
                     // HELP
                     aboutToolStripMenuItem.Image = Properties.Resources.tm_about_light;
+                    aboutToolStripMenuItem.Image = Properties.Resources.tm_about_light;
+                    tSWizardToolStripMenuItem.Image = Properties.Resources.tm_tswizard_light;
                 }else if (theme == 0){
                     // LEFT MENU LOGO CHANGE
                     if (windows_mode == 1){
@@ -4231,6 +4518,7 @@ namespace Glow{
                     BATTERY_RotateBtn.Image = Properties.Resources.lm_battery_dark;
                     OSD_RotateBtn.Image = Properties.Resources.lm_drivers_dark;
                     SERVICES_RotateBtn.Image = Properties.Resources.lm_services_dark;
+                    INSTALLED_RotateBtn.Image = Properties.Resources.lm_apps_dark;
                     PRINT_RotateBtn.Image = Properties.Resources.lm_export_dark;
                     // TOP MENU LOGO CHANGE
                     settingsToolStripMenuItem.Image = Properties.Resources.tm_settings_dark;
@@ -4239,26 +4527,29 @@ namespace Glow{
                     initialViewToolStripMenuItem.Image = Properties.Resources.tm_start_dark;
                     hidingModeToolStripMenuItem.Image = Properties.Resources.tm_hidden_dark;
                     checkforUpdatesToolStripMenuItem.Image = Properties.Resources.tm_update_dark;
-                    toolsToolStripMenuItem.Image = Properties.Resources.tm_tools_dark;
-                    sFCandDISMAutoToolToolStripMenuItem.Image = Properties.Resources.tm_sfc_and_dism_dark;
-                    cacheCleaningToolToolStripMenuItem.Image = Properties.Resources.tm_cache_clean_dark;
-                    benchCPUToolStripMenuItem.Image = Properties.Resources.tm_bench_cpu_dark;
-                    benchRAMToolStripMenuItem.Image = Properties.Resources.tm_bench_ram_dark;
-                    benchDiskToolStripMenuItem.Image = Properties.Resources.tm_bench_disk_dark;
-                    screenOverlayToolStripMenuItem.Image = Properties.Resources.tm_overlay_dark;
-                    dNSTestToolStripMenuItem.Image = Properties.Resources.tm_dns_dark;
-                    quickAccessToolStripMenuItem.Image = Properties.Resources.tm_quick_access_dark;
-                    networkFixToolToolStripMenuItem.Image = Properties.Resources.tm_network_fix_dark;
-                    showWiFiPasswordToolToolStripMenuItem.Image = Properties.Resources.tm_swpt_dark;
-                    monitorTestToolStripMenuItem.Image = Properties.Resources.tm_test_monitor_dark;
-                    monitorDeadPixelTestToolStripMenuItem.Image = Properties.Resources.tm_test_dead_pixel_dark;
-                    monitorDynamicRangeTestToolStripMenuItem.Image = Properties.Resources.tm_test_dynamic_range_dark;
+                    sFCandDISMAutoTool.Image = Properties.Resources.tm_sfc_and_dism_dark;
+                    cacheCleaningTool.Image = Properties.Resources.tm_cache_clean_dark;
+                    benchCPUTool.Image = Properties.Resources.tm_bench_cpu_dark;
+                    benchRAMTool.Image = Properties.Resources.tm_bench_ram_dark;
+                    benchDiskTool.Image = Properties.Resources.tm_bench_disk_dark;
+                    screenOverlayTool.Image = Properties.Resources.tm_overlay_dark;
+                    dNSTestTool.Image = Properties.Resources.tm_dns_dark;
+                    quickAccessTool.Image = Properties.Resources.tm_quick_access_dark;
+                    networkFixToolTool.Image = Properties.Resources.tm_network_fix_dark;
+                    showWiFiPasswordTool.Image = Properties.Resources.tm_swpt_dark;
+                    monitorTestTool.Image = Properties.Resources.tm_test_monitor_dark;
+                    monitorDeadPixelTestTool.Image = Properties.Resources.tm_test_dead_pixel_dark;
+                    monitorDynamicRangeTestTool.Image = Properties.Resources.tm_test_dynamic_range_dark;
                     // MIDDLE CONTENT LOGO CHANGE
                     OS_WinKeyCopy.BackgroundImage = Properties.Resources.mid_copy_dark;
                     OS_MinidumpOpen.BackgroundImage = Properties.Resources.mid_link_dark;
                     OS_BSoDZIP.BackgroundImage = Properties.Resources.mid_zip_dark;
                     OS_WallpaperOpen.BackgroundImage = Properties.Resources.mid_link_dark;
-                    // HELP
+                    // BMAC
+                    bmacToolStripMenuItem.Image = Properties.Resources.tm_bmac_dark;
+                    // TS WIZARD
+                    tSWizardToolStripMenuItem.Image = Properties.Resources.tm_tswizard_dark;
+                    // ABOUT
                     aboutToolStripMenuItem.Image = Properties.Resources.tm_about_dark;
                 }
                 // OTHER PAGE DYNAMIC UI
@@ -4267,7 +4558,9 @@ namespace Glow{
                 header_image_reloader(menu_btns);
                 header_colors[0] = TS_ThemeEngine.ColorMode(theme, "HeaderBGColorMain");
                 header_colors[1] = TS_ThemeEngine.ColorMode(theme, "HeaderFEColorMain");
+                header_colors[2] = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
                 HeaderMenu.Renderer = new HeaderMenuColors();
+                RightClickMenu.Renderer = new HeaderMenuColors();
                 // ACTIVE BTN 
                 btn_colors_active[0] = TS_ThemeEngine.ColorMode(theme, "BtnActiveColor");
                 // TOOLTIP
@@ -4331,34 +4624,38 @@ namespace Glow{
                 checkforUpdatesToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
                 checkforUpdatesToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
                 // TOOLS
-                toolsToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
-                toolsToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
-                sFCandDISMAutoToolToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
-                sFCandDISMAutoToolToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
-                cacheCleaningToolToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
-                cacheCleaningToolToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
-                benchCPUToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
-                benchCPUToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
-                benchRAMToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
-                benchRAMToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
-                benchDiskToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
-                benchDiskToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
-                screenOverlayToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
-                screenOverlayToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
-                dNSTestToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
-                dNSTestToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
-                quickAccessToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
-                quickAccessToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
-                networkFixToolToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
-                networkFixToolToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
-                showWiFiPasswordToolToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
-                showWiFiPasswordToolToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
-                monitorTestToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
-                monitorTestToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
-                monitorDeadPixelTestToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
-                monitorDeadPixelTestToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
-                monitorDynamicRangeTestToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
-                monitorDynamicRangeTestToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                sFCandDISMAutoTool.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                sFCandDISMAutoTool.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                cacheCleaningTool.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                cacheCleaningTool.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                benchCPUTool.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                benchCPUTool.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                benchRAMTool.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                benchRAMTool.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                benchDiskTool.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                benchDiskTool.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                screenOverlayTool.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                screenOverlayTool.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                dNSTestTool.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                dNSTestTool.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                quickAccessTool.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                quickAccessTool.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                networkFixToolTool.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                networkFixToolTool.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                showWiFiPasswordTool.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                showWiFiPasswordTool.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                monitorTestTool.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                monitorTestTool.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                monitorDeadPixelTestTool.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                monitorDeadPixelTestTool.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                monitorDynamicRangeTestTool.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                monitorDynamicRangeTestTool.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                // TS WIZARD
+                tSWizardToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                tSWizardToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
+                // BMAC
+                bmacToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
+                bmacToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
                 // ABOUT
                 aboutToolStripMenuItem.BackColor = TS_ThemeEngine.ColorMode(theme, "HeaderBGColor");
                 aboutToolStripMenuItem.ForeColor = TS_ThemeEngine.ColorMode(theme, "HeaderFEColor");
@@ -4376,6 +4673,7 @@ namespace Glow{
                 BATTERY_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
                 OSD_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
                 SERVICES_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                INSTALLED_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
                 PRINT_RotateBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
                 // LEFT MENU BORDER
                 OS_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
@@ -4390,6 +4688,7 @@ namespace Glow{
                 BATTERY_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
                 OSD_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
                 SERVICES_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
+                INSTALLED_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
                 PRINT_RotateBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuBGAndBorderColor");
                 // LEFT MENU MOUSE HOVER
                 OS_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
@@ -4404,6 +4703,7 @@ namespace Glow{
                 BATTERY_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
                 OSD_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
                 SERVICES_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                INSTALLED_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
                 PRINT_RotateBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
                 // LEFT MENU MOUSE DOWN
                 OS_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
@@ -4418,6 +4718,7 @@ namespace Glow{
                 BATTERY_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
                 OSD_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
                 SERVICES_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
+                INSTALLED_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
                 PRINT_RotateBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
                 // LEFT MENU BUTTON TEXT COLOR
                 OS_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
@@ -4432,6 +4733,7 @@ namespace Glow{
                 BATTERY_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
                 OSD_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
                 SERVICES_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
+                INSTALLED_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
                 PRINT_RotateBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonFEColor");
                 // CONTENT BG
                 BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
@@ -4447,6 +4749,7 @@ namespace Glow{
                 BATTERY.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
                 OSD.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
                 GSERVICE.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                INSTAPPS.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
                 PRINT.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
                 // OS
                 os_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
@@ -4780,6 +5083,10 @@ namespace Glow{
                 DISK_TTLP_Panel_3.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
                 DISK_TTLP_Panel_4.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
                 //
+                DISK_PBar_BG.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
+                DISK_PBar_FE.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                DISK_PBar_Label.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                //
                 DISK_Caption.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 DISK_CaptionList.BackColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
                 DISK_CaptionList.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
@@ -4990,6 +5297,29 @@ namespace Glow{
                 SERVICE_DataMainTable.ColumnHeadersDefaultCellStyle.ForeColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageFE");
                 SERVICE_DataMainTable.DefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageBG");
                 SERVICE_DataMainTable.DefaultCellStyle.SelectionForeColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageFE");
+                // INSTALLED APPS
+                instapps_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
+                INSTAPPS_TextBox.BackColor = TS_ThemeEngine.ColorMode(theme, "TextBoxBGColor");
+                INSTAPPS_TextBox.ForeColor = TS_ThemeEngine.ColorMode(theme, "TextBoxFEColor");
+                INSTAPPS_TYUS.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                INSTAPPS_TYUS_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                INSTAPPS_SearchAppsLabel.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                INSTAPPS_TextBoxClearBtn.BackColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageBG");
+                INSTAPPS_TextBoxClearBtn.ForeColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageFE");
+                INSTAPPS_TextBoxClearBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                INSTAPPS_TextBoxClearBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRight");
+                INSTAPPS_TextBoxClearBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelRightHover");
+                INSTAPPS_SortMode.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                INSTAPPS_DataMainTable.BackgroundColor = TS_ThemeEngine.ColorMode(theme, "DataGridBGColor");
+                INSTAPPS_DataMainTable.GridColor = TS_ThemeEngine.ColorMode(theme, "DataGridColor");
+                INSTAPPS_DataMainTable.DefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(theme, "DataGridBGColor");
+                INSTAPPS_DataMainTable.DefaultCellStyle.ForeColor = TS_ThemeEngine.ColorMode(theme, "DataGridFEColor");
+                INSTAPPS_DataMainTable.AlternatingRowsDefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(theme, "DataGridAlternatingColor");
+                INSTAPPS_DataMainTable.ColumnHeadersDefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageBG");
+                INSTAPPS_DataMainTable.ColumnHeadersDefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageBG");
+                INSTAPPS_DataMainTable.ColumnHeadersDefaultCellStyle.ForeColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageFE");
+                INSTAPPS_DataMainTable.DefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageBG");
+                INSTAPPS_DataMainTable.DefaultCellStyle.SelectionForeColor = TS_ThemeEngine.ColorMode(theme, "OSDAndServicesPageFE");
                 // PRINT
                 print_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
                 EXPORT_HeaderLabel.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
@@ -5017,7 +5347,8 @@ namespace Glow{
                     { 10, BATTERY_RotateBtn },
                     { 11, OSD_RotateBtn },
                     { 12, SERVICES_RotateBtn },
-                    { 13, PRINT_RotateBtn }
+                    { 13, INSTALLED_RotateBtn },
+                    { 14, PRINT_RotateBtn }
                 };
                 if (buttonMap.TryGetValue(menu_btns, out Button selectedButton)){
                     selectedButton.BackColor = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
@@ -5044,7 +5375,8 @@ namespace Glow{
                     { 10, theme == 1 ? "lm_battery_light" : "lm_battery_dark" },
                     { 11, theme == 1 ? "lm_drivers_light" : "lm_drivers_dark" },
                     { 12, theme == 1 ? "lm_services_light" : "lm_services_dark" },
-                    { 13, theme == 1 ? "lm_export_light" : "lm_export_dark" }
+                    { 13, theme == 1 ? "lm_apps_light" : "lm_apps_dark" },
+                    { 14, theme == 1 ? "lm_export_light" : "lm_export_dark" }
                 };
                 if (imageMap.TryGetValue(hi_value, out string imageName)){
                     HeaderImage.Image = (Image)Properties.Resources.ResourceManager.GetObject(imageName);
@@ -5056,20 +5388,20 @@ namespace Glow{
         private void glow_other_page_dynamic_ui(){
             try{
                 var glow_other_pages = new (string name, Func<object> createTool, Action<object> applySettings)[]{
-                ("glow_sfc_and_dism_tool", () => new GlowSFCandDISMAutoTool(), tool => ((GlowSFCandDISMAutoTool)tool).sadt_theme_settings()),
-                ("glow_cache_cleanup_tool", () => new GlowCacheCleanupTool(), tool => ((GlowCacheCleanupTool)tool).cct_theme_settings()),
-                ("glow_bench_cpu_tool", () => new GlowBenchCPU(), tool => ((GlowBenchCPU)tool).bench_cpu_theme_settings()),
-                ("glow_bench_ram_tool", () => new GlowBenchMemory(), tool => ((GlowBenchMemory)tool).bench_ram_settings()),
-                ("glow_bench_disk_tool", () => new GlowBenchDisk(), tool => ((GlowBenchDisk)tool).bench_disk_theme_settings()),
-                ("glow_screen_overlay_tool", () => new GlowOverlay(), tool => ((GlowOverlay)tool).screen_overlay_settings()),
-                ("glow_dns_test_tool", () => new GlowDNSTestTool(), tool => ((GlowDNSTestTool)tool).dns_test_settings()),
-                ("glow_quick_access_tool", () => new GlowQuickAccessTool(), tool => ((GlowQuickAccessTool)tool).quick_access_settings()),
-                ("glow_show_wifi_password_tool", () => new GlowShowWiFiPasswordTool(), tool => ((GlowShowWiFiPasswordTool)tool).swpt_theme_settings()),
-                ("glow_network_fix_tool", () => new GlowNetworkFixTool(), tool => ((GlowNetworkFixTool)tool).nft_theme_settings()),
-                ("glow_monitor_test_engine_dead_pixel", () => new GlowMonitorTestEngine(), tool => ((GlowMonitorTestEngine)tool).monitor_test_engine_theme_settings()),
-                ("glow_monitor_test_engine_dynamic_range", () => new GlowMonitorTestEngine(), tool => ((GlowMonitorTestEngine)tool).monitor_test_engine_theme_settings()),
-                ("glow_about", () => new GlowAbout(), tool => ((GlowAbout)tool).about_preloader()),
-            };
+                    ("glow_sfc_and_dism_tool", () => new GlowSFCandDISMAutoTool(), tool => ((GlowSFCandDISMAutoTool)tool).sadt_theme_settings()),
+                    ("glow_cache_cleanup_tool", () => new GlowCacheCleanupTool(), tool => ((GlowCacheCleanupTool)tool).cct_theme_settings()),
+                    ("glow_bench_cpu_tool", () => new GlowBenchCPU(), tool => ((GlowBenchCPU)tool).bench_cpu_theme_settings()),
+                    ("glow_bench_ram_tool", () => new GlowBenchMemory(), tool => ((GlowBenchMemory)tool).bench_ram_settings()),
+                    ("glow_bench_disk_tool", () => new GlowBenchDisk(), tool => ((GlowBenchDisk)tool).bench_disk_theme_settings()),
+                    ("glow_screen_overlay_tool", () => new GlowOverlay(), tool => ((GlowOverlay)tool).screen_overlay_settings()),
+                    ("glow_dns_test_tool", () => new GlowDNSTestTool(), tool => ((GlowDNSTestTool)tool).dns_test_settings()),
+                    ("glow_quick_access_tool", () => new GlowQuickAccessTool(), tool => ((GlowQuickAccessTool)tool).quick_access_settings()),
+                    ("glow_show_wifi_password_tool", () => new GlowShowWiFiPasswordTool(), tool => ((GlowShowWiFiPasswordTool)tool).swpt_theme_settings()),
+                    ("glow_network_fix_tool", () => new GlowNetworkFixTool(), tool => ((GlowNetworkFixTool)tool).nft_theme_settings()),
+                    ("glow_monitor_test_engine_dead_pixel", () => new GlowMonitorTestEngine(), tool => ((GlowMonitorTestEngine)tool).monitor_test_engine_theme_settings()),
+                    ("glow_monitor_test_engine_dynamic_range", () => new GlowMonitorTestEngine(), tool => ((GlowMonitorTestEngine)tool).monitor_test_engine_theme_settings()),
+                    ("glow_about", () => new GlowAbout(), tool => ((GlowAbout)tool).about_preloader()),
+                };
                 foreach (var (toolName, createTool, applySettings) in glow_other_pages){
                     try{
                         var tool = createTool();
@@ -5144,6 +5476,37 @@ namespace Glow{
             DialogResult hiding_mode_change_message = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(TS_String_Encoder(software_lang.TSReadLangs("HidingModeChange", "hiding_mode_change_notification")), "\n\n", "\n\n"));
             if (hiding_mode_change_message == DialogResult.Yes){ Application.Restart(); }
         }
+        // SOFTWARE OPERATION CONTROLLER MODULE
+        // ======================================================================================================
+        private static bool software_operation_controller(string __target_software_path){
+            var exeFiles = Directory.GetFiles(__target_software_path, "*.exe");
+            var runned_process = Process.GetProcesses();
+            foreach (var exe_path in exeFiles){
+                string exe_name = Path.GetFileNameWithoutExtension(exe_path);
+                if (runned_process.Any(p => {
+                    try{
+                        return string.Equals(p.ProcessName, exe_name, StringComparison.OrdinalIgnoreCase);
+                    }catch{
+                        return false;
+                    }
+                })){
+                    return true;
+                }
+            }
+            return false;
+        }
+        // TS WIZARD STARTER MODE
+        // ======================================================================================================
+        private string[] ts_wizard_starter_mode(){
+            string[] ts_wizard_exe_files = { "TSWizard_arm64.exe", "TSWizard_x64.exe", "TSWizard.exe" };
+            if (RuntimeInformation.OSArchitecture == Architecture.Arm64){
+                return new[] { ts_wizard_exe_files[0], ts_wizard_exe_files[1], ts_wizard_exe_files[2] }; // arm64 > x64 > default
+            }else if (Environment.Is64BitOperatingSystem){
+                return new[] { ts_wizard_exe_files[1], ts_wizard_exe_files[0], ts_wizard_exe_files[2] }; // x64 > arm64 > default
+            }else{
+                return new[] { ts_wizard_exe_files[2], ts_wizard_exe_files[1], ts_wizard_exe_files[0] }; // default > x64 > arm64
+            }
+        }
         // UPDATE CHECK ENGINE
         // ======================================================================================================
         private void checkforUpdatesToolStripMenuItem_Click(object sender, EventArgs e){
@@ -5153,16 +5516,6 @@ namespace Glow{
             try{
                 await Task.Run(() => software_update_check(u_mode), Program.TS_TokenEngine.Token);
             }catch (Exception){ }
-        }
-        public bool IsNetworkCheck(){
-            Ping check_ping = new Ping();
-            try{
-                PingReply check_ping_reply = check_ping.Send("www.google.com");
-                if (check_ping_reply.Status == IPStatus.Success){
-                    return true;
-                }
-            }catch (PingException){ }
-            return false;
         }
         public void software_update_check(int _check_update_ui){
             try{
@@ -5182,11 +5535,28 @@ namespace Glow{
                     int last_num_version = Convert.ToInt32(last_version.Replace(".", string.Empty));
                     //
                     if (client_num_version < last_num_version){
-                        // Update available
-                        DialogResult info_update = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(TS_String_Encoder(software_lang.TSReadLangs("SoftwareUpdate", "su_available")), Application.ProductName, "\n\n", client_version, "\n", last_version, "\n\n"), string.Format(TS_String_Encoder(software_lang.TSReadLangs("SoftwareUpdate", "su_title")), Application.ProductName));
-                        if (info_update == DialogResult.Yes){
-                            Process.Start(new ProcessStartInfo(TS_LinkSystem.github_link_lr){ UseShellExecute = true });
-                        }
+                        try{
+                            string baseDir = Path.Combine(Directory.GetParent(Directory.GetParent(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).FullName).FullName);
+                            string ts_wizard_path = ts_wizard_starter_mode().Select(name => Path.Combine(baseDir, name)).FirstOrDefault(File.Exists);
+                            //
+                            if (ts_wizard_path != null){
+                                if (!software_operation_controller(Path.GetDirectoryName(ts_wizard_path))){
+                                    // Update available
+                                    DialogResult info_update = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(TS_String_Encoder(software_lang.TSReadLangs("SoftwareUpdate", "su_available_ts_wizard")), Application.ProductName, "\n\n", client_version, "\n", last_version, "\n\n", ts_wizard_name), string.Format(TS_String_Encoder(software_lang.TSReadLangs("SoftwareUpdate", "su_title")), Application.ProductName));
+                                    if (info_update == DialogResult.Yes){
+                                        Process.Start(new ProcessStartInfo { FileName = ts_wizard_path, WorkingDirectory = Path.GetDirectoryName(ts_wizard_path) });
+                                    }
+                                }else{
+                                    TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format(TS_String_Encoder(software_lang.TSReadLangs("HeaderHelp", "header_help_info_notification")), ts_wizard_name));
+                                }
+                            }else{
+                                // Update available
+                                DialogResult info_update = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(TS_String_Encoder(software_lang.TSReadLangs("SoftwareUpdate", "su_available")), Application.ProductName, "\n\n", client_version, "\n", last_version, "\n\n"), string.Format(TS_String_Encoder(software_lang.TSReadLangs("SoftwareUpdate", "su_title")), Application.ProductName));
+                                if (info_update == DialogResult.Yes){
+                                    Process.Start(new ProcessStartInfo(TS_LinkSystem.github_link_lr) { UseShellExecute = true });
+                                }
+                            }
+                        }catch (Exception){ }
                     }else if (_check_update_ui == 1 && client_num_version == last_num_version){
                         // No update available
                         TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format(TS_String_Encoder(software_lang.TSReadLangs("SoftwareUpdate", "su_not_available")), Application.ProductName, "\n", client_version), string.Format(TS_String_Encoder(software_lang.TSReadLangs("SoftwareUpdate", "su_title")), Application.ProductName));
@@ -5231,7 +5601,7 @@ namespace Glow{
         }
         private void print_engine_progress_update(int status){
             try{
-                const int total_pages = 12;
+                const int total_pages = 13;
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
                 var progressPages = new Dictionary<int, string>{
                     { 1, TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_os")) },
@@ -5245,7 +5615,8 @@ namespace Glow{
                     { 9, TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_sound")) },
                     { 10, TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_battery")) },
                     { 11, TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_installed_drivers")) },
-                    { 12, TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_installed_services")) }
+                    { 12, TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_installed_services")) },
+                    { 13, TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_installed_apps")) }
                 };
                 if (status <= total_pages){
                     progressPages.TryGetValue(status, out string progress_page);
@@ -5634,6 +6005,17 @@ namespace Glow{
             }catch (Exception){ }
             PrintEngineList.Add(Environment.NewLine + TS_String_Encoder(software_lang.TSReadLangs("Services_Content", "ss_total_installed_service_count")) + " " + SERVICE_TYS_V.Text + Environment.NewLine);
             PrintEngineList.Add(new string('-', 60) + Environment.NewLine);
+            // INSTALLED APPS
+            print_engine_progress_update(13);
+            PrintEngineList.Add($"<{new string('-', 7)} {TS_String_Encoder(software_lang.TSReadLangs("Header", "header_installed_apps"))} {new string('-', 7)}>" + Environment.NewLine);
+            PrintEngineList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_instapps_sorting")) + Environment.NewLine);
+            try{
+                for (int i = 0; i < INSTAPPS_DataMainTable.Rows.Count; i++){
+                    PrintEngineList.Add(INSTAPPS_DataMainTable.Rows[i].Cells[1].Value.ToString() + " | " + INSTAPPS_DataMainTable.Rows[i].Cells[2].Value.ToString() + " | " + INSTAPPS_DataMainTable.Rows[i].Cells[3].Value.ToString() + " | " + INSTAPPS_DataMainTable.Rows[i].Cells[4].Value.ToString() + Environment.NewLine + new string('-', 155));
+                }
+            }catch (Exception){ }
+            PrintEngineList.Add(Environment.NewLine + TS_String_Encoder(software_lang.TSReadLangs("Instapps_Content", "ia_total_installed_apps_count")) + " " + INSTAPPS_TYUS_V.Text + Environment.NewLine);
+            PrintEngineList.Add(new string('-', 60) + Environment.NewLine);
             // FOOTER
             PrintEngineList.Add(Application.ProductName + " " + TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_version")) + " " + TS_VersionEngine.TS_SofwareVersion(1, Program.ts_version_mode));
             PrintEngineList.Add(TS_SoftwareCopyrightDate.ts_scd_preloader);
@@ -5642,7 +6024,8 @@ namespace Glow{
             PrintEngineList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_twitter")) + " " + TS_LinkSystem.twitter_x_link);
             PrintEngineList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_instagram")) + " " + TS_LinkSystem.instagram_link);
             PrintEngineList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_github")) + " " + TS_LinkSystem.github_link);
-            print_engine_progress_update(13);
+            PrintEngineList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_bmac")) + " " + TS_LinkSystem.ts_bmac);
+            print_engine_progress_update(14);
             SaveFileDialog save_engine = new SaveFileDialog{
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                 Title = Application.ProductName + " - " + TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_save_directory")),
@@ -5707,7 +6090,7 @@ namespace Glow{
             PrintEngineList.Add("\t\tbody{ background-color: " + html_bbgc + "; padding: 5px 10px; justify-content: center; align-items: center; display: flex; }");
             PrintEngineList.Add("\t\t#main_container{ width: 100%; height: auto; justify-content: center; align-items: center; display: flex; flex-direction: column; }");
             PrintEngineList.Add("\t\t#main_container > h2{ margin: 25px 0; font-weight: 500; color: " + html_uifc + "; }");
-            PrintEngineList.Add("\t\t#main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ background-color: " + html_mbgc + "; width: 1250px; height: auto; border-radius: 10px; margin: 5px 0; padding: 15px; box-sizing: border-box; display: inline-block; word-break: break-word; table-layout: fixed; }");
+            PrintEngineList.Add("\t\t#main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14, .b15{ background-color: " + html_mbgc + "; width: 1250px; height: auto; border-radius: 10px; margin: 5px 0; padding: 15px; box-sizing: border-box; display: inline-block; word-break: break-word; table-layout: fixed; }");
             PrintEngineList.Add("\t\t#main_container > .b8 > h3{ margin: 0 0 15px 0; }");
             PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper:nth-child(1){ justify-content: start; align-items: center; display: flex; gap: 25px; }");
             PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper:nth-child(1) > img{ width: 75px; height: 75px; }");
@@ -5727,9 +6110,9 @@ namespace Glow{
             PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > ul > li > a{ color: " + html_uifc + "; text-decoration: underline; transition: 0.3s; }");
             PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > ul > li > a:hover{ color: " + html_uifhc + "; }");
             PrintEngineList.Add("\t\t#main_container > .ts_box_wrapper > hr{ height: 1px; background-color: " + html_uifc + "; border: none; margin: 20px 0; padding: 0; }");
-            PrintEngineList.Add("\t\t#main_container > .b14 > ul > li > span{ color: " + html_uifc + "; }");
-            PrintEngineList.Add("\t\t@media (max-width: 1260px){ #main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ width: 100%; } }");
-            PrintEngineList.Add("\t\t@media (max-width: 735px){ #main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14{ padding: 10px; } #main_container > .ts_box_wrapper > h3{ text-align: center; } }");
+            PrintEngineList.Add("\t\t#main_container > .b15 > ul > li > span{ color: " + html_uifc + "; }");
+            PrintEngineList.Add("\t\t@media (max-width: 1260px){ #main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14, .b15{ width: 100%; } }");
+            PrintEngineList.Add("\t\t@media (max-width: 735px){ #main_container > .b1, .b2, .b3, .b4, .b5, .b6, .b7, .b8, .b9, .b10, .b11, .b12, .b13, .b14, .b15{ padding: 10px; } #main_container > .ts_box_wrapper > h3{ text-align: center; } }");
             PrintEngineList.Add("\t\t@media (max-width: 495px){ #main_container > .ts_box_wrapper:nth-child(1){ flex-direction: column; justify-content: center; gap: 10px; } #main_container > .ts_box_wrapper:nth-child(1) > .ts_box_text{ text-align: center; align-items: center; } #main_container > .ts_box_wrapper > ul{ margin: 15px 0 0 25px; } #main_container > .ts_box_wrapper > h4{ margin: 13px 0 0 6px; } }");
             PrintEngineList.Add("\t</style>");
             PrintEngineList.Add("\t<link rel='icon' type='image/x-icon' href='" + print_html_glow_logo_url + "'>");
@@ -5752,7 +6135,8 @@ namespace Glow{
             PrintEngineList.Add($"\t\t<option value='b11'>{TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_battery"))}</option>");
             PrintEngineList.Add($"\t\t<option value='b12'>{TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_installed_drivers"))}</option>");
             PrintEngineList.Add($"\t\t<option value='b13'>{TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_installed_services"))}</option>");
-            PrintEngineList.Add($"\t\t<option value='b14'>{TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_html_footer_select"))}</option>");
+            PrintEngineList.Add($"\t\t<option value='b14'>{TS_String_Encoder(software_lang.TSReadLangs("LeftMenu", "left_installed_apps"))}</option>");
+            PrintEngineList.Add($"\t\t<option value='b15'>{TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_html_footer_select"))}</option>");
             PrintEngineList.Add("\t</select>");
             // MAIN CONTAINER
             PrintEngineList.Add("\t<div id='main_container'>");
@@ -6175,8 +6559,25 @@ namespace Glow{
             }catch (Exception){ }
             PrintEngineList.Add($"\t\t\t<h4><span>{TS_String_Encoder(software_lang.TSReadLangs("Services_Content", "ss_total_installed_service_count"))}</span><span>{SERVICE_TYS_V.Text}</span></h4>");
             PrintEngineList.Add("\t\t</div>");
-            // FOOTER V1
+            // INSTALLED APPS
+            print_engine_progress_update(13);
             PrintEngineList.Add("\t\t<div class='b14 ts_box_wrapper'>");
+            PrintEngineList.Add($"\t\t\t<h3>{TS_String_Encoder(software_lang.TSReadLangs("Header", "header_installed_apps"))}</h3>");
+            char[] split_apps = { ':' };
+            string apps_header = TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_instapps_sorting"));
+            string[] apps_texts = apps_header.Split(split_apps);
+            PrintEngineList.Add($"\t\t\t<h4><span>{apps_texts[0]}:</span><span>{apps_texts[1]}</span></h4>");
+            try{
+                PrintEngineList.Add("\t\t\t<ul>");
+                for (int i = 0; i < INSTAPPS_DataMainTable.Rows.Count; i++){
+                    PrintEngineList.Add($"\t\t\t\t<li>{INSTAPPS_DataMainTable.Rows[i].Cells[1].Value.ToString() + " | " + INSTAPPS_DataMainTable.Rows[i].Cells[2].Value.ToString() + " | " + INSTAPPS_DataMainTable.Rows[i].Cells[3].Value.ToString() + " | " + INSTAPPS_DataMainTable.Rows[i].Cells[4].Value.ToString()}</li>");
+                }
+                PrintEngineList.Add("\t\t\t</ul>");
+            }catch (Exception){ }
+            PrintEngineList.Add($"\t\t\t<h4><span>{TS_String_Encoder(software_lang.TSReadLangs("Instapps_Content", "ia_total_installed_apps_count"))}</span><span>{INSTAPPS_TYUS_V.Text}</span></h4>");
+            PrintEngineList.Add("\t\t</div>");
+            // FOOTER V1
+            PrintEngineList.Add("\t\t<div class='b15 ts_box_wrapper'>");
             PrintEngineList.Add($"\t\t\t<h3>{string.Format(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_html_footer")), Application.ProductName.ToUpper())}</h3>");
             PrintEngineList.Add("\t\t\t<ul>");
             PrintEngineList.Add($"\t\t\t\t<li>{Application.ProductName + " " + TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_version")) + " <span>" + TS_VersionEngine.TS_SofwareVersion(1, Program.ts_version_mode)}</span></li>");
@@ -6185,6 +6586,7 @@ namespace Glow{
             PrintEngineList.Add($"\t\t\t\t<li>{TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_twitter")) + " " + "<a target='_blank' href='" + TS_LinkSystem.twitter_x_link + "'>" + TS_LinkSystem.twitter_x_link + "</a>"}</li>");
             PrintEngineList.Add($"\t\t\t\t<li>{TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_instagram")) + " " + "<a target='_blank' href='" + TS_LinkSystem.instagram_link + "'>" + TS_LinkSystem.instagram_link + "</a>"}</li>");
             PrintEngineList.Add($"\t\t\t\t<li>{TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_github")) + " " + "<a target='_blank' href='" + TS_LinkSystem.github_link + "'>" + TS_LinkSystem.github_link + "</a>"}</li>");
+            PrintEngineList.Add($"\t\t\t\t<li>{TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_bmac")) + " " + "<a target='_blank' href='" + TS_LinkSystem.ts_bmac + "'>" + TS_LinkSystem.ts_bmac + "</a>"}</li>");
             PrintEngineList.Add("\t\t\t</ul>");
             PrintEngineList.Add("\t\t</div>");
             // MAIN CONTAINER END
@@ -6201,7 +6603,7 @@ namespace Glow{
             PrintEngineList.Add("</body>");
             PrintEngineList.Add("</html>");
             // FOOTER V2
-            print_engine_progress_update(13);
+            print_engine_progress_update(14);
             SaveFileDialog save_engine = new SaveFileDialog{
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                 Title = Application.ProductName + " - " + TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_save_directory")),
@@ -6227,7 +6629,7 @@ namespace Glow{
         }
         // SFC AND DISM AUTO TOOL
         // ======================================================================================================
-        private void sFCandDISMAutoToolToolStripMenuItem_Click(object sender, EventArgs e){
+        private void sFCandDISMAutoTool_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
                 GlowSFCandDISMAutoTool sfc_and_dism_tool = new GlowSFCandDISMAutoTool();
@@ -6246,7 +6648,7 @@ namespace Glow{
         }
         // CACHE CLEANUP TOOL
         // ======================================================================================================
-        private void cacheCleaningToolToolStripMenuItem_Click(object sender, EventArgs e){
+        private void cacheCleaningTool_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
                 GlowCacheCleanupTool cache_cleanup_tool = new GlowCacheCleanupTool();
@@ -6265,7 +6667,7 @@ namespace Glow{
         }
         // CPU BENCH TOOL
         // ======================================================================================================
-        private void benchCPUToolStripMenuItem_Click(object sender, EventArgs e){
+        private void benchCPUTool_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
                 GlowBenchCPU bench_cpu_tool = new GlowBenchCPU();
@@ -6284,7 +6686,7 @@ namespace Glow{
         }
         // RAM BENCH TOOL
         // ======================================================================================================
-        private void benchRAMToolStripMenuItem_Click(object sender, EventArgs e){
+        private void benchRAMTool_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
                 GlowBenchMemory glow_overlay_tool = new GlowBenchMemory();
@@ -6300,11 +6702,10 @@ namespace Glow{
                     Application.OpenForms[glow_tool_name].Activate();
                 }
             }catch (Exception){ }
-
         }
         // DISK BENCH TOOL
         // ======================================================================================================
-        private void benchDiskToolStripMenuItem_Click(object sender, EventArgs e){
+        private void benchDiskTool_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
                 GlowBenchDisk bench_disk_tool = new GlowBenchDisk();
@@ -6323,7 +6724,7 @@ namespace Glow{
         }
         // SCREEN OVERLAY
         // ======================================================================================================
-        private void screenOverlayToolStripMenuItem_Click(object sender, EventArgs e){
+        private void screenOverlayTool_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
                 GlowOverlay glow_overlay_tool = new GlowOverlay();
@@ -6342,7 +6743,7 @@ namespace Glow{
         }
         // DNS TEST TOOL
         // ======================================================================================================
-        private void dNSTestToolStripMenuItem_Click(object sender, EventArgs e){
+        private void dNSTestTool_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
                 GlowDNSTestTool glow_dns_test_tool = new GlowDNSTestTool();
@@ -6361,7 +6762,7 @@ namespace Glow{
         }
         // QUICK ACCESS TOOL
         // ======================================================================================================
-        private void quickAccessToolStripMenuItem_Click(object sender, EventArgs e){
+        private void quickAccessTool_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
                 GlowQuickAccessTool glow_quick_access_tool = new GlowQuickAccessTool();
@@ -6380,7 +6781,7 @@ namespace Glow{
         }
         // NETWORK FIX TOOL
         // ======================================================================================================
-        private void networkFixToolToolStripMenuItem_Click(object sender, EventArgs e){
+        private void networkFixToolTool_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
                 GlowNetworkFixTool glow_network_fix_tool = new GlowNetworkFixTool();
@@ -6399,7 +6800,7 @@ namespace Glow{
         }
         // SHOW WIFI PASSWORD TOOL
         // ======================================================================================================
-        private void showWiFiPasswordToolToolStripMenuItem_Click(object sender, EventArgs e){
+        private void showWiFiPasswordTool_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
                 GlowShowWiFiPasswordTool glow_show_wifi_password_tool = new GlowShowWiFiPasswordTool();
@@ -6418,11 +6819,11 @@ namespace Glow{
         }
         // MONITOR TEST TOOL
         // ======================================================================================================
-        private void monitorDeadPixelTestToolStripMenuItem_Click(object sender, EventArgs e){
+        private void monitorDeadPixelTestTool_Click(object sender, EventArgs e){
             monitor_engine_mode = 0;
             monitor_start_engine_pending();
         }
-        private void monitorDynamicRangeTestToolStripMenuItem_Click(object sender, EventArgs e){
+        private void monitorDynamicRangeTestTool_Click(object sender, EventArgs e){
             monitor_engine_mode = 1;
             monitor_start_engine_pending();
         }
@@ -6462,6 +6863,36 @@ namespace Glow{
                 }
                 Application.OpenForms[glow_tool_name].Activate();
             }
+        }
+        // BUY ME A COFFEE LINK
+        // ======================================================================================================
+        private void bmacToolStripMenuItem_Click(object sender, EventArgs e){
+            try{
+                Process.Start(new ProcessStartInfo(TS_LinkSystem.ts_bmac) { UseShellExecute = true });
+            }catch (Exception){ }
+        }
+        // TS WIZARD
+        // ======================================================================================================
+        private void tSWizardToolStripMenuItem_Click(object sender, EventArgs e){
+            try{
+                string baseDir = Path.Combine(Directory.GetParent(Directory.GetParent(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).FullName).FullName);
+                string ts_wizard_path = ts_wizard_starter_mode().Select(name => Path.Combine(baseDir, name)).FirstOrDefault(File.Exists);
+                //
+                TSGetLangs software_lang = new TSGetLangs(lang_path);
+                //
+                if (ts_wizard_path != null){
+                    if (!software_operation_controller(Path.GetDirectoryName(ts_wizard_path))){
+                        Process.Start(new ProcessStartInfo{ FileName = ts_wizard_path, WorkingDirectory = Path.GetDirectoryName(ts_wizard_path) });
+                    }else{
+                        TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format(TS_String_Encoder(software_lang.TSReadLangs("HeaderHelp", "header_help_info_notification")), ts_wizard_name));
+                    }
+                }else{
+                    DialogResult ts_wizard_query = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(TS_String_Encoder(software_lang.TSReadLangs("TSWizard", "tsw_content")), TS_String_Encoder(software_lang.TSReadLangs("HeaderMenu", "header_menu_ts_wizard")), Application.CompanyName, "\n\n", Application.ProductName, Application.CompanyName, "\n\n"), string.Format(TS_String_Encoder(software_lang.TSReadLangs("TSWizard", "tsw_title")), Application.ProductName));
+                    if (ts_wizard_query == DialogResult.Yes){
+                        Process.Start(new ProcessStartInfo(TS_LinkSystem.ts_wizard) { UseShellExecute = true });
+                    }
+                }
+            }catch (Exception){ }
         }
         // GLOW ABOUT
         // ======================================================================================================

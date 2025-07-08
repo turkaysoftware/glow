@@ -420,6 +420,7 @@ namespace Glow.glow_tools{
                 PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_twitter")) + " " + TS_LinkSystem.twitter_x_link);
                 PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_instagram")) + " " + TS_LinkSystem.instagram_link);
                 PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_github")) + " " + TS_LinkSystem.github_link);
+                PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_bmac")) + " " + TS_LinkSystem.ts_bmac);
                 //
                 SaveFileDialog save_engine = new SaveFileDialog{
                     InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),

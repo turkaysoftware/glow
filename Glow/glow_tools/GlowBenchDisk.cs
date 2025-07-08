@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
-using System.Diagnostics;
-using System.Windows.Forms;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Collections.Generic;
+using System.Windows.Forms;
 using static Glow.TSModules;
 
 namespace Glow.glow_tools{
@@ -125,7 +126,6 @@ namespace Glow.glow_tools{
             Bench_Buffer.Items.Add("1024 KB");
             Bench_Buffer.Items.Add("2048 KB");
             Bench_Buffer.Items.Add("4096 KB");
-            Bench_Buffer.Items.Add("8192 KB");
             Bench_Buffer.SelectedIndex = 4;
             //
             Bench_L_WriteSpeed_V.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_start_test_await"));
@@ -220,8 +220,7 @@ namespace Glow.glow_tools{
         }
         // TIMER
         // ======================================================================================================
-        private async Task BenchTimerAsync()
-        {
+        private async Task BenchTimerAsync(){
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             //
@@ -282,28 +281,21 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         private void RunBenchmark(string selectedDrive){
             var timerTask = BenchTimerAsync();
-            // FILE PATH
             benchmarkFilePath = Path.Combine(selectedDrive, "GlowBenchDiskTestFile_" + new Random().Next(1000, 9999) + ".glow");
-            // BENCH SIZE
             long fileSizeInBytes = 0;
-            int[] sizesInGB = { 12, 15, 20, 25, 32, 64, 128 }; // GB cinsinden boyutlar
-            if (Bench_Size.SelectedIndex >= 0 && Bench_Size.SelectedIndex < sizesInGB.Length){
+            int[] sizesInGB = { 12, 15, 20, 25, 32, 64, 128 };
+            if (Bench_Size.SelectedIndex >= 0 && Bench_Size.SelectedIndex < sizesInGB.Length)
                 fileSizeInBytes = GigabytesToBytes(sizesInGB[Bench_Size.SelectedIndex]);
-            }
-            else if (Bench_Size.SelectedIndex == 7){
-                int _cs = Convert.ToInt32(Bench_SizeCustom.Text.Trim());
-                fileSizeInBytes = GigabytesToBytes(_cs); // Özel boyut
-            }
-            // BENCH BUFFER POOL
-            byte[] buffer = KilobytesToBytes(0);
-            int[] bufferSizesInKB = { 64, 128, 256, 512, 1024, 4096, 8192 }; // KB cinsinden tampon boyutları
-            if (Bench_Buffer.SelectedIndex >= 0 && Bench_Buffer.SelectedIndex < bufferSizesInKB.Length){
+            else if (Bench_Size.SelectedIndex == 7)
+                fileSizeInBytes = GigabytesToBytes(Convert.ToInt32(Bench_SizeCustom.Text.Trim()));
+            int[] bufferSizesInKB = { 64, 128, 256, 512, 1024, 4096 };
+            if (Bench_Buffer.SelectedIndex >= 0 && Bench_Buffer.SelectedIndex < bufferSizesInKB.Length)
                 global_buffer = bufferSizesInKB[Bench_Buffer.SelectedIndex];
-            }
-            buffer = KilobytesToBytes(global_buffer);
+            byte[] buffer = KilobytesToBytes(global_buffer);
             try{
-                // BENCHMARK SETTINGS
-                using (FileStream fs = new FileStream(benchmarkFilePath, FileMode.Create, FileAccess.Write)){
+                // WRITE
+                Stopwatch swWrite = Stopwatch.StartNew();
+                using (FileStream fs = new FileStream(benchmarkFilePath, FileMode.Create, FileAccess.Write, FileShare.None, buffer.Length, FileOptions.WriteThrough)){
                     long bytesWritten = 0;
                     while (bytesWritten < fileSizeInBytes && isBenchmarking){
                         int bufferSize = (int)Math.Min(buffer.Length, fileSizeInBytes - bytesWritten);
@@ -311,53 +303,45 @@ namespace Glow.glow_tools{
                         bytesWritten += bufferSize;
                         double progress = (double)bytesWritten / fileSizeInBytes * 100;
                         UpdateProgress(progress);
-                        if (bench_mode == false){
-                            fs.Close();
-                            fs.Dispose();
-                            break;
-                        }
+                        if (!bench_mode) break;
+                    }
+                    fs.Flush();
+                }
+                swWrite.Stop();
+                double writeMBps = (fileSizeInBytes / (1024.0 * 1024.0)) / swWrite.Elapsed.TotalSeconds;
+                Thread.Sleep(500);
+                // READ
+                Stopwatch swRead = Stopwatch.StartNew();
+                long totalBytesRead = 0;
+                using (FileStream fs = new FileStream(benchmarkFilePath, FileMode.Open, FileAccess.Read, FileShare.Read, buffer.Length, FileOptions.SequentialScan)){
+                    int bytesRead;
+                    while ((bytesRead = fs.Read(buffer, 0, buffer.Length)) > 0 && isBenchmarking){
+                        totalBytesRead += bytesRead;
+                        double progress = (double)totalBytesRead / fileSizeInBytes * 100;
+                        UpdateProgress(progress);
+                        if (!bench_mode) break;
                     }
                 }
+                swRead.Stop();
+                double readMBps = (totalBytesRead / (1024.0 * 1024.0)) / swRead.Elapsed.TotalSeconds;
+                if (File.Exists(benchmarkFilePath)){
+                    File.Delete(benchmarkFilePath);
+                    TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
+                    Invoke(new Action(() =>{
+                        Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_title")), Application.ProductName);
+                        bench_mode = false;
+                        loop_mode = false;
+                        TS_MessageBoxEngine.TS_MessageBox(this, 1, TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_result_success")));
+                    }));
+                }
+                isBenchmarking = false;
+                Bench_Start.Enabled = true;
                 Bench_Stop.Enabled = false;
-                // BENCHMARK MODE STATUS
-                if (isBenchmarking){
-                    // BENCHMARK STREAM
-                    using (FileStream fs = new FileStream(benchmarkFilePath, FileMode.Open, FileAccess.Read, FileShare.Read, global_buffer)){
-                        long totalBytesRead = 0;
-                        long fileSize = fs.Length;
-                        int bytesRead;
-                        while ((bytesRead = fs.Read(buffer, 0, buffer.Length)) > 0 && isBenchmarking){
-                            totalBytesRead += bytesRead;
-                            double progress = (double)totalBytesRead / fileSize * 100;
-                            UpdateProgress(progress);
-                            if (bench_mode == false){
-                                fs.Close();
-                                fs.Dispose();
-                                break;
-                            }
-                        }
-                    }
-                    // TEST AFTER DELETE
-                    if (File.Exists(benchmarkFilePath)){
-                        File.Delete(benchmarkFilePath);
-                        TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                        Invoke(new Action(() => {
-                            Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_title")), Application.ProductName);
-                            bench_mode = false;
-                            loop_mode = false;
-                            TS_MessageBoxEngine.TS_MessageBox(this, 1, TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_result_success")));
-                        }));
-                    }
-                    //
-                    isBenchmarking = false;
-                    Bench_Start.Enabled = true;
-                    Bench_Stop.Enabled = false;
-                    Bench_Disk.Enabled = true;
-                    Bench_Size.Enabled = true;
-                    Bench_SizeCustom.Enabled = true;
-                    Bench_Buffer.Enabled = true;
-                    Bench_SizeCustom.Enabled = true;
-                }
+                Bench_Disk.Enabled = true;
+                Bench_Size.Enabled = true;
+                Bench_SizeCustom.Enabled = true;
+                Bench_Buffer.Enabled = true;
+                Bench_SizeCustom.Enabled = true;
             }catch (Exception){ }
         }
         // ======================================================================================================

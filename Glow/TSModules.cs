@@ -1,12 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using System.Drawing;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections;
-using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Net;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows.Forms;
 
 namespace Glow{
     internal class TSModules{
@@ -14,13 +15,17 @@ namespace Glow{
         // ======================================================================================================
         public class TS_LinkSystem{
             public static string
-            website_link =      "https://www.turkaysoftware.com",
-            twitter_x_link =    "https://x.com/turkaysoftware",
-            instagram_link =    "https://www.instagram.com/erayturkayy/",
-            github_link =       "https://github.com/turkaysoftware",
+            website_link        = "https://www.turkaysoftware.com",
+            twitter_x_link      = "https://x.com/turkaysoftware",
+            instagram_link      = "https://www.instagram.com/erayturkayy/",
+            github_link         = "https://github.com/turkaysoftware",
             //
-            github_link_lt =    "https://raw.githubusercontent.com/turkaysoftware/glow/main/Glow/SoftwareVersion.txt",
-            github_link_lr =    "https://github.com/turkaysoftware/glow/releases/latest";
+            github_link_lt      = "https://raw.githubusercontent.com/turkaysoftware/glow/main/Glow/SoftwareVersion.txt",
+            github_link_lr      = "https://github.com/turkaysoftware/glow/releases/latest",
+            //
+            ts_wizard           = "https://www.turkaysoftware.com/ts-wizard",
+            //
+            ts_bmac             = "https://buymeacoffee.com/turkaysoftware";
         }
         // VERSIONS
         // ======================================================================================================
@@ -424,6 +429,20 @@ namespace Glow{
         // NETWORK NAME REPLACER
         // ======================================================================================================
         public static string net_replacer(string get_adapter_name) => get_adapter_name.Replace("[", "(").Replace("]", ")");
+        // INTERNET CONNECTION STATUS
+        // ======================================================================================================
+        public static bool IsNetworkCheck(){
+            try{
+                HttpWebRequest server_request = (HttpWebRequest)WebRequest.Create("http://clients3.google.com/generate_204");
+                server_request.KeepAlive = false;
+                server_request.Timeout = 2500;
+                using (var server_response = (HttpWebResponse)server_request.GetResponse()){
+                    return server_response.StatusCode == HttpStatusCode.NoContent;
+                }
+            }catch{
+                return false;
+            }
+        }
         // TITLE BAR SETTINGS DWM API
         // ======================================================================================================
         [DllImport("DwmApi")]

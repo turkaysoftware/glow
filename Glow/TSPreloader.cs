@@ -50,7 +50,7 @@ namespace Glow{
             LabelVersion.Text = TS_VersionEngine.TS_SofwareVersion(1, Program.ts_version_mode);
             LabelCopyright.Text = TS_SoftwareCopyrightDate.ts_scd_preloader;
             //
-            ImageWelcome.BackgroundImage = Properties.Resources.ts_preloader;
+            ImageWelcome.BackgroundImage = Properties.Resources.ts_preloader_release;
             ImageWelcome.BackgroundImageLayout = ImageLayout.Zoom;
             //
             software_preloader();

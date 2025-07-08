@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>25.06.0.%2a</ApplicationVersion>
+    <ApplicationVersion>25.07.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -339,7 +339,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GlowLogo.ico" />
-    <None Include="glow_images\ts_preloader\ts_preloader.jpg" />
+    <None Include="glow_images\glow_interface\dark_theme\lm_apps_dark.png" />
+    <None Include="glow_images\glow_interface\light_theme\lm_apps_light.png" />
+    <None Include="glow_images\ts_preloader\ts_preloader_release.jpg" />
+    <None Include="glow_images\glow_interface\dark_theme\tm_bmac_dark.png" />
+    <None Include="glow_images\glow_interface\light_theme\tm_bmac_light.png" />
+    <None Include="glow_images\glow_interface\dark_theme\tm_tswizard_dark.png" />
+    <None Include="glow_images\glow_interface\light_theme\tm_tswizard_light.png" />
     <None Include="glow_images\glow_interface\dark_theme\tm_network_fix_dark.png" />
     <None Include="glow_images\glow_interface\light_theme\tm_network_fix_light.png" />
     <None Include="glow_images\glow_interface\dark_theme\tm_swpt_dark.png" />
@@ -359,7 +365,6 @@
     <None Include="glow_images\glow_interface\light_theme\lm_export_light.png" />
     <None Include="glow_images\glow_interface\dark_theme\lm_export_dark.png" />
     <None Include="glow_images\glow_interface\dark_theme\tm_update_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_tools_dark.png" />
     <None Include="glow_images\glow_interface\dark_theme\tm_theme_dark.png" />
     <None Include="glow_images\glow_interface\dark_theme\tm_test_monitor_dark.png" />
     <None Include="glow_images\glow_interface\dark_theme\tm_test_dynamic_range_dark.png" />
@@ -388,7 +393,6 @@
     <None Include="glow_images\glow_interface\dark_theme\lm_cpu_dark.png" />
     <None Include="glow_images\glow_interface\dark_theme\lm_battery_dark.png" />
     <None Include="glow_images\glow_interface\light_theme\tm_update_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_tools_light.png" />
     <None Include="glow_images\glow_interface\light_theme\tm_theme_light.png" />
     <None Include="glow_images\glow_interface\light_theme\tm_test_monitor_light.png" />
     <None Include="glow_images\glow_interface\light_theme\tm_test_dynamic_range_light.png" />

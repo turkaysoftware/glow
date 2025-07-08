@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{6ED642BA-621C-49D2-BFEA-D2279D0A9377}|Glow.csproj|solutionrelative:glow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6ED642BA-621C-49D2-BFEA-D2279D0A9377}|Glow.csproj|e:\\main files\\glow\\glow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6ED642BA-621C-49D2-BFEA-D2279D0A9377}|Glow.csproj|E:\\Main Files\\Glow\\glow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6ED642BA-621C-49D2-BFEA-D2279D0A9377}|Glow.csproj|solutionrelative:glow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -18,8 +18,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -28,9 +32,9 @@
               "RelativeDocumentMoniker": "Glow.cs",
               "ToolTip": "E:\\Main Files\\Glow\\Glow.cs",
               "RelativeToolTip": "Glow.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAACkAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAABcBAAAAAAAAAAAlwCEBAABdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T12:28:33.149Z",
+              "WhenOpened": "2025-07-06T10:40:16.576Z",
               "EditorCaption": ""
             },
             {
@@ -42,7 +46,7 @@
               "ToolTip": "E:\\Main Files\\Glow\\Glow.cs [Tasar\u0131m]",
               "RelativeToolTip": "Glow.cs [Tasar\u0131m]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T12:26:15.437Z",
+              "WhenOpened": "2025-07-04T07:23:58.789Z",
               "EditorCaption": " [Tasar\u0131m]"
             }
           ]
