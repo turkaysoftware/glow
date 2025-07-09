@@ -50,7 +50,7 @@ With these instructions, you can download and use the correct version of Glow fo
 
 >To view the **Tools**, you **need to right-click on an area in Glow**.
 
-![Glow Right Click - Tools](https://github.com/user-attachments/assets/38d3b3c1-7b1e-42d9-88e4-49cbe0b96dd3)
+![Glow Right Click - Tools](https://github.com/user-attachments/assets/9e8eb033-df4c-4a26-8092-8d27d0e8825b)
 
 - **Comprehensive System Information:** Provides detailed information about your Operating System, Motherboard, Processor, RAM, Graphics Card, Storage, Network, USB, Sound, Battery, Installed Drivers, and Installed Services.
 - **Light and Dark Theme Support:** Switch between light and dark themes to reduce eye strain and enhance your viewing experience.
