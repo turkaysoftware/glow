@@ -109,8 +109,6 @@ With these instructions, you can download and use the correct version of Glow fo
 | **Hiding Mode:** On | F5 |
 | **Hiding Mode:** Off | F6 |
 
->To view the **Tools**, you **need to right-click on an area in Glow**.
-
 | Tools | Key |
 | -- | :--: |
 | **SFC and DISM Automation Tool** | CTRL + Q |
