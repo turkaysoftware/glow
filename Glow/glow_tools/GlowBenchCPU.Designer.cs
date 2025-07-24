@@ -81,6 +81,7 @@
             this.Bench_Start.Size = new System.Drawing.Size(362, 39);
             this.Bench_Start.TabIndex = 0;
             this.Bench_Start.Text = "Başlat";
+            this.Bench_Start.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Bench_Start.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.Bench_Start.UseVisualStyleBackColor = false;
             this.Bench_Start.Click += new System.EventHandler(this.Bench_Start_Click);
@@ -103,6 +104,7 @@
             this.Bench_Stop.Size = new System.Drawing.Size(362, 39);
             this.Bench_Stop.TabIndex = 1;
             this.Bench_Stop.Text = "Durdur";
+            this.Bench_Stop.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Bench_Stop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.Bench_Stop.UseVisualStyleBackColor = false;
             this.Bench_Stop.Click += new System.EventHandler(this.Bench_Stop_Click);

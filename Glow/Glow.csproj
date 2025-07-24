@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>25.07.0.%2a</ApplicationVersion>
+    <ApplicationVersion>25.08.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -150,16 +150,19 @@
   <PropertyGroup />
   <PropertyGroup />
   <PropertyGroup />
+  <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -338,88 +341,123 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GlowLogo.ico" />
-    <None Include="glow_images\glow_interface\dark_theme\lm_apps_dark.png" />
-    <None Include="glow_images\glow_interface\light_theme\lm_apps_light.png" />
     <None Include="glow_images\ts_preloader\ts_preloader_release.jpg" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_bmac_dark.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_bmac_light.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_tswizard_dark.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_tswizard_light.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_network_fix_dark.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_network_fix_light.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_swpt_dark.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_swpt_light.png" />
-    <None Include="glow_images\glow_interface\dark_theme\left_os_w11_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\left_os_w10_dark.png" />
-    <None Include="glow_images\glow_interface\light_theme\left_os_w11_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\left_os_w10_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\mid_copy_light.png" />
-    <None Include="glow_images\glow_interface\dark_theme\mid_copy_dark.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_bench_ram_light.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_bench_ram_dark.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_quick_access_light.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_quick_access_dark.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_dns_light.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_dns_dark.png" />
-    <None Include="glow_images\glow_interface\light_theme\lm_export_light.png" />
-    <None Include="glow_images\glow_interface\dark_theme\lm_export_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_update_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_theme_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_test_monitor_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_test_dynamic_range_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_test_dead_pixel_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_start_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_sfc_and_dism_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_settings_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_overlay_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_lang_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_hidden_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_cache_clean_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_bench_disk_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_bench_cpu_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\tm_about_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\mid_zip_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\mid_link_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\lm_usb_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\lm_sound_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\lm_services_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\lm_ram_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\lm_net_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\lm_mb_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\lm_gpu_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\lm_drivers_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\lm_disk_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\lm_cpu_dark.png" />
-    <None Include="glow_images\glow_interface\dark_theme\lm_battery_dark.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_update_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_theme_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_test_monitor_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_test_dynamic_range_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_test_dead_pixel_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_start_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_sfc_and_dism_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_settings_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_overlay_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_lang_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_hidden_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_cache_clean_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_bench_disk_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_bench_cpu_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\tm_about_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\mid_zip_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\mid_link_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\lm_usb_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\lm_sound_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\lm_services_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\lm_ram_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\lm_net_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\lm_mb_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\lm_gpu_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\lm_drivers_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\lm_disk_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\lm_cpu_light.png" />
-    <None Include="glow_images\glow_interface\light_theme\lm_battery_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GlowLogo.ico" />
+    <None Include="glow_images\glow_ui\theme_light\ct_copy_mc_light.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_copy_mc_dark.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_test_stop_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_test_start_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_fix_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_dns_test_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_clean_light.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_test_stop_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_test_start_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_fix_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_dns_test_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_clean_dark.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_mb_update_light.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_mb_update_dark.png" />
+    <None Include="glow_images\glow_ui\theme_light\lm_export_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_export_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_battery_report_light.png" />
+    <None Include="glow_images\glow_ui\theme_dark\lm_export_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_export_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_battery_report_dark.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_clear_light.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_clear_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_youtube_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_x_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_website_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_instagram_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_github_dark.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_youtube_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_x_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_website_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_instagram_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_github_light.png" />
+    <None Include="glow_images\glow_ui\ts_material\ts_close.png" />
+    <None Include="glow_images\glow_ui\theme_light\tm_update_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\tm_ts_wizard_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\tm_tools_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\tm_theme_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\tm_startup_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\tm_settings_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\tm_language_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\tm_hidden_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\tm_bmac_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\tm_about_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\lm_usb_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\lm_sound_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\lm_ram_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\lm_os_w11_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\lm_os_w10_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\lm_net_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\lm_mb_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\lm_iservices_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\lm_idrivers_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\lm_iapps_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\lm_gpu_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\lm_disk_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\lm_cpu_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\lm_battery_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\cx_test_monitor_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\cx_test_dynamic_range_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\cx_test_dead_pixel_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\cx_swpt_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\cx_sfc_and_dism_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\cx_quick_access_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\cx_overlay_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\cx_network_fix_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\cx_dns_test_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\cx_cache_clean_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\cx_bench_ram_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\cx_bench_disk_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\cx_bench_cpu_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_zip_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_link_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_copy_light.png" />
+    <None Include="glow_images\glow_ui\theme_dark\tm_update_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\tm_ts_wizard_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\tm_tools_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\tm_theme_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\tm_startup_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\tm_settings_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\tm_language_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\tm_hidden_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\tm_bmac_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\tm_about_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\lm_usb_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\lm_sound_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\lm_ram_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\lm_os_w11_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\lm_os_w10_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\lm_net_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\lm_mb_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\lm_iservices_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\lm_idrivers_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\lm_iapps_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\lm_gpu_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\lm_disk_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\lm_cpu_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\lm_battery_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\cx_test_monitor_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\cx_test_dynamic_range_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\cx_test_dead_pixel_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\cx_swpt_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\cx_sfc_and_dism_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\cx_quick_access_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\cx_overlay_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\cx_network_fix_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\cx_dns_test_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\cx_cache_clean_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\cx_bench_ram_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\cx_bench_disk_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\cx_bench_cpu_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_zip_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_link_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_copy_dark.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -80,6 +80,20 @@
             this.hidingModeOnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hidingModeOffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkforUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sFCandDISMAutoTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.cacheCleaningTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.benchCPUTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.benchRAMTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.benchDiskTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.screenOverlayTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.dnsTestTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.quickAccessTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.networkFixTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.showWiFiPasswordTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.monitorTestTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.monitorDeadPixelTestTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.monitorDynamicRangeTestTool = new System.Windows.Forms.ToolStripMenuItem();
             this.tSWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bmacToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -624,20 +638,6 @@
             this.HeaderText = new System.Windows.Forms.Label();
             this.MainToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.HeaderPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.RightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.sFCandDISMAutoTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.cacheCleaningTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.benchCPUTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.benchRAMTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.benchDiskTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.screenOverlayTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.dNSTestTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.quickAccessTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.networkFixToolTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.showWiFiPasswordTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.monitorTestTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.monitorDeadPixelTestTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.monitorDynamicRangeTestTool = new System.Windows.Forms.ToolStripMenuItem();
             this.LeftMenuPanel.SuspendLayout();
             this.HeaderMenu.SuspendLayout();
             this.MainContent.SuspendLayout();
@@ -731,7 +731,6 @@
             this.Header_InPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderImage)).BeginInit();
             this.HeaderPanel.SuspendLayout();
-            this.RightClickMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // LeftMenuPanel
@@ -1115,12 +1114,13 @@
             this.HeaderMenu.Dock = System.Windows.Forms.DockStyle.None;
             this.HeaderMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
+            this.toolsToolStripMenuItem,
             this.tSWizardToolStripMenuItem,
             this.bmacToolStripMenuItem,
             this.aboutToolStripMenuItem});
-            this.HeaderMenu.Location = new System.Drawing.Point(567, 9);
+            this.HeaderMenu.Location = new System.Drawing.Point(520, 9);
             this.HeaderMenu.Name = "HeaderMenu";
-            this.HeaderMenu.Size = new System.Drawing.Size(238, 24);
+            this.HeaderMenu.Size = new System.Drawing.Size(285, 24);
             this.HeaderMenu.TabIndex = 1;
             this.HeaderMenu.Text = "menuStrip1";
             // 
@@ -1331,6 +1331,131 @@
             this.checkforUpdatesToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.checkforUpdatesToolStripMenuItem.Text = "CheckforUpdates";
             this.checkforUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkforUpdatesToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sFCandDISMAutoTool,
+            this.cacheCleaningTool,
+            this.benchCPUTool,
+            this.benchRAMTool,
+            this.benchDiskTool,
+            this.screenOverlayTool,
+            this.dnsTestTool,
+            this.quickAccessTool,
+            this.networkFixTool,
+            this.showWiFiPasswordTool,
+            this.monitorTestTool});
+            this.toolsToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // sFCandDISMAutoTool
+            // 
+            this.sFCandDISMAutoTool.Name = "sFCandDISMAutoTool";
+            this.sFCandDISMAutoTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.sFCandDISMAutoTool.Size = new System.Drawing.Size(239, 22);
+            this.sFCandDISMAutoTool.Text = "sFCandDISMAutoTool";
+            this.sFCandDISMAutoTool.Click += new System.EventHandler(this.sFCandDISMAutoTool_Click);
+            // 
+            // cacheCleaningTool
+            // 
+            this.cacheCleaningTool.Name = "cacheCleaningTool";
+            this.cacheCleaningTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+            this.cacheCleaningTool.Size = new System.Drawing.Size(239, 22);
+            this.cacheCleaningTool.Text = "cacheCleaningTool";
+            this.cacheCleaningTool.Click += new System.EventHandler(this.cacheCleaningTool_Click);
+            // 
+            // benchCPUTool
+            // 
+            this.benchCPUTool.Enabled = false;
+            this.benchCPUTool.Name = "benchCPUTool";
+            this.benchCPUTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.benchCPUTool.Size = new System.Drawing.Size(239, 22);
+            this.benchCPUTool.Text = "benchCPUTool";
+            this.benchCPUTool.Click += new System.EventHandler(this.benchCPUTool_Click);
+            // 
+            // benchRAMTool
+            // 
+            this.benchRAMTool.Name = "benchRAMTool";
+            this.benchRAMTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.benchRAMTool.Size = new System.Drawing.Size(239, 22);
+            this.benchRAMTool.Text = "benchRAMTool";
+            this.benchRAMTool.Click += new System.EventHandler(this.benchRAMTool_Click);
+            // 
+            // benchDiskTool
+            // 
+            this.benchDiskTool.Name = "benchDiskTool";
+            this.benchDiskTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.benchDiskTool.Size = new System.Drawing.Size(239, 22);
+            this.benchDiskTool.Text = "benchDiskTool";
+            this.benchDiskTool.Click += new System.EventHandler(this.benchDiskTool_Click);
+            // 
+            // screenOverlayTool
+            // 
+            this.screenOverlayTool.Name = "screenOverlayTool";
+            this.screenOverlayTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.screenOverlayTool.Size = new System.Drawing.Size(239, 22);
+            this.screenOverlayTool.Text = "screenOverlayTool";
+            this.screenOverlayTool.Click += new System.EventHandler(this.screenOverlayTool_Click);
+            // 
+            // dnsTestTool
+            // 
+            this.dnsTestTool.Name = "dnsTestTool";
+            this.dnsTestTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
+            this.dnsTestTool.Size = new System.Drawing.Size(239, 22);
+            this.dnsTestTool.Text = "dnsTestTool";
+            this.dnsTestTool.Click += new System.EventHandler(this.dnsTestTool_Click);
+            // 
+            // quickAccessTool
+            // 
+            this.quickAccessTool.Name = "quickAccessTool";
+            this.quickAccessTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.quickAccessTool.Size = new System.Drawing.Size(239, 22);
+            this.quickAccessTool.Text = "quickAccessTool";
+            this.quickAccessTool.Click += new System.EventHandler(this.quickAccessTool_Click);
+            // 
+            // networkFixTool
+            // 
+            this.networkFixTool.Name = "networkFixTool";
+            this.networkFixTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.networkFixTool.Size = new System.Drawing.Size(239, 22);
+            this.networkFixTool.Text = "networkFixTool";
+            this.networkFixTool.Click += new System.EventHandler(this.networkFixTool_Click);
+            // 
+            // showWiFiPasswordTool
+            // 
+            this.showWiFiPasswordTool.Name = "showWiFiPasswordTool";
+            this.showWiFiPasswordTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.showWiFiPasswordTool.Size = new System.Drawing.Size(239, 22);
+            this.showWiFiPasswordTool.Text = "showWiFiPasswordTool";
+            this.showWiFiPasswordTool.Click += new System.EventHandler(this.showWiFiPasswordTool_Click);
+            // 
+            // monitorTestTool
+            // 
+            this.monitorTestTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.monitorDeadPixelTestTool,
+            this.monitorDynamicRangeTestTool});
+            this.monitorTestTool.Name = "monitorTestTool";
+            this.monitorTestTool.Size = new System.Drawing.Size(239, 22);
+            this.monitorTestTool.Text = "monitorTestTool";
+            // 
+            // monitorDeadPixelTestTool
+            // 
+            this.monitorDeadPixelTestTool.Name = "monitorDeadPixelTestTool";
+            this.monitorDeadPixelTestTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.monitorDeadPixelTestTool.Size = new System.Drawing.Size(282, 22);
+            this.monitorDeadPixelTestTool.Text = "monitorDeadPixelTestTool";
+            this.monitorDeadPixelTestTool.Click += new System.EventHandler(this.monitorDeadPixelTestTool_Click);
+            // 
+            // monitorDynamicRangeTestTool
+            // 
+            this.monitorDynamicRangeTestTool.Name = "monitorDynamicRangeTestTool";
+            this.monitorDynamicRangeTestTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.monitorDynamicRangeTestTool.Size = new System.Drawing.Size(282, 22);
+            this.monitorDynamicRangeTestTool.Text = "monitorDynamicRangeTestTool";
+            this.monitorDynamicRangeTestTool.Click += new System.EventHandler(this.monitorDynamicRangeTestTool_Click);
             // 
             // tSWizardToolStripMenuItem
             // 
@@ -3121,12 +3246,13 @@
             this.MB_BIOSUpdateBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.MB_BIOSUpdateBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.MB_BIOSUpdateBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.MB_BIOSUpdateBtn.Location = new System.Drawing.Point(627, 7);
+            this.MB_BIOSUpdateBtn.Location = new System.Drawing.Point(597, 7);
             this.MB_BIOSUpdateBtn.Name = "MB_BIOSUpdateBtn";
             this.MB_BIOSUpdateBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.MB_BIOSUpdateBtn.Size = new System.Drawing.Size(160, 30);
+            this.MB_BIOSUpdateBtn.Size = new System.Drawing.Size(190, 30);
             this.MB_BIOSUpdateBtn.TabIndex = 0;
             this.MB_BIOSUpdateBtn.Text = "BIOS Güncelle";
+            this.MB_BIOSUpdateBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MB_BIOSUpdateBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.MB_BIOSUpdateBtn.UseVisualStyleBackColor = false;
             this.MB_BIOSUpdateBtn.Click += new System.EventHandler(this.MB_BIOSUpdateBtn_Click);
@@ -8353,6 +8479,7 @@
             this.BATTERY_ReportBtn.Size = new System.Drawing.Size(353, 37);
             this.BATTERY_ReportBtn.TabIndex = 10;
             this.BATTERY_ReportBtn.Text = "Pil Raporu Oluştur";
+            this.BATTERY_ReportBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BATTERY_ReportBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BATTERY_ReportBtn.UseVisualStyleBackColor = false;
             this.BATTERY_ReportBtn.Click += new System.EventHandler(this.BATTERY_ReportBtn_Click);
@@ -8562,7 +8689,6 @@
             this.OSD_TextBoxClearBtn.Name = "OSD_TextBoxClearBtn";
             this.OSD_TextBoxClearBtn.Size = new System.Drawing.Size(25, 25);
             this.OSD_TextBoxClearBtn.TabIndex = 2;
-            this.OSD_TextBoxClearBtn.Text = "X";
             this.OSD_TextBoxClearBtn.UseVisualStyleBackColor = false;
             this.OSD_TextBoxClearBtn.Click += new System.EventHandler(this.OSD_TextBoxClearBtn_Click);
             // 
@@ -8744,7 +8870,6 @@
             this.SERVICE_TextBoxClearBtn.Name = "SERVICE_TextBoxClearBtn";
             this.SERVICE_TextBoxClearBtn.Size = new System.Drawing.Size(25, 25);
             this.SERVICE_TextBoxClearBtn.TabIndex = 2;
-            this.SERVICE_TextBoxClearBtn.Text = "X";
             this.SERVICE_TextBoxClearBtn.UseVisualStyleBackColor = false;
             this.SERVICE_TextBoxClearBtn.Click += new System.EventHandler(this.SERVICE_TextBoxClearBtn_Click);
             // 
@@ -8925,7 +9050,6 @@
             this.INSTAPPS_TextBoxClearBtn.Name = "INSTAPPS_TextBoxClearBtn";
             this.INSTAPPS_TextBoxClearBtn.Size = new System.Drawing.Size(25, 25);
             this.INSTAPPS_TextBoxClearBtn.TabIndex = 2;
-            this.INSTAPPS_TextBoxClearBtn.Text = "X";
             this.INSTAPPS_TextBoxClearBtn.UseVisualStyleBackColor = false;
             this.INSTAPPS_TextBoxClearBtn.Click += new System.EventHandler(this.INSTAPPS_TextBoxClearBtn_Click);
             // 
@@ -9093,6 +9217,7 @@
             this.EXPORT_StartEngineBtn.Size = new System.Drawing.Size(300, 35);
             this.EXPORT_StartEngineBtn.TabIndex = 2;
             this.EXPORT_StartEngineBtn.Text = "Write Engine";
+            this.EXPORT_StartEngineBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.EXPORT_StartEngineBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.EXPORT_StartEngineBtn.UseVisualStyleBackColor = false;
             this.EXPORT_StartEngineBtn.Click += new System.EventHandler(this.EXPORT_StartEngineBtn_Click);
@@ -9217,136 +9342,12 @@
             this.HeaderPanel.Size = new System.Drawing.Size(817, 42);
             this.HeaderPanel.TabIndex = 1;
             // 
-            // RightClickMenu
-            // 
-            this.RightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sFCandDISMAutoTool,
-            this.cacheCleaningTool,
-            this.benchCPUTool,
-            this.benchRAMTool,
-            this.benchDiskTool,
-            this.screenOverlayTool,
-            this.dNSTestTool,
-            this.quickAccessTool,
-            this.networkFixToolTool,
-            this.showWiFiPasswordTool,
-            this.monitorTestTool});
-            this.RightClickMenu.Name = "RightClickMenu";
-            this.RightClickMenu.Size = new System.Drawing.Size(240, 246);
-            // 
-            // sFCandDISMAutoTool
-            // 
-            this.sFCandDISMAutoTool.Name = "sFCandDISMAutoTool";
-            this.sFCandDISMAutoTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.sFCandDISMAutoTool.Size = new System.Drawing.Size(239, 22);
-            this.sFCandDISMAutoTool.Text = "sFCandDISMAutoTool";
-            this.sFCandDISMAutoTool.Click += new System.EventHandler(this.sFCandDISMAutoTool_Click);
-            // 
-            // cacheCleaningTool
-            // 
-            this.cacheCleaningTool.Name = "cacheCleaningTool";
-            this.cacheCleaningTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.cacheCleaningTool.Size = new System.Drawing.Size(239, 22);
-            this.cacheCleaningTool.Text = "cacheCleaningTool";
-            this.cacheCleaningTool.Click += new System.EventHandler(this.cacheCleaningTool_Click);
-            // 
-            // benchCPUTool
-            // 
-            this.benchCPUTool.Enabled = false;
-            this.benchCPUTool.Name = "benchCPUTool";
-            this.benchCPUTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.benchCPUTool.Size = new System.Drawing.Size(239, 22);
-            this.benchCPUTool.Text = "benchCPUTool";
-            this.benchCPUTool.Click += new System.EventHandler(this.benchCPUTool_Click);
-            // 
-            // benchRAMTool
-            // 
-            this.benchRAMTool.Name = "benchRAMTool";
-            this.benchRAMTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.benchRAMTool.Size = new System.Drawing.Size(239, 22);
-            this.benchRAMTool.Text = "benchRAMTool";
-            this.benchRAMTool.Click += new System.EventHandler(this.benchRAMTool_Click);
-            // 
-            // benchDiskTool
-            // 
-            this.benchDiskTool.Name = "benchDiskTool";
-            this.benchDiskTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.benchDiskTool.Size = new System.Drawing.Size(239, 22);
-            this.benchDiskTool.Text = "benchDiskTool";
-            this.benchDiskTool.Click += new System.EventHandler(this.benchDiskTool_Click);
-            // 
-            // screenOverlayTool
-            // 
-            this.screenOverlayTool.Name = "screenOverlayTool";
-            this.screenOverlayTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.screenOverlayTool.Size = new System.Drawing.Size(239, 22);
-            this.screenOverlayTool.Text = "screenOverlayTool";
-            this.screenOverlayTool.Click += new System.EventHandler(this.screenOverlayTool_Click);
-            // 
-            // dNSTestTool
-            // 
-            this.dNSTestTool.Name = "dNSTestTool";
-            this.dNSTestTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
-            this.dNSTestTool.Size = new System.Drawing.Size(239, 22);
-            this.dNSTestTool.Text = "dNSTestTool";
-            this.dNSTestTool.Click += new System.EventHandler(this.dNSTestTool_Click);
-            // 
-            // quickAccessTool
-            // 
-            this.quickAccessTool.Name = "quickAccessTool";
-            this.quickAccessTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.quickAccessTool.Size = new System.Drawing.Size(239, 22);
-            this.quickAccessTool.Text = "quickAccessTool";
-            this.quickAccessTool.Click += new System.EventHandler(this.quickAccessTool_Click);
-            // 
-            // networkFixToolTool
-            // 
-            this.networkFixToolTool.Name = "networkFixToolTool";
-            this.networkFixToolTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.networkFixToolTool.Size = new System.Drawing.Size(239, 22);
-            this.networkFixToolTool.Text = "networkFixToolTool";
-            this.networkFixToolTool.Click += new System.EventHandler(this.networkFixToolTool_Click);
-            // 
-            // showWiFiPasswordTool
-            // 
-            this.showWiFiPasswordTool.Name = "showWiFiPasswordTool";
-            this.showWiFiPasswordTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.showWiFiPasswordTool.Size = new System.Drawing.Size(239, 22);
-            this.showWiFiPasswordTool.Text = "showWiFiPasswordTool";
-            this.showWiFiPasswordTool.Click += new System.EventHandler(this.showWiFiPasswordTool_Click);
-            // 
-            // monitorTestTool
-            // 
-            this.monitorTestTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.monitorDeadPixelTestTool,
-            this.monitorDynamicRangeTestTool});
-            this.monitorTestTool.Name = "monitorTestTool";
-            this.monitorTestTool.Size = new System.Drawing.Size(239, 22);
-            this.monitorTestTool.Text = "monitorTestTool";
-            // 
-            // monitorDeadPixelTestTool
-            // 
-            this.monitorDeadPixelTestTool.Name = "monitorDeadPixelTestTool";
-            this.monitorDeadPixelTestTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.monitorDeadPixelTestTool.Size = new System.Drawing.Size(282, 22);
-            this.monitorDeadPixelTestTool.Text = "monitorDeadPixelTestTool";
-            this.monitorDeadPixelTestTool.Click += new System.EventHandler(this.monitorDeadPixelTestTool_Click);
-            // 
-            // monitorDynamicRangeTestTool
-            // 
-            this.monitorDynamicRangeTestTool.Name = "monitorDynamicRangeTestTool";
-            this.monitorDynamicRangeTestTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.monitorDynamicRangeTestTool.Size = new System.Drawing.Size(282, 22);
-            this.monitorDynamicRangeTestTool.Text = "monitorDynamicRangeTestTool";
-            this.monitorDynamicRangeTestTool.Click += new System.EventHandler(this.monitorDynamicRangeTestTool_Click);
-            // 
             // Glow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1008, 601);
-            this.ContextMenuStrip = this.RightClickMenu;
             this.Controls.Add(this.HeaderPanel);
             this.Controls.Add(this.LeftMenuPanel);
             this.Controls.Add(this.MainContent);
@@ -9507,7 +9508,6 @@
             this.Header_InPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderImage)).EndInit();
             this.HeaderPanel.ResumeLayout(false);
-            this.RightClickMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -10085,20 +10085,6 @@
         private System.Windows.Forms.Panel DISK_PBar_FE;
         private System.Windows.Forms.ToolStripMenuItem bmacToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tSWizardToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip RightClickMenu;
-        private System.Windows.Forms.ToolStripMenuItem sFCandDISMAutoTool;
-        private System.Windows.Forms.ToolStripMenuItem cacheCleaningTool;
-        private System.Windows.Forms.ToolStripMenuItem benchCPUTool;
-        private System.Windows.Forms.ToolStripMenuItem benchRAMTool;
-        private System.Windows.Forms.ToolStripMenuItem benchDiskTool;
-        private System.Windows.Forms.ToolStripMenuItem screenOverlayTool;
-        private System.Windows.Forms.ToolStripMenuItem dNSTestTool;
-        private System.Windows.Forms.ToolStripMenuItem quickAccessTool;
-        private System.Windows.Forms.ToolStripMenuItem networkFixToolTool;
-        private System.Windows.Forms.ToolStripMenuItem showWiFiPasswordTool;
-        private System.Windows.Forms.ToolStripMenuItem monitorTestTool;
-        private System.Windows.Forms.ToolStripMenuItem monitorDeadPixelTestTool;
-        private System.Windows.Forms.ToolStripMenuItem monitorDynamicRangeTestTool;
         private System.Windows.Forms.Button INSTALLED_RotateBtn;
         private System.Windows.Forms.TabPage INSTAPPS;
         private System.Windows.Forms.TableLayoutPanel INSTAPPS_TLP;
@@ -10110,6 +10096,20 @@
         private System.Windows.Forms.DataGridView INSTAPPS_DataMainTable;
         internal System.Windows.Forms.TextBox INSTAPPS_TextBox;
         internal System.Windows.Forms.Label INSTAPPS_TYUS_V;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sFCandDISMAutoTool;
+        private System.Windows.Forms.ToolStripMenuItem cacheCleaningTool;
+        private System.Windows.Forms.ToolStripMenuItem benchCPUTool;
+        private System.Windows.Forms.ToolStripMenuItem benchRAMTool;
+        private System.Windows.Forms.ToolStripMenuItem benchDiskTool;
+        private System.Windows.Forms.ToolStripMenuItem screenOverlayTool;
+        private System.Windows.Forms.ToolStripMenuItem dnsTestTool;
+        private System.Windows.Forms.ToolStripMenuItem quickAccessTool;
+        private System.Windows.Forms.ToolStripMenuItem networkFixTool;
+        private System.Windows.Forms.ToolStripMenuItem showWiFiPasswordTool;
+        private System.Windows.Forms.ToolStripMenuItem monitorTestTool;
+        private System.Windows.Forms.ToolStripMenuItem monitorDeadPixelTestTool;
+        private System.Windows.Forms.ToolStripMenuItem monitorDynamicRangeTestTool;
     }
 }
 

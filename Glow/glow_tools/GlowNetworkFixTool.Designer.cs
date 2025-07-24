@@ -65,6 +65,7 @@
             this.NFT_StartBtn.Size = new System.Drawing.Size(508, 37);
             this.NFT_StartBtn.TabIndex = 2;
             this.NFT_StartBtn.Text = "Onarımı Başlat";
+            this.NFT_StartBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.NFT_StartBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.NFT_StartBtn.UseVisualStyleBackColor = false;
             this.NFT_StartBtn.Click += new System.EventHandler(this.NFT_StartBtn_Click);

@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 //
 using static Glow.TSModules;
+using System.Drawing;
 
 namespace Glow.glow_tools{
     public partial class GlowBenchCPU : Form{
@@ -52,34 +53,37 @@ namespace Glow.glow_tools{
                 Bench_TLP_R_P2.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
                 //
                 Bench_CPUName.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
-                Bench_CPUCores.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_CPUCores.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 //
                 Bench_Label_RSingle.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
-                Bench_Label_RSingleResult.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Label_RSingleResult.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 Bench_Label_RMulti.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
-                Bench_Label_RMultiResult.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Label_RMultiResult.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 //
                 Bench_Label_Mode.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
                 Bench_Mode.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "SelectBoxBGColor");
-                Bench_Mode.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Mode.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 //
                 Bench_Label_Time.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
                 Bench_Time.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "SelectBoxBGColor");
-                Bench_Time.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Time.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 //
                 Bench_TimeCustom.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "TextBoxBGColor");
                 Bench_TimeCustom.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "TextBoxFEColor");
                 //
-                Bench_Start.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Start.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 Bench_Start.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
-                Bench_Start.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                Bench_Start.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                Bench_Start.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRightHover");
-                Bench_Stop.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Start.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                Bench_Start.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                Bench_Start.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMainHover");
+                Bench_Stop.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 Bench_Stop.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
-                Bench_Stop.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                Bench_Stop.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                Bench_Stop.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRightHover");
+                Bench_Stop.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                Bench_Stop.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                Bench_Stop.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMainHover");
+                ///////
+                TSImageRenderer(Bench_Start, Glow.theme == 1 ? Properties.Resources.ct_test_start_light : Properties.Resources.ct_test_start_dark, 22, ContentAlignment.MiddleRight);
+                TSImageRenderer(Bench_Stop, Glow.theme == 1 ? Properties.Resources.ct_test_stop_light : Properties.Resources.ct_test_stop_dark, 22, ContentAlignment.MiddleRight);
                 ///////
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_title")), Application.ProductName);
@@ -104,8 +108,8 @@ namespace Glow.glow_tools{
                 Bench_Label_RSingleResult.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_score_start_await"));
                 Bench_Label_RMultiResult.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_score_start_await"));
                 //
-                Bench_Start.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_start_engine"));
-                Bench_Stop.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_stop_engine"));
+                Bench_Start.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_start_engine"));
+                Bench_Stop.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_stop_engine"));
             }catch (Exception){ }
         }
         private void cpu_bench_add_mode() {

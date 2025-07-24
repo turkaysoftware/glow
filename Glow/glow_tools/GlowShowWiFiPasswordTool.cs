@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 //
 using static Glow.TSModules;
+using System.Drawing;
 
 namespace Glow.glow_tools{
     public partial class GlowShowWiFiPasswordTool : Form{
@@ -31,17 +32,19 @@ namespace Glow.glow_tools{
                 SWPT_ResultBox.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "PageContainerBGAndPageContentTotalColors");
                 SWPT_ResultBox.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
                 //
-                SWPT_CopyBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                SWPT_CopyBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 SWPT_CopyBtn.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
-                SWPT_CopyBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                SWPT_CopyBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                SWPT_CopyBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRightHover");
+                SWPT_CopyBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                SWPT_CopyBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                SWPT_CopyBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMainHover");
+                //
+                TSImageRenderer(SWPT_CopyBtn, Glow.theme == 1 ? Properties.Resources.ct_copy_mc_light : Properties.Resources.ct_copy_mc_dark, 18, ContentAlignment.MiddleRight);
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_title")), Application.ProductName);
                 //
                 SWPT_TitleLabel.Text = TS_String_Encoder(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_in_title"));
-                SWPT_CopyBtn.Text = TS_String_Encoder(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_copy_btn"));
+                SWPT_CopyBtn.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_copy_btn"));
             }catch (Exception){ }
         }
         // LOAD SWPT

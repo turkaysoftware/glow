@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 //
 using static Glow.TSModules;
+using System.Drawing;
 
 namespace Glow.glow_tools{
     public partial class GlowCacheCleanupTool : Form{
@@ -58,11 +59,13 @@ namespace Glow.glow_tools{
                 CCT_SelectLabel.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "PageContainerBGAndPageContentTotalColors");
                 CCT_SelectLabel.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
                 //
-                CCT_StartBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                CCT_StartBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 CCT_StartBtn.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
-                CCT_StartBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                CCT_StartBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                CCT_StartBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRightHover");
+                CCT_StartBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                CCT_StartBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                CCT_StartBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMainHover");
+                //
+                TSImageRenderer(CCT_StartBtn, Glow.theme == 1 ? Properties.Resources.ct_clean_light : Properties.Resources.ct_clean_dark, 22, ContentAlignment.MiddleRight);
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_title")), Application.ProductName);
@@ -71,7 +74,7 @@ namespace Glow.glow_tools{
                 CCTTable.Columns[1].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_h_info_path"));
                 CCTTable.Columns[2].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_h_info_size"));
                 //
-                CCT_StartBtn.Text = TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_clean"));
+                CCT_StartBtn.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_clean"));
             }catch (Exception){ }
         }
         // CCT LOAD

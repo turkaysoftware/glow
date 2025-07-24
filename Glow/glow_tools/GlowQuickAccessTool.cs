@@ -25,10 +25,10 @@ namespace Glow.glow_tools{
                 foreach (Control ui_buttons in QUICK_FLY.Controls){
                     if (ui_buttons is Button render_color_button){
                         render_color_button.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
-                        render_color_button.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                        render_color_button.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                        render_color_button.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                        render_color_button.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRightHover");
+                        render_color_button.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                        render_color_button.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                        render_color_button.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                        render_color_button.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMainHover");
                     }
                 }
                 //
@@ -81,246 +81,74 @@ namespace Glow.glow_tools{
             typeof(FlowLayoutPanel).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, QUICK_FLY, new object[]{ true });
             quick_access_settings();
         }
+        // LAUNCHER QUICK TOOLS
+        // =============================
+        private void QuickLauncher(string run_command){
+            try{
+                Process.Start(new ProcessStartInfo(run_command){ UseShellExecute = true });
+            }catch (Exception ex){
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
+            }
+        }
         // ABOUT
-        private void QB_About_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:about");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_About_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:about");
         // ADVANCED SCREEN SETTINGS
-        private void QB_AdvancedScreenSettings_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:display-advancedgraphics");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_AdvancedScreenSettings_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:display-advancedgraphics");
         // BACKGROUND
-        private void QB_Background_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:personalization-background");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_Background_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:personalization-background");
         // BLUETOOTH
-        private void QB_Bluetooth_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:bluetooth");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_Bluetooth_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:bluetooth");
         // COLORS
-        private void QB_Colors_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:personalization-colors");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_Colors_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:personalization-colors");
         // CONTROL PANEL
-        private void QB_ControlPanel_Click(object sender, EventArgs e){
-            try{
-                Process.Start("control");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_ControlPanel_Click(object sender, EventArgs e) => QuickLauncher("control");
         // COUNTRY / REGION
-        private void QB_Country_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:regionformatting");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_Country_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:regionformatting");
         // DATA USAGE
-        private void QB_DataUsage_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:datausage");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_DataUsage_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:datausage");
         // DATE AND TIME
-        private void QB_DateAndTime_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:dateandtime");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_DateAndTime_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:dateandtime");
         // DEFAULT APPS
-        private void QB_DefaultApps_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:defaultapps");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
-
+        private void QB_DefaultApps_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:defaultapps");
         // DEVICE MANAGER
-        private void QB_DeviceManager_Click(object sender, EventArgs e){
-            try{
-                Process.Start("devmgmt.msc");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_DeviceManager_Click(object sender, EventArgs e) => QuickLauncher("devmgmt.msc");
         // DIRECT-X
-        private void QB_DirectX_Click(object sender, EventArgs e){
-            try{
-                Process.Start("dxdiag");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_DirectX_Click(object sender, EventArgs e) => QuickLauncher("dxdiag");
         // DISK MANAGEMENT
-        private void QB_DiskManagement_Click(object sender, EventArgs e){
-            try{
-                Process.Start("diskmgmt.msc");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_DiskManagement_Click(object sender, EventArgs e) => QuickLauncher("diskmgmt.msc");
         // EVENT VIEWER
-        private void QB_EventViewer_Click(object sender, EventArgs e){
-            try{
-                Process.Start("eventvwr.msc");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_EventViewer_Click(object sender, EventArgs e) => QuickLauncher("eventvwr.msc");
         // GAMING MODE
-        private void QB_GamingMode_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:gaming-gamemode");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_GamingMode_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:gaming-gamemode");
         // LANGUAGE
-        private void QB_Language_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:regionlanguage");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_Language_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:regionlanguage");
         // LICENSE STATUS
-        private void QB_LicenseStatus_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:activation");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_LicenseStatus_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:activation");
         // LOCK SCREEN
-        private void QB_LockScreen_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:lockscreen");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_LockScreen_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:lockscreen");
         // MOUSE SETTINGS
-        private void QB_MouseSettings_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:mousetouchpad");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_MouseSettings_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:mousetouchpad");
         // NOTIFICATION SETTINGS
-        private void QB_NotificationSettings_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:notifications");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_NotificationSettings_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:notifications");
         // PHONE
-        private void QB_Phone_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:mobile-devices");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_Phone_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:mobile-devices");
         // SCREEN SETTINGS
-        private void QB_ScreenSettings_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:display");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_ScreenSettings_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:display");
         // SETTINGS
-        private void QB_Settings_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_Settings_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:");
         // SOUND
-        private void QB_SoundSettings_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:sound");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
-        // START
-        private void QB_Start_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:personalization-start");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_SoundSettings_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:sound");
+        // START MENU
+        private void QB_Start_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:personalization-start");
         // STORAGE
-        private void QB_Storage_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:storagesense");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_Storage_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:storagesense");
         // TASKBAR
-        private void QB_Taskbar_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:taskbar");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
-        // USB
-        private void QB_USB_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:usb");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_Taskbar_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:taskbar");
+        // USB SETTINGS
+        private void QB_USB_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:usb");
         // WINDOWS DEFENDER
-        private void QB_WindowsDefender_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:windowsdefender");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_WindowsDefender_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:windowsdefender");
         // WINDOWS UPDATE
-        private void QB_WindowsUpdate_Click(object sender, EventArgs e){
-            try{
-                Process.Start("ms-settings:windowsupdate");
-            }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
-            }
-        }
+        private void QB_WindowsUpdate_Click(object sender, EventArgs e) => QuickLauncher("ms-settings:windowsupdate");
     }
 }

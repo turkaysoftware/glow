@@ -26,12 +26,7 @@ namespace Glow.glow_tools{
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
             //
-            int x = Screen.PrimaryScreen.WorkingArea.Width - Width - 20;
-            int y = 20;
-            Location = new Point(x, y);
-            //
-            BackColor = Color.FromArgb(35, 35, 35);
-            TransparencyKey = Color.FromArgb(35, 35, 35);
+            Location = new Point(Screen.PrimaryScreen.WorkingArea.Width - Width - 20, 20);
             Opacity = 0.7;
         }
         private void GlowOverlay_Load(object sender, EventArgs e){
@@ -39,29 +34,6 @@ namespace Glow.glow_tools{
             OVERLAY_RAM_V.Text = TS_String_Encoder(software_lang.TSReadLangs("ScreenOverlayTool", "sot_loading"));
             OVERLAY_DISK_V.Text = TS_String_Encoder(software_lang.TSReadLangs("ScreenOverlayTool", "sot_loading"));
             OVERLAY_NETWORK_V.Text = TS_String_Encoder(software_lang.TSReadLangs("ScreenOverlayTool", "sot_loading"));
-            //
-            Color panelcolor = Color.FromArgb(42, 42, 42);
-            //
-            OVERLAY_BGPanel.BackColor = Color.FromArgb(50, 32, 32, 32);
-            //
-            OVERLAY_P1.BackColor = panelcolor;
-            OVERLAY_P2.BackColor = panelcolor;
-            OVERLAY_P3.BackColor = panelcolor;
-            OVERLAY_P4.BackColor = panelcolor;
-            OVERLAY_P5.BackColor = panelcolor;
-            OVERLAY_P6.BackColor = panelcolor;
-            OVERLAY_P7.BackColor = panelcolor;
-            OVERLAY_P8.BackColor = panelcolor;
-            //
-            OVERLAY_CPU.ForeColor = Color.White;
-            OVERLAY_RAM.ForeColor = Color.White;
-            OVERLAY_DISK.ForeColor = Color.White;
-            OVERLAY_NETWORK.ForeColor = Color.White;
-            //
-            OVERLAY_CPU_V.ForeColor = Color.White;
-            OVERLAY_RAM_V.ForeColor = Color.White;
-            OVERLAY_DISK_V.ForeColor = Color.White;
-            OVERLAY_NETWORK_V.ForeColor = Color.White;
             // LOAD
             Task cpu_load = new Task(cpu_engine);
             cpu_load.Start();
@@ -80,6 +52,39 @@ namespace Glow.glow_tools{
         // OVERLAY THEME
         // ======================================================================================================
         public void screen_overlay_settings(){
+            BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "LeftMenuBGAndBorderColor");
+            TransparencyKey = TS_ThemeEngine.ColorMode(Glow.theme, "LeftMenuBGAndBorderColor");
+            //
+            Color panelcolor = TS_ThemeEngine.ColorMode(Glow.theme, "LeftMenuButtonHoverAndMouseDownColor");
+            Color textcolor = TS_ThemeEngine.ColorMode(Glow.theme, "LeftMenuButtonFEColor2");
+            //
+            OVERLAY_BGPanel.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "LeftMenuButtonAlphaColor");
+            //
+            OVERLAY_P1.BackColor = panelcolor;
+            OVERLAY_P2.BackColor = panelcolor;
+            OVERLAY_P3.BackColor = panelcolor;
+            OVERLAY_P4.BackColor = panelcolor;
+            OVERLAY_P5.BackColor = panelcolor;
+            OVERLAY_P6.BackColor = panelcolor;
+            OVERLAY_P7.BackColor = panelcolor;
+            OVERLAY_P8.BackColor = panelcolor;
+            //
+            OVERLAY_CPU.ForeColor = textcolor;
+            OVERLAY_RAM.ForeColor = textcolor;
+            OVERLAY_DISK.ForeColor = textcolor;
+            OVERLAY_NETWORK.ForeColor = textcolor;
+            //
+            OVERLAY_CPU_V.ForeColor = textcolor;
+            OVERLAY_RAM_V.ForeColor = textcolor;
+            OVERLAY_DISK_V.ForeColor = textcolor;
+            OVERLAY_NETWORK_V.ForeColor = textcolor;
+            //
+            TSImageRenderer(CloseOverlayBtn, Glow.theme == 1 ? Properties.Resources.ct_clear_dark : Properties.Resources.ct_clear_light, 15, ContentAlignment.MiddleCenter);
+            CloseOverlayBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "TSBT_CloseBG");
+            CloseOverlayBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "TSBT_CloseBG");
+            CloseOverlayBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "TSBT_CloseBGHover");
+            CloseOverlayBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "TSBT_CloseBGHover");
+            //
             Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("ScreenOverlayTool", "sot_title")), Application.ProductName);
             OVERLAY_CPU.Text = TS_String_Encoder(software_lang.TSReadLangs("ScreenOverlayTool", "sot_cpu"));
             OVERLAY_RAM.Text = TS_String_Encoder(software_lang.TSReadLangs("ScreenOverlayTool", "sot_ram"));
@@ -219,11 +224,9 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         // EXIT
         // ======================================================================================================
-        private void GlowOverlay_KeyDown(object sender, KeyEventArgs e){
-            if (e.KeyCode == Keys.Escape){
-                overlay_loop = false;
-                Close();
-            }
+        private void CloseOverlayBtn_Click(object sender, EventArgs e){
+            overlay_loop = false;
+            Close();
         }
     }
 }

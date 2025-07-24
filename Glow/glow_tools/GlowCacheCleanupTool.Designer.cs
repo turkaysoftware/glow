@@ -137,6 +137,7 @@
             this.CCT_StartBtn.Size = new System.Drawing.Size(733, 40);
             this.CCT_StartBtn.TabIndex = 2;
             this.CCT_StartBtn.Text = "TEMİZLE";
+            this.CCT_StartBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CCT_StartBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.CCT_StartBtn.UseVisualStyleBackColor = false;
             this.CCT_StartBtn.Click += new System.EventHandler(this.CCT_StartBtn_Click);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Management;
@@ -47,37 +48,40 @@ namespace Glow.glow_tools{
                 //
                 Bench_Label_Disk.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
                 Bench_Disk.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "SelectBoxBGColor");
-                Bench_Disk.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Disk.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 //
                 Bench_Label_Size.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
                 Bench_Size.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "SelectBoxBGColor");
-                Bench_Size.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Size.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 Bench_SizeCustom.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "TextBoxBGColor");
                 Bench_SizeCustom.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "TextBoxFEColor");
                 //
                 Bench_Label_Buffer.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
                 Bench_Buffer.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "SelectBoxBGColor");
-                Bench_Buffer.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Buffer.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 //
                 Bench_L_WriteSpeed.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
-                Bench_L_WriteSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_L_WriteSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 Bench_R_ReadSpeed.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
-                Bench_R_ReadSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_R_ReadSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 Bench_L_Max_WriteSpeed.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
-                Bench_L_Max_WriteSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_L_Max_WriteSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 Bench_R_Max_ReadSpeed.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
-                Bench_R_Max_ReadSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_R_Max_ReadSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 //
-                Bench_Start.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Start.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 Bench_Start.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
-                Bench_Start.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                Bench_Start.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                Bench_Start.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRightHover");
-                Bench_Stop.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_Start.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                Bench_Start.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                Bench_Start.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMainHover");
+                Bench_Stop.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 Bench_Stop.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
-                Bench_Stop.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                Bench_Stop.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                Bench_Stop.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRightHover");
+                Bench_Stop.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                Bench_Stop.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                Bench_Stop.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMainHover");
+                //
+                TSImageRenderer(Bench_Start, Glow.theme == 1 ? Properties.Resources.ct_test_start_light : Properties.Resources.ct_test_start_dark, 22, ContentAlignment.MiddleRight);
+                TSImageRenderer(Bench_Stop, Glow.theme == 1 ? Properties.Resources.ct_test_stop_light : Properties.Resources.ct_test_stop_dark, 22, ContentAlignment.MiddleRight);
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_title")), Application.ProductName);
@@ -92,8 +96,8 @@ namespace Glow.glow_tools{
                 //
                 Bench_Size.Items[7] = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_test_size_custom"));
                 //
-                Bench_Start.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_start"));
-                Bench_Stop.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_stop"));
+                Bench_Start.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_start"));
+                Bench_Stop.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_stop"));
             }catch (Exception){ }
         }
         // LOAD

@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
 using System.Runtime.InteropServices;
@@ -14,17 +16,18 @@ namespace Glow{
         // LINK SYSTEM
         // ======================================================================================================
         public class TS_LinkSystem{
-            public static string
+            public const string
+            // Main Control Links
+            github_link_lv      = "https://raw.githubusercontent.com/turkaysoftware/glow/main/Glow/SoftwareVersion.txt",
+            github_link_lr      = "https://github.com/turkaysoftware/glow/releases/latest",
+            // Social Links
             website_link        = "https://www.turkaysoftware.com",
             twitter_x_link      = "https://x.com/turkaysoftware",
             instagram_link      = "https://www.instagram.com/erayturkayy/",
             github_link         = "https://github.com/turkaysoftware",
-            //
-            github_link_lt      = "https://raw.githubusercontent.com/turkaysoftware/glow/main/Glow/SoftwareVersion.txt",
-            github_link_lr      = "https://github.com/turkaysoftware/glow/releases/latest",
-            //
+            youtube_link        = "https://www.youtube.com/@turkaysoftware",
+            // Other Links
             ts_wizard           = "https://www.turkaysoftware.com/ts-wizard",
-            //
             ts_bmac             = "https://buymeacoffee.com/turkaysoftware";
         }
         // VERSIONS
@@ -64,7 +67,11 @@ namespace Glow{
                 { 9, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) }  // Yes/No/Cancel ve Soru
             };
             public static DialogResult TS_MessageBox(Form m_form, int m_mode, string m_message, string m_title = ""){
-                m_form.BringToFront();
+                if (m_form.InvokeRequired){
+                    m_form.Invoke((Action)(() => BringFormToFront(m_form)));
+                }else{
+                    BringFormToFront(m_form);
+                }
                 //
                 string m_box_title = string.IsNullOrEmpty(m_title) ? Application.ProductName : m_title;
                 //
@@ -78,6 +85,12 @@ namespace Glow{
                 }
                 //
                 return MessageBox.Show(m_form, m_message, m_box_title, m_button, m_icon);
+            }
+            private static void BringFormToFront(Form m_form){
+                if (m_form.WindowState == FormWindowState.Minimized)
+                    m_form.WindowState = FormWindowState.Normal;
+                m_form.BringToFront();
+                m_form.Activate();
             }
         }
         // TS SOFTWARE COPYRIGHT DATE
@@ -164,7 +177,8 @@ namespace Glow{
                 { "TSBT_AccentColor", Color.FromArgb(54, 95, 146) },
                 { "TSBT_LabelColor1", Color.FromArgb(51, 51, 51) },
                 { "TSBT_LabelColor2", Color.FromArgb(100, 100, 100) },
-                { "TSBT_CloseBG", Color.FromArgb(200, 255, 255, 255) },
+                { "TSBT_CloseBG", Color.FromArgb(25, 255, 255, 255) },
+                { "TSBT_CloseBGHover", Color.FromArgb(50, 255, 255, 255) },
                 // HEADER MENU COLOR MODE
                 { "HeaderBGColorMain", Color.White },
                 { "HeaderFEColorMain", Color.FromArgb(51, 51, 51) },
@@ -176,12 +190,14 @@ namespace Glow{
                 { "HeaderBGColor", Color.FromArgb(236, 242, 248) },
                 { "LeftMenuBGAndBorderColor", Color.FromArgb(236, 242, 248) },
                 { "LeftMenuButtonHoverAndMouseDownColor", Color.White },
+                { "LeftMenuButtonAlphaColor", Color.FromArgb(50, 255, 255, 255) },
                 { "LeftMenuButtonFEColor", Color.FromArgb(51, 51, 51) },
+                { "LeftMenuButtonFEColor2", Color.FromArgb(21, 23, 32) },
                 { "PageContainerBGAndPageContentTotalColors", Color.White },
                 { "ContentPanelBGColor", Color.FromArgb(236, 242, 248) },
                 { "ContentLabelLeft", Color.FromArgb(51, 51, 51) },
-                { "ContentLabelRight", Color.FromArgb(54, 95, 146) },
-                { "ContentLabelRightHover", Color.FromArgb(67, 116, 177) },
+                { "AccentMain", Color.FromArgb(54, 95, 146) },
+                { "AccentMainHover", Color.FromArgb(63, 109, 165) },
                 { "SelectBoxBGColor", Color.White },
                 { "TextBoxBGColor", Color.White },
                 { "TextBoxFEColor", Color.FromArgb(51, 51, 51) },
@@ -193,10 +209,10 @@ namespace Glow{
                 { "OSDAndServicesPageFE", Color.White },
                 { "DynamicThemeActiveBtnBG", Color.White },
                 // DISK TOTAL BG
-                { "DiskTotalSSDBG", Color.FromArgb(54, 95, 146) },
-                { "DiskTotalHDDBG", Color.FromArgb(123, 27, 193) },
-                { "DiskTotalUSBBG", Color.FromArgb(193, 27, 92) },
-                { "DiskTotalTotalBG", Color.FromArgb(21, 140, 84) },
+                { "AccentBlue", Color.FromArgb(54, 95, 146) },
+                { "AccentPurple", Color.FromArgb(126, 27, 156) },
+                { "AccentRed", Color.FromArgb(207, 24, 0) },
+                { "AccentGreen", Color.FromArgb(28, 122, 25) },
             };
             // DARK THEME COLORS
             // ====================================
@@ -207,7 +223,8 @@ namespace Glow{
                 { "TSBT_AccentColor", Color.FromArgb(88, 153, 233) },
                 { "TSBT_LabelColor1", Color.WhiteSmoke },
                 { "TSBT_LabelColor2", Color.FromArgb(176, 184, 196) },
-                { "TSBT_CloseBG", Color.FromArgb(210, 25, 31, 42) },
+                { "TSBT_CloseBG", Color.FromArgb(75, 25, 31, 42) },
+                { "TSBT_CloseBGHover", Color.FromArgb(100, 25, 31, 42) },
                 // HEADER MENU COLOR MODE
                 { "HeaderBGColorMain", Color.FromArgb(25, 31, 42) },
                 { "HeaderFEColorMain", Color.FromArgb(222, 222, 222) },
@@ -219,12 +236,14 @@ namespace Glow{
                 { "HeaderBGColor", Color.FromArgb(21, 23, 32) },
                 { "LeftMenuBGAndBorderColor", Color.FromArgb(21, 23, 32) },
                 { "LeftMenuButtonHoverAndMouseDownColor", Color.FromArgb(25, 31, 42) },
+                { "LeftMenuButtonAlphaColor", Color.FromArgb(50, 25, 31, 42) },
                 { "LeftMenuButtonFEColor", Color.WhiteSmoke },
+                { "LeftMenuButtonFEColor2", Color.White },
                 { "PageContainerBGAndPageContentTotalColors", Color.FromArgb(25, 31, 42) },
                 { "ContentPanelBGColor", Color.FromArgb(21, 23, 32) },
                 { "ContentLabelLeft", Color.WhiteSmoke },
-                { "ContentLabelRight", Color.FromArgb(88, 153, 233) },
-                { "ContentLabelRightHover", Color.FromArgb(84, 179, 241) },
+                { "AccentMain", Color.FromArgb(88, 153, 233) },
+                { "AccentMainHover", Color.FromArgb(93, 165, 253) },
                 { "SelectBoxBGColor", Color.FromArgb(25, 31, 42) },
                 { "TextBoxBGColor", Color.FromArgb(25, 31, 42) },
                 { "TextBoxFEColor", Color.WhiteSmoke },
@@ -236,10 +255,10 @@ namespace Glow{
                 { "OSDAndServicesPageFE", Color.FromArgb(37, 37, 45) },
                 { "DynamicThemeActiveBtnBG", Color.FromArgb(25, 31, 42) },
                 // DISK TOTAL BG
-                { "DiskTotalSSDBG", Color.FromArgb(88, 153, 233) },
-                { "DiskTotalHDDBG", Color.FromArgb(202, 35, 251) },
-                { "DiskTotalUSBBG", Color.FromArgb(237, 37, 115) },
-                { "DiskTotalTotalBG", Color.FromArgb(29, 181, 110) },
+                { "AccentBlue", Color.FromArgb(88, 153, 233) },
+                { "AccentPurple", Color.FromArgb(229, 33, 255) },
+                { "AccentRed", Color.FromArgb(255, 51, 51) },
+                { "AccentGreen", Color.FromArgb(38, 187, 33) },
             };
             // THEME SWITCHER
             // ====================================
@@ -252,7 +271,56 @@ namespace Glow{
                 return Color.Transparent;
             }
         }
- 
+        // DPI SENSITIVE DYNAMIC IMAGE RENDERER
+        // ======================================================================================================
+        public static void TSImageRenderer(object baseTarget, Image sourceImage, int basePadding, ContentAlignment imageAlign = ContentAlignment.MiddleCenter){
+            if (sourceImage == null || baseTarget == null) return;
+            const int minImageSize = 16;
+            try{
+                int calculatedSize;
+                Image previousImage = null;
+                Image ResizeImage(Image targetImg, int targetSize){
+                    Bitmap resizedEngine = new Bitmap(targetSize, targetSize, PixelFormat.Format32bppArgb);
+                    using (Graphics renderGraphics = Graphics.FromImage(resizedEngine)){
+                        renderGraphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        renderGraphics.SmoothingMode = SmoothingMode.AntiAlias;
+                        renderGraphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                        renderGraphics.CompositingQuality = CompositingQuality.HighQuality;
+                        renderGraphics.DrawImage(targetImg, 0, 0, targetSize, targetSize);
+                    }
+                    return resizedEngine;
+                }
+                if (baseTarget is Control targetControl){
+                    float dpi = targetControl.DeviceDpi > 0 ? targetControl.DeviceDpi : 96f;
+                    float dpiScaleFactor = dpi / 96f;
+                    int paddingWithScale = (int)Math.Round(basePadding * dpiScaleFactor);
+                    //
+                    calculatedSize = targetControl.Height - paddingWithScale;
+                    if (calculatedSize <= 0) { calculatedSize = minImageSize; }
+                    Image resizedImage = ResizeImage(sourceImage, calculatedSize);
+                    if (targetControl is Button buttonMode){
+                        previousImage = buttonMode.Image;
+                        buttonMode.Image = resizedImage;
+                        buttonMode.ImageAlign = imageAlign;
+                    }else if (targetControl is PictureBox pictureBoxMode){
+                        previousImage = pictureBoxMode.Image;
+                        pictureBoxMode.Image = resizedImage;
+                        pictureBoxMode.SizeMode = PictureBoxSizeMode.Zoom;
+                    }else{
+                        resizedImage.Dispose();
+                    }
+                }else if (baseTarget is ToolStripItem toolStripItemMode){
+                    calculatedSize = toolStripItemMode.Height - basePadding;
+                    if (calculatedSize <= 0) { calculatedSize = minImageSize; }
+                    Image resizedImage = ResizeImage(sourceImage, calculatedSize);
+                    previousImage = toolStripItemMode.Image;
+                    toolStripItemMode.Image = resizedImage;
+                }else{
+                    return;
+                }
+                if (previousImage != null && previousImage != sourceImage) { previousImage.Dispose(); }
+            }catch (Exception){ }
+        }
         // DYNAMIC SIZE COUNT ALGORITHM
         // ======================================================================================================
         public static string TS_FormatSize(double bytes){
@@ -277,7 +345,7 @@ namespace Glow{
             using (Graphics btn_graphics = render_button.CreateGraphics()){
                 SizeF text_size = btn_graphics.MeasureString(render_button.Text, render_button.Font);
                 int padding_btn = render_button.Padding.Left + render_button.Padding.Right;
-                render_button.Width = (int)(text_size.Width * 1.24) + padding_btn + 15;
+                render_button.Width = (int)(text_size.Width * 1.24) + padding_btn + 25;
                 // render_button.Height = Math.Max(render_button.Height, (int)(text_size.Height * 1.2) + render_button.Padding.Top + render_button.Padding.Bottom);
             }
         }
@@ -447,9 +515,9 @@ namespace Glow{
         // ======================================================================================================
         [DllImport("DwmApi")]
         public static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
-        // DPI AWARE
+        // DPI AWARE V2
         // ======================================================================================================
         [DllImport("user32.dll")]
-        public static extern bool SetProcessDPIAware();
+        public static extern bool SetProcessDpiAwarenessContext(IntPtr dpiFlag);
     }
 }

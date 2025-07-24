@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 //
 using static Glow.TSModules;
+using System.Drawing;
 
 namespace Glow.glow_tools{
     public partial class GlowDNSTestTool : Form{
@@ -73,21 +74,25 @@ namespace Glow.glow_tools{
                 DNSTable.DefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "OSDAndServicesPageBG");
                 DNSTable.DefaultCellStyle.SelectionForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "OSDAndServicesPageFE");
                 //
-                DNS_TestStartBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                DNS_TestStartBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 DNS_TestStartBtn.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
-                DNS_TestStartBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                DNS_TestStartBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                DNS_TestStartBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRightHover");
-                DNS_CustomTestBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                DNS_TestStartBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                DNS_TestStartBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                DNS_TestStartBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMainHover");
+                DNS_CustomTestBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 DNS_CustomTestBtn.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
-                DNS_CustomTestBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                DNS_CustomTestBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                DNS_CustomTestBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRightHover");
-                DNS_TestExportBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                DNS_CustomTestBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                DNS_CustomTestBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                DNS_CustomTestBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMainHover");
+                DNS_TestExportBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 DNS_TestExportBtn.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
-                DNS_TestExportBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                DNS_TestExportBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                DNS_TestExportBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRightHover");
+                DNS_TestExportBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                DNS_TestExportBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                DNS_TestExportBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMainHover");
+                //
+                TSImageRenderer(DNS_TestStartBtn, Glow.theme == 1 ? Properties.Resources.ct_test_start_light : Properties.Resources.ct_test_start_dark, 17, ContentAlignment.MiddleRight);
+                TSImageRenderer(DNS_CustomTestBtn, Glow.theme == 1 ? Properties.Resources.ct_dns_test_light : Properties.Resources.ct_dns_test_dark, 13, ContentAlignment.MiddleRight);
+                TSImageRenderer(DNS_TestExportBtn, Glow.theme == 1 ? Properties.Resources.ct_export_light : Properties.Resources.ct_export_dark, 17, ContentAlignment.MiddleRight);
                 //
                 Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_title")), Application.ProductName);
                 ping_time_text = TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_success"));
@@ -96,9 +101,9 @@ namespace Glow.glow_tools{
                 DNSTable.Columns[0].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_column_server"));
                 DNSTable.Columns[1].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_column_server_response"));
                 //
-                DNS_TestStartBtn.Text = TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_start"));
-                DNS_CustomTestBtn.Text = TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_custom"));
-                DNS_TestExportBtn.Text = TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_export"));
+                DNS_TestStartBtn.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_start"));
+                DNS_CustomTestBtn.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_custom"));
+                DNS_TestExportBtn.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_export"));
             }catch (Exception){ }
         }
         // LOAD
@@ -420,6 +425,7 @@ namespace Glow.glow_tools{
                 PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_twitter")) + " " + TS_LinkSystem.twitter_x_link);
                 PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_instagram")) + " " + TS_LinkSystem.instagram_link);
                 PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_github")) + " " + TS_LinkSystem.github_link);
+                PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_youtube")) + " " + TS_LinkSystem.youtube_link);
                 PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_bmac")) + " " + TS_LinkSystem.ts_bmac);
                 //
                 SaveFileDialog save_engine = new SaveFileDialog{

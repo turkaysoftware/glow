@@ -60,6 +60,7 @@
             this.DNS_TestExportBtn.Size = new System.Drawing.Size(626, 36);
             this.DNS_TestExportBtn.TabIndex = 2;
             this.DNS_TestExportBtn.Text = "DIŞA AKTAR";
+            this.DNS_TestExportBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.DNS_TestExportBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.DNS_TestExportBtn.UseVisualStyleBackColor = false;
             this.DNS_TestExportBtn.Click += new System.EventHandler(this.DNS_TestExportBtn_Click);
@@ -81,6 +82,7 @@
             this.DNS_TestStartBtn.Size = new System.Drawing.Size(626, 34);
             this.DNS_TestStartBtn.TabIndex = 0;
             this.DNS_TestStartBtn.Text = "Başlat";
+            this.DNS_TestStartBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.DNS_TestStartBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.DNS_TestStartBtn.UseVisualStyleBackColor = false;
             this.DNS_TestStartBtn.Click += new System.EventHandler(this.DNS_TestStartBtn_Click);
@@ -119,6 +121,7 @@
             this.DNS_CustomTestBtn.Size = new System.Drawing.Size(626, 34);
             this.DNS_CustomTestBtn.TabIndex = 1;
             this.DNS_CustomTestBtn.Text = "Başlat";
+            this.DNS_CustomTestBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.DNS_CustomTestBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.DNS_CustomTestBtn.UseVisualStyleBackColor = false;
             this.DNS_CustomTestBtn.Click += new System.EventHandler(this.DNS_CustomTestBtn_Click);

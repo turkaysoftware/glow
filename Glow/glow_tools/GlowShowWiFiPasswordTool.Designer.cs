@@ -81,6 +81,7 @@
             this.SWPT_CopyBtn.Size = new System.Drawing.Size(458, 37);
             this.SWPT_CopyBtn.TabIndex = 3;
             this.SWPT_CopyBtn.Text = "Wi-Fi Şifre Kopyala";
+            this.SWPT_CopyBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.SWPT_CopyBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.SWPT_CopyBtn.UseVisualStyleBackColor = false;
             this.SWPT_CopyBtn.Click += new System.EventHandler(this.SWPT_CopyBtn_Click);

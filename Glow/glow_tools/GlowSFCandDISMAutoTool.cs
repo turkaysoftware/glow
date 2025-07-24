@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 //
@@ -45,16 +47,18 @@ namespace Glow.glow_tools{
                     DwmSetWindowAttribute(Handle, 20, new[] { Glow.theme == 1 ? 0 : 1 }, 4);
                 }
                 BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "PageContainerBGAndPageContentTotalColors");
-                SFCAndDISM_TLP.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
-                SADT_L1.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Back_Panel.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
+                SADT_L1.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 SADT_L2.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
                 SADT_L3.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
-                SADT_L4.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                SADT_StartBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                SADT_L4.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                SADT_StartBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 SADT_StartBtn.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
-                SADT_StartBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                SADT_StartBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                SADT_StartBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRightHover");
+                SADT_StartBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                SADT_StartBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                SADT_StartBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMainHover");
+                //
+                TSImageRenderer(SADT_StartBtn, Glow.theme == 1 ? Properties.Resources.ct_fix_light : Properties.Resources.ct_fix_dark, 18, ContentAlignment.MiddleRight);
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_title")), Application.ProductName);
@@ -68,7 +72,7 @@ namespace Glow.glow_tools{
                 }else{
                     SADT_L4.Text = TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_not_start"));
                 }
-                SADT_StartBtn.Text = TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_start_engine"));
+                SADT_StartBtn.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_start_engine"));
             }catch (Exception){ }
         }
         // SFC AND DISM AUTO TOOL START ENGINE BTN
@@ -80,27 +84,43 @@ namespace Glow.glow_tools{
                 if (sadt_start_check == DialogResult.Yes){
                     Task sadt_engine_bg = Task.Run(() => sadt_engine());
                 }
-            }catch (Exception){ }
+            }catch (Exception) { }
         }
         // SFC AND DISM AUTO TOOL ENGINE
         // ======================================================================================================
         private void sadt_engine(){
             try{
-                Process.Start("cmd.exe", "/k " + $"title {sadt_title} & {cmd_c_mode} & echo {sadt_start} &" +
-                $" echo {new string('-', 75)} & echo ({sadt_code_1}) {sadt_starter} & {sadt_code_1} &" +
-                $" echo {new string('-', 75)} & echo ({sadt_code_1}) {sadt_rotate} & echo {new string('-', 75)} &" +
-                $" {sadt_code_2} & echo {new string('-', 75)} & echo ({sadt_code_2}) {sadt_rotate} & echo {new string('-', 75)} &" +
-                $" {sadt_code_3} & echo {new string('-', 75)} & echo ({sadt_code_3}) {sadt_rotate} & echo {new string('-', 75)} &" +
-                $" {sadt_code_4} & echo {new string('-', 75)} & echo ({sadt_code_4}) {sadt_ender} & echo {new string('-', 75)} &" +
-                $" echo {new string('-', 75)} & echo {new string('-', 75)} & echo {sadt_last_text} & echo {new string('-', 75)} &" +
-                $" echo {new string('-', 75)} & echo {new string('-', 75)}");
-                // PROCESS TIME WRITE SCREEN AND SAVE
-                try{
-                    string current_time = DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss");
-                    SADT_L4.Text = current_time;
-                    software_setting_save.TSWriteSettings(ts_settings_container, "SFCAndDISMDate", current_time);
-                }catch (Exception){ }
+                var commands = new[] {
+                    sadt_code_1,
+                    sadt_code_2,
+                    sadt_code_3,
+                    sadt_code_4
+                };
+                var builder = new System.Text.StringBuilder();
+                builder.Append($"title {sadt_title} & {cmd_c_mode} & echo {sadt_start} & ");
+                builder.Append(EchoLine());
+                for (int i = 0; i < commands.Length; i++){
+                    string currentCmd = commands[i];
+                    string echoLabel = i == commands.Length - 1 ? sadt_ender : sadt_rotate;
+                    //
+                    builder.Append($"echo ({currentCmd}) {sadt_starter} & {currentCmd} & ");
+                    builder.Append(EchoLine());
+                    builder.Append($"echo ({currentCmd}) {echoLabel} & ");
+                    builder.Append(EchoLine());
+                }
+                //
+                builder.Append($"echo {sadt_last_text} & ");
+                builder.Append(EchoLine(3));
+                //
+                Process.Start("cmd.exe", "/k " + builder.ToString());
+                // Save Process
+                string current_time = DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss");
+                SADT_L4.Text = current_time;
+                software_setting_save.TSWriteSettings(ts_settings_container, "SFCAndDISMDate", current_time);
             }catch (Exception){ }
+        }
+        private string EchoLine(int repeat = 1){
+            return string.Join(" & ", Enumerable.Repeat($"echo {new string('-', 75)}", repeat)) + " & ";
         }
     }
 }

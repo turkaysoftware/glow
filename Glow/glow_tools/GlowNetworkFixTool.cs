@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 //
 using static Glow.TSModules;
+using System.Drawing;
 
 namespace Glow.glow_tools{
     public partial class GlowNetworkFixTool : Form{
@@ -27,16 +28,18 @@ namespace Glow.glow_tools{
                 NFT_ResultList.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "PageContainerBGAndPageContentTotalColors");
                 NFT_ResultList.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelLeft");
                 //
-                NFT_StartBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                NFT_StartBtn.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 NFT_StartBtn.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
-                NFT_StartBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                NFT_StartBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                NFT_StartBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRightHover");
+                NFT_StartBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                NFT_StartBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                NFT_StartBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMainHover");
+                //
+                TSImageRenderer(NFT_StartBtn, Glow.theme == 1 ? Properties.Resources.ct_fix_light : Properties.Resources.ct_fix_dark, 18, ContentAlignment.MiddleRight);
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_title")), Application.ProductName);
                 //
-                NFT_StartBtn.Text = TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_process_start_btn"));
+                NFT_StartBtn.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_process_start_btn"));
             }catch (Exception){ }
         }
         // LOADA

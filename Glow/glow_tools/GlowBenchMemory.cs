@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Microsoft.VisualBasic.Devices;
 //
 using static Glow.TSModules;
+using System.Drawing;
 
 namespace Glow.glow_tools{
     public partial class GlowBenchMemory : Form{
@@ -35,16 +36,16 @@ namespace Glow.glow_tools{
                 BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "PageContainerBGAndPageContentTotalColors");
                 Bench_Panel.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentPanelBGColor");
                 //
-                Bench_MStart.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_MStart.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 Bench_MStart.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
-                Bench_MStart.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                Bench_MStart.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                Bench_MStart.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRightHover");
-                Bench_MStop.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
+                Bench_MStart.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                Bench_MStart.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                Bench_MStart.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMainHover");
+                Bench_MStop.BackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
                 Bench_MStop.ForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DynamicThemeActiveBtnBG");
-                Bench_MStop.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                Bench_MStop.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRight");
-                Bench_MStop.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "ContentLabelRightHover");
+                Bench_MStop.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                Bench_MStop.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMain");
+                Bench_MStop.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(Glow.theme, "AccentMainHover");
                 //
                 Bench_TLP.BackgroundColor = TS_ThemeEngine.ColorMode(Glow.theme, "DataGridBGColor");
                 Bench_TLP.GridColor = TS_ThemeEngine.ColorMode(Glow.theme, "DataGridColor");
@@ -58,6 +59,9 @@ namespace Glow.glow_tools{
                 Bench_TLP.DefaultCellStyle.SelectionForeColor = TS_ThemeEngine.ColorMode(Glow.theme, "DataGridFEColor");
                 Bench_TLP.ReadOnly = true;
                 //
+                TSImageRenderer(Bench_MStart, Glow.theme == 1 ? Properties.Resources.ct_test_start_light : Properties.Resources.ct_test_start_dark, 22, ContentAlignment.MiddleRight);
+                TSImageRenderer(Bench_MStop, Glow.theme == 1 ? Properties.Resources.ct_test_stop_light : Properties.Resources.ct_test_stop_dark, 22, ContentAlignment.MiddleRight);
+                //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_title")), Application.ProductName);
                 //
@@ -66,8 +70,8 @@ namespace Glow.glow_tools{
                 Bench_TLP.Rows[2].Cells[0].Value = TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_ram_empty"));
                 Bench_TLP.Rows[3].Cells[0].Value = TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_ram_allocated"));
                 //
-                Bench_MStart.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_start"));
-                Bench_MStop.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_stop"));
+                Bench_MStart.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_start"));
+                Bench_MStop.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_stop"));
             }catch (Exception){ }
         }
         private void Bench_TLP_CellClick(object sender, DataGridViewCellEventArgs e){
