@@ -68,11 +68,14 @@ With these instructions, you can download and use the correct version of Glow fo
 
 # Supported Languages
 
+- Arabic (Coming Soon v25.09)
 - Chinese
 - English
 - French
 - German
+- Hindi (Coming Soon v25.09)
 - Italian
+- Japanase (Coming Soon v25.09)
 - Korean
 - Portuguese
 - Russian
