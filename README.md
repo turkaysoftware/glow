@@ -64,6 +64,7 @@ With these instructions, you can download and use the correct version of Glow fo
 - **Quick Access Tool:** Quickly access important settings and tools for easier navigation.
 - **Network Repair Tool:** Helps diagnose and resolve common network connection issues.
 - **Saved Wi-Fi Password Viewer:** Allows you to view saved Wi-Fi passwords when needed.
+- **Bluetooth Information:** Provides detailed information about your Bluetooth adapters that no software can match (including Bluetooth version).
 - **Monitor Test Tools:** Provides built-in tools to evaluate monitor performance.
 
 # Supported Languages
