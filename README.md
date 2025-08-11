@@ -18,9 +18,9 @@ Every little bit helps—it keeps me motivated and gives me more time to improve
 
 [Click here](https://www.turkaysoftware.com/glow) for full specifications.
 
-![Glow UI - Dark](https://github.com/user-attachments/assets/f2528953-0a88-49e6-ad41-7e181334b0b1)
+<img width="1010" height="633" alt="Glow UI - Dark" src="https://github.com/user-attachments/assets/5c02352c-93fa-4def-b6a2-a4aaadf33709" />
 
-![Glow UI - Light](https://github.com/user-attachments/assets/fd633523-3034-4a6f-a298-dff5a767a1eb)
+<img width="1010" height="633" alt="Glow UI - Light" src="https://github.com/user-attachments/assets/0f47cca3-9b5e-45eb-aed5-0af71f8980da" />
 
 # Download Glow
 
@@ -48,7 +48,7 @@ With these instructions, you can download and use the correct version of Glow fo
 
 # User Friendly Features
 
-![Glow Right Click - Tools](https://github.com/user-attachments/assets/dd9018fd-41df-4ecd-bf93-12e7371a3c99)
+<img width="540" height="292" alt="Glow Tools" src="https://github.com/user-attachments/assets/a179b9fe-490f-4c3e-bf53-220d6af3634a" />
 
 - **Comprehensive System Information:** Provides detailed information about your Operating System, Motherboard, Processor, RAM, Graphics Card, Storage, Network, USB, Sound, Battery, Installed Drivers, and Installed Services.
 - **Light and Dark Theme Support:** Switch between light and dark themes to reduce eye strain and enhance your viewing experience.
@@ -68,14 +68,14 @@ With these instructions, you can download and use the correct version of Glow fo
 
 # Supported Languages
 
-- Arabic (Coming Soon v25.09)
+- Arabic
 - Chinese
 - English
 - French
 - German
-- Hindi (Coming Soon v25.09)
+- Hindi
 - Italian
-- Japanase (Coming Soon v25.09)
+- Japanase
 - Korean
 - Portuguese
 - Russian
