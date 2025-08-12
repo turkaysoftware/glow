@@ -17,7 +17,7 @@ namespace Glow.glow_tools{
     public partial class GlowDNSTestTool : Form{
         // GLOBAL LANGS PATH
         // ======================================================================================================
-        TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
+        readonly TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
         //
         public GlowDNSTestTool(){
             InitializeComponent();
@@ -43,18 +43,18 @@ namespace Glow.glow_tools{
 
         // DNS SERVERS
         // ======================================================================================================
-        List<string> alternate_dns_list = new List<string>(){ "76.76.19.19", "76.223.122.150" };
-        List<string> cloudflare_dns_list = new List<string>(){ "1.1.1.1", "1.0.0.1" };
-        List<string> comodo_dns_list = new List<string>(){ "8.26.56.26", "8.20.247.20" };
-        List<string> control_d_dns_list = new List<string>(){ "76.76.2.0", "76.76.10.0" };
-        List<string> dns_watch_dns_list = new List<string>(){ "84.200.69.80", "84.200.70.40" };
-        List<string> google_dns_list = new List<string>(){ "8.8.8.8", "8.8.4.4" };
-        List<string> lumen_dns_list = new List<string>(){ "4.2.2.1", "4.2.2.2" };
-        List<string> opendns_dns_list = new List<string>(){ "208.67.222.222", "208.67.220.220" };
-        List<string> quad9_dns_list = new List<string>(){ "9.9.9.9", "149.112.112.112" };
+        readonly List<string> alternate_dns_list = new List<string>(){ "76.76.19.19", "76.223.122.150" };
+        readonly List<string> cloudflare_dns_list = new List<string>(){ "1.1.1.1", "1.0.0.1" };
+        readonly List<string> comodo_dns_list = new List<string>(){ "8.26.56.26", "8.20.247.20" };
+        readonly List<string> control_d_dns_list = new List<string>(){ "76.76.2.0", "76.76.10.0" };
+        readonly List<string> dns_watch_dns_list = new List<string>(){ "84.200.69.80", "84.200.70.40" };
+        readonly List<string> google_dns_list = new List<string>(){ "8.8.8.8", "8.8.4.4" };
+        readonly List<string> lumen_dns_list = new List<string>(){ "4.2.2.1", "4.2.2.2" };
+        readonly List<string> opendns_dns_list = new List<string>(){ "208.67.222.222", "208.67.220.220" };
+        readonly List<string> quad9_dns_list = new List<string>(){ "9.9.9.9", "149.112.112.112" };
         // DNS SERVERS
         // ======================================================================================================
-        public void dns_test_settings(){
+        public void Dns_test_settings(){
             try{
                 int set_attribute = Glow.theme == 1 ? 20 : 19;
                 if (DwmSetWindowAttribute(Handle, set_attribute, new[] { 1 }, 4) != Glow.theme){
@@ -94,26 +94,26 @@ namespace Glow.glow_tools{
                 TSImageRenderer(DNS_CustomTestBtn, Glow.theme == 1 ? Properties.Resources.ct_dns_test_light : Properties.Resources.ct_dns_test_dark, 13, ContentAlignment.MiddleRight);
                 TSImageRenderer(DNS_TestExportBtn, Glow.theme == 1 ? Properties.Resources.ct_export_light : Properties.Resources.ct_export_dark, 17, ContentAlignment.MiddleRight);
                 //
-                Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_title")), Application.ProductName);
-                ping_time_text = TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_success"));
-                ping_time_text_error = TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_error"));
+                Text = string.Format(software_lang.TSReadLangs("DNSTestTool", "dtt_title"), Application.ProductName);
+                ping_time_text = software_lang.TSReadLangs("DNSTestTool", "dtt_success");
+                ping_time_text_error = software_lang.TSReadLangs("DNSTestTool", "dtt_error");
                 //
-                DNSTable.Columns[0].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_column_server"));
-                DNSTable.Columns[1].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_column_server_response"));
+                DNSTable.Columns[0].HeaderText = software_lang.TSReadLangs("DNSTestTool", "dtt_column_server");
+                DNSTable.Columns[1].HeaderText = software_lang.TSReadLangs("DNSTestTool", "dtt_column_server_response");
                 //
-                DNS_TestStartBtn.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_start"));
-                DNS_CustomTestBtn.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_custom"));
-                DNS_TestExportBtn.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_export"));
+                DNS_TestStartBtn.Text = " " + software_lang.TSReadLangs("DNSTestTool", "dtt_start");
+                DNS_CustomTestBtn.Text = " " + software_lang.TSReadLangs("DNSTestTool", "dtt_custom");
+                DNS_TestExportBtn.Text = " " + software_lang.TSReadLangs("DNSTestTool", "dtt_export");
             }catch (Exception){ }
         }
         // LOAD
         // ======================================================================================================
         private void GlowDNSTestTool_Load(object sender, EventArgs e){
-            dns_test_settings();
+            Dns_test_settings();
             try{
                 string[] dns_server_list = { "Alternate DNS", "Cloudflare", "Comodo", "Control D", "DNS.WATCH", "Google", "Level3/Lumen DNS", "OpenDNS", "Quad9" };
                 for (int i = 0; i<= dns_server_list.Length - 1; i++){
-                    DNSTable.Rows.Add(dns_server_list[i], TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_start_await")));
+                    DNSTable.Rows.Add(dns_server_list[i], software_lang.TSReadLangs("DNSTestTool", "dtt_start_await"));
                 }
                 DNSTable.Columns[0].Width = 175;
                 //
@@ -126,7 +126,7 @@ namespace Glow.glow_tools{
         }
         // ALTERATE
         // ======================================================================================================
-        private void alternate_dns_check(){
+        private void Alternate_dns_check(){
             try{
                 Ping pingSender = new Ping();
                 StringBuilder resultText = new StringBuilder();
@@ -147,7 +147,7 @@ namespace Glow.glow_tools{
         }
         // CLOUDFLARE
         // ======================================================================================================
-        private void cloudflare_dns_check(){
+        private void Cloudflare_dns_check(){
             try{
                 Ping pingSender = new Ping();
                 StringBuilder resultText = new StringBuilder();
@@ -168,7 +168,7 @@ namespace Glow.glow_tools{
         }
         // COMODO
         // ======================================================================================================
-        private void comodo_dns_check(){
+        private void Comodo_dns_check(){
             try{
                 Ping pingSender = new Ping();
                 StringBuilder resultText = new StringBuilder();
@@ -189,7 +189,7 @@ namespace Glow.glow_tools{
         }
         // CONTROL D
         // ======================================================================================================
-        private void control_d_dns_check(){
+        private void Control_d_dns_check(){
             try{
                 Ping pingSender = new Ping();
                 StringBuilder resultText = new StringBuilder();
@@ -210,7 +210,7 @@ namespace Glow.glow_tools{
         }
         // DNS.WATCH
         // ======================================================================================================
-        private void dns_watchdns_check(){
+        private void Dns_watchdns_check(){
             try{
                 Ping pingSender = new Ping();
                 StringBuilder resultText = new StringBuilder();
@@ -231,7 +231,7 @@ namespace Glow.glow_tools{
         }
         // GOOGLE
         // ======================================================================================================
-        private void google_dns_check(){
+        private void Google_dns_check(){
             try{
                 Ping pingSender = new Ping();
                 StringBuilder resultText = new StringBuilder();
@@ -252,7 +252,7 @@ namespace Glow.glow_tools{
         }
         // LUMEN
         // ======================================================================================================
-        private void lumen_dns_check(){
+        private void Lumen_dns_check(){
             try{
                 Ping pingSender = new Ping();
                 StringBuilder resultText = new StringBuilder();
@@ -273,7 +273,7 @@ namespace Glow.glow_tools{
         }
         // OPENDNS
         // ======================================================================================================
-        private void opendns_dns_check(){
+        private void Opendns_dns_check(){
             try{
                 Ping pingSender = new Ping();
                 StringBuilder resultText = new StringBuilder();
@@ -294,7 +294,7 @@ namespace Glow.glow_tools{
         }
         // QUAD9
         // ======================================================================================================
-        private void quad9_dns_check(){
+        private void Quad9_dns_check(){
             try{
                 Ping pingSender = new Ping();
                 StringBuilder resultText = new StringBuilder();
@@ -320,13 +320,13 @@ namespace Glow.glow_tools{
                 if (alternate_dns_status == true && cloudflare_dns_status == true && comodo_dns_status == true && control_d_dns_status == true && dns_watch_dns_status == true && google_dns_status == true && lumen_dns_status == true && opendns_dns_status == true && quad9_dns_status == true){
                     if (DNSTable.SelectedRows.Count > 0){
                         Clipboard.SetText(DNSTable.Rows[e.RowIndex].Cells[0].Value.ToString() + ": " + DNSTable.Rows[e.RowIndex].Cells[1].Value.ToString());
-                        TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_copy_success")), DNSTable.Rows[e.RowIndex].Cells[0].Value));
+                        TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format(software_lang.TSReadLangs("DNSTestTool", "dtt_copy_success"), DNSTable.Rows[e.RowIndex].Cells[0].Value));
                     }
                 }else{
-                    TS_MessageBoxEngine.TS_MessageBox(this, 2, TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_copy_info")));
+                    TS_MessageBoxEngine.TS_MessageBox(this, 2, software_lang.TSReadLangs("DNSTestTool", "dtt_copy_info"));
                 }
             }catch (Exception){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_copy_failed")), DNSTable.Rows[e.RowIndex].Cells[0].Value, "\n"));
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(software_lang.TSReadLangs("DNSTestTool", "dtt_copy_failed"), DNSTable.Rows[e.RowIndex].Cells[0].Value, "\n"));
             }
         }
         // START ENGINE
@@ -335,34 +335,34 @@ namespace Glow.glow_tools{
             DNS_TestStartBtn.Enabled = false;
             test_status = true;
             //
-            Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_title")), Application.ProductName) + " | " + TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_title_test_ruining"));
+            Text = string.Format(software_lang.TSReadLangs("DNSTestTool", "dtt_title"), Application.ProductName) + " | " + software_lang.TSReadLangs("DNSTestTool", "dtt_title_test_ruining");
             // Alternate DNS
-            Task.Run(() => alternate_dns_check());
+            Task.Run(() => Alternate_dns_check());
             // Cloudflare
-            Task.Run(() => cloudflare_dns_check());
+            Task.Run(() => Cloudflare_dns_check());
             // Comodo
-            Task.Run(() => comodo_dns_check());
+            Task.Run(() => Comodo_dns_check());
             // Control D
-            Task.Run(() => control_d_dns_check());
+            Task.Run(() => Control_d_dns_check());
             // DNS.WATCH
-            Task.Run(() => dns_watchdns_check());
+            Task.Run(() => Dns_watchdns_check());
             // Google
-            Task.Run(() => google_dns_check());
+            Task.Run(() => Google_dns_check());
             // Lumen
-            Task.Run(() => lumen_dns_check());
+            Task.Run(() => Lumen_dns_check());
             // OpenDNS
-            Task.Run(() => opendns_dns_check());
+            Task.Run(() => Opendns_dns_check());
             // Quad9
-            Task.Run(() => quad9_dns_check());
+            Task.Run(() => Quad9_dns_check());
             // TEST AFTER ASYNC
-            Task.Run(() => test_after_mode());
+            Task.Run(() => Test_after_mode());
         }
         // CHECK TEST COMPLATE
         // ======================================================================================================
-        private void test_after_mode(){
+        private void Test_after_mode(){
             do{
                 if (alternate_dns_status == true && cloudflare_dns_status == true && comodo_dns_status == true && control_d_dns_status == true && dns_watch_dns_status == true && google_dns_status == true && lumen_dns_status == true && opendns_dns_status == true && quad9_dns_status == true){
-                    Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_title")), Application.ProductName);
+                    Text = string.Format(software_lang.TSReadLangs("DNSTestTool", "dtt_title"), Application.ProductName);
                     DNS_TestExportBtn.Enabled = true;
                     DNS_TestStartBtn.Enabled = true;
                     test_status = false;
@@ -374,7 +374,7 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         private void DNS_CustomTestBtn_Click(object sender, EventArgs e){
             try{
-                string custom_ip = Interaction.InputBox(string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_custom_message")), "\n\n", cloudflare_dns_list[0]), string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_title")), Application.ProductName), "");
+                string custom_ip = Interaction.InputBox(string.Format(software_lang.TSReadLangs("DNSTestTool", "dtt_custom_message"), "\n\n", cloudflare_dns_list[0]), string.Format(software_lang.TSReadLangs("DNSTestTool", "dtt_title"), Application.ProductName), "");
                 if (custom_ip.Trim() != "" && custom_ip.Trim() != string.Empty){
                     if (IPAddress.TryParse(custom_ip.Trim(), out IPAddress ip)){
                         Ping pingSender = new Ping();
@@ -385,7 +385,7 @@ namespace Glow.glow_tools{
                             TS_MessageBoxEngine.TS_MessageBox(this, 2, $"({custom_ip}) - {ping_time_text_error} (({reply.Status}))");
                         }
                     }else{
-                        DialogResult restart_custom_ip = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_custom_message_error")), "\n"));
+                        DialogResult restart_custom_ip = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(software_lang.TSReadLangs("DNSTestTool", "dtt_custom_message_error"), "\n"));
                         if (restart_custom_ip == DialogResult.Yes){
                             DNS_CustomTestBtn.PerformClick();
                         }
@@ -395,10 +395,10 @@ namespace Glow.glow_tools{
         }
         // PRINT ENGINE STARTER
         // ======================================================================================================
-        List<string> PrintDNSList = new List<string>();
+        readonly List<string> PrintDNSList = new List<string>();
         private void DNS_TestExportBtn_Click(object sender, EventArgs e){
             try{
-                PrintDNSList.Add(Application.ProductName + " - " + string.Format(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_save_name")), TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_export_name"))));
+                PrintDNSList.Add(Application.ProductName + " - " + string.Format(software_lang.TSReadLangs("PrintEngine", "pe_save_name"), software_lang.TSReadLangs("DNSTestTool", "dtt_export_name")));
                 PrintDNSList.Add(Environment.NewLine + new string('-', 75) + Environment.NewLine);
                 //
                 int maxLength = 0;
@@ -418,27 +418,27 @@ namespace Glow.glow_tools{
                 //
                 PrintDNSList.Add(Environment.NewLine + new string('-', 75) + Environment.NewLine);
                 // FOOTER
-                PrintDNSList.Add(Application.ProductName + " " + TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_version")) + " " + TS_VersionEngine.TS_SofwareVersion(1, Program.ts_version_mode));
+                PrintDNSList.Add(Application.ProductName + " " + software_lang.TSReadLangs("PrintEngine", "pe_version") + " " + TS_VersionEngine.TS_SofwareVersion(1, Program.ts_version_mode));
                 PrintDNSList.Add(TS_SoftwareCopyrightDate.ts_scd_preloader);
-                PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_process_time")) + " " + DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss"));
-                PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_website")) + " " + TS_LinkSystem.website_link);
-                PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_twitter")) + " " + TS_LinkSystem.twitter_x_link);
-                PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_instagram")) + " " + TS_LinkSystem.instagram_link);
-                PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_github")) + " " + TS_LinkSystem.github_link);
-                PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_youtube")) + " " + TS_LinkSystem.youtube_link);
-                PrintDNSList.Add(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_bmac")) + " " + TS_LinkSystem.ts_bmac);
+                PrintDNSList.Add(software_lang.TSReadLangs("PrintEngine", "pe_process_time") + " " + DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss"));
+                PrintDNSList.Add(software_lang.TSReadLangs("PrintEngine", "pe_website") + " " + TS_LinkSystem.website_link);
+                PrintDNSList.Add(software_lang.TSReadLangs("PrintEngine", "pe_twitter") + " " + TS_LinkSystem.twitter_x_link);
+                PrintDNSList.Add(software_lang.TSReadLangs("PrintEngine", "pe_instagram") + " " + TS_LinkSystem.instagram_link);
+                PrintDNSList.Add(software_lang.TSReadLangs("PrintEngine", "pe_github") + " " + TS_LinkSystem.github_link);
+                PrintDNSList.Add(software_lang.TSReadLangs("PrintEngine", "pe_youtube") + " " + TS_LinkSystem.youtube_link);
+                PrintDNSList.Add(software_lang.TSReadLangs("PrintEngine", "pe_bmac") + " " + TS_LinkSystem.ts_bmac);
                 //
                 SaveFileDialog save_engine = new SaveFileDialog{
                     InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                    Title = Application.ProductName + " - " + TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_save_directory")),
+                    Title = Application.ProductName + " - " + software_lang.TSReadLangs("PrintEngine", "pe_save_directory"),
                     DefaultExt = "txt",
-                    FileName = Application.ProductName + " - " + string.Format(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_save_name")), TS_String_Encoder(software_lang.TSReadLangs("DNSTestTool", "dtt_export_name"))),
-                    Filter = TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_save_txt")) + " (*.txt)|*.txt"
+                    FileName = Application.ProductName + " - " + string.Format(software_lang.TSReadLangs("PrintEngine", "pe_save_name"), software_lang.TSReadLangs("DNSTestTool", "dtt_export_name")),
+                    Filter = software_lang.TSReadLangs("PrintEngine", "pe_save_txt") + " (*.txt)|*.txt"
                 };
                 if (save_engine.ShowDialog() == DialogResult.OK){
                     string combinedText = String.Join(Environment.NewLine, PrintDNSList);
                     File.WriteAllText(save_engine.FileName, combinedText);
-                    DialogResult glow_print_engine_query = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_save_success")) + Environment.NewLine + Environment.NewLine + TS_String_Encoder(software_lang.TSReadLangs("PrintEngine", "pe_save_info_open")), Application.ProductName, save_engine.FileName));
+                    DialogResult glow_print_engine_query = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(software_lang.TSReadLangs("PrintEngine", "pe_save_success") + Environment.NewLine + Environment.NewLine + software_lang.TSReadLangs("PrintEngine", "pe_save_info_open"), Application.ProductName, save_engine.FileName));
                     if (glow_print_engine_query == DialogResult.Yes){
                         Process.Start(save_engine.FileName);
                     }

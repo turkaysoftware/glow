@@ -19,7 +19,7 @@ namespace Glow.glow_tools{
         private const int SleepTime = 150; // 0.15 seconds
         //
         private long _totalAllocated = 0;
-        private List<byte[]> _allocations = new List<byte[]>();
+        private readonly List<byte[]> _allocations = new List<byte[]>();
         private CancellationTokenSource _cancellationTokenSource;
         //
         bool ram_mode_loop_status = true;
@@ -27,7 +27,7 @@ namespace Glow.glow_tools{
         bool loop_mode;
         // LOAD
         // ======================================================================================================
-        public void bench_ram_settings(){
+        public void Bench_ram_settings(){
             try{
                 int set_attribute = Glow.theme == 1 ? 20 : 19;
                 if (DwmSetWindowAttribute(Handle, set_attribute, new[] { 1 }, 4) != Glow.theme){
@@ -63,15 +63,15 @@ namespace Glow.glow_tools{
                 TSImageRenderer(Bench_MStop, Glow.theme == 1 ? Properties.Resources.ct_test_stop_light : Properties.Resources.ct_test_stop_dark, 22, ContentAlignment.MiddleRight);
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_title")), Application.ProductName);
+                Text = string.Format(software_lang.TSReadLangs("BenchRAM", "br_title"), Application.ProductName);
                 //
-                Bench_TLP.Rows[0].Cells[0].Value = TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_ram_total"));
-                Bench_TLP.Rows[1].Cells[0].Value = TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_ram_used"));
-                Bench_TLP.Rows[2].Cells[0].Value = TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_ram_empty"));
-                Bench_TLP.Rows[3].Cells[0].Value = TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_ram_allocated"));
+                Bench_TLP.Rows[0].Cells[0].Value = software_lang.TSReadLangs("BenchRAM", "br_ram_total");
+                Bench_TLP.Rows[1].Cells[0].Value = software_lang.TSReadLangs("BenchRAM", "br_ram_used");
+                Bench_TLP.Rows[2].Cells[0].Value = software_lang.TSReadLangs("BenchRAM", "br_ram_empty");
+                Bench_TLP.Rows[3].Cells[0].Value = software_lang.TSReadLangs("BenchRAM", "br_ram_allocated");
                 //
-                Bench_MStart.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_start"));
-                Bench_MStop.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_stop"));
+                Bench_MStart.Text = " " + software_lang.TSReadLangs("BenchRAM", "br_start");
+                Bench_MStop.Text = " " + software_lang.TSReadLangs("BenchRAM", "br_stop");
             }catch (Exception){ }
         }
         private void Bench_TLP_CellClick(object sender, DataGridViewCellEventArgs e){
@@ -89,20 +89,20 @@ namespace Glow.glow_tools{
             Bench_TLP.Rows.Add("x", "x");
             //
             TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-            Bench_TLP.Rows[3].Cells[1].Value = TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_await_start"));
+            Bench_TLP.Rows[3].Cells[1].Value = software_lang.TSReadLangs("BenchRAM", "br_await_start");
             //
-            bench_ram_settings();
+            Bench_ram_settings();
             //
             Bench_TLP.ColumnHeadersVisible = false;
             Bench_TLP.AllowUserToResizeColumns = false;
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, Bench_TLP, new object[] { true });
             //
-            Task dynamic_ram_info = new Task(dynamic_ram_status);
+            Task dynamic_ram_info = new Task(Dynamic_ram_status);
             dynamic_ram_info.Start();
         }
         // DYNAMIC RAM STATUS
         // ======================================================================================================
-        private async void dynamic_ram_status(){
+        private async void Dynamic_ram_status(){
             try{
                 ComputerInfo get_ram_info = new ComputerInfo();
                 do{
@@ -127,8 +127,8 @@ namespace Glow.glow_tools{
             stopwatch.Start();
             //
             TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-            string titleFormat = TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_title"));
-            string elapsedTimeFormat = TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_elapsed_time"));
+            string titleFormat = software_lang.TSReadLangs("BenchRAM", "br_title");
+            string elapsedTimeFormat = software_lang.TSReadLangs("BenchRAM", "br_elapsed_time");
             try{
                 while (loop_mode){
                     //
@@ -148,7 +148,7 @@ namespace Glow.glow_tools{
         private async void Bench_MStart_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                DialogResult warning_test = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_warning")), "\n\n", "\n"));
+                DialogResult warning_test = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(software_lang.TSReadLangs("BenchRAM", "br_warning"), "\n\n", "\n"));
                 if (warning_test == DialogResult.Yes){
                     _cancellationTokenSource = new CancellationTokenSource();
                     Bench_MStart.Enabled = false;
@@ -170,12 +170,12 @@ namespace Glow.glow_tools{
                 ram_bench_stopped = true;
                 Bench_MStart.Enabled = true;
                 Bench_MStop.Enabled = false;
-                gc_run();
+                Gc_run();
             }catch (Exception){ }
         }
         // GC RUN
         // ======================================================================================================
-        private void gc_run(){
+        private void Gc_run(){
             _allocations.Clear();
             GC.Collect();
             GC.WaitForPendingFinalizers();
@@ -207,16 +207,16 @@ namespace Glow.glow_tools{
                 Invoke(new Action(() =>{
                     Bench_MStart.Enabled = true;
                     Bench_MStop.Enabled = false;
-                    gc_run();
+                    Gc_run();
                     loop_mode = false;
                     TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                    Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_title")), Application.ProductName);
-                    Bench_TLP.Rows[3].Cells[1].Value = TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_await_start"));
+                    Text = string.Format(software_lang.TSReadLangs("BenchRAM", "br_title"), Application.ProductName);
+                    Bench_TLP.Rows[3].Cells[1].Value = software_lang.TSReadLangs("BenchRAM", "br_await_start");
                     if (!ram_bench_stopped){
-                        TS_MessageBoxEngine.TS_MessageBox(this, 1, TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_end")));
+                        TS_MessageBoxEngine.TS_MessageBox(this, 1, software_lang.TSReadLangs("BenchRAM", "br_end"));
                     }else{
                         ram_bench_stopped = false;
-                        TS_MessageBoxEngine.TS_MessageBox(this, 1, TS_String_Encoder(software_lang.TSReadLangs("BenchRAM", "br_stopped")));
+                        TS_MessageBoxEngine.TS_MessageBox(this, 1, software_lang.TSReadLangs("BenchRAM", "br_stopped"));
                     }
                 }));
             }
@@ -224,7 +224,7 @@ namespace Glow.glow_tools{
         // EXIT
         // ======================================================================================================
         private void GlowBenchMemory_FormClosing(object sender, FormClosingEventArgs e){
-            gc_run();
+            Gc_run();
             ram_mode_loop_status = false;
             Hide();
         }

@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>25.08.0.%2a</ApplicationVersion>
+    <ApplicationVersion>25.09.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -199,6 +199,12 @@
     <Compile Include="glow_tools\GlowBenchMemory.Designer.cs">
       <DependentUpon>GlowBenchMemory.cs</DependentUpon>
     </Compile>
+    <Compile Include="glow_tools\GlowBluetoothFinderTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="glow_tools\GlowBluetoothFinderTool.Designer.cs">
+      <DependentUpon>GlowBluetoothFinderTool.cs</DependentUpon>
+    </Compile>
     <Compile Include="glow_tools\GlowCacheCleanupTool.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -277,6 +283,9 @@
     <EmbeddedResource Include="glow_tools\GlowBenchMemory.resx">
       <DependentUpon>GlowBenchMemory.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="glow_tools\GlowBluetoothFinderTool.resx">
+      <DependentUpon>GlowBluetoothFinderTool.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="glow_tools\GlowCacheCleanupTool.resx">
       <DependentUpon>GlowCacheCleanupTool.cs</DependentUpon>
     </EmbeddedResource>
@@ -344,7 +353,6 @@
     <None Include="glow_images\ts_preloader\ts_preloader_release.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GlowLogo.ico" />
     <None Include="glow_images\glow_ui\theme_light\ct_copy_mc_light.png" />
     <None Include="glow_images\glow_ui\theme_dark\ct_copy_mc_dark.png" />
     <None Include="glow_images\glow_ui\theme_light\ct_test_stop_light.png" />
@@ -459,6 +467,10 @@
     <None Include="glow_images\glow_ui\theme_dark\ct_link_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\ct_copy_dark.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="GlowLogo.ico" />
+    <None Include="glow_images\glow_ui\theme_dark\cx_bt_finder_dark.png" />
+    <None Include="glow_images\glow_ui\theme_light\cx_bt_finder_light.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

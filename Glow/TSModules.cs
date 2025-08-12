@@ -5,10 +5,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Glow{
@@ -56,15 +59,16 @@ namespace Glow{
         // ======================================================================================================
         public static class TS_MessageBoxEngine{
             private static readonly Dictionary<int, KeyValuePair<MessageBoxButtons, MessageBoxIcon>> TSMessageBoxConfig = new Dictionary<int, KeyValuePair<MessageBoxButtons, MessageBoxIcon>>(){
-                { 1, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.OK, MessageBoxIcon.Information) },       // Ok ve Bilgi
-                { 2, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.OK, MessageBoxIcon.Warning) },           // Ok ve Uyarı
-                { 3, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.OK, MessageBoxIcon.Error) },             // Ok ve Hata
-                { 4, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Question) },       // Yes/No ve Soru
-                { 5, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Information) },    // Yes/No ve Bilgi
-                { 6, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Warning) },        // Yes/No ve Uyarı
-                { 7, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Error) },          // Yes/No ve Hata
-                { 8, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) },    // Retry/Cancel ve Hata
-                { 9, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) }  // Yes/No/Cancel ve Soru
+                { 1, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.OK, MessageBoxIcon.Information) },           // Ok ve Bilgi
+                { 2, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.OK, MessageBoxIcon.Warning) },               // Ok ve Uyarı
+                { 3, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.OK, MessageBoxIcon.Error) },                 // Ok ve Hata
+                { 4, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Question) },           // Yes/No ve Soru
+                { 5, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Information) },        // Yes/No ve Bilgi
+                { 6, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Warning) },            // Yes/No ve Uyarı
+                { 7, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Error) },              // Yes/No ve Hata
+                { 8, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) },        // Retry/Cancel ve Hata
+                { 9, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) },     // Yes/No/Cancel ve Soru
+                { 10, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information) }  // Yes/No/Cancel ve Bilgi
             };
             public static DialogResult TS_MessageBox(Form m_form, int m_mode, string m_message, string m_title = ""){
                 if (m_form.InvokeRequired){
@@ -106,64 +110,183 @@ namespace Glow{
         // SETTINGS SAVE CLASS
         // ======================================================================================================
         public class TSSettingsSave{
-            [DllImport("kernel32.dll")]
-            private static extern int WritePrivateProfileString(string section, string key, string val, string filePath);
-            [DllImport("kernel32.dll")]
-            private static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
-            private readonly string _settingFilePath;
-            public TSSettingsSave(string filePath){ _settingFilePath = filePath; }
-            public string TSReadSettings(string episode, string settingName){
-                StringBuilder stringBuilder = new StringBuilder(4096);
-                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 4096, _settingFilePath);
-                return stringBuilder.ToString();
+            private readonly string _iniFilePath;
+            private readonly object _fileLock = new object();
+            public TSSettingsSave(string filePath) { _iniFilePath = filePath; }
+            public string TSReadSettings(string sectionName, string keyName){
+                lock (_fileLock){
+                    if (!File.Exists(_iniFilePath)) { return string.Empty; }
+                    string[] lines = File.ReadAllLines(_iniFilePath, Encoding.UTF8);
+                    bool isInSection = string.IsNullOrEmpty(sectionName);
+                    foreach (string rawLine in lines){
+                        string line = rawLine.Trim();
+                        if (line.Length == 0 || line.StartsWith(";")) { continue; }
+                        if (line.StartsWith("[") && line.EndsWith("]")){
+                            isInSection = line.Equals("[" + sectionName + "]", StringComparison.OrdinalIgnoreCase);
+                            continue;
+                        }
+                        if (isInSection){
+                            int equalsIndex = line.IndexOf('=');
+                            if (equalsIndex > 0){
+                                string currentKey = line.Substring(0, equalsIndex).Trim();
+                                if (currentKey.Equals(keyName, StringComparison.OrdinalIgnoreCase)){
+                                    return line.Substring(equalsIndex + 1).Trim();
+                                }
+                            }
+                        }
+                    }
+                    return string.Empty;
+                }
             }
-            public int TSWriteSettings(string episode, string settingName, string value){
-                return WritePrivateProfileString(episode, settingName, value, _settingFilePath);
+            public void TSWriteSettings(string sectionName, string keyName, string value){
+                lock (_fileLock){
+                    List<string> lines = File.Exists(_iniFilePath) ? File.ReadAllLines(_iniFilePath, Encoding.UTF8).ToList() : new List<string>();
+                    bool sectionFound = string.IsNullOrEmpty(sectionName);
+                    bool keyUpdated = false;
+                    int insertIndex = lines.Count;
+                    for (int i = 0; i < lines.Count; i++){
+                        string trimmedLine = lines[i].Trim();
+                        if (trimmedLine.Length == 0 || trimmedLine.StartsWith(";")) { continue; }
+                        if (trimmedLine.StartsWith("[") && trimmedLine.EndsWith("]")){
+                            if (sectionFound && !keyUpdated){
+                                insertIndex = i;
+                                break;
+                            }
+                            sectionFound = trimmedLine.Equals("[" + sectionName + "]", StringComparison.OrdinalIgnoreCase);
+                            continue;
+                        }
+                        if (sectionFound){
+                            int equalsIndex = trimmedLine.IndexOf('=');
+                            if (equalsIndex > 0){
+                                string currentKey = trimmedLine.Substring(0, equalsIndex).Trim();
+                                if (currentKey.Equals(keyName, StringComparison.OrdinalIgnoreCase)){
+                                    lines[i] = keyName + "=" + value;
+                                    keyUpdated = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (!sectionFound){
+                        if (lines.Count > 0) { lines.Add(""); }
+                        lines.Add("[" + sectionName + "]");
+                        lines.Add(keyName + "=" + value);
+                    }else if (!keyUpdated){
+                        insertIndex = (insertIndex == lines.Count) ? lines.Count : insertIndex;
+                        lines.Insert(insertIndex, keyName + "=" + value);
+                    }
+                    try{
+                        File.WriteAllLines(_iniFilePath, lines, Encoding.UTF8);
+                    }catch (IOException){
+                        // Hata loglanabilir, bu örnekte yazdırıyoruz
+                        //Console.Error.WriteLine("INI yazma hatası: " + ex.Message);
+                    }
+                }
             }
         }
         // READ LANG PATHS
         // ======================================================================================================
         public static string ts_lf = $"g_langs";                            // Main Path
+        public static string ts_lang_ar = ts_lf + @"\Arabic.ini";           // Arabic       | ar
         public static string ts_lang_zh = ts_lf + @"\Chinese.ini";          // Chinese      | zh
         public static string ts_lang_en = ts_lf + @"\English.ini";          // English      | en
         public static string ts_lang_fr = ts_lf + @"\French.ini";           // French       | fr
         public static string ts_lang_de = ts_lf + @"\German.ini";           // German       | de
+        public static string ts_lang_hi = ts_lf + @"\Hindi.ini";            // Hindi        | hi
         public static string ts_lang_it = ts_lf + @"\Italian.ini";          // Italian      | it
+        public static string ts_lang_ja = ts_lf + @"\Japanese.ini";         // Japanese     | ja
         public static string ts_lang_ko = ts_lf + @"\Korean.ini";           // Korean       | ko
         public static string ts_lang_pt = ts_lf + @"\Portuguese.ini";       // Portuguese   | pt
         public static string ts_lang_ru = ts_lf + @"\Russian.ini";          // Russian      | ru
         public static string ts_lang_es = ts_lf + @"\Spanish.ini";          // Spanish      | es
         public static string ts_lang_tr = ts_lf + @"\Turkish.ini";          // Turkish      | tr
+        // LANGUAGE MANAGE FUNCTIONS
+        // ======================================================================================================
+        public static Dictionary<string, string> AllLanguageFiles = new Dictionary<string, string> {
+            { "ar", ts_lang_ar },
+            { "zh", ts_lang_zh },
+            { "en", ts_lang_en },
+            { "fr", ts_lang_fr },
+            { "de", ts_lang_de },
+            { "hi", ts_lang_hi },
+            { "it", ts_lang_it },
+            { "ja", ts_lang_ja },
+            { "ko", ts_lang_ko },
+            { "pt", ts_lang_pt },
+            { "ru", ts_lang_ru },
+            { "es", ts_lang_es },
+            { "tr", ts_lang_tr },
+        };
+        public static string TSPreloaderSetDefaultLanguage(string ui_lang){
+            bool anyLanguageFileExists = AllLanguageFiles.Values.Any(File.Exists);
+            bool isUiLangValid = !string.IsNullOrEmpty(ui_lang) && AllLanguageFiles.ContainsKey(ui_lang) && File.Exists(AllLanguageFiles[ui_lang]);
+            return anyLanguageFileExists && isUiLangValid ? ui_lang : "en";
+        }
+        public static List<string> AvailableLanguages = AllLanguageFiles.Values.Where(filePath => File.Exists(filePath)).ToList();
         // READ LANG CLASS
         // ======================================================================================================
         public class TSGetLangs{
-            [DllImport("kernel32.dll")]
-            private static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size,string filePath);
-            private readonly string _readFilePath;
-            public TSGetLangs(string filePath){ _readFilePath = filePath; }
-            public string TSReadLangs(string episode, string settingName){
-                StringBuilder stringBuilder = new StringBuilder(4096);
-                GetPrivateProfileString(episode, settingName, string.Empty, stringBuilder, 4096, _readFilePath);
-                return stringBuilder.ToString();
+            private readonly string _iniFilePath;
+            private readonly object _cacheLock = new object();
+            private string[] _cachedLines = null;
+            private DateTime _lastFileWriteTime = DateTime.MinValue;
+            public TSGetLangs(string iniFilePath) { _iniFilePath = iniFilePath; }
+            public string TSReadLangs(string sectionName, string keyName){
+                string[] iniLines = GetIniLinesCached();
+                bool isInSection = string.IsNullOrEmpty(sectionName);
+                foreach (string rawLine in iniLines){
+                    string line = rawLine.Trim();
+                    if (line.Length == 0 || line.StartsWith(";")) { continue; }
+                    if (line.StartsWith("[") && line.EndsWith("]")){
+                        isInSection = line.Equals("[" + sectionName + "]", StringComparison.OrdinalIgnoreCase);
+                        continue;
+                    }
+                    if (isInSection){
+                        int eqIndex = line.IndexOf('=');
+                        if (eqIndex > 0){
+                            string currentKey = line.Substring(0, eqIndex).Trim();
+                            if (currentKey.Equals(keyName, StringComparison.OrdinalIgnoreCase)){
+                                return line.Substring(eqIndex + 1).Trim();
+                            }
+                        }
+                    }
+                }
+                return string.Empty;
             }
-        }
-        // TS STRING ENCODER
-        // ======================================================================================================
-        public static string TS_String_Encoder(string get_text){
-            return Encoding.UTF8.GetString(Encoding.Default.GetBytes(get_text)).Trim();
+            private string[] GetIniLinesCached(){
+                lock (_cacheLock){
+                    try{
+                        if (!File.Exists(_iniFilePath)) { return new string[0]; }
+                        DateTime currentWriteTime = File.GetLastWriteTimeUtc(_iniFilePath);
+                        if (_cachedLines == null || currentWriteTime != _lastFileWriteTime){
+                            _cachedLines = File.ReadAllLines(_iniFilePath, Encoding.UTF8);
+                            _lastFileWriteTime = currentWriteTime;
+                        }
+                        return _cachedLines;
+                    }catch (IOException){
+                        // Console.Error.WriteLine("INI okuma hatası: " + ex.Message);
+                        return new string[0];
+                    }
+                }
+            }
         }
         // TURKISH LETTER CONVERTER
         // ======================================================================================================
-        public static string TS_TR_LetterConverter(string called_text){
-            if (string.IsNullOrEmpty(called_text)) { return called_text; }
-            StringBuilder str_con = new StringBuilder(called_text);
-            str_con.Replace('Ç', 'C').Replace('ç', 'c');
-            str_con.Replace('Ğ', 'G').Replace('ğ', 'g');
-            str_con.Replace('İ', 'I').Replace('ı', 'i');
-            str_con.Replace('Ö', 'O').Replace('ö', 'o');
-            str_con.Replace('Ş', 'S').Replace('ş', 's');
-            str_con.Replace('Ü', 'U').Replace('ü', 'u');
-            return str_con.ToString().Trim();
+        public static string ConvertTurkishCharacters(string input){
+            if (string.IsNullOrWhiteSpace(input)){ return input; }
+            var characterMap = new Dictionary<char, char>{
+                { 'Ç', 'C' }, { 'ç', 'c' },
+                { 'Ğ', 'G' }, { 'ğ', 'g' },
+                { 'İ', 'I' }, { 'ı', 'i' },
+                { 'Ö', 'O' }, { 'ö', 'o' },
+                { 'Ş', 'S' }, { 'ş', 's' },
+                { 'Ü', 'U' }, { 'ü', 'u' }
+            };
+            var result = new StringBuilder(input.Length);
+            foreach (var c in input){
+                result.Append(characterMap.TryGetValue(c, out var replacement) ? replacement : c);
+            }
+            return result.ToString().Trim();
         }
         // TS THEME ENGINE
         // ======================================================================================================
@@ -182,12 +305,12 @@ namespace Glow{
                 // HEADER MENU COLOR MODE
                 { "HeaderBGColorMain", Color.White },
                 { "HeaderFEColorMain", Color.FromArgb(51, 51, 51) },
+                { "HeaderFEColor", Color.FromArgb(51, 51, 51) },
+                { "HeaderBGColor", Color.FromArgb(236, 242, 248) },
                 // ACTIVE PAGE COLOR
                 { "BtnActiveColor", Color.White },
                 { "BtnDeActiveColor", Color.FromArgb(236, 242, 248) },
                 // UI COLOR
-                { "HeaderFEColor", Color.FromArgb(51, 51, 51) },
-                { "HeaderBGColor", Color.FromArgb(236, 242, 248) },
                 { "LeftMenuBGAndBorderColor", Color.FromArgb(236, 242, 248) },
                 { "LeftMenuButtonHoverAndMouseDownColor", Color.White },
                 { "LeftMenuButtonAlphaColor", Color.FromArgb(50, 255, 255, 255) },
@@ -208,7 +331,7 @@ namespace Glow{
                 { "OSDAndServicesPageBG", Color.FromArgb(54, 95, 146) },
                 { "OSDAndServicesPageFE", Color.White },
                 { "DynamicThemeActiveBtnBG", Color.White },
-                // DISK TOTAL BG
+                // ACCENT COLOR
                 { "AccentBlue", Color.FromArgb(54, 95, 146) },
                 { "AccentPurple", Color.FromArgb(126, 27, 156) },
                 { "AccentRed", Color.FromArgb(207, 24, 0) },
@@ -228,12 +351,12 @@ namespace Glow{
                 // HEADER MENU COLOR MODE
                 { "HeaderBGColorMain", Color.FromArgb(25, 31, 42) },
                 { "HeaderFEColorMain", Color.FromArgb(222, 222, 222) },
+                { "HeaderFEColor", Color.WhiteSmoke },
+                { "HeaderBGColor", Color.FromArgb(21, 23, 32) },
                  // ACTIVE PAGE COLOR
                 { "BtnActiveColor", Color.FromArgb(25, 31, 42) },
                 { "BtnDeActiveColor", Color.FromArgb(21, 23, 32) },
                 // UI COLOR
-                { "HeaderFEColor", Color.WhiteSmoke },
-                { "HeaderBGColor", Color.FromArgb(21, 23, 32) },
                 { "LeftMenuBGAndBorderColor", Color.FromArgb(21, 23, 32) },
                 { "LeftMenuButtonHoverAndMouseDownColor", Color.FromArgb(25, 31, 42) },
                 { "LeftMenuButtonAlphaColor", Color.FromArgb(50, 25, 31, 42) },
@@ -254,7 +377,7 @@ namespace Glow{
                 { "OSDAndServicesPageBG", Color.FromArgb(88, 153, 233) },
                 { "OSDAndServicesPageFE", Color.FromArgb(37, 37, 45) },
                 { "DynamicThemeActiveBtnBG", Color.FromArgb(25, 31, 42) },
-                // DISK TOTAL BG
+                // ACCENT COLOR
                 { "AccentBlue", Color.FromArgb(88, 153, 233) },
                 { "AccentPurple", Color.FromArgb(229, 33, 255) },
                 { "AccentRed", Color.FromArgb(255, 51, 51) },
@@ -409,10 +532,14 @@ namespace Glow{
                 for (var i = 24; i >= 0; i--){
                     var current_index = 0;
                     for (var j = 14; j >= 0; j--){
+                        #pragma warning disable IDE0054
                         current_index = current_index * 256;
+                        #pragma warning restore IDE0054
                         current_index = d_p_id[j + key_offset] + current_index;
                         d_p_id[j + key_offset] = (byte)(current_index / 24);
+                        #pragma warning disable IDE0054
                         current_index = current_index % 24;
+                        #pragma warning restore IDE0054
                         last_index = current_index;
                     }
                     key_latest = digits_list[current_index] + key_latest;
@@ -427,32 +554,6 @@ namespace Glow{
                 }
                 return key_latest;
             }
-        }
-        // CPU VIRTUALIZATION
-        // ======================================================================================================
-        [DllImport("kernel32.dll")]
-        public static extern void GetSystemInfo(out CPU_VIRTUALIZATION lpCPU_INFO);
-        [StructLayout(LayoutKind.Sequential)]
-        public struct CPU_VIRTUALIZATION{
-            public ushort processorArchitecture;
-            ushort reserved;
-            public uint pageSize;
-            public IntPtr minimumApplicationAddress;
-            public IntPtr maximumApplicationAddress;
-            public IntPtr activeProcessorMask;
-            public uint numberOfProcessors;
-            public uint processorType;
-            public uint allocationGranularity;
-            public ushort processorLevel;
-            public ushort processorRevision;
-        }
-        public static bool IsVirtualizationEnabled(){
-            CPU_VIRTUALIZATION ts_cpu_virtualization;
-            GetSystemInfo(out ts_cpu_virtualization);
-            return ts_cpu_virtualization.processorArchitecture == 0 || // x86
-                   ts_cpu_virtualization.processorArchitecture == 5 || // ARM
-                   ts_cpu_virtualization.processorArchitecture == 6 || // Itanium
-                   ts_cpu_virtualization.processorArchitecture == 9;   // x64
         }
         // SCREEN API
         // ======================================================================================================
@@ -496,7 +597,17 @@ namespace Glow{
         }
         // NETWORK NAME REPLACER
         // ======================================================================================================
-        public static string net_replacer(string get_adapter_name) => get_adapter_name.Replace("[", "(").Replace("]", ")");
+        public static string Net_replacer(string get_adapter_name) => get_adapter_name.Replace("[", "(").Replace("]", ")");
+        // TS NATURAL SORT KEY ALGORITHM
+        // ======================================================================================================
+        public static string TSNaturalSortKey(string input, CultureInfo culture, int paddingLength = 30){
+            if (input == null) { return ""; }
+            string padded = Regex.Replace(input, @"\d+", match => match.Value.PadLeft(paddingLength, '0'));
+            string normalized = padded.Normalize(NormalizationForm.FormD);
+            if (culture == null) { culture = CultureInfo.CurrentCulture; }
+            string lowerCased = normalized.ToLower(culture);
+            return lowerCased;
+        }
         // INTERNET CONNECTION STATUS
         // ======================================================================================================
         public static bool IsNetworkCheck(){
@@ -513,7 +624,7 @@ namespace Glow{
         }
         // TITLE BAR SETTINGS DWM API
         // ======================================================================================================
-        [DllImport("DwmApi")]
+        [DllImport("dwmapi.dll", PreserveSig = true)]
         public static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
         // DPI AWARE V2
         // ======================================================================================================

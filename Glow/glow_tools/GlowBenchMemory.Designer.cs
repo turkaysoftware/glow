@@ -106,9 +106,9 @@
             this.Bench_MStart.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.Bench_MStart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Bench_MStart.Location = new System.Drawing.Point(3, 4);
-            this.Bench_MStart.Margin = new System.Windows.Forms.Padding(3, 4, 4, 4);
+            this.Bench_MStart.Margin = new System.Windows.Forms.Padding(3, 4, 0, 4);
             this.Bench_MStart.Name = "Bench_MStart";
-            this.Bench_MStart.Size = new System.Drawing.Size(270, 37);
+            this.Bench_MStart.Size = new System.Drawing.Size(273, 37);
             this.Bench_MStart.TabIndex = 8;
             this.Bench_MStart.Text = "BAŞLAT";
             this.Bench_MStart.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -127,10 +127,10 @@
             this.Bench_MStop.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Bench_MStop.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.Bench_MStop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Bench_MStop.Location = new System.Drawing.Point(280, 4);
+            this.Bench_MStop.Location = new System.Drawing.Point(279, 4);
             this.Bench_MStop.Margin = new System.Windows.Forms.Padding(3, 4, 0, 4);
             this.Bench_MStop.Name = "Bench_MStop";
-            this.Bench_MStop.Size = new System.Drawing.Size(270, 37);
+            this.Bench_MStop.Size = new System.Drawing.Size(273, 37);
             this.Bench_MStop.TabIndex = 9;
             this.Bench_MStop.Text = "DURDUR";
             this.Bench_MStop.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

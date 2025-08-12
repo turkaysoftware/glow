@@ -30,15 +30,15 @@ namespace Glow.glow_tools{
         // LOAD
         // ======================================================================================================
         private void GlowBenchCPU_Load(object sender, EventArgs e){
-            cpu_bench_add_mode();
-            bench_cpu_theme_settings();
+            Cpu_bench_add_mode();
+            Bench_cpu_theme_settings();
             Bench_CPUName.Text = Glow.bench_cpu_info[0];
             TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-            Bench_CPUCores.Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_core_thread")), Glow.bench_cpu_info[1], Glow.bench_cpu_info[2]);
+            Bench_CPUCores.Text = string.Format(software_lang.TSReadLangs("BenchCPU", "bc_core_thread"), Glow.bench_cpu_info[1], Glow.bench_cpu_info[2]);
         }
         // THEME SETTINGS
         // ======================================================================================================
-        public void bench_cpu_theme_settings(){
+        public void Bench_cpu_theme_settings(){
             try{
                 int set_attribute = Glow.theme == 1 ? 20 : 19;
                 if (DwmSetWindowAttribute(Handle, set_attribute, new[] { 1 }, 4) != Glow.theme){
@@ -86,50 +86,50 @@ namespace Glow.glow_tools{
                 TSImageRenderer(Bench_Stop, Glow.theme == 1 ? Properties.Resources.ct_test_stop_light : Properties.Resources.ct_test_stop_dark, 22, ContentAlignment.MiddleRight);
                 ///////
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_title")), Application.ProductName);
+                Text = string.Format(software_lang.TSReadLangs("BenchCPU", "bc_title"), Application.ProductName);
                 //
-                Bench_Label_Mode.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_level"));
-                Bench_Mode.Items[0] = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_level_1"));
-                Bench_Mode.Items[1] = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_level_2"));
-                Bench_Mode.Items[2] = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_level_3"));
-                Bench_Mode.Items[3] = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_level_4"));
+                Bench_Label_Mode.Text = software_lang.TSReadLangs("BenchCPU", "bc_level");
+                Bench_Mode.Items[0] = software_lang.TSReadLangs("BenchCPU", "bc_level_1");
+                Bench_Mode.Items[1] = software_lang.TSReadLangs("BenchCPU", "bc_level_2");
+                Bench_Mode.Items[2] = software_lang.TSReadLangs("BenchCPU", "bc_level_3");
+                Bench_Mode.Items[3] = software_lang.TSReadLangs("BenchCPU", "bc_level_4");
                 //
-                Bench_Label_Time.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time"));
-                Bench_Time.Items[0] = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time_1"));
-                Bench_Time.Items[1] = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time_2"));
-                Bench_Time.Items[2] = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time_3"));
-                Bench_Time.Items[3] = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time_4"));
-                Bench_Time.Items[4] = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time_5"));
-                Bench_Time.Items[5] = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time_6"));
+                Bench_Label_Time.Text = software_lang.TSReadLangs("BenchCPU", "bc_time");
+                Bench_Time.Items[0] = software_lang.TSReadLangs("BenchCPU", "bc_time_1");
+                Bench_Time.Items[1] = software_lang.TSReadLangs("BenchCPU", "bc_time_2");
+                Bench_Time.Items[2] = software_lang.TSReadLangs("BenchCPU", "bc_time_3");
+                Bench_Time.Items[3] = software_lang.TSReadLangs("BenchCPU", "bc_time_4");
+                Bench_Time.Items[4] = software_lang.TSReadLangs("BenchCPU", "bc_time_5");
+                Bench_Time.Items[5] = software_lang.TSReadLangs("BenchCPU", "bc_time_6");
                 //
-                Bench_Label_RSingle.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_score_single"));
-                Bench_Label_RMulti.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_score_multi"));
+                Bench_Label_RSingle.Text = software_lang.TSReadLangs("BenchCPU", "bc_score_single");
+                Bench_Label_RMulti.Text = software_lang.TSReadLangs("BenchCPU", "bc_score_multi");
                 //
-                Bench_Label_RSingleResult.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_score_start_await"));
-                Bench_Label_RMultiResult.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_score_start_await"));
+                Bench_Label_RSingleResult.Text = software_lang.TSReadLangs("BenchCPU", "bc_score_start_await");
+                Bench_Label_RMultiResult.Text = software_lang.TSReadLangs("BenchCPU", "bc_score_start_await");
                 //
-                Bench_Start.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_start_engine"));
-                Bench_Stop.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_stop_engine"));
+                Bench_Start.Text = " " + software_lang.TSReadLangs("BenchCPU", "bc_start_engine");
+                Bench_Stop.Text = " " + software_lang.TSReadLangs("BenchCPU", "bc_stop_engine");
             }catch (Exception){ }
         }
-        private void cpu_bench_add_mode() {
+        private void Cpu_bench_add_mode() {
             try{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 //
-                Bench_Label_Mode.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_level"));
-                Bench_Mode.Items.Add(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_level_1")));
-                Bench_Mode.Items.Add(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_level_2")));
-                Bench_Mode.Items.Add(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_level_3")));
-                Bench_Mode.Items.Add(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_level_4")));
+                Bench_Label_Mode.Text = software_lang.TSReadLangs("BenchCPU", "bc_level");
+                Bench_Mode.Items.Add(software_lang.TSReadLangs("BenchCPU", "bc_level_1"));
+                Bench_Mode.Items.Add(software_lang.TSReadLangs("BenchCPU", "bc_level_2"));
+                Bench_Mode.Items.Add(software_lang.TSReadLangs("BenchCPU", "bc_level_3"));
+                Bench_Mode.Items.Add(software_lang.TSReadLangs("BenchCPU", "bc_level_4"));
                 Bench_Mode.SelectedIndex = 0;
                 //
-                Bench_Label_Time.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time"));
-                Bench_Time.Items.Add(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time_1")));
-                Bench_Time.Items.Add(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time_2")));
-                Bench_Time.Items.Add(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time_3")));
-                Bench_Time.Items.Add(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time_4")));
-                Bench_Time.Items.Add(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time_5")));
-                Bench_Time.Items.Add(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time_6")));
+                Bench_Label_Time.Text = software_lang.TSReadLangs("BenchCPU", "bc_time");
+                Bench_Time.Items.Add(software_lang.TSReadLangs("BenchCPU", "bc_time_1"));
+                Bench_Time.Items.Add(software_lang.TSReadLangs("BenchCPU", "bc_time_2"));
+                Bench_Time.Items.Add(software_lang.TSReadLangs("BenchCPU", "bc_time_3"));
+                Bench_Time.Items.Add(software_lang.TSReadLangs("BenchCPU", "bc_time_4"));
+                Bench_Time.Items.Add(software_lang.TSReadLangs("BenchCPU", "bc_time_5"));
+                Bench_Time.Items.Add(software_lang.TSReadLangs("BenchCPU", "bc_time_6"));
                 Bench_Time.SelectedIndex = 0;
             }catch (Exception){ }
         }
@@ -153,24 +153,24 @@ namespace Glow.glow_tools{
             try{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 if (Bench_Mode.SelectedIndex == 3){
-                    DialogResult info_warning_hard = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_lethal_warning")), "\n\n", "\n\n", "\n\n"));
+                    DialogResult info_warning_hard = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(software_lang.TSReadLangs("BenchCPU", "bc_lethal_warning"), "\n\n", "\n\n", "\n\n"));
                     if (info_warning_hard == DialogResult.Yes){
-                        bench_start_engine();
+                        Bench_start_engine();
                     }
                 }else{
                     if (Bench_Time.SelectedIndex == 5){
                         if (!string.IsNullOrEmpty(Bench_TimeCustom.Text.Trim())){
-                            DialogResult info_warning_normal = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_test_start_warning")), "\n\n", "\n\n", "\n\n"));
+                            DialogResult info_warning_normal = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(software_lang.TSReadLangs("BenchCPU", "bc_test_start_warning"), "\n\n", "\n\n", "\n\n"));
                             if (info_warning_normal == DialogResult.Yes){
-                                bench_start_engine();
+                                Bench_start_engine();
                             }
                         }else{
-                            TS_MessageBoxEngine.TS_MessageBox(this, 6, TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_time_custom_warning")));
+                            TS_MessageBoxEngine.TS_MessageBox(this, 6, software_lang.TSReadLangs("BenchCPU", "bc_time_custom_warning"));
                         }
                     }else{
-                        DialogResult info_warning_normal = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_test_start_warning")), "\n\n", "\n\n", "\n\n"));
+                        DialogResult info_warning_normal = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(software_lang.TSReadLangs("BenchCPU", "bc_test_start_warning"), "\n\n", "\n\n", "\n\n"));
                         if (info_warning_normal == DialogResult.Yes){
-                            bench_start_engine();
+                            Bench_start_engine();
                         }
                     }
                 }
@@ -183,8 +183,8 @@ namespace Glow.glow_tools{
             stopwatch.Start();
             //
             var software_lang = new TSGetLangs(Glow.lang_path);
-            string titleFormat = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_title")), Application.ProductName);
-            string elapsedTimeFormat = TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_elapsed_time"));
+            string titleFormat = string.Format(software_lang.TSReadLangs("BenchCPU", "bc_title"), Application.ProductName);
+            string elapsedTimeFormat = software_lang.TSReadLangs("BenchCPU", "bc_elapsed_time");
             //
             try{
                 while (loop_mode){
@@ -202,7 +202,7 @@ namespace Glow.glow_tools{
         }
         // CPU BENCHMARK ENGINE
         // ======================================================================================================
-        private async void bench_start_engine(){
+        private async void Bench_start_engine(){
             if (!isRunning){
                 bench_mode = true;
                 loop_mode = true;
@@ -285,7 +285,7 @@ namespace Glow.glow_tools{
                                 Bench_TimeCustom.Enabled = true;
                                 //
                                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                                Text = $"{string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_title")), Application.ProductName)} | {TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_end_test"))}";
+                                Text = $"{string.Format(software_lang.TSReadLangs("BenchCPU", "bc_title"), Application.ProductName)} | {software_lang.TSReadLangs("BenchCPU", "bc_end_test")}";
                                 bench_mode = false;
                             });
                         }
@@ -319,7 +319,7 @@ namespace Glow.glow_tools{
             double[] speeds = new double[Environment.ProcessorCount];
             ManagementObjectSearcher ts_search = new ManagementObjectSearcher("SELECT * FROM Win32_Processor");
             int index = 0;
-            foreach (ManagementObject ts_obj in ts_search.Get()){
+            foreach (ManagementObject ts_obj in ts_search.Get().Cast<ManagementObject>()){
                 speeds[index] = Convert.ToDouble(ts_obj["CurrentClockSpeed"]);
                 index++;
             }
@@ -337,11 +337,11 @@ namespace Glow.glow_tools{
         // ENGINE STOP BTN
         // ======================================================================================================
         private void Bench_Stop_Click(object sender, EventArgs e){
-            bench_stop_engine();
+            Bench_stop_engine();
         }
         // ENGINE STOP MODE
         // ======================================================================================================
-        private async void bench_stop_engine(){
+        private async void Bench_stop_engine(){
             if (isRunning){
                 bench_mode = false;
                 isRunning = false;
@@ -356,10 +356,9 @@ namespace Glow.glow_tools{
                 }catch (Exception){ }
                 //
                 stopwatch.Stop();
-                double totalResult = results.Sum();
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                Text = $"{string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_title")), Application.ProductName)} | {TS_String_Encoder(software_lang.TSReadLangs("BenchCPU", "bc_stop_engine_message"))}";
+                Text = $"{string.Format(software_lang.TSReadLangs("BenchCPU", "bc_title"), Application.ProductName)} | {software_lang.TSReadLangs("BenchCPU", "bc_stop_engine_message")}";
                 //
                 // Console.WriteLine($"Hesaplama süresi: {stopwatch.Elapsed.Seconds} saniye");
             }
@@ -370,7 +369,7 @@ namespace Glow.glow_tools{
             if (bench_mode == true){
                 e.Cancel = true;
             }else{
-                bench_stop_engine();
+                Bench_stop_engine();
             }
         }
     }

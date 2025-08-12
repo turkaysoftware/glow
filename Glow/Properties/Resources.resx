@@ -244,6 +244,12 @@
   <data name="cx_bench_ram_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_ui\theme_light\cx_bench_ram_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cx_bt_finder_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_ui\theme_dark\cx_bt_finder_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cx_bt_finder_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\glow_ui\theme_light\cx_bt_finder_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="cx_cache_clean_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\glow_ui\theme_dark\cx_cache_clean_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

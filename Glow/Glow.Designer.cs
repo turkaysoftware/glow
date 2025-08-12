@@ -63,11 +63,14 @@
             this.lightThemeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.darkThemeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.arabicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chineseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.frenchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.germanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hindiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.italianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.japaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.koreanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.portugueseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.russianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,6 +94,7 @@
             this.quickAccessTool = new System.Windows.Forms.ToolStripMenuItem();
             this.networkFixTool = new System.Windows.Forms.ToolStripMenuItem();
             this.showWiFiPasswordTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.bluetoothFinderToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.monitorTestTool = new System.Windows.Forms.ToolStripMenuItem();
             this.monitorDeadPixelTestTool = new System.Windows.Forms.ToolStripMenuItem();
             this.monitorDynamicRangeTestTool = new System.Windows.Forms.ToolStripMenuItem();
@@ -316,6 +320,8 @@
             this.CPU_SocketDefinition = new System.Windows.Forms.Label();
             this.CPU_SocketDefinition_V = new System.Windows.Forms.Label();
             this.cpu_panel_3 = new System.Windows.Forms.Panel();
+            this.CPU_HyperV = new System.Windows.Forms.Label();
+            this.CPU_HyperV_V = new System.Windows.Forms.Label();
             this.CPU_Virtualization = new System.Windows.Forms.Label();
             this.CPU_Virtualization_V = new System.Windows.Forms.Label();
             this.CPU_SerialName = new System.Windows.Forms.Label();
@@ -1155,7 +1161,7 @@
             this.lightThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.lightThemeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.lightThemeToolStripMenuItem.Text = "Light Theme";
-            this.lightThemeToolStripMenuItem.Click += new System.EventHandler(this.lightThemeToolStripMenuItem_Click);
+            this.lightThemeToolStripMenuItem.Click += new System.EventHandler(this.LightThemeToolStripMenuItem_Click);
             // 
             // darkThemeToolStripMenuItem
             // 
@@ -1165,17 +1171,20 @@
             this.darkThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
             this.darkThemeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.darkThemeToolStripMenuItem.Text = "Dark Theme";
-            this.darkThemeToolStripMenuItem.Click += new System.EventHandler(this.darkThemeToolStripMenuItem_Click);
+            this.darkThemeToolStripMenuItem.Click += new System.EventHandler(this.DarkThemeToolStripMenuItem_Click);
             // 
             // languageToolStripMenuItem
             // 
             this.languageToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.arabicToolStripMenuItem,
             this.chineseToolStripMenuItem,
             this.englishToolStripMenuItem,
             this.frenchToolStripMenuItem,
             this.germanToolStripMenuItem,
+            this.hindiToolStripMenuItem,
             this.italianToolStripMenuItem,
+            this.japaneseToolStripMenuItem,
             this.koreanToolStripMenuItem,
             this.portugueseToolStripMenuItem,
             this.russianToolStripMenuItem,
@@ -1184,6 +1193,14 @@
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
             this.languageToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.languageToolStripMenuItem.Text = "Language";
+            this.languageToolStripMenuItem.Click += new System.EventHandler(this.LanguageToolStripMenuItem_Click);
+            // 
+            // arabicToolStripMenuItem
+            // 
+            this.arabicToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.arabicToolStripMenuItem.Name = "arabicToolStripMenuItem";
+            this.arabicToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.arabicToolStripMenuItem.Text = "Arabic";
             // 
             // chineseToolStripMenuItem
             // 
@@ -1191,7 +1208,6 @@
             this.chineseToolStripMenuItem.Name = "chineseToolStripMenuItem";
             this.chineseToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.chineseToolStripMenuItem.Text = "Chinese";
-            this.chineseToolStripMenuItem.Click += new System.EventHandler(this.chineseToolStripMenuItem_Click);
             // 
             // englishToolStripMenuItem
             // 
@@ -1200,7 +1216,6 @@
             this.englishToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.englishToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.englishToolStripMenuItem.Text = "English";
-            this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
             // 
             // frenchToolStripMenuItem
             // 
@@ -1208,7 +1223,6 @@
             this.frenchToolStripMenuItem.Name = "frenchToolStripMenuItem";
             this.frenchToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.frenchToolStripMenuItem.Text = "French";
-            this.frenchToolStripMenuItem.Click += new System.EventHandler(this.frenchToolStripMenuItem_Click);
             // 
             // germanToolStripMenuItem
             // 
@@ -1216,7 +1230,13 @@
             this.germanToolStripMenuItem.Name = "germanToolStripMenuItem";
             this.germanToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.germanToolStripMenuItem.Text = "German";
-            this.germanToolStripMenuItem.Click += new System.EventHandler(this.germanToolStripMenuItem_Click);
+            // 
+            // hindiToolStripMenuItem
+            // 
+            this.hindiToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.hindiToolStripMenuItem.Name = "hindiToolStripMenuItem";
+            this.hindiToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.hindiToolStripMenuItem.Text = "Hindi";
             // 
             // italianToolStripMenuItem
             // 
@@ -1224,7 +1244,13 @@
             this.italianToolStripMenuItem.Name = "italianToolStripMenuItem";
             this.italianToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.italianToolStripMenuItem.Text = "Italian";
-            this.italianToolStripMenuItem.Click += new System.EventHandler(this.italianToolStripMenuItem_Click);
+            // 
+            // japaneseToolStripMenuItem
+            // 
+            this.japaneseToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.japaneseToolStripMenuItem.Name = "japaneseToolStripMenuItem";
+            this.japaneseToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.japaneseToolStripMenuItem.Text = "Japanese";
             // 
             // koreanToolStripMenuItem
             // 
@@ -1232,7 +1258,6 @@
             this.koreanToolStripMenuItem.Name = "koreanToolStripMenuItem";
             this.koreanToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.koreanToolStripMenuItem.Text = "Korean";
-            this.koreanToolStripMenuItem.Click += new System.EventHandler(this.koreanToolStripMenuItem_Click);
             // 
             // portugueseToolStripMenuItem
             // 
@@ -1240,7 +1265,6 @@
             this.portugueseToolStripMenuItem.Name = "portugueseToolStripMenuItem";
             this.portugueseToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.portugueseToolStripMenuItem.Text = "Portuguese";
-            this.portugueseToolStripMenuItem.Click += new System.EventHandler(this.portugueseToolStripMenuItem_Click);
             // 
             // russianToolStripMenuItem
             // 
@@ -1248,7 +1272,6 @@
             this.russianToolStripMenuItem.Name = "russianToolStripMenuItem";
             this.russianToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.russianToolStripMenuItem.Text = "Russian";
-            this.russianToolStripMenuItem.Click += new System.EventHandler(this.russianToolStripMenuItem_Click);
             // 
             // spanishToolStripMenuItem
             // 
@@ -1256,7 +1279,6 @@
             this.spanishToolStripMenuItem.Name = "spanishToolStripMenuItem";
             this.spanishToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.spanishToolStripMenuItem.Text = "Spanish";
-            this.spanishToolStripMenuItem.Click += new System.EventHandler(this.spanishToolStripMenuItem_Click);
             // 
             // turkishToolStripMenuItem
             // 
@@ -1265,7 +1287,6 @@
             this.turkishToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.turkishToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.turkishToolStripMenuItem.Text = "Turkish";
-            this.turkishToolStripMenuItem.Click += new System.EventHandler(this.turkishToolStripMenuItem_Click);
             // 
             // initialViewToolStripMenuItem
             // 
@@ -1284,7 +1305,7 @@
             this.windowedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
             this.windowedToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.windowedToolStripMenuItem.Text = "Windowed";
-            this.windowedToolStripMenuItem.Click += new System.EventHandler(this.windowedToolStripMenuItem_Click);
+            this.windowedToolStripMenuItem.Click += new System.EventHandler(this.WindowedToolStripMenuItem_Click);
             // 
             // fullScreenToolStripMenuItem
             // 
@@ -1293,7 +1314,7 @@
             this.fullScreenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F4;
             this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.fullScreenToolStripMenuItem.Text = "Full Screen";
-            this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.fullScreenToolStripMenuItem_Click);
+            this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.FullScreenToolStripMenuItem_Click);
             // 
             // hidingModeToolStripMenuItem
             // 
@@ -1312,7 +1333,7 @@
             this.hidingModeOnToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.hidingModeOnToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.hidingModeOnToolStripMenuItem.Text = "Hiding Mode On";
-            this.hidingModeOnToolStripMenuItem.Click += new System.EventHandler(this.hidingModeOnToolStripMenuItem_Click);
+            this.hidingModeOnToolStripMenuItem.Click += new System.EventHandler(this.HidingModeOnToolStripMenuItem_Click);
             // 
             // hidingModeOffToolStripMenuItem
             // 
@@ -1321,7 +1342,7 @@
             this.hidingModeOffToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
             this.hidingModeOffToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.hidingModeOffToolStripMenuItem.Text = "Hiding Mode Off";
-            this.hidingModeOffToolStripMenuItem.Click += new System.EventHandler(this.hidingModeOffToolStripMenuItem_Click);
+            this.hidingModeOffToolStripMenuItem.Click += new System.EventHandler(this.HidingModeOffToolStripMenuItem_Click);
             // 
             // checkforUpdatesToolStripMenuItem
             // 
@@ -1330,7 +1351,7 @@
             this.checkforUpdatesToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
             this.checkforUpdatesToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.checkforUpdatesToolStripMenuItem.Text = "CheckforUpdates";
-            this.checkforUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkforUpdatesToolStripMenuItem_Click);
+            this.checkforUpdatesToolStripMenuItem.Click += new System.EventHandler(this.CheckforUpdatesToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -1345,6 +1366,7 @@
             this.quickAccessTool,
             this.networkFixTool,
             this.showWiFiPasswordTool,
+            this.bluetoothFinderToolToolStripMenuItem,
             this.monitorTestTool});
             this.toolsToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
@@ -1357,7 +1379,7 @@
             this.sFCandDISMAutoTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
             this.sFCandDISMAutoTool.Size = new System.Drawing.Size(239, 22);
             this.sFCandDISMAutoTool.Text = "sFCandDISMAutoTool";
-            this.sFCandDISMAutoTool.Click += new System.EventHandler(this.sFCandDISMAutoTool_Click);
+            this.sFCandDISMAutoTool.Click += new System.EventHandler(this.SFCandDISMAutoTool_Click);
             // 
             // cacheCleaningTool
             // 
@@ -1365,7 +1387,7 @@
             this.cacheCleaningTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
             this.cacheCleaningTool.Size = new System.Drawing.Size(239, 22);
             this.cacheCleaningTool.Text = "cacheCleaningTool";
-            this.cacheCleaningTool.Click += new System.EventHandler(this.cacheCleaningTool_Click);
+            this.cacheCleaningTool.Click += new System.EventHandler(this.CacheCleaningTool_Click);
             // 
             // benchCPUTool
             // 
@@ -1374,7 +1396,7 @@
             this.benchCPUTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
             this.benchCPUTool.Size = new System.Drawing.Size(239, 22);
             this.benchCPUTool.Text = "benchCPUTool";
-            this.benchCPUTool.Click += new System.EventHandler(this.benchCPUTool_Click);
+            this.benchCPUTool.Click += new System.EventHandler(this.BenchCPUTool_Click);
             // 
             // benchRAMTool
             // 
@@ -1382,7 +1404,7 @@
             this.benchRAMTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.benchRAMTool.Size = new System.Drawing.Size(239, 22);
             this.benchRAMTool.Text = "benchRAMTool";
-            this.benchRAMTool.Click += new System.EventHandler(this.benchRAMTool_Click);
+            this.benchRAMTool.Click += new System.EventHandler(this.BenchRAMTool_Click);
             // 
             // benchDiskTool
             // 
@@ -1390,7 +1412,7 @@
             this.benchDiskTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
             this.benchDiskTool.Size = new System.Drawing.Size(239, 22);
             this.benchDiskTool.Text = "benchDiskTool";
-            this.benchDiskTool.Click += new System.EventHandler(this.benchDiskTool_Click);
+            this.benchDiskTool.Click += new System.EventHandler(this.BenchDiskTool_Click);
             // 
             // screenOverlayTool
             // 
@@ -1398,7 +1420,7 @@
             this.screenOverlayTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
             this.screenOverlayTool.Size = new System.Drawing.Size(239, 22);
             this.screenOverlayTool.Text = "screenOverlayTool";
-            this.screenOverlayTool.Click += new System.EventHandler(this.screenOverlayTool_Click);
+            this.screenOverlayTool.Click += new System.EventHandler(this.ScreenOverlayTool_Click);
             // 
             // dnsTestTool
             // 
@@ -1406,7 +1428,7 @@
             this.dnsTestTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
             this.dnsTestTool.Size = new System.Drawing.Size(239, 22);
             this.dnsTestTool.Text = "dnsTestTool";
-            this.dnsTestTool.Click += new System.EventHandler(this.dnsTestTool_Click);
+            this.dnsTestTool.Click += new System.EventHandler(this.DnsTestTool_Click);
             // 
             // quickAccessTool
             // 
@@ -1414,7 +1436,7 @@
             this.quickAccessTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
             this.quickAccessTool.Size = new System.Drawing.Size(239, 22);
             this.quickAccessTool.Text = "quickAccessTool";
-            this.quickAccessTool.Click += new System.EventHandler(this.quickAccessTool_Click);
+            this.quickAccessTool.Click += new System.EventHandler(this.QuickAccessTool_Click);
             // 
             // networkFixTool
             // 
@@ -1422,7 +1444,7 @@
             this.networkFixTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.networkFixTool.Size = new System.Drawing.Size(239, 22);
             this.networkFixTool.Text = "networkFixTool";
-            this.networkFixTool.Click += new System.EventHandler(this.networkFixTool_Click);
+            this.networkFixTool.Click += new System.EventHandler(this.NetworkFixTool_Click);
             // 
             // showWiFiPasswordTool
             // 
@@ -1430,7 +1452,15 @@
             this.showWiFiPasswordTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.showWiFiPasswordTool.Size = new System.Drawing.Size(239, 22);
             this.showWiFiPasswordTool.Text = "showWiFiPasswordTool";
-            this.showWiFiPasswordTool.Click += new System.EventHandler(this.showWiFiPasswordTool_Click);
+            this.showWiFiPasswordTool.Click += new System.EventHandler(this.ShowWiFiPasswordTool_Click);
+            // 
+            // bluetoothFinderToolToolStripMenuItem
+            // 
+            this.bluetoothFinderToolToolStripMenuItem.Name = "bluetoothFinderToolToolStripMenuItem";
+            this.bluetoothFinderToolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.bluetoothFinderToolToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.bluetoothFinderToolToolStripMenuItem.Text = "bluetoothFinderTool";
+            this.bluetoothFinderToolToolStripMenuItem.Click += new System.EventHandler(this.BluetoothFinderToolToolStripMenuItem_Click);
             // 
             // monitorTestTool
             // 
@@ -1447,7 +1477,7 @@
             this.monitorDeadPixelTestTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
             this.monitorDeadPixelTestTool.Size = new System.Drawing.Size(282, 22);
             this.monitorDeadPixelTestTool.Text = "monitorDeadPixelTestTool";
-            this.monitorDeadPixelTestTool.Click += new System.EventHandler(this.monitorDeadPixelTestTool_Click);
+            this.monitorDeadPixelTestTool.Click += new System.EventHandler(this.MonitorDeadPixelTestTool_Click);
             // 
             // monitorDynamicRangeTestTool
             // 
@@ -1455,7 +1485,7 @@
             this.monitorDynamicRangeTestTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.monitorDynamicRangeTestTool.Size = new System.Drawing.Size(282, 22);
             this.monitorDynamicRangeTestTool.Text = "monitorDynamicRangeTestTool";
-            this.monitorDynamicRangeTestTool.Click += new System.EventHandler(this.monitorDynamicRangeTestTool_Click);
+            this.monitorDynamicRangeTestTool.Click += new System.EventHandler(this.MonitorDynamicRangeTestTool_Click);
             // 
             // tSWizardToolStripMenuItem
             // 
@@ -1465,7 +1495,7 @@
             | System.Windows.Forms.Keys.S)));
             this.tSWizardToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.tSWizardToolStripMenuItem.Text = "TSWizard";
-            this.tSWizardToolStripMenuItem.Click += new System.EventHandler(this.tSWizardToolStripMenuItem_Click);
+            this.tSWizardToolStripMenuItem.Click += new System.EventHandler(this.TSWizardToolStripMenuItem_Click);
             // 
             // bmacToolStripMenuItem
             // 
@@ -1475,7 +1505,7 @@
             | System.Windows.Forms.Keys.D)));
             this.bmacToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.bmacToolStripMenuItem.Text = "Bmac";
-            this.bmacToolStripMenuItem.Click += new System.EventHandler(this.bmacToolStripMenuItem_Click);
+            this.bmacToolStripMenuItem.Click += new System.EventHandler(this.BmacToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -1484,7 +1514,7 @@
             this.aboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // MainContent
             // 
@@ -4028,7 +4058,7 @@
             this.CPU_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.CPU_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.CPU_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.CPU_TLP.Size = new System.Drawing.Size(802, 1018);
+            this.CPU_TLP.Size = new System.Drawing.Size(802, 1066);
             this.CPU_TLP.TabIndex = 0;
             // 
             // cpu_panel_1
@@ -4480,9 +4510,9 @@
             this.CPU_Usage.Location = new System.Drawing.Point(10, 103);
             this.CPU_Usage.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPU_Usage.Name = "CPU_Usage";
-            this.CPU_Usage.Size = new System.Drawing.Size(185, 20);
+            this.CPU_Usage.Size = new System.Drawing.Size(127, 20);
             this.CPU_Usage.TabIndex = 4;
-            this.CPU_Usage.Text = "Mantıksal Çekirdek Sayısı:";
+            this.CPU_Usage.Text = "İşlemci Kullanımı:";
             // 
             // CPU_Usage_V
             // 
@@ -4636,6 +4666,8 @@
             // cpu_panel_3
             // 
             this.cpu_panel_3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.cpu_panel_3.Controls.Add(this.CPU_HyperV);
+            this.cpu_panel_3.Controls.Add(this.CPU_HyperV_V);
             this.cpu_panel_3.Controls.Add(this.CPU_Virtualization);
             this.cpu_panel_3.Controls.Add(this.CPU_Virtualization_V);
             this.cpu_panel_3.Controls.Add(this.CPU_SerialName);
@@ -4644,8 +4676,35 @@
             this.cpu_panel_3.Location = new System.Drawing.Point(5, 922);
             this.cpu_panel_3.Margin = new System.Windows.Forms.Padding(2, 1, 3, 1);
             this.cpu_panel_3.Name = "cpu_panel_3";
-            this.cpu_panel_3.Size = new System.Drawing.Size(794, 92);
+            this.cpu_panel_3.Size = new System.Drawing.Size(794, 140);
             this.cpu_panel_3.TabIndex = 0;
+            // 
+            // CPU_HyperV
+            // 
+            this.CPU_HyperV.AutoSize = true;
+            this.CPU_HyperV.BackColor = System.Drawing.Color.Transparent;
+            this.CPU_HyperV.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.CPU_HyperV.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.CPU_HyperV.Location = new System.Drawing.Point(10, 58);
+            this.CPU_HyperV.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.CPU_HyperV.Name = "CPU_HyperV";
+            this.CPU_HyperV.Size = new System.Drawing.Size(131, 20);
+            this.CPU_HyperV.TabIndex = 2;
+            this.CPU_HyperV.Text = "Hyper-V Durumu:";
+            // 
+            // CPU_HyperV_V
+            // 
+            this.CPU_HyperV_V.AutoSize = true;
+            this.CPU_HyperV_V.BackColor = System.Drawing.Color.Transparent;
+            this.CPU_HyperV_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.CPU_HyperV_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            this.CPU_HyperV_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.CPU_HyperV_V.Location = new System.Drawing.Point(382, 58);
+            this.CPU_HyperV_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.CPU_HyperV_V.Name = "CPU_HyperV_V";
+            this.CPU_HyperV_V.Size = new System.Drawing.Size(37, 20);
+            this.CPU_HyperV_V.TabIndex = 3;
+            this.CPU_HyperV_V.Text = "N/A";
             // 
             // CPU_Virtualization
             // 
@@ -4680,11 +4739,11 @@
             this.CPU_SerialName.BackColor = System.Drawing.Color.Transparent;
             this.CPU_SerialName.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPU_SerialName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPU_SerialName.Location = new System.Drawing.Point(10, 58);
+            this.CPU_SerialName.Location = new System.Drawing.Point(10, 103);
             this.CPU_SerialName.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPU_SerialName.Name = "CPU_SerialName";
             this.CPU_SerialName.Size = new System.Drawing.Size(178, 20);
-            this.CPU_SerialName.TabIndex = 2;
+            this.CPU_SerialName.TabIndex = 4;
             this.CPU_SerialName.Text = "İşlemci Benzersiz Kimliği:";
             // 
             // CPU_SerialName_V
@@ -4694,11 +4753,11 @@
             this.CPU_SerialName_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPU_SerialName_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             this.CPU_SerialName_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPU_SerialName_V.Location = new System.Drawing.Point(382, 58);
+            this.CPU_SerialName_V.Location = new System.Drawing.Point(382, 103);
             this.CPU_SerialName_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPU_SerialName_V.Name = "CPU_SerialName_V";
             this.CPU_SerialName_V.Size = new System.Drawing.Size(37, 20);
-            this.CPU_SerialName_V.TabIndex = 3;
+            this.CPU_SerialName_V.TabIndex = 5;
             this.CPU_SerialName_V.Text = "N/A";
             // 
             // RAM
@@ -7552,7 +7611,7 @@
             this.NET_ListNetwork.Name = "NET_ListNetwork";
             this.NET_ListNetwork.Size = new System.Drawing.Size(385, 28);
             this.NET_ListNetwork.TabIndex = 1;
-            this.NET_ListNetwork.SelectedIndexChanged += new System.EventHandler(this.listnetwork_SelectedIndexChanged);
+            this.NET_ListNetwork.SelectedIndexChanged += new System.EventHandler(this.Listnetwork_SelectedIndexChanged);
             // 
             // network_panel_2
             // 
@@ -10110,6 +10169,12 @@
         private System.Windows.Forms.ToolStripMenuItem monitorTestTool;
         private System.Windows.Forms.ToolStripMenuItem monitorDeadPixelTestTool;
         private System.Windows.Forms.ToolStripMenuItem monitorDynamicRangeTestTool;
+        internal System.Windows.Forms.Label CPU_HyperV;
+        internal System.Windows.Forms.Label CPU_HyperV_V;
+        private System.Windows.Forms.ToolStripMenuItem arabicToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hindiToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem japaneseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bluetoothFinderToolToolStripMenuItem;
     }
 }
 

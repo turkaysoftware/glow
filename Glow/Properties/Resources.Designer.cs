@@ -483,6 +483,26 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap cx_bt_finder_dark {
+            get {
+                object obj = ResourceManager.GetObject("cx_bt_finder_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap cx_bt_finder_light {
+            get {
+                object obj = ResourceManager.GetObject("cx_bt_finder_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap cx_cache_clean_dark {
             get {
                 object obj = ResourceManager.GetObject("cx_cache_clean_dark", resourceCulture);

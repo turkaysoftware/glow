@@ -1,23 +1,12 @@
 ﻿using System;
-// File and I/O Operations
 using System.IO;
-// LINQ Queries
-using System.Linq;
-// Windows Registry Operations
 using Microsoft.Win32;
-// Multithreading and Parallel Processing
 using System.Threading;
 using System.Threading.Tasks;
-// Reflection and Runtime Operations
 using System.Reflection;
-// Diagnostics and Management Tools
 using System.Diagnostics;
-// Language and Culture Settings
 using System.Globalization;
-// User Interface Operations
 using System.Windows.Forms;
-// General Collections
-using System.Collections.Generic;
 // TS Modules
 using static Glow.TSModules;
 
@@ -53,14 +42,14 @@ namespace Glow{
             ImageWelcome.BackgroundImage = Properties.Resources.ts_preloader_release;
             ImageWelcome.BackgroundImageLayout = ImageLayout.Zoom;
             //
-            software_preloader();
-            software_set_launch();
+            Software_preloader();
+            Software_set_launch();
             //
             if (Program.ts_pre_debug_mode == true){
                 LabelLoader.Text = "Loading - 50%";
                 PanelLoaderFE.Width = (int)(PanelLoaderBG.Width * 0.5);
             }else{
-                Task.Run(() => load_animation(), Program.TS_TokenEngine.Token);
+                Task.Run(() => Load_animation(), Program.TS_TokenEngine.Token);
             }
         }
         // SOFTWARE PRELOADER
@@ -72,22 +61,22 @@ namespace Glow{
         |   1 = Light Theme   |  TSModules.cs         |  1 = Full Screen        |  1 = On
         |   ------------------------------------------------------------------------------------------
         */
-        private void software_preloader(){
+        private void Software_preloader(){
             try{
                 // CHECK LANGS FOLDER
                 if (!Directory.Exists(ts_lf)){
-                    software_prelaoder_alert(0);
+                    Software_prelaoder_alert(0);
                     return;
                 }
                 // CHECK LANGS FILE
                 var lang_files = Directory.GetFiles(ts_lf, "*.ini");
                 if (lang_files.Length == 0){
-                    software_prelaoder_alert(1);
+                    Software_prelaoder_alert(1);
                     return;
                 }
                 // CHECK ENGLISH LANG FILE
                 if (!File.Exists(ts_lang_en)){
-                    software_prelaoder_alert(2);
+                    Software_prelaoder_alert(2);
                     return;
                 }
                 // CHECK SETTINGS FILE
@@ -99,18 +88,7 @@ namespace Glow{
                         string get_system_theme = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "SystemUsesLightTheme", "").ToString().Trim();
                         software_settings_save.TSWriteSettings(ts_settings_container, "ThemeStatus", get_system_theme);
                         // SET SOFTWARE LANGUAGE
-                        string languageSetting = new[]{
-                            ts_lang_zh,
-                            ts_lang_fr,
-                            ts_lang_de,
-                            ts_lang_it,
-                            ts_lang_ko,
-                            ts_lang_pt,
-                            ts_lang_ru,
-                            ts_lang_es,
-                            ts_lang_tr,
-                        }.Any(File.Exists) && !string.IsNullOrEmpty(ui_lang) ? ui_lang : "en";
-                        software_settings_save.TSWriteSettings(ts_settings_container, "LanguageStatus", languageSetting);
+                        software_settings_save.TSWriteSettings(ts_settings_container, "LanguageStatus", TSPreloaderSetDefaultLanguage(ui_lang));
                         // SET STARTUP MODE
                         software_settings_save.TSWriteSettings(ts_settings_container, "InitialStatus", "0");
                         // SET HIDING MODE
@@ -133,7 +111,7 @@ namespace Glow{
         }
         // PRELOAD ALERT
         // ======================================================================================================
-        private void software_prelaoder_alert(int pre_mode){
+        private void Software_prelaoder_alert(int pre_mode){
             string set_message = string.Empty;
             switch (pre_mode){
                 case 0:
@@ -162,7 +140,7 @@ namespace Glow{
         }
         // BOOTSTRAPPER PRELOADER
         // ======================================================================================================
-        public void software_set_launch(){
+        public void Software_set_launch(){
             try{
                 TSSettingsSave software_read_settings = new TSSettingsSave(ts_sf);
                 //
@@ -187,27 +165,14 @@ namespace Glow{
                 LabelLoader.ForeColor = TS_ThemeEngine.ColorMode(global_theme, "TSBT_LabelColor1");
                 LabelCopyright.ForeColor = TS_ThemeEngine.ColorMode(global_theme, "TSBT_LabelColor2");
                 // DICTIONARY SYSTEM FOR LANGUAGE
-                var languageFiles = new Dictionary<string, string> {
-                    { "zh", ts_lang_zh },
-                    { "en", ts_lang_en },
-                    { "fr", ts_lang_fr },
-                    { "de", ts_lang_de },
-                    { "it", ts_lang_it },
-                    { "ko", ts_lang_ko },
-                    { "pt", ts_lang_pt },
-                    { "ru", ts_lang_ru },
-                    { "es", ts_lang_es },
-                    { "tr", ts_lang_tr },
-                };
-                //
-                string lang_mode = TS_String_Encoder(software_read_settings.TSReadSettings(ts_settings_container, "LanguageStatus")) ?? "en";
+                string lang_mode = software_read_settings.TSReadSettings(ts_settings_container, "LanguageStatus") ?? "en";
                 string lang_file;
-                bool isFileExist = languageFiles.ContainsKey(lang_mode) && File.Exists(languageFiles[lang_mode]);
+                bool isFileExist = AllLanguageFiles.ContainsKey(lang_mode) && File.Exists(AllLanguageFiles[lang_mode]);
                 //
                 if (isFileExist){
-                    lang_file = languageFiles[lang_mode];
+                    lang_file = AllLanguageFiles[lang_mode];
                 }else{
-                    lang_file = languageFiles.ContainsKey("en") && File.Exists(languageFiles["en"]) ? languageFiles["en"] : ts_lang_en;
+                    lang_file = AllLanguageFiles.ContainsKey("en") && File.Exists(AllLanguageFiles["en"]) ? AllLanguageFiles["en"] : ts_lang_en;
                     lang_mode = "en";
                 }
                 //
@@ -219,8 +184,8 @@ namespace Glow{
                 }catch (Exception){ }
                 //
                 TSGetLangs software_lang = new TSGetLangs(lang_file);
-                Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("TSPreloader", "tsbt_title")), Application.CompanyName);
-                load_text = TS_String_Encoder(software_lang.TSReadLangs("TSPreloader", "tsbt_load"));
+                Text = string.Format(software_lang.TSReadLangs("TSPreloader", "tsbt_title"), Application.CompanyName);
+                load_text = software_lang.TSReadLangs("TSPreloader", "tsbt_load");
             }catch (Exception){ }
         }
         // PROGRESS BAR & PROGRESS TEXT PROCESS
@@ -235,7 +200,7 @@ namespace Glow{
         }
         // LOAD ANIMATION
         // ======================================================================================================
-        private async Task load_animation(){
+        private async Task Load_animation(){
             int progress_interval = 0;
             int progress_increment = 2;
             int progress_delay = 5;

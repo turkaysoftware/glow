@@ -12,32 +12,32 @@ namespace Glow.glow_tools{
         public GlowSFCandDISMAutoTool(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
         // GLOBAL GLOBAL CLASS
         // ======================================================================================================
-        TSSettingsSave software_read_settings = new TSSettingsSave(ts_sf);
-        TSSettingsSave software_setting_save = new TSSettingsSave(ts_sf);
+        readonly TSSettingsSave software_read_settings = new TSSettingsSave(ts_sf);
+        readonly TSSettingsSave software_setting_save = new TSSettingsSave(ts_sf);
         // GLOBAL STRINGS
         // ======================================================================================================
         string sadt_title, sadt_start, sadt_starter, sadt_rotate, sadt_ender, sadt_last_text, cmd_c_mode;
         // REPAIR CODES
         // ======================================================================================================
-        string sadt_code_1 = "sfc /scannow";
-        string sadt_code_2 = "DISM /Online /Cleanup-Image /CheckHealth";
-        string sadt_code_3 = "DISM /Online /Cleanup-Image /ScanHealth";
-        string sadt_code_4 = "DISM /Online /Cleanup-Image /RestoreHealth";
+        readonly string sadt_code_1 = "sfc /scannow";
+        readonly string sadt_code_2 = "DISM /Online /Cleanup-Image /CheckHealth";
+        readonly string sadt_code_3 = "DISM /Online /Cleanup-Image /ScanHealth";
+        readonly string sadt_code_4 = "DISM /Online /Cleanup-Image /RestoreHealth";
         private void GlowSFCandDISMAutoTool_Load(object sender, EventArgs e){
             TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
             // GET THEME
-            sadt_theme_settings();
+            Sadt_theme_settings();
             // SET TEXT
-            sadt_title = string.Format(TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_title")), Application.ProductName);
-            sadt_start = TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_starting_engine"));
-            sadt_starter = TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_command_starting"));
-            sadt_rotate = TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_command_success_and_next"));
-            sadt_ender = TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_command_last_success"));
-            sadt_last_text = TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_stop_engine"));
+            sadt_title = string.Format(software_lang.TSReadLangs("SFCandDISMTool", "sadt_title"), Application.ProductName);
+            sadt_start = software_lang.TSReadLangs("SFCandDISMTool", "sadt_starting_engine");
+            sadt_starter = software_lang.TSReadLangs("SFCandDISMTool", "sadt_command_starting");
+            sadt_rotate = software_lang.TSReadLangs("SFCandDISMTool", "sadt_command_success_and_next");
+            sadt_ender = software_lang.TSReadLangs("SFCandDISMTool", "sadt_command_last_success");
+            sadt_last_text = software_lang.TSReadLangs("SFCandDISMTool", "sadt_stop_engine");
         }
         // DYNAMIC THEME VOID
         // ======================================================================================================
-        public void sadt_theme_settings(){
+        public void Sadt_theme_settings(){
             try{
                 if (Glow.theme == 0){ cmd_c_mode = "color 3"; }
                 else if (Glow.theme == 1){ cmd_c_mode = "color 9"; }
@@ -61,18 +61,18 @@ namespace Glow.glow_tools{
                 TSImageRenderer(SADT_StartBtn, Glow.theme == 1 ? Properties.Resources.ct_fix_light : Properties.Resources.ct_fix_dark, 18, ContentAlignment.MiddleRight);
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_title")), Application.ProductName);
+                Text = string.Format(software_lang.TSReadLangs("SFCandDISMTool", "sadt_title"), Application.ProductName);
                 // SET UI TEXT
-                SADT_L1.Text = TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_sub_title"));
-                SADT_L2.Text = TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_description"));
-                SADT_L3.Text = TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_last_repair_time"));
-                string last_sfc_and_dism_date = TS_String_Encoder(software_read_settings.TSReadSettings(ts_settings_container, "SFCAndDISMDate"));
+                SADT_L1.Text = software_lang.TSReadLangs("SFCandDISMTool", "sadt_sub_title");
+                SADT_L2.Text = software_lang.TSReadLangs("SFCandDISMTool", "sadt_description");
+                SADT_L3.Text = software_lang.TSReadLangs("SFCandDISMTool", "sadt_last_repair_time");
+                string last_sfc_and_dism_date = software_read_settings.TSReadSettings(ts_settings_container, "SFCAndDISMDate");
                 if (last_sfc_and_dism_date != "" && last_sfc_and_dism_date != string.Empty){
                     SADT_L4.Text = last_sfc_and_dism_date;
                 }else{
-                    SADT_L4.Text = TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_not_start"));
+                    SADT_L4.Text = software_lang.TSReadLangs("SFCandDISMTool", "sadt_not_start");
                 }
-                SADT_StartBtn.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_start_engine"));
+                SADT_StartBtn.Text = " " + software_lang.TSReadLangs("SFCandDISMTool", "sadt_start_engine");
             }catch (Exception){ }
         }
         // SFC AND DISM AUTO TOOL START ENGINE BTN
@@ -80,15 +80,15 @@ namespace Glow.glow_tools{
         private void SADT_StartBtn_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                DialogResult sadt_start_check = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(TS_String_Encoder(software_lang.TSReadLangs("SFCandDISMTool", "sadt_engine_start_notification")), "\n"), sadt_title);
+                DialogResult sadt_start_check = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(software_lang.TSReadLangs("SFCandDISMTool", "sadt_engine_start_notification"), "\n"), sadt_title);
                 if (sadt_start_check == DialogResult.Yes){
-                    Task sadt_engine_bg = Task.Run(() => sadt_engine());
+                    Task sadt_engine_bg = Task.Run(() => Sadt_engine());
                 }
             }catch (Exception) { }
         }
         // SFC AND DISM AUTO TOOL ENGINE
         // ======================================================================================================
-        private void sadt_engine(){
+        private void Sadt_engine(){
             try{
                 var commands = new[] {
                     sadt_code_1,

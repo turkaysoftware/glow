@@ -19,7 +19,7 @@ namespace Glow.glow_tools{
         }
         // CLEAN SYSTEM
         // ======================================================================================================
-        List<string> cct_path_list = new List<string>(){
+        readonly List<string> cct_path_list = new List<string>(){
             Path.Combine(Glow.windows_disk, "Windows", "Temp"),
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Temp"),
             Path.Combine(Glow.windows_disk, "Windows", "Prefetch"),
@@ -27,14 +27,14 @@ namespace Glow.glow_tools{
             Path.Combine(Glow.windows_disk, "Windows", "SoftwareDistribution", "Download")
         };
         //
-        List<long> cct_path_size_list = new List<long>();
+        readonly List<long> cct_path_size_list = new List<long>();
         //
         string cct_title;
         bool cct_auto_refresh_mode = true;
         bool cct_auto_refresh_repat = false;
         // DYNAMIC THEME VOID
         // ======================================================================================================
-        public void cct_theme_settings(){
+        public void Cct_theme_settings(){
             try{
                 int set_attribute = Glow.theme == 1 ? 20 : 19;
                 if (DwmSetWindowAttribute(Handle, set_attribute, new[] { 1 }, 4) != Glow.theme){
@@ -68,13 +68,13 @@ namespace Glow.glow_tools{
                 TSImageRenderer(CCT_StartBtn, Glow.theme == 1 ? Properties.Resources.ct_clean_light : Properties.Resources.ct_clean_dark, 22, ContentAlignment.MiddleRight);
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_title")), Application.ProductName);
+                Text = string.Format(software_lang.TSReadLangs("CacheCleanupTool", "cct_title"), Application.ProductName);
                 //
-                CCTTable.Columns[0].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_h_info_feature"));
-                CCTTable.Columns[1].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_h_info_path"));
-                CCTTable.Columns[2].HeaderText = TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_h_info_size"));
+                CCTTable.Columns[0].HeaderText = software_lang.TSReadLangs("CacheCleanupTool", "cct_h_info_feature");
+                CCTTable.Columns[1].HeaderText = software_lang.TSReadLangs("CacheCleanupTool", "cct_h_info_path");
+                CCTTable.Columns[2].HeaderText = software_lang.TSReadLangs("CacheCleanupTool", "cct_h_info_size");
                 //
-                CCT_StartBtn.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_clean"));
+                CCT_StartBtn.Text = " " + software_lang.TSReadLangs("CacheCleanupTool", "cct_clean");
             }catch (Exception){ }
         }
         // CCT LOAD
@@ -82,18 +82,18 @@ namespace Glow.glow_tools{
         private async void GlowCacheCleanupTool_Load(object sender, EventArgs e){
             TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
             // GET THEME
-            cct_theme_settings();
+            Cct_theme_settings();
             //
             List<string> cct_folder_name = new List<string>(){
-                TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_p_system_temp")),
-                TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_p_temp_user")),
-                TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_p_windows_temp")),
-                TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_p_windows_icon_temp")),
-                TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_p_windows_update_temp"))
+                software_lang.TSReadLangs("CacheCleanupTool", "cct_p_system_temp"),
+                software_lang.TSReadLangs("CacheCleanupTool", "cct_p_temp_user"),
+                software_lang.TSReadLangs("CacheCleanupTool", "cct_p_windows_temp"),
+                software_lang.TSReadLangs("CacheCleanupTool", "cct_p_windows_icon_temp"),
+                software_lang.TSReadLangs("CacheCleanupTool", "cct_p_windows_update_temp")
             };
             //
             for (int i = 0; i <= cct_path_list.Count - 1; i++){
-                CCTTable.Rows.Add(cct_folder_name[i], cct_path_list[i], TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_refreshing_title")));
+                CCTTable.Rows.Add(cct_folder_name[i], cct_path_list[i], software_lang.TSReadLangs("CacheCleanupTool", "cct_refreshing_title"));
             }
             //
             CCTTable.Columns[0].Width = 175;
@@ -105,15 +105,15 @@ namespace Glow.glow_tools{
             //
             CCTTable.ClearSelection();
             //
-            cct_title = string.Format(TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_title")), Application.ProductName);
+            cct_title = string.Format(software_lang.TSReadLangs("CacheCleanupTool", "cct_title"), Application.ProductName);
             //
             // START FOLDER SIZE CHECK ALGORITHM & START AUTO FOLDER SIZE ALGORITHM
-            await Task.Run(() => check_folder_sizes());
+            await Task.Run(() => Check_folder_sizes());
             await Task.Run(() => AutoFolderSizeRefreshAsync());
         }
         // CHECK FOLDER SIZE ALGORITHM
         // ======================================================================================================
-        private void check_folder_sizes(){
+        private void Check_folder_sizes(){
             try{
                 cct_path_size_list.Clear();
                 foreach (var get_file_path in cct_path_list){
@@ -145,7 +145,7 @@ namespace Glow.glow_tools{
                 if (e.RowIndex >= 0){
                     TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                     DataGridViewRow get_selected_path = CCTTable.Rows[e.RowIndex];
-                    CCT_SelectLabel.Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_selected_path")), get_selected_path.Cells[1].Value.ToString());
+                    CCT_SelectLabel.Text = string.Format(software_lang.TSReadLangs("CacheCleanupTool", "cct_selected_path"), get_selected_path.Cells[1].Value.ToString());
                 }
             }catch (Exception){ }
         }
@@ -155,18 +155,18 @@ namespace Glow.glow_tools{
             try{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 if (CCTTable.SelectedCells.Count > 0){
-                    DialogResult cct_check_delete_notifi = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_check_delete_notification")), CCTTable.Rows[CCTTable.SelectedCells[0].RowIndex].Cells[1].Value.ToString().Trim(), "\n\n"));
+                    DialogResult cct_check_delete_notifi = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(software_lang.TSReadLangs("CacheCleanupTool", "cct_check_delete_notification"), CCTTable.Rows[CCTTable.SelectedCells[0].RowIndex].Cells[1].Value.ToString().Trim(), "\n\n"));
                     if (cct_check_delete_notifi == DialogResult.Yes){
-                        await Task.Run(() => cleanup_engine(CCTTable.Rows[CCTTable.SelectedCells[0].RowIndex].Cells[1].Value.ToString().Trim()));
+                        await Task.Run(() => Cleanup_engine(CCTTable.Rows[CCTTable.SelectedCells[0].RowIndex].Cells[1].Value.ToString().Trim()));
                     }
                 }else{
-                    TS_MessageBoxEngine.TS_MessageBox(this, 2, TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_check_select_clean_patch_info")));
+                    TS_MessageBoxEngine.TS_MessageBox(this, 2, software_lang.TSReadLangs("CacheCleanupTool", "cct_check_select_clean_patch_info"));
                 }
             }catch (Exception){ }
         }
         // CLEANUP ENGINE
         // ======================================================================================================
-        private async void cleanup_engine(string target_path){
+        private async void Cleanup_engine(string target_path){
             try{
                 DirectoryInfo target_folder = new DirectoryInfo(target_path);
                 foreach (FileInfo target_files in target_folder.GetFiles()){
@@ -180,10 +180,10 @@ namespace Glow.glow_tools{
                     }catch (Exception){ }
                 }
                 cct_auto_refresh_repat = true;
-                await Task.Run(() => check_folder_sizes());
+                await Task.Run(() => Check_folder_sizes());
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 CCTTable.ClearSelection();
-                TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format(TS_String_Encoder(software_lang.TSReadLangs("CacheCleanupTool", "cct_delete_success_notification")), target_path));
+                TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format(software_lang.TSReadLangs("CacheCleanupTool", "cct_delete_success_notification"), target_path));
             }catch (Exception){ }
         }
         // AUTO REFRESH FOLDER SIZE FUNCTION
@@ -215,7 +215,7 @@ namespace Glow.glow_tools{
             }catch (Exception){ }
         }
         private async Task CheckFolderSizesAsync(){
-            await Task.Run(() => check_folder_sizes());
+            await Task.Run(() => Check_folder_sizes());
         }
         // BEFORE CCT TOOL EXIT AUTO REFRESH STOP
         // ======================================================================================================

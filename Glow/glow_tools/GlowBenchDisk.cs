@@ -5,7 +5,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Management;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Glow.TSModules;
@@ -16,21 +15,22 @@ namespace Glow.glow_tools{
         private Task benchmarkTask;
         private bool isBenchmarking = false;
         string benchmarkFilePath;
-        int global_buffer;
-        bool bench_mode = false;
+        readonly int[] sizesInGB = { 1, 5, 10, 15, 20, 25, 32, 64, 128 };
+        readonly int[] bufferSizesInKB = { 64, 128, 256, 512, 1024, 2048, 4096 };
         //
+        bool bench_mode = false;
         bool loop_mode = true;
         string select_disk;
         string global_timer;
         //
-        List<string> benchmarkDiskList = new List<string>();
-        List<double> benchmarkDiskListFreeSpace = new List<double>();
-        List<string> benchmarkDiskListType = new List<string>();
-        List<long> testSizes = new List<long>();
-        public GlowBenchDisk(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
+        readonly List<string> benchmarkDiskList = new List<string>();
+        readonly List<double> benchmarkDiskListFreeSpace = new List<double>();
+        readonly List<string> benchmarkDiskListType = new List<string>();
+        readonly List<long> testSizes = new List<long>();
+        public GlowBenchDisk() { InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
         // THEME MODE
         // ======================================================================================================
-        public void bench_disk_theme_settings(){
+        public void Bench_disk_theme_settings(){
             try{
                 int set_attribute = Glow.theme == 1 ? 20 : 19;
                 if (DwmSetWindowAttribute(Handle, set_attribute, new[] { 1 }, 4) != Glow.theme){
@@ -84,20 +84,20 @@ namespace Glow.glow_tools{
                 TSImageRenderer(Bench_Stop, Glow.theme == 1 ? Properties.Resources.ct_test_stop_light : Properties.Resources.ct_test_stop_dark, 22, ContentAlignment.MiddleRight);
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_title")), Application.ProductName);
-                Bench_Label_Disk.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_select_disk"));
-                Bench_Label_Size.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_test_size"));
-                Bench_Label_Buffer.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_test_buffer_size"));
+                Text = string.Format(software_lang.TSReadLangs("BenchDisk", "bd_title"), Application.ProductName);
+                Bench_Label_Disk.Text = software_lang.TSReadLangs("BenchDisk", "bd_select_disk");
+                Bench_Label_Size.Text = software_lang.TSReadLangs("BenchDisk", "bd_test_size");
+                Bench_Label_Buffer.Text = software_lang.TSReadLangs("BenchDisk", "bd_test_buffer_size");
                 //
-                Bench_L_WriteSpeed.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_time_write"));
-                Bench_L_Max_WriteSpeed.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_time_max_write"));
-                Bench_R_ReadSpeed.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_time_read"));
-                Bench_R_Max_ReadSpeed.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_time_max_read"));
+                Bench_L_WriteSpeed.Text = software_lang.TSReadLangs("BenchDisk", "bd_time_write");
+                Bench_L_Max_WriteSpeed.Text = software_lang.TSReadLangs("BenchDisk", "bd_time_max_write");
+                Bench_R_ReadSpeed.Text = software_lang.TSReadLangs("BenchDisk", "bd_time_read");
+                Bench_R_Max_ReadSpeed.Text = software_lang.TSReadLangs("BenchDisk", "bd_time_max_read");
                 //
-                Bench_Size.Items[7] = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_test_size_custom"));
+                Bench_Size.Items[Bench_Size.Items.Count - 1] = software_lang.TSReadLangs("BenchDisk", "bd_test_size_custom");
                 //
-                Bench_Start.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_start"));
-                Bench_Stop.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_stop"));
+                Bench_Start.Text = " " + software_lang.TSReadLangs("BenchDisk", "bd_start");
+                Bench_Stop.Text = " " + software_lang.TSReadLangs("BenchDisk", "bd_stop");
             }catch (Exception){ }
         }
         // LOAD
@@ -106,38 +106,28 @@ namespace Glow.glow_tools{
             RefreshDriveList();
             TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
             //
-            Bench_Size.Items.Add("12 GB");
-            Bench_Size.Items.Add("15 GB");
-            Bench_Size.Items.Add("20 GB");
-            Bench_Size.Items.Add("25 GB");
-            Bench_Size.Items.Add("32 GB");
-            Bench_Size.Items.Add("64 GB");
-            Bench_Size.Items.Add("128 GB");
-            Bench_Size.Items.Add(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_test_size_custom")));
-            testSizes.Add(12);
-            testSizes.Add(15);
-            testSizes.Add(20);
-            testSizes.Add(25);
-            testSizes.Add(32);
-            testSizes.Add(64);
-            testSizes.Add(128);
-            Bench_Size.SelectedIndex = 0;
+            foreach (int size in sizesInGB){
+                Bench_Size.Items.Add(size + " GB");
+            }
+            Bench_Size.Items.Add(software_lang.TSReadLangs("BenchDisk", "bd_test_size_custom"));
+            Bench_Size.SelectedIndex = 1;
             //
-            Bench_Buffer.Items.Add("64 KB");
-            Bench_Buffer.Items.Add("128 KB");
-            Bench_Buffer.Items.Add("256 KB");
-            Bench_Buffer.Items.Add("512 KB");
-            Bench_Buffer.Items.Add("1024 KB");
-            Bench_Buffer.Items.Add("2048 KB");
-            Bench_Buffer.Items.Add("4096 KB");
-            Bench_Buffer.SelectedIndex = 4;
+            testSizes.Clear();
+            foreach (int size in sizesInGB){
+                testSizes.Add(size);
+            }
             //
-            Bench_L_WriteSpeed_V.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_start_test_await"));
-            Bench_L_Max_WriteSpeed_V.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_start_test_await"));
-            Bench_R_ReadSpeed_V.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_start_test_await"));
-            Bench_R_Max_ReadSpeed_V.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_start_test_await")); 
+            foreach (int bufferSize in bufferSizesInKB){
+                Bench_Buffer.Items.Add(bufferSize + " KB");
+            }
+            Bench_Buffer.SelectedIndex = 4; // 1024 KB
             //
-            bench_disk_theme_settings();
+            Bench_L_WriteSpeed_V.Text = software_lang.TSReadLangs("BenchDisk", "bd_start_test_await");
+            Bench_L_Max_WriteSpeed_V.Text = software_lang.TSReadLangs("BenchDisk", "bd_start_test_await");
+            Bench_R_ReadSpeed_V.Text = software_lang.TSReadLangs("BenchDisk", "bd_start_test_await");
+            Bench_R_Max_ReadSpeed_V.Text = software_lang.TSReadLangs("BenchDisk", "bd_start_test_await");
+            //
+            Bench_disk_theme_settings();
         }
         // DISK LIST
         // ======================================================================================================
@@ -146,10 +136,10 @@ namespace Glow.glow_tools{
             Bench_Disk.Items.Clear();
             DriveInfo[] drives = DriveInfo.GetDrives();
             foreach (DriveInfo drive in drives){
-                string driveInfo = "";
+                string driveInfo;
                 if (drive.VolumeLabel.ToLower().Trim() == "" || drive.VolumeLabel == string.Empty){
-                    driveInfo = $"{TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_select_local_disk"))} ({drive.Name.Replace("\\", string.Empty)}) - {TS_FormatSize(drive.TotalSize)}";
-                }else{ 
+                    driveInfo = $"{software_lang.TSReadLangs("BenchDisk", "bd_select_local_disk")} ({drive.Name.Replace("\\", string.Empty)}) - {TS_FormatSize(drive.TotalSize)}";
+                }else{
                     driveInfo = $"{drive.VolumeLabel} ({drive.Name.Replace("\\", string.Empty)}) - {TS_FormatSize(drive.TotalSize)}";
                 }
                 Bench_Disk.Items.Add(driveInfo);
@@ -168,28 +158,28 @@ namespace Glow.glow_tools{
                     if (Bench_SizeCustom.Text.Trim() != "" || Bench_SizeCustom.Text.Trim() != string.Empty){
                         if (Convert.ToDouble(Bench_SizeCustom.Text.Trim()) >= 10 && Convert.ToDouble(Bench_SizeCustom.Text.Trim()) <= 256){
                             if (benchmarkDiskListFreeSpace[Bench_Disk.SelectedIndex] > Convert.ToInt32(Bench_SizeCustom.Text.Trim())){
-                                check_info_user_warning(Bench_Disk.SelectedIndex);
+                                Check_info_user_warning(Bench_Disk.SelectedIndex);
                             }else{
-                                TS_MessageBoxEngine.TS_MessageBox(this, 2, TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_low_space")));
+                                TS_MessageBoxEngine.TS_MessageBox(this, 2, software_lang.TSReadLangs("BenchDisk", "bd_low_space"));
                             }
                         }else{
-                            TS_MessageBoxEngine.TS_MessageBox(this, 2, TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_space_req")));
+                            TS_MessageBoxEngine.TS_MessageBox(this, 2, software_lang.TSReadLangs("BenchDisk", "bd_space_req"));
                             Bench_SizeCustom.Text = string.Empty;
                             Bench_SizeCustom.Focus();
                         }
                     }
                 }else{
                     if (benchmarkDiskListFreeSpace[Bench_Disk.SelectedIndex] > testSizes[Bench_Disk.SelectedIndex]){
-                        check_info_user_warning(Bench_Disk.SelectedIndex);
+                        Check_info_user_warning(Bench_Disk.SelectedIndex);
                     }else{
-                        TS_MessageBoxEngine.TS_MessageBox(this, 2, TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_low_space")));
+                        TS_MessageBoxEngine.TS_MessageBox(this, 2, software_lang.TSReadLangs("BenchDisk", "bd_low_space"));
                     }
                 }
             }catch (Exception){ }
         }
         // CHECK DISK USER INFO
         // ======================================================================================================
-        private void check_info_user_warning(int info_mode){
+        private void Check_info_user_warning(int info_mode){
             try{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 DialogResult success_warning;
@@ -204,10 +194,10 @@ namespace Glow.glow_tools{
                 };
                 string mode = benchmarkDiskListType[info_mode];
                 string messageKey = warnings.ContainsKey(mode) ? warnings[mode].MessageKey : warnings["unknown"].MessageKey;
-                bool startEngine = warnings.ContainsKey(mode) ? warnings[mode].StartEngine : false;
+                bool startEngine = warnings.ContainsKey(mode) && warnings[mode].StartEngine;
                 //
-                string message = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", messageKey)), "\n\n", "\n\n", "\n", "\n\n");
-                string caption = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_start_engine_disk")) + " " + Bench_Disk.SelectedItem.ToString().Trim();
+                string message = string.Format(software_lang.TSReadLangs("BenchDisk", messageKey), "\n\n", "\n\n", "\n", "\n\n");
+                string caption = software_lang.TSReadLangs("BenchDisk", "bd_start_engine_disk") + " " + Bench_Disk.SelectedItem.ToString().Trim();
                 //
                 success_warning = TS_MessageBoxEngine.TS_MessageBox(this, 6, message, caption);
                 if (!startEngine){
@@ -215,7 +205,7 @@ namespace Glow.glow_tools{
                 }
                 //
                 if (startEngine && success_warning == DialogResult.Yes){
-                    start_engine();
+                    Start_engine();
                 }
             }catch (Exception){ }
         }
@@ -229,11 +219,10 @@ namespace Glow.glow_tools{
             stopwatch.Start();
             //
             TSGetLangs g_lang = new TSGetLangs(Glow.lang_path);
-            string elapsedTimeFormat = TS_String_Encoder(g_lang.TSReadLangs("BenchDisk", "bt_elapsed_time"));
+            string elapsedTimeFormat = g_lang.TSReadLangs("BenchDisk", "bt_elapsed_time");
             //
             try{
                 while (loop_mode){
-                    //
                     TimeSpan elapsed = stopwatch.Elapsed;
                     int fh_second = (int)elapsed.TotalSeconds % 60;
                     int fh_minute = (int)(elapsed.TotalMinutes % 60);
@@ -247,10 +236,9 @@ namespace Glow.glow_tools{
         }
         // START ENGINE
         // ======================================================================================================
-        private void start_engine(){
-            //
+        private void Start_engine(){
             loop_mode = true;
-            Task start_disk_engine_x64 = new Task(disk_engine);
+            Task start_disk_engine_x64 = new Task(Disk_engine);
             start_disk_engine_x64.Start();
             // SELECT DRIVE
             bench_mode = true;
@@ -258,7 +246,7 @@ namespace Glow.glow_tools{
             // WARNING MESSAGE
             try{
                 isBenchmarking = true;
-                benchmarkTask = Task.Run(() => RunBenchmark(selectedDrive));
+                benchmarkTask = Task.Run(async () => await RunBenchmarkAsync(selectedDrive));
                 Bench_Start.Enabled = false;
                 Bench_Stop.Enabled = true;
                 Bench_Disk.Enabled = false;
@@ -279,50 +267,62 @@ namespace Glow.glow_tools{
         // UPDATE PROGRESS
         private void UpdateProgress(double progress){
             TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-            Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_title")), Application.ProductName) + " - " + global_timer + " - " + progress.ToString("0.00") + "%";
+            Text = string.Format(software_lang.TSReadLangs("BenchDisk", "bd_title"), Application.ProductName) + " - " + global_timer + " - " + progress.ToString("0") + "%";
         }
         // DISK BENCHMARK
         // ======================================================================================================
-        private void RunBenchmark(string selectedDrive){
-            var timerTask = BenchTimerAsync();
+        private async Task RunBenchmarkAsync(string selectedDrive){
             benchmarkFilePath = Path.Combine(selectedDrive, "GlowBenchDiskTestFile_" + new Random().Next(1000, 9999) + ".glow");
             long fileSizeInBytes = 0;
-            int[] sizesInGB = { 12, 15, 20, 25, 32, 64, 128 };
-            if (Bench_Size.SelectedIndex >= 0 && Bench_Size.SelectedIndex < sizesInGB.Length)
+            int global_buffer = 0;
+            int lastIndex = sizesInGB.Length - 1;
+            // SIZE SET
+            if (Bench_Size.SelectedIndex >= 0 && Bench_Size.SelectedIndex < lastIndex){
                 fileSizeInBytes = GigabytesToBytes(sizesInGB[Bench_Size.SelectedIndex]);
-            else if (Bench_Size.SelectedIndex == 7)
+            }else if (Bench_Size.SelectedIndex == lastIndex){
                 fileSizeInBytes = GigabytesToBytes(Convert.ToInt32(Bench_SizeCustom.Text.Trim()));
-            int[] bufferSizesInKB = { 64, 128, 256, 512, 1024, 4096 };
-            if (Bench_Buffer.SelectedIndex >= 0 && Bench_Buffer.SelectedIndex < bufferSizesInKB.Length)
+            }
+            // BUFFER SET
+            if (Bench_Buffer.SelectedIndex >= 0 && Bench_Buffer.SelectedIndex < bufferSizesInKB.Length){
                 global_buffer = bufferSizesInKB[Bench_Buffer.SelectedIndex];
+            }
             byte[] buffer = KilobytesToBytes(global_buffer);
+            var timerTask = BenchTimerAsync();
             try{
                 // WRITE
                 Stopwatch swWrite = Stopwatch.StartNew();
                 using (FileStream fs = new FileStream(benchmarkFilePath, FileMode.Create, FileAccess.Write, FileShare.None, buffer.Length, FileOptions.WriteThrough)){
                     long bytesWritten = 0;
+                    double lastProgress = 0;
                     while (bytesWritten < fileSizeInBytes && isBenchmarking){
                         int bufferSize = (int)Math.Min(buffer.Length, fileSizeInBytes - bytesWritten);
                         fs.Write(buffer, 0, bufferSize);
                         bytesWritten += bufferSize;
                         double progress = (double)bytesWritten / fileSizeInBytes * 100;
-                        UpdateProgress(progress);
+                        if (progress - lastProgress >= 1){
+                            UpdateProgress(progress);
+                            lastProgress = progress;
+                        }
                         if (!bench_mode) break;
                     }
                     fs.Flush();
                 }
                 swWrite.Stop();
                 double writeMBps = (fileSizeInBytes / (1024.0 * 1024.0)) / swWrite.Elapsed.TotalSeconds;
-                Thread.Sleep(500);
+                await Task.Delay(1000);
                 // READ
                 Stopwatch swRead = Stopwatch.StartNew();
                 long totalBytesRead = 0;
+                double lastProgressRead = 0;
                 using (FileStream fs = new FileStream(benchmarkFilePath, FileMode.Open, FileAccess.Read, FileShare.Read, buffer.Length, FileOptions.SequentialScan)){
                     int bytesRead;
                     while ((bytesRead = fs.Read(buffer, 0, buffer.Length)) > 0 && isBenchmarking){
                         totalBytesRead += bytesRead;
                         double progress = (double)totalBytesRead / fileSizeInBytes * 100;
-                        UpdateProgress(progress);
+                        if (progress - lastProgressRead >= 1){
+                            UpdateProgress(progress);
+                            lastProgressRead = progress;
+                        }
                         if (!bench_mode) break;
                     }
                 }
@@ -332,12 +332,13 @@ namespace Glow.glow_tools{
                     File.Delete(benchmarkFilePath);
                     TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                     Invoke(new Action(() =>{
-                        Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_title")), Application.ProductName);
+                        Text = string.Format(software_lang.TSReadLangs("BenchDisk", "bd_title"), Application.ProductName);
                         bench_mode = false;
                         loop_mode = false;
-                        TS_MessageBoxEngine.TS_MessageBox(this, 1, TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_result_success")));
+                        TS_MessageBoxEngine.TS_MessageBox(this, 1, software_lang.TSReadLangs("BenchDisk", "bd_result_success"));
                     }));
                 }
+                //
                 isBenchmarking = false;
                 Bench_Start.Enabled = true;
                 Bench_Stop.Enabled = false;
@@ -345,12 +346,13 @@ namespace Glow.glow_tools{
                 Bench_Size.Enabled = true;
                 Bench_SizeCustom.Enabled = true;
                 Bench_Buffer.Enabled = true;
-                Bench_SizeCustom.Enabled = true;
-            }catch (Exception){ }
+            }catch (Exception){
+                isBenchmarking = false;
+            }
         }
         // ======================================================================================================
         // DISK ENGINE
-        private async void disk_engine(){
+        private async void Disk_engine(){
             ulong maxReadSpeed = 0;
             ulong maxWriteSpeed = 0;
             try{
@@ -358,7 +360,7 @@ namespace Glow.glow_tools{
                     ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name, DiskReadBytesPersec, DiskWriteBytesPersec FROM Win32_PerfFormattedData_PerfDisk_PhysicalDisk");
                     ManagementObjectCollection results = searcher.Get();
                     Dictionary<string, (ulong readSpeed, ulong writeSpeed)> diskData = new Dictionary<string, (ulong, ulong)>();
-                    foreach (ManagementObject obj in results){
+                    foreach (ManagementObject obj in results.Cast<ManagementObject>()){
                         string diskName = (string)obj["Name"];
                         ulong diskReadSpeed = (ulong)obj["DiskReadBytesPersec"];
                         ulong diskWriteSpeed = (ulong)obj["DiskWriteBytesPersec"];
@@ -369,14 +371,14 @@ namespace Glow.glow_tools{
                     if (!string.IsNullOrEmpty(select_disk)){
                         var selectedDisks = diskData.Where(kvp => kvp.Key.EndsWith(select_disk));
                         foreach (var diskEntry in selectedDisks){
-                            var disk = diskEntry.Value;
-                            float diskReadSpeedMB = disk.readSpeed / (1024 * 1024);
-                            float diskWriteSpeedMB = disk.writeSpeed / (1024 * 1024);
-                            if (disk.readSpeed > maxReadSpeed){
-                                maxReadSpeed = disk.readSpeed;
+                            var (readSpeed, writeSpeed) = diskEntry.Value;
+                            float diskReadSpeedMB = readSpeed / (1024 * 1024);
+                            float diskWriteSpeedMB = writeSpeed / (1024 * 1024);
+                            if (readSpeed > maxReadSpeed){
+                                maxReadSpeed = readSpeed;
                             }
-                            if (disk.writeSpeed > maxWriteSpeed){
-                                maxWriteSpeed = disk.writeSpeed;
+                            if (writeSpeed > maxWriteSpeed){
+                                maxWriteSpeed = writeSpeed;
                             }
                             Bench_R_ReadSpeed_V.Text = $"{diskReadSpeedMB:F1} MB/s";
                             Bench_R_Max_ReadSpeed_V.Text = $"{maxReadSpeed / (1024 * 1024):F1} MB/s";
@@ -387,14 +389,14 @@ namespace Glow.glow_tools{
                     }
                     await Task.Delay(1000 - DateTime.Now.Millisecond);
                 } while (loop_mode == true);
-            }catch (Exception) { }
+            } catch (Exception){ }
         }
         // STOP BENCHMARK
         // ======================================================================================================
         private void Bench_Stop_Click(object sender, EventArgs e){
-            stop_engine();
+            Stop_engine();
         }
-        private async void stop_engine(){
+        private async void Stop_engine(){
             bench_mode = false;
             loop_mode = false;
             isBenchmarking = false;
@@ -410,15 +412,15 @@ namespace Glow.glow_tools{
             Bench_SizeCustom.Enabled = true;
             //
             TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-            Bench_L_WriteSpeed_V.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_start_test_await"));
-            Bench_L_Max_WriteSpeed_V.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_start_test_await"));
-            Bench_R_ReadSpeed_V.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_start_test_await"));
-            Bench_R_Max_ReadSpeed_V.Text = TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_start_test_await"));
+            Bench_L_WriteSpeed_V.Text = software_lang.TSReadLangs("BenchDisk", "bd_start_test_await");
+            Bench_L_Max_WriteSpeed_V.Text = software_lang.TSReadLangs("BenchDisk", "bd_start_test_await");
+            Bench_R_ReadSpeed_V.Text = software_lang.TSReadLangs("BenchDisk", "bd_start_test_await");
+            Bench_R_Max_ReadSpeed_V.Text = software_lang.TSReadLangs("BenchDisk", "bd_start_test_await");
             //
             if (File.Exists(benchmarkFilePath)){
                 File.Delete(benchmarkFilePath);
-                Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_title")), Application.ProductName);
-                TS_MessageBoxEngine.TS_MessageBox(this, 1, TS_String_Encoder(software_lang.TSReadLangs("BenchDisk", "bd_result_exit")));
+                Text = string.Format(software_lang.TSReadLangs("BenchDisk", "bd_title"), Application.ProductName);
+                TS_MessageBoxEngine.TS_MessageBox(this, 1, software_lang.TSReadLangs("BenchDisk", "bd_result_exit"));
             }
         }
         // CUSTOM SIZE CHANGE
@@ -443,7 +445,7 @@ namespace Glow.glow_tools{
             if (bench_mode == true && loop_mode == true){
                 e.Cancel = true;
             }else{
-                stop_engine();
+                Stop_engine();
             }
         }
     }

@@ -11,8 +11,8 @@ namespace Glow.glow_tools{
         public GlowMonitorTestEngine() { InitializeComponent(); CheckForIllegalCrossThreadCalls = false; this.ResizeRedraw = true; }
         // VARIABLES
         // ======================================================================================================
-        private Color[] dead_pixel_colors = { Color.Black, Color.White, Color.Red, Color.FromArgb(0, 255, 0), Color.FromArgb(0, 0, 255) };
-        private Color[] dynamic_range_colors = { Color.FromArgb(34, 34, 34), Color.FromArgb(85, 85, 85), Color.White, Color.Red, Color.FromArgb(0, 255, 0), Color.FromArgb(0, 0, 255) };
+        private readonly Color[] dead_pixel_colors = { Color.Black, Color.White, Color.Red, Color.FromArgb(0, 255, 0), Color.FromArgb(0, 0, 255) };
+        private readonly Color[] dynamic_range_colors = { Color.FromArgb(34, 34, 34), Color.FromArgb(85, 85, 85), Color.White, Color.Red, Color.FromArgb(0, 255, 0), Color.FromArgb(0, 0, 255) };
         //
         int size_mode;
         private bool message_disposed = false;
@@ -22,12 +22,12 @@ namespace Glow.glow_tools{
         private bool dead_pixel_pause_toggle = false;
         private readonly object dead_pixel_lockobj = new object();
         //
-        private int dynamic_range_color_count => dynamic_range_colors.Length;
+        private int Dynamic_range_color_count => dynamic_range_colors.Length;
         private const int dynamic_range_shade_count = 15;
-        private int dynamic_range_box_count => dynamic_range_shade_count * dynamic_range_color_count;
+        private int Dynamic_range_box_count => dynamic_range_shade_count * Dynamic_range_color_count;
         private Panel[] dynamic_range_boxs;
         //
-        public void monitor_test_engine_theme_settings(){
+        public void Monitor_test_engine_theme_settings(){
             try{
                 int set_attribute = Glow.theme == 1 ? 20 : 19;
                 if (DwmSetWindowAttribute(Handle, set_attribute, new[] { 1 }, 4) != Glow.theme){
@@ -39,57 +39,58 @@ namespace Glow.glow_tools{
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                 if (Glow.monitor_engine_mode == 0){
-                    Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("MonitorTestTool", "mtt_title")), Application.ProductName, TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_monitor_test_dead_pixel")));
+                    Text = string.Format(software_lang.TSReadLangs("MonitorTestTool", "mtt_title"), Application.ProductName, software_lang.TSReadLangs("HeaderTools", "ht_monitor_test_dead_pixel"));
                 }else if (Glow.monitor_engine_mode == 1){
-                    Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("MonitorTestTool", "mtt_title")), Application.ProductName, TS_String_Encoder(software_lang.TSReadLangs("HeaderTools", "ht_monitor_test_dynamic_range")));
+                    Text = string.Format(software_lang.TSReadLangs("MonitorTestTool", "mtt_title"), Application.ProductName, software_lang.TSReadLangs("HeaderTools", "ht_monitor_test_dynamic_range"));
                 }
             }catch (Exception){ } 
         }
         // LOAD
         // ======================================================================================================
         private void GlowMonitorTestEngine_Load(object sender, EventArgs e){
-            monitor_test_engine_theme_settings();
-            monitor_test_loader(Glow.monitor_engine_mode);
+            Monitor_test_engine_theme_settings();
+            Monitor_test_loader(Glow.monitor_engine_mode);
         }
         // MONITOR TEST LOADER
         // ======================================================================================================
-        private async void monitor_test_loader(int monitor_test_mode){
+        private async void Monitor_test_loader(int monitor_test_mode){
             TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
             if (monitor_test_mode == 0){
-                InfoLabel.Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("MonitorTestTool", "mtt_esc_info_dead_pixel")), "\n");
-                monitor_test_dead_pixel();
+                InfoLabel.Text = string.Format(software_lang.TSReadLangs("MonitorTestTool", "mtt_esc_info_dead_pixel"), "\n");
+                Monitor_test_dead_pixel();
             }else if (monitor_test_mode == 1){
-                InfoLabel.Text = TS_String_Encoder(software_lang.TSReadLangs("MonitorTestTool", "mtt_esc_info_dynamic_range"));
-                monitor_dynamic_range_test();
+                InfoLabel.Text = software_lang.TSReadLangs("MonitorTestTool", "mtt_esc_info_dynamic_range");
+                Monitor_dynamic_range_test();
             }
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
             size_mode = 1;
             //
-            await Task.Run(() => message_dispose());
+            await Task.Run(() => Message_dispose());
         }
         private void InfoLabel_Click(object sender, EventArgs e){
-            InfoLabel.Dispose();
+            DisposeLabel();
         }
-        private async void message_dispose(){
+        private async void Message_dispose(){
             await Task.Delay(7000);
             DisposeLabel();
         }
         private void DisposeLabel(){
             if (!message_disposed && InfoLabel != null && !InfoLabel.IsDisposed){
                 message_disposed = true;
-                InfoLabel.Dispose();
-                InfoLabel = null;
+                InfoLabel.Visible = false;
+                InfoLabel.Enabled = false;
             }
         }
         // DEAD PIXEL TEST
         // ======================================================================================================
-        private void monitor_test_dead_pixel(){
-            Thread colorChangingThread = new Thread(() => {
+        private void Monitor_test_dead_pixel(){
+            Thread colorChangingThread = new Thread(() =>{
                 try{
                     while (dead_pixel_test_status){
                         if (!dead_pixel_pause_toggle){
-                            this.Invoke((MethodInvoker)(() => {
+                            this.Invoke((MethodInvoker)(() =>
+                            {
                                 UpdateBackgroundColor();
                             }));
                             lock (dead_pixel_lockobj){
@@ -101,8 +102,9 @@ namespace Glow.glow_tools{
                         }
                     }
                 }catch (Exception){ }
-            });
-            colorChangingThread.IsBackground = true;
+            }){
+                IsBackground = true
+            };
             colorChangingThread.Start();
             //
             MouseDown -= MouseDown_Handler;
@@ -140,10 +142,10 @@ namespace Glow.glow_tools{
         }
         // DYNAMIC RANGE TEST
         // ======================================================================================================
-        private void monitor_dynamic_range_test(){
+        private void Monitor_dynamic_range_test(){
             try{
-                dynamic_range_boxs = new Panel[dynamic_range_box_count];
-                for (int colorIndex = 0; colorIndex < dynamic_range_color_count; colorIndex++){
+                dynamic_range_boxs = new Panel[Dynamic_range_box_count];
+                for (int colorIndex = 0; colorIndex < Dynamic_range_color_count; colorIndex++){
                     for (int shadeIndex = 0; shadeIndex < dynamic_range_shade_count; shadeIndex++){
                         int index = colorIndex * dynamic_range_shade_count + shadeIndex;
                         dynamic_range_boxs[index] = new Panel{
@@ -153,26 +155,30 @@ namespace Glow.glow_tools{
                         Controls.Add(dynamic_range_boxs[index]);
                     }
                 }
-                monitor_dynamic_range_box_resize();
+                Monitor_dynamic_range_box_resize();
             }catch (Exception){ }
         }
-        private void monitor_dynamic_range_box_resize(){
+        private void Monitor_dynamic_range_box_resize(){
             try{
+                if (dynamic_range_boxs == null || dynamic_range_boxs.Length != Dynamic_range_box_count)
+                    return;
+                if (ClientSize.Width <= 0 || ClientSize.Height <= 0)
+                    return;
                 this.SuspendLayout();
                 int totalWidth = ClientSize.Width;
                 int totalHeight = ClientSize.Height;
-                int boxWidth = (int)Math.Ceiling((double)totalWidth / dynamic_range_color_count);
+                int boxWidth = (int)Math.Ceiling((double)totalWidth / Dynamic_range_color_count);
                 int boxHeight = (int)Math.Ceiling((double)totalHeight / dynamic_range_shade_count);
-                for (int colorIndex = 0; colorIndex < dynamic_range_color_count; colorIndex++){
+                for (int colorIndex = 0; colorIndex < Dynamic_range_color_count; colorIndex++){
                     for (int shadeIndex = 0; shadeIndex < dynamic_range_shade_count; shadeIndex++){
                         int index = colorIndex * dynamic_range_shade_count + shadeIndex;
-                        int x = colorIndex * boxWidth;
-                        int y = shadeIndex * boxHeight;
-                        dynamic_range_boxs[index].Size = new Size(boxWidth, boxHeight);
-                        dynamic_range_boxs[index].Location = new Point(x, y);
+                        if (index >= 0 && index < dynamic_range_boxs.Length && dynamic_range_boxs[index] != null && !dynamic_range_boxs[index].IsDisposed){
+                            dynamic_range_boxs[index].Size = new Size(boxWidth, boxHeight);
+                            dynamic_range_boxs[index].Location = new Point(colorIndex * boxWidth, shadeIndex * boxHeight);
+                        }
                     }
                 }
-                this.ResumeLayout();
+                this.ResumeLayout(true);
             }catch (Exception){ }
         }
         private Color ShadeGenerator(Color mainColor, double shadeRatio){
@@ -189,7 +195,7 @@ namespace Glow.glow_tools{
         private void GlowMonitorTestEngine_Resize(object sender, EventArgs e){
             if (Glow.monitor_engine_mode == 1){
                 try{
-                    monitor_dynamic_range_box_resize();
+                    Monitor_dynamic_range_box_resize();
                 }catch (Exception){ }
             }
         }

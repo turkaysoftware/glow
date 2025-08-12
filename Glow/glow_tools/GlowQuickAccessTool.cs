@@ -11,8 +11,8 @@ namespace Glow.glow_tools{
         public GlowQuickAccessTool(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
         // GLOBAL LANG
         // ======================================================================================================
-        TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-        public void quick_access_settings(){
+        readonly TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
+        public void Quick_access_settings(){
             try{
                 int set_attribute = Glow.theme == 1 ? 20 : 19;
                 if (DwmSetWindowAttribute(Handle, set_attribute, new[] { 1 }, 4) != Glow.theme){
@@ -33,38 +33,38 @@ namespace Glow.glow_tools{
                 }
                 //
                 TSGetLangs g_lang_internal = new TSGetLangs(Glow.lang_path);
-                Text = string.Format(TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_title")), Application.ProductName);
+                Text = string.Format(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_title"), Application.ProductName);
                 //
-                QB_About.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_about"));
-                QB_AdvancedScreenSettings.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_ascreen_settings"));
-                QB_Background.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_background"));
-                QB_Bluetooth.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_bluetooth"));
-                QB_Colors.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_colors"));
-                QB_ControlPanel.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_control_panel"));
-                QB_Country.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_country_region"));
-                QB_DataUsage.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_data_usage"));
-                QB_DateAndTime.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_date_and_time"));
-                QB_DefaultApps.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_default_apps"));
-                QB_DeviceManager.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_device_manager"));
-                QB_DirectX.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_directx"));
-                QB_DiskManagement.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_disk_management"));
-                QB_EventViewer.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_event_viewer"));
-                QB_GamingMode.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_gaming_mode"));
-                QB_Language.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_language"));
-                QB_LicenseStatus.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_license_status"));
-                QB_LockScreen.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_lock_screen"));
-                QB_MouseSettings.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_mouse_settings"));
-                QB_NotificationSettings.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_notification_settings"));
-                QB_Phone.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_phone"));
-                QB_ScreenSettings.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_screen_settings"));
-                QB_Settings.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_settings"));
-                QB_SoundSettings.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_sound_settings"));
-                QB_Start.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_start"));
-                QB_Storage.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_storage"));
-                QB_Taskbar.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_taskbar"));
-                QB_USB.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_usb"));
-                QB_WindowsDefender.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_windows_defender"));
-                QB_WindowsUpdate.Text = TS_String_Encoder(g_lang_internal.TSReadLangs("QuickAccessTool", "qat_windows_update"));
+                QB_About.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_about");
+                QB_AdvancedScreenSettings.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_ascreen_settings");
+                QB_Background.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_background");
+                QB_Bluetooth.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_bluetooth");
+                QB_Colors.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_colors");
+                QB_ControlPanel.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_control_panel");
+                QB_Country.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_country_region");
+                QB_DataUsage.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_data_usage");
+                QB_DateAndTime.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_date_and_time");
+                QB_DefaultApps.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_default_apps");
+                QB_DeviceManager.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_device_manager");
+                QB_DirectX.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_directx");
+                QB_DiskManagement.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_disk_management");
+                QB_EventViewer.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_event_viewer");
+                QB_GamingMode.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_gaming_mode");
+                QB_Language.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_language");
+                QB_LicenseStatus.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_license_status");
+                QB_LockScreen.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_lock_screen");
+                QB_MouseSettings.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_mouse_settings");
+                QB_NotificationSettings.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_notification_settings");
+                QB_Phone.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_phone");
+                QB_ScreenSettings.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_screen_settings");
+                QB_Settings.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_settings");
+                QB_SoundSettings.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_sound_settings");
+                QB_Start.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_start");
+                QB_Storage.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_storage");
+                QB_Taskbar.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_taskbar");
+                QB_USB.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_usb");
+                QB_WindowsDefender.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_windows_defender");
+                QB_WindowsUpdate.Text = g_lang_internal.TSReadLangs("QuickAccessTool", "qat_windows_update");
                 // DYNAMIC LOCATION BUTTON ALGORITHM
                 var get_fly_buttons = QUICK_FLY.Controls.OfType<Button>().ToList();
                 get_fly_buttons.Sort((before_button, after_button) => before_button.Text.CompareTo(after_button.Text));
@@ -79,7 +79,7 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         private void GlowQuickAccessTool_Load(object sender, EventArgs e){
             typeof(FlowLayoutPanel).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, QUICK_FLY, new object[]{ true });
-            quick_access_settings();
+            Quick_access_settings();
         }
         // LAUNCHER QUICK TOOLS
         // =============================
@@ -87,7 +87,7 @@ namespace Glow.glow_tools{
             try{
                 Process.Start(new ProcessStartInfo(run_command){ UseShellExecute = true });
             }catch (Exception ex){
-                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error")), ex.Message));
+                TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(software_lang.TSReadLangs("QuickAccessTool", "qat_launch_error"), ex.Message));
             }
         }
         // ABOUT

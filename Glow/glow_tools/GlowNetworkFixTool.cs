@@ -11,7 +11,7 @@ namespace Glow.glow_tools{
         public GlowNetworkFixTool(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
         // DYNAMIC THEME VOID
         // ======================================================================================================
-        public void nft_theme_settings(){
+        public void Nft_theme_settings(){
             try{
                 int set_attribute = Glow.theme == 1 ? 20 : 19;
                 if (DwmSetWindowAttribute(Handle, set_attribute, new[] { 1 }, 4) != Glow.theme){
@@ -37,18 +37,18 @@ namespace Glow.glow_tools{
                 TSImageRenderer(NFT_StartBtn, Glow.theme == 1 ? Properties.Resources.ct_fix_light : Properties.Resources.ct_fix_dark, 18, ContentAlignment.MiddleRight);
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                Text = string.Format(TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_title")), Application.ProductName);
+                Text = string.Format(software_lang.TSReadLangs("NetworkFixTool", "nft_title"), Application.ProductName);
                 //
-                NFT_StartBtn.Text = " " + TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_process_start_btn"));
+                NFT_StartBtn.Text = " " + software_lang.TSReadLangs("NetworkFixTool", "nft_process_start_btn");
             }catch (Exception){ }
         }
         // LOADA
         // ======================================================================================================
         private void GlowNetworkFixTool_Load(object sender, EventArgs e){
-            nft_theme_settings();
+            Nft_theme_settings();
             //
             TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-            NFT_TitleLabel.Text = TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_title_label_before_start"));
+            NFT_TitleLabel.Text = software_lang.TSReadLangs("NetworkFixTool", "nft_title_label_before_start");
         }
         // RESULT LIST CLEAR SELECTION
         // ======================================================================================================
@@ -61,29 +61,29 @@ namespace Glow.glow_tools{
         private void NFT_StartBtn_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                DialogResult start_engine_query = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_process_start_query")), "\n"));
+                DialogResult start_engine_query = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(software_lang.TSReadLangs("NetworkFixTool", "nft_process_start_query"), "\n"));
                 if (start_engine_query == DialogResult.Yes){
-                    start_network_fix_engine();
-                    NFT_TitleLabel.Text = TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_title_label_in_process"));
+                    Start_network_fix_engine();
+                    NFT_TitleLabel.Text = software_lang.TSReadLangs("NetworkFixTool", "nft_title_label_in_process");
                 }
             }catch (Exception){ }
         }
         // NETWORK FIX ENGINE STARTER
         // ======================================================================================================
-        private async void start_network_fix_engine(){
+        private async void Start_network_fix_engine(){
             try{
                 NFT_ResultList.Items.Clear();
                 // Network Fix Command
-                await ts_RunNetworkFixCommandAsync("netsh", "winsock reset");
-                await ts_RunNetworkFixCommandAsync("netsh", "int ip reset");
-                await ts_RunNetworkFixCommandAsync("ipconfig", "/release");
-                await ts_RunNetworkFixCommandAsync("ipconfig", "/renew");
-                await ts_RunNetworkFixCommandAsync("ipconfig", "/flushdns");
+                await Ts_RunNetworkFixCommandAsync("netsh", "winsock reset");
+                await Ts_RunNetworkFixCommandAsync("netsh", "int ip reset");
+                await Ts_RunNetworkFixCommandAsync("ipconfig", "/release");
+                await Ts_RunNetworkFixCommandAsync("ipconfig", "/renew");
+                await Ts_RunNetworkFixCommandAsync("ipconfig", "/flushdns");
                 //
                 TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
-                NFT_TitleLabel.Text = TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_title_label_after_end"));
+                NFT_TitleLabel.Text = software_lang.TSReadLangs("NetworkFixTool", "nft_title_label_after_end");
                 // Process After Dialog
-                DialogResult end_engine_query = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_process_after_query")), "\n\n", "\n\n", "\n\n"));
+                DialogResult end_engine_query = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(software_lang.TSReadLangs("NetworkFixTool", "nft_process_after_query"), "\n\n", "\n\n", "\n\n"));
                 if (end_engine_query == DialogResult.Yes){
                     try{
                         ProcessStartInfo pc_restart_query = new ProcessStartInfo{
@@ -98,14 +98,14 @@ namespace Glow.glow_tools{
                             pc_restart_starter.WaitForExit();
                         }
                     }catch (Exception){
-                        TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_process_after_restart_info")), "\n"));
+                        TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(software_lang.TSReadLangs("NetworkFixTool", "nft_process_after_restart_info"), "\n"));
                     }
                 }
             }catch (Exception){ }
         }
         // NETWORK FIX ENGINE
         // ======================================================================================================
-        private async Task ts_RunNetworkFixCommandAsync(string get_command, string get_arguments){
+        private async Task Ts_RunNetworkFixCommandAsync(string get_command, string get_arguments){
             try{
                 await Task.Run(() => {
                     ProcessStartInfo start_network_fix_process = new ProcessStartInfo{
@@ -123,12 +123,12 @@ namespace Glow.glow_tools{
                         TSGetLangs software_lang = new TSGetLangs(Glow.lang_path);
                         if (!string.IsNullOrEmpty(get_result)){
                             Invoke(new Action(() => {
-                                NFT_ResultList.Items.Add(string.Format(TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_process_code_transfer")), get_command, get_arguments));
+                                NFT_ResultList.Items.Add(string.Format(software_lang.TSReadLangs("NetworkFixTool", "nft_process_code_transfer"), get_command, get_arguments));
                             }));
                         }
                         if (!string.IsNullOrEmpty(get_error)){
                             Invoke(new Action(() => {
-                                NFT_ResultList.Items.Add(string.Format(TS_String_Encoder(software_lang.TSReadLangs("NetworkFixTool", "nft_process_code_transfer_error")), get_command, get_arguments, get_error));
+                                NFT_ResultList.Items.Add(string.Format(software_lang.TSReadLangs("NetworkFixTool", "nft_process_code_transfer_error"), get_command, get_arguments, get_error));
                             }));
                         }
                     }
