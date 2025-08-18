@@ -124,6 +124,7 @@ With these instructions, you can download and use the correct version of Glow fo
 | **Quick Access Tool** | CTRL + I |
 | **Network Troubleshooting Tool** | CTRL + O |
 | **Wi-Fi Password Showing Tool** | CTRL + P |
+| **Bluetooth Information Tool** | CTRL + B |
 | **Monitor Test Tools:** Dead Pixel Test | CTRL + Z |
 | **Monitor Test Tools:** Dynamic Color Range Test | CTRL + X |
 
