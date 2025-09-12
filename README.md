@@ -17,9 +17,9 @@
 
 [Click here](https://www.turkaysoftware.com/glow) for full specifications.
 
-<img width="1010" height="633" alt="Glow UI - Dark" src="https://github.com/user-attachments/assets/ebbf8604-b97e-4798-a86d-06b537a4900e" />
+<img width="1010" height="633" alt="Glow UI - Dark" src="https://github.com/user-attachments/assets/af4e8cdd-da2f-47ec-bca7-f1467faba4c2" />
 
-<img width="1010" height="633" alt="Glow UI - Light" src="https://github.com/user-attachments/assets/29892b2e-534f-4d8c-aab5-e4b336f2dd84" />
+<img width="1010" height="633" alt="Glow UI - Light" src="https://github.com/user-attachments/assets/fe4653bb-feb9-41a6-a654-ba01556093a3" />
 
 # Download Glow
 
