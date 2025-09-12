@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace Glow.glow_tools{
     public partial class GlowNetworkFixTool : Form{
-        public GlowNetworkFixTool(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
+        public GlowNetworkFixTool(){ InitializeComponent(); }
         // DYNAMIC THEME VOID
         // ======================================================================================================
         public void Nft_theme_settings(){

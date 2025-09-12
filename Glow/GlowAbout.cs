@@ -10,11 +10,11 @@ namespace Glow{
     public partial class GlowAbout : Form{
         public GlowAbout(){
             InitializeComponent();
-            CheckForIllegalCrossThreadCalls = false;
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, AboutTable, new object[]{ true });
             //
             PanelHeader.Parent = ImageAbout;
             CloseAboutBtn.Parent = PanelHeader;
+            AboutTable.RowTemplate.Height = (int)(24 * this.DeviceDpi / 96f);
             //
             TSImageRenderer(CloseAboutBtn, Properties.Resources.ts_close, 20);
         }
@@ -42,6 +42,8 @@ namespace Glow{
                 }
                 AboutTable.AllowUserToResizeColumns = false;
                 foreach (DataGridViewColumn A_Column in AboutTable.Columns){ A_Column.SortMode = DataGridViewColumnSortMode.NotSortable; }
+                AboutTable.PerformLayout();
+                AboutTable.Invalidate();
                 AboutTable.ClearSelection();
                 // GET PRELOAD SETTINGS
                 About_preloader();

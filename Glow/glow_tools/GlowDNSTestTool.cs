@@ -21,6 +21,8 @@ namespace Glow.glow_tools{
             DNSTable.Columns.Add("x", "x");
             DNSTable.Columns.Add("x", "x");
             //
+            DNSTable.RowTemplate.Height = (int)(36 * this.DeviceDpi / 96f);
+            //
             InitDnsProviders();
         }
         // VARIABLES

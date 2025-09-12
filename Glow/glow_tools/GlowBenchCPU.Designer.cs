@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlowBenchCPU));
-            this.Bench_Start = new Glow.TSCustomButton();
-            this.Bench_Stop = new Glow.TSCustomButton();
             this.Bench_BG_Panel = new System.Windows.Forms.Panel();
             this.Bench_TLP_Top = new System.Windows.Forms.TableLayoutPanel();
             this.Bench_TLP_Result = new System.Windows.Forms.TableLayoutPanel();
@@ -41,6 +39,8 @@
             this.Bench_Label_RSingle = new System.Windows.Forms.Label();
             this.Bench_Label_RSingleResult = new System.Windows.Forms.Label();
             this.Bench_TLP_Bottom = new System.Windows.Forms.TableLayoutPanel();
+            this.Bench_Stop = new Glow.TSCustomButton();
+            this.Bench_Start = new Glow.TSCustomButton();
             this.Bench_TLP_T_P1 = new System.Windows.Forms.Panel();
             this.Bench_CPUName = new System.Windows.Forms.Label();
             this.Bench_CPUCores = new System.Windows.Forms.Label();
@@ -63,61 +63,6 @@
             this.Bench_TLP_T_P2.SuspendLayout();
             this.Bench_TLP_T_P3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // Bench_Start
-            // 
-            this.Bench_Start.BackColor = System.Drawing.Color.RosyBrown;
-            this.Bench_Start.BackgroundColor = System.Drawing.Color.RosyBrown;
-            this.Bench_Start.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Bench_Start.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.Bench_Start.BorderRadius = 10;
-            this.Bench_Start.BorderSize = 0;
-            this.Bench_Start.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Bench_Start.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Bench_Start.FlatAppearance.BorderSize = 0;
-            this.Bench_Start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Bench_Start.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Bench_Start.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.Bench_Start.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Bench_Start.Location = new System.Drawing.Point(3, 3);
-            this.Bench_Start.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
-            this.Bench_Start.Name = "Bench_Start";
-            this.Bench_Start.Size = new System.Drawing.Size(362, 39);
-            this.Bench_Start.TabIndex = 0;
-            this.Bench_Start.Text = "Başlat";
-            this.Bench_Start.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Bench_Start.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.Bench_Start.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.Bench_Start.UseVisualStyleBackColor = false;
-            this.Bench_Start.Click += new System.EventHandler(this.Bench_Start_Click);
-            // 
-            // Bench_Stop
-            // 
-            this.Bench_Stop.BackColor = System.Drawing.Color.RosyBrown;
-            this.Bench_Stop.BackgroundColor = System.Drawing.Color.RosyBrown;
-            this.Bench_Stop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Bench_Stop.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.Bench_Stop.BorderRadius = 10;
-            this.Bench_Stop.BorderSize = 0;
-            this.Bench_Stop.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Bench_Stop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Bench_Stop.Enabled = false;
-            this.Bench_Stop.FlatAppearance.BorderSize = 0;
-            this.Bench_Stop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Bench_Stop.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Bench_Stop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.Bench_Stop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Bench_Stop.Location = new System.Drawing.Point(369, 3);
-            this.Bench_Stop.Margin = new System.Windows.Forms.Padding(2, 3, 3, 3);
-            this.Bench_Stop.Name = "Bench_Stop";
-            this.Bench_Stop.Size = new System.Drawing.Size(362, 39);
-            this.Bench_Stop.TabIndex = 1;
-            this.Bench_Stop.Text = "Durdur";
-            this.Bench_Stop.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Bench_Stop.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.Bench_Stop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.Bench_Stop.UseVisualStyleBackColor = false;
-            this.Bench_Stop.Click += new System.EventHandler(this.Bench_Stop_Click);
             // 
             // Bench_BG_Panel
             // 
@@ -262,6 +207,61 @@
             this.Bench_TLP_Bottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.Bench_TLP_Bottom.Size = new System.Drawing.Size(734, 45);
             this.Bench_TLP_Bottom.TabIndex = 1;
+            // 
+            // Bench_Stop
+            // 
+            this.Bench_Stop.BackColor = System.Drawing.Color.RosyBrown;
+            this.Bench_Stop.BackgroundColor = System.Drawing.Color.RosyBrown;
+            this.Bench_Stop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Bench_Stop.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.Bench_Stop.BorderRadius = 10;
+            this.Bench_Stop.BorderSize = 0;
+            this.Bench_Stop.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Bench_Stop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Bench_Stop.Enabled = false;
+            this.Bench_Stop.FlatAppearance.BorderSize = 0;
+            this.Bench_Stop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Bench_Stop.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Bench_Stop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.Bench_Stop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Bench_Stop.Location = new System.Drawing.Point(369, 3);
+            this.Bench_Stop.Margin = new System.Windows.Forms.Padding(2, 3, 3, 3);
+            this.Bench_Stop.Name = "Bench_Stop";
+            this.Bench_Stop.Size = new System.Drawing.Size(362, 39);
+            this.Bench_Stop.TabIndex = 1;
+            this.Bench_Stop.Text = "Durdur";
+            this.Bench_Stop.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Bench_Stop.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.Bench_Stop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.Bench_Stop.UseVisualStyleBackColor = false;
+            this.Bench_Stop.Click += new System.EventHandler(this.Bench_Stop_Click);
+            // 
+            // Bench_Start
+            // 
+            this.Bench_Start.BackColor = System.Drawing.Color.RosyBrown;
+            this.Bench_Start.BackgroundColor = System.Drawing.Color.RosyBrown;
+            this.Bench_Start.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Bench_Start.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.Bench_Start.BorderRadius = 10;
+            this.Bench_Start.BorderSize = 0;
+            this.Bench_Start.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Bench_Start.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Bench_Start.FlatAppearance.BorderSize = 0;
+            this.Bench_Start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Bench_Start.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Bench_Start.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.Bench_Start.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Bench_Start.Location = new System.Drawing.Point(3, 3);
+            this.Bench_Start.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
+            this.Bench_Start.Name = "Bench_Start";
+            this.Bench_Start.Size = new System.Drawing.Size(362, 39);
+            this.Bench_Start.TabIndex = 0;
+            this.Bench_Start.Text = "Başlat";
+            this.Bench_Start.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Bench_Start.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.Bench_Start.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.Bench_Start.UseVisualStyleBackColor = false;
+            this.Bench_Start.Click += new System.EventHandler(this.Bench_Start_Click);
             // 
             // Bench_TLP_T_P1
             // 

@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Drawing;
 using System.Management;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+//
 using static Glow.TSModules;
 
 namespace Glow.glow_tools{
@@ -27,7 +28,7 @@ namespace Glow.glow_tools{
         readonly List<double> benchmarkDiskListFreeSpace = new List<double>();
         readonly List<string> benchmarkDiskListType = new List<string>();
         readonly List<long> testSizes = new List<long>();
-        public GlowBenchDisk() { InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
+        public GlowBenchDisk() { InitializeComponent(); }
         // THEME MODE
         // ======================================================================================================
         public void Bench_disk_theme_settings(){
@@ -52,6 +53,9 @@ namespace Glow.glow_tools{
                 Bench_Disk.HoverButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
                 Bench_Disk.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
                 Bench_Disk.FocusedBorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
+                Bench_Disk.DisabledBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
+                Bench_Disk.DisabledForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                Bench_Disk.DisabledButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
                 //
                 Bench_Label_Size.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
                 Bench_Size.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
@@ -61,6 +65,9 @@ namespace Glow.glow_tools{
                 Bench_Size.HoverButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
                 Bench_Size.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
                 Bench_Size.FocusedBorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
+                Bench_Size.DisabledBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
+                Bench_Size.DisabledForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                Bench_Size.DisabledButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
                 Bench_SizeCustom.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "TextBoxBGColor");
                 Bench_SizeCustom.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "TextBoxFEColor");
                 //
@@ -72,6 +79,9 @@ namespace Glow.glow_tools{
                 Bench_Buffer.HoverButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
                 Bench_Buffer.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
                 Bench_Buffer.FocusedBorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
+                Bench_Buffer.DisabledBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
+                Bench_Buffer.DisabledForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                Bench_Buffer.DisabledButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
                 //
                 Bench_L_WriteSpeed.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
                 Bench_L_WriteSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
@@ -123,7 +133,7 @@ namespace Glow.glow_tools{
                 Bench_Size.Items.Add(size + " GB");
             }
             Bench_Size.Items.Add(software_lang.TSReadLangs("BenchDisk", "bd_test_size_custom"));
-            Bench_Size.SelectedIndex = 1;
+            Bench_Size.SelectedIndex = 2;
             //
             testSizes.Clear();
             foreach (int size in sizesInGB){
@@ -133,7 +143,7 @@ namespace Glow.glow_tools{
             foreach (int bufferSize in bufferSizesInKB){
                 Bench_Buffer.Items.Add(bufferSize + " KB");
             }
-            Bench_Buffer.SelectedIndex = 4; // 1024 KB
+            Bench_Buffer.SelectedIndex = 4;
             //
             Bench_L_WriteSpeed_V.Text = software_lang.TSReadLangs("BenchDisk", "bd_start_test_await");
             Bench_L_Max_WriteSpeed_V.Text = software_lang.TSReadLangs("BenchDisk", "bd_start_test_await");
@@ -281,7 +291,13 @@ namespace Glow.glow_tools{
         // UPDATE PROGRESS
         private void UpdateProgress(double progress){
             TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-            Text = string.Format(software_lang.TSReadLangs("BenchDisk", "bd_title"), Application.ProductName) + " - " + global_timer + " - " + progress.ToString("0") + "%";
+            if (InvokeRequired){
+                Invoke(new Action(() =>{
+                    Text = string.Format(software_lang.TSReadLangs("BenchDisk", "bd_title"), Application.ProductName) + " - " + global_timer + " - " + progress.ToString("0") + "%";
+                }));
+            }else{
+                Text = string.Format(software_lang.TSReadLangs("BenchDisk", "bd_title"), Application.ProductName) + " - " + global_timer + " - " + progress.ToString("0") + "%";
+            }
         }
         // DISK BENCHMARK
         // ======================================================================================================
@@ -388,17 +404,23 @@ namespace Glow.glow_tools{
                             var (readSpeed, writeSpeed) = diskEntry.Value;
                             float diskReadSpeedMB = readSpeed / (1024 * 1024);
                             float diskWriteSpeedMB = writeSpeed / (1024 * 1024);
-                            if (readSpeed > maxReadSpeed){
-                                maxReadSpeed = readSpeed;
+                            if (InvokeRequired){
+                                Invoke(new Action(() =>{
+                                    if (readSpeed > maxReadSpeed) maxReadSpeed = readSpeed;
+                                    if (writeSpeed > maxWriteSpeed) maxWriteSpeed = writeSpeed;
+                                    Bench_R_ReadSpeed_V.Text = $"{diskReadSpeedMB:F1} MB/s";
+                                    Bench_R_Max_ReadSpeed_V.Text = $"{maxReadSpeed / (1024 * 1024):F1} MB/s";
+                                    Bench_L_WriteSpeed_V.Text = $"{diskWriteSpeedMB:F1} MB/s";
+                                    Bench_L_Max_WriteSpeed_V.Text = $"{maxWriteSpeed / (1024 * 1024):F1} MB/s";
+                                }));
+                            }else{
+                                if (readSpeed > maxReadSpeed) maxReadSpeed = readSpeed;
+                                if (writeSpeed > maxWriteSpeed) maxWriteSpeed = writeSpeed;
+                                Bench_R_ReadSpeed_V.Text = $"{diskReadSpeedMB:F1} MB/s";
+                                Bench_R_Max_ReadSpeed_V.Text = $"{maxReadSpeed / (1024 * 1024):F1} MB/s";
+                                Bench_L_WriteSpeed_V.Text = $"{diskWriteSpeedMB:F1} MB/s";
+                                Bench_L_Max_WriteSpeed_V.Text = $"{maxWriteSpeed / (1024 * 1024):F1} MB/s";
                             }
-                            if (writeSpeed > maxWriteSpeed){
-                                maxWriteSpeed = writeSpeed;
-                            }
-                            Bench_R_ReadSpeed_V.Text = $"{diskReadSpeedMB:F1} MB/s";
-                            Bench_R_Max_ReadSpeed_V.Text = $"{maxReadSpeed / (1024 * 1024):F1} MB/s";
-                            Bench_L_WriteSpeed_V.Text = $"{diskWriteSpeedMB:F1} MB/s";
-                            Bench_L_Max_WriteSpeed_V.Text = $"{maxWriteSpeed / (1024 * 1024):F1} MB/s";
-                            //Console.WriteLine($"{diskEntry.Key}: - {diskReadSpeedMB:F1} MB/s (R) - {diskWriteSpeedMB:F1} MB/s (W) ");
                         }
                     }
                     await Task.Delay(1000 - DateTime.Now.Millisecond);

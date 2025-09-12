@@ -18,7 +18,6 @@ namespace Glow{
             Program.TS_TokenEngine = new CancellationTokenSource();
             TSSetImagePanelPadding(0);
             //
-            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, PanelLoaderBG, new object[] { true });
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, PanelLoaderFE, new object[] { true });
         }
         // VARIABLES
@@ -31,7 +30,7 @@ namespace Glow{
         }
         // LOAD
         // ======================================================================================================
-        private void TSPreloader_Load(object sender, EventArgs e){
+        private async void TSPreloader_Load(object sender, EventArgs e){
             LabelDeveloper.Text = Application.CompanyName;
             LabelSoftware.Text = Application.ProductName;
             LabelVersion.Text = TS_VersionEngine.TS_SofwareVersion(1, Program.ts_version_mode);
@@ -47,7 +46,7 @@ namespace Glow{
                 LabelLoader.Text = "Loading - 50%";
                 PanelLoaderFE.Width = (int)(PanelLoaderBG.Width * 0.5);
             }else{
-                Task.Run(() => Load_animation(), Program.TS_TokenEngine.Token);
+                await Load_animation();
             }
         }
         // SOFTWARE PRELOADER
@@ -197,7 +196,7 @@ namespace Glow{
         // ======================================================================================================
         private async Task Load_animation(){
             int progress_interval = 0;
-            int progress_increment = 2;
+            int progress_increment = 3;
             int progress_delay = 5;
             //
             TSProgressExecutive(0);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 //
@@ -8,7 +9,16 @@ using static Glow.TSModules;
 
 namespace Glow.glow_tools{
     public partial class GlowWallpaperPreview : Form{
-        public GlowWallpaperPreview(){ InitializeComponent(); }
+        public GlowWallpaperPreview(){
+            InitializeComponent();
+            //
+            ImageDGV.ColumnHeadersVisible = false;
+            ImageDGV.Columns.Add("x", "x");
+            ImageDGV.Columns.Add("x", "x");
+            ImageDGV.Columns[0].Width = 175;
+            //
+            ImageDGV.RowTemplate.Height = (int)(28 * this.DeviceDpi / 96f);
+        }
         // LOAD
         // ======================================================================================================
         private void GlowWallpaperPreview_Load(object sender, EventArgs e){
@@ -16,7 +26,34 @@ namespace Glow.glow_tools{
             Task.Run(() => { AsyncLoadWallpaper(); }); 
         }
         private void AsyncLoadWallpaper(){
+            GetWallpaperInfo(GlowMain.wp_rotate);
             SetPictureBoxImage(WPImage, Image.FromFile(GlowMain.wp_rotate));
+        }
+        private void GetWallpaperInfo(string dosyaYolu){
+            string get_res = "-";
+            try{
+                using (var fs = new FileStream(dosyaYolu, FileMode.Open, FileAccess.Read))
+                using (var img = Image.FromStream(fs, false, false)){
+                    get_res = $"{img.Width}x{img.Height}";
+                }
+            }catch{ }
+            Action addRows = () => AddRowsToDGV(new FileInfo(dosyaYolu), get_res);
+            if (ImageDGV.InvokeRequired){
+                ImageDGV.Invoke(addRows);
+            }else{
+                addRows();
+            }
+            ImageDGV.ClearSelection();
+        }
+        private void AddRowsToDGV(FileInfo fi, string img_res){
+            TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
+            ImageDGV.Rows.Add(software_lang.TSReadLangs("WallpaperPreviewTool", "wpt_file_name"), Path.GetFileNameWithoutExtension(fi.FullName));
+            ImageDGV.Rows.Add(software_lang.TSReadLangs("WallpaperPreviewTool", "wpt_extension"), fi.Extension);
+            ImageDGV.Rows.Add(software_lang.TSReadLangs("WallpaperPreviewTool", "wpt_resolution"), img_res);
+            ImageDGV.Rows.Add(software_lang.TSReadLangs("WallpaperPreviewTool", "wpt_size"), TS_FormatSize(fi.Length));
+            ImageDGV.Rows.Add(software_lang.TSReadLangs("WallpaperPreviewTool", "wpt_file_location"), fi.DirectoryName);
+            ImageDGV.Rows.Add(software_lang.TSReadLangs("WallpaperPreviewTool", "wpt_creation_date"), fi.CreationTime.ToString());
+            ImageDGV.Rows.Add(software_lang.TSReadLangs("WallpaperPreviewTool", "wpt_change_date"), fi.LastWriteTime.ToString());
         }
         // THEME SETTINGS
         // ======================================================================================================
@@ -25,6 +62,19 @@ namespace Glow.glow_tools{
                 TSSetWindowTheme(Handle, GlowMain.theme);
                 //
                 BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "PageContainerBGAndPageContentTotalColors");
+                //
+                ImageDGV.BackgroundColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridBGColor");
+                ImageDGV.GridColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridColor");
+                ImageDGV.DefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridBGColor");
+                ImageDGV.DefaultCellStyle.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridFEColor");
+                ImageDGV.AlternatingRowsDefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridAlternatingColor");
+                ImageDGV.ColumnHeadersDefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "OSDAndServicesPageBG");
+                ImageDGV.ColumnHeadersDefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "OSDAndServicesPageBG");
+                ImageDGV.ColumnHeadersDefaultCellStyle.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "OSDAndServicesPageFE");
+                ImageDGV.DefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridBGColor");
+                ImageDGV.DefaultCellStyle.SelectionForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridFEColor");
+                ImageDGV.ReadOnly = true;
+                //
                 foreach (Control ui_buttons in BackPanel.Controls){
                     if (ui_buttons is Button open_btn){
                         open_btn.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DynamicThemeActiveBtnBG");
@@ -52,6 +102,11 @@ namespace Glow.glow_tools{
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
                 TS_MessageBoxEngine.TS_MessageBox(this, 3, software_lang.TSReadLangs("Os_Content", "os_c_wallpaper_open_error"));
             }
+        }
+        // CLEAR SELECTION
+        // ======================================================================================================
+        private void ImageDGV_CellClick(object sender, DataGridViewCellEventArgs e){
+            ImageDGV.ClearSelection();
         }
         // DISPOSE AND EXIT
         // ======================================================================================================

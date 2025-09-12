@@ -8,7 +8,7 @@ using static Glow.TSModules;
 
 namespace Glow.glow_tools{
     public partial class GlowQuickAccessTool : Form{
-        public GlowQuickAccessTool(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
+        public GlowQuickAccessTool(){ InitializeComponent(); }
         // GLOBAL LANG
         // ======================================================================================================
         readonly TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);

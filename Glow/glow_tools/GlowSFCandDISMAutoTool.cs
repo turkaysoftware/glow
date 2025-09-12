@@ -9,7 +9,7 @@ using static Glow.TSModules;
 
 namespace Glow.glow_tools{
     public partial class GlowSFCandDISMAutoTool : Form{
-        public GlowSFCandDISMAutoTool(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
+        public GlowSFCandDISMAutoTool(){ InitializeComponent(); }
         // GLOBAL GLOBAL CLASS
         // ======================================================================================================
         readonly TSSettingsSave software_read_settings = new TSSettingsSave(ts_sf);
@@ -113,7 +113,11 @@ namespace Glow.glow_tools{
                 Process.Start("cmd.exe", "/k " + builder.ToString());
                 // Save Process
                 string current_time = DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss");
-                SADT_L4.Text = current_time;
+                if (SADT_L4.InvokeRequired){
+                    SADT_L4.Invoke(new Action(() => SADT_L4.Text = current_time));
+                }else{
+                    SADT_L4.Text = current_time;
+                }
                 software_setting_save.TSWriteSettings(ts_settings_container, "SFCAndDISMDate", current_time);
             }catch (Exception){ }
         }

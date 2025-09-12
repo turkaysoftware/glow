@@ -1,4 +1,9 @@
-﻿using System;
+﻿// ======================================================================================================
+// Türkay Software - C# Custom Graphics UI Library
+// © Copyright 2025, Eray Türkay.
+// ======================================================================================================
+
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;

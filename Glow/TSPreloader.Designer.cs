@@ -92,7 +92,7 @@
             // 
             this.LabelSoftware.BackColor = System.Drawing.Color.Transparent;
             this.LabelSoftware.Font = new System.Drawing.Font("Segoe UI Black", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.LabelSoftware.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.LabelSoftware.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
             this.LabelSoftware.Location = new System.Drawing.Point(15, 42);
             this.LabelSoftware.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.LabelSoftware.Name = "LabelSoftware";
@@ -128,7 +128,7 @@
             // 
             // PanelLoaderFE
             // 
-            this.PanelLoaderFE.BackColor = System.Drawing.Color.RoyalBlue;
+            this.PanelLoaderFE.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
             this.PanelLoaderFE.Dock = System.Windows.Forms.DockStyle.Left;
             this.PanelLoaderFE.Location = new System.Drawing.Point(0, 0);
             this.PanelLoaderFE.Name = "PanelLoaderFE";
@@ -137,14 +137,14 @@
             // 
             // LabelCopyright
             // 
-            this.LabelCopyright.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LabelCopyright.BackColor = System.Drawing.Color.Transparent;
+            this.LabelCopyright.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.LabelCopyright.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.LabelCopyright.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
             this.LabelCopyright.Location = new System.Drawing.Point(15, 410);
             this.LabelCopyright.Margin = new System.Windows.Forms.Padding(0);
             this.LabelCopyright.Name = "LabelCopyright";
-            this.LabelCopyright.Size = new System.Drawing.Size(294, 25);
+            this.LabelCopyright.Size = new System.Drawing.Size(335, 25);
             this.LabelCopyright.TabIndex = 5;
             this.LabelCopyright.Text = "© Copyright Text.";
             this.LabelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

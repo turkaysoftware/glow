@@ -51,15 +51,17 @@
             this.BG_Panel.Location = new System.Drawing.Point(3, 3);
             this.BG_Panel.Name = "BG_Panel";
             this.BG_Panel.Padding = new System.Windows.Forms.Padding(10);
-            this.BG_Panel.Size = new System.Drawing.Size(753, 305);
+            this.BG_Panel.Size = new System.Drawing.Size(753, 355);
             this.BG_Panel.TabIndex = 0;
             // 
             // CCT_SelectLabel
             // 
+            this.CCT_SelectLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CCT_SelectLabel.BackColor = System.Drawing.Color.White;
             this.CCT_SelectLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
             this.CCT_SelectLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CCT_SelectLabel.Location = new System.Drawing.Point(10, 199);
+            this.CCT_SelectLabel.Location = new System.Drawing.Point(10, 249);
             this.CCT_SelectLabel.Margin = new System.Windows.Forms.Padding(3, 0, 3, 20);
             this.CCT_SelectLabel.Name = "CCT_SelectLabel";
             this.CCT_SelectLabel.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
@@ -74,6 +76,9 @@
             this.CCTTable.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.CCTTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.CCTTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CCTTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.CCTTable.BackgroundColor = System.Drawing.Color.White;
             this.CCTTable.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -97,7 +102,6 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.CCTTable.DefaultCellStyle = dataGridViewCellStyle3;
-            this.CCTTable.Dock = System.Windows.Forms.DockStyle.Top;
             this.CCTTable.EnableHeadersVisualStyles = false;
             this.CCTTable.GridColor = System.Drawing.Color.Gray;
             this.CCTTable.Location = new System.Drawing.Point(10, 10);
@@ -116,7 +120,7 @@
             this.CCTTable.RowHeadersVisible = false;
             this.CCTTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.CCTTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.CCTTable.Size = new System.Drawing.Size(733, 169);
+            this.CCTTable.Size = new System.Drawing.Size(733, 219);
             this.CCTTable.TabIndex = 0;
             this.CCTTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CCTTable_CellClick);
             // 
@@ -135,7 +139,7 @@
             this.CCT_StartBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.CCT_StartBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.CCT_StartBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CCT_StartBtn.Location = new System.Drawing.Point(10, 255);
+            this.CCT_StartBtn.Location = new System.Drawing.Point(10, 305);
             this.CCT_StartBtn.Margin = new System.Windows.Forms.Padding(1);
             this.CCT_StartBtn.Name = "CCT_StartBtn";
             this.CCT_StartBtn.Size = new System.Drawing.Size(733, 40);
@@ -152,7 +156,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(759, 311);
+            this.ClientSize = new System.Drawing.Size(759, 361);
             this.Controls.Add(this.BG_Panel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

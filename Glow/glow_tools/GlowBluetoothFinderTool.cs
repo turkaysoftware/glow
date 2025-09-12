@@ -11,7 +11,7 @@ using static Glow.TSModules;
 
 namespace Glow.glow_tools{
     public partial class GlowBluetoothFinderTool : Form{
-        public GlowBluetoothFinderTool(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
+        public GlowBluetoothFinderTool(){ InitializeComponent(); }
         // TS BLUETOOTH FINDER CLASS
         // ======================================================================================================
         private readonly List<TSAdvancedBluetoothAdapterInfo> BluetoothAdaptersList = new List<TSAdvancedBluetoothAdapterInfo>();

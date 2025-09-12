@@ -9,7 +9,7 @@ using System.Drawing;
 
 namespace Glow.glow_tools{
     public partial class GlowShowWiFiPasswordTool : Form{
-        public GlowShowWiFiPasswordTool(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
+        public GlowShowWiFiPasswordTool(){ InitializeComponent(); }
         // DYNAMIC THEME VOID
         // ======================================================================================================
         public void Swpt_theme_settings(){
@@ -61,7 +61,11 @@ namespace Glow.glow_tools{
                     Close();
                 }else{
                     foreach (var wifi_profile in get_result.wifi_profileNames){
-                        SWPT_SelectBox.Items.Add(wifi_profile.Trim());
+                        if (SWPT_SelectBox.InvokeRequired){
+                            SWPT_SelectBox.Invoke(new Action(() => SWPT_SelectBox.Items.Add(wifi_profile.Trim())));
+                        }else{
+                            SWPT_SelectBox.Items.Add(wifi_profile.Trim());
+                        }
                     }
                 }
             }catch (Exception){ }

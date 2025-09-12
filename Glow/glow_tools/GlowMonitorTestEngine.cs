@@ -8,7 +8,7 @@ using static Glow.TSModules;
 
 namespace Glow.glow_tools{
     public partial class GlowMonitorTestEngine : Form {
-        public GlowMonitorTestEngine() { InitializeComponent(); CheckForIllegalCrossThreadCalls = false; this.ResizeRedraw = true; }
+        public GlowMonitorTestEngine() { InitializeComponent(); this.ResizeRedraw = true; }
         // VARIABLES
         // ======================================================================================================
         private readonly Color[] dead_pixel_colors = { Color.Black, Color.White, Color.Red, Color.FromArgb(0, 255, 0), Color.FromArgb(0, 0, 255) };
@@ -73,7 +73,11 @@ namespace Glow.glow_tools{
         }
         private async void Message_dispose(){
             await Task.Delay(7000);
-            DisposeLabel();
+            if (InvokeRequired){
+                Invoke(new MethodInvoker(DisposeLabel));
+            }else{
+                DisposeLabel();
+            }
         }
         private void DisposeLabel(){
             if (!message_disposed && InfoLabel != null && !InfoLabel.IsDisposed){

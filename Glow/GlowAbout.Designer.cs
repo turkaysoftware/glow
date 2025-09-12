@@ -34,9 +34,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlowAbout));
             this.PanelTxt = new System.Windows.Forms.Panel();
-            this.About_BmacBtn = new Glow.TSCustomButton();
-            this.About_GitHubBtn = new Glow.TSCustomButton();
-            this.About_WebsiteBtn = new Glow.TSCustomButton();
             this.AboutTable = new System.Windows.Forms.DataGridView();
             this.LabelCopyright = new System.Windows.Forms.Label();
             this.LabelVersion = new System.Windows.Forms.Label();
@@ -46,6 +43,9 @@
             this.PanelHeader = new System.Windows.Forms.Panel();
             this.CloseAboutBtn = new System.Windows.Forms.Button();
             this.ImageAbout = new System.Windows.Forms.PictureBox();
+            this.About_BmacBtn = new Glow.TSCustomButton();
+            this.About_GitHubBtn = new Glow.TSCustomButton();
+            this.About_WebsiteBtn = new Glow.TSCustomButton();
             this.PanelTxt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AboutTable)).BeginInit();
             this.PanelImg.SuspendLayout();
@@ -70,84 +70,6 @@
             this.PanelTxt.Padding = new System.Windows.Forms.Padding(15);
             this.PanelTxt.Size = new System.Drawing.Size(365, 450);
             this.PanelTxt.TabIndex = 0;
-            // 
-            // About_BmacBtn
-            // 
-            this.About_BmacBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
-            this.About_BmacBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
-            this.About_BmacBtn.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.About_BmacBtn.BorderRadius = 10;
-            this.About_BmacBtn.BorderSize = 0;
-            this.About_BmacBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.About_BmacBtn.FlatAppearance.BorderSize = 0;
-            this.About_BmacBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.About_BmacBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.About_BmacBtn.ForeColor = System.Drawing.Color.White;
-            this.About_BmacBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_BmacBtn.Location = new System.Drawing.Point(15, 173);
-            this.About_BmacBtn.Margin = new System.Windows.Forms.Padding(3, 1, 1, 25);
-            this.About_BmacBtn.Name = "About_BmacBtn";
-            this.About_BmacBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.About_BmacBtn.Size = new System.Drawing.Size(335, 35);
-            this.About_BmacBtn.TabIndex = 5;
-            this.About_BmacBtn.Text = "Battery Report";
-            this.About_BmacBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_BmacBtn.TextColor = System.Drawing.Color.White;
-            this.About_BmacBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.About_BmacBtn.UseVisualStyleBackColor = false;
-            this.About_BmacBtn.Click += new System.EventHandler(this.About_BmacBtn_Click);
-            // 
-            // About_GitHubBtn
-            // 
-            this.About_GitHubBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
-            this.About_GitHubBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
-            this.About_GitHubBtn.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.About_GitHubBtn.BorderRadius = 10;
-            this.About_GitHubBtn.BorderSize = 0;
-            this.About_GitHubBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.About_GitHubBtn.FlatAppearance.BorderSize = 0;
-            this.About_GitHubBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.About_GitHubBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.About_GitHubBtn.ForeColor = System.Drawing.Color.White;
-            this.About_GitHubBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_GitHubBtn.Location = new System.Drawing.Point(184, 136);
-            this.About_GitHubBtn.Margin = new System.Windows.Forms.Padding(1, 3, 3, 1);
-            this.About_GitHubBtn.Name = "About_GitHubBtn";
-            this.About_GitHubBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.About_GitHubBtn.Size = new System.Drawing.Size(166, 35);
-            this.About_GitHubBtn.TabIndex = 4;
-            this.About_GitHubBtn.Text = "Battery Report";
-            this.About_GitHubBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_GitHubBtn.TextColor = System.Drawing.Color.White;
-            this.About_GitHubBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.About_GitHubBtn.UseVisualStyleBackColor = false;
-            this.About_GitHubBtn.Click += new System.EventHandler(this.About_GitHubBtn_Click);
-            // 
-            // About_WebsiteBtn
-            // 
-            this.About_WebsiteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
-            this.About_WebsiteBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
-            this.About_WebsiteBtn.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.About_WebsiteBtn.BorderRadius = 10;
-            this.About_WebsiteBtn.BorderSize = 0;
-            this.About_WebsiteBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.About_WebsiteBtn.FlatAppearance.BorderSize = 0;
-            this.About_WebsiteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.About_WebsiteBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.About_WebsiteBtn.ForeColor = System.Drawing.Color.White;
-            this.About_WebsiteBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_WebsiteBtn.Location = new System.Drawing.Point(15, 136);
-            this.About_WebsiteBtn.Margin = new System.Windows.Forms.Padding(3, 3, 1, 1);
-            this.About_WebsiteBtn.Name = "About_WebsiteBtn";
-            this.About_WebsiteBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.About_WebsiteBtn.Size = new System.Drawing.Size(166, 35);
-            this.About_WebsiteBtn.TabIndex = 3;
-            this.About_WebsiteBtn.Text = "Battery Report";
-            this.About_WebsiteBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_WebsiteBtn.TextColor = System.Drawing.Color.White;
-            this.About_WebsiteBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.About_WebsiteBtn.UseVisualStyleBackColor = false;
-            this.About_WebsiteBtn.Click += new System.EventHandler(this.About_WebsiteBtn_Click);
             // 
             // AboutTable
             // 
@@ -306,6 +228,84 @@
             this.ImageAbout.Size = new System.Drawing.Size(410, 450);
             this.ImageAbout.TabIndex = 0;
             this.ImageAbout.TabStop = false;
+            // 
+            // About_BmacBtn
+            // 
+            this.About_BmacBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
+            this.About_BmacBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
+            this.About_BmacBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.About_BmacBtn.BorderRadius = 10;
+            this.About_BmacBtn.BorderSize = 0;
+            this.About_BmacBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.About_BmacBtn.FlatAppearance.BorderSize = 0;
+            this.About_BmacBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.About_BmacBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.About_BmacBtn.ForeColor = System.Drawing.Color.White;
+            this.About_BmacBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_BmacBtn.Location = new System.Drawing.Point(15, 173);
+            this.About_BmacBtn.Margin = new System.Windows.Forms.Padding(3, 1, 1, 25);
+            this.About_BmacBtn.Name = "About_BmacBtn";
+            this.About_BmacBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.About_BmacBtn.Size = new System.Drawing.Size(335, 35);
+            this.About_BmacBtn.TabIndex = 5;
+            this.About_BmacBtn.Text = "Link / Bmac";
+            this.About_BmacBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_BmacBtn.TextColor = System.Drawing.Color.White;
+            this.About_BmacBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.About_BmacBtn.UseVisualStyleBackColor = false;
+            this.About_BmacBtn.Click += new System.EventHandler(this.About_BmacBtn_Click);
+            // 
+            // About_GitHubBtn
+            // 
+            this.About_GitHubBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
+            this.About_GitHubBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
+            this.About_GitHubBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.About_GitHubBtn.BorderRadius = 10;
+            this.About_GitHubBtn.BorderSize = 0;
+            this.About_GitHubBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.About_GitHubBtn.FlatAppearance.BorderSize = 0;
+            this.About_GitHubBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.About_GitHubBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.About_GitHubBtn.ForeColor = System.Drawing.Color.White;
+            this.About_GitHubBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_GitHubBtn.Location = new System.Drawing.Point(184, 136);
+            this.About_GitHubBtn.Margin = new System.Windows.Forms.Padding(1, 3, 3, 1);
+            this.About_GitHubBtn.Name = "About_GitHubBtn";
+            this.About_GitHubBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.About_GitHubBtn.Size = new System.Drawing.Size(166, 35);
+            this.About_GitHubBtn.TabIndex = 4;
+            this.About_GitHubBtn.Text = "Link / GitHub";
+            this.About_GitHubBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_GitHubBtn.TextColor = System.Drawing.Color.White;
+            this.About_GitHubBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.About_GitHubBtn.UseVisualStyleBackColor = false;
+            this.About_GitHubBtn.Click += new System.EventHandler(this.About_GitHubBtn_Click);
+            // 
+            // About_WebsiteBtn
+            // 
+            this.About_WebsiteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
+            this.About_WebsiteBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(103)))), ((int)(((byte)(192)))));
+            this.About_WebsiteBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.About_WebsiteBtn.BorderRadius = 10;
+            this.About_WebsiteBtn.BorderSize = 0;
+            this.About_WebsiteBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.About_WebsiteBtn.FlatAppearance.BorderSize = 0;
+            this.About_WebsiteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.About_WebsiteBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.About_WebsiteBtn.ForeColor = System.Drawing.Color.White;
+            this.About_WebsiteBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_WebsiteBtn.Location = new System.Drawing.Point(15, 136);
+            this.About_WebsiteBtn.Margin = new System.Windows.Forms.Padding(3, 3, 1, 1);
+            this.About_WebsiteBtn.Name = "About_WebsiteBtn";
+            this.About_WebsiteBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.About_WebsiteBtn.Size = new System.Drawing.Size(166, 35);
+            this.About_WebsiteBtn.TabIndex = 3;
+            this.About_WebsiteBtn.Text = "Link / Website";
+            this.About_WebsiteBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_WebsiteBtn.TextColor = System.Drawing.Color.White;
+            this.About_WebsiteBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.About_WebsiteBtn.UseVisualStyleBackColor = false;
+            this.About_WebsiteBtn.Click += new System.EventHandler(this.About_WebsiteBtn_Click);
             // 
             // GlowAbout
             // 

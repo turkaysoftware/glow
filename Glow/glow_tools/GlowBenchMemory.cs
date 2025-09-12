@@ -12,7 +12,7 @@ using System.Drawing;
 
 namespace Glow.glow_tools{
     public partial class GlowBenchMemory : Form{
-        public GlowBenchMemory(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
+        public GlowBenchMemory(){ InitializeComponent(); Bench_TLP.RowTemplate.Height = (int)(36 * this.DeviceDpi / 96f); }
         //
         private long TargetMemoryUsage;
         private const int AllocationSize = 100 * 1024 * 1024; // 100 MB
@@ -107,12 +107,19 @@ namespace Glow.glow_tools{
                     ulong total_ram = ulong.Parse(get_ram_info.TotalPhysicalMemory.ToString());
                     ulong usable_ram = ulong.Parse(get_ram_info.AvailablePhysicalMemory.ToString());
                     double usage_ram_percentage = (TS_FormatSizeNoType(total_ram) - TS_FormatSizeNoType(usable_ram)) / TS_FormatSizeNoType(total_ram) * 100;
-                    //
-                    Bench_TLP.Rows[0].Cells[1].Value = TS_FormatSize(total_ram);
-                    Bench_TLP.Rows[1].Cells[1].Value = string.Format("{0} - {1}", TS_FormatSize(total_ram - usable_ram), string.Format("{0:0.00}%", usage_ram_percentage));
-                    Bench_TLP.Rows[2].Cells[1].Value = TS_FormatSize(usable_ram);
-                    Bench_TLP.ClearSelection();
-                    //
+                    if (Bench_TLP.InvokeRequired){
+                        Bench_TLP.Invoke(new Action(() =>{
+                            Bench_TLP.Rows[0].Cells[1].Value = TS_FormatSize(total_ram);
+                            Bench_TLP.Rows[1].Cells[1].Value = string.Format("{0} - {1}", TS_FormatSize(total_ram - usable_ram), string.Format("{0:0.00}%", usage_ram_percentage));
+                            Bench_TLP.Rows[2].Cells[1].Value = TS_FormatSize(usable_ram);
+                            Bench_TLP.ClearSelection();
+                        }));
+                    }else{
+                        Bench_TLP.Rows[0].Cells[1].Value = TS_FormatSize(total_ram);
+                        Bench_TLP.Rows[1].Cells[1].Value = string.Format("{0} - {1}", TS_FormatSize(total_ram - usable_ram), string.Format("{0:0.00}%", usage_ram_percentage));
+                        Bench_TLP.Rows[2].Cells[1].Value = TS_FormatSize(usable_ram);
+                        Bench_TLP.ClearSelection();
+                    }
                     TargetMemoryUsage = (long)(Math.Round(TS_FormatSizeNoType(total_ram - usable_ram)) - 1) * 1024 * 1024 * 1024;
                     await Task.Delay(1000 - DateTime.Now.Millisecond);
                 } while (ram_mode_loop_status);
@@ -135,7 +142,13 @@ namespace Glow.glow_tools{
                     int fh_minute = (int)(elapsed.TotalMinutes % 60);
                     int fh_hour = (int)(elapsed.TotalHours);
                     //
-                    Text = string.Format(titleFormat, Application.ProductName) + " | " + elapsedTimeFormat + " " + string.Format("{0:D2}:{1:D2}:{2:D2}", fh_hour, fh_minute, fh_second);
+                    if (InvokeRequired){
+                        Invoke(new Action(() =>{
+                            Text = string.Format(titleFormat, Application.ProductName) + " | " + elapsedTimeFormat + " " + string.Format("{0:D2}:{1:D2}:{2:D2}", fh_hour, fh_minute, fh_second);
+                        }));
+                    }else{
+                        Text = string.Format(titleFormat, Application.ProductName) + " | " + elapsedTimeFormat + " " + string.Format("{0:D2}:{1:D2}:{2:D2}", fh_hour, fh_minute, fh_second);
+                    }
                     //
                     await Task.Delay(1000);
                 }

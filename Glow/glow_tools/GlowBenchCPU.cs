@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Drawing;
 using System.Threading;
 using System.Management;
 using System.Diagnostics;
@@ -7,7 +8,6 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 //
 using static Glow.TSModules;
-using System.Drawing;
 
 namespace Glow.glow_tools{
     public partial class GlowBenchCPU : Form{
@@ -19,13 +19,9 @@ namespace Glow.glow_tools{
         private int multiThreadScore = 0;
         bool loop_mode = true;
         bool bench_mode = false;
-        //
         public GlowBenchCPU(){
             InitializeComponent();
-            CheckForIllegalCrossThreadCalls = false;
-            //
             Program.TS_TokenEngine = new CancellationTokenSource();
-            //
         }
         // LOAD
         // ======================================================================================================
@@ -59,7 +55,6 @@ namespace Glow.glow_tools{
                 Bench_Label_RMultiResult.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
                 //
                 Bench_Label_Mode.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
-
                 BenchMode.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
                 BenchMode.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
                 BenchMode.HoverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
@@ -67,6 +62,9 @@ namespace Glow.glow_tools{
                 BenchMode.HoverButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
                 BenchMode.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
                 BenchMode.FocusedBorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
+                BenchMode.DisabledBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
+                BenchMode.DisabledForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                BenchMode.DisabledButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
                 //
                 Bench_Label_Time.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
                 Bench_Time.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
@@ -76,6 +74,9 @@ namespace Glow.glow_tools{
                 Bench_Time.HoverButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
                 Bench_Time.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
                 Bench_Time.FocusedBorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
+                Bench_Time.DisabledBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
+                Bench_Time.DisabledForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                Bench_Time.DisabledButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
                 //
                 Bench_TimeCustom.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "TextBoxBGColor");
                 Bench_TimeCustom.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "TextBoxFEColor");
@@ -188,23 +189,24 @@ namespace Glow.glow_tools{
         // TIMER
         // ======================================================================================================
         private async Task BenchTimerAsync(){
-            var stopwatch = new Stopwatch();
+            stopwatch = new Stopwatch();
             stopwatch.Start();
-            //
             var software_lang = new TSGetLangs(GlowMain.lang_path);
             string titleFormat = string.Format(software_lang.TSReadLangs("BenchCPU", "bc_title"), Application.ProductName);
             string elapsedTimeFormat = software_lang.TSReadLangs("BenchCPU", "bc_elapsed_time");
-            //
             try{
                 while (loop_mode){
-                    //
                     TimeSpan elapsed = stopwatch.Elapsed;
                     int fh_second = (int)elapsed.TotalSeconds % 60;
                     int fh_minute = (int)(elapsed.TotalMinutes % 60);
-                    int fh_hour = (int)(elapsed.TotalHours);
-                    //
-                    Text = $"{titleFormat} - {elapsedTimeFormat} {fh_hour:D2}:{fh_minute:D2}:{fh_second:D2}";
-                    //
+                    int fh_hour = (int)elapsed.TotalHours;
+                    if (InvokeRequired){
+                        Invoke(new Action(() =>{
+                            Text = $"{titleFormat} - {elapsedTimeFormat} {fh_hour:D2}:{fh_minute:D2}:{fh_second:D2}";
+                        }));
+                    }else{
+                        Text = $"{titleFormat} - {elapsedTimeFormat} {fh_hour:D2}:{fh_minute:D2}:{fh_second:D2}";
+                    }
                     await Task.Delay(1000);
                 }
             }catch (Exception){ }
@@ -237,14 +239,15 @@ namespace Glow.glow_tools{
                     while (isRunning){
                         singleThreadScore = CalculateSingleThreadScore(coreCount, averageSpeed);
                         multiThreadScore = CalculateMultiThreadScore(coreCount, averageSpeed);
-                        //
-                        try{
-                            Invoke((MethodInvoker)delegate {
+                        if (InvokeRequired){
+                            Invoke(new Action(() =>{
                                 Bench_Label_RSingleResult.Text = singleThreadScore.ToString();
                                 Bench_Label_RMultiResult.Text = multiThreadScore.ToString();
-                            });
+                            }));
+                        }else{
+                            Bench_Label_RSingleResult.Text = singleThreadScore.ToString();
+                            Bench_Label_RMultiResult.Text = multiThreadScore.ToString();
                         }
-                        catch (Exception) { }
                         await Task.Delay(100);
                     }
                 });
@@ -285,18 +288,27 @@ namespace Glow.glow_tools{
                             stopwatch.Stop();
                             isRunning = false;
                             loop_mode = false;
-                            // UI güncelleme
-                            Invoke((MethodInvoker)delegate{
+                            if (InvokeRequired){
+                                Invoke(new Action(() =>{
+                                    Bench_Start.Enabled = true;
+                                    Bench_Stop.Enabled = false;
+                                    BenchMode.Enabled = true;
+                                    Bench_Time.Enabled = true;
+                                    Bench_TimeCustom.Enabled = true;
+                                    TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
+                                    Text = $"{string.Format(software_lang.TSReadLangs("BenchCPU", "bc_title"), Application.ProductName)} | {software_lang.TSReadLangs("BenchCPU", "bc_end_test")}";
+                                    bench_mode = false;
+                                }));
+                            }else{
                                 Bench_Start.Enabled = true;
                                 Bench_Stop.Enabled = false;
                                 BenchMode.Enabled = true;
                                 Bench_Time.Enabled = true;
                                 Bench_TimeCustom.Enabled = true;
-                                //
                                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
                                 Text = $"{string.Format(software_lang.TSReadLangs("BenchCPU", "bc_title"), Application.ProductName)} | {software_lang.TSReadLangs("BenchCPU", "bc_end_test")}";
                                 bench_mode = false;
-                            });
+                            }
                         }
                     });
                 }

@@ -37,7 +37,7 @@ namespace Glow{
     public partial class GlowMain : Form{
         public GlowMain(){
             InitializeComponent();
-            // CheckForIllegalCrossThreadCalls = false;
+            CheckForIllegalCrossThreadCalls = false;
             // LANGUAGE SET MODES
             arabicToolStripMenuItem.Tag = "ar";
             chineseToolStripMenuItem.Tag = "zh";
@@ -163,21 +163,23 @@ namespace Glow{
             // ======================================================================================================
             for (int i = 0; i < 6; i++) OSD_DataMainTable.Columns.Add($"osd_file_{i}", "osd_variable");
             foreach (DataGridViewColumn OSD_Column in OSD_DataMainTable.Columns) OSD_Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            OSD_DataMainTable.RowTemplate.Height = (int)(36 * this.DeviceDpi / 96f);
             // SERVICES
             // ======================================================================================================
             for (int i = 0; i < 6; i++) SERVICE_DataMainTable.Columns.Add($"ss_file_{i}", "ss_variable");
             foreach (DataGridViewColumn SERVICE_Column in SERVICE_DataMainTable.Columns) SERVICE_Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            SERVICE_DataMainTable.RowTemplate.Height = (int)(36 * this.DeviceDpi / 96f);
             // INSTALLED APPS
             // ======================================================================================================
             var icon_renderer = new DataGridViewImageColumn{ Name = "Icon", Width = 40, ImageLayout = DataGridViewImageCellLayout.Zoom };
             INSTAPPS_DataMainTable.Columns.Add(icon_renderer);
-            INSTAPPS_DataMainTable.RowTemplate.Height = 36;
-            for (int i = 0; i < 4; i++) INSTAPPS_DataMainTable.Columns.Add($"iapps_file_{i}", "iapps_variable");
+            INSTAPPS_DataMainTable.RowTemplate.Height = (int)(36 * this.DeviceDpi / 96f);
+            for (int i = 0; i < 6; i++) INSTAPPS_DataMainTable.Columns.Add($"iapps_file_{i}", "iapps_variable");
             foreach (DataGridViewColumn OSD_Column in INSTAPPS_DataMainTable.Columns) OSD_Column.SortMode = DataGridViewColumnSortMode.NotSortable;
             // ALL DGV AND PANEL WIDTH
             // ======================================================================================================
             int[] columnWidths = { 160, 120, 120, 120, 100, 100 };
-            int[] columnWidthsApps = { 65, 175, 100, 120, 175 };
+            int[] columnWidthsApps = { 65, 175, 100, 125, 75, 75, 150 };
             for (int i = 0; i < columnWidths.Length; i++) OSD_DataMainTable.Columns[i].Width = columnWidths[i];
             for (int i = 0; i < columnWidths.Length; i++) SERVICE_DataMainTable.Columns[i].Width = columnWidths[i];
             for (int i = 0; i < columnWidthsApps.Length; i++) INSTAPPS_DataMainTable.Columns[i].Width = columnWidthsApps[i];
@@ -2109,7 +2111,13 @@ namespace Glow{
                 for (int ma = 1; ma <= monitor_amount; ma++){
                     GPU_MonitorSelectList.Items.Add(software_lang.TSReadLangs("Gpu_Content", "gpu_c_monitor_select") + " #" + ma);
                 }
-                GPU_MonitorSelectList.SelectedIndex = 0;
+                for (int i = 0; i < Screen.AllScreens.Length; i++){
+                    var monitor = Screen.AllScreens[i];
+                    if (monitor.Primary){
+                        GPU_MonitorSelectList.SelectedIndex = i;
+                        break;
+                    }
+                }
             }catch (Exception){ }
             try{
                 // GPU VRAM
@@ -2134,9 +2142,9 @@ namespace Glow{
                 string dxdiagXml = Path.Combine(Path.GetTempPath(), $"dxdiag_{Guid.NewGuid()}.xml");
                 try{
                     var proc = new Process{
-                        StartInfo ={
+                        StartInfo = {
                             FileName = "dxdiag.exe",
-                            Arguments = $"/x \"{dxdiagXml}\"",
+                            Arguments = $"/whql:off /x \"{dxdiagXml}\"",
                             CreateNoWindow = true,
                             UseShellExecute = false
                         }
@@ -3559,21 +3567,16 @@ namespace Glow{
             }catch (Exception){ }
         }
         readonly string battery_report_path = Application.StartupPath + @"\battery-report.html";
-        private void BATTERY_ReportBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        private void BATTERY_ReportBtn_Click(object sender, EventArgs e){
+            try{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
-                if (File.Exists(battery_report_path))
-                {
+                if (File.Exists(battery_report_path)){
                     File.Delete(battery_report_path);
                 }
                 Process.Start("cmd.exe", "/k " + $"title {string.Format(software_lang.TSReadLangs("Battery_Content", "by_report_create_title"), Application.ProductName + " -")} & powercfg /batteryreport & exit");
                 StartBatteryReportProcess();
-            }
-            catch (Exception) { }
+            }catch (Exception){ }
         }
-
         private async void StartBatteryReportProcess(){
             try{
                 await Task.Run(() => Battery_report_check_process(), Program.TS_TokenEngine.Token);
@@ -3643,26 +3646,47 @@ namespace Glow{
                 }
                 await Task.WhenAll(tasks);
                 foreach (var driverInfos in processedDrivers){
-                    OSD_DataMainTable.Rows.Add(driverInfos);
-                }
-                string unknownValue = software_lang.TSReadLangs("Osd_Content", "osd_c_unknown");
-                foreach (DataGridViewRow row in OSD_DataMainTable.Rows){
-                    foreach (DataGridViewCell cell in row.Cells){
-                        if (cell.Value == null || string.IsNullOrEmpty(cell.Value.ToString())){
-                            cell.Value = unknownValue;
-                        }
+                    if (OSD_DataMainTable.InvokeRequired){
+                        OSD_DataMainTable.Invoke(new Action(() =>{
+                            OSD_DataMainTable.Rows.Add(driverInfos);
+                        }));
+                    }else{
+                        OSD_DataMainTable.Rows.Add(driverInfos);
                     }
                 }
-                //
-                OSD_DataMainTable.Sort(OSD_DataMainTable.Columns[1], ListSortDirection.Ascending);
-                OSD_DataMainTable.ClearSelection();
-                OSD_TYSS_V.Text = OSD_DataMainTable.Rows.Count.ToString();
+                if (OSD_DataMainTable.InvokeRequired){
+                    OSD_DataMainTable.Invoke(new Action(() =>{
+                        string unknownValue = software_lang.TSReadLangs("Osd_Content", "osd_c_unknown");
+                        foreach (DataGridViewRow row in OSD_DataMainTable.Rows){
+                            foreach (DataGridViewCell cell in row.Cells){
+                                if (cell.Value == null || string.IsNullOrEmpty(cell.Value.ToString())){
+                                    cell.Value = unknownValue;
+                                }
+                            }
+                        }
+                        OSD_DataMainTable.Sort(OSD_DataMainTable.Columns[1], ListSortDirection.Ascending);
+                        OSD_DataMainTable.ClearSelection();
+                        OSD_TYSS_V.Text = OSD_DataMainTable.Rows.Count.ToString();
+                    }));
+                }else{
+                    string unknownValue = software_lang.TSReadLangs("Osd_Content", "osd_c_unknown");
+                    foreach (DataGridViewRow row in OSD_DataMainTable.Rows){
+                        foreach (DataGridViewCell cell in row.Cells){
+                            if (cell.Value == null || string.IsNullOrEmpty(cell.Value.ToString())){
+                                cell.Value = unknownValue;
+                            }
+                        }
+                    }
+                    OSD_DataMainTable.Sort(OSD_DataMainTable.Columns[1], ListSortDirection.Ascending);
+                    OSD_DataMainTable.ClearSelection();
+                    OSD_TYSS_V.Text = OSD_DataMainTable.Rows.Count.ToString();
+                }
             }catch (ManagementException){ }
             finally{
                 OSD_RotateBtn.Enabled = true;
                 ((Control)OSD).Enabled = true;
-                OSD_DataMainTable.Width++;
-                OSD_DataMainTable.Width--;
+                OSD_DataMainTable.PerformLayout();
+                OSD_DataMainTable.Invalidate();
                 if (Program.debug_mode){
                     Console.WriteLine("<--- Installed Drivers Section Loaded --->");
                 }
@@ -3703,14 +3727,11 @@ namespace Glow{
                 }
             }catch (Exception){ }
         }
-        private void OSD_TextBoxClearBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        private void OSD_TextBoxClearBtn_Click(object sender, EventArgs e){
+            try{
                 OSD_TextBox.Text = string.Empty;
                 OSD_TextBox.Focus();
-            }
-            catch (Exception) { }
+            }catch (Exception){ }
         }
         private void OSD_SortMode_CheckedChanged(object sender, EventArgs e){
             try{
@@ -3774,15 +3795,40 @@ namespace Glow{
                 }
                 await Task.WhenAll(tasks);
                 foreach (var serviceInfo in processedServices){
-                    SERVICE_DataMainTable.Rows.Add(serviceInfo);
+                    if (SERVICE_DataMainTable.InvokeRequired){
+                        SERVICE_DataMainTable.Invoke(new Action(() =>{
+                            SERVICE_DataMainTable.Rows.Add(serviceInfo);
+                        }));
+                    }else{
+                        SERVICE_DataMainTable.Rows.Add(serviceInfo);
+                    }
                 }
-                string unknownValue = software_lang.TSReadLangs("Services_Content", "ss_c_unknown");
-                foreach (DataGridViewRow row in SERVICE_DataMainTable.Rows){
-                    foreach (DataGridViewCell cell in row.Cells){
-                        if (cell.Value == null || string.IsNullOrEmpty(cell.Value.ToString())){
-                            cell.Value = unknownValue;
+                if (SERVICE_DataMainTable.InvokeRequired){
+                    SERVICE_DataMainTable.Invoke(new Action(() =>{
+                        string unknownValue = software_lang.TSReadLangs("Services_Content", "ss_c_unknown");
+                        foreach (DataGridViewRow row in SERVICE_DataMainTable.Rows){
+                            foreach (DataGridViewCell cell in row.Cells){
+                                if (cell.Value == null || string.IsNullOrEmpty(cell.Value.ToString())){
+                                    cell.Value = unknownValue;
+                                }
+                            }
+                        }
+                        SERVICE_DataMainTable.Sort(SERVICE_DataMainTable.Columns[1], ListSortDirection.Ascending);
+                        SERVICE_DataMainTable.ClearSelection();
+                        SERVICE_TYS_V.Text = SERVICE_DataMainTable.Rows.Count.ToString();
+                    }));
+                }else{
+                    string unknownValue = software_lang.TSReadLangs("Services_Content", "ss_c_unknown");
+                    foreach (DataGridViewRow row in SERVICE_DataMainTable.Rows){
+                        foreach (DataGridViewCell cell in row.Cells){
+                            if (cell.Value == null || string.IsNullOrEmpty(cell.Value.ToString())){
+                                cell.Value = unknownValue;
+                            }
                         }
                     }
+                    SERVICE_DataMainTable.Sort(SERVICE_DataMainTable.Columns[1], ListSortDirection.Ascending);
+                    SERVICE_DataMainTable.ClearSelection();
+                    SERVICE_TYS_V.Text = SERVICE_DataMainTable.Rows.Count.ToString();
                 }
                 //
                 SERVICE_DataMainTable.Sort(SERVICE_DataMainTable.Columns[1], ListSortDirection.Ascending);
@@ -3792,8 +3838,8 @@ namespace Glow{
             finally{
                 SERVICES_RotateBtn.Enabled = true;
                 ((Control)GSERVICE).Enabled = true;
-                SERVICE_DataMainTable.Width++;
-                SERVICE_DataMainTable.Width--;
+                SERVICE_DataMainTable.PerformLayout();
+                SERVICE_DataMainTable.Invalidate();
                 if (Program.debug_mode){
                     Console.WriteLine("<--- Installed Services Section Installed --->");
                 }
@@ -3834,14 +3880,11 @@ namespace Glow{
                 }
             }catch (Exception){ }
         }
-        private void SERVICE_TextBoxClearBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        private void SERVICE_TextBoxClearBtn_Click(object sender, EventArgs e){
+            try{
                 SERVICE_TextBox.Text = string.Empty;
                 SERVICE_TextBox.Focus();
-            }
-            catch (Exception) { }
+            }catch (Exception){ }
         }
         private void SERVICES_SortMode_CheckedChanged(object sender, EventArgs e){
             try{
@@ -3865,8 +3908,8 @@ namespace Glow{
                 INSTALLED_RotateBtn.Enabled = true;
                 ((Control)INSTAPPS).Enabled = true;
                 //
-                INSTAPPS_DataMainTable.Width++;
-                INSTAPPS_DataMainTable.Width--;
+                INSTAPPS_DataMainTable.PerformLayout();
+                INSTAPPS_DataMainTable.Invalidate();
                 //
                 if (Program.debug_mode){ Console.WriteLine("<--- Installed Application Section Installed --->"); }
             }
@@ -3920,14 +3963,11 @@ namespace Glow{
                 }
             }catch (Exception){ }
         }
-        private void INSTAPPS_TextBoxClearBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        private void INSTAPPS_TextBoxClearBtn_Click(object sender, EventArgs e){
+            try{
                 INSTAPPS_TextBox.Text = string.Empty;
                 INSTAPPS_TextBox.Focus();
-            }
-            catch (Exception) { }
+            }catch (Exception){ }
         }
         private void INSTAPPS_SortMode_CheckedChanged(object sender, EventArgs e){
             try{
@@ -3940,17 +3980,18 @@ namespace Glow{
             }catch (Exception){ }
         }
         public class InstalledAppConfig{
-            public string Name { get; set; }
-            public string Version { get; set; }
-            public string Publisher { get; set; }
-            public string InstallLocation { get; set; }
             public string DisplayIcon { get; set; }
             public Icon AppIcon { get; set; }
+            public string Name { get; set; }
+            public string Publisher { get; set; }
+            public DateTime? InstallDate { get; set; }
+            public long? Size { get; set; }
+            public string Version { get; set; }
+            public string InstallLocation { get; set; }
         }
         public static class AppWindowIcon{
             [DllImport("Shell32.dll", CharSet = CharSet.Auto, PreserveSig = true)]
             private static extern IntPtr ExtractIcon(IntPtr hInst, string lpszExeFileName, int nIconIndex);
-
             [DllImport("user32.dll", SetLastError = true, PreserveSig = true)]
             private static extern bool DestroyIcon(IntPtr hIcon);
             public static Icon ExtractIconFromFile(string filePath, int index){
@@ -3979,14 +4020,18 @@ namespace Glow{
             }
             Bitmap bmpFallback = new Bitmap(32, 32);
             using (Graphics g = Graphics.FromImage(bmpFallback)){
-                g.Clear(Color.Gray);
+                g.Clear(TS_ThemeEngine.ColorMode(theme, "AccentMain"));
                 g.DrawRectangle(Pens.Black, 4, 4, 24, 24);
             }
             return bmpFallback;
         }
         private void LoadInstalledApplications(){
             var apps = GetInstalledApplications();
-            INSTAPPS_DataMainTable.Rows.Clear();
+            if (INSTAPPS_DataMainTable.InvokeRequired){
+                INSTAPPS_DataMainTable.Invoke(new Action(() => INSTAPPS_DataMainTable.Rows.Clear()));
+            }else{
+                INSTAPPS_DataMainTable.Rows.Clear();
+            }
             foreach (var app in apps){
                 Image iconImage = null;
                 if (!string.IsNullOrWhiteSpace(app.DisplayIcon)){
@@ -4017,10 +4062,19 @@ namespace Glow{
                 if (iconImage == null){
                     iconImage = GetDefaultIcon();
                 }
-                var installLoc = string.IsNullOrWhiteSpace(app.InstallLocation) ? iapps_unknown : app.InstallLocation;
-                var versionText = string.IsNullOrWhiteSpace(app.Version) ? iapps_unknown : app.Version;
+                var nameText = string.IsNullOrWhiteSpace(app.Name) ? iapps_unknown : app.Name;
                 var publisherText = string.IsNullOrWhiteSpace(app.Publisher) ? iapps_unknown : app.Publisher;
-                INSTAPPS_DataMainTable.Rows.Add(iconImage, app.Name, versionText, publisherText, installLoc);
+                var installDateText = app.InstallDate?.ToString("dd.MM.yyyy") ?? iapps_unknown;
+                var sizeText = app.Size.HasValue ? TS_FormatSize(app.Size.Value * 1024) : iapps_unknown;
+                var versionText = string.IsNullOrWhiteSpace(app.Version) ? iapps_unknown : app.Version;
+                var installLocationText = string.IsNullOrWhiteSpace(app.InstallLocation) ? iapps_unknown : app.InstallLocation;
+                if (INSTAPPS_DataMainTable.InvokeRequired){
+                    INSTAPPS_DataMainTable.Invoke(new Action(() =>{
+                        INSTAPPS_DataMainTable.Rows.Add(iconImage, nameText, publisherText, installDateText, sizeText, versionText, installLocationText);
+                    }));
+                }else{
+                    INSTAPPS_DataMainTable.Rows.Add(iconImage, nameText, publisherText, installDateText, sizeText, versionText, installLocationText);
+                }
             }
         }
         private List<InstalledAppConfig> GetInstalledApplications(){
@@ -4030,25 +4084,47 @@ namespace Glow{
             foreach (var view in registryViews){
                 foreach (var root in registryRoots){
                     using (var baseKey = RegistryKey.OpenBaseKey(root, view))
-                    using (var uninstallKey = baseKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall")){
+                    using (var uninstallKey = baseKey.OpenSubKey(@"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall")){
                         if (uninstallKey == null) continue;
                         foreach (var subkeyName in uninstallKey.GetSubKeyNames()){
                             using (var subkey = uninstallKey.OpenSubKey(subkeyName)){
                                 if (subkey == null) continue;
+                                var displayIcon = (subkey.GetValue("DisplayIcon") as string)?.Trim()?.Trim('"');
                                 var name = (subkey.GetValue("DisplayName") as string)?.Trim();
                                 if (string.IsNullOrWhiteSpace(name)) continue;
-                                var version = (subkey.GetValue("DisplayVersion") as string)?.Trim();
+
                                 var publisher = (subkey.GetValue("Publisher") as string)?.Trim();
                                 var installLocationRaw = (subkey.GetValue("InstallLocation") as string)?.Trim();
                                 var installLocation = installLocationRaw?.Trim('"');
-                                var displayIconRaw = (subkey.GetValue("DisplayIcon") as string)?.Trim();
-                                var displayIcon = displayIconRaw?.Trim('"');
+                                var version = (subkey.GetValue("DisplayVersion") as string)?.Trim();
+
+                                var installDateRaw = (subkey.GetValue("InstallDate") as string)?.Trim();
+                                DateTime? installDate = null;
+                                if (!string.IsNullOrWhiteSpace(installDateRaw) && installDateRaw.Length == 8)
+                                {
+                                    if (DateTime.TryParseExact(installDateRaw, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedDate))
+                                    {
+                                        installDate = parsedDate;
+                                    }
+                                }
+
+                                var sizeValue = subkey.GetValue("EstimatedSize");
+                                long? sizeKb = null;
+                                if (sizeValue != null){
+                                    try{
+                                        sizeKb = Convert.ToInt64(sizeValue);
+                                    }catch { }
+                                }
+
                                 apps.Add(new InstalledAppConfig{
+                                    DisplayIcon = displayIcon,
+                                    AppIcon = null,
                                     Name = name,
-                                    Version = version,
                                     Publisher = publisher,
-                                    InstallLocation = installLocation,
-                                    DisplayIcon = displayIcon
+                                    InstallDate = installDate,
+                                    Size = sizeKb,
+                                    Version = version,
+                                    InstallLocation = installLocation
                                 });
                             }
                         }
@@ -4561,9 +4637,11 @@ namespace Glow{
                 // INSTALLED APPS
                 INSTAPPS_DataMainTable.Columns[0].HeaderText = software_lang.TSReadLangs("Instapps", "ia_apps_icon");
                 INSTAPPS_DataMainTable.Columns[1].HeaderText = software_lang.TSReadLangs("Instapps", "ia_apps_name");
-                INSTAPPS_DataMainTable.Columns[2].HeaderText = software_lang.TSReadLangs("Instapps", "ia_apps_version");
-                INSTAPPS_DataMainTable.Columns[3].HeaderText = software_lang.TSReadLangs("Instapps", "ia_apps_developer");
-                INSTAPPS_DataMainTable.Columns[4].HeaderText = software_lang.TSReadLangs("Instapps", "ia_apps_path");
+                INSTAPPS_DataMainTable.Columns[2].HeaderText = software_lang.TSReadLangs("Instapps", "ia_apps_developer");
+                INSTAPPS_DataMainTable.Columns[3].HeaderText = software_lang.TSReadLangs("Instapps", "ia_apps_date");
+                INSTAPPS_DataMainTable.Columns[4].HeaderText = software_lang.TSReadLangs("Instapps", "ia_apps_size");
+                INSTAPPS_DataMainTable.Columns[5].HeaderText = software_lang.TSReadLangs("Instapps", "ia_apps_version");
+                INSTAPPS_DataMainTable.Columns[6].HeaderText = software_lang.TSReadLangs("Instapps", "ia_apps_path");
                 INSTAPPS_SearchAppsLabel.Text = software_lang.TSReadLangs("Instapps", "ia_search_apps");
                 INSTAPPS_TYUS.Text = software_lang.TSReadLangs("Instapps", "ia_installed_apps_count");
                 INSTAPPS_SortMode.Text = software_lang.TSReadLangs("Instapps", "ia_order_in_reverse");
@@ -6165,8 +6243,10 @@ namespace Glow{
             PrintEngineList.Add($"<{new string('-', 7)} {software_lang.TSReadLangs("Header", "header_installed_drivers")} {new string('-', 7)}>" + Environment.NewLine);
             PrintEngineList.Add(software_lang.TSReadLangs("PrintEngine", "pe_driver_sorting") + Environment.NewLine);
             try{
-                for (int i = 0; i < OSD_DataMainTable.Rows.Count; i++){
-                    PrintEngineList.Add(OSD_DataMainTable.Rows[i].Cells[0].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[1].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[2].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[3].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[4].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[5].Value.ToString() + Environment.NewLine + new string('-', 155));
+                foreach (DataGridViewRow row in OSD_DataMainTable.Rows){
+                    if (row.IsNewRow) continue;
+                    var cellValues = row.Cells.Cast<DataGridViewCell>().Select(c => c.Value?.ToString() ?? string.Empty);
+                    PrintEngineList.Add(string.Join(" | ", cellValues) + Environment.NewLine + new string('-', 155));
                 }
             }catch (Exception){ }
             PrintEngineList.Add(Environment.NewLine + software_lang.TSReadLangs("Osd_Content", "osd_total_installed_driver_count") + " " + OSD_TYSS_V.Text + Environment.NewLine);
@@ -6176,8 +6256,10 @@ namespace Glow{
             PrintEngineList.Add($"<{new string('-', 7)} {software_lang.TSReadLangs("Header", "header_installed_services")} {new string('-', 7)}>" + Environment.NewLine);
             PrintEngineList.Add(software_lang.TSReadLangs("PrintEngine", "pe_service_sorting") + Environment.NewLine);
             try{
-                for (int i = 0; i < SERVICE_DataMainTable.Rows.Count; i++){
-                    PrintEngineList.Add(SERVICE_DataMainTable.Rows[i].Cells[0].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[1].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[2].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[3].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[4].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[5].Value.ToString() + Environment.NewLine + new string('-', 155));
+                foreach (DataGridViewRow row in SERVICE_DataMainTable.Rows){
+                    if (row.IsNewRow) continue;
+                    var cellValues = row.Cells .Cast<DataGridViewCell>().Select(c => c.Value?.ToString() ?? string.Empty);
+                    PrintEngineList.Add(string.Join(" | ", cellValues) + Environment.NewLine + new string('-', 155));
                 }
             }catch (Exception){ }
             PrintEngineList.Add(Environment.NewLine + software_lang.TSReadLangs("Services_Content", "ss_total_installed_service_count") + " " + SERVICE_TYS_V.Text + Environment.NewLine);
@@ -6187,8 +6269,10 @@ namespace Glow{
             PrintEngineList.Add($"<{new string('-', 7)} {software_lang.TSReadLangs("Header", "header_installed_apps")} {new string('-', 7)}>" + Environment.NewLine);
             PrintEngineList.Add(software_lang.TSReadLangs("PrintEngine", "pe_instapps_sorting") + Environment.NewLine);
             try{
-                for (int i = 0; i < INSTAPPS_DataMainTable.Rows.Count; i++){
-                    PrintEngineList.Add(INSTAPPS_DataMainTable.Rows[i].Cells[1].Value.ToString() + " | " + INSTAPPS_DataMainTable.Rows[i].Cells[2].Value.ToString() + " | " + INSTAPPS_DataMainTable.Rows[i].Cells[3].Value.ToString() + " | " + INSTAPPS_DataMainTable.Rows[i].Cells[4].Value.ToString() + Environment.NewLine + new string('-', 155));
+                foreach (DataGridViewRow row in INSTAPPS_DataMainTable.Rows){
+                    if (row.IsNewRow) continue;
+                    var cellValues = row.Cells.Cast<DataGridViewCell>().Skip(1).Select(c => c.Value?.ToString() ?? string.Empty);
+                    PrintEngineList.Add(string.Join(" | ", cellValues) + Environment.NewLine + new string('-', 155));
                 }
             }catch (Exception){ }
             PrintEngineList.Add(Environment.NewLine + software_lang.TSReadLangs("Instapps_Content", "ia_total_installed_apps_count") + " " + INSTAPPS_TYUS_V.Text + Environment.NewLine);
@@ -6289,7 +6373,7 @@ namespace Glow{
             PrintEngineList.Add("\t<link rel='icon' type='image/x-icon' href='" + print_html_glow_logo_url + "'>");
             PrintEngineList.Add("</head>");
             PrintEngineList.Add("<body>");
-            // SCROOL TOP BUTTON
+            // SCROLL TOP BUTTON
             PrintEngineList.Add($"\t<div class='ts_scroll_top' onclick='ts_scroll_to_up();' title='{software_lang.TSReadLangs("PrintEngine", "pe_scroll_top_select")}'><span class='ts_arrow_up'></span></div>");
             // SELECT WRAPPER
             PrintEngineList.Add($"\t<select title='{software_lang.TSReadLangs("PrintEngine", "pe_html_partition_select")}' class='ts_page_wrapper' id='ts_session_select'>");
@@ -6708,8 +6792,10 @@ namespace Glow{
             PrintEngineList.Add($"\t\t\t<h4><span>{osd_texts[0]}:</span><span>{osd_texts[1]}</span></h4>");
             try{
                 PrintEngineList.Add("\t\t\t<ul>");
-                for (int i = 0; i < OSD_DataMainTable.Rows.Count; i++){
-                    PrintEngineList.Add($"\t\t\t\t<li>{OSD_DataMainTable.Rows[i].Cells[0].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[1].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[2].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[3].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[4].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[5].Value.ToString()}</li>");
+                foreach (DataGridViewRow row in OSD_DataMainTable.Rows){
+                    if (row.IsNewRow) continue;
+                    var cellValues = row.Cells.Cast<DataGridViewCell>().Select(c => c.Value?.ToString() ?? string.Empty);
+                    PrintEngineList.Add($"\t\t\t\t<li>{string.Join(" | ", cellValues)}</li>");
                 }
                 PrintEngineList.Add("\t\t\t</ul>");
             }catch (Exception){ }
@@ -6725,8 +6811,10 @@ namespace Glow{
             PrintEngineList.Add($"\t\t\t<h4><span>{service_texts[0]}:</span><span>{service_texts[1]}</span></h4>");
             try{
                 PrintEngineList.Add("\t\t\t<ul>");
-                for (int i = 0; i < SERVICE_DataMainTable.Rows.Count; i++){
-                    PrintEngineList.Add($"\t\t\t\t<li>{SERVICE_DataMainTable.Rows[i].Cells[0].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[1].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[2].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[3].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[4].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[5].Value.ToString()}</li>");
+                foreach (DataGridViewRow row in SERVICE_DataMainTable.Rows){
+                    if (row.IsNewRow) continue;
+                    var cellValues = row.Cells.Cast<DataGridViewCell>().Select(c => c.Value?.ToString() ?? string.Empty);
+                    PrintEngineList.Add($"\t\t\t\t<li>{string.Join(" | ", cellValues)}</li>");
                 }
                 PrintEngineList.Add("\t\t\t</ul>");
             }catch (Exception){ }
@@ -6742,8 +6830,10 @@ namespace Glow{
             PrintEngineList.Add($"\t\t\t<h4><span>{apps_texts[0]}:</span><span>{apps_texts[1]}</span></h4>");
             try{
                 PrintEngineList.Add("\t\t\t<ul>");
-                for (int i = 0; i < INSTAPPS_DataMainTable.Rows.Count; i++){
-                    PrintEngineList.Add($"\t\t\t\t<li>{INSTAPPS_DataMainTable.Rows[i].Cells[1].Value.ToString() + " | " + INSTAPPS_DataMainTable.Rows[i].Cells[2].Value.ToString() + " | " + INSTAPPS_DataMainTable.Rows[i].Cells[3].Value.ToString() + " | " + INSTAPPS_DataMainTable.Rows[i].Cells[4].Value.ToString()}</li>");
+                foreach (DataGridViewRow row in INSTAPPS_DataMainTable.Rows){
+                    if (row.IsNewRow) continue;
+                    var cellValues = row.Cells.Cast<DataGridViewCell>().Skip(1).Select(c => c.Value?.ToString() ?? string.Empty);
+                    PrintEngineList.Add($"\t\t\t\t<li>{string.Join(" | ", cellValues)}</li>");
                 }
                 PrintEngineList.Add("\t\t\t</ul>");
             }catch (Exception){ }
@@ -6762,7 +6852,7 @@ namespace Glow{
             PrintEngineList.Add("\t\t</div>");
             // MAIN CONTAINER END
             PrintEngineList.Add("\t</div>");
-            // SCROOL TOP SCRIPT
+            // SCROLL TOP SCRIPT
             PrintEngineList.Add("<script>");
             PrintEngineList.Add("\tdocument.querySelector('select').addEventListener('change', function(){ var ts_d_id = this.value; var targetElement = document.querySelector('.' + ts_d_id); window.scrollTo({ top: targetElement.offsetTop, behavior: 'smooth' }); });");
             PrintEngineList.Add("\tvar ts_output = []; document.querySelectorAll('select option').forEach(function(option){ ts_output.push(option.value); });");

@@ -11,8 +11,8 @@ namespace Glow.glow_tools{
     public partial class GlowCacheCleanupTool : Form{
         public GlowCacheCleanupTool(){
             InitializeComponent();
-            CheckForIllegalCrossThreadCalls = false;
             //
+            CCTTable.RowTemplate.Height = 32;
             CCTTable.Columns.Add("x", "x");
             CCTTable.Columns.Add("x", "x");
             CCTTable.Columns.Add("x", "x");
@@ -23,12 +23,10 @@ namespace Glow.glow_tools{
             Path.Combine(GlowMain.windows_disk, "Windows", "Temp"),
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Temp"),
             Path.Combine(GlowMain.windows_disk, "Windows", "Prefetch"),
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "AppData", "Local", "Microsoft", "Windows", "Explorer"),
-            Path.Combine(GlowMain.windows_disk, "Windows", "SoftwareDistribution", "Download")
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Microsoft", "Windows", "Explorer"),
+            Path.Combine(GlowMain.windows_disk, "Windows", "SoftwareDistribution", "Download"),
         };
-        //
         readonly List<long> cct_path_size_list = new List<long>();
-        //
         string cct_title;
         bool cct_auto_refresh_mode = true;
         bool cct_auto_refresh_repat = false;
@@ -80,7 +78,6 @@ namespace Glow.glow_tools{
             TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
             // GET THEME
             Cct_theme_settings();
-            //
             List<string> cct_folder_name = new List<string>(){
                 software_lang.TSReadLangs("CacheCleanupTool", "cct_p_system_temp"),
                 software_lang.TSReadLangs("CacheCleanupTool", "cct_p_temp_user"),
@@ -88,22 +85,16 @@ namespace Glow.glow_tools{
                 software_lang.TSReadLangs("CacheCleanupTool", "cct_p_windows_icon_temp"),
                 software_lang.TSReadLangs("CacheCleanupTool", "cct_p_windows_update_temp")
             };
-            //
             for (int i = 0; i <= cct_path_list.Count - 1; i++){
                 CCTTable.Rows.Add(cct_folder_name[i], cct_path_list[i], software_lang.TSReadLangs("CacheCleanupTool", "cct_refreshing_title"));
             }
-            //
             CCTTable.Columns[0].Width = 175;
             CCTTable.Columns[2].Width = 125;
-            //
             foreach (DataGridViewColumn CCT_Column in CCTTable.Columns){
                 CCT_Column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-            //
             CCTTable.ClearSelection();
-            //
             cct_title = string.Format(software_lang.TSReadLangs("CacheCleanupTool", "cct_title"), Application.ProductName);
-            //
             // START FOLDER SIZE CHECK ALGORITHM & START AUTO FOLDER SIZE ALGORITHM
             await Task.Run(() => Check_folder_sizes());
             await Task.Run(() => AutoFolderSizeRefreshAsync());
@@ -113,27 +104,43 @@ namespace Glow.glow_tools{
         private void Check_folder_sizes(){
             try{
                 cct_path_size_list.Clear();
-                foreach (var get_file_path in cct_path_list){
+                foreach (var path in cct_path_list){
                     long path_size = 0;
-                    IEnumerable<string> path_file_size = Directory.EnumerateFiles(get_file_path, "*.*", SearchOption.AllDirectories);
-                    foreach (var get_current_file in path_file_size){
-                        try{
-                            if (File.Exists(get_current_file)){
-                                path_size += new FileInfo(get_current_file).Length;
+                    try{
+                        string explorerDir = Path.Combine( Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Microsoft", "Windows", "Explorer");
+                        string iconCacheDb = Path.Combine( Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "IconCache.db");
+                        if (string.Equals(path, explorerDir, StringComparison.OrdinalIgnoreCase)){
+                            if (Directory.Exists(explorerDir)){
+                                foreach (var f in Directory.EnumerateFiles(explorerDir, "iconcache*", SearchOption.TopDirectoryOnly)){
+                                    try { path_size += new FileInfo(f).Length; } catch { }
+                                }
                             }
-                        }catch (Exception){
-                           // Console.WriteLine($"Error accessing file {file}: {ex.Message}");
+                            if (File.Exists(iconCacheDb)){
+                                try { path_size += new FileInfo(iconCacheDb).Length; } catch { }
+                            }
+                        }else if (Directory.Exists(path)){
+                            foreach (var f in Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories)){
+                                try { path_size += new FileInfo(f).Length; } catch { }
+                            }
+                        }else if (File.Exists(path)){
+                            path_size = new FileInfo(path).Length;
                         }
-                    }
+                    }catch(Exception) { }
                     cct_path_size_list.Add(path_size);
                 }
                 for (int i = 0; i < cct_path_size_list.Count && i < CCTTable.Rows.Count; i++){
-                    CCTTable.Rows[i].Cells[2].Value = TS_FormatSize(cct_path_size_list[i]);
+                    int index = i;
+                    long size = cct_path_size_list[i];
+                    if (CCTTable.InvokeRequired){
+                        CCTTable.Invoke(new Action(() =>
+                            CCTTable.Rows[index].Cells[2].Value = TS_FormatSize(size)
+                        ));
+                    }else{
+                        CCTTable.Rows[index].Cells[2].Value = TS_FormatSize(size);
+                    }
                 }
-            }catch (Exception){ }
-            finally{
-                cct_path_size_list.Clear();
-            }
+            }catch(Exception){ }
+            finally { cct_path_size_list.Clear(); }
         }
         // SELECT LABEL WRITE PATH
         // ======================================================================================================
@@ -142,7 +149,12 @@ namespace Glow.glow_tools{
                 if (e.RowIndex >= 0){
                     TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
                     DataGridViewRow get_selected_path = CCTTable.Rows[e.RowIndex];
-                    CCT_SelectLabel.Text = string.Format(software_lang.TSReadLangs("CacheCleanupTool", "cct_selected_path"), get_selected_path.Cells[1].Value.ToString());
+                    string pathText = string.Format(software_lang.TSReadLangs("CacheCleanupTool", "cct_selected_path"), get_selected_path.Cells[1].Value.ToString());
+                    if (CCT_SelectLabel.InvokeRequired){
+                        CCT_SelectLabel.Invoke(new Action(() => CCT_SelectLabel.Text = pathText));
+                    }else{
+                        CCT_SelectLabel.Text = pathText;
+                    }
                 }
             }catch (Exception){ }
         }
@@ -165,16 +177,23 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         private async void Cleanup_engine(string target_path){
             try{
-                DirectoryInfo target_folder = new DirectoryInfo(target_path);
-                foreach (FileInfo target_files in target_folder.GetFiles()){
-                    try{
-                        target_files.Delete();
-                    }catch (Exception){ }
-                }
-                foreach (DirectoryInfo target_folders in target_folder.GetDirectories()){
-                    try{
-                        target_folders.Delete(true);
-                    }catch (Exception){ }
+                string explorerDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Microsoft", "Windows", "Explorer");
+                string iconCacheDb = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "IconCache.db");
+                if (string.Equals(target_path, explorerDir, StringComparison.OrdinalIgnoreCase)){
+                    if (Directory.Exists(explorerDir)){
+                        foreach (var f in Directory.EnumerateFiles(explorerDir, "iconcache*", SearchOption.TopDirectoryOnly)){
+                            try { File.Delete(f); } catch { }
+                        }
+                    }
+                    if (File.Exists(iconCacheDb)){
+                        try { File.Delete(iconCacheDb); } catch { }
+                    }
+                }else if (File.Exists(target_path)){
+                    try { File.Delete(target_path); } catch { }
+                }else if (Directory.Exists(target_path)){
+                    DirectoryInfo di = new DirectoryInfo(target_path);
+                    foreach (var f in di.GetFiles()) { try { f.Delete(); } catch { } }
+                    foreach (var d in di.GetDirectories()) { try { d.Delete(true); } catch { } }
                 }
                 cct_auto_refresh_repat = true;
                 await Task.Run(() => Check_folder_sizes());
@@ -188,24 +207,19 @@ namespace Glow.glow_tools{
         private async void AutoFolderSizeRefreshAsync(){
             try{
                 int RefreshIntervalInSeconds = 15;
-                //
                 var softwareLang = new TSGetLangs(GlowMain.lang_path);
                 var refreshTitleFormat = softwareLang.TSReadLangs("CacheCleanupTool", "cct_refresh_title").Trim();
                 var refreshingTitle = softwareLang.TSReadLangs("CacheCleanupTool", "cct_refreshing_title").Trim();
-                //
                 while (cct_auto_refresh_mode){
                     for (int i = RefreshIntervalInSeconds; i >= 0; i--){
                         if (cct_auto_refresh_repat){
                             cct_auto_refresh_repat = false;
                             break;
                         }
-                        //
                         Text = i != 0 ? $"{cct_title} | {string.Format(refreshTitleFormat, i)}" : $"{cct_title} | {refreshingTitle}";
-                        //
                         if (i == 0){
                             await CheckFolderSizesAsync();
                         }
-                        //
                         await Task.Delay(1000);
                     }
                 }
@@ -216,6 +230,6 @@ namespace Glow.glow_tools{
         }
         // BEFORE CCT TOOL EXIT AUTO REFRESH STOP
         // ======================================================================================================
-        private void GlowCacheCleanupTool_FormClosing(object sender, FormClosingEventArgs e){ cct_auto_refresh_mode = false; }
+        private void GlowCacheCleanupTool_FormClosing(object sender, FormClosingEventArgs e) { cct_auto_refresh_mode = false; }
     }
 }
