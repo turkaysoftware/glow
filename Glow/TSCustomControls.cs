@@ -1,0 +1,748 @@
+﻿// ======================================================================================================
+// Türkay Software - C# Custom Graphics UI Library
+// © Copyright 2025, Eray Türkay.
+// ======================================================================================================
+
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.ComponentModel;
+using System.Drawing.Drawing2D;
+
+namespace Glow
+{
+    #region TS Custom Button
+    public class TSCustomButton : Button
+    {
+        // Fields
+        private int borderSize = 0;
+        private int borderRadius = 20;
+        // Colors
+        private Color borderColor = Color.DodgerBlue;
+        // Properties
+        [Category("TS Appearance")]
+        [Description("Gets or sets the border size.")]
+        public int BorderSize
+        {
+            get { return borderSize; }
+            set { borderSize = value; this.Invalidate(); }
+        }
+        [Category("TS Appearance")]
+        [Description("Gets or sets the border radius size.")]
+        public int BorderRadius
+        {
+            get { return borderRadius; }
+            set { borderRadius = value; this.Invalidate(); }
+        }
+        [Category("TS Appearance")]
+        [Description("Gets or sets the border color.")]
+        public Color BorderColor
+        {
+            get { return borderColor; }
+            set { borderColor = value; this.Invalidate(); }
+        }
+        [Category("TS Appearance")]
+        [Description("Gets or sets the background color.")]
+        public Color BackgroundColor
+        {
+            get { return this.BackColor; }
+            set { this.BackColor = value; }
+        }
+        [Category("TS Appearance")]
+        [Description("Gets or sets the fore color.")]
+        public Color TextColor
+        {
+            get { return this.ForeColor; }
+            set { this.ForeColor = value; }
+        }
+        // Constructor
+        public TSCustomButton()
+        {
+            this.FlatStyle = FlatStyle.Flat;
+            this.FlatAppearance.BorderSize = 0;
+            this.Size = new Size(150, 40);
+            this.BackColor = Color.DodgerBlue;
+            this.ForeColor = Color.White;
+            this.Resize += Button_Resize;
+        }
+        private void Button_Resize(object sender, EventArgs e)
+        {
+            if (borderRadius > this.Height)
+                borderRadius = this.Height;
+        }
+        private float ScaleFactor => this.DeviceDpi / 96f;
+        // Overridden Methods
+        private GraphicsPath GetFigurePath(Rectangle rect, float radius)
+        {
+            GraphicsPath path = new GraphicsPath();
+            float curveSize = radius * 2F;
+            path.StartFigure();
+            path.AddArc(rect.X, rect.Y, curveSize, curveSize, 180, 90);
+            path.AddArc(rect.Right - curveSize, rect.Y, curveSize, curveSize, 270, 90);
+            path.AddArc(rect.Right - curveSize, rect.Bottom - curveSize, curveSize, curveSize, 0, 90);
+            path.AddArc(rect.X, rect.Bottom - curveSize, curveSize, curveSize, 90, 90);
+            path.CloseFigure();
+            return path;
+        }
+        protected override void OnPaint(PaintEventArgs pevent)
+        {
+            base.OnPaint(pevent);
+            int scaledBorderSize = (int)(borderSize * ScaleFactor);
+            int scaledBorderRadius = (int)(borderRadius * ScaleFactor);
+            Rectangle rectSurface = this.ClientRectangle;
+            Rectangle rectBorder = Rectangle.Inflate(rectSurface, -scaledBorderSize, -scaledBorderSize);
+            int smoothSize = scaledBorderSize > 0 ? scaledBorderSize : 2;
+            if (scaledBorderRadius > 2)
+            {
+                using (GraphicsPath pathSurface = GetFigurePath(rectSurface, scaledBorderRadius))
+                using (GraphicsPath pathBorder = GetFigurePath(rectBorder, scaledBorderRadius - scaledBorderSize))
+                using (Pen penSurface = new Pen(this.Parent.BackColor, smoothSize))
+                using (Pen penBorder = new Pen(borderColor, scaledBorderSize))
+                {
+                    pevent.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                    this.Region = new Region(pathSurface);
+                    pevent.Graphics.DrawPath(penSurface, pathSurface);
+                    if (scaledBorderSize >= 1)
+                    {
+                        pevent.Graphics.DrawPath(penBorder, pathBorder);
+                    }
+                }
+            }
+            else
+            {
+                pevent.Graphics.SmoothingMode = SmoothingMode.None;
+                this.Region = new Region(rectSurface);
+                if (scaledBorderSize >= 1)
+                {
+                    using (Pen penBorder = new Pen(borderColor, scaledBorderSize))
+                    {
+                        penBorder.Alignment = PenAlignment.Inset;
+                        pevent.Graphics.DrawRectangle(penBorder, 0, 0, this.Width - 1, this.Height - 1);
+                    }
+                }
+            }
+        }
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            this.Parent.BackColorChanged += Container_BackColorChanged;
+        }
+        private void Container_BackColorChanged(object sender, EventArgs e)
+        {
+            this.Invalidate();
+        }
+    }
+    #endregion
+    #region TS Custom ComboBox
+    public class TSCustomComboBox : ComboBox
+    {
+        // Colors
+        private Color _backColor = SystemColors.Window;
+        private Color _foreColor = SystemColors.WindowText;
+        private Color _buttonColor = SystemColors.ControlDark;
+        private Color _borderColor = SystemColors.ControlDark;
+        //
+        private Color _disabledBackColor = SystemColors.Control;
+        private Color _disabledForeColor = SystemColors.GrayText;
+        private Color _disabledButtonColor = SystemColors.ControlDark;
+        //
+        private Color _focusedBorderColor = Color.DodgerBlue;
+        private Color _hoverBackColor = SystemColors.Window;
+        private Color _hoverButtonColor = SystemColors.ControlDark;
+        // Events
+        private bool _isHovering = false;
+        // Constructor
+        public TSCustomComboBox()
+        {
+            this.SetStyle(ControlStyles.UserPaint, true);
+            this.DrawMode = DrawMode.OwnerDrawFixed;
+            this.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.MouseEnter += (s, e) => { _isHovering = true; Invalidate(); };
+            this.MouseLeave += (s, e) => { _isHovering = false; Invalidate(); };
+            this.DrawItem += TSCustomComboBox_DrawItem;
+        }
+        // Properties
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the background color of the ComboBox.")]
+        public override Color BackColor
+        {
+            get => _backColor;
+            set
+            {
+                _backColor = value;
+                base.BackColor = value;
+                Invalidate();
+            }
+        }
+        private bool ShouldSerializeBackColor() => _backColor != SystemColors.Window;
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the foreground color of the ComboBox.")]
+        public override Color ForeColor
+        {
+            get => _foreColor;
+            set
+            {
+                _foreColor = value;
+                base.ForeColor = value;
+                Invalidate();
+            }
+        }
+        private bool ShouldSerializeForeColor() => _foreColor != SystemColors.WindowText;
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the border color of the ComboBox.")]
+        public Color BorderColor
+        {
+            get => _borderColor;
+            set { _borderColor = value; Invalidate(); }
+        }
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the dropdown button color of the ComboBox.")]
+        public Color ButtonColor
+        {
+            get => _buttonColor;
+            set { _buttonColor = value; Invalidate(); }
+        }
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the background color when the ComboBox is disabled.")]
+        public Color DisabledBackColor
+        {
+            get => _disabledBackColor;
+            set { _disabledBackColor = value; Invalidate(); }
+        }
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the foreground color when the ComboBox is disabled.")]
+        public Color DisabledForeColor
+        {
+            get => _disabledForeColor;
+            set { _disabledForeColor = value; Invalidate(); }
+        }
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the dropdown button color when the ComboBox is disabled.")]
+        public Color DisabledButtonColor
+        {
+            get => _disabledButtonColor;
+            set { _disabledButtonColor = value; Invalidate(); }
+        }
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the border color when the ComboBox has focus.")]
+        public Color FocusedBorderColor
+        {
+            get => _focusedBorderColor;
+            set { _focusedBorderColor = value; Invalidate(); }
+        }
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the background color when the mouse hovers over the ComboBox.")]
+        public Color HoverBackColor
+        {
+            get => _hoverBackColor;
+            set { _hoverBackColor = value; Invalidate(); }
+        }
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the dropdown button color when the mouse hovers over the ComboBox.")]
+        public Color HoverButtonColor
+        {
+            get => _hoverButtonColor;
+            set { _hoverButtonColor = value; Invalidate(); }
+        }
+        // Overridden Methods
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            Rectangle rect = this.ClientRectangle;
+            bool rtl = (this.RightToLeft == RightToLeft.Yes);
+            float scale = this.DeviceDpi / 96f;
+            int buttonWidth = (int)(20 * scale);
+            Rectangle buttonRect = rtl ? new Rectangle(0, 0, buttonWidth, rect.Height) : new Rectangle(rect.Width - buttonWidth, 0, buttonWidth, rect.Height);
+            Rectangle textRect = rtl ? new Rectangle(buttonRect.Right, 0, rect.Width - buttonRect.Width - 2, rect.Height) : new Rectangle(2, 0, rect.Width - buttonRect.Width - 2, rect.Height);
+            Color effectiveBack = !this.Enabled ? _disabledBackColor : _isHovering ? _hoverBackColor : _backColor;
+            Color effectiveFore = !this.Enabled ? _disabledForeColor : _foreColor;
+            Color effectiveButton = !this.Enabled ? _disabledButtonColor : _isHovering ? _hoverButtonColor : _buttonColor;
+            using (SolidBrush b = new SolidBrush(effectiveBack))
+            {
+                e.Graphics.FillRectangle(b, rect);
+            }
+            TextFormatFlags flags = TextFormatFlags.VerticalCenter | (rtl ? TextFormatFlags.Right : TextFormatFlags.Left);
+            TextRenderer.DrawText(e.Graphics, this.Text, this.Font, textRect, effectiveFore, flags);
+            using (SolidBrush b = new SolidBrush(effectiveButton))
+            {
+                e.Graphics.FillRectangle(b, buttonRect);
+            }
+            float arrowWidth = 8 * scale;
+            float arrowHeight = 5 * scale;
+            PointF middle = new PointF(buttonRect.Left + buttonRect.Width / 2f, buttonRect.Top + buttonRect.Height / 2f);
+            PointF[] arrow = {
+                new PointF(middle.X - arrowWidth / 2f, middle.Y - arrowHeight / 2f),
+                new PointF(middle.X + arrowWidth / 2f, middle.Y - arrowHeight / 2f),
+                new PointF(middle.X, middle.Y + arrowHeight / 2f)
+            };
+            using (SolidBrush arrowBrush = new SolidBrush(effectiveFore))
+            {
+                e.Graphics.FillPolygon(arrowBrush, arrow);
+            }
+            using (Pen pen = new Pen(this.Focused ? _focusedBorderColor : _borderColor))
+            {
+                e.Graphics.DrawRectangle(pen, 0, 0, rect.Width - 1, rect.Height - 1);
+            }
+            if (this.Focused && this.ShowFocusCues && this.Enabled)
+            {
+                ControlPaint.DrawFocusRectangle(e.Graphics, rect);
+            }
+        }
+        private void TSCustomComboBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+            bool selected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
+            Color back = selected ? SystemColors.Highlight : this.BackColor;
+            Color fore = selected ? SystemColors.HighlightText : this.ForeColor;
+            using (SolidBrush b = new SolidBrush(back))
+            {
+                e.Graphics.FillRectangle(b, e.Bounds);
+            }
+            string text = this.Items[e.Index].ToString();
+            TextRenderer.DrawText(e.Graphics, text, this.Font, e.Bounds, fore, TextFormatFlags.VerticalCenter | TextFormatFlags.Left);
+            e.DrawFocusRectangle();
+        }
+        protected override void OnGotFocus(EventArgs e) { base.OnGotFocus(e); Invalidate(); }
+        protected override void OnLostFocus(EventArgs e) { base.OnLostFocus(e); Invalidate(); }
+        protected override void OnEnabledChanged(EventArgs e) { base.OnEnabledChanged(e); Invalidate(); }
+        protected override void OnRightToLeftChanged(EventArgs e) { base.OnRightToLeftChanged(e); Invalidate(); }
+    }
+    #endregion
+    #region TS Custom DateTimePicker
+    public class TSCustomDateTimePicker : DateTimePicker
+    {
+        // Colors
+        private Color _backColor = SystemColors.Window;
+        private Color _foreColor = SystemColors.WindowText;
+        private Color _buttonColor = SystemColors.ControlDark;
+        private Color _borderColor = SystemColors.ControlDark;
+        //
+        private Color _disabledBackColor = SystemColors.Control;
+        private Color _disabledForeColor = SystemColors.GrayText;
+        private Color _disabledButtonColor = SystemColors.ControlDark;
+        //
+        private Color _focusedBorderColor = Color.DodgerBlue;
+        // Constructor
+        public TSCustomDateTimePicker()
+        {
+            this.SetStyle(ControlStyles.UserPaint, true);
+            UpdateCalendarColors();
+        }
+        // Properties
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the background color.")]
+        public override Color BackColor
+        {
+            get => _backColor;
+            set { _backColor = value; UpdateCalendarColors(); Invalidate(); }
+        }
+        private bool ShouldSerializeBackColor() => _backColor != SystemColors.Window;
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the foreground color.")]
+        public override Color ForeColor
+        {
+            get => _foreColor;
+            set { _foreColor = value; UpdateCalendarColors(); Invalidate(); }
+        }
+        private bool ShouldSerializeForeColor() => _foreColor != SystemColors.WindowText;
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the border color.")]
+        public Color BorderColor
+        {
+            get => _borderColor;
+            set { _borderColor = value; Invalidate(); }
+        }
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the dropdown button color.")]
+        public Color ButtonColor
+        {
+            get => _buttonColor;
+            set { _buttonColor = value; Invalidate(); }
+        }
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the background color when disabled.")]
+        public Color DisabledBackColor
+        {
+            get => _disabledBackColor;
+            set { _disabledBackColor = value; Invalidate(); }
+        }
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the foreground color when disabled.")]
+        public Color DisabledForeColor
+        {
+            get => _disabledForeColor;
+            set { _disabledForeColor = value; Invalidate(); }
+        }
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the dropdown button color when disabled.")]
+        public Color DisabledButtonColor
+        {
+            get => _disabledButtonColor;
+            set { _disabledButtonColor = value; Invalidate(); }
+        }
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the border color when focused.")]
+        public Color FocusedBorderColor
+        {
+            get => _focusedBorderColor;
+            set { _focusedBorderColor = value; Invalidate(); }
+        }
+        private void UpdateCalendarColors()
+        {
+            this.CalendarForeColor = _foreColor;
+            this.CalendarMonthBackground = _backColor;
+        }
+        // Overridden Methods
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            Rectangle rect = this.ClientRectangle;
+            bool rtl = this.RightToLeft == RightToLeft.Yes;
+            Rectangle buttonRect = rtl ? new Rectangle(0, 0, 20, rect.Height) : new Rectangle(rect.Width - 20, 0, 20, rect.Height);
+            Rectangle textRect = rtl ? new Rectangle(buttonRect.Right, 0, rect.Width - buttonRect.Width - 2, rect.Height) : new Rectangle(2, 0, rect.Width - buttonRect.Width - 2, rect.Height);
+            float scale = this.DeviceDpi / 96f;
+            Color effectiveBack = this.Enabled ? _backColor : _disabledBackColor;
+            Color effectiveFore = this.Enabled ? _foreColor : _disabledForeColor;
+            Color effectiveButton = this.Enabled ? _buttonColor : _disabledButtonColor;
+            using (SolidBrush b = new SolidBrush(effectiveBack))
+            {
+                e.Graphics.FillRectangle(b, rect);
+            }
+            TextFormatFlags flags = TextFormatFlags.VerticalCenter | (rtl ? TextFormatFlags.Right : TextFormatFlags.Left);
+            TextRenderer.DrawText(e.Graphics, this.Text, this.Font, textRect, effectiveFore, flags);
+            using (SolidBrush b = new SolidBrush(effectiveButton))
+            {
+                e.Graphics.FillRectangle(b, buttonRect);
+            }
+            int arrowWidth = (int)(8 * scale);
+            int arrowHeight = (int)(5 * scale);
+            Point middle = new Point(buttonRect.Left + buttonRect.Width / 2, buttonRect.Top + buttonRect.Height / 2);
+            Point[] arrow = {
+                new Point(middle.X - arrowWidth / 2, middle.Y - arrowHeight / 2),
+                new Point(middle.X + arrowWidth / 2, middle.Y - arrowHeight / 2),
+                new Point(middle.X, middle.Y + arrowHeight / 2)
+            };
+            using (SolidBrush arrowBrush = new SolidBrush(effectiveFore))
+            {
+                e.Graphics.FillPolygon(arrowBrush, arrow);
+            }
+            using (Pen pen = new Pen(this.Focused ? _focusedBorderColor : _borderColor))
+            {
+                e.Graphics.DrawRectangle(pen, 0, 0, rect.Width - 1, rect.Height - 1);
+            }
+            if (this.Focused && this.ShowFocusCues && this.Enabled)
+            {
+                ControlPaint.DrawFocusRectangle(e.Graphics, rect);
+            }
+        }
+        protected override void OnValueChanged(EventArgs eventargs)
+        {
+            base.OnValueChanged(eventargs);
+            Invalidate();
+        }
+        protected override void OnFontChanged(EventArgs e)
+        {
+            base.OnFontChanged(e);
+            Invalidate();
+        }
+        protected override void OnGotFocus(EventArgs e)
+        {
+            base.OnGotFocus(e);
+            Invalidate();
+        }
+        protected override void OnLostFocus(EventArgs e)
+        {
+            base.OnLostFocus(e);
+            Invalidate();
+        }
+        protected override void OnEnabledChanged(EventArgs e)
+        {
+            base.OnEnabledChanged(e);
+            Invalidate();
+        }
+        protected override void OnRightToLeftChanged(EventArgs e)
+        {
+            base.OnRightToLeftChanged(e);
+            Invalidate();
+        }
+    }
+    #endregion
+    #region TS Custom PictureBox
+    public class TSCustomPictureBox : PictureBox
+    {
+        // Colors
+        private Color borderColor = Color.DodgerBlue;
+        private Color borderColor2 = Color.DarkGreen;
+        // Fields
+        private int borderSize = 2;
+        private DashStyle borderLineStyle = DashStyle.Solid;
+        private DashCap borderCapStyle = DashCap.Flat;
+        private float gradientAngle = 50F;
+        // Constructor
+        public TSCustomPictureBox()
+        {
+            this.Size = new Size(100, 100);
+            this.SizeMode = PictureBoxSizeMode.StretchImage;
+        }
+        private float ScaleFactor => this.DeviceDpi / 96f;
+        // Properties
+        [Category("TS Appearance")]
+        [Description("Gets or sets the border size.")]
+        public int BorderSize
+        {
+            get { return borderSize; }
+            set { borderSize = value; this.Invalidate(); }
+        }
+        [Category("TS Appearance")]
+        [Description("Gets or sets the border color.")]
+        public Color BorderColor
+        {
+            get { return borderColor; }
+            set { borderColor = value; this.Invalidate(); }
+        }
+        [Category("TS Appearance")]
+        [Description("Gets or sets the border color 2.")]
+        public Color BorderColor2
+        {
+            get { return borderColor2; }
+            set { borderColor2 = value; this.Invalidate(); }
+        }
+        [Category("TS Appearance")]
+        [Description("Gets or sets the border line style.")]
+        public DashStyle BorderLineStyle
+        {
+            get { return borderLineStyle; }
+            set { borderLineStyle = value; this.Invalidate(); }
+        }
+        [Category("TS Appearance")]
+        [Description("Gets or sets the border cap style.")]
+        public DashCap BorderCapStyle
+        {
+            get { return borderCapStyle; }
+            set { borderCapStyle = value; this.Invalidate(); }
+        }
+        [Category("TS Appearance")]
+        [Description("Gets or sets the border gradient angle style.")]
+        public float GradientAngle
+        {
+            get { return gradientAngle; }
+            set { gradientAngle = value; this.Invalidate(); }
+        }
+        // Overridden methods
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            this.Size = new Size(this.Width, this.Width);
+        }
+        protected override void OnPaint(PaintEventArgs pe)
+        {
+            base.OnPaint(pe);
+            var graph = pe.Graphics;
+            int scaledBorderSize = (int)(borderSize * ScaleFactor);
+            int smoothSize = scaledBorderSize > 0 ? scaledBorderSize * 3 : 1;
+            var rectContourSmooth = Rectangle.Inflate(this.ClientRectangle, -1, -1);
+            var rectBorder = Rectangle.Inflate(rectContourSmooth, -scaledBorderSize, -scaledBorderSize);
+            using (var borderGColor = new LinearGradientBrush(rectBorder, borderColor, borderColor2, gradientAngle))
+            using (var pathRegion = new GraphicsPath())
+            using (var penSmooth = new Pen(this.Parent.BackColor, smoothSize))
+            using (var penBorder = new Pen(borderGColor, scaledBorderSize))
+            {
+                graph.SmoothingMode = SmoothingMode.AntiAlias;
+                penBorder.DashStyle = borderLineStyle;
+                penBorder.DashCap = borderCapStyle;
+                pathRegion.AddEllipse(rectContourSmooth);
+                this.Region = new Region(pathRegion);
+                graph.DrawEllipse(penSmooth, rectContourSmooth);
+                if (scaledBorderSize > 0)
+                {
+                    graph.DrawEllipse(penBorder, rectBorder);
+                }
+            }
+        }
+    }
+    #endregion
+    #region TS Custom RadioButton
+    public class TSCustomRadioButton : RadioButton
+    {
+        // Colors
+        private Color checkedColor = Color.DodgerBlue;
+        private Color unCheckedColor = Color.Gray;
+        // Properties
+        public Color CheckedColor
+        {
+            get { return checkedColor; }
+            set
+            {
+                checkedColor = value;
+                this.Invalidate();
+            }
+        }
+        public Color UnCheckedColor
+        {
+            get { return unCheckedColor; }
+            set
+            {
+                unCheckedColor = value;
+                this.Invalidate();
+            }
+        }
+        // Constructor
+        public TSCustomRadioButton()
+        {
+            this.MinimumSize = new Size(0, 21);
+            this.Padding = new Padding(10, 0, 0, 0);
+        }
+        // Overridden Methods
+        protected override void OnPaint(PaintEventArgs pevent)
+        {
+            //Fields
+            Graphics graphics = pevent.Graphics;
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            float rbBorderSize = 18F;
+            float rbCheckSize = 12F;
+            RectangleF rectRbBorder = new RectangleF() { X = 0.5F, Y = (this.Height - rbBorderSize) / 2, Width = rbBorderSize, Height = rbBorderSize };
+            RectangleF rectRbCheck = new RectangleF() { X = rectRbBorder.X + ((rectRbBorder.Width - rbCheckSize) / 2), Y = (this.Height - rbCheckSize) / 2, Width = rbCheckSize, Height = rbCheckSize };
+            using (Pen penBorder = new Pen(checkedColor, 1.6F))
+            using (SolidBrush brushRbCheck = new SolidBrush(checkedColor))
+            using (SolidBrush brushText = new SolidBrush(this.ForeColor))
+            {
+                graphics.Clear(this.BackColor);
+                if (this.Checked)
+                {
+                    graphics.DrawEllipse(penBorder, rectRbBorder);
+                    graphics.FillEllipse(brushRbCheck, rectRbCheck);
+                }
+                else
+                {
+                    penBorder.Color = unCheckedColor;
+                    graphics.DrawEllipse(penBorder, rectRbBorder);
+                }
+                graphics.DrawString(this.Text, this.Font, brushText, rbBorderSize + 8, (this.Height - TextRenderer.MeasureText(this.Text, this.Font).Height) / 2);
+            }
+        }
+    }
+    #endregion
+    #region TS Custom ToggleButton
+    public class TSCustomToggleButton : CheckBox
+    {
+        // Colors
+        private Color onBackColor = Color.DodgerBlue;
+        private Color onToggleColor = Color.WhiteSmoke;
+        private Color offBackColor = Color.Gray;
+        private Color offToggleColor = Color.Gainsboro;
+        // Fields
+        private bool solidStyle = true;
+        // Properties
+        [Category("TS Appearance")]
+        [Description("Gets or sets the on back color.")]
+        public Color OnBackColor
+        {
+            get { return onBackColor; }
+            set { onBackColor = value; this.Invalidate(); }
+        }
+        [Category("TS Appearance")]
+        [Description("Gets or sets the on toogle color.")]
+        public Color OnToggleColor
+        {
+            get { return onToggleColor; }
+            set { onToggleColor = value; this.Invalidate(); }
+        }
+        [Category("TS Appearance")]
+        [Description("Gets or sets the off back color.")]
+        public Color OffBackColor
+        {
+            get { return offBackColor; }
+            set { offBackColor = value; this.Invalidate(); }
+        }
+        [Category("TS Appearance")]
+        [Description("Gets or sets the off toggle color.")]
+        public Color OffToggleColor
+        {
+            get { return offToggleColor; }
+            set { offToggleColor = value; this.Invalidate(); }
+        }
+        [Browsable(false)]
+        public override string Text
+        {
+            get { return base.Text; }
+            set { }
+        }
+        [Category("TS Appearance")]
+        [Description("Gets or sets the solid style.")]
+        [DefaultValue(true)]
+        public bool SolidStyle
+        {
+            get { return solidStyle; }
+            set { solidStyle = value; this.Invalidate(); }
+        }
+        // Constructor
+        public TSCustomToggleButton()
+        {
+            this.MinimumSize = new Size(45, 22);
+        }
+        private float ScaleFactor => this.DeviceDpi / 96f;
+        // Overridden Methods
+        private GraphicsPath GetFigurePath()
+        {
+            int arcSize = (int)((this.Height - 1) * ScaleFactor);
+            Rectangle leftArc = new Rectangle(0, 0, arcSize, arcSize);
+            Rectangle rightArc = new Rectangle((int)((this.Width - arcSize - 2) * ScaleFactor), 0, arcSize, arcSize);
+            GraphicsPath path = new GraphicsPath();
+            path.StartFigure();
+            path.AddArc(leftArc, 90, 180);
+            path.AddArc(rightArc, 270, 180);
+            path.CloseFigure();
+            return path;
+        }
+        protected override void OnPaint(PaintEventArgs pevent)
+        {
+            pevent.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            pevent.Graphics.Clear(this.Parent.BackColor);
+            int toggleSize = (int)((this.Height - 5) * ScaleFactor);
+            if (this.Checked)
+            {
+                if (solidStyle)
+                {
+                    pevent.Graphics.FillPath(new SolidBrush(onBackColor), GetFigurePath());
+                }
+                else
+                {
+                    pevent.Graphics.DrawPath(new Pen(onBackColor, 2 * ScaleFactor), GetFigurePath());
+                }
+                pevent.Graphics.FillEllipse(new SolidBrush(onToggleColor), new Rectangle((int)((this.Width - this.Height + 1) * ScaleFactor), (int)(2 * ScaleFactor), toggleSize, toggleSize));
+            }
+            else
+            {
+                if (solidStyle)
+                {
+                    pevent.Graphics.FillPath(new SolidBrush(offBackColor), GetFigurePath());
+                }
+                else
+                {
+                    pevent.Graphics.DrawPath(new Pen(offBackColor, 2 * ScaleFactor), GetFigurePath());
+                }
+                pevent.Graphics.FillEllipse(new SolidBrush(offToggleColor), new Rectangle((int)(2 * ScaleFactor), (int)(2 * ScaleFactor), toggleSize, toggleSize));
+            }
+        }
+    }
+    #endregion
+}
