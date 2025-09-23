@@ -18,9 +18,9 @@ Even if you cannot provide financial support, you can help spread the software a
 
 [Click here](https://www.turkaysoftware.com/glow) for full specifications.
 
-<img width="1010" height="633" alt="Glow UI - Dark" src="https://github.com/user-attachments/assets/af4e8cdd-da2f-47ec-bca7-f1467faba4c2" />
+<img width="1010" height="633" alt="Glow UI - Dark" src="https://github.com/user-attachments/assets/9af1d986-b471-4d36-8da0-ef0a87a1515d" />
 
-<img width="1010" height="633" alt="Glow UI - Light" src="https://github.com/user-attachments/assets/fe4653bb-feb9-41a6-a654-ba01556093a3" />
+<img width="1010" height="633" alt="Glow UI - Light" src="https://github.com/user-attachments/assets/9e82a755-3e63-4158-9708-bed3a71c2383" />
 
 # Download Glow
 
