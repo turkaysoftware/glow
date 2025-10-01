@@ -18,9 +18,9 @@ Even if you cannot provide financial support, you can help spread the software a
 
 [Click here](https://www.turkaysoftware.com/glow) for full specifications.
 
-<img width="1010" height="633" alt="Glow UI - Dark" src="https://github.com/user-attachments/assets/9af1d986-b471-4d36-8da0-ef0a87a1515d" />
+<img width="1010" height="633" alt="Glow UI - Dark" src="https://github.com/user-attachments/assets/c87b8979-e6e2-441e-83ee-6fa8126d2a49" />
 
-<img width="1010" height="633" alt="Glow UI - Light" src="https://github.com/user-attachments/assets/9e82a755-3e63-4158-9708-bed3a71c2383" />
+<img width="1010" height="633" alt="Glow UI - Light" src="https://github.com/user-attachments/assets/80e5cc2b-16f6-4455-b17d-68f0133d5000" />
 
 # Download Glow
 
@@ -108,10 +108,11 @@ With these instructions, you can download and use the correct version of Glow fo
 | -- | :--: |
 | **Theme:** Light | F1 |
 | **Theme:** Dark | F2 |
-| **Start:** Windowed | F3 |
-| **Start:** Full Screen | F4 |
-| **Hiding Mode:** On | F5 |
-| **Hiding Mode:** Off | F6 |
+| **Theme:** System | F3 |
+| **Start:** Windowed | F4 |
+| **Start:** Full Screen | F5 |
+| **Hiding Mode:** On | F6 |
+| **Hiding Mode:** Off | F7 |
 
 | Tools | Key |
 | -- | :--: |
