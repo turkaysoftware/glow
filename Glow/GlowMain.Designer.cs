@@ -62,6 +62,7 @@
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lightThemeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.darkThemeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.systemThemeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.arabicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chineseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -98,6 +99,7 @@
             this.monitorTestTool = new System.Windows.Forms.ToolStripMenuItem();
             this.monitorDeadPixelTestTool = new System.Windows.Forms.ToolStripMenuItem();
             this.monitorDynamicRangeTestTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.monitorStuckPixelFixerTool = new System.Windows.Forms.ToolStripMenuItem();
             this.tSWizardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bmacToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1158,7 +1160,8 @@
             this.themeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.themeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lightThemeToolStripMenuItem,
-            this.darkThemeToolStripMenuItem});
+            this.darkThemeToolStripMenuItem,
+            this.systemThemeToolStripMenuItem});
             this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
             this.themeToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.themeToolStripMenuItem.Text = "Theme";
@@ -1169,7 +1172,7 @@
             this.lightThemeToolStripMenuItem.Name = "lightThemeToolStripMenuItem";
             this.lightThemeToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.lightThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.lightThemeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.lightThemeToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.lightThemeToolStripMenuItem.Text = "Light Theme";
             this.lightThemeToolStripMenuItem.Click += new System.EventHandler(this.LightThemeToolStripMenuItem_Click);
             // 
@@ -1179,9 +1182,17 @@
             this.darkThemeToolStripMenuItem.Name = "darkThemeToolStripMenuItem";
             this.darkThemeToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.darkThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.darkThemeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.darkThemeToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.darkThemeToolStripMenuItem.Text = "Dark Theme";
             this.darkThemeToolStripMenuItem.Click += new System.EventHandler(this.DarkThemeToolStripMenuItem_Click);
+            // 
+            // systemThemeToolStripMenuItem
+            // 
+            this.systemThemeToolStripMenuItem.Name = "systemThemeToolStripMenuItem";
+            this.systemThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
+            this.systemThemeToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.systemThemeToolStripMenuItem.Text = "System Theme";
+            this.systemThemeToolStripMenuItem.Click += new System.EventHandler(this.SystemThemeToolStripMenuItem_Click);
             // 
             // languageToolStripMenuItem
             // 
@@ -1312,7 +1323,7 @@
             // 
             this.windowedToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.windowedToolStripMenuItem.Name = "windowedToolStripMenuItem";
-            this.windowedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
+            this.windowedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F4;
             this.windowedToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.windowedToolStripMenuItem.Text = "Windowed";
             this.windowedToolStripMenuItem.Click += new System.EventHandler(this.WindowedToolStripMenuItem_Click);
@@ -1321,7 +1332,7 @@
             // 
             this.fullScreenToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.fullScreenToolStripMenuItem.Name = "fullScreenToolStripMenuItem";
-            this.fullScreenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F4;
+            this.fullScreenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.fullScreenToolStripMenuItem.Text = "Full Screen";
             this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.FullScreenToolStripMenuItem_Click);
@@ -1340,7 +1351,7 @@
             // 
             this.hidingModeOnToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.hidingModeOnToolStripMenuItem.Name = "hidingModeOnToolStripMenuItem";
-            this.hidingModeOnToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.hidingModeOnToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
             this.hidingModeOnToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.hidingModeOnToolStripMenuItem.Text = "Hiding Mode On";
             this.hidingModeOnToolStripMenuItem.Click += new System.EventHandler(this.HidingModeOnToolStripMenuItem_Click);
@@ -1349,7 +1360,7 @@
             // 
             this.hidingModeOffToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.hidingModeOffToolStripMenuItem.Name = "hidingModeOffToolStripMenuItem";
-            this.hidingModeOffToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
+            this.hidingModeOffToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
             this.hidingModeOffToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.hidingModeOffToolStripMenuItem.Text = "Hiding Mode Off";
             this.hidingModeOffToolStripMenuItem.Click += new System.EventHandler(this.HidingModeOffToolStripMenuItem_Click);
@@ -1476,7 +1487,8 @@
             // 
             this.monitorTestTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.monitorDeadPixelTestTool,
-            this.monitorDynamicRangeTestTool});
+            this.monitorDynamicRangeTestTool,
+            this.monitorStuckPixelFixerTool});
             this.monitorTestTool.Name = "monitorTestTool";
             this.monitorTestTool.Size = new System.Drawing.Size(239, 22);
             this.monitorTestTool.Text = "monitorTestTool";
@@ -1496,6 +1508,14 @@
             this.monitorDynamicRangeTestTool.Size = new System.Drawing.Size(282, 22);
             this.monitorDynamicRangeTestTool.Text = "monitorDynamicRangeTestTool";
             this.monitorDynamicRangeTestTool.Click += new System.EventHandler(this.MonitorDynamicRangeTestTool_Click);
+            // 
+            // monitorStuckPixelFixerTool
+            // 
+            this.monitorStuckPixelFixerTool.Name = "monitorStuckPixelFixerTool";
+            this.monitorStuckPixelFixerTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.monitorStuckPixelFixerTool.Size = new System.Drawing.Size(282, 22);
+            this.monitorStuckPixelFixerTool.Text = "monitorStuckPixelFixerTool";
+            this.monitorStuckPixelFixerTool.Click += new System.EventHandler(this.MonitorStuckPixelFixerToolToolStripMenuItem_Click);
             // 
             // tSWizardToolStripMenuItem
             // 
@@ -8945,7 +8965,7 @@
             dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.OSD_DataMainTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.OSD_DataMainTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.OSD_DataMainTable.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -9134,7 +9154,7 @@
             dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.SERVICE_DataMainTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.SERVICE_DataMainTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SERVICE_DataMainTable.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -9323,7 +9343,7 @@
             dataGridViewCellStyle10.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
             dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.INSTAPPS_DataMainTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.INSTAPPS_DataMainTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.INSTAPPS_DataMainTable.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -10419,6 +10439,8 @@
         private TSCustomButton EXPORT_Bmac;
         internal System.Windows.Forms.Label EXPORT_BmacLabel;
         private System.Windows.Forms.ToolStripMenuItem screenOverlayTool;
+        private System.Windows.Forms.ToolStripMenuItem systemThemeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem monitorStuckPixelFixerTool;
     }
 }
 

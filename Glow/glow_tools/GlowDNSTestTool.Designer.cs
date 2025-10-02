@@ -62,7 +62,7 @@
             dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DNSTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.DNSTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DNSTable.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -92,7 +92,7 @@
             this.DNSTable.RowHeadersVisible = false;
             this.DNSTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.DNSTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DNSTable.Size = new System.Drawing.Size(614, 428);
+            this.DNSTable.Size = new System.Drawing.Size(614, 353);
             this.DNSTable.TabIndex = 0;
             this.DNSTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DNSTable_CellDoubleClick);
             // 
@@ -103,7 +103,7 @@
             this.BGPanel.Location = new System.Drawing.Point(10, 10);
             this.BGPanel.Name = "BGPanel";
             this.BGPanel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.BGPanel.Size = new System.Drawing.Size(614, 438);
+            this.BGPanel.Size = new System.Drawing.Size(614, 363);
             this.BGPanel.TabIndex = 0;
             // 
             // Btn_FLP
@@ -113,7 +113,7 @@
             this.Btn_FLP.Controls.Add(this.DNS_CustomTestBtn);
             this.Btn_FLP.Controls.Add(this.DNS_TestExportBtn);
             this.Btn_FLP.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Btn_FLP.Location = new System.Drawing.Point(10, 448);
+            this.Btn_FLP.Location = new System.Drawing.Point(10, 373);
             this.Btn_FLP.Name = "Btn_FLP";
             this.Btn_FLP.Size = new System.Drawing.Size(614, 128);
             this.Btn_FLP.TabIndex = 1;
@@ -201,7 +201,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(634, 586);
+            this.ClientSize = new System.Drawing.Size(634, 511);
             this.Controls.Add(this.BGPanel);
             this.Controls.Add(this.Btn_FLP);
             this.DoubleBuffered = true;

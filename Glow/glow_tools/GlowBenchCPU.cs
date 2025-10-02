@@ -32,8 +32,6 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         public void Bench_cpu_theme_settings(){
             try{
-                TSSetWindowTheme(Handle, GlowMain.theme);
-                //
                 BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "PageContainerBGAndPageContentTotalColors");
                 Bench_BG_Panel.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 //

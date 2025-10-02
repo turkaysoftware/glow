@@ -14,8 +14,6 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         public void Swpt_theme_settings(){
             try{
-                TSSetWindowTheme(Handle, GlowMain.theme);
-                //
                 BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 //
                 Panel_BG.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");

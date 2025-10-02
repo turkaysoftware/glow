@@ -18,8 +18,6 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         public void SADTLoadEngine(){
             try{
-                TSSetWindowTheme(Handle, GlowMain.theme);
-                //
                 BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 Back_Panel.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 SADT_L1.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");

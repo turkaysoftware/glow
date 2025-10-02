@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>25.12.0.%2a</ApplicationVersion>
+    <ApplicationVersion>25.13.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -38,6 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,6 +48,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -57,6 +59,7 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -67,6 +70,7 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -81,6 +85,7 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -91,6 +96,7 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -135,6 +141,7 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
     <OutputPath>bin\ARM64\Release\</OutputPath>
@@ -145,6 +152,7 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -262,6 +270,12 @@
     <Compile Include="glow_tools\GlowShowWiFiPasswordTool.Designer.cs">
       <DependentUpon>GlowShowWiFiPasswordTool.cs</DependentUpon>
     </Compile>
+    <Compile Include="glow_tools\GlowStuckPixelFixerTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="glow_tools\GlowStuckPixelFixerTool.Designer.cs">
+      <DependentUpon>GlowStuckPixelFixerTool.cs</DependentUpon>
+    </Compile>
     <Compile Include="glow_tools\GlowWallpaperPreview.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -322,6 +336,9 @@
     <EmbeddedResource Include="glow_tools\GlowShowWiFiPasswordTool.resx">
       <DependentUpon>GlowShowWiFiPasswordTool.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="glow_tools\GlowStuckPixelFixerTool.resx">
+      <DependentUpon>GlowStuckPixelFixerTool.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="glow_tools\GlowWallpaperPreview.resx">
       <DependentUpon>GlowWallpaperPreview.cs</DependentUpon>
     </EmbeddedResource>
@@ -363,9 +380,6 @@
       <ProductName>.NET Framework 3.5 SP1 </ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="glow_images\ts_preloader\ts_preloader_release.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glow_images\glow_ui\theme_light\ct_copy_mc_light.png" />
@@ -476,6 +490,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GlowLogo.ico" />
+    <None Include="glow_images\ts_preloader\ts_preloader_release.jpg" />
+    <None Include="glow_images\glow_ui\theme_light\ct_spf_color_light.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_spf_color_dark.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_spf_toggle_light.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_spf_toggle_dark.png" />
+    <None Include="glow_images\glow_ui\theme_light\cx_stuck_pixel_fixer_light.png" />
+    <None Include="glow_images\glow_ui\theme_dark\cx_stuck_pixel_fixer_dark.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_spf_close_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\ct_spf_add_light.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_spf_close_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\ct_spf_add_dark.png" />
     <None Include="glow_images\glow_ui\theme_light\cx_overlay_light.png" />
     <None Include="glow_images\glow_ui\theme_dark\cx_overlay_dark.png" />
     <None Include="glow_images\glow_ui\theme_light\ct_support_light.png" />
@@ -489,5 +514,6 @@
     <None Include="glow_images\glow_ui\theme_dark\cx_bt_finder_dark.png" />
     <None Include="glow_images\glow_ui\theme_light\cx_bt_finder_light.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

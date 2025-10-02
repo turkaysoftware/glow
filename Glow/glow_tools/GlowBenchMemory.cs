@@ -25,13 +25,13 @@ namespace Glow.glow_tools{
             Bench_TLP.Columns.Add("RAMPref", "Pref");
             Bench_TLP.Columns.Add("RAMValue", "Value");
             //
-            Bench_TLP.RowTemplate.Height = (int)(36 * this.DeviceDpi / 96f);
+            Bench_TLP.RowTemplate.Height = (int)(26 * this.DeviceDpi / 96f);
             Bench_TLP.Rows.Add("RAMSpec1", "RAMVal1");
             Bench_TLP.Rows.Add("RAMSpec2", "RAMVal2");
             Bench_TLP.Rows.Add("RAMSpec3", "RAMVal3");
             Bench_TLP.Rows.Add("RAMSpec4", "RAMVal4");
             foreach (DataGridViewColumn columnPadding in Bench_TLP.Columns){
-                int scaledPadding = (int)(7 * this.DeviceDpi / 96f);
+                int scaledPadding = (int)(3 * this.DeviceDpi / 96f);
                 columnPadding.DefaultCellStyle.Padding = new Padding(scaledPadding, 0, 0, 0);
             }
             //
@@ -43,8 +43,6 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         public void Bench_ram_settings(){
             try{
-                TSSetWindowTheme(Handle, GlowMain.theme);
-                //
                 BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 //
                 Bench_MStart.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
@@ -85,7 +83,7 @@ namespace Glow.glow_tools{
                 Bench_MStop.Text = " " + software_lang.TSReadLangs("BenchRAM", "br_stop");
             }catch (Exception){ }
         }
-        private void Bench_TLP_CellClick(object sender, DataGridViewCellEventArgs e){
+        private void Bench_TLP_SelectionChanged(object sender, EventArgs e){
             Bench_TLP.ClearSelection();
         }
         // MAIN LOAD

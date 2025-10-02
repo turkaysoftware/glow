@@ -56,8 +56,6 @@ namespace Glow.glow_tools{
         public void BTFinder_Preloader(){
             try{
                 // COLOR SETTINGS
-                TSSetWindowTheme(Handle, GlowMain.theme);
-                //
                 BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 //
                 BTSelect.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");

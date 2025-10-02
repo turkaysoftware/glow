@@ -1,44 +1,38 @@
 ﻿using System;
-using System.IO;
-using Microsoft.Win32;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Reflection;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 // TS Modules
 using static Glow.TSModules;
 
 namespace Glow{
     public partial class TSPreloader : Form{
+        // VARIABLES
+        // ======================================================================================================
+        private string load_text;
         public TSPreloader(){
             InitializeComponent();
             //
             Program.TS_TokenEngine = new CancellationTokenSource();
-            TSSetImagePanelPadding(0);
             //
-            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, PanelLoaderFE, new object[] { true });
-        }
-        // VARIABLES
-        // ======================================================================================================
-        private string load_text;
-        // LOAD IMAGE PADDING
-        // ======================================================================================================
-        private void TSSetImagePanelPadding(int get_padding){
-            PanelImg.Padding = new Padding(get_padding, get_padding, get_padding, get_padding);
-        }
-        // LOAD
-        // ======================================================================================================
-        private async void TSPreloader_Load(object sender, EventArgs e){
             LabelDeveloper.Text = Application.CompanyName;
             LabelSoftware.Text = Application.ProductName;
             LabelVersion.Text = TS_VersionEngine.TS_SofwareVersion(1, Program.ts_version_mode);
             LabelCopyright.Text = TS_SoftwareCopyrightDate.ts_scd_preloader;
             //
+            PanelImg.Padding = new Padding(0, 0, 0, 0);
             ImageWelcome.BackgroundImage = Properties.Resources.ts_preloader_release;
             ImageWelcome.BackgroundImageLayout = ImageLayout.Zoom;
             //
+            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, PanelLoaderFE, new object[] { true });
+        }
+        // LOAD
+        // ======================================================================================================
+        private async void TSPreloader_Load(object sender, EventArgs e){
             Software_preloader();
             Software_set_launch();
             //
@@ -82,8 +76,7 @@ namespace Glow{
                         string ui_lang = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName.Trim();
                         TSSettingsSave software_settings_save = new TSSettingsSave(ts_sf);
                         // SET SYSTEM THEME
-                        string get_system_theme = (Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "SystemUsesLightTheme", "")?.ToString() ?? "1").Trim();
-                        software_settings_save.TSWriteSettings(ts_settings_container, "ThemeStatus", get_system_theme);
+                        software_settings_save.TSWriteSettings(ts_settings_container, "ThemeStatus", Convert.ToString(GetSystemTheme(2)));
                         // SET SOFTWARE LANGUAGE
                         software_settings_save.TSWriteSettings(ts_settings_container, "LanguageStatus", TSPreloaderSetDefaultLanguage(ui_lang));
                         // SET STARTUP MODE
@@ -141,24 +134,18 @@ namespace Glow{
             try{
                 TSSettingsSave software_read_settings = new TSSettingsSave(ts_sf);
                 //
-                string theme_mode = software_read_settings.TSReadSettings(ts_settings_container, "ThemeStatus") ?? "1";
-                theme_mode = (theme_mode == "0" || theme_mode == "1") ? theme_mode : "1";
-                int global_theme = Convert.ToInt32(theme_mode);
-                // DWM SET
-                try{
-                    TSSetWindowTheme(Handle, GlowMain.theme);
-                }catch (Exception){ }
+                int theme_mode = int.TryParse(software_read_settings.TSReadSettings(ts_settings_container, "ThemeStatus"), out int the_status) && (the_status == 0 || the_status == 1 || the_status == 2) ? the_status : 1;
+                theme_mode = GetSystemTheme(theme_mode);
                 //
-                BackColor = TS_ThemeEngine.ColorMode(global_theme, "TSBT_BGColor");
-                PanelTxt.BackColor = TS_ThemeEngine.ColorMode(global_theme, "TSBT_BGColor");
-                //
-                LabelDeveloper.ForeColor = TS_ThemeEngine.ColorMode(global_theme, "TSBT_LabelColor1");
-                LabelSoftware.ForeColor = TS_ThemeEngine.ColorMode(global_theme, "TSBT_AccentColor");
-                LabelVersion.ForeColor = TS_ThemeEngine.ColorMode(global_theme, "TSBT_LabelColor2");
-                PanelLoaderBG.BackColor = TS_ThemeEngine.ColorMode(global_theme, "TSBT_BGColor2");
-                PanelLoaderFE.BackColor = TS_ThemeEngine.ColorMode(global_theme, "TSBT_AccentColor");
-                LabelLoader.ForeColor = TS_ThemeEngine.ColorMode(global_theme, "TSBT_LabelColor1");
-                LabelCopyright.ForeColor = TS_ThemeEngine.ColorMode(global_theme, "TSBT_LabelColor2");
+                BackColor = TS_ThemeEngine.ColorMode(theme_mode, "TSBT_BGColor");
+                PanelTxt.BackColor = TS_ThemeEngine.ColorMode(theme_mode, "TSBT_BGColor");
+                LabelDeveloper.ForeColor = TS_ThemeEngine.ColorMode(theme_mode, "TSBT_LabelColor1");
+                LabelSoftware.ForeColor = TS_ThemeEngine.ColorMode(theme_mode, "TSBT_AccentColor");
+                LabelVersion.ForeColor = TS_ThemeEngine.ColorMode(theme_mode, "TSBT_LabelColor2");
+                PanelLoaderBG.BackColor = TS_ThemeEngine.ColorMode(theme_mode, "TSBT_BGColor2");
+                PanelLoaderFE.BackColor = TS_ThemeEngine.ColorMode(theme_mode, "TSBT_AccentColor");
+                LabelLoader.ForeColor = TS_ThemeEngine.ColorMode(theme_mode, "TSBT_LabelColor1");
+                LabelCopyright.ForeColor = TS_ThemeEngine.ColorMode(theme_mode, "TSBT_LabelColor2");
                 // DICTIONARY SYSTEM FOR LANGUAGE
                 string lang_mode = software_read_settings.TSReadSettings(ts_settings_container, "LanguageStatus") ?? "en";
                 string lang_file;
@@ -187,7 +174,7 @@ namespace Glow{
         // ======================================================================================================
         private void TSProgressExecutive(int get_per){
             if (InvokeRequired){
-                Invoke(new Action<int>(TSProgressExecutive), get_per);
+                BeginInvoke(new Action<int>(TSProgressExecutive), get_per);
                 return;
             }
             PanelLoaderFE.Width = (int)(PanelLoaderBG.Width * (get_per / 100.0));
@@ -213,7 +200,7 @@ namespace Glow{
                 await Task.Delay(progress_delay);
             }
             //
-            Invoke(new Action(() => {
+            BeginInvoke(new Action(() => {
                 GlowMain glow = new GlowMain();
                 glow.Show();
                 Hide();

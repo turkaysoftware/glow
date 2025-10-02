@@ -343,6 +343,86 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap ct_spf_add_dark {
+            get {
+                object obj = ResourceManager.GetObject("ct_spf_add_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ct_spf_add_light {
+            get {
+                object obj = ResourceManager.GetObject("ct_spf_add_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ct_spf_close_dark {
+            get {
+                object obj = ResourceManager.GetObject("ct_spf_close_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ct_spf_close_light {
+            get {
+                object obj = ResourceManager.GetObject("ct_spf_close_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ct_spf_color_dark {
+            get {
+                object obj = ResourceManager.GetObject("ct_spf_color_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ct_spf_color_light {
+            get {
+                object obj = ResourceManager.GetObject("ct_spf_color_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ct_spf_toggle_dark {
+            get {
+                object obj = ResourceManager.GetObject("ct_spf_toggle_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ct_spf_toggle_light {
+            get {
+                object obj = ResourceManager.GetObject("ct_spf_toggle_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap ct_support_dark {
             get {
                 object obj = ResourceManager.GetObject("ct_support_dark", resourceCulture);
@@ -636,6 +716,26 @@ namespace Glow.Properties {
         internal static System.Drawing.Bitmap cx_sfc_and_dism_light {
             get {
                 object obj = ResourceManager.GetObject("cx_sfc_and_dism_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap cx_stuck_pixel_fixer_dark {
+            get {
+                object obj = ResourceManager.GetObject("cx_stuck_pixel_fixer_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap cx_stuck_pixel_fixer_light {
+            get {
+                object obj = ResourceManager.GetObject("cx_stuck_pixel_fixer_light", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

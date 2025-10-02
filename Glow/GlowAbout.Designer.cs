@@ -75,7 +75,7 @@
             // 
             this.About_BmacBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
             this.About_BmacBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.About_BmacBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.About_BmacBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
             this.About_BmacBtn.BorderRadius = 10;
             this.About_BmacBtn.BorderSize = 0;
             this.About_BmacBtn.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -101,7 +101,7 @@
             // 
             this.About_GitHubBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
             this.About_GitHubBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.About_GitHubBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.About_GitHubBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
             this.About_GitHubBtn.BorderRadius = 10;
             this.About_GitHubBtn.BorderSize = 0;
             this.About_GitHubBtn.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -127,7 +127,7 @@
             // 
             this.About_WebsiteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
             this.About_WebsiteBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.About_WebsiteBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.About_WebsiteBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
             this.About_WebsiteBtn.BorderRadius = 10;
             this.About_WebsiteBtn.BorderSize = 0;
             this.About_WebsiteBtn.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -167,7 +167,7 @@
             dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.AboutTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.AboutTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.AboutTable.Cursor = System.Windows.Forms.Cursors.Default;

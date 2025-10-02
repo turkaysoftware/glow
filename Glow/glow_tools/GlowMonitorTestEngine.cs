@@ -32,8 +32,6 @@ namespace Glow.glow_tools{
         //
         public void Monitor_test_engine_theme_settings(){
             try{
-                TSSetWindowTheme(Handle, GlowMain.theme);
-                //
                 InfoLabel.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 InfoLabel.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
                 //

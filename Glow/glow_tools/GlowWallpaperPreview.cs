@@ -16,9 +16,9 @@ namespace Glow.glow_tools{
             ImageDGV.Columns.Add("WallpaperPref", "Pref");
             ImageDGV.Columns.Add("WallpaperVal", "Value");
             ImageDGV.Columns[0].Width = (int)(175 * this.DeviceDpi / 96f);
-            ImageDGV.RowTemplate.Height = (int)(28 * this.DeviceDpi / 96f);
+            ImageDGV.RowTemplate.Height = (int)(26 * this.DeviceDpi / 96f);
             foreach (DataGridViewColumn columnPadding in ImageDGV.Columns){
-                int scaledPadding = (int)(7 * this.DeviceDpi / 96f);
+                int scaledPadding = (int)(3 * this.DeviceDpi / 96f);
                 columnPadding.DefaultCellStyle.Padding = new Padding(scaledPadding, 0, 0, 0);
             }
         }
@@ -62,8 +62,6 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         public void WP_Preview_theme_settings(){
             try{
-                TSSetWindowTheme(Handle, GlowMain.theme);
-                //
                 BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 //
                 ImageDGV.BackgroundColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridBGColor");
@@ -108,7 +106,7 @@ namespace Glow.glow_tools{
         }
         // CLEAR SELECTION
         // ======================================================================================================
-        private void ImageDGV_CellClick(object sender, DataGridViewCellEventArgs e){
+        private void ImageDGV_SelectionChanged(object sender, EventArgs e){
             ImageDGV.ClearSelection();
         }
         // DISPOSE AND EXIT

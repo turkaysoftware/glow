@@ -14,8 +14,6 @@ namespace Glow.glow_tools{
         readonly TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
         public void Quick_access_settings(){
             try{
-                TSSetWindowTheme(Handle, GlowMain.theme);
-                //
                 BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 QUICK_FLY.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 //

@@ -33,8 +33,6 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         public void Cct_theme_settings(){
             try{
-                TSSetWindowTheme(Handle, GlowMain.theme);
-                //
                 BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "PageContainerBGAndPageContentTotalColors");
                 //
                 BG_Panel.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
@@ -93,7 +91,7 @@ namespace Glow.glow_tools{
                 CCT_Column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
             foreach (DataGridViewColumn columnPadding in CCTTable.Columns){
-                int scaledPadding = (int)(7 * this.DeviceDpi / 96f);
+                int scaledPadding = (int)(3 * this.DeviceDpi / 96f);
                 columnPadding.DefaultCellStyle.Padding = new Padding(scaledPadding, 0, 0, 0);
             }
             CCTTable.ClearSelection();

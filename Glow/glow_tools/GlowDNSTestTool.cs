@@ -27,12 +27,12 @@ namespace Glow.glow_tools{
             DNSTable.Columns.Add("DNSValue", "Value");
             //
             DNSTable.Columns[0].Width = (int)(175 * this.DeviceDpi / 96f);
-            DNSTable.RowTemplate.Height = (int)(32 * this.DeviceDpi / 96f);
+            DNSTable.RowTemplate.Height = (int)(26 * this.DeviceDpi / 96f);
             foreach (DataGridViewColumn col in DNSTable.Columns){
                 col.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
             foreach (DataGridViewColumn columnPadding in DNSTable.Columns){
-                int scaledPadding = (int)(7 * this.DeviceDpi / 96f);
+                int scaledPadding = (int)(3 * this.DeviceDpi / 96f);
                 columnPadding.DefaultCellStyle.Padding = new Padding(scaledPadding, 0, 0, 0);
             }
             //
@@ -74,7 +74,6 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         public void Dns_test_settings(){
             try{
-                TSSetWindowTheme(Handle, GlowMain.theme);
                 BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 //
                 DNSTable.BackgroundColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridBGColor");
