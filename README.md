@@ -129,6 +129,7 @@ With these instructions, you can download and use the correct version of Glow fo
 | **Bluetooth Information Tool** | CTRL + B |
 | **Monitor Test Tools:** Dead Pixel Test | CTRL + Z |
 | **Monitor Test Tools:** Dynamic Color Range Test | CTRL + X |
+| **Monitor Test Tools:** Stuck Pixel Repair Tool | CTRL + C |
 
 | Extras | Key |
 | -- | :--: |
