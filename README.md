@@ -14,7 +14,7 @@ Even if you cannot provide financial support, you can help spread the software a
   
 **With over 250 distinct features, Glow stands out as the most feature-complete software in its category, crafted for modern, next-generation system analysis!**
 
-[Click here](https://www.turkaysoftware.com/glow) for full specifications.
+[Click here](https://github.com/turkaysoftware/glow?tab=readme-ov-file#main-features) for full specifications.
 
 <img width="1010" height="633" alt="Glow UI - Dark" src="https://github.com/user-attachments/assets/c87b8979-e6e2-441e-83ee-6fa8126d2a49" />
 
