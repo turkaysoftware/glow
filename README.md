@@ -275,7 +275,7 @@ Features offered in the Storage section.
 - BitLocker Encryption Method
 - Disk Compression Status
 
-<img width="1010" height="633" alt="Glow - Storage Section" src="https://github.com/user-attachments/assets/c7da2286-2bd6-4e3d-91ae-446cc446eb4e" />
+<img width="1010" height="633" alt="Glow - Storage Section" src="https://github.com/user-attachments/assets/3778b853-dda0-49d2-a40e-fa43ceaeb60b" />
 </details>
 
 <details>
