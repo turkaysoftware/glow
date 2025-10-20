@@ -11,6 +11,8 @@ Even if you cannot provide financial support, you can help spread the software a
 - **Privacy First**: All system data remains on your computer; **no information is transferred externally**, ensuring your privacy and security.
 - **Purely Built**: Developed entirely in **C# and .NET Framework**, Glow operates **without external libraries or dependencies**.
 - **Free and Feature-Rich**: Glow provides, at no cost, features that are often locked behind paywalls in other software solutions.
+- **What is the Purpose?:** Our goal is to enable people to access system and software information in the easiest and simplest way possible.
+- **What is Your Gain?:** We do not earn any income from this project. Our only income is the donations you can make to us. The more donations we receive, the more motivated we will be.
   
 **With over 250 distinct features, Glow stands out as the most feature-complete software in its category, crafted for modern, next-generation system analysis!**
 
