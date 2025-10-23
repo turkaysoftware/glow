@@ -109,14 +109,14 @@ Features offered in the Operating System section.
   
 Features offered in the Motherboard section.
   
-- Update BIOS
 - Motherboard Model
 - Motherboard Manufacturer
 - System Model Manufacturer
 - System Model Family
-- System Model
-- Serial Number
 - System Family
+- System Model
+- Device Serial Number
+- Motherboard Serial Number
 - System SKU
 - Chipset
 - BIOS Publisher
@@ -163,11 +163,6 @@ Features offered in the Processor section.
 - Processor Process Count
 - Socket Description
 - Processor Family
-- Processor Microcode Status
-- Processor Platform Feature
-- Processor Feature Set
-- Processor Revision
-- Processor Old Revision
 - Virtualization
 - Hyper-V
 - VM Monitoring Support
@@ -226,8 +221,10 @@ Features offered in the Graphics Card section.
 - Monitor Manufacturer
 - Monitor Manufacturer Number
 - Monitor Serial Number
+- Monitor Connection Type
 - Monitor Manufacture Year
 - Monitor Manufacture Week
+- Monitor Hardware ID
 - Screen Resolution
 - Virtual Resolution
 - Monitor Limits
@@ -235,7 +232,6 @@ Features offered in the Graphics Card section.
 - Screen Refresh Rate
 - Bit Depth Per Pixel
 - Primary Screen
-- Desktop Resolution
 
 <img width="1010" height="633" alt="Glow - Graphics Card Section" src="https://github.com/user-attachments/assets/3daf418a-28cb-4b8d-b3ec-56bd130f0877" />
 </details>
@@ -255,7 +251,6 @@ Features offered in the Storage section.
 - Disk Manufacturer
 - Disk Partition Letter
 - Disk Partition Name
-- Disk Physical Name
 - Disk Firmware Version
 - Disk Serial Number
 - Disk Partition Serial Number
@@ -351,9 +346,16 @@ Features offered in the Battery section.
   
 - Battery Status
 - Battery Model
-- Battery Name
+- Battery Serial Number
+- Battery Chemistry
+- Battery Design Capacity
+- Battery Full Charge Capacity
+- Battery Remaining Power Capacity
 - Battery Voltage
-- Battery Structure
+- Battery Charge Power
+- Battery Charge Current
+- Battery Discharge Power
+- Battery Discharge Current
 - Generate Battery Report
 
 <img width="1010" height="633" alt="Glow - Battery Section" src="https://github.com/user-attachments/assets/a4f0d2c6-dbc4-47a8-8d57-50598297de17" />
