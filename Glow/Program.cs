@@ -18,7 +18,7 @@ namespace Glow{
         public static bool debug_mode = false;
         // ======================================================================================================
         // VERSION MODE
-        public static int ts_version_mode = 0;
+        public static int ts_version_mode = 1;
         // ======================================================================================================
         [STAThread]
         static void Main(){

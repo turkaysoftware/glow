@@ -33,7 +33,7 @@ using System.Xml;
 // TS MODULES
 using Glow.glow_tools;
 using static Glow.TSModules;
-
+ 
 namespace Glow{
     public partial class GlowMain : Form{
         public GlowMain(){
@@ -232,8 +232,6 @@ namespace Glow{
         // ======================================================================================================
         private async void RunSoftwareEngine(){
             HeaderMenu.Cursor = Cursors.Hand;
-            MainContent.Width = (int)(827 * this.DeviceDpi / 96f);
-            MainContent.Height = (int)(587 * this.DeviceDpi / 96f);
             if (this.DeviceDpi / 96f >= 1.5){
                 HeaderPanel.Padding = new Padding(TSDPIChanger(4), 0, 0, 0);
             }else if (this.DeviceDpi / 96f >= 1.25){
@@ -938,6 +936,8 @@ namespace Glow{
                 ManagementObjectSearcher search_os = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_OperatingSystem");
                 do{
                     if (loop_status == false){ break; }
+                    // SYSTEM TIME
+                    OS_SystemTime_V.Text = DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss");
                     foreach (ManagementObject query_os_rotate in search_os.Get().Cast<ManagementObject>()){
                         try{
                             // FREE VIRTUAL RAM
@@ -947,30 +947,35 @@ namespace Glow{
                             RAM_EmptyVirtualRam_V.Text = TS_FormatSize(free_virtual_ram);
                             RAM_UsageVirtualRam_V.Text = TS_FormatSize(tvm);
                             // GET LAST BOOT
+                            string oi_year = software_lang.TSReadLangs("Os_Content", "os_c_year");
                             string oi_day = software_lang.TSReadLangs("Os_Content", "os_c_day");
                             string oi_hour = software_lang.TSReadLangs("Os_Content", "os_c_hour");
                             string oi_minute = software_lang.TSReadLangs("Os_Content", "os_c_minute");
                             string oi_second = software_lang.TSReadLangs("Os_Content", "os_c_second");
                             string oi_ago = software_lang.TSReadLangs("Os_Content", "os_c_ago");
-                            // System Uptime
-                            string last_boot = Convert.ToString(query_os_rotate["LastBootUpTime"]);
-                            DateTime boot_date_x64 = DateTime.ParseExact(last_boot.Substring(0, 14), "yyyyMMddHHmmss", null, DateTimeStyles.AssumeUniversal);
-                            var now_date = DateTime.Now;
-                            var system_uptime = now_date.Subtract(boot_date_x64);
-                            string system_uptime_x64 = $"{system_uptime.Days} {oi_day}, {system_uptime.Hours} {oi_hour}, {system_uptime.Minutes} {oi_minute}, {system_uptime.Seconds} {oi_second}";
-                            OS_SystemWorkTime_V.Text = system_uptime_x64;
                             // SYSTEM INSTALL DATE
                             string rawDate = query_os_rotate["InstallDate"].ToString();
-                            string datePart = rawDate.Substring(0, 14);
-                            DateTime osInstallDate = DateTime.ParseExact(datePart, "yyyyMMddHHmmss", null, DateTimeStyles.AssumeUniversal);
-                            TimeSpan uptime = DateTime.Now - osInstallDate;
-                            string os_id_x256 = $"{osInstallDate:dd.MM.yyyy} - {osInstallDate:HH:mm:ss} - ({uptime.Days} {oi_day}, {uptime.Hours} {oi_hour}, {uptime.Minutes} {oi_minute} {oi_ago})";
+                            DateTime osInstallDate = ManagementDateTimeConverter.ToDateTime(rawDate);
+                            DateTime now = DateTime.Now;
+                            TimeSpan uptime = now - osInstallDate;
+                            int years = uptime.Days / 365;
+                            int days = uptime.Days % 365;
+                            List<string> parts = new List<string>();
+                            if (years > 0) parts.Add($"{years} {oi_year}");
+                            if (days > 0) parts.Add($"{days} {oi_day}");
+                            if (uptime.Hours > 0) parts.Add($"{uptime.Hours} {oi_hour}");
+                            if (uptime.Minutes > 0) parts.Add($"{uptime.Minutes} {oi_minute}");
+                            string uptimeText = string.Join(", ", parts);
+                            string os_id_x256 = $"{osInstallDate:dd.MM.yyyy} - {osInstallDate:HH:mm:ss} - ({uptimeText.Trim()} {oi_ago})";
                             OS_Install_V.Text = os_id_x256;
+                            // System Uptime
+                            string last_boot = Convert.ToString(query_os_rotate["LastBootUpTime"]);
+                            DateTime boot_date_x64 = ManagementDateTimeConverter.ToDateTime(last_boot);
+                            TimeSpan system_uptime = DateTime.Now - boot_date_x64;
+                            string system_uptime_x64 = $"{system_uptime.Days} {oi_day}, {system_uptime.Hours} {oi_hour}, {system_uptime.Minutes} {oi_minute}, {system_uptime.Seconds} {oi_second}";
+                            OS_SystemWorkTime_V.Text = system_uptime_x64;
                         }catch (Exception){ }
                     }
-                    // SYSTEM TIME
-                    OS_SystemTime_V.Text = DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss");
-                    // SYSTEM WORK TIME
                     try{
                         // MOUSE WHEEL SPEED
                         int mouse_wheel_speed = new Computer().Mouse.WheelScrollLines;

@@ -459,6 +459,7 @@
             this.DISK_MediaStatus = new System.Windows.Forms.Label();
             this.DISK_MediaLoaded_V = new System.Windows.Forms.Label();
             this.disk_panel_2 = new System.Windows.Forms.Panel();
+            this.DISK_PBar_Label = new System.Windows.Forms.Label();
             this.DISK_PBar_BG = new System.Windows.Forms.Panel();
             this.DISK_PBar_FE = new System.Windows.Forms.Panel();
             this.DISK_Man_V = new System.Windows.Forms.Label();
@@ -672,7 +673,6 @@
             this.EXPORT_StartEngineBtn = new Glow.TSCustomButton();
             this.EXPORT_Selector_List = new Glow.TSCustomComboBox();
             this.EXPORT_Donate = new Glow.TSCustomButton();
-            this.DISK_PBar_Label = new System.Windows.Forms.Label();
             this.LeftMenuPanel.SuspendLayout();
             this.HeaderMenu.SuspendLayout();
             this.MainContent.SuspendLayout();
@@ -5381,7 +5381,7 @@
             this.GPU_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.GPU_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.GPU_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.GPU_TLP.Size = new System.Drawing.Size(802, 1280);
+            this.GPU_TLP.Size = new System.Drawing.Size(802, 1275);
             this.GPU_TLP.TabIndex = 0;
             // 
             // gpu_panel_1
@@ -5769,7 +5769,7 @@
             this.gpu_panel_2.Location = new System.Drawing.Point(5, 551);
             this.gpu_panel_2.Margin = new System.Windows.Forms.Padding(2, 1, 3, 1);
             this.gpu_panel_2.Name = "gpu_panel_2";
-            this.gpu_panel_2.Size = new System.Drawing.Size(794, 725);
+            this.gpu_panel_2.Size = new System.Drawing.Size(794, 720);
             this.gpu_panel_2.TabIndex = 0;
             // 
             // GPU_MonitorHID
@@ -6698,6 +6698,21 @@
             this.disk_panel_2.Padding = new System.Windows.Forms.Padding(10);
             this.disk_panel_2.Size = new System.Drawing.Size(794, 455);
             this.disk_panel_2.TabIndex = 0;
+            // 
+            // DISK_PBar_Label
+            // 
+            this.DISK_PBar_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.DISK_PBar_Label.BackColor = System.Drawing.Color.Transparent;
+            this.DISK_PBar_Label.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.DISK_PBar_Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.DISK_PBar_Label.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.DISK_PBar_Label.Location = new System.Drawing.Point(708, 425);
+            this.DISK_PBar_Label.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.DISK_PBar_Label.Name = "DISK_PBar_Label";
+            this.DISK_PBar_Label.Size = new System.Drawing.Size(78, 20);
+            this.DISK_PBar_Label.TabIndex = 22;
+            this.DISK_PBar_Label.Text = "N/A";
+            this.DISK_PBar_Label.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // DISK_PBar_BG
             // 
@@ -9946,21 +9961,6 @@
             this.EXPORT_Donate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.EXPORT_Donate.UseVisualStyleBackColor = false;
             this.EXPORT_Donate.Click += new System.EventHandler(this.EXPORT_Donate_Click);
-            // 
-            // DISK_PBar_Label
-            // 
-            this.DISK_PBar_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DISK_PBar_Label.BackColor = System.Drawing.Color.Transparent;
-            this.DISK_PBar_Label.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
-            this.DISK_PBar_Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.DISK_PBar_Label.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DISK_PBar_Label.Location = new System.Drawing.Point(708, 425);
-            this.DISK_PBar_Label.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
-            this.DISK_PBar_Label.Name = "DISK_PBar_Label";
-            this.DISK_PBar_Label.Size = new System.Drawing.Size(78, 20);
-            this.DISK_PBar_Label.TabIndex = 22;
-            this.DISK_PBar_Label.Text = "N/A";
-            this.DISK_PBar_Label.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // GlowMain
             // 
