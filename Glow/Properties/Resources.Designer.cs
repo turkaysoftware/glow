@@ -83,26 +83,6 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static System.Drawing.Bitmap ct_bmac_mc_dark {
-            get {
-                object obj = ResourceManager.GetObject("ct_bmac_mc_dark", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static System.Drawing.Bitmap ct_bmac_mc_light {
-            get {
-                object obj = ResourceManager.GetObject("ct_bmac_mc_light", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
         internal static System.Drawing.Bitmap ct_clean_dark {
             get {
                 object obj = ResourceManager.GetObject("ct_clean_dark", resourceCulture);
@@ -136,26 +116,6 @@ namespace Glow.Properties {
         internal static System.Drawing.Bitmap ct_clear_light {
             get {
                 object obj = ResourceManager.GetObject("ct_clear_light", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static System.Drawing.Bitmap ct_copy_dark {
-            get {
-                object obj = ResourceManager.GetObject("ct_copy_dark", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static System.Drawing.Bitmap ct_copy_light {
-            get {
-                object obj = ResourceManager.GetObject("ct_copy_light", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -416,26 +376,6 @@ namespace Glow.Properties {
         internal static System.Drawing.Bitmap ct_spf_toggle_light {
             get {
                 object obj = ResourceManager.GetObject("ct_spf_toggle_light", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static System.Drawing.Bitmap ct_support_dark {
-            get {
-                object obj = ResourceManager.GetObject("ct_support_dark", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static System.Drawing.Bitmap ct_support_light {
-            get {
-                object obj = ResourceManager.GetObject("ct_support_light", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1143,9 +1083,9 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static System.Drawing.Bitmap tm_bmac_dark {
+        internal static System.Drawing.Bitmap tm_donate_dark {
             get {
-                object obj = ResourceManager.GetObject("tm_bmac_dark", resourceCulture);
+                object obj = ResourceManager.GetObject("tm_donate_dark", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1153,9 +1093,29 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static System.Drawing.Bitmap tm_bmac_light {
+        internal static System.Drawing.Bitmap tm_donate_light {
             get {
-                object obj = ResourceManager.GetObject("tm_bmac_light", resourceCulture);
+                object obj = ResourceManager.GetObject("tm_donate_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap tm_donate_mc_dark {
+            get {
+                object obj = ResourceManager.GetObject("tm_donate_mc_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap tm_donate_mc_light {
+            get {
+                object obj = ResourceManager.GetObject("tm_donate_mc_light", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

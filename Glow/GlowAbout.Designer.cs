@@ -34,7 +34,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlowAbout));
             this.PanelTxt = new System.Windows.Forms.Panel();
-            this.About_BmacBtn = new Glow.TSCustomButton();
+            this.About_DonateBtn = new Glow.TSCustomButton();
             this.About_GitHubBtn = new Glow.TSCustomButton();
             this.About_WebsiteBtn = new Glow.TSCustomButton();
             this.AboutTable = new System.Windows.Forms.DataGridView();
@@ -56,7 +56,7 @@
             // PanelTxt
             // 
             this.PanelTxt.BackColor = System.Drawing.Color.White;
-            this.PanelTxt.Controls.Add(this.About_BmacBtn);
+            this.PanelTxt.Controls.Add(this.About_DonateBtn);
             this.PanelTxt.Controls.Add(this.About_GitHubBtn);
             this.PanelTxt.Controls.Add(this.About_WebsiteBtn);
             this.PanelTxt.Controls.Add(this.AboutTable);
@@ -71,31 +71,31 @@
             this.PanelTxt.Size = new System.Drawing.Size(365, 450);
             this.PanelTxt.TabIndex = 0;
             // 
-            // About_BmacBtn
+            // About_DonateBtn
             // 
-            this.About_BmacBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.About_BmacBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.About_BmacBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.About_BmacBtn.BorderRadius = 10;
-            this.About_BmacBtn.BorderSize = 0;
-            this.About_BmacBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.About_BmacBtn.FlatAppearance.BorderSize = 0;
-            this.About_BmacBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.About_BmacBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.About_BmacBtn.ForeColor = System.Drawing.Color.White;
-            this.About_BmacBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_BmacBtn.Location = new System.Drawing.Point(15, 174);
-            this.About_BmacBtn.Margin = new System.Windows.Forms.Padding(3, 1, 1, 25);
-            this.About_BmacBtn.Name = "About_BmacBtn";
-            this.About_BmacBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.About_BmacBtn.Size = new System.Drawing.Size(335, 36);
-            this.About_BmacBtn.TabIndex = 5;
-            this.About_BmacBtn.Text = "Link / Bmac";
-            this.About_BmacBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_BmacBtn.TextColor = System.Drawing.Color.White;
-            this.About_BmacBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.About_BmacBtn.UseVisualStyleBackColor = false;
-            this.About_BmacBtn.Click += new System.EventHandler(this.About_BmacBtn_Click);
+            this.About_DonateBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.About_DonateBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.About_DonateBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.About_DonateBtn.BorderRadius = 10;
+            this.About_DonateBtn.BorderSize = 0;
+            this.About_DonateBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.About_DonateBtn.FlatAppearance.BorderSize = 0;
+            this.About_DonateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.About_DonateBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.About_DonateBtn.ForeColor = System.Drawing.Color.White;
+            this.About_DonateBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_DonateBtn.Location = new System.Drawing.Point(15, 174);
+            this.About_DonateBtn.Margin = new System.Windows.Forms.Padding(3, 1, 1, 25);
+            this.About_DonateBtn.Name = "About_DonateBtn";
+            this.About_DonateBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.About_DonateBtn.Size = new System.Drawing.Size(335, 36);
+            this.About_DonateBtn.TabIndex = 5;
+            this.About_DonateBtn.Text = "Link / Donate";
+            this.About_DonateBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_DonateBtn.TextColor = System.Drawing.Color.White;
+            this.About_DonateBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.About_DonateBtn.UseVisualStyleBackColor = false;
+            this.About_DonateBtn.Click += new System.EventHandler(this.About_DonateBtn_Click);
             // 
             // About_GitHubBtn
             // 
@@ -346,7 +346,7 @@
         private System.Windows.Forms.Button CloseAboutBtn;
         private System.Windows.Forms.Panel PanelHeader;
         private System.Windows.Forms.DataGridView AboutTable;
-        private TSCustomButton About_BmacBtn;
+        private TSCustomButton About_DonateBtn;
         private TSCustomButton About_GitHubBtn;
         private TSCustomButton About_WebsiteBtn;
     }

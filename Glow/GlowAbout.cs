@@ -82,7 +82,7 @@ namespace Glow{
                 //
                 TSImageRenderer(About_WebsiteBtn, GlowMain.theme == 1 ? Properties.Resources.ct_website_light : Properties.Resources.ct_website_dark, 18, ContentAlignment.MiddleRight);
                 TSImageRenderer(About_GitHubBtn, GlowMain.theme == 1 ? Properties.Resources.ct_github_light : Properties.Resources.ct_github_dark, 18, ContentAlignment.MiddleRight);
-                TSImageRenderer(About_BmacBtn, GlowMain.theme == 1 ? Properties.Resources.ct_bmac_mc_light : Properties.Resources.ct_bmac_mc_dark, 18, ContentAlignment.MiddleRight);
+                TSImageRenderer(About_DonateBtn, GlowMain.theme == 1 ? Properties.Resources.tm_donate_mc_light : Properties.Resources.tm_donate_mc_dark, 18, ContentAlignment.MiddleRight);
                 //
                 AboutTable.BackgroundColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridBGColor");
                 AboutTable.GridColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridColor");
@@ -103,9 +103,9 @@ namespace Glow{
                 // TEXTS
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
                 Text = string.Format(software_lang.TSReadLangs("SoftwareAbout", "sa_title"), Application.ProductName);
-                About_WebsiteBtn.Text = " " + software_lang.TSReadLangs("SoftwareAbout", "sa_website_page");
-                About_GitHubBtn.Text = " " + software_lang.TSReadLangs("SoftwareAbout", "sa_github_page");
-                About_BmacBtn.Text = " " + software_lang.TSReadLangs("SoftwareAbout", "sa_bmac_page");
+                About_WebsiteBtn.Text = " " + software_lang.TSReadLangs("SoftwareAbout", "sa_website_link");
+                About_GitHubBtn.Text = " " + software_lang.TSReadLangs("SoftwareAbout", "sa_github_link");
+                About_DonateBtn.Text = " " + software_lang.TSReadLangs("SoftwareAbout", "sa_donate_link");
                 //
                 AboutTable.Columns[0].HeaderText = software_lang.TSReadLangs("SoftwareAbout", "sa_lang_name");
                 AboutTable.Columns[1].HeaderText = software_lang.TSReadLangs("SoftwareAbout", "sa_lang_translator");
@@ -128,11 +128,11 @@ namespace Glow{
                 Process.Start(new ProcessStartInfo(TS_LinkSystem.github_link){ UseShellExecute = true });
             }catch (Exception){ }
         }
-        // BUY ME A COFFEE LINK
+        // DONATE LINK
         // ======================================================================================================
-        private void About_BmacBtn_Click(object sender, EventArgs e){
+        private void About_DonateBtn_Click(object sender, EventArgs e){
             try{
-                Process.Start(new ProcessStartInfo(TS_LinkSystem.ts_bmac){ UseShellExecute = true });
+                Process.Start(new ProcessStartInfo(TS_LinkSystem.ts_donate){ UseShellExecute = true });
             }catch (Exception){ }
         }
         // FORM DRAGGING SYSTEM

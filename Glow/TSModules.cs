@@ -27,7 +27,7 @@ namespace Glow{
             github_link         = "https://github.com/turkaysoftware",
             // Other Links
             ts_wizard           = "https://www.turkaysoftware.com/ts-wizard",
-            ts_bmac             = "https://buymeacoffee.com/turkaysoftware";
+            ts_donate           = "https://buymeacoffee.com/turkaysoftware";
         }
         // VERSIONS
         // ======================================================================================================
@@ -58,16 +58,16 @@ namespace Glow{
         // ======================================================================================================
         public static class TS_MessageBoxEngine{
             private static readonly Dictionary<int, KeyValuePair<MessageBoxButtons, MessageBoxIcon>> TSMessageBoxConfig = new Dictionary<int, KeyValuePair<MessageBoxButtons, MessageBoxIcon>>(){
-                { 1, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.OK, MessageBoxIcon.Information) },           // Ok ve Bilgi
-                { 2, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.OK, MessageBoxIcon.Warning) },               // Ok ve Uyarı
-                { 3, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.OK, MessageBoxIcon.Error) },                 // Ok ve Hata
-                { 4, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Question) },           // Yes/No ve Soru
-                { 5, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Information) },        // Yes/No ve Bilgi
-                { 6, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Warning) },            // Yes/No ve Uyarı
-                { 7, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Error) },              // Yes/No ve Hata
-                { 8, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) },        // Retry/Cancel ve Hata
-                { 9, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) },     // Yes/No/Cancel ve Soru
-                { 10, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information) }  // Yes/No/Cancel ve Bilgi
+                { 1, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.OK, MessageBoxIcon.Information) },           // Ok and Info
+                { 2, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.OK, MessageBoxIcon.Warning) },               // Ok and Warning
+                { 3, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.OK, MessageBoxIcon.Error) },                 // Ok and Error
+                { 4, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Question) },           // Yes/No and Quest
+                { 5, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Information) },        // Yes/No and Info
+                { 6, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Warning) },            // Yes/No and Warning
+                { 7, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNo, MessageBoxIcon.Error) },              // Yes/No and Error
+                { 8, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) },        // Retry/Cancel and Error
+                { 9, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) },     // Yes/No/Cancel and Quest
+                { 10, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information) }  // Yes/No/Cancel and Info
             };
             public static DialogResult TS_MessageBox(Form m_form, int m_mode, string m_message, string m_title = ""){
                 if (m_form.InvokeRequired){
@@ -177,7 +177,7 @@ namespace Glow{
                     try{
                         File.WriteAllLines(_iniFilePath, lines, Encoding.UTF8);
                     }catch (IOException){
-                        //Console.Error.WriteLine("INI yazma hatası: " + ex.Message);
+                        //Console.Error.WriteLine(ex.Message);
                     }
                 }
             }
@@ -262,7 +262,7 @@ namespace Glow{
                         }
                         return _cachedLines;
                     }catch (IOException){
-                        // Console.Error.WriteLine("INI okuma hatası: " + ex.Message);
+                        // Console.Error.WriteLine(ex.Message);
                         return new string[0];
                     }
                 }
@@ -323,7 +323,7 @@ namespace Glow{
                 { "SelectBoxBGColor", Color.White },
                 { "SelectBoxBGColor2", Color.FromArgb(236, 242, 248) },
                 { "SelectBoxFEColor", Color.FromArgb(51, 51, 51) },
-                { "SelectBoxBorderColor", Color.FromArgb(223, 233, 243) },
+                { "SelectBoxBorderColor", Color.FromArgb(226, 226, 226) },
                 //
                 { "TextBoxBGColor", Color.White },
                 { "TextBoxFEColor", Color.FromArgb(51, 51, 51) },
@@ -374,7 +374,7 @@ namespace Glow{
                 { "SelectBoxBGColor", Color.FromArgb(25, 31, 42) },
                 { "SelectBoxBGColor2", Color.FromArgb(21, 23, 32) },
                 { "SelectBoxFEColor", Color.WhiteSmoke },
-                { "SelectBoxBorderColor", Color.FromArgb(30, 38, 53) },
+                { "SelectBoxBorderColor", Color.FromArgb(36, 45, 61) },
                 //
                 { "TextBoxBGColor", Color.FromArgb(25, 31, 42) },
                 { "TextBoxFEColor", Color.WhiteSmoke },
@@ -383,7 +383,7 @@ namespace Glow{
                 { "DataGridColor", Color.FromArgb(36, 45, 61) },
                 { "DataGridAlternatingColor", Color.FromArgb(25, 31, 42) },
                 { "OSDAndServicesPageBG", Color.FromArgb(88, 153, 233) },
-                { "OSDAndServicesPageFE", Color.FromArgb(37, 37, 45) },
+                { "OSDAndServicesPageFE", Color.FromArgb(25, 31, 42) },
                 { "DynamicThemeActiveBtnBG", Color.FromArgb(25, 31, 42) },
                 // ACCENT COLOR
                 { "AccentBlue", Color.FromArgb(88, 153, 233) },
@@ -580,13 +580,10 @@ namespace Glow{
             private static string DecodeWindowsProductKey(byte[] d_p_id){
                 const int key_offset = 52;
                 const string digits_list = "BCDFGHJKMPQRTVWXY2346789";
-                //
                 byte win10Mode = (byte)((d_p_id[66] / 6) & 1);
                 d_p_id[66] = (byte)((d_p_id[66] & 0xF7) | (win10Mode & 2) * 4);
-                //
                 string keyLatest = string.Empty;
                 int lastIndex = 0;
-                //
                 for (int i = 24; i >= 0; i--){
                     int currentIndex = 0;
                     for (int j = 14; j >= 0; j--){
@@ -597,13 +594,10 @@ namespace Glow{
                     }
                     keyLatest = digits_list[currentIndex] + keyLatest;
                 }
-                //
                 keyLatest = keyLatest.Substring(1, lastIndex) + "N" + keyLatest.Substring(lastIndex + 1);
-                //
                 for (int i = 5; i < keyLatest.Length; i += 6){
                     keyLatest = keyLatest.Insert(i, "-");
                 }
-                //
                 return keyLatest;
             }
         }
@@ -674,6 +668,10 @@ namespace Glow{
                 return false;
             }
         }
+        // WINDOWS WALLPAPER CHECK
+        // ======================================================================================================
+        [DllImport("user32.dll", SetLastError = true, PreserveSig = true)]
+        public static extern bool SystemParametersInfo(int uAction, int uParam, StringBuilder lpvParam, int fuWinIni);
         // DPI AWARE V2
         // ======================================================================================================
         [DllImport("user32.dll", PreserveSig = true)]

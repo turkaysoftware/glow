@@ -58,16 +58,17 @@ namespace Glow.glow_tools{
                 // COLOR SETTINGS
                 BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 //
-                BTSelect.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
-                BTSelect.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
-                BTSelect.HoverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
-                BTSelect.ButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
-                BTSelect.HoverButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
-                BTSelect.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
-                BTSelect.FocusedBorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
-                BTSelect.DisabledBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
-                BTSelect.DisabledForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
-                BTSelect.DisabledButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
+                BTSelector.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
+                BTSelector.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                BTSelector.HoverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
+                BTSelector.ButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
+                BTSelector.ArrowColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                BTSelector.HoverButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
+                BTSelector.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
+                BTSelector.FocusedBorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
+                BTSelector.DisabledBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
+                BTSelector.DisabledForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                BTSelector.DisabledButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
                 //
                 foreach (Control ui_buttons in BackPanel.Controls){
                     if (ui_buttons is Button bt_finder_btn){
@@ -107,12 +108,12 @@ namespace Glow.glow_tools{
         }
         // BT ADAPTER CHANGER
         // ======================================================================================================
-        private void BTSelect_SelectedIndexChanged(object sender, EventArgs e){
+        private void BTSelector_SelectedIndexChanged(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
                 string unknown_msg = software_lang.TSReadLangs("BluetoothFinderTool", "bft_unknown");
                 //
-                if (!(BTSelect.SelectedItem is TSAdvancedBluetoothAdapterInfo selectedAdapter)) { return; }
+                if (!(BTSelector.SelectedItem is TSAdvancedBluetoothAdapterInfo selectedAdapter)) { return; }
                 //
                 BT_Adapter_V.Text = $"{selectedAdapter.AdapterName.Trim() ?? unknown_msg}";
                 BT_Version_V.Text = $"{selectedAdapter.BluetoothVersion.Trim() ?? unknown_msg}";
@@ -127,7 +128,7 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         private async void LoadBluetoothAdapters(){
             BluetoothAdaptersList.Clear();
-            BTSelect.Items.Clear();
+            BTSelector.Items.Clear();
             //
             GlowMain.BTfinderMode = true;
             //
@@ -266,17 +267,17 @@ namespace Glow.glow_tools{
                             Text = string.Format(software_lang.TSReadLangs("BluetoothFinderTool", "bft_title"), Application.ProductName);
                             BT_Adapter.Focus();
                             //
-                            BTSelect.Items.Clear();
+                            BTSelector.Items.Clear();
                             foreach (var adapter in BluetoothAdaptersList){
-                                BTSelect.Items.Add(adapter);
+                                BTSelector.Items.Add(adapter);
                             }
                             //
                             GlowMain.BTfinderMode = false;
                             //
-                            if (BTSelect.Items.Count > 0){
-                                BTSelect.DisplayMember = "AdapterName";
-                                BTSelect.SelectedIndex = 0;
-                                BTSelect.Enabled = true;
+                            if (BTSelector.Items.Count > 0){
+                                BTSelector.DisplayMember = "AdapterName";
+                                BTSelector.SelectedIndex = 0;
+                                BTSelector.Enabled = true;
                                 BTCopyInfoBtn.Enabled = true;
                                 TS_MessageBoxEngine.TS_MessageBox(this, 1, software_lang.TSReadLangs("BluetoothFinderTool", "bft_bt_finder_success"));
                             }else{

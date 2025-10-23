@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>25.13.0.%2a</ApplicationVersion>
+    <ApplicationVersion>25.14.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -417,7 +417,6 @@
     <None Include="glow_images\glow_ui\theme_light\tm_settings_light.png" />
     <None Include="glow_images\glow_ui\theme_light\tm_language_light.png" />
     <None Include="glow_images\glow_ui\theme_light\tm_hidden_light.png" />
-    <None Include="glow_images\glow_ui\theme_light\tm_bmac_light.png" />
     <None Include="glow_images\glow_ui\theme_light\tm_about_light.png" />
     <None Include="glow_images\glow_ui\theme_light\lm_usb_light.png" />
     <None Include="glow_images\glow_ui\theme_light\lm_sound_light.png" />
@@ -447,7 +446,6 @@
     <None Include="glow_images\glow_ui\theme_light\cx_bench_cpu_light.png" />
     <None Include="glow_images\glow_ui\theme_light\ct_zip_light.png" />
     <None Include="glow_images\glow_ui\theme_light\ct_link_light.png" />
-    <None Include="glow_images\glow_ui\theme_light\ct_copy_light.png" />
     <None Include="glow_images\glow_ui\theme_dark\tm_update_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\tm_ts_wizard_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\tm_tools_dark.png" />
@@ -456,7 +454,6 @@
     <None Include="glow_images\glow_ui\theme_dark\tm_settings_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\tm_language_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\tm_hidden_dark.png" />
-    <None Include="glow_images\glow_ui\theme_dark\tm_bmac_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\tm_about_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\lm_usb_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\lm_sound_dark.png" />
@@ -486,10 +483,13 @@
     <None Include="glow_images\glow_ui\theme_dark\cx_bench_cpu_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\ct_zip_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\ct_link_dark.png" />
-    <None Include="glow_images\glow_ui\theme_dark\ct_copy_dark.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="GlowLogo.ico" />
+    <None Include="glow_images\glow_ui\theme_light\tm_donate_mc_light.png" />
+    <None Include="glow_images\glow_ui\theme_light\tm_donate_light.png" />
+    <None Include="glow_images\glow_ui\theme_dark\tm_donate_mc_dark.png" />
+    <None Include="glow_images\glow_ui\theme_dark\tm_donate_dark.png" />
     <None Include="glow_images\ts_preloader\ts_preloader_release.jpg" />
     <None Include="glow_images\glow_ui\theme_light\ct_spf_color_light.png" />
     <None Include="glow_images\glow_ui\theme_dark\ct_spf_color_dark.png" />
@@ -503,14 +503,10 @@
     <None Include="glow_images\glow_ui\theme_dark\ct_spf_add_dark.png" />
     <None Include="glow_images\glow_ui\theme_light\cx_overlay_light.png" />
     <None Include="glow_images\glow_ui\theme_dark\cx_overlay_dark.png" />
-    <None Include="glow_images\glow_ui\theme_light\ct_support_light.png" />
-    <None Include="glow_images\glow_ui\theme_dark\ct_support_dark.png" />
     <None Include="glow_images\glow_ui\theme_light\ct_link_mc_light.png" />
     <None Include="glow_images\glow_ui\theme_dark\ct_link_mc_dark.png" />
     <None Include="glow_images\glow_ui\theme_light\ct_image_preview_light.png" />
     <None Include="glow_images\glow_ui\theme_dark\ct_image_preview_dark.png" />
-    <None Include="glow_images\glow_ui\theme_light\ct_bmac_mc_light.png" />
-    <None Include="glow_images\glow_ui\theme_dark\ct_bmac_mc_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\cx_bt_finder_dark.png" />
     <None Include="glow_images\glow_ui\theme_light\cx_bt_finder_light.png" />
   </ItemGroup>

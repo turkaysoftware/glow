@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlowBluetoothFinderTool));
             this.BackPanel = new System.Windows.Forms.Panel();
-            this.BTSelect = new Glow.TSCustomComboBox();
+            this.BTSelector = new Glow.TSCustomComboBox();
             this.InPanel7 = new System.Windows.Forms.Panel();
             this.BT_HardwareID = new System.Windows.Forms.Label();
             this.BT_HardwareID_V = new System.Windows.Forms.Label();
@@ -65,7 +65,7 @@
             // 
             // BackPanel
             // 
-            this.BackPanel.Controls.Add(this.BTSelect);
+            this.BackPanel.Controls.Add(this.BTSelector);
             this.BackPanel.Controls.Add(this.InPanel7);
             this.BackPanel.Controls.Add(this.InPanel6);
             this.BackPanel.Controls.Add(this.InPanel5);
@@ -81,29 +81,30 @@
             this.BackPanel.Size = new System.Drawing.Size(784, 538);
             this.BackPanel.TabIndex = 0;
             // 
-            // BTSelect
+            // BTSelector
             // 
-            this.BTSelect.BorderColor = System.Drawing.SystemColors.ControlDark;
-            this.BTSelect.ButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.BTSelect.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BTSelect.DisabledBackColor = System.Drawing.SystemColors.Control;
-            this.BTSelect.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.BTSelect.DisabledForeColor = System.Drawing.SystemColors.GrayText;
-            this.BTSelect.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BTSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.BTSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.BTSelect.Enabled = false;
-            this.BTSelect.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
-            this.BTSelect.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.BTSelect.FormattingEnabled = true;
-            this.BTSelect.HoverBackColor = System.Drawing.SystemColors.Window;
-            this.BTSelect.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.BTSelect.Location = new System.Drawing.Point(10, 10);
-            this.BTSelect.Margin = new System.Windows.Forms.Padding(3, 3, 10, 25);
-            this.BTSelect.Name = "BTSelect";
-            this.BTSelect.Size = new System.Drawing.Size(764, 28);
-            this.BTSelect.TabIndex = 0;
-            this.BTSelect.SelectedIndexChanged += new System.EventHandler(this.BTSelect_SelectedIndexChanged);
+            this.BTSelector.ArrowColor = System.Drawing.SystemColors.WindowText;
+            this.BTSelector.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.BTSelector.ButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.BTSelector.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BTSelector.DisabledBackColor = System.Drawing.SystemColors.Control;
+            this.BTSelector.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.BTSelector.DisabledForeColor = System.Drawing.SystemColors.GrayText;
+            this.BTSelector.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BTSelector.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.BTSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.BTSelector.Enabled = false;
+            this.BTSelector.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
+            this.BTSelector.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.BTSelector.FormattingEnabled = true;
+            this.BTSelector.HoverBackColor = System.Drawing.SystemColors.Window;
+            this.BTSelector.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.BTSelector.Location = new System.Drawing.Point(10, 10);
+            this.BTSelector.Margin = new System.Windows.Forms.Padding(3, 3, 10, 25);
+            this.BTSelector.Name = "BTSelector";
+            this.BTSelector.Size = new System.Drawing.Size(764, 28);
+            this.BTSelector.TabIndex = 0;
+            this.BTSelector.SelectedIndexChanged += new System.EventHandler(this.BTSelector_SelectedIndexChanged);
             // 
             // InPanel7
             // 
@@ -492,6 +493,6 @@
         private System.Windows.Forms.Panel InPanel7;
         internal System.Windows.Forms.Label BT_HardwareID;
         internal System.Windows.Forms.Label BT_HardwareID_V;
-        private TSCustomComboBox BTSelect;
+        private TSCustomComboBox BTSelector;
     }
 }

@@ -38,43 +38,46 @@ namespace Glow.glow_tools{
                 Bench_P6.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "PageContainerBGAndPageContentTotalColors");
                 Bench_P7.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "PageContainerBGAndPageContentTotalColors");
                 //
-                Bench_Label_Disk.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
-                Bench_Disk.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
-                Bench_Disk.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
-                Bench_Disk.HoverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
-                Bench_Disk.ButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
-                Bench_Disk.HoverButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
-                Bench_Disk.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
-                Bench_Disk.FocusedBorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
-                Bench_Disk.DisabledBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
-                Bench_Disk.DisabledForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
-                Bench_Disk.DisabledButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
+                Bench_DiskSelector.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
+                Bench_DiskSelector_List.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
+                Bench_DiskSelector_List.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                Bench_DiskSelector_List.HoverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
+                Bench_DiskSelector_List.ButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
+                Bench_DiskSelector_List.ArrowColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                Bench_DiskSelector_List.HoverButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
+                Bench_DiskSelector_List.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
+                Bench_DiskSelector_List.FocusedBorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
+                Bench_DiskSelector_List.DisabledBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
+                Bench_DiskSelector_List.DisabledForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                Bench_DiskSelector_List.DisabledButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
                 //
-                Bench_Label_Size.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
-                Bench_Size.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
-                Bench_Size.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
-                Bench_Size.HoverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
-                Bench_Size.ButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
-                Bench_Size.HoverButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
-                Bench_Size.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
-                Bench_Size.FocusedBorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
-                Bench_Size.DisabledBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
-                Bench_Size.DisabledForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
-                Bench_Size.DisabledButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
+                Bench_SizeSelector.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
+                Bench_SizeSelector_List.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
+                Bench_SizeSelector_List.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                Bench_SizeSelector_List.HoverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
+                Bench_SizeSelector_List.ButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
+                Bench_SizeSelector_List.ArrowColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                Bench_SizeSelector_List.HoverButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
+                Bench_SizeSelector_List.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
+                Bench_SizeSelector_List.FocusedBorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
+                Bench_SizeSelector_List.DisabledBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
+                Bench_SizeSelector_List.DisabledForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                Bench_SizeSelector_List.DisabledButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
                 Bench_SizeCustom.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 Bench_SizeCustom.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "TextBoxFEColor");
                 //
-                Bench_Label_Buffer.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
-                Bench_Buffer.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
-                Bench_Buffer.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
-                Bench_Buffer.HoverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
-                Bench_Buffer.ButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
-                Bench_Buffer.HoverButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
-                Bench_Buffer.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
-                Bench_Buffer.FocusedBorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
-                Bench_Buffer.DisabledBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
-                Bench_Buffer.DisabledForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
-                Bench_Buffer.DisabledButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
+                Bench_BufferSelector.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
+                Bench_BufferSelector_List.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
+                Bench_BufferSelector_List.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                Bench_BufferSelector_List.HoverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
+                Bench_BufferSelector_List.ButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
+                Bench_BufferSelector_List.ArrowColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                Bench_BufferSelector_List.HoverButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
+                Bench_BufferSelector_List.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
+                Bench_BufferSelector_List.FocusedBorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBorderColor");
+                Bench_BufferSelector_List.DisabledBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
+                Bench_BufferSelector_List.DisabledForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                Bench_BufferSelector_List.DisabledButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
                 //
                 Bench_L_WriteSpeed.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
                 Bench_L_WriteSpeed_V.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
@@ -101,16 +104,16 @@ namespace Glow.glow_tools{
                 //
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
                 Text = string.Format(software_lang.TSReadLangs("BenchDisk", "bd_title"), Application.ProductName);
-                Bench_Label_Disk.Text = software_lang.TSReadLangs("BenchDisk", "bd_select_disk");
-                Bench_Label_Size.Text = software_lang.TSReadLangs("BenchDisk", "bd_test_size");
-                Bench_Label_Buffer.Text = software_lang.TSReadLangs("BenchDisk", "bd_test_buffer_size");
+                Bench_DiskSelector.Text = software_lang.TSReadLangs("BenchDisk", "bd_select_disk");
+                Bench_SizeSelector.Text = software_lang.TSReadLangs("BenchDisk", "bd_test_size");
+                Bench_BufferSelector.Text = software_lang.TSReadLangs("BenchDisk", "bd_test_buffer_size");
                 //
                 Bench_L_WriteSpeed.Text = software_lang.TSReadLangs("BenchDisk", "bd_time_write");
                 Bench_L_Max_WriteSpeed.Text = software_lang.TSReadLangs("BenchDisk", "bd_time_max_write");
                 Bench_R_ReadSpeed.Text = software_lang.TSReadLangs("BenchDisk", "bd_time_read");
                 Bench_R_Max_ReadSpeed.Text = software_lang.TSReadLangs("BenchDisk", "bd_time_max_read");
                 //
-                Bench_Size.Items[Bench_Size.Items.Count - 1] = software_lang.TSReadLangs("BenchDisk", "bd_test_size_custom");
+                Bench_SizeSelector_List.Items[Bench_SizeSelector_List.Items.Count - 1] = software_lang.TSReadLangs("BenchDisk", "bd_test_size_custom");
                 //
                 Bench_Start.Text = " " + software_lang.TSReadLangs("BenchDisk", "bd_start");
                 Bench_Stop.Text = " " + software_lang.TSReadLangs("BenchDisk", "bd_stop");
@@ -123,10 +126,10 @@ namespace Glow.glow_tools{
             TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
             //
             foreach (int size in DISKBench_sizesInGB){
-                Bench_Size.Items.Add(size + " GB");
+                Bench_SizeSelector_List.Items.Add(size + " GB");
             }
-            Bench_Size.Items.Add(software_lang.TSReadLangs("BenchDisk", "bd_test_size_custom"));
-            Bench_Size.SelectedIndex = 1;
+            Bench_SizeSelector_List.Items.Add(software_lang.TSReadLangs("BenchDisk", "bd_test_size_custom"));
+            Bench_SizeSelector_List.SelectedIndex = 1;
             //
             DISKBench_testSizes.Clear();
             foreach (int size in DISKBench_sizesInGB){
@@ -134,9 +137,9 @@ namespace Glow.glow_tools{
             }
             //
             foreach (int bufferSize in DISKBench_bufferSizesInKB){
-                Bench_Buffer.Items.Add(bufferSize + " KB");
+                Bench_BufferSelector_List.Items.Add(bufferSize + " KB");
             }
-            Bench_Buffer.SelectedIndex = 4;
+            Bench_BufferSelector_List.SelectedIndex = 4;
             //
             Bench_L_WriteSpeed_V.Text = software_lang.TSReadLangs("BenchDisk", "bd_start_test_await");
             Bench_L_Max_WriteSpeed_V.Text = software_lang.TSReadLangs("BenchDisk", "bd_start_test_await");
@@ -153,32 +156,32 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         private void RefreshDriveList(){
             TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-            Bench_Disk.Items.Clear();
+            Bench_DiskSelector_List.Items.Clear();
             DriveInfo[] drives = DriveInfo.GetDrives();
             foreach (DriveInfo drive in drives){
                 string driveInfo;
-                if (drive.VolumeLabel.ToLower().Trim() == "" || drive.VolumeLabel == string.Empty){
+                if (string.IsNullOrWhiteSpace(drive.VolumeLabel)){
                     driveInfo = $"{software_lang.TSReadLangs("BenchDisk", "bd_select_local_disk")} ({drive.Name.Replace("\\", string.Empty)}) - {TS_FormatSize(drive.TotalSize)}";
                 }else{
                     driveInfo = $"{drive.VolumeLabel} ({drive.Name.Replace("\\", string.Empty)}) - {TS_FormatSize(drive.TotalSize)}";
                 }
-                Bench_Disk.Items.Add(driveInfo);
+                Bench_DiskSelector_List.Items.Add(driveInfo);
                 DISKBench_benchmarkDiskList.Add(drive.Name);
                 DISKBench_benchmarkDiskListFreeSpace.Add(drive.TotalFreeSpace / 1024 / 1024 / 1024);
                 DISKBench_benchmarkDiskListType.Add(drive.DriveType.ToString().ToLower().Trim());
             }
-            Bench_Disk.SelectedIndex = 0;
+            Bench_DiskSelector_List.SelectedIndex = 0;
         }
         // START BTN
         // ======================================================================================================
         private void Bench_Start_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                if (Bench_Size.SelectedIndex == Bench_Size.Items.Count - 1){
-                    if (Bench_SizeCustom.Text.Trim() != "" || Bench_SizeCustom.Text.Trim() != string.Empty){
+                if (Bench_SizeSelector_List.SelectedIndex == Bench_SizeSelector_List.Items.Count - 1){
+                    if (!string.IsNullOrWhiteSpace(Bench_SizeCustom.Text)){
                         if (Convert.ToDouble(Bench_SizeCustom.Text.Trim()) >= 10 && Convert.ToDouble(Bench_SizeCustom.Text.Trim()) <= 256){
-                            if (DISKBench_benchmarkDiskListFreeSpace[Bench_Disk.SelectedIndex] > Convert.ToInt32(Bench_SizeCustom.Text.Trim())){
-                                Check_info_user_warning(Bench_Disk.SelectedIndex);
+                            if (DISKBench_benchmarkDiskListFreeSpace[Bench_DiskSelector_List.SelectedIndex] > Convert.ToInt32(Bench_SizeCustom.Text.Trim())){
+                                Check_info_user_warning(Bench_DiskSelector_List.SelectedIndex);
                             }else{
                                 TS_MessageBoxEngine.TS_MessageBox(this, 2, software_lang.TSReadLangs("BenchDisk", "bd_low_space"));
                             }
@@ -189,8 +192,8 @@ namespace Glow.glow_tools{
                         }
                     }
                 }else{
-                    if (DISKBench_benchmarkDiskListFreeSpace[Bench_Disk.SelectedIndex] > DISKBench_testSizes[Bench_Disk.SelectedIndex]){
-                        Check_info_user_warning(Bench_Disk.SelectedIndex);
+                    if (DISKBench_benchmarkDiskListFreeSpace[Bench_DiskSelector_List.SelectedIndex] > DISKBench_testSizes[Bench_DiskSelector_List.SelectedIndex]){
+                        Check_info_user_warning(Bench_DiskSelector_List.SelectedIndex);
                     }else{
                         TS_MessageBoxEngine.TS_MessageBox(this, 2, software_lang.TSReadLangs("BenchDisk", "bd_low_space"));
                     }
@@ -217,7 +220,7 @@ namespace Glow.glow_tools{
                 bool startEngine = warnings.ContainsKey(mode) && warnings[mode].StartEngine;
                 //
                 string message = string.Format(software_lang.TSReadLangs("BenchDisk", messageKey), "\n\n", "\n\n", "\n", "\n\n");
-                string caption = software_lang.TSReadLangs("BenchDisk", "bd_start_engine_disk") + " " + Bench_Disk.SelectedItem.ToString().Trim();
+                string caption = software_lang.TSReadLangs("BenchDisk", "bd_start_engine_disk") + " " + Bench_DiskSelector_List.SelectedItem.ToString().Trim();
                 //
                 success_warning = TS_MessageBoxEngine.TS_MessageBox(this, 6, message, caption);
                 if (!startEngine){
@@ -229,8 +232,8 @@ namespace Glow.glow_tools{
                 }
             }catch (Exception){ }
         }
-        private void Bench_Disk_SelectedIndexChanged(object sender, EventArgs e){
-            DISKBench_selectDisk = DISKBench_benchmarkDiskList[Bench_Disk.SelectedIndex].Trim().Replace("\\", string.Empty);
+        private void Bench_DiskSelector_List_SelectedIndexChanged(object sender, EventArgs e){
+            DISKBench_selectDisk = DISKBench_benchmarkDiskList[Bench_DiskSelector_List.SelectedIndex].Trim().Replace("\\", string.Empty);
         }
         // TIMER
         // ======================================================================================================
@@ -258,17 +261,17 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         private void Start_engine(){
             GlowMain.DISKbenchMode = true;
-            string selectedDrive = DISKBench_benchmarkDiskList[Bench_Disk.SelectedIndex];
+            string selectedDrive = DISKBench_benchmarkDiskList[Bench_DiskSelector_List.SelectedIndex];
             // WARNING MESSAGE
             try{
                 DISKBench_isBenchmarking = true;
                 DISKBench_benchmarkTask = Task.Run(async () => await RunBenchmarkAsync(selectedDrive));
                 Bench_Start.Enabled = false;
                 Bench_Stop.Enabled = true;
-                Bench_Disk.Enabled = false;
-                Bench_Size.Enabled = false;
+                Bench_DiskSelector_List.Enabled = false;
+                Bench_SizeSelector_List.Enabled = false;
                 Bench_SizeCustom.Enabled = false;
-                Bench_Buffer.Enabled = false;
+                Bench_BufferSelector_List.Enabled = false;
                 Bench_SizeCustom.Enabled = false;
                 DISKBench_stopMode = false;
             }catch (Exception){ }
@@ -300,14 +303,14 @@ namespace Glow.glow_tools{
             int global_buffer = 0;
             int lastIndex = DISKBench_sizesInGB.Length - 1;
             // SIZE SET
-            if (Bench_Size.SelectedIndex >= 0 && Bench_Size.SelectedIndex < lastIndex){
-                fileSizeInBytes = GigabytesToBytes(DISKBench_sizesInGB[Bench_Size.SelectedIndex]);
-            }else if (Bench_Size.SelectedIndex == lastIndex){
+            if (Bench_SizeSelector_List.SelectedIndex >= 0 && Bench_SizeSelector_List.SelectedIndex < lastIndex){
+                fileSizeInBytes = GigabytesToBytes(DISKBench_sizesInGB[Bench_SizeSelector_List.SelectedIndex]);
+            }else if (Bench_SizeSelector_List.SelectedIndex == lastIndex){
                 fileSizeInBytes = GigabytesToBytes(Convert.ToInt32(Bench_SizeCustom.Text.Trim()));
             }
             // BUFFER SET
-            if (Bench_Buffer.SelectedIndex >= 0 && Bench_Buffer.SelectedIndex < DISKBench_bufferSizesInKB.Length){
-                global_buffer = DISKBench_bufferSizesInKB[Bench_Buffer.SelectedIndex];
+            if (Bench_BufferSelector_List.SelectedIndex >= 0 && Bench_BufferSelector_List.SelectedIndex < DISKBench_bufferSizesInKB.Length){
+                global_buffer = DISKBench_bufferSizesInKB[Bench_BufferSelector_List.SelectedIndex];
             }
             byte[] buffer = KilobytesToBytes(global_buffer);
             var timerTask = BenchTimerAsync();
@@ -369,10 +372,10 @@ namespace Glow.glow_tools{
                 DISKBench_isBenchmarking = false;
                 Bench_Start.Enabled = true;
                 Bench_Stop.Enabled = false;
-                Bench_Disk.Enabled = true;
-                Bench_Size.Enabled = true;
+                Bench_DiskSelector_List.Enabled = true;
+                Bench_SizeSelector_List.Enabled = true;
                 Bench_SizeCustom.Enabled = true;
-                Bench_Buffer.Enabled = true;
+                Bench_BufferSelector_List.Enabled = true;
             }catch (Exception){
                 DISKBench_isBenchmarking = false;
             }
@@ -440,10 +443,10 @@ namespace Glow.glow_tools{
             }
             Bench_Start.Enabled = true;
             Bench_Stop.Enabled = false;
-            Bench_Disk.Enabled = true;
-            Bench_Size.Enabled = true;
+            Bench_DiskSelector_List.Enabled = true;
+            Bench_SizeSelector_List.Enabled = true;
             Bench_SizeCustom.Enabled = true;
-            Bench_Buffer.Enabled = true;
+            Bench_BufferSelector_List.Enabled = true;
             Bench_SizeCustom.Enabled = true;
             DISKBench_speedMode = false;
             //
@@ -461,8 +464,8 @@ namespace Glow.glow_tools{
         }
         // CUSTOM SIZE CHANGE
         // ======================================================================================================
-        private void Bench_Size_SelectedIndexChanged(object sender, EventArgs e){
-            if (Bench_Size.SelectedIndex == Bench_Size.Items.Count - 1){
+        private void Bench_SizeSelector_List_SelectedIndexChanged(object sender, EventArgs e){
+            if (Bench_SizeSelector_List.SelectedIndex == Bench_SizeSelector_List.Items.Count - 1){
                 Bench_SizeCustom.Visible = true;
             }else{
                 Bench_SizeCustom.Visible = false;

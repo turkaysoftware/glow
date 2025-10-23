@@ -140,6 +140,7 @@ namespace Glow
         private Color _backColor = SystemColors.Window;
         private Color _foreColor = SystemColors.WindowText;
         private Color _buttonColor = SystemColors.ControlDark;
+        private Color _arrowColor = SystemColors.WindowText;
         private Color _borderColor = SystemColors.ControlDark;
         //
         private Color _disabledBackColor = SystemColors.Control;
@@ -205,6 +206,14 @@ namespace Glow
         {
             get => _buttonColor;
             set { _buttonColor = value; Invalidate(); }
+        }
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the color of the dropdown arrow.")]
+        public Color ArrowColor
+        {
+            get => _arrowColor;
+            set { _arrowColor = value; Invalidate(); }
         }
         [Browsable(true)]
         [Category("TS Appearance")]
@@ -283,7 +292,8 @@ namespace Glow
                 new PointF(middle.X + arrowWidth / 2f, middle.Y - arrowHeight / 2f),
                 new PointF(middle.X, middle.Y + arrowHeight / 2f)
             };
-            using (SolidBrush arrowBrush = new SolidBrush(effectiveFore))
+            Color effectiveArrow = !this.Enabled ? _disabledForeColor : _arrowColor;
+            using (SolidBrush arrowBrush = new SolidBrush(effectiveArrow))
                 e.Graphics.FillPolygon(arrowBrush, arrow);
             using (Pen pen = new Pen(this.Focused ? _focusedBorderColor : _borderColor))
                 e.Graphics.DrawRectangle(pen, 0, 0, rect.Width - 1, rect.Height - 1);

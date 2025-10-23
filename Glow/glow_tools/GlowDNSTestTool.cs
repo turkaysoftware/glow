@@ -239,7 +239,7 @@ namespace Glow.glow_tools{
                 PrintDNSList.Add(software_lang.TSReadLangs("PrintEngine", "pe_process_time") + " " + DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss"));
                 PrintDNSList.Add(software_lang.TSReadLangs("PrintEngine", "pe_website") + " " + TS_LinkSystem.website_link);
                 PrintDNSList.Add(software_lang.TSReadLangs("PrintEngine", "pe_github") + " " + TS_LinkSystem.github_link);
-                PrintDNSList.Add(software_lang.TSReadLangs("PrintEngine", "pe_bmac") + " " + TS_LinkSystem.ts_bmac);
+                PrintDNSList.Add(software_lang.TSReadLangs("PrintEngine", "pe_donate") + " " + TS_LinkSystem.ts_donate);
                 SaveFileDialog saveDlg = new SaveFileDialog{
                     InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                     Title = Application.ProductName + " - " + software_lang.TSReadLangs("PrintEngine", "pe_save_directory"),

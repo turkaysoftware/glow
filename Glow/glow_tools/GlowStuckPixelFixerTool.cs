@@ -380,9 +380,9 @@ namespace Glow.glow_tools{
                 int newHeight = originalSize.Height;
                 float scaleFactor = this.DeviceDpi / 96f;
                 if (resizingRight || resizingCorner)
-                    newWidth = Math.Max((int)(225 * scaleFactor), originalSize.Width + (e.X - resizeStart.X));
+                    newWidth = Math.Max((int)(200 * scaleFactor), originalSize.Width + (e.X - resizeStart.X));
                 if (resizingBottom || resizingCorner)
-                    newHeight = Math.Max((int)(200 * scaleFactor), originalSize.Height + (e.Y - resizeStart.Y));
+                    newHeight = Math.Max((int)(175 * scaleFactor), originalSize.Height + (e.Y - resizeStart.Y));
                 if (this.Left + newWidth > parentForm.ClientSize.Width)
                     newWidth = parentForm.ClientSize.Width - this.Left;
                 if (this.Top + newHeight > parentForm.ClientSize.Height)
