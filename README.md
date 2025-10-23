@@ -18,7 +18,7 @@ Even if you cannot provide financial support, you can help spread the software a
 
 [Click here](https://github.com/turkaysoftware/glow?tab=readme-ov-file#main-features) for full specifications.
 
-<img width="1010" height="633" alt="Glow UI - Dark" src="https://github.com/user-attachments/assets/c87b8979-e6e2-441e-83ee-6fa8126d2a49" />
+<img width="1010" height="633" alt="Glow UI" src="https://github.com/user-attachments/assets/4af23d99-12ec-443d-931f-7044e123cb5f" />
 
 # Download Glow
 
@@ -101,7 +101,7 @@ Features offered in the Operating System section.
 - Last Blue Screen Error Time
 - Wallpaper
 
-<img width="1010" height="633" alt="Glow - Operating System Section" src="https://github.com/user-attachments/assets/a2239ac2-bcd9-49d2-8008-662d20b106d8" />
+<img width="1010" height="633" alt="Glow - Operating System Page" src="https://github.com/user-attachments/assets/63b32e6d-955a-4b58-8af5-fca0b5b0139f" />
 </details>
 
 <details>
@@ -140,7 +140,7 @@ Features offered in the Motherboard section.
 - BIOS Major-Minor Version
 - SM-BIOS Major-Minor Version
 
-<img width="1010" height="633" alt="Glow - Motherboard Section" src="https://github.com/user-attachments/assets/d0e1f1ba-ad09-4d2f-8e22-7a8b0c27f38d" />
+<img width="1010" height="633" alt="Glow - Motherboard Page" src="https://github.com/user-attachments/assets/7f97a097-ec9c-46db-bfb0-dccad3c73a85" />
 </details>
 
 <details>
@@ -168,7 +168,7 @@ Features offered in the Processor section.
 - VM Monitoring Support
 - Unique Processor ID
 
-<img width="1010" height="633" alt="Glow - Processor Section" src="https://github.com/user-attachments/assets/2f725c53-3735-45b4-896b-a636452660a3" />
+<img width="1010" height="633" alt="Glow - Processor Page" src="https://github.com/user-attachments/assets/b9772454-05f0-4c7b-a78a-0beeddf0d551" />
 </details>
 
 <details>
@@ -196,7 +196,7 @@ Features offered in the Memory section.
 - RAM Slot Path
 - RAM Partition Number
 
-<img width="1010" height="633" alt="Glow - Memory Section" src="https://github.com/user-attachments/assets/b0701000-22ae-4db2-9fb8-4a84dffb3e3e" />
+<img width="1010" height="633" alt="Glow - Memory Page" src="https://github.com/user-attachments/assets/cad8a753-aaae-431c-865f-ccba1863aef8" />
 </details>
 
 <details>
@@ -233,7 +233,7 @@ Features offered in the Graphics Card section.
 - Bit Depth Per Pixel
 - Primary Screen
 
-<img width="1010" height="633" alt="Glow - Graphics Card Section" src="https://github.com/user-attachments/assets/3daf418a-28cb-4b8d-b3ec-56bd130f0877" />
+<img width="1010" height="633" alt="Glow - Graphics Card Page" src="https://github.com/user-attachments/assets/fbee6d67-2159-430a-a740-ec732d6a37a1" />
 </details>
 
 <details>
@@ -272,7 +272,7 @@ Features offered in the Storage section.
 - BitLocker Encryption Method
 - Disk Compression Status
 
-<img width="1010" height="633" alt="Glow - Storage Section" src="https://github.com/user-attachments/assets/3778b853-dda0-49d2-a40e-fa43ceaeb60b" />
+<img width="1010" height="633" alt="Glow - Storage Page" src="https://github.com/user-attachments/assets/46ddf21b-7a73-46e1-aff7-72ecc2abedaa" />
 </details>
 
 <details>
@@ -301,7 +301,7 @@ Features offered in the Network section.
 - Used DNS 1
 - Used DNS 2
 
-<img width="1010" height="633" alt="Glow - Network Section" src="https://github.com/user-attachments/assets/c2034063-e1e5-43c5-87c9-c075dfa390bc" />
+<img width="1010" height="633" alt="Glow - Network Page" src="https://github.com/user-attachments/assets/7369cb7d-01d5-42a6-a142-3b533182ba3c" />
 </details>
 
 <details>
@@ -321,7 +321,7 @@ Features offered in the USB section.
 - USB Device PNP Hardware ID
 - USB Device Status
 
-<img width="1010" height="633" alt="Glow - USB Section" src="https://github.com/user-attachments/assets/deda7f82-72b0-4c23-a383-2ef9e862bcaa" />
+<img width="1010" height="633" alt="Glow - USB Page" src="https://github.com/user-attachments/assets/22c1a887-5a44-4322-9638-28b98b53bd3f" />
 </details>
 
 <details>
@@ -336,7 +336,7 @@ Features offered in the Sound section.
 - Sound Device PNP Hardware ID
 - Sound Device Status
 
-<img width="1010" height="633" alt="Glow - Sound Section" src="https://github.com/user-attachments/assets/27b263c1-a709-4f08-9ff0-907c2fb26163" />
+<img width="1010" height="633" alt="Glow - Sound Page" src="https://github.com/user-attachments/assets/830413d5-5150-49cb-8ed5-2a0439727c35" />
 </details>
 
 <details>
@@ -358,7 +358,7 @@ Features offered in the Battery section.
 - Battery Discharge Current
 - Generate Battery Report
 
-<img width="1010" height="633" alt="Glow - Battery Section" src="https://github.com/user-attachments/assets/a4f0d2c6-dbc4-47a8-8d57-50598297de17" />
+<img width="1010" height="633" alt="Glow - Battery Page" src="https://github.com/user-attachments/assets/7c836543-7772-477d-8825-cba0a7a8ab12" />
 </details>
 
 <details>
@@ -366,7 +366,7 @@ Features offered in the Battery section.
   
 Features offered in the Installed Drivers section.
 
-<img width="1010" height="633" alt="Glow - Installed Drivers Section" src="https://github.com/user-attachments/assets/c7f96d9f-9382-4325-8cc7-2739328804c5" />
+<img width="1010" height="633" alt="Glow - Installed Drivers Page" src="https://github.com/user-attachments/assets/558edea4-80ae-4103-9ab0-387190c4718f" />
 </details>
 
 <details>
@@ -374,7 +374,7 @@ Features offered in the Installed Drivers section.
   
 Features offered in the Installed Services section.
 
-<img width="1010" height="633" alt="Glow - Installed Services Section" src="https://github.com/user-attachments/assets/72285399-122c-494f-a426-a0953ff21010" />
+<img width="1010" height="633" alt="Glow - Installed Services Page" src="https://github.com/user-attachments/assets/bc2aac1a-da40-4a63-8d19-56efedf5e57a" />
 </details>
 
 <details>
@@ -382,7 +382,7 @@ Features offered in the Installed Services section.
   
 Features offered in the Installed Apps section.
 
-<img width="1010" height="633" alt="Glow - Installed Apps Section" src="https://github.com/user-attachments/assets/493d577f-460d-4a8c-9399-21335f131ebf" />
+<img width="1010" height="633" alt="Glow - Installed Apps Page" src="https://github.com/user-attachments/assets/c96133c4-589c-460c-9884-1521f1b33b99" />
 </details>
 
 <details>
@@ -393,7 +393,7 @@ Features offered in the Export section.
 - TXT Export All Feature
 - HTML Export All Feature
 
-<img width="1010" height="633" alt="Glow - Export Section" src="https://github.com/user-attachments/assets/7147738e-5f63-4e82-9ba4-297ac49d0b7f" />
+<img width="1010" height="633" alt="Glow - Export Page" src="https://github.com/user-attachments/assets/f397abde-33e6-40dc-a9ce-4c25ea5dd939" />
 </details>
 
 # Advanced Tools
