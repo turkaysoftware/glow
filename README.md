@@ -414,7 +414,7 @@ Features offered in the Export section.
 - Dynamic Color Range Test
 - Stuck Pixel Repair Tool
 
-<img width="540" height="312" alt="Glow - Advanced Tools" src="https://github.com/user-attachments/assets/34524d0c-07bf-458b-b4ce-30d0c08ee61f" />
+<img width="540" height="310" alt="Glow - Advanced Tools" src="https://github.com/user-attachments/assets/3cb52184-a30f-44db-a2c3-8a6d94c9b361" />
 
 # Advanced Features
 - **Multi-Architecture Support:** Fully compatible with x64-x86 and ARM processors.
@@ -423,7 +423,7 @@ Features offered in the Export section.
 - **Hiding Mode:** The feature to hide sensitive and important information with an asterisk (*) in the interface can be turned on or off as desired.
 - [TS Wizard](https://www.turkaysoftware.com/ts-wizard) provides an automatic update and monitoring system.
 
-<img width="396" height="311" alt="Glow - Advanced Features" src="https://github.com/user-attachments/assets/0e232354-59a5-409e-9807-74fbcdae0f75" />
+<img width="396" height="314" alt="Glow - Advanced Features" src="https://github.com/user-attachments/assets/675faf5d-6b12-4355-9b14-6276df7ca0d1" />
 
 # System Requirements
 
