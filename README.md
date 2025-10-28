@@ -423,8 +423,7 @@ Features offered in the Export section.
 - **Hiding Mode:** The feature to hide sensitive and important information with an asterisk (*) in the interface can be turned on or off as desired.
 - [TS Wizard](https://www.turkaysoftware.com/ts-wizard) provides an automatic update and monitoring system.
 
-<img width="538" height="312" alt="Glow - Advanced Features" src="https://github.com/user-attachments/assets/8a7d1dc2-3569-4428-b10a-ca769640f79d" />
-
+<img width="396" height="336" alt="Glow - Advanced Features" src="https://github.com/user-attachments/assets/c7448222-9ddc-401b-895f-6df5d855f5ec" />
 
 # System Requirements
 
