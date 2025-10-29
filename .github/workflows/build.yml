@@ -1,4 +1,4 @@
-name: Build WinForms App (.NET Framework 4.8.1)
+name: TS Build App (.NET Framework 4.8.1)
 
 on:
   pull_request:
