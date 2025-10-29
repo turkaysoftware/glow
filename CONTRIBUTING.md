@@ -1,4 +1,3 @@
-```markdown
 # Contributing to Glow
 
 Thank you for your interest in contributing to Glow!
@@ -21,4 +20,3 @@ Please follow these guidelines to make the contribution process smooth for every
 9. Be respectful and constructive in all communication.
 
 Thank you for helping improve Glow!
-```
