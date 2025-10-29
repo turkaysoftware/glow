@@ -1,5 +1,9 @@
 name: TS Build App (.NET Framework 4.8.1)
 
+permissions:
+  contents: read
+  pull-requests: write
+
 on:
   pull_request:
     branches: [ main ]
