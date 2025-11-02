@@ -414,7 +414,7 @@ Features offered in the Export section.
 - Dynamic Color Range Test
 - Stuck Pixel Repair Tool
 
-<img width="538" height="312" alt="Glow - Advanced Tools" src="https://github.com/user-attachments/assets/c63c1ca5-e556-4b82-8d1c-012f6c65eea9" />
+<img width="538" height="333" alt="Glow - Advanced Tools" src="https://github.com/user-attachments/assets/c4abd2ff-7627-40bf-8581-0c3e949e653b" />
 
 # Advanced Features
 - **Multi-Architecture Support:** Fully compatible with x64-x86 and ARM processors.
