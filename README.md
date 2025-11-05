@@ -460,6 +460,7 @@ Features offered in the Export section.
 | **Network Troubleshooting Tool** | CTRL + O |
 | **Wi-Fi Password Showing Tool** | CTRL + P |
 | **Bluetooth Information Tool** | CTRL + B |
+| **System ID Generation Tool** | CTRL + G |
 | **Monitor Test Tools:** Dead Pixel Test | CTRL + Z |
 | **Monitor Test Tools:** Dynamic Color Range Test | CTRL + X |
 | **Monitor Test Tools:** Stuck Pixel Repair Tool | CTRL + C |
