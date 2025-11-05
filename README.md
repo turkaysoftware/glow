@@ -18,6 +18,8 @@ Even if you cannot provide financial support, you can help spread the software a
 
 [Click here](https://github.com/turkaysoftware/glow?tab=readme-ov-file#main-features) for full specifications.
 
+# Glow UI
+
 <img width="1010" height="633" alt="Glow UI" src="https://github.com/user-attachments/assets/64e52ed9-0978-4b36-a7b3-c35b4fed5e87" />
 
 # Download Glow
