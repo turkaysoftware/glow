@@ -15,6 +15,9 @@ using System.Text.RegularExpressions;
 
 namespace Glow{
     internal class TSModules{
+        // STARTUP LOCATION
+        // ======================================================================================================
+        private static readonly string StartupPath = Application.StartupPath;
         // LINK SYSTEM
         // ======================================================================================================
         public class TS_LinkSystem{
@@ -117,8 +120,7 @@ namespace Glow{
         }
         // SETTINGS SAVE PATHS
         // ======================================================================================================
-        public static string ts_df = Application.StartupPath;
-        public static string ts_sf = ts_df + @"\" + Application.ProductName + "Settings.ini";
+        public static string ts_sf = StartupPath + @"\" + Application.ProductName + "Settings.ini";
         public static string ts_settings_container = Path.GetFileNameWithoutExtension(ts_sf);
         // SETTINGS SAVE CLASS
         // ======================================================================================================
@@ -196,21 +198,21 @@ namespace Glow{
         }
         // READ LANG PATHS
         // ======================================================================================================
-        public static string ts_lf = $"g_langs";                            // Main Path
-        public static string ts_lang_ar = ts_lf + @"\Arabic.ini";           // Arabic       | ar
-        public static string ts_lang_zh = ts_lf + @"\Chinese.ini";          // Chinese      | zh
-        public static string ts_lang_en = ts_lf + @"\English.ini";          // English      | en
-        public static string ts_lang_fr = ts_lf + @"\French.ini";           // French       | fr
-        public static string ts_lang_de = ts_lf + @"\German.ini";           // German       | de
-        public static string ts_lang_hi = ts_lf + @"\Hindi.ini";            // Hindi        | hi
-        public static string ts_lang_it = ts_lf + @"\Italian.ini";          // Italian      | it
-        public static string ts_lang_ja = ts_lf + @"\Japanese.ini";         // Japanese     | ja
-        public static string ts_lang_ko = ts_lf + @"\Korean.ini";           // Korean       | ko
-        public static string ts_lang_pl = ts_lf + @"\Polish.ini";           // Polish       | pl
-        public static string ts_lang_pt = ts_lf + @"\Portuguese.ini";       // Portuguese   | pt
-        public static string ts_lang_ru = ts_lf + @"\Russian.ini";          // Russian      | ru
-        public static string ts_lang_es = ts_lf + @"\Spanish.ini";          // Spanish      | es
-        public static string ts_lang_tr = ts_lf + @"\Turkish.ini";          // Turkish      | tr
+        public static readonly string ts_lf = Path.Combine(StartupPath, "g_langs");
+        public static readonly string ts_lang_ar = ts_lf + @"\Arabic.ini";           // Arabic       | ar
+        public static readonly string ts_lang_zh = ts_lf + @"\Chinese.ini";          // Chinese      | zh
+        public static readonly string ts_lang_en = ts_lf + @"\English.ini";          // English      | en
+        public static readonly string ts_lang_fr = ts_lf + @"\French.ini";           // French       | fr
+        public static readonly string ts_lang_de = ts_lf + @"\German.ini";           // German       | de
+        public static readonly string ts_lang_hi = ts_lf + @"\Hindi.ini";            // Hindi        | hi
+        public static readonly string ts_lang_it = ts_lf + @"\Italian.ini";          // Italian      | it
+        public static readonly string ts_lang_ja = ts_lf + @"\Japanese.ini";         // Japanese     | ja
+        public static readonly string ts_lang_ko = ts_lf + @"\Korean.ini";           // Korean       | ko
+        public static readonly string ts_lang_pl = ts_lf + @"\Polish.ini";           // Polish       | pl
+        public static readonly string ts_lang_pt = ts_lf + @"\Portuguese.ini";       // Portuguese   | pt
+        public static readonly string ts_lang_ru = ts_lf + @"\Russian.ini";          // Russian      | ru
+        public static readonly string ts_lang_es = ts_lf + @"\Spanish.ini";          // Spanish      | es
+        public static readonly string ts_lang_tr = ts_lf + @"\Turkish.ini";          // Turkish      | tr
         // LANGUAGE MANAGE FUNCTIONS
         // ======================================================================================================
         public static Dictionary<string, string> AllLanguageFiles = new Dictionary<string, string> {
@@ -330,8 +332,8 @@ namespace Glow{
                 { "PageContainerBGAndPageContentTotalColors", Color.White },
                 { "ContentPanelBGColor", Color.FromArgb(236, 242, 248) },
                 { "ContentLabelLeft", Color.FromArgb(51, 51, 51) },
-                { "AccentMain", Color.FromArgb(54, 95, 146) },
-                { "AccentMainHover", Color.FromArgb(63, 109, 165) },
+                { "AccentColor", Color.FromArgb(54, 95, 146) },
+                { "AccentColorHover", Color.FromArgb(63, 109, 165) },
                 //
                 { "SelectBoxBGColor", Color.White },
                 { "SelectBoxBGColor2", Color.FromArgb(236, 242, 248) },
@@ -381,8 +383,8 @@ namespace Glow{
                 { "PageContainerBGAndPageContentTotalColors", Color.FromArgb(34, 38, 44) },
                 { "ContentPanelBGColor", Color.FromArgb(27, 30, 34) },
                 { "ContentLabelLeft", Color.WhiteSmoke },
-                { "AccentMain", Color.FromArgb(88, 153, 233) },
-                { "AccentMainHover", Color.FromArgb(93, 165, 253) },
+                { "AccentColor", Color.FromArgb(88, 153, 233) },
+                { "AccentColorHover", Color.FromArgb(93, 165, 253) },
                 //
                 { "SelectBoxBGColor", Color.FromArgb(34, 38, 44) },
                 { "SelectBoxBGColor2", Color.FromArgb(27, 30, 34) },
@@ -513,10 +515,8 @@ namespace Glow{
         // SET DYNAMIC SIZE ALGORITHM
         // ======================================================================================================
         public static void SetPictureBoxImage(PictureBox pictureBox, Image newImage){
-            if (pictureBox.Image != null){
-                pictureBox.Image.Dispose();
-                pictureBox.Image = null;
-            }
+            pictureBox.Image?.Dispose();
+            pictureBox.Image = null;
             if (newImage == null){
                 pictureBox.Image = null;
                 return;
@@ -651,6 +651,23 @@ namespace Glow{
             public int dmPanningWidth;
             public int dmPanningHeight;
         }
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        public struct DISPLAY_DEVICE{
+            [MarshalAs(UnmanagedType.U4)]
+            public int cb;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+            public string DeviceName;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+            public string DeviceString;
+            [MarshalAs(UnmanagedType.U4)]
+            public int StateFlags;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+            public string DeviceID;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+            public string DeviceKey;
+        }
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern bool EnumDisplayDevices(string lpDevice, int iDevNum, ref DISPLAY_DEVICE lpDisplayDevice, int dwFlags);
         // NETWORK NAME REPLACER
         // ======================================================================================================
         public static string Net_replacer(string get_adapter_name) => get_adapter_name.Replace("[", "(").Replace("]", ")");

@@ -28,14 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlowSFCandDISMAutoTool));
             this.SADT_L1 = new System.Windows.Forms.Label();
             this.SADT_L2 = new System.Windows.Forms.Label();
             this.SADT_L4 = new System.Windows.Forms.Label();
             this.SADT_L3 = new System.Windows.Forms.Label();
-            this.SADT_StartBtn = new Glow.TSCustomButton();
             this.Back_Panel = new System.Windows.Forms.Panel();
             this.SAD_LastTimeFLP = new System.Windows.Forms.FlowLayoutPanel();
+            this.SADT_StartBtn = new Glow.TSCustomButton();
             this.Back_Panel.SuspendLayout();
             this.SAD_LastTimeFLP.SuspendLayout();
             this.SuspendLayout();
@@ -65,7 +64,7 @@
             this.SADT_L2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.SADT_L2.Name = "SADT_L2";
             this.SADT_L2.Padding = new System.Windows.Forms.Padding(5);
-            this.SADT_L2.Size = new System.Drawing.Size(585, 126);
+            this.SADT_L2.Size = new System.Drawing.Size(585, 151);
             this.SADT_L2.TabIndex = 1;
             this.SADT_L2.Text = "N/A";
             this.SADT_L2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -99,6 +98,30 @@
             this.SADT_L3.Text = "SFC and DISM Auto Tool";
             this.SADT_L3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // Back_Panel
+            // 
+            this.Back_Panel.Controls.Add(this.SADT_L2);
+            this.Back_Panel.Controls.Add(this.SADT_L1);
+            this.Back_Panel.Controls.Add(this.SAD_LastTimeFLP);
+            this.Back_Panel.Controls.Add(this.SADT_StartBtn);
+            this.Back_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Back_Panel.Location = new System.Drawing.Point(7, 5);
+            this.Back_Panel.Name = "Back_Panel";
+            this.Back_Panel.Padding = new System.Windows.Forms.Padding(5);
+            this.Back_Panel.Size = new System.Drawing.Size(595, 274);
+            this.Back_Panel.TabIndex = 0;
+            // 
+            // SAD_LastTimeFLP
+            // 
+            this.SAD_LastTimeFLP.AutoSize = true;
+            this.SAD_LastTimeFLP.Controls.Add(this.SADT_L3);
+            this.SAD_LastTimeFLP.Controls.Add(this.SADT_L4);
+            this.SAD_LastTimeFLP.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.SAD_LastTimeFLP.Location = new System.Drawing.Point(5, 188);
+            this.SAD_LastTimeFLP.Name = "SAD_LastTimeFLP";
+            this.SAD_LastTimeFLP.Size = new System.Drawing.Size(585, 45);
+            this.SAD_LastTimeFLP.TabIndex = 2;
+            // 
             // SADT_StartBtn
             // 
             this.SADT_StartBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
@@ -114,7 +137,7 @@
             this.SADT_StartBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.SADT_StartBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.SADT_StartBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.SADT_StartBtn.Location = new System.Drawing.Point(5, 208);
+            this.SADT_StartBtn.Location = new System.Drawing.Point(5, 233);
             this.SADT_StartBtn.Margin = new System.Windows.Forms.Padding(5);
             this.SADT_StartBtn.Name = "SADT_StartBtn";
             this.SADT_StartBtn.Size = new System.Drawing.Size(585, 36);
@@ -126,40 +149,16 @@
             this.SADT_StartBtn.UseVisualStyleBackColor = false;
             this.SADT_StartBtn.Click += new System.EventHandler(this.SADT_StartBtn_Click);
             // 
-            // Back_Panel
-            // 
-            this.Back_Panel.Controls.Add(this.SADT_L2);
-            this.Back_Panel.Controls.Add(this.SADT_L1);
-            this.Back_Panel.Controls.Add(this.SAD_LastTimeFLP);
-            this.Back_Panel.Controls.Add(this.SADT_StartBtn);
-            this.Back_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Back_Panel.Location = new System.Drawing.Point(7, 5);
-            this.Back_Panel.Name = "Back_Panel";
-            this.Back_Panel.Padding = new System.Windows.Forms.Padding(5);
-            this.Back_Panel.Size = new System.Drawing.Size(595, 249);
-            this.Back_Panel.TabIndex = 0;
-            // 
-            // SAD_LastTimeFLP
-            // 
-            this.SAD_LastTimeFLP.AutoSize = true;
-            this.SAD_LastTimeFLP.Controls.Add(this.SADT_L3);
-            this.SAD_LastTimeFLP.Controls.Add(this.SADT_L4);
-            this.SAD_LastTimeFLP.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.SAD_LastTimeFLP.Location = new System.Drawing.Point(5, 163);
-            this.SAD_LastTimeFLP.Name = "SAD_LastTimeFLP";
-            this.SAD_LastTimeFLP.Size = new System.Drawing.Size(585, 45);
-            this.SAD_LastTimeFLP.TabIndex = 2;
-            // 
             // GlowSFCandDISMAutoTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(609, 261);
+            this.ClientSize = new System.Drawing.Size(609, 286);
             this.Controls.Add(this.Back_Panel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = Properties.Resources.GlowLogo;
+            this.Icon = global::Glow.Properties.Resources.GlowLogo;
             this.MaximizeBox = false;
             this.Name = "GlowSFCandDISMAutoTool";
             this.Padding = new System.Windows.Forms.Padding(7, 5, 7, 7);

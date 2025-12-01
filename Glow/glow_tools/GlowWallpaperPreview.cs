@@ -81,10 +81,10 @@ namespace Glow.glow_tools{
                 foreach (Control ui_buttons in BackPanel.Controls){
                     if (ui_buttons is Button open_btn){
                         open_btn.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DynamicThemeActiveBtnBG");
-                        open_btn.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
-                        open_btn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
-                        open_btn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
-                        open_btn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMainHover");
+                        open_btn.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                        open_btn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                        open_btn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                        open_btn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColorHover");
                     }
                 }
                 //

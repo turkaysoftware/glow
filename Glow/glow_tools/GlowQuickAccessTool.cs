@@ -22,10 +22,10 @@ namespace Glow.glow_tools{
                 foreach (Control ui_buttons in QUICK_FLY.Controls){
                     if (ui_buttons is Button render_color_button){
                         render_color_button.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DynamicThemeActiveBtnBG");
-                        render_color_button.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
-                        render_color_button.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
-                        render_color_button.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
-                        render_color_button.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMainHover");
+                        render_color_button.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                        render_color_button.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                        render_color_button.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                        render_color_button.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColorHover");
                     }
                 }
                 //
@@ -66,10 +66,12 @@ namespace Glow.glow_tools{
                 var get_fly_buttons = QUICK_FLY.Controls.OfType<Button>().ToList();
                 get_fly_buttons.Sort((before_button, after_button) => before_button.Text.CompareTo(after_button.Text));
                 QUICK_FLY.SuspendLayout();
-                foreach (var render_button in get_fly_buttons){
-                    QUICK_FLY.Controls.SetChildIndex(render_button, get_fly_buttons.IndexOf(render_button));
+                for (int i = 0; i < get_fly_buttons.Count; i++){
+                    var render_button = get_fly_buttons[i];
+                    QUICK_FLY.Controls.SetChildIndex(render_button, i);
+                    render_button.TabIndex = i;
                 }
-                QUICK_FLY.ResumeLayout();
+                QUICK_FLY.ResumeLayout(true);
             }catch (Exception){ }
         }
         // LOAD

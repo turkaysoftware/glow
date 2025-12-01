@@ -53,7 +53,33 @@ namespace Glow.glow_tools{
         private void DGV_MainTable_SelectionChanged(object sender, EventArgs e) => DGV_MainTable.ClearSelection();
         // LOAD
         // ======================================================================================================
-        private void GlowSystemIDGenerator_Load(object sender, EventArgs e) => SIG_Preloader();
+        private void GlowSystemIDGenerator_Load(object sender, EventArgs e){
+            SIG_Preloader();
+            //
+            Btn_Save.Enabled = false;
+            Btn_Compare.Enabled = false;
+            //
+            DGV_MainTable.Rows.Clear();
+            foreach (var key in hwBag.Keys){
+                hwBag[key] = new ConcurrentBag<string>();
+            }
+            //
+            var tasks_list = new List<Task>{
+                Task.Run(() => SID_Processor()),
+                Task.Run(() => SID_Motherboard()),
+                Task.Run(() => SID_BIOS()),
+                Task.Run(() => SID_Memory()),
+                Task.Run(() => SID_GPU()),
+                Task.Run(() => SID_Monitor()),
+                Task.Run(() => SID_Storage()),
+                Task.Run(() => SID_Battery())
+            };
+            //
+            SortGridNatural();
+            DGV_MainTable.ClearSelection();
+            Btn_Save.Enabled = true;
+            Btn_Compare.Enabled = true;
+        }
         // PRELOAD
         // ======================================================================================================
         public void SIG_Preloader(){
@@ -76,20 +102,18 @@ namespace Glow.glow_tools{
                 DGV_MainTable.DefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "OSDAndServicesPageBG");
                 DGV_MainTable.DefaultCellStyle.SelectionForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "OSDAndServicesPageFE");
                 //
-                Check_Saved.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
-                //
                 foreach (Control ui_buttons in this.Controls){
                     if (ui_buttons is Button ui_button){
                         ui_button.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DynamicThemeActiveBtnBG");
-                        ui_button.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
-                        ui_button.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
-                        ui_button.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
-                        ui_button.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMainHover");
+                        ui_button.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                        ui_button.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                        ui_button.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                        ui_button.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColorHover");
                     }
                 }
                 //
+                TSImageRenderer(Btn_Save, GlowMain.theme == 1 ? Properties.Resources.ct_export_light : Properties.Resources.ct_export_dark, 18, ContentAlignment.MiddleRight);
                 TSImageRenderer(Btn_Compare, GlowMain.theme == 1 ? Properties.Resources.ct_compare_light : Properties.Resources.ct_compare_dark, 18, ContentAlignment.MiddleRight);
-                TSImageRenderer(Btn_Generate, GlowMain.theme == 1 ? Properties.Resources.ct_test_start_light : Properties.Resources.ct_test_start_dark, 18, ContentAlignment.MiddleRight);
                 // ======================================================================================================
                 // TEXTS
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
@@ -99,95 +123,44 @@ namespace Glow.glow_tools{
                 DGV_MainTable.Columns[0].HeaderText = software_lang.TSReadLangs("SystemIDTool", "sit_column_1");
                 DGV_MainTable.Columns[1].HeaderText = software_lang.TSReadLangs("SystemIDTool", "sit_column_2");
                 //
-                Check_Saved.Text = software_lang.TSReadLangs("SystemIDTool", "sit_process_after_save");
-                if (Check_Saved.Checked){
-                    Btn_Generate.Text = " " + software_lang.TSReadLangs("SystemIDTool", "sit_run_btn");
-                }else{
-                    Btn_Generate.Text = " " + software_lang.TSReadLangs("SystemIDTool", "sit_run_after_save");
-                }
+                Btn_Save.Text = " " + software_lang.TSReadLangs("SystemIDTool", "sit_save_btn");
                 Btn_Compare.Text = " " + software_lang.TSReadLangs("SystemIDTool", "sit_compare_btn");
             }catch (Exception){ }
         }
-        // CHECK MODE CHANGE BTN TEXT
+        // HARDWARE ID SAVE BTN
         // ======================================================================================================
-        private void Check_Saved_CheckedChanged(object sender, EventArgs e){
+        private void Btn_Save_Click(object sender, EventArgs e){
             try{
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                if (Check_Saved.Checked){
-                    Btn_Generate.Text = " " + software_lang.TSReadLangs("SystemIDTool", "sit_run_btn");
-                }else{
-                    Btn_Generate.Text = " " + software_lang.TSReadLangs("SystemIDTool", "sit_run_after_save");
-                }
-            }catch (Exception){ }
-        }
-        // HARDWARE ID GENERATE BTN
-        // ======================================================================================================
-        private void Btn_Generate_Click(object sender, EventArgs e){
-            try{
-                Btn_Generate.Enabled = false;
-                DGV_MainTable.Rows.Clear();
-                foreach (var key in hwBag.Keys)
-                    hwBag[key] = new ConcurrentBag<string>();
-                var tasks_list = new List<Task>{
-                    Task.Run(() => SID_Processor()),
-                    Task.Run(() => SID_Motherboard()),
-                    Task.Run(() => SID_BIOS()),
-                    Task.Run(() => SID_Memory()),
-                    Task.Run(() => SID_GPU()),
-                    Task.Run(() => SID_Monitor()),
-                    Task.Run(() => SID_Storage()),
-                    Task.Run(() => SID_Battery())
-                };
-                Task.WhenAll(tasks_list).ContinueWith(t =>{
-                    this.Invoke(new Action(() =>{
-                        SortGridNatural();
+                using (var folder_browser = new FolderBrowserDialog()){
+                    folder_browser.Description = software_lang.TSReadLangs("SystemIDTool", "sit_save_info");
+                    folder_browser.ShowNewFolderButton = false;
+                    folder_browser.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    if (folder_browser.ShowDialog() == DialogResult.OK){
+                        string save_file_name = string.Format(software_lang.TSReadLangs("SystemIDTool", "sit_file_name"), Application.ProductName);
+                        string sha_name = string.Format(software_lang.TSReadLangs("SystemIDTool", "sit_sha_name") + " - " + DateTime.Now.ToString("dd.MM.yyyy - HH.mm.ss"), Application.ProductName);
+                        string snapshot_name = string.Format(software_lang.TSReadLangs("SystemIDTool", "sit_snapshot_name") + " - " + DateTime.Now.ToString("dd.MM.yyyy - HH.mm.ss"), Application.ProductName);
+                        string targetDir = Path.Combine(folder_browser.SelectedPath, save_file_name);
                         //
-                        DGV_MainTable.ClearSelection();
-                        Btn_Generate.Enabled = true;
-                        Btn_Compare.Enabled = true;
-                        //
-                        TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                        //
-                        if (Check_Saved.Checked){
-                            using (var folder_browser = new FolderBrowserDialog()){
-                                folder_browser.Description = software_lang.TSReadLangs("SystemIDTool", "sit_save_info");
-                                folder_browser.ShowNewFolderButton = false;
-                                folder_browser.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                                if (folder_browser.ShowDialog() == DialogResult.OK){
-                                    string save_file_name = string.Format(software_lang.TSReadLangs("SystemIDTool", "sit_file_name"), Application.ProductName);
-                                    string sha_name = string.Format(software_lang.TSReadLangs("SystemIDTool", "sit_sha_name"), Application.ProductName);
-                                    string snapshot_name = string.Format(software_lang.TSReadLangs("SystemIDTool", "sit_snapshot_name"), Application.ProductName);
-                                    string targetDir = Path.Combine(folder_browser.SelectedPath, save_file_name);
-                                    //
-                                    if (Directory.Exists(targetDir)){
-                                        var overwrite = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(software_lang.TSReadLangs("SystemIDTool", "sit_cd_exist_message"), save_file_name));
-                                        if (overwrite != DialogResult.Yes){
-                                            return;
-                                        }
-                                    }else{
-                                        Directory.CreateDirectory(targetDir);
-                                    }
-                                    //
-                                    string shaPath = Path.Combine(targetDir, sha_name + ".sha256");
-                                    string glowPath = Path.Combine(targetDir, snapshot_name + ".glow");
-                                    try{
-                                        File.WriteAllText(shaPath, $"{software_lang.TSReadLangs("SystemIDTool", "sit_sha_file_tag")}\n{new string('-', 65)}\n{BuildHardwareHash(BuildHardwareSnapshot())}");
-                                        File.WriteAllText(glowPath, $"{software_lang.TSReadLangs("SystemIDTool", "sit_snapshot_file_tag")}\n{new string('-', 65)}\n{BuildHardwareSnapshot()}");
-                                    }catch (Exception ex){
-                                        TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(software_lang.TSReadLangs("SystemIDTool", "sit_after_failed"), ex.Message));
-                                    }
-                                    //
-                                    var latest_message = TS_MessageBoxEngine.TS_MessageBox(this, 5, software_lang.TSReadLangs("SystemIDTool", "sit_after_message"));
-                                    if (latest_message == DialogResult.Yes){
-                                        Process.Start("explorer.exe", targetDir);
-                                    }
-                                }
-                            }
-                        }else{
-                            TS_MessageBoxEngine.TS_MessageBox(this, 1, software_lang.TSReadLangs("SystemIDTool", "sit_after_message_ns"));
+                        if (!Directory.Exists(targetDir)){
+                            Directory.CreateDirectory(targetDir);
                         }
-                    }));
-                });
+                        //
+                        string shaPath = Path.Combine(targetDir, sha_name + ".sha256");
+                        string glowPath = Path.Combine(targetDir, snapshot_name + ".glow");
+                        try{
+                            File.WriteAllText(shaPath, $"{software_lang.TSReadLangs("SystemIDTool", "sit_sha_file_tag")}\n{new string('-', 65)}\n{BuildHardwareHash(BuildHardwareSnapshot())}");
+                            File.WriteAllText(glowPath, $"{software_lang.TSReadLangs("SystemIDTool", "sit_snapshot_file_tag")}\n{new string('-', 65)}\n{BuildHardwareSnapshot()}");
+                        }catch (Exception ex){
+                            TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(software_lang.TSReadLangs("SystemIDTool", "sit_after_failed"), ex.Message));
+                        }
+                        //
+                        var latest_message = TS_MessageBoxEngine.TS_MessageBox(this, 5, software_lang.TSReadLangs("SystemIDTool", "sit_after_message"));
+                        if (latest_message == DialogResult.Yes){
+                            Process.Start("explorer.exe", targetDir);
+                        }
+                    }
+                }
             }catch (Exception){ }
         }
         // BUILD HARDWARE SNAPSHOTS
@@ -473,6 +446,11 @@ namespace Glow.glow_tools{
             foreach (var item in rows){
                 DGV_MainTable.Rows.Add(item.Name, item.Value);
             }
+        }
+
+        private void Btn_Generate_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

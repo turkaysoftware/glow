@@ -47,16 +47,16 @@ namespace Glow.glow_tools{
                 //
                 BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 //
-                Bench_MStart.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
+                Bench_MStart.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
                 Bench_MStart.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DynamicThemeActiveBtnBG");
-                Bench_MStart.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
-                Bench_MStart.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
-                Bench_MStart.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMainHover");
-                Bench_MStop.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
+                Bench_MStart.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                Bench_MStart.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                Bench_MStart.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColorHover");
+                Bench_MStop.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
                 Bench_MStop.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DynamicThemeActiveBtnBG");
-                Bench_MStop.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
-                Bench_MStop.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
-                Bench_MStop.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMainHover");
+                Bench_MStop.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                Bench_MStop.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                Bench_MStop.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColorHover");
                 //
                 Bench_TLP.BackgroundColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 Bench_TLP.GridColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridColor");

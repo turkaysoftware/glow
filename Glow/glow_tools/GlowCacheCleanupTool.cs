@@ -1,9 +1,10 @@
 ﻿using System;
-using System.IO;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 //
 using static Glow.TSModules;
 
@@ -20,12 +21,16 @@ namespace Glow.glow_tools{
         // CLEAN SYSTEM
         // ======================================================================================================
         readonly List<string> cct_path_list = new List<string>(){
-            Path.Combine(GlowMain.windows_disk, "Windows", "Temp"),
-            Environment.ExpandEnvironmentVariables("%TEMP%"),
-            Path.Combine(GlowMain.windows_disk, "Windows", "Prefetch"),
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Microsoft", "Windows", "Explorer"),
-            Path.Combine(GlowMain.windows_disk, "Windows", "SoftwareDistribution", "Download"),
+            NormalizePath(Environment.ExpandEnvironmentVariables(@"%SystemRoot%\TEMP")),
+            NormalizePath(Environment.ExpandEnvironmentVariables("%TEMP%")),
+            NormalizePath(Environment.ExpandEnvironmentVariables(@"%SystemRoot%\Prefetch")),
+            NormalizePath(Environment.ExpandEnvironmentVariables(@"%LOCALAPPDATA%\Microsoft\Windows\Explorer")),
+            NormalizePath(Environment.ExpandEnvironmentVariables(@"%SystemRoot%\SoftwareDistribution\Download")),
         };
+        static string NormalizePath(string path){
+            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+            return textInfo.ToTitleCase(path.ToLowerInvariant());
+        }
         private readonly List<long> CCleanup_pathSizes = new List<long>();
         private string CCleanup_cctTitle;
         private bool CCleanup_aRefresh = true, CCleanup_aRefreshRepeat = false;
@@ -53,11 +58,11 @@ namespace Glow.glow_tools{
                 CCT_SelectLabel.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "PageContainerBGAndPageContentTotalColors");
                 CCT_SelectLabel.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
                 //
-                CCT_StartBtn.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
+                CCT_StartBtn.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
                 CCT_StartBtn.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DynamicThemeActiveBtnBG");
-                CCT_StartBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
-                CCT_StartBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMain");
-                CCT_StartBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentMainHover");
+                CCT_StartBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                CCT_StartBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                CCT_StartBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColorHover");
                 //
                 TSImageRenderer(CCT_StartBtn, GlowMain.theme == 1 ? Properties.Resources.ct_clean_light : Properties.Resources.ct_clean_dark, 22, ContentAlignment.MiddleRight);
                 //
