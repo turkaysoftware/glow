@@ -80,6 +80,7 @@ namespace Glow.glow_tools{
             typeof(FlowLayoutPanel).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, QUICK_FLY, new object[]{ true });
             Quick_access_settings();
         }
+        // https://learn.microsoft.com/en-us/windows/apps/develop/launch/launch-settings
         // LAUNCHER QUICK TOOLS
         // =============================
         private void QuickLauncher(string run_command){

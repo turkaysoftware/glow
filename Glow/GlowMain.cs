@@ -43,6 +43,7 @@ namespace Glow{
             arabicToolStripMenuItem.Tag = "ar";
             chineseToolStripMenuItem.Tag = "zh";
             englishToolStripMenuItem.Tag = "en";
+            dutchToolStripMenuItem.Tag = "nl";
             frenchToolStripMenuItem.Tag = "fr";
             germanToolStripMenuItem.Tag = "de";
             hindiToolStripMenuItem.Tag = "hi";
@@ -59,6 +60,7 @@ namespace Glow{
             arabicToolStripMenuItem.Click += LanguageToolStripMenuItem_Click;
             chineseToolStripMenuItem.Click += LanguageToolStripMenuItem_Click;
             englishToolStripMenuItem.Click += LanguageToolStripMenuItem_Click;
+            dutchToolStripMenuItem.Click += LanguageToolStripMenuItem_Click;
             frenchToolStripMenuItem.Click += LanguageToolStripMenuItem_Click;
             germanToolStripMenuItem.Click += LanguageToolStripMenuItem_Click;
             hindiToolStripMenuItem.Click += LanguageToolStripMenuItem_Click;
@@ -309,6 +311,7 @@ namespace Glow{
                 { "ar", (ts_lang_ar, arabicToolStripMenuItem, File.Exists(ts_lang_ar)) },
                 { "zh", (ts_lang_zh, chineseToolStripMenuItem, File.Exists(ts_lang_zh)) },
                 { "en", (ts_lang_en, englishToolStripMenuItem, File.Exists(ts_lang_en)) },
+                { "nl", (ts_lang_nl, dutchToolStripMenuItem, File.Exists(ts_lang_nl)) },
                 { "fr", (ts_lang_fr, frenchToolStripMenuItem, File.Exists(ts_lang_fr)) },
                 { "de", (ts_lang_de, germanToolStripMenuItem, File.Exists(ts_lang_de)) },
                 { "hi", (ts_lang_hi, hindiToolStripMenuItem, File.Exists(ts_lang_hi)) },
@@ -959,15 +962,15 @@ namespace Glow{
                 var software_lang = new TSGetLangs(lang_path);
                 var search_os = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_OperatingSystem");
                 while (loop_status){
-                    var result = new Dictionary<string, string>();
+                    var s_result = new Dictionary<string, string>();
                     try{
                         foreach (ManagementObject query_os in search_os.Get().Cast<ManagementObject>()){
                             double free_virtual_ram = Convert.ToDouble(query_os["FreeVirtualMemory"]) * 1024;
                             double total_virtual_memory = Convert.ToDouble(query_os["TotalVirtualMemorySize"]) * 1024;
                             double used_virtual_ram = total_virtual_memory - free_virtual_ram;
                             //
-                            result["freeRam"] = TS_FormatSize(free_virtual_ram);
-                            result["usedRam"] = TS_FormatSize(used_virtual_ram);
+                            s_result["freeRam"] = TS_FormatSize(free_virtual_ram);
+                            s_result["usedRam"] = TS_FormatSize(used_virtual_ram);
                             //
                             string rawDate = query_os["InstallDate"].ToString();
                             DateTime osInstallDate = ManagementDateTimeConverter.ToDateTime(rawDate);
@@ -991,33 +994,31 @@ namespace Glow{
                             if (uptime.Minutes > 0) parts.Add($"{uptime.Minutes} {oi_minute}");
                             string uptimeText = string.Join(", ", parts);
                             //
-                            result["install"] = $"{osInstallDate:dd.MM.yyyy} - {osInstallDate:HH:mm:ss} - ({uptimeText.Trim()} {oi_ago})";
-
+                            s_result["install"] = $"{osInstallDate:dd.MM.yyyy} - {osInstallDate:HH:mm:ss} - ({uptimeText.Trim()} {oi_ago})";
                             string last_boot = Convert.ToString(query_os["LastBootUpTime"]);
                             DateTime boot_date = ManagementDateTimeConverter.ToDateTime(last_boot);
                             TimeSpan system_uptime = DateTime.Now - boot_date;
-
-                            result["uptime"] = $"{system_uptime.Days} {oi_day}, {system_uptime.Hours} {oi_hour}, {system_uptime.Minutes} {oi_minute}, {system_uptime.Seconds} {oi_second}";
+                            s_result["uptime"] = $"{system_uptime.Days} {oi_day}, {system_uptime.Hours} {oi_hour}, {system_uptime.Minutes} {oi_minute}, {system_uptime.Seconds} {oi_second}";
                         }
                         //
                         int mouseSpeed = new Computer().Mouse.WheelScrollLines;
-                        result["mouseSpeed"] = string.Format(software_lang.TSReadLangs("Os_Content", "os_c_scroll_speed"), mouseSpeed);
-                        result["scrollLock"] = new Computer().Keyboard.ScrollLock ? software_lang.TSReadLangs("Os_Content", "os_c_on") : software_lang.TSReadLangs("Os_Content", "os_c_off");
-                        result["numLock"] = new Computer().Keyboard.NumLock ? software_lang.TSReadLangs("Os_Content", "os_c_on") : software_lang.TSReadLangs("Os_Content", "os_c_off");
-                        result["capsLock"] = new Computer().Keyboard.CapsLock ? software_lang.TSReadLangs("Os_Content", "os_c_on") : software_lang.TSReadLangs("Os_Content", "os_c_off");
+                        s_result["mouseSpeed"] = string.Format(software_lang.TSReadLangs("Os_Content", "os_c_scroll_speed"), mouseSpeed);
+                        s_result["scrollLock"] = new Computer().Keyboard.ScrollLock ? software_lang.TSReadLangs("Os_Content", "os_c_on") : software_lang.TSReadLangs("Os_Content", "os_c_off");
+                        s_result["numLock"] = new Computer().Keyboard.NumLock ? software_lang.TSReadLangs("Os_Content", "os_c_on") : software_lang.TSReadLangs("Os_Content", "os_c_off");
+                        s_result["capsLock"] = new Computer().Keyboard.CapsLock ? software_lang.TSReadLangs("Os_Content", "os_c_on") : software_lang.TSReadLangs("Os_Content", "os_c_off");
                     }catch{ }
                     if (IsHandleCreated){
                         BeginInvoke(new Action(() =>{
                             OS_SystemTime_V.Text = DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss");
                             //
-                            if (!result.TryGetValue("install", out var install)) install = "N/A";
-                            if (!result.TryGetValue("uptime", out var uptime)) uptime = "N/A";
-                            if (!result.TryGetValue("mouseSpeed", out var mouseSpeed)) mouseSpeed = "N/A";
-                            if (!result.TryGetValue("scrollLock", out var scrollLock)) scrollLock = "N/A";
-                            if (!result.TryGetValue("numLock", out var numLock)) numLock = "N/A";
-                            if (!result.TryGetValue("capsLock", out var capsLock)) capsLock = "N/A";
-                            if (!result.TryGetValue("freeRam", out var freeRam)) freeRam = "N/A";
-                            if (!result.TryGetValue("usedRam", out var usedRam)) usedRam = "N/A";
+                            if (!s_result.TryGetValue("install", out var install)) install = "N/A";
+                            if (!s_result.TryGetValue("uptime", out var uptime)) uptime = "N/A";
+                            if (!s_result.TryGetValue("mouseSpeed", out var mouseSpeed)) mouseSpeed = "N/A";
+                            if (!s_result.TryGetValue("scrollLock", out var scrollLock)) scrollLock = "N/A";
+                            if (!s_result.TryGetValue("numLock", out var numLock)) numLock = "N/A";
+                            if (!s_result.TryGetValue("capsLock", out var capsLock)) capsLock = "N/A";
+                            if (!s_result.TryGetValue("freeRam", out var freeRam)) freeRam = "N/A";
+                            if (!s_result.TryGetValue("usedRam", out var usedRam)) usedRam = "N/A";
                             //
                             OS_Install_V.Text = install;
                             OS_SystemWorkTime_V.Text = uptime;
@@ -1044,10 +1045,10 @@ namespace Glow{
             if (seconds <= 0) return time_never;
             int h = seconds / 3600;
             int m = (seconds % 3600) / 60;
-            string result = "";
-            if (h > 0) result += $"{h} {time_hour}";
-            if (m > 0) result += (result != "" ? " " : "") + $"{m} {time_miniutes}";
-            return result;
+            string result_timeout = "";
+            if (h > 0) result_timeout += $"{h} {time_hour}";
+            if (m > 0) result_timeout += (result_timeout != "" ? " " : "") + $"{m} {time_miniutes}";
+            return result_timeout;
         }
         // SYSTEM SCREEN CLOSE AND SLEEP GET DATA
         private static int SCQueryTimeout(string planGuid, string subgroupAlias, string settingAlias, bool acPower){
@@ -1091,9 +1092,9 @@ namespace Glow{
                             CreateNoWindow = true
                         };
                         process.Start();
-                        string result = await process.StandardOutput.ReadToEndAsync();
+                        string get_store_version = await process.StandardOutput.ReadToEndAsync();
                         process.WaitForExit();
-                        return result.Trim();
+                        return get_store_version.Trim();
                     }
                 });
                 string displayText = string.IsNullOrEmpty(version) ? software_lang.TSReadLangs("Os_Content", "os_c_unknown") : version;
@@ -3571,13 +3572,18 @@ namespace Glow{
             try{
                 var software_lang = new TSGetLangs(lang_path);
                 string activeAdapter = GetActiveNetworkAdapter();
-                if (string.IsNullOrEmpty(activeAdapter))
+                string not_connect = software_lang.TSReadLangs("Network_Content", "nk_c_not_connect");
+                if (string.IsNullOrEmpty(activeAdapter)){
+                    SetUI_NotConnected(not_connect);
                     return;
+                }
                 var category = new PerformanceCounterCategory("Network Interface");
                 string[] instanceNames = category.GetInstanceNames();
                 string perfCounterAdapterName = instanceNames.FirstOrDefault(name => Net_replacer(name) == Net_replacer(activeAdapter));
-                if (perfCounterAdapterName == null)
+                if (perfCounterAdapterName == null){
+                    SetUI_NotConnected(not_connect);
                     return;
+                }
                 using (var bytesSentCounter = new PerformanceCounter("Network Interface", "Bytes Sent/sec", perfCounterAdapterName))
                 using (var bytesReceivedCounter = new PerformanceCounter("Network Interface", "Bytes Received/sec", perfCounterAdapterName))
                 using (var bandwidthCounter = new PerformanceCounter("Network Interface", "Current Bandwidth", perfCounterAdapterName)){
@@ -3604,7 +3610,7 @@ namespace Glow{
                         }
                     }
                 }
-            }catch{ }
+            }catch { }
         }
         private static string GetActiveNetworkAdapter(){
             try{
@@ -3617,6 +3623,15 @@ namespace Glow{
                 }
             }catch (Exception){ }
             return null;
+        }
+        private void SetUI_NotConnected(string not_connect){
+            if (!IsHandleCreated) return;
+            BeginInvoke(new Action(() =>{
+                NET_LT_Device_V.Text = not_connect;
+                NET_LT_BandWidth_V.Text = not_connect;
+                NET_LT_UL2.Text = not_connect;
+                NET_LT_DL2.Text = not_connect;
+            }));
         }
         #endregion
         #region USB_Section
@@ -4986,6 +5001,7 @@ namespace Glow{
                 arabicToolStripMenuItem.Text = software_lang.TSReadLangs("HeaderLangs", "lang_ar");
                 chineseToolStripMenuItem.Text = software_lang.TSReadLangs("HeaderLangs", "lang_zh");
                 englishToolStripMenuItem.Text = software_lang.TSReadLangs("HeaderLangs", "lang_en");
+                dutchToolStripMenuItem.Text = software_lang.TSReadLangs("HeaderLangs", "lang_nl");
                 frenchToolStripMenuItem.Text = software_lang.TSReadLangs("HeaderLangs", "lang_fr");
                 germanToolStripMenuItem.Text = software_lang.TSReadLangs("HeaderLangs", "lang_de");
                 hindiToolStripMenuItem.Text = software_lang.TSReadLangs("HeaderLangs", "lang_hi");
@@ -7804,8 +7820,8 @@ namespace Glow{
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
                 if (monitor_engine_mode == 0){
                     var warningMessage = string.Format(software_lang.TSReadLangs("MonitorTestTool", "mtt_epilepsy_warning"), "\n\n", software_lang.TSReadLangs("HeaderTools", "ht_monitor_test_dead_pixel"), "\n\n");
-                    DialogResult result = TS_MessageBoxEngine.TS_MessageBox(this, 6, warningMessage);
-                    if (result == DialogResult.Yes)
+                    DialogResult mse_warning = TS_MessageBoxEngine.TS_MessageBox(this, 6, warningMessage);
+                    if (mse_warning == DialogResult.Yes)
                         MonitorStartEngineSelect();
                 }else{
                     MonitorStartEngineSelect();

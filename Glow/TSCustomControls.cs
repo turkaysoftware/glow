@@ -146,6 +146,7 @@ namespace Glow
         private Color _disabledBackColor = SystemColors.Control;
         private Color _disabledForeColor = SystemColors.GrayText;
         private Color _disabledButtonColor = SystemColors.ControlDark;
+        private Color _disabledArrowColor = SystemColors.GrayText;
         //
         private Color _focusedBorderColor = Color.DodgerBlue;
         private Color _hoverBackColor = SystemColors.Window;
@@ -214,6 +215,14 @@ namespace Glow
         {
             get => _arrowColor;
             set { _arrowColor = value; Invalidate(); }
+        }
+        [Browsable(true)]
+        [Category("TS Appearance")]
+        [Description("Gets or sets the arrow color when the ComboBox is disabled.")]
+        public Color DisabledArrowColor
+        {
+            get => _disabledArrowColor;
+            set { _disabledArrowColor = value; Invalidate(); }
         }
         [Browsable(true)]
         [Category("TS Appearance")]
@@ -292,7 +301,7 @@ namespace Glow
                 new PointF(middle.X + arrowWidth / 2f, middle.Y - arrowHeight / 2f),
                 new PointF(middle.X, middle.Y + arrowHeight / 2f)
             };
-            Color effectiveArrow = !this.Enabled ? _disabledForeColor : _arrowColor;
+            Color effectiveArrow = !this.Enabled ? _disabledArrowColor : _arrowColor;
             using (SolidBrush arrowBrush = new SolidBrush(effectiveArrow))
                 e.Graphics.FillPolygon(arrowBrush, arrow);
             using (Pen pen = new Pen(this.Focused ? _focusedBorderColor : _borderColor))
