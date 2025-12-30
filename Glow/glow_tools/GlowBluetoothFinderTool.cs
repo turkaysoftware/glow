@@ -268,7 +268,7 @@ namespace Glow.glow_tools{
                 int maxDesc = pairs.Max(p => (p.Desc.Text ?? "").Length);
                 string header = string.Format(software_lang.TSReadLangs("BluetoothFinderTool", "bfy_copy_head_text"), Application.ProductName);
                 int lineLen = Math.Max(header.Length, pairs.Max(p => (p.Desc.Text ?? "").PadRight(maxDesc + 5).Length + (p.Value?.Text ?? "").Length));
-                var sb = new StringBuilder(512).AppendLine(header).AppendLine(new string('-', lineLen));
+                var sb = new StringBuilder(512).AppendLine(header).AppendLine(Environment.NewLine + new string('-', lineLen) + Environment.NewLine);
                 foreach (var (d, v) in pairs){
                     sb.AppendLine($"{(d.Text ?? "").PadRight(maxDesc + 5)}{v?.Text ?? ""}");
                 }

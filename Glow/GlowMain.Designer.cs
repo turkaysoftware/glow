@@ -66,6 +66,7 @@
             this.arabicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chineseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dutchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.frenchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.germanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hindiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,7 +78,6 @@
             this.russianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spanishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.turkishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dutchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fullScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1248,14 +1248,14 @@
             // 
             this.arabicToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.arabicToolStripMenuItem.Name = "arabicToolStripMenuItem";
-            this.arabicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.arabicToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.arabicToolStripMenuItem.Text = "Arabic";
             // 
             // chineseToolStripMenuItem
             // 
             this.chineseToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.chineseToolStripMenuItem.Name = "chineseToolStripMenuItem";
-            this.chineseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.chineseToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.chineseToolStripMenuItem.Text = "Chinese";
             // 
             // englishToolStripMenuItem
@@ -1263,77 +1263,84 @@
             this.englishToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
             this.englishToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.englishToolStripMenuItem.Text = "English";
+            // 
+            // dutchToolStripMenuItem
+            // 
+            this.dutchToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.dutchToolStripMenuItem.Name = "dutchToolStripMenuItem";
+            this.dutchToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.dutchToolStripMenuItem.Text = "Dutch";
             // 
             // frenchToolStripMenuItem
             // 
             this.frenchToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.frenchToolStripMenuItem.Name = "frenchToolStripMenuItem";
-            this.frenchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.frenchToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.frenchToolStripMenuItem.Text = "French";
             // 
             // germanToolStripMenuItem
             // 
             this.germanToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.germanToolStripMenuItem.Name = "germanToolStripMenuItem";
-            this.germanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.germanToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.germanToolStripMenuItem.Text = "German";
             // 
             // hindiToolStripMenuItem
             // 
             this.hindiToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.hindiToolStripMenuItem.Name = "hindiToolStripMenuItem";
-            this.hindiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hindiToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.hindiToolStripMenuItem.Text = "Hindi";
             // 
             // italianToolStripMenuItem
             // 
             this.italianToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.italianToolStripMenuItem.Name = "italianToolStripMenuItem";
-            this.italianToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.italianToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.italianToolStripMenuItem.Text = "Italian";
             // 
             // japaneseToolStripMenuItem
             // 
             this.japaneseToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.japaneseToolStripMenuItem.Name = "japaneseToolStripMenuItem";
-            this.japaneseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.japaneseToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.japaneseToolStripMenuItem.Text = "Japanese";
             // 
             // koreanToolStripMenuItem
             // 
             this.koreanToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.koreanToolStripMenuItem.Name = "koreanToolStripMenuItem";
-            this.koreanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.koreanToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.koreanToolStripMenuItem.Text = "Korean";
             // 
             // polishToolStripMenuItem
             // 
             this.polishToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.polishToolStripMenuItem.Name = "polishToolStripMenuItem";
-            this.polishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.polishToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.polishToolStripMenuItem.Text = "Polish";
             // 
             // portugueseToolStripMenuItem
             // 
             this.portugueseToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.portugueseToolStripMenuItem.Name = "portugueseToolStripMenuItem";
-            this.portugueseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.portugueseToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.portugueseToolStripMenuItem.Text = "Portuguese";
             // 
             // russianToolStripMenuItem
             // 
             this.russianToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.russianToolStripMenuItem.Name = "russianToolStripMenuItem";
-            this.russianToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.russianToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.russianToolStripMenuItem.Text = "Russian";
             // 
             // spanishToolStripMenuItem
             // 
             this.spanishToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.spanishToolStripMenuItem.Name = "spanishToolStripMenuItem";
-            this.spanishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.spanishToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.spanishToolStripMenuItem.Text = "Spanish";
             // 
             // turkishToolStripMenuItem
@@ -1341,15 +1348,8 @@
             this.turkishToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.turkishToolStripMenuItem.Name = "turkishToolStripMenuItem";
             this.turkishToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.turkishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.turkishToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.turkishToolStripMenuItem.Text = "Turkish";
-            // 
-            // dutchToolStripMenuItem
-            // 
-            this.dutchToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.dutchToolStripMenuItem.Name = "dutchToolStripMenuItem";
-            this.dutchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.dutchToolStripMenuItem.Text = "Dutch";
             // 
             // startupToolStripMenuItem
             // 
@@ -1628,9 +1628,9 @@
             // 
             this.OS.AutoScroll = true;
             this.OS.Controls.Add(this.OS_TLP);
-            this.OS.Location = new System.Drawing.Point(4, 25);
+            this.OS.Location = new System.Drawing.Point(4, 22);
             this.OS.Name = "OS";
-            this.OS.Size = new System.Drawing.Size(819, 558);
+            this.OS.Size = new System.Drawing.Size(819, 561);
             this.OS.TabIndex = 0;
             this.OS.Text = "OS";
             this.OS.UseVisualStyleBackColor = true;
@@ -3194,9 +3194,9 @@
             // 
             this.MB.AutoScroll = true;
             this.MB.Controls.Add(this.MB_TLP);
-            this.MB.Location = new System.Drawing.Point(4, 25);
+            this.MB.Location = new System.Drawing.Point(4, 22);
             this.MB.Name = "MB";
-            this.MB.Size = new System.Drawing.Size(819, 558);
+            this.MB.Size = new System.Drawing.Size(819, 561);
             this.MB.TabIndex = 1;
             this.MB.Text = "MB";
             this.MB.UseVisualStyleBackColor = true;
@@ -3979,9 +3979,9 @@
             // 
             this.CPU.AutoScroll = true;
             this.CPU.Controls.Add(this.CPU_TLP);
-            this.CPU.Location = new System.Drawing.Point(4, 25);
+            this.CPU.Location = new System.Drawing.Point(4, 22);
             this.CPU.Name = "CPU";
-            this.CPU.Size = new System.Drawing.Size(819, 558);
+            this.CPU.Size = new System.Drawing.Size(819, 561);
             this.CPU.TabIndex = 2;
             this.CPU.Text = "CPU";
             this.CPU.UseVisualStyleBackColor = true;
@@ -4639,9 +4639,9 @@
             // 
             this.RAM.AutoScroll = true;
             this.RAM.Controls.Add(this.RAM_TLP);
-            this.RAM.Location = new System.Drawing.Point(4, 25);
+            this.RAM.Location = new System.Drawing.Point(4, 22);
             this.RAM.Name = "RAM";
-            this.RAM.Size = new System.Drawing.Size(819, 558);
+            this.RAM.Size = new System.Drawing.Size(819, 561);
             this.RAM.TabIndex = 3;
             this.RAM.Text = "RAM";
             this.RAM.UseVisualStyleBackColor = true;
@@ -4954,6 +4954,7 @@
             this.RAM_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
             this.RAM_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
             this.RAM_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RAM_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
             this.RAM_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
             this.RAM_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
             this.RAM_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
@@ -5285,9 +5286,9 @@
             // 
             this.GPU.AutoScroll = true;
             this.GPU.Controls.Add(this.GPU_TLP);
-            this.GPU.Location = new System.Drawing.Point(4, 25);
+            this.GPU.Location = new System.Drawing.Point(4, 22);
             this.GPU.Name = "GPU";
-            this.GPU.Size = new System.Drawing.Size(819, 558);
+            this.GPU.Size = new System.Drawing.Size(819, 561);
             this.GPU.TabIndex = 4;
             this.GPU.Text = "GPU";
             this.GPU.UseVisualStyleBackColor = true;
@@ -5351,6 +5352,7 @@
             this.GPU_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
             this.GPU_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
             this.GPU_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GPU_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
             this.GPU_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
             this.GPU_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
             this.GPU_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
@@ -5943,6 +5945,7 @@
             this.GPU_MonitorSelector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
             this.GPU_MonitorSelector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
             this.GPU_MonitorSelector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GPU_MonitorSelector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
             this.GPU_MonitorSelector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
             this.GPU_MonitorSelector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
             this.GPU_MonitorSelector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
@@ -6166,9 +6169,9 @@
             // 
             this.DISK.AutoScroll = true;
             this.DISK.Controls.Add(this.DISK_TLP);
-            this.DISK.Location = new System.Drawing.Point(4, 25);
+            this.DISK.Location = new System.Drawing.Point(4, 22);
             this.DISK.Name = "DISK";
-            this.DISK.Size = new System.Drawing.Size(819, 558);
+            this.DISK.Size = new System.Drawing.Size(819, 561);
             this.DISK.TabIndex = 5;
             this.DISK.Text = "DISK";
             this.DISK.UseVisualStyleBackColor = true;
@@ -6692,6 +6695,7 @@
             this.DISK_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
             this.DISK_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
             this.DISK_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DISK_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
             this.DISK_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
             this.DISK_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
             this.DISK_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
@@ -7262,9 +7266,9 @@
             // 
             this.NETWORK.AutoScroll = true;
             this.NETWORK.Controls.Add(this.NET_TLP);
-            this.NETWORK.Location = new System.Drawing.Point(4, 25);
+            this.NETWORK.Location = new System.Drawing.Point(4, 22);
             this.NETWORK.Name = "NETWORK";
-            this.NETWORK.Size = new System.Drawing.Size(819, 558);
+            this.NETWORK.Size = new System.Drawing.Size(819, 561);
             this.NETWORK.TabIndex = 6;
             this.NETWORK.Text = "NETWORK";
             this.NETWORK.UseVisualStyleBackColor = true;
@@ -7450,6 +7454,7 @@
             this.NET_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
             this.NET_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
             this.NET_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.NET_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
             this.NET_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
             this.NET_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
             this.NET_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
@@ -8079,9 +8084,9 @@
             // 
             this.USB.AutoScroll = true;
             this.USB.Controls.Add(this.USB_TLP);
-            this.USB.Location = new System.Drawing.Point(4, 25);
+            this.USB.Location = new System.Drawing.Point(4, 22);
             this.USB.Name = "USB";
-            this.USB.Size = new System.Drawing.Size(819, 558);
+            this.USB.Size = new System.Drawing.Size(819, 561);
             this.USB.TabIndex = 13;
             this.USB.Text = "USB";
             this.USB.UseVisualStyleBackColor = true;
@@ -8245,6 +8250,7 @@
             this.USB_DeviceSelector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
             this.USB_DeviceSelector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
             this.USB_DeviceSelector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.USB_DeviceSelector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
             this.USB_DeviceSelector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
             this.USB_DeviceSelector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
             this.USB_DeviceSelector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
@@ -8411,6 +8417,7 @@
             this.USB_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
             this.USB_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
             this.USB_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.USB_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
             this.USB_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
             this.USB_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
             this.USB_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
@@ -8579,9 +8586,9 @@
             // SOUND
             // 
             this.SOUND.Controls.Add(this.SOUND_TLP);
-            this.SOUND.Location = new System.Drawing.Point(4, 25);
+            this.SOUND.Location = new System.Drawing.Point(4, 22);
             this.SOUND.Name = "SOUND";
-            this.SOUND.Size = new System.Drawing.Size(819, 558);
+            this.SOUND.Size = new System.Drawing.Size(819, 561);
             this.SOUND.TabIndex = 14;
             this.SOUND.Text = "SOUND";
             this.SOUND.UseVisualStyleBackColor = true;
@@ -8687,6 +8694,7 @@
             this.SOUND_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
             this.SOUND_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
             this.SOUND_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SOUND_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
             this.SOUND_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
             this.SOUND_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
             this.SOUND_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
@@ -8856,9 +8864,9 @@
             // 
             this.BATTERY.AutoScroll = true;
             this.BATTERY.Controls.Add(this.BATTERY_TLP);
-            this.BATTERY.Location = new System.Drawing.Point(4, 25);
+            this.BATTERY.Location = new System.Drawing.Point(4, 22);
             this.BATTERY.Name = "BATTERY";
-            this.BATTERY.Size = new System.Drawing.Size(819, 558);
+            this.BATTERY.Size = new System.Drawing.Size(819, 561);
             this.BATTERY.TabIndex = 7;
             this.BATTERY.Text = "BATTERY";
             this.BATTERY.UseVisualStyleBackColor = true;
@@ -9315,9 +9323,9 @@
             // DRIVERS
             // 
             this.DRIVERS.Controls.Add(this.OSD_TLP);
-            this.DRIVERS.Location = new System.Drawing.Point(4, 25);
+            this.DRIVERS.Location = new System.Drawing.Point(4, 22);
             this.DRIVERS.Name = "DRIVERS";
-            this.DRIVERS.Size = new System.Drawing.Size(819, 558);
+            this.DRIVERS.Size = new System.Drawing.Size(819, 561);
             this.DRIVERS.TabIndex = 8;
             this.DRIVERS.Text = "DRIVERS";
             this.DRIVERS.UseVisualStyleBackColor = true;
@@ -9333,7 +9341,7 @@
             this.OSD_TLP.Padding = new System.Windows.Forms.Padding(3);
             this.OSD_TLP.RowCount = 1;
             this.OSD_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.OSD_TLP.Size = new System.Drawing.Size(819, 558);
+            this.OSD_TLP.Size = new System.Drawing.Size(819, 561);
             this.OSD_TLP.TabIndex = 0;
             // 
             // osd_panel_1
@@ -9504,9 +9512,9 @@
             // SERVICES
             // 
             this.SERVICES.Controls.Add(this.SERVICE_TLP);
-            this.SERVICES.Location = new System.Drawing.Point(4, 25);
+            this.SERVICES.Location = new System.Drawing.Point(4, 22);
             this.SERVICES.Name = "SERVICES";
-            this.SERVICES.Size = new System.Drawing.Size(819, 558);
+            this.SERVICES.Size = new System.Drawing.Size(819, 561);
             this.SERVICES.TabIndex = 12;
             this.SERVICES.Text = "SERVICES";
             this.SERVICES.UseVisualStyleBackColor = true;
@@ -9522,7 +9530,7 @@
             this.SERVICE_TLP.Padding = new System.Windows.Forms.Padding(3);
             this.SERVICE_TLP.RowCount = 1;
             this.SERVICE_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.SERVICE_TLP.Size = new System.Drawing.Size(819, 558);
+            this.SERVICE_TLP.Size = new System.Drawing.Size(819, 561);
             this.SERVICE_TLP.TabIndex = 0;
             // 
             // service_panel_1
@@ -9693,9 +9701,9 @@
             // INSTAPPS
             // 
             this.INSTAPPS.Controls.Add(this.INSTAPPS_TLP);
-            this.INSTAPPS.Location = new System.Drawing.Point(4, 25);
+            this.INSTAPPS.Location = new System.Drawing.Point(4, 22);
             this.INSTAPPS.Name = "INSTAPPS";
-            this.INSTAPPS.Size = new System.Drawing.Size(819, 558);
+            this.INSTAPPS.Size = new System.Drawing.Size(819, 561);
             this.INSTAPPS.TabIndex = 16;
             this.INSTAPPS.Text = "INSTAPPS";
             this.INSTAPPS.UseVisualStyleBackColor = true;
@@ -9711,7 +9719,7 @@
             this.INSTAPPS_TLP.Padding = new System.Windows.Forms.Padding(3);
             this.INSTAPPS_TLP.RowCount = 1;
             this.INSTAPPS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.INSTAPPS_TLP.Size = new System.Drawing.Size(819, 558);
+            this.INSTAPPS_TLP.Size = new System.Drawing.Size(819, 561);
             this.INSTAPPS_TLP.TabIndex = 0;
             // 
             // instapps_panel_1
@@ -9849,6 +9857,7 @@
             this.INSTAPPS_DataMainTable.Size = new System.Drawing.Size(787, 451);
             this.INSTAPPS_DataMainTable.TabIndex = 6;
             this.INSTAPPS_DataMainTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.INSTAPPS_DataMainTable_CellDoubleClick);
+            this.INSTAPPS_DataMainTable.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.INSTAPPS_DataMainTable_CellPainting);
             this.INSTAPPS_DataMainTable.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.INSTAPPS_DataMainTable_ColumnHeaderMouseClick);
             // 
             // INSTAPPS_TextBox
@@ -9882,9 +9891,9 @@
             // EXPORT
             // 
             this.EXPORT.Controls.Add(this.EXPORT_TLP);
-            this.EXPORT.Location = new System.Drawing.Point(4, 25);
+            this.EXPORT.Location = new System.Drawing.Point(4, 22);
             this.EXPORT.Name = "EXPORT";
-            this.EXPORT.Size = new System.Drawing.Size(819, 558);
+            this.EXPORT.Size = new System.Drawing.Size(819, 561);
             this.EXPORT.TabIndex = 15;
             this.EXPORT.Text = "EXPORT";
             this.EXPORT.UseVisualStyleBackColor = true;
@@ -9954,6 +9963,7 @@
             this.EXPORT_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
             this.EXPORT_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
             this.EXPORT_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
             this.EXPORT_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
             this.EXPORT_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
             this.EXPORT_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;

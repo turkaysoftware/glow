@@ -105,10 +105,10 @@ namespace Glow.glow_tools{
             //
             try{
                 var engineCommands = new[]{
-                    "sfc /scannow",
                     "DISM /Online /Cleanup-Image /CheckHealth",
                     "DISM /Online /Cleanup-Image /ScanHealth",
-                    "DISM /Online /Cleanup-Image /RestoreHealth"
+                    "DISM /Online /Cleanup-Image /RestoreHealth",
+                    "sfc /scannow"
                 };
                 //
                 GlowMain.SFCandDISMprocessStatus = true;
@@ -128,36 +128,60 @@ namespace Glow.glow_tools{
                         //
                         Encoding encoding = cmdCurrentMod.StartsWith("sfc", StringComparison.OrdinalIgnoreCase) ? Encoding.Unicode : Encoding.Default;
                         processRepair.Start();
-                        using (var streamReader = new StreamReader(processRepair.StandardOutput.BaseStream, encoding)){
+                        StringBuilder fullStdOut = new StringBuilder();
+                        //
+                        using (var reader = new StreamReader(processRepair.StandardOutput.BaseStream, encoding)){
                             string buffer = string.Empty;
                             while (!processRepair.HasExited){
-                                int c = streamReader.Read();
+                                int c = reader.Read();
                                 if (c == -1){
                                     break;
                                 }
                                 char ch = (char)c;
                                 buffer += ch;
+                                fullStdOut.Append(ch);
                                 if (buffer.Length > 3000){
                                     buffer = buffer.Substring(buffer.Length - 3000);
                                 }
                                 //
                                 string cleanLine = Regex.Replace(buffer, @"[^0-9%\.\s]", "");
                                 cleanLine = Regex.Replace(cleanLine, @"\s+", " ").Trim();
-                                //
                                 var match = Regex.Match(cleanLine, @"(\d{1,3}(?:\.\d{1,2})?)%");
+                                //
                                 if (match.Success){
-                                    string percentValue = match.Groups[1].Value;
-                                    if (double.TryParse(percentValue, out double progress)){
-                                        UpdateSafeText(SADT_L2, string.Format(process_message, cmdCurrentMod, "\n\n", "\n", percentValue + "%"));
-                                    }
+                                    UpdateSafeText(SADT_L2, string.Format(process_message, cmdCurrentMod, "\n\n", "\n", match.Groups[1].Value + "%"));
                                     buffer = string.Empty;
                                 }
                             }
                         }
+                        //
                         processRepair.WaitForExit();
+                        //
+                        string stdOut = fullStdOut.ToString();
+                        string stdErr = processRepair.StandardError.ReadToEnd();
+                        string combinedOutput = (stdOut + "\n" + stdErr).Trim();
+                        //
+                        if (cmdCurrentMod.StartsWith("DISM", StringComparison.OrdinalIgnoreCase)){
+                            if (processRepair.ExitCode != 0){
+                                processStatus = false;
+                                processStatusMessage = combinedOutput;
+                                break;
+                            }
+                        }
+                        //
+                        if (cmdCurrentMod.StartsWith("sfc", StringComparison.OrdinalIgnoreCase)){
+                            bool sfcFailed = Regex.IsMatch(combinedOutput, @"found corrupt files but was unable to fix|could not perform|verification failed", RegexOptions.IgnoreCase);
+                            if (sfcFailed){
+                                processStatus = false;
+                                processStatusMessage = combinedOutput;
+                                break;
+                            }
+                        }
                     }
                     //
                     UpdateSafeText(SADT_L2, software_lang.TSReadLangs("SFCandDISMTool", "sadt_description"));
+                    //
+                    if (!processStatus){ break; }
                 }
                 //
                 string current_time = DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss");
@@ -166,7 +190,7 @@ namespace Glow.glow_tools{
                 try{
                     TSSettingsSave software_setting_save = new TSSettingsSave(ts_sf);
                     software_setting_save.TSWriteSettings(ts_settings_container, "SADTime", current_time);
-                }catch (Exception) { }
+                }catch{ }
             }catch (Exception ex){
                 processStatus = false;
                 processStatusMessage = ex.Message.Trim();

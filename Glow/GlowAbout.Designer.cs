@@ -32,7 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlowAbout));
             this.PanelTxt = new System.Windows.Forms.Panel();
             this.About_DonateBtn = new Glow.TSCustomButton();
             this.About_GitHubBtn = new Glow.TSCustomButton();
@@ -262,7 +261,7 @@
             this.PanelImg.Location = new System.Drawing.Point(365, 0);
             this.PanelImg.Name = "PanelImg";
             this.PanelImg.Size = new System.Drawing.Size(410, 450);
-            this.PanelImg.TabIndex = 0;
+            this.PanelImg.TabIndex = 1;
             // 
             // PanelHeader
             // 
@@ -317,7 +316,7 @@
             this.Controls.Add(this.PanelTxt);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = Properties.Resources.GlowLogo;
+            this.Icon = global::Glow.Properties.Resources.GlowLogo;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "GlowAbout";

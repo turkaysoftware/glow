@@ -544,6 +544,19 @@ namespace Glow{
             }
             return newImage;
         }
+        public static Image ResizeDGIcon(Image img, int size, int deviceDpi){
+            float scale = deviceDpi / 96f;
+            int newSize = (int)(size * scale);
+            Bitmap bmp = new Bitmap(newSize, newSize);
+            using (Graphics g = Graphics.FromImage(bmp)){
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = SmoothingMode.HighQuality;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                g.CompositingQuality = CompositingQuality.HighQuality;
+                g.DrawImage(img, new Rectangle(0, 0, newSize, newSize));
+            }
+            return bmp;
+        }
         // DYNAMIC SIZE COUNT ALGORITHM
         // ======================================================================================================
         public static string TS_FormatSize(double bytes){

@@ -276,7 +276,7 @@ namespace Glow{
             //
             OSD_DataMainTable.RowTemplate.Height = (int)(32 * this.DeviceDpi / 96f);
             SERVICE_DataMainTable.RowTemplate.Height = (int)(32 * this.DeviceDpi / 96f);
-            INSTAPPS_DataMainTable.RowTemplate.Height = (int)(32 * this.DeviceDpi / 96f);
+            INSTAPPS_DataMainTable.RowTemplate.Height = (int)(36 * this.DeviceDpi / 96f);
             //
             int scaledPadding = (int)(3 * this.DeviceDpi / 96f);
             foreach (var tableMod in new[] { OSD_DataMainTable, SERVICE_DataMainTable, INSTAPPS_DataMainTable }){
@@ -4748,6 +4748,7 @@ namespace Glow{
                 if (iconImage == null){
                     iconImage = GetDefaultIcon();
                 }
+                iconImage = ResizeDGIcon(iconImage, 30, this.DeviceDpi);
                 var nameText = string.IsNullOrWhiteSpace(app.Name) ? iapps_unknown : app.Name;
                 var publisherText = string.IsNullOrWhiteSpace(app.Publisher) ? iapps_unknown : app.Publisher;
                 var installDateText = app.InstallDate?.ToString("dd.MM.yyyy") ?? iapps_unknown;
@@ -4812,6 +4813,20 @@ namespace Glow{
                 }
             }
             return apps.GroupBy(a => a.Name, StringComparer.OrdinalIgnoreCase).Select(g => g.First()).OrderBy(a => TSNaturalSortKey(a.Name, CultureInfo.CurrentCulture)).ToList();
+        }
+        private void INSTAPPS_DataMainTable_CellPainting(object sender, DataGridViewCellPaintingEventArgs e){
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0){
+                e.PaintBackground(e.CellBounds, true);
+                if (e.Value is Image img){
+                    float scale = this.DeviceDpi / 96f;
+                    int iconSize = (int)(30 * scale);
+                    int x = e.CellBounds.X + (e.CellBounds.Width - iconSize) / 2;
+                    int y = e.CellBounds.Y + (e.CellBounds.Height - iconSize) / 2;
+                    var rect = new Rectangle(x, y, iconSize, iconSize);
+                    e.Graphics.DrawImage(img, rect);
+                }
+                e.Handled = true;
+            }
         }
         #endregion
         // BUTTONS ROTATE
@@ -7778,7 +7793,11 @@ namespace Glow{
             TSToolLauncher<GlowDNSTestTool>("glow_dns_test_tool", "ht_dns_test_tool");
         }
 
-      
+   
+
+
+
+
 
         // QUICK ACCESS TOOL
         // ======================================================================================================
