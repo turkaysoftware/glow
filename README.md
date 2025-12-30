@@ -20,7 +20,7 @@ Even if you cannot provide financial support, you can help spread the software a
 
 # Glow UI
 
-<img width="1010" height="633" alt="Glow UI" src="https://github.com/user-attachments/assets/7dd9d5f0-138e-4c53-80f5-c53428bbd3c3" />
+<img width="1010" height="633" alt="Glow UI" src="https://github.com/user-attachments/assets/10fa24bf-86e3-457f-8aa9-87e3e3df9780" />
 
 # Download Glow
 
