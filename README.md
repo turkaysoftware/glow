@@ -103,7 +103,6 @@ Features offered in the Operating System section.
 - Last Blue Screen Error Time
 - Wallpaper
 
-<img width="1010" height="633" alt="Glow - Operating System Page" src="https://github.com/user-attachments/assets/2f779241-475e-47ed-88f2-a04d42437193" />
 </details>
 
 <details>
@@ -142,7 +141,6 @@ Features offered in the Motherboard section.
 - BIOS Major-Minor Version
 - SM-BIOS Major-Minor Version
 
-<img width="1010" height="633" alt="Glow - Motherboard Page" src="https://github.com/user-attachments/assets/e5241374-908e-4a2b-885e-68b372990f21" />
 </details>
 
 <details>
@@ -170,7 +168,6 @@ Features offered in the Processor section.
 - VM Monitoring Support
 - Unique Processor ID
 
-<img width="1010" height="633" alt="Glow - Processor Page" src="https://github.com/user-attachments/assets/eefad255-d92a-408d-b145-2493ddf3a19a" />
 </details>
 
 <details>
@@ -198,7 +195,6 @@ Features offered in the Memory section.
 - RAM Slot Path
 - RAM Partition Number
 
-<img width="1010" height="633" alt="Glow - Memory Page" src="https://github.com/user-attachments/assets/70b5f7db-3252-4ddb-b896-7487a7cb95f3" />
 </details>
 
 <details>
@@ -235,7 +231,6 @@ Features offered in the Graphics Card section.
 - Bit Depth Per Pixel
 - Primary Screen
 
-<img width="1010" height="633" alt="Glow - Graphics Card Page" src="https://github.com/user-attachments/assets/6d5f060f-3bd8-4d4a-bb20-998cb7f567e3" />
 </details>
 
 <details>
@@ -274,7 +269,6 @@ Features offered in the Storage section.
 - BitLocker Encryption Method
 - Disk Compression Status
 
-<img width="1010" height="633" alt="Glow - Storage Page" src="https://github.com/user-attachments/assets/d76aabc7-1ed2-4568-939d-379481d07f4d" />
 </details>
 
 <details>
@@ -303,7 +297,6 @@ Features offered in the Network section.
 - Used DNS 1
 - Used DNS 2
 
-<img width="1010" height="633" alt="Glow - Network Page" src="https://github.com/user-attachments/assets/e77346c4-7f51-4970-9ac1-849304543830" />
 </details>
 
 <details>
@@ -323,7 +316,6 @@ Features offered in the USB section.
 - USB Device PNP Hardware ID
 - USB Device Status
 
-<img width="1010" height="633" alt="Glow - USB Page" src="https://github.com/user-attachments/assets/a169af21-6cc1-4239-8a15-e600bc822db2" />
 </details>
 
 <details>
@@ -338,7 +330,6 @@ Features offered in the Sound section.
 - Sound Device PNP Hardware ID
 - Sound Device Status
 
-<img width="1010" height="633" alt="Glow - Sound Page" src="https://github.com/user-attachments/assets/8b6514cc-5946-4af3-ba27-cad18244931c" />
 </details>
 
 <details>
@@ -360,7 +351,6 @@ Features offered in the Battery section.
 - Battery Discharge Current
 - Generate Battery Report
 
-<img width="1010" height="633" alt="Glow - Battery Page" src="https://github.com/user-attachments/assets/27678311-17ea-42b9-a430-2ccb232310ec" />
 </details>
 
 <details>
@@ -368,7 +358,6 @@ Features offered in the Battery section.
   
 Features offered in the Installed Drivers section.
 
-<img width="1010" height="633" alt="Glow - Installed Drivers Page" src="https://github.com/user-attachments/assets/876e29f5-01e8-4970-a67b-f804ef0b5341" />
 </details>
 
 <details>
@@ -376,7 +365,6 @@ Features offered in the Installed Drivers section.
   
 Features offered in the Installed Services section.
 
-<img width="1010" height="633" alt="Glow - Installed Services Page" src="https://github.com/user-attachments/assets/12e87bfd-f79b-4dd3-9498-61263a83a2fe" />
 </details>
 
 <details>
@@ -384,7 +372,6 @@ Features offered in the Installed Services section.
   
 Features offered in the Installed Apps section.
 
-<img width="1010" height="633" alt="Glow - Installed Apps Page" src="https://github.com/user-attachments/assets/4c141aab-c6df-4bea-8e29-2e2561be774b" />
 </details>
 
 <details>
@@ -395,7 +382,6 @@ Features offered in the Export section.
 - TXT Export All Feature
 - HTML Export All Feature
 
-<img width="1010" height="633" alt="Glow - Export Page" src="https://github.com/user-attachments/assets/d04ecf85-b40b-4d69-9fe6-9d93476c1385" />
 </details>
 
 # Advanced Tools
@@ -416,16 +402,12 @@ Features offered in the Export section.
 - Dynamic Color Range Test
 - Stuck Pixel Repair Tool
 
-<img width="538" height="333" alt="Glow - Advanced Tools" src="https://github.com/user-attachments/assets/c4abd2ff-7627-40bf-8581-0c3e949e653b" />
-
 # Advanced Features
 - **Multi-Architecture Support:** Fully compatible with x64-x86 and ARM processors.
 - **Multi-Language System:** Fully supports 14 or more languages. **Supported Languages:** _Arabic, Chinese, English, French, German, Hindi, Italian, Japanase, Korean, Polish, Portuguese, Russian, Spanish, Turkish_ | **For translation support: [Translation Guide for Glow](https://github.com/turkaysoftware/glow/discussions/20)**
 - Advanced interface features such as Light / Dark / System Theme.
 - **Hiding Mode:** The feature to hide sensitive and important information with an asterisk (*) in the interface can be turned on or off as desired.
 - [TS Wizard](https://www.turkaysoftware.com/ts-wizard) provides an automatic update and monitoring system.
-
-<img width="396" height="336" alt="Glow - Advanced Features" src="https://github.com/user-attachments/assets/c7448222-9ddc-401b-895f-6df5d855f5ec" />
 
 # System Requirements
 
