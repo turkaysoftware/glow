@@ -59,18 +59,12 @@ Features offered in the Operating System section.
 - Operating System
 - Operating System Publisher
 - System Version
-- Build
-- Operating System Build
 - System Architecture
-- Operating System Family
 - Device ID
 - Product ID
 - Set Language (Country)
 - Operating System Time Zone
-- Operating System Character Set
 - Operating System Encryption Type
-- System Root Directory
-- System Build Partition
 - System Time
 - System Installation Date
 - System Uptime
@@ -83,8 +77,6 @@ Features offered in the Operating System section.
 - Num Lock Status
 - Caps Lock Status
 - Fast Boot Status
-- Boot Partition
-- System Partition
 - Virtual Memory File
 - Temporary Virtual Memory File
 - Hibernation File
@@ -92,6 +84,12 @@ Features offered in the Operating System section.
 - Installed Firewall Programs
 - Installed Anti-Spyware Programs
 - Windows Defender Core Isolation
+- Active Power Plan
+- Active Power Plan GUID
+- Screen Timeout (AC)
+- Screen Timeout (Battery)
+- Sleep Timeout (AC)
+- Sleep Timeout (Battery)
 - Microsoft Edge Version
 - Microsoft Edge WebView2 Version
 - Microsoft Store Version
@@ -124,7 +122,6 @@ Features offered in the Motherboard section.
 - BIOS Date
 - BIOS Version
 - SM-BIOS Version
-- BIOS Serial Number
 - BIOS Mode
 - Last BIOS Time
 - Secure Boot State
@@ -135,11 +132,6 @@ Features offered in the Motherboard section.
 - TPM Manufacturer Version
 - TPM Full Manufacturer Version
 - TPM Manufacturer Publisher
-- Motherboard Model Version
-- Primary Bus Type
-- Secondary Bus Type
-- BIOS Major-Minor Version
-- SM-BIOS Major-Minor Version
 
 </details>
 
@@ -161,6 +153,8 @@ Features offered in the Processor section.
 - Logical Core Count
 - Processor Usage
 - Processor Process Count
+- Processor Threads Count
+- Processor Handles Count
 - Socket Description
 - Processor Family
 - Virtualization
@@ -283,6 +277,8 @@ Features offered in the Network section.
 - Network Device
 - MAC Address
 - Driver Provider
+- Driver Version
+- Driver Date
 - Service Name
 - Network Adapter Type
 - Physical Adapter
@@ -291,6 +287,8 @@ Features offered in the Network section.
 - Connection Type
 - DHCP Status
 - DHCP Server
+- DHCP First IP Assignment Time
+- DHCP Assigned IP Renewal Time
 - Connection Speed (Local)
 - Assigned IPv4 Address
 - Assigned IPv6 Address
@@ -312,9 +310,13 @@ Features offered in the USB section.
 - USB Controller Status
 - USB Device
 - USB Device Name
+- USB Device Manufacturer
+- USB Device Driver Version
+- USB Device Driver Date
+- USB Device INF File
+- USB Device ID
 - USB Device Hardware ID
-- USB Device PNP Hardware ID
-- USB Device Status
+- USB Device GUID
 
 </details>
 
@@ -326,6 +328,8 @@ Features offered in the Sound section.
 - Sound Device
 - Sound Device Name
 - Sound Device Publisher
+- Sound Device Driver Version
+- Sound Device Driver Date
 - Sound Device Hardware ID
 - Sound Device PNP Hardware ID
 - Sound Device Status
@@ -358,6 +362,16 @@ Features offered in the Battery section.
   
 Features offered in the Installed Drivers section.
 
+- File Path
+- File Name
+- Driver Name
+- Drive Type
+- Start
+- Status
+- Drive Search
+- Number of Drivers Installed
+- Reverse Sort
+
 </details>
 
 <details>
@@ -365,12 +379,33 @@ Features offered in the Installed Drivers section.
   
 Features offered in the Installed Services section.
 
+- File Path
+- File Name
+- Service Name
+- Service Type
+- Start
+- Status
+- Service Search
+- Number of Installed Services
+- Reverse Sort
+
 </details>
 
 <details>
 <summary>Installed Apps</summary>
   
 Features offered in the Installed Apps section.
+
+- Icon
+- Name
+- Publisher
+- Installation Date
+- Size
+- Version
+- Path
+- App Search
+- Number of Installed Apps
+- Reverse Sort
 
 </details>
 
@@ -397,6 +432,7 @@ Features offered in the Export section.
 - Network Troubleshooting Tool
 - Wi-Fi Password Showing Tool
 - Bluetooth Information Tool
+- System ID Generation Tool
 - Monitor Test Tools
 - Dead Pixel Test
 - Dynamic Color Range Test
@@ -416,40 +452,3 @@ Features offered in the Export section.
 | OS: | Windows 10 20H2 x64 | Windows 11 25H2 x64|
 | RAM: | 100 MB Free RAM | 150 MB Free RAM |
 | .NET: | .NET Framework 4.8.1 | .NET Framework 4.8.1 |
-
-# Shortcut Key Layouts
-
-| Main Features | Key |
-| -- | :--: |
-| **Theme:** Light | F1 |
-| **Theme:** Dark | F2 |
-| **Theme:** System | F3 |
-| **Start:** Windowed | F4 |
-| **Start:** Full Screen | F5 |
-| **Hiding Mode:** On | F6 |
-| **Hiding Mode:** Off | F7 |
-
-| Tools | Key |
-| -- | :--: |
-| **SFC and DISM Automation Tool** | CTRL + Q |
-| **Cache Cleanup Tool** | CTRL + W |
-| **CPU Benchmark Tool** | CTRL + E |
-| **RAM Test Tool** | CTRL + R |
-| **Disk Benchmark Tool** | CTRL + T |
-| **Screen Overlay** | CTRL + Y |
-| **DNS Test Tool** | CTRL + U |
-| **Quick Access Tool** | CTRL + I |
-| **Network Troubleshooting Tool** | CTRL + O |
-| **Wi-Fi Password Showing Tool** | CTRL + P |
-| **Bluetooth Information Tool** | CTRL + B |
-| **System ID Generation Tool** | CTRL + G |
-| **Monitor Test Tools:** Dead Pixel Test | CTRL + Z |
-| **Monitor Test Tools:** Dynamic Color Range Test | CTRL + X |
-| **Monitor Test Tools:** Stuck Pixel Repair Tool | CTRL + C |
-
-| Extras | Key |
-| -- | :--: |
-| **Check Update** | F11 |
-| **About** | F12 |
-| **TS Wizard** | CTRL + Shift + S |
-| **Donate** | CTRL + Shift + D |
