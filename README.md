@@ -450,5 +450,5 @@ Features offered in the Export section.
 |  | Minimum Requirements | Recommended Requirements |
 | -- | :--: | :--: |
 | OS: | Windows 10 20H2 x64 | Windows 11 25H2 x64|
-| RAM: | 100 MB Free RAM | 150 MB Free RAM |
+| RAM: | 75 MB Free RAM | 100 MB Free RAM |
 | .NET: | .NET Framework 4.8.1 | .NET Framework 4.8.1 |
