@@ -20,7 +20,7 @@ Even if you cannot provide financial support, you can help spread the software a
 
 # Glow UI
 
-<img width="1010" height="633" alt="Glow UI" src="https://github.com/user-attachments/assets/10fa24bf-86e3-457f-8aa9-87e3e3df9780" />
+<img width="1010" height="633" alt="Glow UI" src="https://github.com/user-attachments/assets/cbd3682a-d6d4-476c-b344-ddc6327bc00c" />
 
 # Download Glow
 
@@ -84,6 +84,9 @@ Features offered in the Operating System section.
 - Installed Firewall Programs
 - Installed Anti-Spyware Programs
 - Windows Defender Core Isolation
+- Windows CA 2023 Certificate Status
+- Windows CA 2023 Certificate Compatibility
+- Windows CA 2023 Certificate Error Status
 - Active Power Plan
 - Active Power Plan GUID
 - Screen Timeout (AC)
@@ -125,6 +128,7 @@ Features offered in the Motherboard section.
 - BIOS Mode
 - Last BIOS Time
 - Secure Boot State
+- Windows UEFI CA 2023 Support
 - TPM Status
 - TPM Physical Asset Version
 - TPM Manufacturer
@@ -272,6 +276,8 @@ Features offered in the Network section.
   
 - Active Used Device
 - Active Bandwidth
+- Computer IP Address
+- Network Gateway IP Address
 - Instant Download Speed
 - Instant Upload Speed
 - Network Device
