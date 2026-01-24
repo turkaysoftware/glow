@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TSPreloader));
             this.PanelTxt = new System.Windows.Forms.Panel();
             this.LabelVersion = new System.Windows.Forms.Label();
             this.LabelDeveloper = new System.Windows.Forms.Label();
@@ -179,7 +178,7 @@
             this.Controls.Add(this.PanelTxt);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = Properties.Resources.GlowLogo;
+            this.Icon = global::Glow.Properties.Resources.GlowLogo;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "TSPreloader";

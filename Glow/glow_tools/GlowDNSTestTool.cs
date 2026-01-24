@@ -1,15 +1,15 @@
-﻿using System;
-using System.IO;
-using System.Net;
-using System.Text;
-using System.Drawing;
-using System.Diagnostics;
-using System.Windows.Forms;
-using Microsoft.VisualBasic;
-using System.Threading.Tasks;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 //
 using static Glow.TSModules;
 
@@ -19,7 +19,7 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         private readonly TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
         private string DNSTest_pingSendText, DNSTest_pingSendError;
-        private List<DnsProvider> DNSTest_dnsProviders;
+        private List<DnsTestItem> DNSTest_dnsProviders;
         public GlowDNSTestTool(){
             InitializeComponent();
             //
@@ -44,30 +44,23 @@ namespace Glow.glow_tools{
         }
         // DNS Provider class
         // ======================================================================================================
-        private class DnsProvider{
-            public string Name { get; }
-            public List<string> Addresses { get; }
+        private class DnsTestItem{
+            public GlowMain.DnsProvider Provider { get; }
             public int RowIndex { get; }
-            public bool IsCompleted { get; set; } = false;
-            public DnsProvider(string name, List<string> addresses, int rowIndex){
-                Name = name;
-                Addresses = addresses;
+            public bool IsCompleted { get; set; }
+            public long? BestPing { get; set; }
+            public DnsTestItem(GlowMain.DnsProvider provider, int rowIndex){
+                Provider = provider;
                 RowIndex = rowIndex;
             }
         }
         private void InitDnsProviders(){
-            DNSTest_dnsProviders = new List<DnsProvider>{
-                new DnsProvider("AdGuard DNS",      new List<string>{ "94.140.14.14", "94.140.15.15" }, 0),
-                new DnsProvider("CloudFlare",       new List<string>{ "1.1.1.1", "1.0.0.1" }, 1),
-                new DnsProvider("Comodo",           new List<string>{ "8.26.56.26", "8.20.247.20" }, 2),
-                new DnsProvider("Control D",        new List<string>{ "76.76.2.0", "76.76.10.0" }, 3),
-                new DnsProvider("DNS.WATCH",        new List<string>{ "84.200.69.80", "84.200.70.40" }, 4),
-                new DnsProvider("Google",           new List<string>{ "8.8.8.8", "8.8.4.4" }, 5),
-                new DnsProvider("Lumen DNS",        new List<string>{ "4.2.2.1", "4.2.2.2" }, 6),
-                new DnsProvider("OpenDNS",          new List<string>{ "208.67.222.222", "208.67.220.220" }, 7),
-                new DnsProvider("Quad9",            new List<string>{ "9.9.9.9", "149.112.112.112" }, 8),
-                new DnsProvider("Yandex DNS",       new List<string>{ "77.88.8.8", "77.88.8.1" }, 9)
-            };
+            DNSTest_dnsProviders = new List<DnsTestItem>();
+            int row = 0;
+            foreach (var provider in GlowMain.DnsProviders){
+                DNSTest_dnsProviders.Add(new DnsTestItem(provider, row));
+                row++;
+            }
         }
         // LOAD SETTINGS
         // ======================================================================================================
@@ -87,6 +80,9 @@ namespace Glow.glow_tools{
                 DNSTable.ColumnHeadersDefaultCellStyle.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "OSDAndServicesPageFE");
                 DNSTable.DefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "OSDAndServicesPageBG");
                 DNSTable.DefaultCellStyle.SelectionForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "OSDAndServicesPageFE");
+                //
+                DNS_PerfectResultLabel.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "PageContainerBGAndPageContentTotalColors");
+                DNS_PerfectResultLabel.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
                 //
                 DNS_TestStartBtn.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
                 DNS_TestStartBtn.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DynamicThemeActiveBtnBG");
@@ -126,43 +122,72 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         private void GlowDNSTestTool_Load(object sender, EventArgs e){
             Dns_test_settings();
-            try{
-                foreach (var provider in DNSTest_dnsProviders)
-                {
-                    DNSTable.Rows.Add(provider.Name, software_lang.TSReadLangs("DNSTestTool", "dtt_start_await"));
-                }
-                DNSTable.ClearSelection();
-            }catch (Exception) { }
+            foreach (var item in DNSTest_dnsProviders){
+                DNSTable.Rows.Add(item.Provider.Name, software_lang.TSReadLangs("DNSTestTool", "dtt_start_await"));
+            }
+            DNSTable.ClearSelection();
         }
         // Async DNS Check
         // ======================================================================================================
-        private async Task CheckDnsAsync(DnsProvider provider){
+        private async Task CheckDnsAsync(DnsTestItem item){
             try{
-                var ping = new Ping();
-                var result = new StringBuilder();
-                for (int i = 0; i < provider.Addresses.Count; i++){
-                    var reply = await ping.SendPingAsync(provider.Addresses[i]);
-                    if (reply.Status == IPStatus.Success)
-                        result.Append($"({provider.Addresses[i]}) - {DNSTest_pingSendText} {reply.RoundtripTime} ms");
-                    else
-                        result.Append($"({provider.Addresses[i]}) - {DNSTest_pingSendError} ({reply.Status})");
-                    if (i < provider.Addresses.Count - 1)
-                        result.Append("   |   ");
+                var sb = new StringBuilder();
+                long? best = null;
+                //
+                using (var ping = new Ping()){
+                    for (int i = 0; i < item.Provider.DnsAddresses.Count; i++){
+                        string ip = item.Provider.DnsAddresses[i];
+                        PingReply reply = await ping.SendPingAsync(ip, 5000);
+                        if (reply.Status == IPStatus.Success){
+                            sb.Append(string.Format("{0} - {1} {2} ms", ip, DNSTest_pingSendText, reply.RoundtripTime));
+                            if (!best.HasValue || reply.RoundtripTime < best.Value){
+                                best = reply.RoundtripTime;
+                            }
+                        }else{
+                            sb.Append(string.Format("{0} - {1} ({2})", ip, DNSTest_pingSendError, reply.Status));
+                        }
+                        if (i < item.Provider.DnsAddresses.Count - 1){
+                            sb.Append("   |   ");
+                        }
+                    }
                 }
+                //
                 Invoke(new Action(() => {
-                    DNSTable.Rows[provider.RowIndex].Cells[1].Value = result.ToString();
-                    provider.IsCompleted = true;
+                    DNSTable.Rows[item.RowIndex].Cells[1].Value = sb.ToString();
+                    item.BestPing = best;
+                    item.IsCompleted = true;
                 }));
-            }catch (Exception){ }
+            }catch{
+                Invoke(new Action(() => { item.IsCompleted = true; }));
+            }
         }
         // START ENGINE
         // ======================================================================================================
         private async void DNS_TestStartBtn_Click(object sender, EventArgs e){
             DNS_TestStartBtn.Enabled = false;
             DNS_TestExportBtn.Enabled = false;
+            // Check network connection
+            if (!IsNetworkCheck()){
+                DNS_PerfectResultLabel.Text = software_lang.TSReadLangs("DNSTestTool", "dtt_no_net");
+                TS_MessageBoxEngine.TS_MessageBox(this, 2, software_lang.TSReadLangs("DNSTestTool", "dtt_no_net_no_test"));
+                DNS_TestExportBtn.Enabled = true;
+                DNS_TestStartBtn.Enabled = true;
+                return;
+            }
+            string BestResultPrefix = software_lang.TSReadLangs("DNSTestTool", "dtt_best_result") + " ";
+            //
             Text = string.Format(software_lang.TSReadLangs("DNSTestTool", "dtt_title"), Application.ProductName) + " | " + software_lang.TSReadLangs("DNSTestTool", "dtt_title_test_ruining");
             var tasks = DNSTest_dnsProviders.Select(p => CheckDnsAsync(p)).ToArray();
             await Task.WhenAll(tasks);
+            var bestTwo = DNSTest_dnsProviders.Where(x => x.BestPing.HasValue).OrderBy(x => x.BestPing.Value).Take(2).ToList();
+            if (bestTwo.Count == 0){
+                DNS_PerfectResultLabel.Text = "-";
+            }else if (bestTwo.Count == 1){
+                DNS_PerfectResultLabel.Text = BestResultPrefix +  string.Format("{0} ({1} ms)", bestTwo[0].Provider.Name, bestTwo[0].BestPing.Value);
+            }else{
+                DNS_PerfectResultLabel.Text = BestResultPrefix + string.Format("{0} ({1} ms)  |  {2} ({3} ms)", bestTwo[0].Provider.Name, bestTwo[0].BestPing.Value, bestTwo[1].Provider.Name, bestTwo[1].BestPing.Value);
+            }
+            //
             Text = string.Format(software_lang.TSReadLangs("DNSTestTool", "dtt_title"), Application.ProductName);
             DNS_TestExportBtn.Enabled = true;
             DNS_TestStartBtn.Enabled = true;
@@ -209,45 +234,57 @@ namespace Glow.glow_tools{
         readonly List<string> PrintDNSList = new List<string>();
         private void DNS_TestExportBtn_Click(object sender, EventArgs e){
             try{
+                PrintDNSList.Clear();
+                var providers = GlowMain.DnsProviders;
+                if (providers == null || providers.Count == 0)
+                    return;
                 PrintDNSList.Add(Application.ProductName + " - " + string.Format(software_lang.TSReadLangs("PrintEngine", "pe_save_name"), software_lang.TSReadLangs("DNSTestTool", "dtt_export_name")));
                 PrintDNSList.Add(Environment.NewLine + new string('-', 100) + Environment.NewLine);
-                int maxLength = DNSTest_dnsProviders.Max(p => p.Name.Length);
+                int maxNameLength = providers.Max(p => p.Name.Length);
                 int maxLeftLength = 0;
-                foreach (var provider in DNSTest_dnsProviders){
-                    string value = DNSTable.Rows[provider.RowIndex].Cells[1].Value.ToString().Trim();
-                    string[] parts = value.Split('|');
+                for (int i = 0; i < providers.Count; i++){
+                    var cellValue = DNSTable.Rows[i].Cells[1].Value?.ToString();
+                    if (string.IsNullOrWhiteSpace(cellValue))
+                        continue;
+                    var parts = cellValue.Split('|');
                     if (parts.Length == 2){
                         int len = parts[0].Trim().Length;
                         if (len > maxLeftLength)
                             maxLeftLength = len;
                     }
                 }
-                foreach (var provider in DNSTest_dnsProviders){
-                    string name = provider.Name.PadRight(maxLength);
-                    string value = DNSTable.Rows[provider.RowIndex].Cells[1].Value.ToString().Trim();
-                    string[] parts = value.Split('|');
+                for (int i = 0; i < providers.Count; i++){
+                    string name = providers[i].Name.PadRight(maxNameLength);
+                    var cellValue = DNSTable.Rows[i].Cells[1].Value?.ToString();
+                    if (string.IsNullOrWhiteSpace(cellValue)){
+                        PrintDNSList.Add($"{name}: -");
+                        continue;
+                    }
+                    var parts = cellValue.Split('|');
                     if (parts.Length == 2){
-                        string left = parts[0].Trim();
+                        string left = parts[0].Trim().PadRight(maxLeftLength);
                         string right = parts[1].Trim();
-                        PrintDNSList.Add($"{name}: {left.PadRight(maxLeftLength)}\t|\t{right}");
+                        PrintDNSList.Add($"{name}: {left}\t|\t{right}");
                     }else{
-                        PrintDNSList.Add($"{name}: {value}");
+                        PrintDNSList.Add($"{name}: {cellValue.Trim()}");
                     }
                 }
-                SaveFileDialog saveDlg = new SaveFileDialog{
+                PrintDNSList.Add(Environment.NewLine + new string('-', 100) + Environment.NewLine);
+                PrintDNSList.Add(DNS_PerfectResultLabel.Text);
+                using (SaveFileDialog saveDlg = new SaveFileDialog{
                     InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                     Title = Application.ProductName + " - " + software_lang.TSReadLangs("PrintEngine", "pe_save_directory"),
                     DefaultExt = "txt",
                     FileName = Application.ProductName + " - " + string.Format(software_lang.TSReadLangs("PrintEngine", "pe_save_name"), software_lang.TSReadLangs("DNSTestTool", "dtt_export_name")),
                     Filter = software_lang.TSReadLangs("PrintEngine", "pe_save_txt") + " (*.txt)|*.txt"
-                };
-                if (saveDlg.ShowDialog() == DialogResult.OK){
-                    File.WriteAllText(saveDlg.FileName, string.Join(Environment.NewLine, PrintDNSList));
-                    DialogResult res = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(software_lang.TSReadLangs("PrintEngine", "pe_save_success") + Environment.NewLine + Environment.NewLine + software_lang.TSReadLangs("PrintEngine", "pe_save_info_open"), Application.ProductName, saveDlg.FileName));
-                    if (res == DialogResult.Yes) { Process.Start(saveDlg.FileName); }
+                }){
+                    if (saveDlg.ShowDialog() == DialogResult.OK){
+                        File.WriteAllText(saveDlg.FileName, string.Join(Environment.NewLine, PrintDNSList));
+                        var res = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(software_lang.TSReadLangs("PrintEngine", "pe_save_success") + Environment.NewLine + Environment.NewLine + software_lang.TSReadLangs("PrintEngine", "pe_save_info_open"), Application.ProductName, saveDlg.FileName));
+                        if (res == DialogResult.Yes)
+                            Process.Start(saveDlg.FileName);
+                    }
                 }
-                PrintDNSList.Clear();
-                saveDlg.Dispose();
             }catch (Exception){ }
         }
     }

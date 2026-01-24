@@ -231,13 +231,15 @@ namespace Glow.glow_tools{
                 if (size_mode == 1){
                     WindowState = FormWindowState.Normal;
                     FormBorderStyle = FormBorderStyle.Sizable;
+                    this.Icon = Properties.Resources.GlowLogo;
+                    this.ShowIcon = true;
                     size_mode = 0;
                 }else{
                     FormBorderStyle = FormBorderStyle.None;
                     WindowState = FormWindowState.Maximized;
                     size_mode = 1;
                 }
-            }else{ return; }
+            }
         }
         // EXIT
         // ======================================================================================================

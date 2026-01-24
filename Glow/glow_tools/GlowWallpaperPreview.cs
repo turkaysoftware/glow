@@ -12,6 +12,8 @@ namespace Glow.glow_tools{
         public GlowWallpaperPreview(){
             InitializeComponent();
             //
+            WP_Preview_theme_settings();
+            //
             ImageDGV.ColumnHeadersVisible = false;
             ImageDGV.Columns.Add("WallpaperPref", "Pref");
             ImageDGV.Columns.Add("WallpaperVal", "Value");
@@ -25,12 +27,21 @@ namespace Glow.glow_tools{
         // LOAD
         // ======================================================================================================
         private void GlowWallpaperPreview_Load(object sender, EventArgs e){
-            WP_Preview_theme_settings();
-            Task.Run(() => { AsyncLoadWallpaper(); }); 
+            Task.Run(AsyncLoadWallpaper);
         }
         private void AsyncLoadWallpaper(){
             GetWallpaperInfo(GlowMain.wp_rotate);
-            SetPictureBoxImage(WPImage, Image.FromFile(GlowMain.wp_rotate));
+            Image img = null;
+            try{
+                img = Image.FromFile(GlowMain.wp_rotate);
+                if (WPImage.IsHandleCreated){
+                    WPImage.Invoke(new Action(() => SetPictureBoxImage(WPImage, img)));
+                }else{
+                    img.Dispose();
+                }
+            }catch{
+                img?.Dispose();
+            }
         }
         private void GetWallpaperInfo(string dosyaYolu){
             string get_res = "-";
@@ -66,6 +77,7 @@ namespace Glow.glow_tools{
                 //
                 BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 //
+                ImageDGV.EnableHeadersVisualStyles = false;
                 ImageDGV.BackgroundColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridBGColor");
                 ImageDGV.GridColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridColor");
                 ImageDGV.DefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridBGColor");
@@ -115,7 +127,6 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         private void GlowWallpaperPreview_FormClosing(object sender, FormClosingEventArgs e){
             SetPictureBoxImage(WPImage, null);
-            Hide();
         }
     }
 }

@@ -32,14 +32,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlowWallpaperPreview));
             this.BackPanel = new System.Windows.Forms.Panel();
+            this.ImageDGV = new System.Windows.Forms.DataGridView();
             this.WPImage = new System.Windows.Forms.PictureBox();
             this.BtnWallpaperLocationBtn = new Glow.TSCustomButton();
-            this.ImageDGV = new System.Windows.Forms.DataGridView();
             this.BackPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.WPImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageDGV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WPImage)).BeginInit();
             this.SuspendLayout();
             // 
             // BackPanel
@@ -53,43 +52,6 @@
             this.BackPanel.Padding = new System.Windows.Forms.Padding(10);
             this.BackPanel.Size = new System.Drawing.Size(489, 466);
             this.BackPanel.TabIndex = 0;
-            // 
-            // WPImage
-            // 
-            this.WPImage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.WPImage.Location = new System.Drawing.Point(10, 10);
-            this.WPImage.Margin = new System.Windows.Forms.Padding(3, 3, 3, 20);
-            this.WPImage.Name = "WPImage";
-            this.WPImage.Size = new System.Drawing.Size(469, 165);
-            this.WPImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.WPImage.TabIndex = 0;
-            this.WPImage.TabStop = false;
-            // 
-            // BtnWallpaperLocationBtn
-            // 
-            this.BtnWallpaperLocationBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.BtnWallpaperLocationBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.BtnWallpaperLocationBtn.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.BtnWallpaperLocationBtn.BorderRadius = 10;
-            this.BtnWallpaperLocationBtn.BorderSize = 0;
-            this.BtnWallpaperLocationBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnWallpaperLocationBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.BtnWallpaperLocationBtn.FlatAppearance.BorderSize = 0;
-            this.BtnWallpaperLocationBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnWallpaperLocationBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.BtnWallpaperLocationBtn.ForeColor = System.Drawing.Color.White;
-            this.BtnWallpaperLocationBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnWallpaperLocationBtn.Location = new System.Drawing.Point(10, 420);
-            this.BtnWallpaperLocationBtn.Name = "BtnWallpaperLocationBtn";
-            this.BtnWallpaperLocationBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.BtnWallpaperLocationBtn.Size = new System.Drawing.Size(469, 36);
-            this.BtnWallpaperLocationBtn.TabIndex = 1;
-            this.BtnWallpaperLocationBtn.Text = "Open Wallpaper";
-            this.BtnWallpaperLocationBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnWallpaperLocationBtn.TextColor = System.Drawing.Color.White;
-            this.BtnWallpaperLocationBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.BtnWallpaperLocationBtn.UseVisualStyleBackColor = false;
-            this.BtnWallpaperLocationBtn.Click += new System.EventHandler(this.BtnWallpaperLocationBtn_Click);
             // 
             // ImageDGV
             // 
@@ -143,6 +105,44 @@
             this.ImageDGV.TabIndex = 0;
             this.ImageDGV.SelectionChanged += new System.EventHandler(this.ImageDGV_SelectionChanged);
             // 
+            // WPImage
+            // 
+            this.WPImage.BackColor = System.Drawing.Color.Transparent;
+            this.WPImage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.WPImage.Location = new System.Drawing.Point(10, 10);
+            this.WPImage.Margin = new System.Windows.Forms.Padding(3, 3, 3, 20);
+            this.WPImage.Name = "WPImage";
+            this.WPImage.Size = new System.Drawing.Size(469, 165);
+            this.WPImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.WPImage.TabIndex = 0;
+            this.WPImage.TabStop = false;
+            // 
+            // BtnWallpaperLocationBtn
+            // 
+            this.BtnWallpaperLocationBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.BtnWallpaperLocationBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.BtnWallpaperLocationBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.BtnWallpaperLocationBtn.BorderRadius = 10;
+            this.BtnWallpaperLocationBtn.BorderSize = 0;
+            this.BtnWallpaperLocationBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnWallpaperLocationBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.BtnWallpaperLocationBtn.FlatAppearance.BorderSize = 0;
+            this.BtnWallpaperLocationBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnWallpaperLocationBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.BtnWallpaperLocationBtn.ForeColor = System.Drawing.Color.White;
+            this.BtnWallpaperLocationBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnWallpaperLocationBtn.Location = new System.Drawing.Point(10, 420);
+            this.BtnWallpaperLocationBtn.Name = "BtnWallpaperLocationBtn";
+            this.BtnWallpaperLocationBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.BtnWallpaperLocationBtn.Size = new System.Drawing.Size(469, 36);
+            this.BtnWallpaperLocationBtn.TabIndex = 1;
+            this.BtnWallpaperLocationBtn.Text = "Open Wallpaper";
+            this.BtnWallpaperLocationBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnWallpaperLocationBtn.TextColor = System.Drawing.Color.White;
+            this.BtnWallpaperLocationBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnWallpaperLocationBtn.UseVisualStyleBackColor = false;
+            this.BtnWallpaperLocationBtn.Click += new System.EventHandler(this.BtnWallpaperLocationBtn_Click);
+            // 
             // GlowWallpaperPreview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -152,7 +152,7 @@
             this.Controls.Add(this.BackPanel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = Properties.Resources.GlowLogo;
+            this.Icon = global::Glow.Properties.Resources.GlowLogo;
             this.MaximizeBox = false;
             this.Name = "GlowWallpaperPreview";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -160,8 +160,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GlowWallpaperPreview_FormClosing);
             this.Load += new System.EventHandler(this.GlowWallpaperPreview_Load);
             this.BackPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.WPImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageDGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WPImage)).EndInit();
             this.ResumeLayout(false);
 
         }

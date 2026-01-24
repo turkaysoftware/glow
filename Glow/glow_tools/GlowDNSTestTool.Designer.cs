@@ -34,12 +34,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DNSTable = new System.Windows.Forms.DataGridView();
             this.BGPanel = new System.Windows.Forms.Panel();
+            this.INTERNALPanel = new System.Windows.Forms.Panel();
+            this.DNS_PerfectResultLabel = new System.Windows.Forms.Label();
             this.Btn_FLP = new System.Windows.Forms.FlowLayoutPanel();
             this.DNS_TestStartBtn = new Glow.TSCustomButton();
             this.DNS_CustomTestBtn = new Glow.TSCustomButton();
             this.DNS_TestExportBtn = new Glow.TSCustomButton();
             ((System.ComponentModel.ISupportInitialize)(this.DNSTable)).BeginInit();
             this.BGPanel.SuspendLayout();
+            this.INTERNALPanel.SuspendLayout();
             this.Btn_FLP.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,19 +94,44 @@
             this.DNSTable.RowHeadersVisible = false;
             this.DNSTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.DNSTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DNSTable.Size = new System.Drawing.Size(614, 323);
+            this.DNSTable.Size = new System.Drawing.Size(614, 388);
             this.DNSTable.TabIndex = 0;
             this.DNSTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DNSTable_CellDoubleClick);
             // 
             // BGPanel
             // 
+            this.BGPanel.Controls.Add(this.INTERNALPanel);
             this.BGPanel.Controls.Add(this.DNSTable);
             this.BGPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BGPanel.Location = new System.Drawing.Point(10, 10);
             this.BGPanel.Name = "BGPanel";
             this.BGPanel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.BGPanel.Size = new System.Drawing.Size(614, 333);
+            this.BGPanel.Size = new System.Drawing.Size(614, 398);
             this.BGPanel.TabIndex = 0;
+            // 
+            // INTERNALPanel
+            // 
+            this.INTERNALPanel.Controls.Add(this.DNS_PerfectResultLabel);
+            this.INTERNALPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.INTERNALPanel.Location = new System.Drawing.Point(0, 333);
+            this.INTERNALPanel.Name = "INTERNALPanel";
+            this.INTERNALPanel.Padding = new System.Windows.Forms.Padding(0, 5, 0, 10);
+            this.INTERNALPanel.Size = new System.Drawing.Size(614, 55);
+            this.INTERNALPanel.TabIndex = 1;
+            // 
+            // DNS_PerfectResultLabel
+            // 
+            this.DNS_PerfectResultLabel.BackColor = System.Drawing.Color.White;
+            this.DNS_PerfectResultLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DNS_PerfectResultLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.DNS_PerfectResultLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.DNS_PerfectResultLabel.Location = new System.Drawing.Point(0, 5);
+            this.DNS_PerfectResultLabel.Margin = new System.Windows.Forms.Padding(3, 0, 3, 20);
+            this.DNS_PerfectResultLabel.Name = "DNS_PerfectResultLabel";
+            this.DNS_PerfectResultLabel.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.DNS_PerfectResultLabel.Size = new System.Drawing.Size(614, 40);
+            this.DNS_PerfectResultLabel.TabIndex = 2;
+            this.DNS_PerfectResultLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Btn_FLP
             // 
@@ -112,7 +140,7 @@
             this.Btn_FLP.Controls.Add(this.DNS_CustomTestBtn);
             this.Btn_FLP.Controls.Add(this.DNS_TestExportBtn);
             this.Btn_FLP.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Btn_FLP.Location = new System.Drawing.Point(10, 343);
+            this.Btn_FLP.Location = new System.Drawing.Point(10, 408);
             this.Btn_FLP.Name = "Btn_FLP";
             this.Btn_FLP.Size = new System.Drawing.Size(614, 128);
             this.Btn_FLP.TabIndex = 1;
@@ -200,7 +228,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(634, 481);
+            this.ClientSize = new System.Drawing.Size(634, 546);
             this.Controls.Add(this.BGPanel);
             this.Controls.Add(this.Btn_FLP);
             this.DoubleBuffered = true;
@@ -214,6 +242,7 @@
             this.Load += new System.EventHandler(this.GlowDNSTestTool_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DNSTable)).EndInit();
             this.BGPanel.ResumeLayout(false);
+            this.INTERNALPanel.ResumeLayout(false);
             this.Btn_FLP.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -227,5 +256,7 @@
         private System.Windows.Forms.DataGridView DNSTable;
         private System.Windows.Forms.Panel BGPanel;
         private System.Windows.Forms.FlowLayoutPanel Btn_FLP;
+        private System.Windows.Forms.Panel INTERNALPanel;
+        internal System.Windows.Forms.Label DNS_PerfectResultLabel;
     }
 }

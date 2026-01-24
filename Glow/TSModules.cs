@@ -700,13 +700,17 @@ namespace Glow{
         // ======================================================================================================
         public static bool IsNetworkCheck(){
             try{
-                HttpWebRequest server_request = (HttpWebRequest)WebRequest.Create("http://clients3.google.com/generate_204");
-                server_request.KeepAlive = false;
-                server_request.Timeout = 2500;
-                using (var server_response = (HttpWebResponse)server_request.GetResponse()){
-                    return server_response.StatusCode == HttpStatusCode.NoContent;
+                var check_net = (HttpWebRequest)WebRequest.Create("http://clients3.google.com/generate_204");
+                check_net.Method = "GET";
+                check_net.KeepAlive = false;
+                check_net.Proxy = null;
+                check_net.Timeout = 2500;
+                check_net.ReadWriteTimeout = 2500;
+                check_net.AllowAutoRedirect = false;
+                using (var resp_net = (HttpWebResponse)check_net.GetResponse()){
+                    return resp_net.StatusCode == HttpStatusCode.NoContent;
                 }
-            }catch{
+            }catch (WebException){
                 return false;
             }
         }

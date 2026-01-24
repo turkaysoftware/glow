@@ -447,10 +447,5 @@ namespace Glow.glow_tools{
                 DGV_MainTable.Rows.Add(item.Name, item.Value);
             }
         }
-
-        private void Btn_Generate_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

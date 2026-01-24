@@ -21,8 +21,6 @@ namespace Glow.glow_tools{
         public GlowSFCandDISMAutoTool(){ InitializeComponent(); }
         // LOAD
         // ======================================================================================================
-        // LOAD
-        // ======================================================================================================
         private void GlowSFCandDISMAutoTool_Load(object sender, EventArgs e){
             SADTLoadEngine();
             // PROCESS TIMER
