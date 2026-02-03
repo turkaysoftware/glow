@@ -1,4 +1,4 @@
-# Contributing to the Project
+# 🤝 Contributing to the Project
 
 First of all, thank you for your interest in contributing! It is the efforts of the community that keep this project stable and evolving. To ensure a smooth process for everyone, please follow these guidelines.
 
