@@ -71,6 +71,13 @@ Glow includes a built-in suite for system maintenance:
 
 ---
 
+## 🛠️ Automatic Updates and Translation Support
+
+* **TS Wizard Integration:** Fully compatible with [TS Wizard](https://www.turkaysoftware.com/ts-wizard) for automatic updates and system monitoring.
+* **Translation Support:** Community-driven localization via the official [Translation Guide](https://github.com/turkaysoftware/glow/discussions/3).
+
+---
+
 ## 📸 Interface Preview
 
 <img width="1010" height="633" alt="Glow UI" src="https://github.com/user-attachments/assets/f830104a-f66b-4839-a61c-18fb35c241d2" />
