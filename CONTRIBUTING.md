@@ -5,7 +5,7 @@ First of all, thank you for your interest in contributing! It is the efforts of 
 ---
 
 ## 🔍 Before You Begin
-1.  **Search Existing Issues:** Before opening a new issue, please search the [Issues](#) tab to see if the topic has already been discussed or reported.
+1.  **Search Existing Issues:** Before opening a new issue, please search the [Issues](https://github.com/turkaysoftware/glow/issues) tab to see if the topic has already been discussed or reported.
 2.  **Open an Issue First:** For significant bug fixes or new features, please open an issue first to discuss the proposed changes. This ensures that your efforts align with the project's roadmap.
 
 ## 🛠 Development Workflow
