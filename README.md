@@ -39,7 +39,7 @@ Glow queries deep system layers to provide professional-grade data across specia
 * **Processor (CPU):** Microcode version, physical/logical core counts, L1/L2/L3 cache hierarchies, and real-time virtualization status.
 * **Memory (RAM):** Slot-by-slot breakdown including part numbers, manufacturer, bank labels, voltage levels, and true operating frequency.
 * **Graphics (GPU):** Full adapter string, VRAM capacity, driver date/version, and active monitor refresh rates/resolutions.
-* **Storage:** Real-time S.M.A.R.T. health monitoring, partition styles (GPT/MBR), interface types (NVMe/SATA), and precise capacity reports.
+* **Storage:** Real-time health monitoring, partition styles (GPT/MBR), interface types (NVMe/SATA), and precise capacity reports.
 
 ### 🔌 Peripherals & Connectivity
 * **Network:** Dynamic monitoring of MAC addresses, internal IP addresses, network adapter speeds, and active connection status.
