@@ -57,10 +57,17 @@ Glow queries deep system layers to provide professional-grade data across specia
 
 ## 🛠️ Advanced Tools Menu
 Glow includes a built-in suite for system maintenance:
-* **Cache Cleaner:** Instantly clear Windows, Chrome, and system temp files.
-* **SFC & DISM Integration:** Repair corrupted system files via a simple GUI.
-* **Startup Manager:** View and manage programs that launch with Windows.
-* **Environment Variables:** Quickly view and edit system path variables.
+* **SFC & DISM Automation:** Automated system file repair and image health management.
+* **Cache Cleanup:** Instantly clear system, browser, and temporary junk files.
+* **Performance Benchmarks:** High-precision CPU, RAM, and Disk performance testing modules.
+* **Screen Overlay:** Real-time system monitoring overlay for power users.
+* **Network Suite:** DNS Test Tool and Network Troubleshooting for connectivity issues.
+* **Security & Access:** Wi-Fi Password Showing Tool and System ID Generation.
+* **Connectivity Tools:** Bluetooth Information and Quick Access utilities.
+* **Monitor Test Suite:**
+    * **Dead Pixel Test:** Identify faulty pixels across various color ranges.
+    * **Dynamic Color Range:** Test your monitor's color depth and accuracy.
+    * **Stuck Pixel Repair:** Advanced tool designed to revive unresponsive pixels.
 
 ---
 
