@@ -98,7 +98,7 @@ Glow includes a built-in suite for system maintenance:
 
 1.  Navigate to the **[Releases](https://github.com/turkaysoftware/glow/releases)** page.
 2.  Download the latest ZIP file.
-3.  **Extract the ZIP archive** to a folder of your choice (Running directly from the archive may prevent language files from loading).
+3.  **Extract all files from the ZIP** (Important: Application requires all folder contents to run correctly).
 4.  Launch the executable corresponding to your architecture:
     * `Glow_x64.exe`: For standard 64-bit Intel/AMD systems.
     * `Glow_arm64.exe`: For ARM-based devices like Surface Pro.
