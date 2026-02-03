@@ -1,22 +1,37 @@
 # Contributing to the Project
 
-Thank you for your interest in contributing to this software project!
+First of all, thank you for your interest in contributing! It is the efforts of the community that keep this project stable and evolving. To ensure a smooth process for everyone, please follow these guidelines.
 
-Please follow these guidelines to make the contribution process smooth for everyone.
+---
 
-1. Before creating a new issue, search existing issues to avoid duplicates.  
-2. For bug fixes or new features, open an issue first to discuss the planned change.  
-3. Fork the repository and create a feature branch named like:  
-   - feature/my-feature  
-   - fix/issue-123  
-4. Make small, focused commits and provide a clear PR description that includes:  
-   - What you changed  
-   - Why you changed it  
-   - How to test the change  
-5. Run the build locally and include any test results or screenshots in the PR.  
-6. Follow code style and formatting conventions for C#. Using an .editorconfig file or the default Visual Studio settings is recommended.  
-7. Add unit tests for new features or bug fixes when possible.  
-8. Maintain backward compatibility where possible and document any breaking changes in the PR.  
-9. Be respectful and constructive in all communication.  
+## 🔍 Before You Begin
+1.  **Search Existing Issues:** Before opening a new issue, please search the [Issues](#) tab to see if the topic has already been discussed or reported.
+2.  **Open an Issue First:** For significant bug fixes or new features, please open an issue first to discuss the proposed changes. This ensures that your efforts align with the project's roadmap.
 
-Thank you for helping improve this project!
+## 🛠 Development Workflow
+To maintain a clean and organized repository, we follow these steps:
+
+1.  **Fork & Branch:** Fork the repository and create a descriptive branch name:
+    * `feature/your-feature-name`
+    * `fix/issue-id-or-description`
+2.  **Commit Standards:** Make small, focused commits with clear messages that describe "what" and "why".
+3.  **Code Style (C#):**
+    * Follow the project's `.editorconfig` rules or default Visual Studio formatting.
+    * Maintain clean code principles and ensure consistent naming conventions.
+
+## 🧪 Testing & Quality Assurance
+* **Unit Tests:** Add unit tests for new features or bug fixes whenever possible to prevent future regressions.
+* **Local Build:** Ensure the project builds successfully in your local environment before submitting your changes.
+* **Backward Compatibility:** Aim to maintain compatibility. If a "breaking change" is necessary, clearly document it in your Pull Request description.
+
+## 📬 Pull Request (PR) Guidelines
+When submitting a PR, please include the following details in the description:
+* **Summary:** A brief overview of the changes.
+* **Motivation:** Why is this change necessary? (e.g., fixes #123)
+* **Testing:** How did you verify the changes? Include test results or screenshots if applicable.
+
+## 🤝 Code of Conduct
+Please be respectful, constructive, and professional in all communications. We aim to maintain a welcoming environment for all contributors.
+
+---
+**Thank you for helping us improve this project!**
