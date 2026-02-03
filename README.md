@@ -1,9 +1,11 @@
 # 🌟 Glow | Advanced System Analysis Software
 
-![GitHub Repo stars](https://img.shields.io/github/stars/turkaysoftware/glow?style=for-the-badge&color=gold)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/turkaysoftware/glow?style=for-the-badge&color=blue)
-![GitHub license](https://img.shields.io/github/license/turkaysoftware/glow?style=for-the-badge)
-![Platform](https://img.shields.io/badge/platform-Windows-0078D4?style=for-the-badge&logo=windows)
+![GitHub all releases](https://img.shields.io/github/downloads/turkaysoftware/glow/total?style=for-the-badge&color=DF313F)
+![GitHub Repo stars](https://img.shields.io/github/stars/turkaysoftware/glow?style=for-the-badge&color=167C33)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/turkaysoftware/glow?style=for-the-badge&color=9A194C)
+![Platform](https://img.shields.io/badge/platform-Windows-366194?style=for-the-badge&logo=windows)
+![GitHub license](https://img.shields.io/github/license/turkaysoftware/glow?style=for-the-badge&color=17796E)
+
 
 **Glow** is a powerful system analysis tool developed by **Eray Türkay**. It is designed to reveal the hidden technical details of your computer that are often hard to find or inaccessible through standard tools. From deep hardware architecture to complex software environment variables, Glow uncovers every detail of your system with surgical precision.
 
@@ -12,7 +14,7 @@
 ### ☕ Support the Project
 Glow is free and will always be. If you find it useful, consider supporting the development!
 
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Donate-orange?style=for-the-badge&logo=buy-me-a-coffee)](https://buymeacoffee.com/turkaysoftware)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Donate-DF313F?style=for-the-badge&logo=buy-me-a-coffee)](https://buymeacoffee.com/turkaysoftware)
 
 [Official Website](https://www.turkaysoftware.com) | [Report a Bug](https://github.com/turkaysoftware/glow/issues)
 
