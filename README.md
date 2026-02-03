@@ -82,8 +82,6 @@ Glow includes a built-in suite for system maintenance:
 
 <img width="1010" height="633" alt="Glow UI" src="https://github.com/user-attachments/assets/f830104a-f66b-4839-a61c-18fb35c241d2" />
 
-> *Explore every detail of your system with Glow's modern and intuitive interface.*
-
 ---
 
 ## 💻 System Requirements
@@ -102,19 +100,19 @@ Glow includes a built-in suite for system maintenance:
 2.  Download the latest version of Glow.
 3.  **Extract the ZIP archive** to a folder of your choice (Running directly from the archive may prevent language files from loading).
 4.  Launch the executable corresponding to your architecture:
-    * `Glow_x64.exe`: For standard 64-bit Windows systems.
-    * `Glow_arm64.exe`: For ARM-based Windows devices.
+    * `Glow_x64.exe`: For standard 64-bit Intel/AMD systems.
+    * `Glow_arm64.exe`: For ARM-based devices like Surface Pro.
 
 ---
 
-## 🛡️ Security & Integrity
+## 🛡️ Security
 
-* **Optimized Queries:** Efficient WMI and Registry querying to minimize system load.
-* **Hiding Mode:** Easily obfuscate sensitive information like serial numbers for safe screen sharing.
-* **Open Source:** The entire source code is available for audit and community contribution.
+* **Zero Data Export Policy:** Your privacy is our priority; no data leaves your machine.
+* **No Dependencies:** Developed entirely from scratch using its own source code, there are no risks from security vulnerabilities in third-party libraries.
+* **Open Source:** All source code for the program is open and can be reviewed by anyone.
 
 ---
 
 ## 📄 License
 
-Distributed under the **MIT License**. See `LICENSE` for more information.
+This software is offered free of charge as part of the **Türkay Software solutions package** and is protected under the [**MIT License**](https://github.com/turkaysoftware/glow?tab=MIT-1-ov-file).
