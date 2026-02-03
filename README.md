@@ -1,10 +1,10 @@
 # 🌟 Glow | Advanced System Analysis Software
 
-[![GitHub all releases](https://img.shields.io/github/downloads/turkaysoftware/glow/total?style=for-the-badge&color=DF313F)](https://github.com/turkaysoftware/glow/releases)
-[![GitHub Repo stars](https://img.shields.io/github/stars/turkaysoftware/glow?style=for-the-badge&color=167C33)](https://github.com/turkaysoftware/glow/stargazers)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/turkaysoftware/glow?style=for-the-badge&color=9A194C)](https://github.com/turkaysoftware/glow/releases/latest)
+![GitHub all releases](https://img.shields.io/github/downloads/turkaysoftware/glow/total?style=for-the-badge&color=DF313F)
+![GitHub Repo stars](https://img.shields.io/github/stars/turkaysoftware/glow?style=for-the-badge&color=167C33)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/turkaysoftware/glow?style=for-the-badge&color=9A194C)
 ![Platform](https://img.shields.io/badge/platform-Windows-366194?style=for-the-badge&logo=windows)
-[![GitHub license](https://img.shields.io/github/license/turkaysoftware/glow?style=for-the-badge&color=17796E)](https://github.com/turkaysoftware/glow/blob/main/LICENSE)
+![GitHub license](https://img.shields.io/github/license/turkaysoftware/glow?style=for-the-badge&color=17796E)
 
 ---
 
