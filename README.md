@@ -6,7 +6,9 @@
 ![Platform](https://img.shields.io/badge/platform-Windows-366194?style=for-the-badge&logo=windows)
 ![GitHub license](https://img.shields.io/github/license/turkaysoftware/glow?style=for-the-badge&color=17796E)
 
-**Glow** is an advanced system analysis software developed by **Eray Türkay**. It is designed to reveal technical details that are difficult to access with standard tools or are often completely hidden. From the deepest layers of hardware architecture to the complex structure of software environment variables, Glow analyzes your system with high precision. This allows even users with limited computer knowledge to easily and clearly discover all the technical components of their devices.
+**Glow** is an advanced system analysis software developed by **Eray Türkay**. It is designed to reveal technical details that are difficult to access with standard tools or are often completely hidden. From the deepest layers of hardware architecture to the complex structure of software environment variables, Glow analyzes your system with high precision.
+
+By presenting all this information in a simple, clear, and well-organized manner, it enables even users with limited knowledge of computers to easily understand their systems and quickly access the data they need through a clean output.
 
 ---
 
