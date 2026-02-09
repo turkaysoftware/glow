@@ -28,6 +28,7 @@ Glow is free and will always be. If you find it useful, consider supporting the 
 * 🌓 **Modern UI:** Clean, intuitive interface compatible with Windows 11 design language, featuring Light, Dark, and System themes.
 * 🌍 **Multilingual:** It supports 15 different languages, primarily English. You can access the supported languages here: [Supported Languages](https://github.com/turkaysoftware/glow/discussions/20)
 * 📦 **Portable:** No installation required. Just download it, extract all files from the ZIP, select the appropriate architecture, and run it.
+* 📥 **Saving Data:** The ability to save all features offered in the interface as a **Text Document** or **HTML Document**, if desired.
 * 🔍 **System Identity:** Unique device ID generation for hardware verification (Shortcut: `CTRL + G`).
 
 ---
