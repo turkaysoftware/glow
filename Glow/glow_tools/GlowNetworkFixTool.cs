@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 //
 using static Glow.TSModules;
-using System.Drawing;
 
 namespace Glow.glow_tools{
     public partial class GlowNetworkFixTool : Form{
@@ -24,6 +24,8 @@ namespace Glow.glow_tools{
                 //
                 NFT_ResultList.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "PageContainerBGAndPageContentTotalColors");
                 NFT_ResultList.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
+                NFT_ResultList.SelectedBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                NFT_ResultList.SelectedForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
                 //
                 NFT_StartBtn.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
                 NFT_StartBtn.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DynamicThemeActiveBtnBG");

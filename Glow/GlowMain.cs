@@ -192,7 +192,7 @@ namespace Glow{
                 allCopyableLabels.AddRange(BATTERYLabels);
                 //
                 if (hiding_mode_wrapper != 1){
-                    var HIDINGLabels = new Label[] { OS_SavedUser_V, OS_DeviceID_V, OS_Serial_V, OS_WinKey_V, OS_Wallpaper_V, MB_DeviceSerialNumber_V, MB_MotherBoardSerial_V, MB_SystemSKU_V, MB_TPMManID_V, CPU_SerialName_V, RAM_Serial_V, RAM_PartNumber_V, GPU_MonitorSerialNumberID_V, DISK_Serial_V, DISK_VolumeSerial_V, NET_MacAdress_V, NET_Guid_V, NET_IPv4Adress_V, NET_IPv6Adress_V, NET_DNS1_V, NET_DNS2_V, USB_DeviceGUID_V, BATTERY_Serial_V };
+                    var HIDINGLabels = new Label[] { OS_SavedUser_V, OS_DeviceID_V, OS_Serial_V, OS_WinKey_V, OS_Wallpaper_V, MB_DeviceSerialNumber_V, MB_MotherBoardSerial_V, MB_SystemSKU_V, MB_TPMManID_V, CPU_SerialName_V, RAM_Serial_V, RAM_PartNumber_V, GPU_MonitorSerialNumberID_V, DISK_Serial_V, DISK_VolumeSerial_V, NET_MacAdress_V, NET_Guid_V, NET_IPv4Adress_V, NET_IPv6Adress_V, NET_DNS1_V, NET_DNS2_V, NET_DNS1System_V, NET_DNS2System_V, USB_DeviceGUID_V, BATTERY_Serial_V };
                     allCopyableLabels.AddRange(HIDINGLabels);
                 }
                 //
@@ -1035,7 +1035,7 @@ namespace Glow{
             // OS PROCESS END ENABLED
             OS_RotateBtn.Enabled = true;
             ((Control)OS).Enabled = true;
-            if (Program.debug_mode){ Console.WriteLine("<--- Operating System Section Installed --->"); }
+            if (Program.debug_mode){ Console.WriteLine("<--- Operating System Section Loaded --->"); }
         }
         private async void OsBgProcess(){
             try{
@@ -3462,14 +3462,19 @@ namespace Glow{
         private void Network(){
             TSGetLangs software_lang = new TSGetLangs(lang_path);
             ManagementObjectSearcher search_na = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_NetworkAdapter");
-            var driverList = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PnPSignedDriver WHERE DeviceClass='Net'").Get().Cast<ManagementObject>().ToList();
-            // NET CPU PERFORMANCE BOOST QUERY
+            //
+            var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT DeviceName, DriverVersion, DriverDate FROM Win32_PnPSignedDriver WHERE DeviceClass='Net'");
             var driverDict = new Dictionary<string, ManagementObject>(StringComparer.OrdinalIgnoreCase);
-            foreach (var d in driverList){
-                string key = Net_replacer(Convert.ToString(d["DeviceName"]) ?? "");
-                if (!string.IsNullOrEmpty(key) && !driverDict.ContainsKey(key))
-                    driverDict[key] = d;
+            using (var results = searcher.Get()){
+                foreach (ManagementObject d in results.Cast<ManagementObject>()){
+                    string deviceName = d["DeviceName"]?.ToString() ?? "";
+                    string key = Net_replacer(deviceName);
+                    if (!string.IsNullOrEmpty(key) && !driverDict.ContainsKey(key)){
+                        driverDict[key] = d;
+                    }
+                }
             }
+            //
             foreach (ManagementObject query_na_rotate in search_na.Get().Cast<ManagementObject>()){
                 try{
                     // NET NAME
@@ -3509,8 +3514,11 @@ namespace Glow{
                         string dateRaw = Convert.ToString(driverMatch["DriverDate"]);
                         if (!string.IsNullOrEmpty(dateRaw)){
                             try{
-                                driverDate = ManagementDateTimeConverter.ToDateTime(dateRaw).ToString("dd.MM.yyyy");
-                            }catch{ }
+                                DateTime dt = ManagementDateTimeConverter.ToDateTime(dateRaw);
+                                driverDate = dt.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+                            }catch{
+                                driverDate = unknown;
+                            }
                         }
                     }
                     network_driver_version_list.Add(driverVersion);
@@ -3638,17 +3646,34 @@ namespace Glow{
                 }catch (Exception){ }
                 // NETWORK ADAPTER CONFIG SECTION
                 try{
-                    // MODEM CONNECT SPEED
                     string local_con_speed = Convert.ToString(query_na_rotate["Speed"]);
                     if (string.IsNullOrEmpty(local_con_speed) || local_con_speed == "Unknown"){
                         network_connection_speed_list.Add(software_lang.TSReadLangs("Network_Content", "nk_c_not_connect"));
                     }else{
-                        double net_speed_cal = Convert.ToInt64(local_con_speed) / 1000000.0;
-                        double net_speed_download_cal = net_speed_cal / 8;
-                        network_connection_speed_list.Add(net_speed_cal.ToString() + " Mbps - (" + string.Format("{0:0.0} MB/s)", net_speed_download_cal));
+                        double raw_speed_bps = Convert.ToDouble(local_con_speed);
+                        double mbps = raw_speed_bps / 1_000_000.0;
+                        double mb_s = mbps / 8.0;
+                        //
+                        string part1; // Mbps or Gbps
+                        string part2; // MB/s or GB/s
+                        //
+                        if (mbps >= 1000){
+                            part1 = $"{(mbps / 1000.0):0.##} Gbps";
+                        }else{
+                            part1 = $"{mbps:0} Mbps";
+                        }
+                        //
+                        if (mb_s >= 1024.0){
+                            part2 = $"{(mb_s / 1024.0):0.##} GB/s";
+                        }else{
+                            part2 = $"{mb_s:0.##} MB/s";
+                        }
+                        //
+                        string formattedSpeed = $"{part1} - ({part2})";
+                        network_connection_speed_list.Add(formattedSpeed);
                     }
                     NET_LocalConSpeed_V.Text = network_connection_speed_list[0];
-                }catch (Exception){ }
+                }catch (Exception) { }
                 try{
                     // IPV4 & IPV6 Adress
                     var get_na_index = query_na_rotate["Index"];
@@ -3682,59 +3707,32 @@ namespace Glow{
                     }
                 }catch (Exception){ }
             }
-            // DNS 1 And DNS 2 Address
             try{
-                ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled = True");
-                ManagementObjectCollection results = searcher.Get();
-                string dns1 = "", dns2 = "";
-                foreach (ManagementObject obj in results.Cast<ManagementObject>()){
-                    if (obj["DNSServerSearchOrder"] is string[] dnsAddresses && dnsAddresses.Length > 0){
-                        dns1 = dnsAddresses[0];
-                        if (dnsAddresses.Length > 1)
-                            dns2 = dnsAddresses[1];
-                        break;
-                    }
-                }
-                // DNS1
-                if (!string.IsNullOrEmpty(dns1)){
-                    if (hiding_mode_wrapper == 1){
-                        int maskLength = vis_m_property.Next(vn_range[0], vn_range[1]);
-                        NET_DNS1_V.Text = new string('*', maskLength) + $" ({software_lang.TSReadLangs("HeaderHidingMode", "header_hiding_mode_on_ui")})";
-                    }else{
-                        var provider = DnsProviders.FirstOrDefault(p => p.DnsAddresses.Contains(dns1));
-                        NET_DNS1_V.Text = provider != null ? $"{dns1} ({provider.Name})" : dns1;
-                    }
-                }else{
-                    NET_DNS1_V.Text = software_lang.TSReadLangs("Network_Content", "nk_c_dns_not");
-                }
-                // DNS2
-                if (!string.IsNullOrEmpty(dns2)){
-                    if (hiding_mode_wrapper == 1){
-                        int maskLength = vis_m_property.Next(vn_range[0], vn_range[1]);
-                        NET_DNS2_V.Text = new string('*', maskLength) + $" ({software_lang.TSReadLangs("HeaderHidingMode", "header_hiding_mode_on_ui")})";
-                    }else{
-                        var provider = DnsProviders.FirstOrDefault(p => p.DnsAddresses.Contains(dns2));
-                        NET_DNS2_V.Text = provider != null ? $"{dns2} ({provider.Name})" : dns2;
-                    }
-                }else{
-                    NET_DNS2_V.Text = software_lang.TSReadLangs("Network_Content", "nk_c_dns_not");
-                }
+                // Get Gateway DNS
+                UpdateDnsLabels(NET_DNS1_V, NET_DNS2_V, false);
+            }catch (Exception){ }
+            try{
+                // Get System DNS (DoH check active)
+                UpdateDnsLabels(NET_DNS1System_V, NET_DNS2System_V, true);
             }catch (Exception){ }
             // NETWORK SELECT
             try{
-                int net_moduler = 0;
-                var targetBrands = new[] { "realtek", "qualcomm", "killer", "mediatek", "intel" };
+                var activeInterfaces = NetworkInterface.GetAllNetworkInterfaces().Where(ni => ni.OperationalStatus == OperationalStatus.Up &&
+                ni.NetworkInterfaceType != NetworkInterfaceType.Loopback).OrderByDescending(ni => ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
+                .ThenByDescending(ni => ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211).Select(ni => Net_replacer(ni.Description).ToLower()).ToList();
+                bool found = false;
                 for (int i = 0; i < NET_Selector_List.Items.Count; i++){
-                    string net_list_item = NET_Selector_List.Items[i].ToString().ToLower();
-                    if (targetBrands.Any(brand => net_list_item.Contains(brand))){
-                        NET_Selector_List.SelectedIndex = net_moduler;
+                    string listItem = Net_replacer(NET_Selector_List.Items[i].ToString()).ToLower();
+                    if (activeInterfaces.Any(activeName => listItem.Contains(activeName) || activeName.Contains(listItem))){
+                        NET_Selector_List.SelectedIndex = i;
+                        found = true;
                         break;
-                    }else{
-                        NET_Selector_List.SelectedIndex = 1;
-                        net_moduler++;
                     }
                 }
-            }catch (Exception){ }
+                if (!found && NET_Selector_List.Items.Count > 0){
+                    NET_Selector_List.SelectedIndex = 0;
+                }
+            }catch (Exception) { }
             // NETWORK PROCESS END ENABLED
             NET_RotateBtn.Enabled = true;
             ((Control)NETWORK).Enabled = true;
@@ -3781,20 +3779,21 @@ namespace Glow{
                 using (var bytesSentCounter = new PerformanceCounter("Network Interface", "Bytes Sent/sec", perfCounterAdapterName))
                 using (var bytesReceivedCounter = new PerformanceCounter("Network Interface", "Bytes Received/sec", perfCounterAdapterName))
                 using (var bandwidthCounter = new PerformanceCounter("Network Interface", "Current Bandwidth", perfCounterAdapterName)){
-                    double bandwidth = bandwidthCounter.NextValue() / 1_000_000.0;
+                    double rawBandwidth = bandwidthCounter.NextValue() / 1_000_000.0;
+                    string bandwidthText = rawBandwidth >= 1000 ? $"{(rawBandwidth / 1000.0):0.##} Gbps" : $"{(int)Math.Round(rawBandwidth)} Mbps";
                     if (IsHandleCreated){
-                        BeginInvoke(new Action(() =>{
+                        BeginInvoke(new Action(() => {
                             NET_LT_Device_V.Text = activeAdapter;
-                            NET_LT_BandWidth_V.Text = $"{(int)Math.Round(bandwidth)} Mbps";
+                            NET_LT_BandWidth_V.Text = bandwidthText;
                         }));
                     }
                     while (loop_status){
-                        double mbpsSent = Math.Round(bytesSentCounter.NextValue() * 8 / 1_000_000.0, 2);
-                        double mbpsReceived = Math.Round(bytesReceivedCounter.NextValue() * 8 / 1_000_000.0, 2);
+                        double mbpsSent = bytesSentCounter.NextValue() * 8 / 1_000_000.0;
+                        double mbpsReceived = bytesReceivedCounter.NextValue() * 8 / 1_000_000.0;
                         if (IsHandleCreated){
-                            BeginInvoke(new Action(() =>{
-                                NET_LT_UL2.Text = $"{mbpsSent:0.00} Mbps / ({mbpsSent / 8:0.00} MB/s)";
-                                NET_LT_DL2.Text = $"{mbpsReceived:0.00} Mbps / ({mbpsReceived / 8:0.00} MB/s)";
+                            BeginInvoke(new Action(() => {
+                                NET_LT_UL2.Text = FormatSpeed(mbpsSent);
+                                NET_LT_DL2.Text = FormatSpeed(mbpsReceived);
                             }));
                         }
                         try{
@@ -3803,6 +3802,11 @@ namespace Glow{
                             break;
                         }
                     }
+                }
+                string FormatSpeed(double mbps){
+                    if (mbps >= 1000)
+                        return $"{(mbps / 1000.0):0.00} Gbps / ({(mbps / 8 / 1000.0):0.00} GB/s)";
+                    return $"{mbps:0.00} Mbps / ({(mbps / 8):0.00} MB/s)";
                 }
             }catch { }
         }
@@ -3888,6 +3892,82 @@ namespace Glow{
                     UseShellExecute = true
                 }); ;
             }catch (Exception){ }
+        }
+        // CHECK DNS GATEWAY AND SYSTEM
+        private void UpdateDnsLabels(Label labelDns1, Label labelDns2, bool useSystemDns){
+            try{
+                string dns1 = "";
+                string dns2 = "";
+                string dohSuffix = "";
+                if (useSystemDns){
+                    try{
+                        var psi = new ProcessStartInfo{
+                            FileName = "powershell",
+                            Arguments = "-NoProfile -Command \"Get-DnsClientDohServerAddress -ErrorAction SilentlyContinue | Where-Object {$_.AutoUpgrade -eq $true -or $_.DohTemplate -ne $null}\"",
+                            RedirectStandardOutput = true,
+                            UseShellExecute = false,
+                            CreateNoWindow = true
+                        };
+                        using (var process = Process.Start(psi)){
+                            string output = process.StandardOutput.ReadToEnd();
+                            process.WaitForExit();
+                            if (!string.IsNullOrWhiteSpace(output))
+                                dohSuffix = " (DoH)";
+                        }
+                    }catch { }
+                    var activeInterface = NetworkInterface.GetAllNetworkInterfaces().Where(ni => ni.OperationalStatus == OperationalStatus.Up && ni.NetworkInterfaceType != NetworkInterfaceType.Loopback).FirstOrDefault(ni => ni.GetIPProperties().GatewayAddresses.Any(g => g.Address != null));
+                    if (activeInterface != null){
+                        var ipProps = activeInterface.GetIPProperties();
+                        var dnsList = ipProps.DnsAddresses.Where(d => !d.ToString().StartsWith("fec0:0:0:ffff")).ToList();
+                        var ipv4List = dnsList.Where(d => d.AddressFamily == AddressFamily.InterNetwork).ToList();
+                        if (ipv4List.Any()){
+                            dns1 = ipv4List.ElementAtOrDefault(0)?.ToString() ?? "";
+                            dns2 = ipv4List.ElementAtOrDefault(1)?.ToString() ?? "";
+                        }else{
+                            var ipv6List = dnsList.Where(d => d.AddressFamily == AddressFamily.InterNetworkV6).ToList();
+                            dns1 = ipv6List.ElementAtOrDefault(0)?.ToString() ?? "";
+                            dns2 = ipv6List.ElementAtOrDefault(1)?.ToString() ?? "";
+                        }
+                    }
+                }else{
+                    var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled = True");
+                    var results = searcher.Get();
+                    foreach (ManagementObject obj in results.Cast<ManagementObject>()){
+                        if (obj["DNSServerSearchOrder"] is string[] dnsAddresses && dnsAddresses.Length > 0){
+                            dns1 = dnsAddresses[0];
+                            if (dnsAddresses.Length > 1)
+                                dns2 = dnsAddresses[1];
+                            break;
+                        }
+                    }
+                }
+                TSGetLangs software_lang = new TSGetLangs(lang_path);
+                // DNS1 label
+                if (!string.IsNullOrEmpty(dns1)){
+                    if (hiding_mode_wrapper == 1){
+                        int maskLength = vis_m_property.Next(vn_range[0], vn_range[1]);
+                        labelDns1.Text = new string('*', maskLength) + $" ({software_lang.TSReadLangs("HeaderHidingMode", "header_hiding_mode_on_ui")})";
+                    }
+                    else{
+                        var provider = DnsProviders.FirstOrDefault(p => p.DnsAddresses.Contains(dns1));
+                        labelDns1.Text = provider != null ? $"{dns1} ({provider.Name}){dohSuffix}" : $"{dns1}{dohSuffix}";
+                    }
+                }else{
+                    labelDns1.Text = software_lang.TSReadLangs("Network_Content", "nk_c_dns_not");
+                }
+                // DNS2 label
+                if (!string.IsNullOrEmpty(dns2)){
+                    if (hiding_mode_wrapper == 1){
+                        int maskLength = vis_m_property.Next(vn_range[0], vn_range[1]);
+                        labelDns2.Text = new string('*', maskLength) + $" ({software_lang.TSReadLangs("HeaderHidingMode", "header_hiding_mode_on_ui")})";
+                    }else{
+                        var provider = DnsProviders.FirstOrDefault(p => p.DnsAddresses.Contains(dns2));
+                        labelDns2.Text = provider != null ? $"{dns2} ({provider.Name}){dohSuffix}" : $"{dns2}{dohSuffix}";
+                    }
+                }else{
+                    labelDns2.Text = software_lang.TSReadLangs("Network_Content", "nk_c_dns_not");
+                }
+            }catch { }
         }
         #endregion
         #region USB_Section
@@ -4045,7 +4125,7 @@ namespace Glow{
                     if (!string.IsNullOrEmpty(usb_driver_date)){
                         try{
                             DateTime driverDate = ManagementDateTimeConverter.ToDateTime(usb_driver_date);
-                            usb_device_driver_date_list.Add(driverDate.ToString("dd.MM.yyyy"));
+                            usb_device_driver_date_list.Add(driverDate.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture));
                         }catch{
                             usb_device_driver_date_list.Add(software_lang.TSReadLangs("Usb_Content", "usb_c_unknown"));
                         }
@@ -4109,7 +4189,7 @@ namespace Glow{
             // USB PROCESS END ENABLED
             USB_RotateBtn.Enabled = true;
             ((Control)USB).Enabled = true;
-            if (Program.debug_mode){ Console.WriteLine("<--- USB Section Installed --->"); }
+            if (Program.debug_mode){ Console.WriteLine("<--- USB Section Loaded --->"); }
         }
         private void USB_Selector_List_SelectedIndexChanged(object sender, EventArgs e){
             try{
@@ -4148,14 +4228,18 @@ namespace Glow{
         private void Sound(){
             TSGetLangs software_lang = new TSGetLangs(lang_path);
             ManagementObjectSearcher search_sound = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_SoundDevice");
-            var soundDrivers = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PnPSignedDriver WHERE DeviceClass='MEDIA'").Get().Cast<ManagementObject>().ToList();
-            // CPU PERFORMANCE BOOSTER SOUND QUERY
+            //
+            var soundSearcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT DeviceID, DriverVersion, DriverDate FROM Win32_PnPSignedDriver WHERE DeviceClass='MEDIA'");
             var soundDriversDict = new Dictionary<string, ManagementObject>(StringComparer.OrdinalIgnoreCase);
-            foreach (ManagementObject d in soundDrivers){
-                var id = Convert.ToString(d["DeviceID"])?.Trim();
-                if (!string.IsNullOrEmpty(id) && !soundDriversDict.ContainsKey(id))
-                    soundDriversDict[id] = d;
+            using (var results = soundSearcher.Get()){
+                foreach (ManagementObject d in results.Cast<ManagementObject>()){
+                    string deviceID = d["DeviceID"]?.ToString()?.Trim() ?? "";
+                    if (!string.IsNullOrEmpty(deviceID) && !soundDriversDict.ContainsKey(deviceID)){
+                        soundDriversDict[deviceID] = d;
+                    }
+                }
             }
+            //
             foreach (ManagementObject query_sound in search_sound.Get().Cast<ManagementObject>()){
                 // SOUND DEVICE CAPTION
                 try{
@@ -4198,7 +4282,7 @@ namespace Glow{
                         if (driverMatch["DriverDate"] != null){
                             try{
                                 DateTime dt = ManagementDateTimeConverter.ToDateTime(driverMatch["DriverDate"].ToString());
-                                driverDate = dt.ToString("dd.MM.yyyy");
+                                driverDate = dt.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
                             }catch{
                                 driverDate = unknown;
                             }
@@ -4318,7 +4402,7 @@ namespace Glow{
                         byte[] chemistryBytes = BitConverter.GetBytes(Convert.ToUInt32(batteryStatic["Chemistry"]));
                         string chemistry = Encoding.ASCII.GetString(chemistryBytes).Trim('\0').Trim();
                         if (!string.IsNullOrEmpty(chemistry)){
-                            BATTERY_Chemistry_V.Text = chemistry;
+                            BATTERY_Chemistry_V.Text = chemistry.Replace("Li-I", "Li-Ion");
                         }else{
                             ManagementObjectSearcher battery_sv2_chemistry = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Battery");
                             foreach (ManagementObject b_sv2_chemistry in battery_sv2_chemistry.Get().Cast<ManagementObject>()){
@@ -4583,24 +4667,32 @@ namespace Glow{
                 { "Stopped", "osd_c_stopped" },
                 { "Running", "osd_c_working" }
             };
+            var langCache = new Dictionary<string, string>();
+            string L(string key){
+                if (!langCache.TryGetValue(key, out var val))
+                    langCache[key] = val = software_lang.TSReadLangs("Osd_Content", key);
+                return val;
+            }
             try{
-                var search = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_SystemDriver");
-                var results = search.Get().Cast<ManagementObject>().ToList();
-                var driverRows = new List<string[]>(results.Count);
-                foreach (var d in results){
+                var search = new ManagementObjectSearcher("root\\CIMV2", "SELECT PathName, DisplayName, ServiceType, StartMode, State FROM Win32_SystemDriver");
+                var driverRows = new List<string[]>();
+                foreach (ManagementObject d in search.Get().Cast<ManagementObject>()){
                     string path = Convert.ToString(d["PathName"])?.Replace("\"", "").Replace("\\??\\", "").Trim() ?? "";
                     string file = Path.GetFileName(path);
                     string disp = Convert.ToString(d["DisplayName"])?.Trim() ?? "";
-                    string type = Convert.ToString(d["ServiceType"])?.Trim();
-                    string start = Convert.ToString(d["StartMode"])?.Trim();
-                    string state = Convert.ToString(d["State"])?.Trim();
+                    string typeKey = Convert.ToString(d["ServiceType"])?.Trim();
+                    string startKey = Convert.ToString(d["StartMode"])?.Trim();
+                    string stateKey = Convert.ToString(d["State"])?.Trim();
                     //
-                    type = driverTypeMappings.TryGetValue(type ?? "", out var t) ? software_lang.TSReadLangs("Osd_Content", t) : software_lang.TSReadLangs("Osd_Content", "osd_c_unknown");
-                    start = driverStartModeMappings.TryGetValue(start ?? "", out var s) ? software_lang.TSReadLangs("Osd_Content", s) : software_lang.TSReadLangs("Osd_Content", "osd_c_unknown");
-                    state = driverStatusMappings.TryGetValue(state ?? "", out var st) ? software_lang.TSReadLangs("Osd_Content", st) : software_lang.TSReadLangs("Osd_Content", "osd_c_unknown");
+                    string type = driverTypeMappings.TryGetValue(typeKey ?? "", out var t) ? L(t) : L("osd_c_unknown");
+                    string start = driverStartModeMappings.TryGetValue(startKey ?? "", out var s) ? L(s) : L("osd_c_unknown");
+                    string state = driverStatusMappings.TryGetValue(stateKey ?? "", out var st) ? L(st) : L("osd_c_unknown");
                     //
                     driverRows.Add(new[] { path, file, disp, type, start, state });
                 }
+                //
+                driverRows.Sort((a, b) => string.Compare(a[1], b[1], StringComparison.OrdinalIgnoreCase));
+                //
                 Action uiUpdate = () =>{
                     BulkAddRows(driverRows, software_lang);
                 };
@@ -4608,16 +4700,18 @@ namespace Glow{
                     OSD_DataMainTable.Invoke(uiUpdate);
                 else
                     uiUpdate();
-            }catch (ManagementException) { }
+            }catch (ManagementException){ }
             finally{
                 Action finalizeUi = () =>{
                     OSD_RotateBtn.Enabled = true;
                     ((Control)DRIVERS).Enabled = true;
                     OSD_DataMainTable.PerformLayout();
                     OSD_DataMainTable.Invalidate();
+                    //
                     if (Program.debug_mode)
                         Console.WriteLine("<--- Installed Drivers Section Loaded --->");
                 };
+                //
                 if (OSD_DataMainTable.InvokeRequired)
                     OSD_DataMainTable.Invoke(finalizeUi);
                 else
@@ -4628,14 +4722,14 @@ namespace Glow{
         private void BulkAddRows(List<string[]> driverRows, TSGetLangs software_lang){
             OSD_DataMainTable.SuspendLayout();
             OSD_DataMainTable.Rows.Clear();
-            foreach (var row in driverRows)
-                OSD_DataMainTable.Rows.Add(row);
             string unknownValue = software_lang.TSReadLangs("Osd_Content", "osd_c_unknown");
-            foreach (DataGridViewRow r in OSD_DataMainTable.Rows)
-                foreach (DataGridViewCell c in r.Cells)
-                    if (string.IsNullOrWhiteSpace(c.Value?.ToString()))
-                        c.Value = unknownValue;
-            OSD_DataMainTable.Sort(OSD_DataMainTable.Columns[1], ListSortDirection.Ascending);
+            foreach (var row in driverRows){
+                for (int i = 0; i < row.Length; i++)
+                    if (string.IsNullOrWhiteSpace(row[i]))
+                        row[i] = unknownValue;
+
+                OSD_DataMainTable.Rows.Add(row);
+            }
             OSD_DataMainTable.ClearSelection();
             OSD_TYSS_V.Text = OSD_DataMainTable.Rows.Count.ToString();
             OSD_DataMainTable.ResumeLayout();
@@ -4721,40 +4815,50 @@ namespace Glow{
                 { "Stopped", "ss_c_stopped" },
                 { "Running", "ss_c_working" }
             };
+            var langCache = new Dictionary<string, string>();
+            string L(string key){
+                if (!langCache.TryGetValue(key, out var val))
+                    langCache[key] = val = software_lang.TSReadLangs("Services_Content", key);
+                return val;
+            }
             try{
-                var search = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Service");
-                var results = search.Get().Cast<ManagementObject>().ToList();
-                var serviceRows = new List<string[]>(results.Count);
-                foreach (var s in results){
+                var search = new ManagementObjectSearcher("root\\CIMV2", "SELECT PathName, Name, DisplayName, ServiceType, StartMode, State FROM Win32_Service");
+                var serviceRows = new List<string[]>();
+                foreach (ManagementObject s in search.Get().Cast<ManagementObject>()){
                     string path = Convert.ToString(s["PathName"])?.Replace("\"", "").Replace("\\??\\", "").Trim() ?? "";
                     string name = Convert.ToString(s["Name"])?.Trim() ?? "";
                     string disp = Convert.ToString(s["DisplayName"])?.Trim() ?? "";
-                    string type = Convert.ToString(s["ServiceType"])?.Trim();
-                    string start = Convert.ToString(s["StartMode"])?.Trim();
-                    string state = Convert.ToString(s["State"])?.Trim();
+                    string typeKey = Convert.ToString(s["ServiceType"])?.Trim();
+                    string startKey = Convert.ToString(s["StartMode"])?.Trim();
+                    string stateKey = Convert.ToString(s["State"])?.Trim();
                     //
-                    type = serviceTypeMappings.TryGetValue(type ?? "", out var t) ? software_lang.TSReadLangs("Services_Content", t) : software_lang.TSReadLangs("Services_Content", "ss_c_unknown");
-                    start = startModeMappings.TryGetValue(start ?? "", out var sm) ? software_lang.TSReadLangs("Services_Content", sm) : software_lang.TSReadLangs("Services_Content", "ss_c_unknown");
-                    state = stateMappings.TryGetValue(state ?? "", out var st) ? software_lang.TSReadLangs("Services_Content", st) : software_lang.TSReadLangs("Services_Content", "ss_c_unknown");
+                    string type = serviceTypeMappings.TryGetValue(typeKey ?? "", out var t) ? L(t) : L("ss_c_unknown");
+                    string start = startModeMappings.TryGetValue(startKey ?? "", out var sm) ? L(sm) : L("ss_c_unknown");
+                    string state = stateMappings.TryGetValue(stateKey ?? "", out var st) ? L(st) : L("ss_c_unknown");
                     //
                     serviceRows.Add(new[] { path, name, disp, type, start, state });
                 }
+                //
+                serviceRows.Sort((a, b) => string.Compare(a[1], b[1], StringComparison.OrdinalIgnoreCase));
+                //
                 Action uiUpdate = () =>{
                     BulkAddServiceRows(serviceRows, software_lang);
                 };
+                //
                 if (SERVICE_DataMainTable.InvokeRequired)
                     SERVICE_DataMainTable.Invoke(uiUpdate);
                 else
                     uiUpdate();
-            }catch (ManagementException) { }
+            }catch (ManagementException){ }
             finally{
                 Action finalizeUi = () =>{
                     SERVICES_RotateBtn.Enabled = true;
                     ((Control)SERVICES).Enabled = true;
                     SERVICE_DataMainTable.PerformLayout();
                     SERVICE_DataMainTable.Invalidate();
+                    //
                     if (Program.debug_mode)
-                        Console.WriteLine("<--- Installed Services Section Installed --->");
+                        Console.WriteLine("<--- Installed Services Section Loaded --->");
                 };
                 if (SERVICE_DataMainTable.InvokeRequired)
                     SERVICE_DataMainTable.Invoke(finalizeUi);
@@ -4766,14 +4870,13 @@ namespace Glow{
         private void BulkAddServiceRows(List<string[]> serviceRows, TSGetLangs software_lang){
             SERVICE_DataMainTable.SuspendLayout();
             SERVICE_DataMainTable.Rows.Clear();
-            foreach (var row in serviceRows)
-                SERVICE_DataMainTable.Rows.Add(row);
             string unknownValue = software_lang.TSReadLangs("Services_Content", "ss_c_unknown");
-            foreach (DataGridViewRow r in SERVICE_DataMainTable.Rows)
-                foreach (DataGridViewCell c in r.Cells)
-                    if (string.IsNullOrWhiteSpace(c.Value?.ToString()))
-                        c.Value = unknownValue;
-            SERVICE_DataMainTable.Sort(SERVICE_DataMainTable.Columns[1], ListSortDirection.Ascending);
+            foreach (var row in serviceRows){
+                for (int i = 0; i < row.Length; i++)
+                    if (string.IsNullOrWhiteSpace(row[i]))
+                        row[i] = unknownValue;
+                SERVICE_DataMainTable.Rows.Add(row);
+            }
             SERVICE_DataMainTable.ClearSelection();
             SERVICE_TYS_V.Text = SERVICE_DataMainTable.Rows.Count.ToString();
             SERVICE_DataMainTable.ResumeLayout();
@@ -4846,7 +4949,7 @@ namespace Glow{
                     INSTAPPS_DataMainTable.PerformLayout();
                     INSTAPPS_DataMainTable.Invalidate();
                     if (Program.debug_mode){
-                        Console.WriteLine("<--- Installed Application Section Installed --->");
+                        Console.WriteLine("<--- Installed Application Section Loaded --->");
                     }
                 };
                 if (INSTAPPS_DataMainTable.InvokeRequired)
@@ -5238,6 +5341,21 @@ namespace Glow{
                 Header_image_reloader(index + 1);
             }
         }
+        // INTERFACE NAVIGATION: Prevents focus traps and enables cyclic page switching with arrow keys
+        // ======================================================================================================
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData){
+            if (keyData == Keys.Right || keyData == Keys.Left){
+                int currentIndex = MainContent.SelectedIndex;
+                int totalTabs = MainContent.TabCount;
+                if (keyData == Keys.Right){
+                    MainContent.SelectedIndex = (currentIndex + 1) % totalTabs;
+                }else if (keyData == Keys.Left){
+                    MainContent.SelectedIndex = (currentIndex - 1 + totalTabs) % totalTabs;
+                }
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
         // LANGUAGES SETTINGS
         // ======================================================================================================
         private void Select_lang_active(object target_lang){
@@ -5606,6 +5724,8 @@ namespace Glow{
                 NET_IPv6Adress.Text = software_lang.TSReadLangs("Network", "nk_appointed_ipv6_adress");
                 NET_DNS1.Text = software_lang.TSReadLangs("Network", "nk_dns1");
                 NET_DNS2.Text = software_lang.TSReadLangs("Network", "nk_dns2");
+                NET_DNS1System.Text = software_lang.TSReadLangs("Network", "nk_dns1_system");
+                NET_DNS2System.Text = software_lang.TSReadLangs("Network", "nk_dns2_system");
                 // USB
                 USB_Selector.Text = software_lang.TSReadLangs("Usb", "usb_controller");
                 USB_ConName.Text = software_lang.TSReadLangs("Usb", "usb_controller_name");
@@ -6231,6 +6351,9 @@ namespace Glow{
                 RAM_Selector_List.HoverButtonColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor2");
                 RAM_Selector_List.BorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
                 RAM_Selector_List.FocusedBorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
+                RAM_Selector_List.HoverForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxFEColor");
+                RAM_Selector_List.SelectedBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                RAM_Selector_List.SelectedForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
                 //
                 RAM_Amount.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 RAM_Amount_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
@@ -6271,6 +6394,9 @@ namespace Glow{
                 GPU_Selector_List.HoverButtonColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor2");
                 GPU_Selector_List.BorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
                 GPU_Selector_List.FocusedBorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
+                GPU_Selector_List.HoverForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxFEColor");
+                GPU_Selector_List.SelectedBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                GPU_Selector_List.SelectedForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
                 //
                 GPU_Manufacturer.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 GPU_Manufacturer_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
@@ -6304,6 +6430,9 @@ namespace Glow{
                 GPU_MonitorSelector_List.HoverButtonColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor2");
                 GPU_MonitorSelector_List.BorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
                 GPU_MonitorSelector_List.FocusedBorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
+                GPU_MonitorSelector_List.HoverForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxFEColor");
+                GPU_MonitorSelector_List.SelectedBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                GPU_MonitorSelector_List.SelectedForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
                 //
                 GPU_MonitorUserFriendlyName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 GPU_MonitorUserFriendlyName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
@@ -6373,6 +6502,9 @@ namespace Glow{
                 DISK_Selector_List.HoverButtonColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor2");
                 DISK_Selector_List.BorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
                 DISK_Selector_List.FocusedBorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
+                DISK_Selector_List.HoverForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxFEColor");
+                DISK_Selector_List.SelectedBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                DISK_Selector_List.SelectedForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
                 //
                 DISK_Model.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 DISK_Model_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
@@ -6451,6 +6583,9 @@ namespace Glow{
                 NET_Selector_List.HoverButtonColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor2");
                 NET_Selector_List.BorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
                 NET_Selector_List.FocusedBorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
+                NET_Selector_List.HoverForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxFEColor");
+                NET_Selector_List.SelectedBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                NET_Selector_List.SelectedForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
                 //
                 NET_MacAdress.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 NET_MacAdress_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
@@ -6490,6 +6625,10 @@ namespace Glow{
                 NET_DNS1_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 NET_DNS2.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 NET_DNS2_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                NET_DNS1System.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_DNS1System_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                NET_DNS2System.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_DNS2System_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 // USB
                 usb_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
                 usb_panel_2.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
@@ -6503,6 +6642,9 @@ namespace Glow{
                 USB_Selector_List.HoverButtonColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor2");
                 USB_Selector_List.BorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
                 USB_Selector_List.FocusedBorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
+                USB_Selector_List.HoverForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxFEColor");
+                USB_Selector_List.SelectedBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                USB_Selector_List.SelectedForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
                 //
                 USB_ConName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 USB_ConName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
@@ -6524,6 +6666,9 @@ namespace Glow{
                 USB_DeviceSelector_List.HoverButtonColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor2");
                 USB_DeviceSelector_List.BorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
                 USB_DeviceSelector_List.FocusedBorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
+                USB_DeviceSelector_List.HoverForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxFEColor");
+                USB_DeviceSelector_List.SelectedBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                USB_DeviceSelector_List.SelectedForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
                 //
                 USB_DeviceName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 USB_DeviceName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
@@ -6553,6 +6698,9 @@ namespace Glow{
                 SOUND_Selector_List.HoverButtonColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor2");
                 SOUND_Selector_List.BorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
                 SOUND_Selector_List.FocusedBorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
+                SOUND_Selector_List.HoverForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxFEColor");
+                SOUND_Selector_List.SelectedBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                SOUND_Selector_List.SelectedForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
                 //
                 SOUND_DeviceName.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 SOUND_DeviceName_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
@@ -6619,6 +6767,9 @@ namespace Glow{
                 OSD_TextBoxClearBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OSD_TextBoxClearBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColorHover");
                 OSD_SortMode.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OSD_SortMode.CheckedColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                OSD_SortMode.CheckMarkColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
+                OSD_SortMode.UncheckedBorderColor = TS_ThemeEngine.ColorMode(theme, "CheckBoxUnCheckBorderColor");
                 OSD_DataMainTable.BackgroundColor = TS_ThemeEngine.ColorMode(theme, "DataGridBGColor");
                 OSD_DataMainTable.GridColor = TS_ThemeEngine.ColorMode(theme, "DataGridColor");
                 OSD_DataMainTable.DefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(theme, "DataGridBGColor");
@@ -6642,6 +6793,9 @@ namespace Glow{
                 SERVICE_TextBoxClearBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 SERVICE_TextBoxClearBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColorHover");
                 SERVICE_SortMode.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                SERVICE_SortMode.CheckedColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                SERVICE_SortMode.CheckMarkColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
+                SERVICE_SortMode.UncheckedBorderColor = TS_ThemeEngine.ColorMode(theme, "CheckBoxUnCheckBorderColor");
                 SERVICE_DataMainTable.BackgroundColor = TS_ThemeEngine.ColorMode(theme, "DataGridBGColor");
                 SERVICE_DataMainTable.GridColor = TS_ThemeEngine.ColorMode(theme, "DataGridColor");
                 SERVICE_DataMainTable.DefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(theme, "DataGridBGColor");
@@ -6665,6 +6819,9 @@ namespace Glow{
                 INSTAPPS_TextBoxClearBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 INSTAPPS_TextBoxClearBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColorHover");
                 INSTAPPS_SortMode.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                INSTAPPS_SortMode.CheckedColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                INSTAPPS_SortMode.CheckMarkColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
+                INSTAPPS_SortMode.UncheckedBorderColor = TS_ThemeEngine.ColorMode(theme, "CheckBoxUnCheckBorderColor");
                 INSTAPPS_DataMainTable.BackgroundColor = TS_ThemeEngine.ColorMode(theme, "DataGridBGColor");
                 INSTAPPS_DataMainTable.GridColor = TS_ThemeEngine.ColorMode(theme, "DataGridColor");
                 INSTAPPS_DataMainTable.DefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(theme, "DataGridBGColor");
@@ -6687,6 +6844,10 @@ namespace Glow{
                 EXPORT_Selector_List.HoverButtonColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor2");
                 EXPORT_Selector_List.BorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
                 EXPORT_Selector_List.FocusedBorderColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBorderColor");
+                EXPORT_Selector_List.HoverForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxFEColor");
+                EXPORT_Selector_List.SelectedBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                EXPORT_Selector_List.SelectedForeColor = TS_ThemeEngine.ColorMode(theme, "SelectBoxBGColor");
+                //
                 EXPORT_ProgressBGPanel.BackColor = TS_ThemeEngine.ColorMode(theme, "PageContainerBGAndPageContentTotalColors");
                 EXPORT_ProgressFEPanel.BackColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 EXPORT_ProgessLabel.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
@@ -7323,7 +7484,9 @@ namespace Glow{
                     PrintEngineList.Add(NET_IPv6Adress.Text + " " + NET_IPv6Adress_V.Text + Environment.NewLine);
                 }
                 PrintEngineList.Add(NET_DNS1.Text + " " + NET_DNS1_V.Text);
-                PrintEngineList.Add(NET_DNS2.Text + " " + NET_DNS2_V.Text + Environment.NewLine);
+                PrintEngineList.Add(NET_DNS2.Text + " " + NET_DNS2_V.Text);
+                PrintEngineList.Add(NET_DNS1System.Text + " " + NET_DNS1System_V.Text);
+                PrintEngineList.Add(NET_DNS2System.Text + " " + NET_DNS2System_V.Text + Environment.NewLine);
                 NET_Selector_List.SelectedIndex = 1;
             }catch (Exception){ }
             PrintEngineList.Add(new string('-', 60) + Environment.NewLine);
@@ -7875,6 +8038,8 @@ namespace Glow{
                 PrintEngineList.Add("\t\t\t<ul>");
                 PrintEngineList.Add($"\t\t\t\t<li><span>{NET_DNS1.Text}</span><span>{NET_DNS1_V.Text}</span></li>");
                 PrintEngineList.Add($"\t\t\t\t<li><span>{NET_DNS2.Text}</span><span>{NET_DNS2_V.Text}</span></li>");
+                PrintEngineList.Add($"\t\t\t\t<li><span>{NET_DNS1System.Text}</span><span>{NET_DNS1System_V.Text}</span></li>");
+                PrintEngineList.Add($"\t\t\t\t<li><span>{NET_DNS2System.Text}</span><span>{NET_DNS2System_V.Text}</span></li>");
                 PrintEngineList.Add("\t\t\t</ul>");
                 NET_Selector_List.SelectedIndex = 1;
             }catch (Exception){ }

@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlowNetworkFixTool));
             this.Panel_BG = new System.Windows.Forms.Panel();
             this.NFT_StartBtn = new Glow.TSCustomButton();
-            this.NFT_ResultList = new System.Windows.Forms.ListBox();
+            this.NFT_ResultList = new TSCustomListBox();
             this.NFT_TitleLabel = new System.Windows.Forms.Label();
             this.Panel_BG.SuspendLayout();
             this.SuspendLayout();
@@ -131,6 +131,6 @@
         private System.Windows.Forms.Panel Panel_BG;
         internal System.Windows.Forms.Label NFT_TitleLabel;
         private TSCustomButton NFT_StartBtn;
-        private System.Windows.Forms.ListBox NFT_ResultList;
+        private TSCustomListBox NFT_ResultList;
     }
 }

@@ -33,9 +33,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.PanelTxt = new System.Windows.Forms.Panel();
-            this.About_DonateBtn = new Glow.TSCustomButton();
-            this.About_GitHubBtn = new Glow.TSCustomButton();
-            this.About_WebsiteBtn = new Glow.TSCustomButton();
             this.AboutTable = new System.Windows.Forms.DataGridView();
             this.LabelCopyright = new System.Windows.Forms.Label();
             this.LabelVersion = new System.Windows.Forms.Label();
@@ -45,6 +42,9 @@
             this.PanelHeader = new System.Windows.Forms.Panel();
             this.CloseAboutBtn = new System.Windows.Forms.Button();
             this.ImageAbout = new System.Windows.Forms.PictureBox();
+            this.About_DonateBtn = new Glow.TSCustomButton();
+            this.About_GitHubBtn = new Glow.TSCustomButton();
+            this.About_WebsiteBtn = new Glow.TSCustomButton();
             this.PanelTxt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AboutTable)).BeginInit();
             this.PanelImg.SuspendLayout();
@@ -69,84 +69,6 @@
             this.PanelTxt.Padding = new System.Windows.Forms.Padding(15);
             this.PanelTxt.Size = new System.Drawing.Size(365, 450);
             this.PanelTxt.TabIndex = 0;
-            // 
-            // About_DonateBtn
-            // 
-            this.About_DonateBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.About_DonateBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.About_DonateBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.About_DonateBtn.BorderRadius = 10;
-            this.About_DonateBtn.BorderSize = 0;
-            this.About_DonateBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.About_DonateBtn.FlatAppearance.BorderSize = 0;
-            this.About_DonateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.About_DonateBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.About_DonateBtn.ForeColor = System.Drawing.Color.White;
-            this.About_DonateBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_DonateBtn.Location = new System.Drawing.Point(15, 174);
-            this.About_DonateBtn.Margin = new System.Windows.Forms.Padding(3, 1, 1, 25);
-            this.About_DonateBtn.Name = "About_DonateBtn";
-            this.About_DonateBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.About_DonateBtn.Size = new System.Drawing.Size(335, 36);
-            this.About_DonateBtn.TabIndex = 5;
-            this.About_DonateBtn.Text = "Link / Donate";
-            this.About_DonateBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_DonateBtn.TextColor = System.Drawing.Color.White;
-            this.About_DonateBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.About_DonateBtn.UseVisualStyleBackColor = false;
-            this.About_DonateBtn.Click += new System.EventHandler(this.About_DonateBtn_Click);
-            // 
-            // About_GitHubBtn
-            // 
-            this.About_GitHubBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.About_GitHubBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.About_GitHubBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.About_GitHubBtn.BorderRadius = 10;
-            this.About_GitHubBtn.BorderSize = 0;
-            this.About_GitHubBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.About_GitHubBtn.FlatAppearance.BorderSize = 0;
-            this.About_GitHubBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.About_GitHubBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.About_GitHubBtn.ForeColor = System.Drawing.Color.White;
-            this.About_GitHubBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_GitHubBtn.Location = new System.Drawing.Point(184, 136);
-            this.About_GitHubBtn.Margin = new System.Windows.Forms.Padding(1, 3, 3, 1);
-            this.About_GitHubBtn.Name = "About_GitHubBtn";
-            this.About_GitHubBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.About_GitHubBtn.Size = new System.Drawing.Size(166, 36);
-            this.About_GitHubBtn.TabIndex = 4;
-            this.About_GitHubBtn.Text = "Link / GitHub";
-            this.About_GitHubBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_GitHubBtn.TextColor = System.Drawing.Color.White;
-            this.About_GitHubBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.About_GitHubBtn.UseVisualStyleBackColor = false;
-            this.About_GitHubBtn.Click += new System.EventHandler(this.About_GitHubBtn_Click);
-            // 
-            // About_WebsiteBtn
-            // 
-            this.About_WebsiteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.About_WebsiteBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.About_WebsiteBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.About_WebsiteBtn.BorderRadius = 10;
-            this.About_WebsiteBtn.BorderSize = 0;
-            this.About_WebsiteBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.About_WebsiteBtn.FlatAppearance.BorderSize = 0;
-            this.About_WebsiteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.About_WebsiteBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.About_WebsiteBtn.ForeColor = System.Drawing.Color.White;
-            this.About_WebsiteBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_WebsiteBtn.Location = new System.Drawing.Point(15, 136);
-            this.About_WebsiteBtn.Margin = new System.Windows.Forms.Padding(3, 3, 1, 1);
-            this.About_WebsiteBtn.Name = "About_WebsiteBtn";
-            this.About_WebsiteBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.About_WebsiteBtn.Size = new System.Drawing.Size(166, 36);
-            this.About_WebsiteBtn.TabIndex = 3;
-            this.About_WebsiteBtn.Text = "Link / Website";
-            this.About_WebsiteBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.About_WebsiteBtn.TextColor = System.Drawing.Color.White;
-            this.About_WebsiteBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.About_WebsiteBtn.UseVisualStyleBackColor = false;
-            this.About_WebsiteBtn.Click += new System.EventHandler(this.About_WebsiteBtn_Click);
             // 
             // AboutTable
             // 
@@ -297,7 +219,7 @@
             // ImageAbout
             // 
             this.ImageAbout.BackColor = System.Drawing.Color.Transparent;
-            this.ImageAbout.BackgroundImage = global::Glow.Properties.Resources.ts_preloader_release;
+            this.ImageAbout.BackgroundImage = global::Glow.Properties.Resources.ts_preloader;
             this.ImageAbout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ImageAbout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ImageAbout.Location = new System.Drawing.Point(0, 0);
@@ -305,6 +227,84 @@
             this.ImageAbout.Size = new System.Drawing.Size(410, 450);
             this.ImageAbout.TabIndex = 0;
             this.ImageAbout.TabStop = false;
+            // 
+            // About_DonateBtn
+            // 
+            this.About_DonateBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.About_DonateBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.About_DonateBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.About_DonateBtn.BorderRadius = 10;
+            this.About_DonateBtn.BorderSize = 0;
+            this.About_DonateBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.About_DonateBtn.FlatAppearance.BorderSize = 0;
+            this.About_DonateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.About_DonateBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.About_DonateBtn.ForeColor = System.Drawing.Color.White;
+            this.About_DonateBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_DonateBtn.Location = new System.Drawing.Point(15, 174);
+            this.About_DonateBtn.Margin = new System.Windows.Forms.Padding(3, 1, 1, 25);
+            this.About_DonateBtn.Name = "About_DonateBtn";
+            this.About_DonateBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.About_DonateBtn.Size = new System.Drawing.Size(335, 36);
+            this.About_DonateBtn.TabIndex = 5;
+            this.About_DonateBtn.Text = "Link / Donate";
+            this.About_DonateBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_DonateBtn.TextColor = System.Drawing.Color.White;
+            this.About_DonateBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.About_DonateBtn.UseVisualStyleBackColor = false;
+            this.About_DonateBtn.Click += new System.EventHandler(this.About_DonateBtn_Click);
+            // 
+            // About_GitHubBtn
+            // 
+            this.About_GitHubBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.About_GitHubBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.About_GitHubBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.About_GitHubBtn.BorderRadius = 10;
+            this.About_GitHubBtn.BorderSize = 0;
+            this.About_GitHubBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.About_GitHubBtn.FlatAppearance.BorderSize = 0;
+            this.About_GitHubBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.About_GitHubBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.About_GitHubBtn.ForeColor = System.Drawing.Color.White;
+            this.About_GitHubBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_GitHubBtn.Location = new System.Drawing.Point(184, 136);
+            this.About_GitHubBtn.Margin = new System.Windows.Forms.Padding(1, 3, 3, 1);
+            this.About_GitHubBtn.Name = "About_GitHubBtn";
+            this.About_GitHubBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.About_GitHubBtn.Size = new System.Drawing.Size(166, 36);
+            this.About_GitHubBtn.TabIndex = 4;
+            this.About_GitHubBtn.Text = "Link / GitHub";
+            this.About_GitHubBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_GitHubBtn.TextColor = System.Drawing.Color.White;
+            this.About_GitHubBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.About_GitHubBtn.UseVisualStyleBackColor = false;
+            this.About_GitHubBtn.Click += new System.EventHandler(this.About_GitHubBtn_Click);
+            // 
+            // About_WebsiteBtn
+            // 
+            this.About_WebsiteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.About_WebsiteBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.About_WebsiteBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.About_WebsiteBtn.BorderRadius = 10;
+            this.About_WebsiteBtn.BorderSize = 0;
+            this.About_WebsiteBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.About_WebsiteBtn.FlatAppearance.BorderSize = 0;
+            this.About_WebsiteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.About_WebsiteBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.About_WebsiteBtn.ForeColor = System.Drawing.Color.White;
+            this.About_WebsiteBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_WebsiteBtn.Location = new System.Drawing.Point(15, 136);
+            this.About_WebsiteBtn.Margin = new System.Windows.Forms.Padding(3, 3, 1, 1);
+            this.About_WebsiteBtn.Name = "About_WebsiteBtn";
+            this.About_WebsiteBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.About_WebsiteBtn.Size = new System.Drawing.Size(166, 36);
+            this.About_WebsiteBtn.TabIndex = 3;
+            this.About_WebsiteBtn.Text = "Link / Website";
+            this.About_WebsiteBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.About_WebsiteBtn.TextColor = System.Drawing.Color.White;
+            this.About_WebsiteBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.About_WebsiteBtn.UseVisualStyleBackColor = false;
+            this.About_WebsiteBtn.Click += new System.EventHandler(this.About_WebsiteBtn_Click);
             // 
             // GlowAbout
             // 

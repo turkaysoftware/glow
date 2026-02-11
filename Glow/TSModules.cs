@@ -87,28 +87,26 @@ namespace Glow{
                 { 10, new KeyValuePair<MessageBoxButtons, MessageBoxIcon>(MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information) }  // Yes/No/Cancel and Info
             };
             public static DialogResult TS_MessageBox(Form m_form, int m_mode, string m_message, string m_title = ""){
-                if (m_form.InvokeRequired){
-                    m_form.Invoke((Action)(() => BringFormToFront(m_form)));
-                }else{
+                if (m_form != null && m_form.InvokeRequired){
+                    return (DialogResult)m_form.Invoke(new Func<DialogResult>(() => TS_MessageBox(m_form, m_mode, m_message, m_title)));
+                }
+                if (m_form != null){
                     BringFormToFront(m_form);
                 }
-                //
                 string m_box_title = string.IsNullOrEmpty(m_title) ? Application.ProductName : m_title;
-                //
                 MessageBoxButtons m_button = MessageBoxButtons.OK;
                 MessageBoxIcon m_icon = MessageBoxIcon.Information;
-                //
                 if (TSMessageBoxConfig.ContainsKey(m_mode)){
                     var m_serialize = TSMessageBoxConfig[m_mode];
                     m_button = m_serialize.Key;
                     m_icon = m_serialize.Value;
                 }
-                //
                 return MessageBox.Show(m_form, m_message, m_box_title, m_button, m_icon);
             }
             private static void BringFormToFront(Form m_form){
-                if (m_form.WindowState == FormWindowState.Minimized)
+                if (m_form.WindowState == FormWindowState.Minimized){
                     m_form.WindowState = FormWindowState.Normal;
+                }
                 m_form.BringToFront();
                 m_form.Activate();
             }
@@ -189,6 +187,34 @@ namespace Glow{
                     }else if (!keyUpdated){
                         insertIndex = (insertIndex == lines.Count) ? lines.Count : insertIndex;
                         lines.Insert(insertIndex, keyName + "=" + value);
+                    }
+                    try{
+                        File.WriteAllLines(_iniFilePath, lines, Encoding.UTF8);
+                    }catch (IOException){ }
+                }
+            }
+            public void TSDeleteSetting(string sectionName, string keyName){
+                lock (_fileLock){
+                    if (!File.Exists(_iniFilePath)) return;
+                    List<string> lines = File.ReadAllLines(_iniFilePath, Encoding.UTF8).ToList();
+                    bool isInSection = string.IsNullOrEmpty(sectionName);
+                    for (int i = 0; i < lines.Count; i++){
+                        string line = lines[i].Trim();
+                        if (line.Length == 0 || line.StartsWith(";")) continue;
+                        if (line.StartsWith("[") && line.EndsWith("]")){
+                            isInSection = line.Equals("[" + sectionName + "]", StringComparison.OrdinalIgnoreCase);
+                            continue;
+                        }
+                        if (isInSection){
+                            int eqIndex = line.IndexOf('=');
+                            if (eqIndex > 0){
+                                string currentKey = line.Substring(0, eqIndex).Trim();
+                                if (currentKey.Equals(keyName, StringComparison.OrdinalIgnoreCase)){
+                                    lines.RemoveAt(i);
+                                    break;
+                                }
+                            }
+                        }
                     }
                     try{
                         File.WriteAllLines(_iniFilePath, lines, Encoding.UTF8);
@@ -341,6 +367,7 @@ namespace Glow{
                 { "SelectBoxBGColor2", Color.FromArgb(236, 242, 248) },
                 { "SelectBoxFEColor", Color.FromArgb(51, 51, 51) },
                 { "SelectBoxBorderColor", Color.FromArgb(226, 226, 226) },
+                { "CheckBoxUnCheckBorderColor", Color.FromArgb(98, 98, 98) },
                 //
                 { "TextBoxBGColor", Color.White },
                 { "TextBoxFEColor", Color.FromArgb(51, 51, 51) },
@@ -392,6 +419,7 @@ namespace Glow{
                 { "SelectBoxBGColor2", Color.FromArgb(27, 30, 34) },
                 { "SelectBoxFEColor", Color.WhiteSmoke },
                 { "SelectBoxBorderColor", Color.FromArgb(42, 47, 53) },
+                { "CheckBoxUnCheckBorderColor", Color.FromArgb(170, 170, 170) },
                 //
                 { "TextBoxBGColor", Color.FromArgb(34, 38, 44) },
                 { "TextBoxFEColor", Color.WhiteSmoke },

@@ -1,15 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Windows.Forms;
-using System.Threading.Tasks;
+using System.Drawing;
+using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 //
 using static Glow.TSModules;
-using System.Drawing;
 
 namespace Glow.glow_tools{
     public partial class GlowShowWiFiPasswordTool : Form{
-        public GlowShowWiFiPasswordTool(){ InitializeComponent(); }
+        public GlowShowWiFiPasswordTool(){
+            InitializeComponent();
+            SWP_DGV.Columns.Add("col_ssid", "Network Name");
+            SWP_DGV.Columns.Add("col_pass", "Network Password");
+            SWP_DGV.Columns[0].Width = (int)(260 * this.DeviceDpi / 96f);
+            SWP_DGV.RowTemplate.Height = (int)(28 * this.DeviceDpi / 96f);
+            foreach (DataGridViewColumn columnPadding in SWP_DGV.Columns){
+                int scaledPadding = (int)(3 * this.DeviceDpi / 96f);
+                columnPadding.DefaultCellStyle.Padding = new Padding(scaledPadding, 0, 0, 0);
+            }
+        }
         // DYNAMIC THEME VOID
         // ======================================================================================================
         public void Swpt_theme_settings(){
@@ -17,78 +29,79 @@ namespace Glow.glow_tools{
                 TSThemeModeHelper.InitializeThemeForForm(this);
                 //
                 BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
-                //
                 Panel_BG.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentPanelBGColor");
                 //
-                SWPT_TitleLabel.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "PageContainerBGAndPageContentTotalColors");
-                SWPT_TitleLabel.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
+                SWP_DGV.BackgroundColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "PageContainerBGAndPageContentTotalColors");
+                SWP_DGV.GridColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridColor");
+                SWP_DGV.DefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridBGColor");
+                SWP_DGV.DefaultCellStyle.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridFEColor");
+                SWP_DGV.AlternatingRowsDefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DataGridAlternatingColor");
+                SWP_DGV.ColumnHeadersDefaultCellStyle.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "OSDAndServicesPageBG");
+                SWP_DGV.ColumnHeadersDefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "OSDAndServicesPageBG");
+                SWP_DGV.ColumnHeadersDefaultCellStyle.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "OSDAndServicesPageFE");
+                SWP_DGV.DefaultCellStyle.SelectionBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "OSDAndServicesPageBG");
+                SWP_DGV.DefaultCellStyle.SelectionForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "OSDAndServicesPageFE");
                 //
-                SWPT_SelectBox.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "PageContainerBGAndPageContentTotalColors");
-                SWPT_SelectBox.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
+                SWPT_ExportBtn.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                SWPT_ExportBtn.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DynamicThemeActiveBtnBG");
+                SWPT_ExportBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                SWPT_ExportBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                SWPT_ExportBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColorHover");
                 //
-                SWPT_ResultBox.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "PageContainerBGAndPageContentTotalColors");
-                SWPT_ResultBox.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "ContentLabelLeft");
-                //
-                SWPT_CopyBtn.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
-                SWPT_CopyBtn.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DynamicThemeActiveBtnBG");
-                SWPT_CopyBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
-                SWPT_CopyBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
-                SWPT_CopyBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColorHover");
-                //
-                TSImageRenderer(SWPT_CopyBtn, GlowMain.theme == 1 ? Properties.Resources.ct_copy_mc_light : Properties.Resources.ct_copy_mc_dark, 18, ContentAlignment.MiddleRight);
+                TSImageRenderer(SWPT_ExportBtn, GlowMain.theme == 1 ? Properties.Resources.ct_export_light : Properties.Resources.ct_export_dark, 18, ContentAlignment.MiddleRight);
                 //
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
                 Text = string.Format(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_title"), Application.ProductName);
                 //
-                SWPT_TitleLabel.Text = software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_in_title");
-                SWPT_CopyBtn.Text = " " + software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_copy_btn");
+                if (SWP_DGV.Columns.Count > 0){
+                    SWP_DGV.Columns[0].HeaderText = software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_profile_name");
+                    SWP_DGV.Columns[1].HeaderText = software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_profile_password");
+                }
+                //
+                SWPT_ExportBtn.Text = " " + software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_export_btn");
             }catch (Exception){ }
         }
         // LOAD SWPT
         // ======================================================================================================
         private async void GlowShowWiFiPasswordTool_Load(object sender, EventArgs e){
             Swpt_theme_settings();
-            //
             try{
-                var wifiProfilesTask = Task.Run(() =>{
-                    TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                    string[] wifi_profileNames = Ts_ExtractWiFiProfileNames(Ts_GetWiFiPassword("netsh wlan show profile"));
-                    return new { software_lang, wifi_profileNames };
-                });
-                var get_result = await wifiProfilesTask;
-                if (get_result.wifi_profileNames.Length == 0){
-                    TS_MessageBoxEngine.TS_MessageBox(this, 2, string.Format(get_result.software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_no_profile"), "\n", get_result.software_lang.TSReadLangs("HeaderTools", "ht_show_wifi_password_tool")));
-                    Close();
-                }else{
-                    foreach (var wifi_profile in get_result.wifi_profileNames){
-                        if (SWPT_SelectBox.InvokeRequired){
-                            SWPT_SelectBox.Invoke(new Action(() => SWPT_SelectBox.Items.Add(wifi_profile.Trim())));
-                        }else{
-                            SWPT_SelectBox.Items.Add(wifi_profile.Trim());
-                        }
+                TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
+                await Task.Run(() => {
+                    string[] wifiProfiles = Ts_ExtractWiFiProfileNames(Ts_GetWiFiPassword("netsh wlan show profile"));
+                    if (wifiProfiles.Length == 0){
+                        Invoke(new Action(() => {
+                            TS_MessageBoxEngine.TS_MessageBox(this, 2, string.Format(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_no_profile"), "\n", software_lang.TSReadLangs("HeaderTools", "ht_show_wifi_password_tool")));
+                            Close();
+                        }));
+                        return;
                     }
-                }
+                    Invoke(new Action(() => {
+                        foreach (string profile in wifiProfiles){
+                            string password = GetWiFiPassword(profile.Trim());
+                            SWP_DGV.Rows.Add(profile.Trim(), password);
+                        }
+                        SWP_DGV.ClearSelection();
+                    }));
+                });
             }catch (Exception){ }
         }
-        // SELECT WIFI PROFILE GET PASSWORD
+        // GET WI-FI PASSWORD
         // ======================================================================================================
-        private void SWPT_SelectBox_SelectedIndexChanged(object sender, EventArgs e){
+        static string GetWiFiPassword(string networkName){
+            TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
             try{
-                string networkName = SWPT_SelectBox.SelectedItem.ToString().Trim();
                 string wifiDetails = Ts_GetWiFiPassword($"netsh wlan show profile \"{networkName}\" key=clear");
                 string passwordKey = "Key Content            : ";
                 int startIndex = wifiDetails.IndexOf(passwordKey);
-                if (startIndex != -1){
-                    startIndex += passwordKey.Length;
-                    int endIndex = wifiDetails.IndexOf("\n", startIndex);
-                    string password = wifiDetails.Substring(startIndex, endIndex - startIndex).Trim();
-                    SWPT_ResultBox.Text = password.Trim();
-                    SWPT_CopyBtn.Enabled = true;
-                }else{
-                    TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                    SWPT_ResultBox.Text = string.Format(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_select_profile_no_password"), networkName);
-                }
-            }catch (Exception){ }
+                if (startIndex == -1)
+                    return software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_profile_no_password");
+                startIndex += passwordKey.Length;
+                int endIndex = wifiDetails.IndexOf("\n", startIndex);
+                return wifiDetails.Substring(startIndex, endIndex - startIndex).Trim();
+            }catch{
+                return software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_profile_no_read");
+            }
         }
         // EXECUTE CMD INTERFACE CODE
         // ======================================================================================================
@@ -123,15 +136,59 @@ namespace Glow.glow_tools{
             }
             return profileNames;
         }
-        // COPY SELECTED WIFI PASSWORD
+        // COPY SELECTED WI-FI PASSWORD
         // ======================================================================================================
-        private void SWPT_CopyBtn_Click(object sender, EventArgs e){
+        private void SWP_DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e){
             try{
-                Clipboard.SetText(SWPT_ResultBox.Text.Trim());
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                TS_MessageBoxEngine.TS_MessageBox(this, 1, software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_copy_txt"));
-            }
-            catch (Exception){ }
+                if (e.RowIndex < 0)
+                    return;
+                DataGridViewRow row = SWP_DGV.Rows[e.RowIndex];
+                if (row == null || row.Cells.Count < 2)
+                    return;
+                string profileName = row.Cells[0].Value?.ToString().Trim();
+                string password = row.Cells[1].Value?.ToString().Trim();
+                if (string.IsNullOrEmpty(profileName) || string.IsNullOrEmpty(password))
+                    return;
+                if (password == software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_profile_no_password").Trim() || password == software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_profile_no_read").Trim())
+                    return;
+                Clipboard.SetText(password);
+                TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_copy_txt"), profileName));
+            }catch (Exception){ }
+        }
+        // EXPORT WI-FI'S PASSWORD
+        // ======================================================================================================
+        readonly List<string> PrintWiFiList = new List<string>();
+        private void SWPT_ExportBtn_Click(object sender, EventArgs e){
+            TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
+            try{
+                string profile_name = software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_profile_name") + ":";
+                string profile_password = software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_profile_password") + ":";
+                //
+                PrintWiFiList.Clear();
+                PrintWiFiList.Add(string.Format(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_profile_title"), Application.ProductName));
+                PrintWiFiList.Add(Environment.NewLine + new string('-', 100) + Environment.NewLine);
+                //
+                for (int i = 0; i <= SWP_DGV.Rows.Count - 1; i++){
+                    int lineLength = (i == SWP_DGV.Rows.Count - 1) ? 100 : 25;
+                    PrintWiFiList.Add(profile_name + " " + SWP_DGV.Rows[i].Cells[0].Value.ToString() + "\n" + profile_password + " " + SWP_DGV.Rows[i].Cells[1].Value.ToString() + Environment.NewLine + Environment.NewLine + new string('-', lineLength) + Environment.NewLine);
+                }
+                //
+                using (SaveFileDialog saveDlg = new SaveFileDialog{
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                    Title = Application.ProductName + " - " + software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_save_directory"),
+                    DefaultExt = "txt",
+                    FileName = Application.ProductName + " - " + string.Format(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_save_name"), software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_export_name")),
+                    Filter = software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_save_txt") + " (*.txt)|*.txt"
+                }){
+                    if (saveDlg.ShowDialog() == DialogResult.OK){
+                        File.WriteAllText(saveDlg.FileName, string.Join(Environment.NewLine, PrintWiFiList));
+                        var res = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_save_success") + Environment.NewLine + Environment.NewLine + software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_save_info_open"), Application.ProductName, saveDlg.FileName));
+                        if (res == DialogResult.Yes)
+                            Process.Start(saveDlg.FileName);
+                    }
+                }
+            }catch (Exception){ }
         }
     }
 }

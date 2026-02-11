@@ -14,8 +14,8 @@ namespace Glow{
         public static CancellationTokenSource TS_TokenEngine;
         // ======================================================================================================
         // DEBUG MODES
-        public static bool ts_pre_debug_mode = false;
-        public static bool debug_mode = false;
+        public static readonly bool ts_pre_debug_mode = false;
+        public static readonly bool debug_mode = false;
         // ======================================================================================================
         [STAThread]
         static void Main(){

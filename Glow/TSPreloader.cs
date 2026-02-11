@@ -25,7 +25,7 @@ namespace Glow{
             LabelCopyright.Text = TS_SoftwareCopyrightDate.ts_scd_preloader;
             //
             PanelImg.Padding = new Padding(0, 0, 0, 0);
-            ImageWelcome.BackgroundImage = Properties.Resources.ts_preloader_release;
+            ImageWelcome.BackgroundImage = Properties.Resources.ts_preloader;
             ImageWelcome.BackgroundImageLayout = ImageLayout.Zoom;
             //
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, PanelLoaderFE, new object[] { true });

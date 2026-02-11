@@ -1363,9 +1363,9 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static System.Drawing.Bitmap ts_preloader_release {
+        internal static System.Drawing.Bitmap ts_preloader {
             get {
-                object obj = ResourceManager.GetObject("ts_preloader_release", resourceCulture);
+                object obj = ResourceManager.GetObject("ts_preloader", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

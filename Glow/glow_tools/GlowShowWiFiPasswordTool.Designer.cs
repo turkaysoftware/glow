@@ -28,118 +28,126 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlowShowWiFiPasswordTool));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Panel_BG = new System.Windows.Forms.Panel();
-            this.SWPT_ResultBox = new System.Windows.Forms.Label();
-            this.SWPT_CopyBtn = new Glow.TSCustomButton();
-            this.SWPT_SelectBox = new System.Windows.Forms.ListBox();
-            this.SWPT_TitleLabel = new System.Windows.Forms.Label();
+            this.SWP_DGV = new System.Windows.Forms.DataGridView();
+            this.SWPT_ExportBtn = new Glow.TSCustomButton();
             this.Panel_BG.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SWP_DGV)).BeginInit();
             this.SuspendLayout();
             // 
             // Panel_BG
             // 
-            this.Panel_BG.Controls.Add(this.SWPT_ResultBox);
-            this.Panel_BG.Controls.Add(this.SWPT_CopyBtn);
-            this.Panel_BG.Controls.Add(this.SWPT_SelectBox);
-            this.Panel_BG.Controls.Add(this.SWPT_TitleLabel);
+            this.Panel_BG.Controls.Add(this.SWP_DGV);
+            this.Panel_BG.Controls.Add(this.SWPT_ExportBtn);
             this.Panel_BG.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Panel_BG.Location = new System.Drawing.Point(0, 0);
             this.Panel_BG.Name = "Panel_BG";
             this.Panel_BG.Padding = new System.Windows.Forms.Padding(10);
-            this.Panel_BG.Size = new System.Drawing.Size(484, 314);
+            this.Panel_BG.Size = new System.Drawing.Size(584, 296);
             this.Panel_BG.TabIndex = 0;
             // 
-            // SWPT_ResultBox
+            // SWP_DGV
             // 
-            this.SWPT_ResultBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.SWP_DGV.AllowUserToAddRows = false;
+            this.SWP_DGV.AllowUserToDeleteRows = false;
+            this.SWP_DGV.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
+            this.SWP_DGV.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.SWP_DGV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SWPT_ResultBox.BackColor = System.Drawing.Color.White;
-            this.SWPT_ResultBox.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
-            this.SWPT_ResultBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.SWPT_ResultBox.Location = new System.Drawing.Point(10, 213);
-            this.SWPT_ResultBox.Margin = new System.Windows.Forms.Padding(3, 0, 3, 20);
-            this.SWPT_ResultBox.Name = "SWPT_ResultBox";
-            this.SWPT_ResultBox.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.SWPT_ResultBox.Size = new System.Drawing.Size(464, 35);
-            this.SWPT_ResultBox.TabIndex = 2;
-            this.SWPT_ResultBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.SWP_DGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.SWP_DGV.BackgroundColor = System.Drawing.Color.White;
+            this.SWP_DGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.SWP_DGV.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.SWP_DGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.SWP_DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.SWP_DGV.Cursor = System.Windows.Forms.Cursors.Hand;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.SWP_DGV.DefaultCellStyle = dataGridViewCellStyle3;
+            this.SWP_DGV.EnableHeadersVisualStyles = false;
+            this.SWP_DGV.GridColor = System.Drawing.Color.Gray;
+            this.SWP_DGV.Location = new System.Drawing.Point(10, 10);
+            this.SWP_DGV.Margin = new System.Windows.Forms.Padding(3, 0, 3, 15);
+            this.SWP_DGV.MultiSelect = false;
+            this.SWP_DGV.Name = "SWP_DGV";
+            this.SWP_DGV.ReadOnly = true;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(87)))), ((int)(((byte)(160)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.SWP_DGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.SWP_DGV.RowHeadersVisible = false;
+            this.SWP_DGV.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.SWP_DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.SWP_DGV.Size = new System.Drawing.Size(564, 225);
+            this.SWP_DGV.TabIndex = 0;
+            this.SWP_DGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SWP_DGV_CellDoubleClick);
             // 
-            // SWPT_CopyBtn
+            // SWPT_ExportBtn
             // 
-            this.SWPT_CopyBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.SWPT_CopyBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.SWPT_CopyBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.SWPT_CopyBtn.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.SWPT_CopyBtn.BorderRadius = 10;
-            this.SWPT_CopyBtn.BorderSize = 0;
-            this.SWPT_CopyBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SWPT_CopyBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.SWPT_CopyBtn.Enabled = false;
-            this.SWPT_CopyBtn.FlatAppearance.BorderSize = 0;
-            this.SWPT_CopyBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SWPT_CopyBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.SWPT_CopyBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.SWPT_CopyBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.SWPT_CopyBtn.Location = new System.Drawing.Point(10, 268);
-            this.SWPT_CopyBtn.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.SWPT_CopyBtn.Name = "SWPT_CopyBtn";
-            this.SWPT_CopyBtn.Size = new System.Drawing.Size(464, 36);
-            this.SWPT_CopyBtn.TabIndex = 3;
-            this.SWPT_CopyBtn.Text = "Wi-Fi Şifre Kopyala";
-            this.SWPT_CopyBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.SWPT_CopyBtn.TextColor = System.Drawing.Color.WhiteSmoke;
-            this.SWPT_CopyBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.SWPT_CopyBtn.UseVisualStyleBackColor = false;
-            this.SWPT_CopyBtn.Click += new System.EventHandler(this.SWPT_CopyBtn_Click);
-            // 
-            // SWPT_SelectBox
-            // 
-            this.SWPT_SelectBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SWPT_SelectBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SWPT_SelectBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SWPT_SelectBox.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.SWPT_SelectBox.FormattingEnabled = true;
-            this.SWPT_SelectBox.IntegralHeight = false;
-            this.SWPT_SelectBox.ItemHeight = 17;
-            this.SWPT_SelectBox.Location = new System.Drawing.Point(10, 65);
-            this.SWPT_SelectBox.Margin = new System.Windows.Forms.Padding(3, 0, 3, 20);
-            this.SWPT_SelectBox.Name = "SWPT_SelectBox";
-            this.SWPT_SelectBox.Size = new System.Drawing.Size(464, 128);
-            this.SWPT_SelectBox.TabIndex = 1;
-            this.SWPT_SelectBox.SelectedIndexChanged += new System.EventHandler(this.SWPT_SelectBox_SelectedIndexChanged);
-            // 
-            // SWPT_TitleLabel
-            // 
-            this.SWPT_TitleLabel.BackColor = System.Drawing.Color.White;
-            this.SWPT_TitleLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.SWPT_TitleLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
-            this.SWPT_TitleLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.SWPT_TitleLabel.Location = new System.Drawing.Point(10, 10);
-            this.SWPT_TitleLabel.Margin = new System.Windows.Forms.Padding(3, 0, 3, 20);
-            this.SWPT_TitleLabel.Name = "SWPT_TitleLabel";
-            this.SWPT_TitleLabel.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.SWPT_TitleLabel.Size = new System.Drawing.Size(464, 35);
-            this.SWPT_TitleLabel.TabIndex = 0;
-            this.SWPT_TitleLabel.Text = "Wi-Fi Ağı Seçiniz:";
-            this.SWPT_TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.SWPT_ExportBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.SWPT_ExportBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.SWPT_ExportBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.SWPT_ExportBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.SWPT_ExportBtn.BorderRadius = 10;
+            this.SWPT_ExportBtn.BorderSize = 0;
+            this.SWPT_ExportBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SWPT_ExportBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.SWPT_ExportBtn.FlatAppearance.BorderSize = 0;
+            this.SWPT_ExportBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SWPT_ExportBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.SWPT_ExportBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.SWPT_ExportBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.SWPT_ExportBtn.Location = new System.Drawing.Point(10, 250);
+            this.SWPT_ExportBtn.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.SWPT_ExportBtn.Name = "SWPT_ExportBtn";
+            this.SWPT_ExportBtn.Size = new System.Drawing.Size(564, 36);
+            this.SWPT_ExportBtn.TabIndex = 1;
+            this.SWPT_ExportBtn.Text = "Export Wi-Fi Password";
+            this.SWPT_ExportBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.SWPT_ExportBtn.TextColor = System.Drawing.Color.WhiteSmoke;
+            this.SWPT_ExportBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.SWPT_ExportBtn.UseVisualStyleBackColor = false;
+            this.SWPT_ExportBtn.Click += new System.EventHandler(this.SWPT_ExportBtn_Click);
             // 
             // GlowShowWiFiPasswordTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(484, 314);
+            this.ClientSize = new System.Drawing.Size(584, 296);
             this.Controls.Add(this.Panel_BG);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = Properties.Resources.GlowLogo;
+            this.Icon = global::Glow.Properties.Resources.GlowLogo;
             this.MaximizeBox = false;
             this.Name = "GlowShowWiFiPasswordTool";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GlowShowWiFiPasswordTool";
             this.Load += new System.EventHandler(this.GlowShowWiFiPasswordTool_Load);
             this.Panel_BG.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.SWP_DGV)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -147,9 +155,7 @@
         #endregion
 
         private System.Windows.Forms.Panel Panel_BG;
-        internal System.Windows.Forms.Label SWPT_TitleLabel;
-        private System.Windows.Forms.ListBox SWPT_SelectBox;
-        private TSCustomButton SWPT_CopyBtn;
-        internal System.Windows.Forms.Label SWPT_ResultBox;
+        private TSCustomButton SWPT_ExportBtn;
+        private System.Windows.Forms.DataGridView SWP_DGV;
     }
 }

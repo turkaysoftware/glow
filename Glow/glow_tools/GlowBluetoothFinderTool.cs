@@ -11,11 +11,14 @@ using static Glow.TSModules;
 
 namespace Glow.glow_tools{
     public partial class GlowBluetoothFinderTool : Form{
-        public GlowBluetoothFinderTool(){ InitializeComponent(); }
+        public GlowBluetoothFinderTool() { InitializeComponent(); }
         // TS BLUETOOTH FINDER CLASS
         // ======================================================================================================
         private readonly List<TSAdvancedBluetoothAdapterInfo> BluetoothAdaptersList = new List<TSAdvancedBluetoothAdapterInfo>();
         class TSAdvancedBluetoothAdapterInfo{
+            public static string TextUnknownAdapter { get; set; }
+            public static string TextSuspiciousTag { get; set; }
+            public static string TextVidVenTag { get; set; }
             public string AdapterName { get; set; }
             public int LmpVersion { get; set; } = -1;
             public string BluetoothVersion { get; set; }
@@ -23,11 +26,81 @@ namespace Glow.glow_tools{
             public string DriverDate { get; set; }
             public string Manufacturer { get; set; }
             public string HardwareId { get; set; }
-            public static readonly string[] AllowedVendors = new[] {
-                "intel", "qualcomm", "broadcom", "realtek",
-                "mediatek", "azurewave", "marvell", "cypress", "killer"
-            };
-            public override string ToString() => AdapterName ?? "Unknown Adapter";
+            public string VendorId { get; set; }
+            public string[] HardwareIds { get; set; } = Array.Empty<string>();
+            public bool IsLikelyRadio { get; set; } = true;
+            // Text visible to the user in the ComboBox
+            public override string ToString(){
+                string name = string.IsNullOrWhiteSpace(AdapterName) ? TextUnknownAdapter : AdapterName.Trim();
+                // string vendor = string.IsNullOrWhiteSpace(VendorId) ? "" : $" ({TextVidVenTag}: {VendorId.Trim()})";
+                string flag = IsLikelyRadio ? "" : $" [{TextSuspiciousTag}]";
+                // Return Combobox Value
+                return $"{name}{flag}";
+                // return $"{name}{vendor}{flag}";
+            }
+        }
+        // VENDORID MAP (VID/VEN) -> VENDOR NAME (FOR INFORMATIONAL PURPOSES, NOT MANDATORY)
+        // ======================================================================================================
+        private static readonly Dictionary<string, string> VendorIdMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase){
+            ["8087"] = "Intel Corporation",
+            ["0BDA"] = "Realtek Semiconductor Corp.",
+            ["0A5C"] = "Broadcom Corp.",
+            ["0E8D"] = "MediaTek Inc.",
+            ["0A12"] = "Cambridge Silicon Radio Ltd (CSR)",
+            ["04B4"] = "Cypress Semiconductor (Infineon/Cypress)",
+            ["05AC"] = "Apple, Inc.",
+            ["045E"] = "Microsoft Corp.",
+            ["046D"] = "Logitech, Inc.",
+            ["1A40"] = "TERASIC Technologies Inc.",
+            ["1BCF"] = "Sunplus Technology Co., Ltd.",
+            ["0930"] = "Toshiba Corp.",
+            ["0489"] = "Foxconn / Hon Hai",
+            ["13D3"] = "AzureWave Technologies",
+            ["0955"] = "Qualcomm Atheros (Jiangsu Qinheng Microelectronics)",
+            ["18D1"] = "Google, Inc.",
+            ["041E"] = "Creative Technology Ltd.",
+            ["138A"] = "Samsung Electronics Co., Ltd.",
+            ["1912"] = "Ralink Technology Corp.",
+            ["0CF3"] = "Qualcomm Atheros",
+            ["10C4"] = "Silicon Labs",
+            ["067B"] = "Prolific Technology Inc.",
+            ["16C0"] = "Van Ooijen Technische Informatica",
+            ["0403"] = "Future Technology Devices Intl Ltd (FTDI)"
+        };
+        // SAFE TEXT FALL BACK
+        // ======================================================================================================
+        private static string SafeTextFallBack(string s, string fallback) => string.IsNullOrWhiteSpace(s) ? fallback : s.Trim();
+        // FILTERING CONNECTED DEVICES
+        // ======================================================================================================
+        private static bool IsRadioLikeInstanceId(string instanceId){
+            if (string.IsNullOrWhiteSpace(instanceId)) return false;
+            // Connected/enum devices
+            if (instanceId.StartsWith("BTHENUM", StringComparison.OrdinalIgnoreCase)) return false;
+            if (instanceId.StartsWith("BTHLEDEVICE", StringComparison.OrdinalIgnoreCase)) return false;
+            if (instanceId.StartsWith("BluetoothDevice_", StringComparison.OrdinalIgnoreCase)) return false;
+            // Windows virtual/stack devices
+            if (instanceId.StartsWith("ROOT\\", StringComparison.OrdinalIgnoreCase)) return false;
+            if (instanceId.StartsWith("BTH\\", StringComparison.OrdinalIgnoreCase)) return false;
+            // Physical bus requirement
+            bool physical = instanceId.StartsWith("USB\\", StringComparison.OrdinalIgnoreCase) || instanceId.StartsWith("PCI\\", StringComparison.OrdinalIgnoreCase) || instanceId.StartsWith("ACPI\\", StringComparison.OrdinalIgnoreCase);
+            return physical;
+        }
+        // "RADIO POSSIBILITY" TAG (DOES NOT PREVENT LISTING)
+        // ======================================================================================================
+        private static bool LikelyRadioHeuristic(string instanceId, string vendorId, string[] hardwareIds, string name, string manufacturer){
+            if (!string.IsNullOrWhiteSpace(instanceId) && (instanceId.IndexOf(@"USB\VID_", StringComparison.OrdinalIgnoreCase) >= 0 || instanceId.IndexOf(@"PCI\VEN_", StringComparison.OrdinalIgnoreCase) >= 0)){
+                return true;
+            }
+            if (!string.IsNullOrWhiteSpace(vendorId)){
+                return true;
+            }
+            if (hardwareIds != null && hardwareIds.Length > 0){
+                return true;
+            }
+            if (!string.IsNullOrWhiteSpace(name) || !string.IsNullOrWhiteSpace(manufacturer)){
+                return true;
+            }
+            return false;
         }
         // LOAD
         // ======================================================================================================
@@ -35,6 +108,10 @@ namespace Glow.glow_tools{
             TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
             try{
                 BTFinder_Preloader();
+                //
+                TSAdvancedBluetoothAdapterInfo.TextUnknownAdapter = software_lang.TSReadLangs("BluetoothFinderTool", "bft_unknown_adapter");
+                TSAdvancedBluetoothAdapterInfo.TextSuspiciousTag = software_lang.TSReadLangs("BluetoothFinderTool", "bft_suspicious_tag");
+                TSAdvancedBluetoothAdapterInfo.TextVidVenTag = software_lang.TSReadLangs("BluetoothFinderTool", "bft_vidven_tag");
                 //
                 Text = string.Format(software_lang.TSReadLangs("BluetoothFinderTool", "bft_title_load"), Application.ProductName);
                 BT_Adapter_V.Text = software_lang.TSReadLangs("BluetoothFinderTool", "bft_load");
@@ -70,6 +147,9 @@ namespace Glow.glow_tools{
                 BTSelector.DisabledBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
                 BTSelector.DisabledForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
                 BTSelector.DisabledButtonColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor2");
+                BTSelector.HoverForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxFEColor");
+                BTSelector.SelectedBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
+                BTSelector.SelectedForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "SelectBoxBGColor");
                 //
                 foreach (Control ui_buttons in BackPanel.Controls){
                     if (ui_buttons is Button bt_finder_btn){
@@ -113,17 +193,20 @@ namespace Glow.glow_tools{
             try{
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
                 string unknown_msg = software_lang.TSReadLangs("BluetoothFinderTool", "bft_unknown");
-                //
                 if (!(BTSelector.SelectedItem is TSAdvancedBluetoothAdapterInfo selectedAdapter)) { return; }
-                //
-                BT_Adapter_V.Text = $"{selectedAdapter.AdapterName.Trim() ?? unknown_msg}";
-                BT_Version_V.Text = $"{selectedAdapter.BluetoothVersion.Trim() ?? unknown_msg}";
-                BT_LMPVersion_V.Text = $"{selectedAdapter.LmpVersion.ToString().Trim() ?? unknown_msg}";
-                BT_DriverVersion_V.Text = $"{selectedAdapter.DriverVersion.Trim() ?? unknown_msg}";
-                BT_DriverDate_V.Text = $"{selectedAdapter.DriverDate.Trim() ?? unknown_msg}";
-                BT_Publisher_V.Text = $"{selectedAdapter.Manufacturer.Trim() ?? unknown_msg}";
-                BT_HardwareID_V.Text = $"{selectedAdapter.HardwareId.Trim() ?? unknown_msg}";
-            }catch (Exception){ }
+                BT_Adapter_V.Text = SafeTextFallBack(selectedAdapter.AdapterName, unknown_msg);
+                BT_Version_V.Text = SafeTextFallBack(selectedAdapter.BluetoothVersion, unknown_msg);
+                BT_LMPVersion_V.Text = selectedAdapter.LmpVersion >= 0 ? selectedAdapter.LmpVersion.ToString() : unknown_msg;
+                BT_DriverVersion_V.Text = SafeTextFallBack(selectedAdapter.DriverVersion, unknown_msg);
+                BT_DriverDate_V.Text = SafeTextFallBack(selectedAdapter.DriverDate, unknown_msg);
+                // If there is no Manufacturer in the Publisher field, the brand read from VendorIdMap can be displayed
+                string publisher = selectedAdapter.Manufacturer;
+                if (string.IsNullOrWhiteSpace(publisher) && !string.IsNullOrWhiteSpace(selectedAdapter.VendorId) && VendorIdMap.TryGetValue(selectedAdapter.VendorId.Trim(), out var mapped)){
+                    publisher = mapped;
+                }
+                BT_Publisher_V.Text = SafeTextFallBack(publisher, unknown_msg);
+                BT_HardwareID_V.Text = SafeTextFallBack(selectedAdapter.HardwareId, unknown_msg);
+            }catch (Exception) { }
         }
         // BT LOADER DYNAMIC SCRIPT
         // ======================================================================================================
@@ -131,39 +214,65 @@ namespace Glow.glow_tools{
             BluetoothAdaptersList.Clear();
             BTSelector.Items.Clear();
             GlowMain.BTfinderMode = true;
-            //
+            // PowerShell: Bluetooth class -> manage peripheral devices -> remove radios/adapters
             string psCommand = @"
-            $OutputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
-            $bluetoothDevices = Get-PnpDevice -Class 'Bluetooth'
-            $result = @()
-            foreach ($device in $bluetoothDevices) {
-                $driverDateProperty = Get-PnpDeviceProperty -InstanceId $device.InstanceId -KeyName 'DEVPKEY_Device_DriverDate'
-                if ($driverDateProperty) {
-                    try {
-                        $dt = [datetime]$driverDateProperty.Data
-                        $formattedDate = $dt.ToString('dd.MM.yyyy')
-                    } catch {
-                        $formattedDate = $driverDateProperty.Data
+                $OutputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+
+                $bluetooth = Get-PnpDevice -Class 'Bluetooth' -ErrorAction SilentlyContinue
+
+                $radios = $bluetooth | Where-Object {
+                    $_.InstanceId -and
+                    ($_.InstanceId -notlike 'BTHENUM*') -and
+                    ($_.InstanceId -notlike 'BTHLEDEVICE*') -and
+                    ($_.InstanceId -notlike 'BluetoothDevice_*')
+                }
+
+                $result = @()
+
+                foreach ($device in $radios) {
+
+                    $m = (Get-PnpDeviceProperty -InstanceId $device.InstanceId -KeyName 'DEVPKEY_Device_Manufacturer' -ErrorAction SilentlyContinue).Data
+                    $lmp = (Get-PnpDeviceProperty -InstanceId $device.InstanceId -KeyName 'DEVPKEY_Bluetooth_RadioLmpVersion' -ErrorAction SilentlyContinue).Data
+                    $drvVer = (Get-PnpDeviceProperty -InstanceId $device.InstanceId -KeyName 'DEVPKEY_Device_DriverVersion' -ErrorAction SilentlyContinue).Data
+
+                    $driverDateProperty = Get-PnpDeviceProperty -InstanceId $device.InstanceId -KeyName 'DEVPKEY_Device_DriverDate' -ErrorAction SilentlyContinue
+                    if ($driverDateProperty -and $driverDateProperty.Data) {
+                        try { $formattedDate = ([datetime]$driverDateProperty.Data).ToString('dd.MM.yyyy') }
+                        catch { $formattedDate = [string]$driverDateProperty.Data }
+                    } else {
+                        $formattedDate = ''
                     }
-                } else {
-                    $formattedDate = ''
+
+                    $hwids = (Get-PnpDeviceProperty -InstanceId $device.InstanceId -KeyName 'DEVPKEY_Device_HardwareIds' -ErrorAction SilentlyContinue).Data
+                    if ($hwids -isnot [System.Array]) { $hwids = @($hwids) }
+
+                    $vendorId = ''
+                    foreach ($h in $hwids) {
+                        if ($h -match 'VID_([0-9A-Fa-f]{4})') { $vendorId = $matches[1].ToUpper(); break }
+                        if ($h -match 'VEN_([0-9A-Fa-f]{4})') { $vendorId = $matches[1].ToUpper(); break }
+                    }
+
+                    $obj = [PSCustomObject]@{
+                        Name          = $device.FriendlyName
+                        Manufacturer  = [string]$m
+                        LmpVersion    = [string]$lmp
+                        DriverVersion = [string]$drvVer
+                        DriverDate    = [string]$formattedDate
+                        InstanceId    = [string]$device.InstanceId
+                        VendorId      = [string]$vendorId
+                        HardwareIds   = $hwids
+                    }
+
+                    $result += $obj
                 }
-                $obj = [PSCustomObject]@{
-                    Name = $device.FriendlyName
-                    Manufacturer = (Get-PnpDeviceProperty -InstanceId $device.InstanceId -KeyName 'DEVPKEY_Device_Manufacturer').Data
-                    LmpVersion = (Get-PnpDeviceProperty -InstanceId $device.InstanceId -KeyName 'DEVPKEY_Bluetooth_RadioLmpVersion').Data
-                    DriverVersion = (Get-PnpDeviceProperty -InstanceId $device.InstanceId -KeyName 'DEVPKEY_Device_DriverVersion').Data
-                    DriverDate = $formattedDate
-                    InstanceId = $device.InstanceId
-                }
-                $result += $obj
-            }
-            $result | ConvertTo-Json -Compress
-            ";
+
+                $result | ConvertTo-Json -Compress
+                ";
             //
             TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
+            //
             try{
-                var psi = new ProcessStartInfo{
+                var psi_bt = new ProcessStartInfo{
                     FileName = "powershell.exe",
                     Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command \"{psCommand}\"",
                     RedirectStandardOutput = true,
@@ -172,33 +281,70 @@ namespace Glow.glow_tools{
                     CreateNoWindow = true,
                     StandardOutputEncoding = Encoding.UTF8
                 };
-                using (var parser_bt_info = new Process { StartInfo = psi })
-                {
+                using (var parser_bt_info = new Process { StartInfo = psi_bt }){
                     parser_bt_info.Start();
                     string output = await parser_bt_info.StandardOutput.ReadToEndAsync();
                     string error = await parser_bt_info.StandardError.ReadToEndAsync();
                     parser_bt_info.WaitForExit();
-                    if (!string.IsNullOrWhiteSpace(error))
+                    if (!string.IsNullOrWhiteSpace(error)){
                         throw new Exception(error);
+                    }
                     this.Invoke((Action)(() =>{
                         try{
                             var serializer = new JavaScriptSerializer();
-                            var devices = serializer.Deserialize<List<Dictionary<string, object>>>(output);
+                            object parsed = serializer.DeserializeObject(output);
+                            List<Dictionary<string, object>> devices;
+                            if (parsed is object[] arr){
+                                devices = arr.OfType<Dictionary<string, object>>().ToList();
+                            }else if (parsed is Dictionary<string, object> single){
+                                devices = new List<Dictionary<string, object>> { single };
+                            }else{
+                                devices = new List<Dictionary<string, object>>();
+                            }
                             foreach (var d in devices){
                                 string adapterName = d.ContainsKey("Name") ? Convert.ToString(d["Name"]) : "";
-                                if (string.IsNullOrWhiteSpace(adapterName))
+                                string manufacturer = d.ContainsKey("Manufacturer") ? Convert.ToString(d["Manufacturer"]) : "";
+                                string instanceId = d.ContainsKey("InstanceId") ? Convert.ToString(d["InstanceId"]) : "";
+                                string vendorId = d.ContainsKey("VendorId") ? Convert.ToString(d["VendorId"]) : "";
+                                // HardwareIds array parse
+                                string[] hardwareIds = Array.Empty<string>();
+                                if (d.ContainsKey("HardwareIds") && d["HardwareIds"] != null){
+                                    if (d["HardwareIds"] is object[] hwArr){
+                                        hardwareIds = hwArr.Select(x => Convert.ToString(x)).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+                                    }else{
+                                        string one = Convert.ToString(d["HardwareIds"]);
+                                        if (!string.IsNullOrWhiteSpace(one)){
+                                            hardwareIds = new[] { one };
+                                        }
+                                    }
+                                }
+                                // Peripheral devices (do not list connected devices)
+                                if (!IsRadioLikeInstanceId(instanceId)){
                                     continue;
-                                bool allowed = TSAdvancedBluetoothAdapterInfo.AllowedVendors.Any(v => adapterName.IndexOf(v, StringComparison.OrdinalIgnoreCase) >= 0);
-                                if (!allowed)
-                                    continue;
+                                }
+                                // "Radio possibility" tag (does not prevent listing)
+                                bool likelyRadio = LikelyRadioHeuristic(instanceId, vendorId, hardwareIds, adapterName, manufacturer);
+                                // If AdapterName is empty, let's show the user at least something
+                                if (string.IsNullOrWhiteSpace(adapterName)){
+                                    if (!string.IsNullOrWhiteSpace(manufacturer)){
+                                        adapterName = manufacturer;
+                                    }else if (!string.IsNullOrWhiteSpace(vendorId) && VendorIdMap.TryGetValue(vendorId.Trim(), out var mapped)){
+                                        adapterName = mapped;
+                                    }else{
+                                        adapterName = software_lang.TSReadLangs("BluetoothFinderTool", "bft_default_radio_name");
+                                    }
+                                }
                                 TSAdvancedBluetoothAdapterInfo adapter = new TSAdvancedBluetoothAdapterInfo{
                                     AdapterName = adapterName,
-                                    Manufacturer = Convert.ToString(d["Manufacturer"]),
-                                    DriverVersion = Convert.ToString(d["DriverVersion"]),
-                                    DriverDate = Convert.ToString(d["DriverDate"]),
-                                    HardwareId = Convert.ToString(d["InstanceId"])
+                                    Manufacturer = manufacturer,
+                                    VendorId = vendorId,
+                                    HardwareIds = hardwareIds,
+                                    IsLikelyRadio = likelyRadio,
+                                    DriverVersion = d.ContainsKey("DriverVersion") ? Convert.ToString(d["DriverVersion"]) : "",
+                                    DriverDate = d.ContainsKey("DriverDate") ? Convert.ToString(d["DriverDate"]) : "",
+                                    HardwareId = instanceId
                                 };
-                                if (int.TryParse(Convert.ToString(d["LmpVersion"]), out int lmp)){
+                                if (int.TryParse(Convert.ToString(d.ContainsKey("LmpVersion") ? d["LmpVersion"] : ""), out int lmp)){
                                     adapter.LmpVersion = lmp;
                                     switch (lmp){
                                         case 16: adapter.BluetoothVersion = "6.2"; break;
@@ -222,16 +368,20 @@ namespace Glow.glow_tools{
                                             adapter.BluetoothVersion = software_lang.TSReadLangs("BluetoothFinderTool", "bft_lmp_unknown");
                                             break;
                                     }
+                                }else{
+                                    adapter.LmpVersion = -1;
+                                    adapter.BluetoothVersion = software_lang.TSReadLangs("BluetoothFinderTool", "bft_lmp_unknown");
                                 }
                                 BluetoothAdaptersList.Add(adapter);
                             }
+                            //
                             Text = string.Format(software_lang.TSReadLangs("BluetoothFinderTool", "bft_title"), Application.ProductName);
                             BTSelector.Items.Clear();
-                            foreach (var adapter in BluetoothAdaptersList)
+                            foreach (var adapter in BluetoothAdaptersList){
                                 BTSelector.Items.Add(adapter);
+                            }
                             GlowMain.BTfinderMode = false;
                             if (BTSelector.Items.Count > 0){
-                                BTSelector.DisplayMember = "AdapterName";
                                 BTSelector.SelectedIndex = 0;
                                 BTSelector.Enabled = true;
                                 BTCopyInfoBtn.Enabled = true;
@@ -268,7 +418,7 @@ namespace Glow.glow_tools{
                 int maxDesc = pairs.Max(p => (p.Desc.Text ?? "").Length);
                 string header = string.Format(software_lang.TSReadLangs("BluetoothFinderTool", "bfy_copy_head_text"), Application.ProductName);
                 int lineLen = Math.Max(header.Length, pairs.Max(p => (p.Desc.Text ?? "").PadRight(maxDesc + 5).Length + (p.Value?.Text ?? "").Length));
-                var sb = new StringBuilder(512).AppendLine(header).AppendLine(Environment.NewLine + new string('-', lineLen) + Environment.NewLine);
+                var sb = new StringBuilder(768).AppendLine(header).AppendLine(Environment.NewLine + new string('-', lineLen) + Environment.NewLine);
                 foreach (var (d, v) in pairs){
                     sb.AppendLine($"{(d.Text ?? "").PadRight(maxDesc + 5)}{v?.Text ?? ""}");
                 }
