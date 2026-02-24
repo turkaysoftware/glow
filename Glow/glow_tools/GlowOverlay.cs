@@ -1,13 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Drawing;
-using System.Threading;
-using System.Management;
-using System.Windows.Forms;
-using System.Threading.Tasks;
+﻿using Microsoft.VisualBasic.Devices;
+using System;
 using System.Collections.Generic;
-using Microsoft.VisualBasic.Devices;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Management;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 //
 using static Glow.TSModules;
 
@@ -30,16 +31,27 @@ namespace Glow.glow_tools{
         // TOOLTIP SETTINGS
         // ======================================================================================================
         private void MainToolTip_Draw(object sender, DrawToolTipEventArgs e){ e.DrawBackground(); e.DrawBorder(); e.DrawText(); }
+        // ENABLE EDGE WHEN BORDER IS CLOSED FOR WINDOWS 11
+        // ======================================================================================================
+        protected override void OnHandleCreated(EventArgs e){
+            base.OnHandleCreated(e);
+            if (Program.windows_mode == 1){
+                int preference = (int)DWM_WINDOW_CORNER_PREFERENCE.Round;
+                DwmSetWindowAttribute(this.Handle, DWMWA_WINDOW_CORNER_PREFERENCE, ref preference, sizeof(int));
+            }
+        }
+        // LOAD
+        // ======================================================================================================
         private async void GlowOverlay_Load(object sender, EventArgs e){
             await SetLabelTextSafeAsync(OVERLAY_CPU_V, software_lang.TSReadLangs("ScreenOverlayTool", "sot_loading"));
             await SetLabelTextSafeAsync(OVERLAY_RAM_V, software_lang.TSReadLangs("ScreenOverlayTool", "sot_loading"));
             await SetLabelTextSafeAsync(OVERLAY_DISK_V, software_lang.TSReadLangs("ScreenOverlayTool", "sot_loading"));
             await SetLabelTextSafeAsync(OVERLAY_NETWORK_V, software_lang.TSReadLangs("ScreenOverlayTool", "sot_loading"));
             //
-            Task cpu_engine = Task.Run(() => { CPUEngine(); });
-            Task ram_engine = Task.Run(() => { RAMEngine(); });
-            Task disk_engine = Task.Run(() => { DISKEngine(); });
-            Task network_engine = Task.Run(() => { NETWORKEngine(); });
+            Task cpu_engine = Task.Run(async () => await CPUEngine());
+            Task ram_engine = Task.Run(async () => await RAMEngine());
+            Task disk_engine = Task.Run(async () => await DISKEngine());
+            Task network_engine = Task.Run(async () => await NETWORKEngine());
             //
             Screen_overlay_settings();
         }
@@ -98,125 +110,137 @@ namespace Glow.glow_tools{
         }
         // CPU ENGINE
         // ======================================================================================================
-        private void CPUEngine(){
-            try{
-                ManagementObjectSearcher cpuSearcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name, PercentProcessorTime FROM Win32_PerfFormattedData_PerfOS_Processor");
-                while (Overlay_overlay_loop)
-                {
-                    ManagementObjectCollection cpuResults = cpuSearcher.Get();
-                    ulong totalCpuUsage = 0;
-                    int cpuCount = 0;
-                    foreach (ManagementObject obj in cpuResults.Cast<ManagementObject>()){
-                        string cpuName = (string)obj["Name"];
-                        ulong cpuUsage = (ulong)obj["PercentProcessorTime"];
-                        if (cpuName != "_Total"){
-                            totalCpuUsage += cpuUsage;
-                            cpuCount++;
-                        }
-                    }
-                    if (cpuCount > 0){
-                        float averageCpuUsage = (float)totalCpuUsage / cpuCount;
-                        SetLabelTextSafeAsync(OVERLAY_CPU_V, $"{averageCpuUsage:F2}%");
-                    }
-                    Thread.Sleep(750);
-                }
-            }catch (Exception){ }
-        }
-        // RAM ENGINE
-        // ======================================================================================================
-        private void RAMEngine(){
-            try{
-                ComputerInfo get_ram_info = new ComputerInfo();
-                while (Overlay_overlay_loop)
-                {
-                    ulong total_ram = get_ram_info.TotalPhysicalMemory;
-                    ulong usable_ram = get_ram_info.AvailablePhysicalMemory;
-                    double usage_ram_percentage = (TS_FormatSizeNoType(total_ram) - TS_FormatSizeNoType(usable_ram)) / TS_FormatSizeNoType(total_ram) * 100;
-                    SetLabelTextSafeAsync(OVERLAY_RAM_V, string.Format("{0:0.0} - {1} / {2}", TS_FormatSize(total_ram - usable_ram), $"{usage_ram_percentage:0.0}%", TS_FormatSize(total_ram)));
-                    Thread.Sleep(750);
-                }
-            }catch (Exception){ }
-        }
-        // DISK ENGINE
-        // ======================================================================================================
-        private void DISKEngine(){
-            try{
-                while (Overlay_overlay_loop)
-                {
-                    ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name, DiskReadBytesPersec, DiskWriteBytesPersec FROM Win32_PerfFormattedData_PerfDisk_PhysicalDisk");
-                    ManagementObjectCollection results = searcher.Get();
-                    StringBuilder diskInformation = new StringBuilder();
-                    Dictionary<string, (ulong readSpeed, ulong writeSpeed)> diskData = new Dictionary<string, (ulong, ulong)>();
-                    foreach (ManagementObject obj in results.Cast<ManagementObject>()){
-                        string diskName = (string)obj["Name"];
-                        ulong diskReadSpeed = (ulong)obj["DiskReadBytesPersec"];
-                        ulong diskWriteSpeed = (ulong)obj["DiskWriteBytesPersec"];
-                        if (diskName.Trim() != "_Total"){
-                            diskData[diskName] = (diskReadSpeed, diskWriteSpeed);
-                        }
-                    }
-                    string windowsDisk = GlowMain.windows_disk.Replace("\\", string.Empty);
-                    var winDiskEntry = diskData.FirstOrDefault(kvp => kvp.Key.EndsWith(windowsDisk));
-                    if (!winDiskEntry.Equals(default(KeyValuePair<string, (ulong, ulong)>))){
-                        var (readSpeed, writeSpeed) = winDiskEntry.Value;
-                        float readMB = readSpeed / (1024f * 1024f);
-                        float writeMB = writeSpeed / (1024f * 1024f);
-                        diskInformation.AppendLine($"{windowsDisk} - {readMB:F1} MB/s (R) - {writeMB:F1} MB/s (W)");
-                    }
-                    ManagementObjectSearcher logicalSearcher = new ManagementObjectSearcher("SELECT Name FROM Win32_LogicalDisk WHERE DriveType=3");
-                    string secondDisk = null;
-                    foreach (ManagementObject disk in logicalSearcher.Get().Cast<ManagementObject>()){
-                        string drive = ((string)disk["Name"]).Replace("\\", string.Empty);
-                        if (drive != windowsDisk){
-                            secondDisk = drive;
+        private async Task CPUEngine(){
+            using (var cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total")){
+                try{
+                    cpuCounter.NextValue();
+                    while (Overlay_overlay_loop){
+                        DateTime startTime = DateTime.Now;
+                        try{
+                            float cpuUsage = cpuCounter.NextValue();
+                            await SetLabelTextSafeAsync(OVERLAY_CPU_V, $"{cpuUsage:F2}%");
+                        }catch {}
+                        int elapsed = (int)(DateTime.Now - startTime).TotalMilliseconds;
+                        int nextDelay = Math.Max(10, 750 - elapsed);
+                        try{
+                            await Task.Delay(nextDelay, Program.TS_TokenEngine.Token);
+                        }catch (TaskCanceledException){
                             break;
                         }
                     }
-                    if (secondDisk != null){
-                        var secondEntry = diskData.FirstOrDefault(kvp => kvp.Key.EndsWith(secondDisk));
-                        if (!secondEntry.Equals(default(KeyValuePair<string, (ulong, ulong)>))){
-                            var (readSpeed, writeSpeed) = secondEntry.Value;
-                            float readMB = readSpeed / (1024f * 1024f);
-                            float writeMB = writeSpeed / (1024f * 1024f);
-                            diskInformation.AppendLine($"{secondDisk} - {readMB:F1} MB/s (R) - {writeMB:F1} MB/s (W)");
+                }catch (Exception){ }
+            }
+        }
+        // RAM ENGINE
+        // ======================================================================================================
+        private async Task RAMEngine(){
+            try{
+                var get_ram_info = new ComputerInfo();
+                while (Overlay_overlay_loop){
+                    DateTime startTime = DateTime.Now;
+                    try{
+                        ulong total_ram = get_ram_info.TotalPhysicalMemory;
+                        ulong usable_ram = get_ram_info.AvailablePhysicalMemory;
+                        double total_formatted = TS_FormatSizeNoType(total_ram);
+                        double usable_formatted = TS_FormatSizeNoType(usable_ram);
+                        double usage_ram_percentage = (total_formatted - usable_formatted) / total_formatted * 100;
+                        await SetLabelTextSafeAsync(OVERLAY_RAM_V, string.Format("{0:0.0} - {1} / {2}", TS_FormatSize(total_ram - usable_ram), $"{usage_ram_percentage:0.0}%", TS_FormatSize(total_ram)));
+                    }catch { }
+                    int elapsed = (int)(DateTime.Now - startTime).TotalMilliseconds;
+                    int nextDelay = Math.Max(10, 750 - elapsed);
+                    try{
+                        await Task.Delay(nextDelay, Program.TS_TokenEngine.Token);
+                    }catch (TaskCanceledException){
+                        break;
+                    }
+                }
+            }catch (Exception) { }
+        }
+        // DISK ENGINE
+        // ======================================================================================================
+        private async Task DISKEngine(){
+            try{
+                string windowsDisk = Program.windows_disk.Replace("\\", string.Empty);
+                var driveCounters = new List<(string DriveName, PerformanceCounter Read, PerformanceCounter Write)>();
+                try{
+                    var drives = DriveInfo.GetDrives().Where(d => d.DriveType == DriveType.Fixed);
+                    foreach (var drive in drives){
+                        string driveName = drive.Name.Replace("\\", string.Empty);
+                        string instance = GetDiskInstanceName(driveName);
+                        if (instance != null){
+                            driveCounters.Add((driveName, new PerformanceCounter("PhysicalDisk", "Disk Read Bytes/sec", instance), new PerformanceCounter("PhysicalDisk", "Disk Write Bytes/sec", instance)));
                         }
                     }
-                    SetLabelTextSafeAsync(OVERLAY_DISK_V, diskInformation.ToString());
-                    Thread.Sleep(750);
+                }catch { }
+                while (Overlay_overlay_loop){
+                    DateTime startTime = DateTime.Now;
+                    StringBuilder diskInformation = new StringBuilder();
+                    try{
+                        foreach (var (DriveName, Read, Write) in driveCounters){
+                            float readMB = Read.NextValue() / (1024f * 1024f);
+                            float writeMB = Write.NextValue() / (1024f * 1024f);
+                            diskInformation.AppendLine($"{DriveName} - {readMB:F1} MB/s (R) - {writeMB:F1} MB/s (W)");
+                        }
+                        await SetLabelTextSafeAsync(OVERLAY_DISK_V, diskInformation.ToString().TrimEnd());
+                    }catch { }
+                    int elapsed = (int)(DateTime.Now - startTime).TotalMilliseconds;
+                    int nextDelay = Math.Max(10, 750 - elapsed);
+                    try{
+                        await Task.Delay(nextDelay, Program.TS_TokenEngine.Token);
+                    }catch (TaskCanceledException){
+                        break;
+                    }
                 }
+                driveCounters.ForEach(c => { c.Read.Dispose(); c.Write.Dispose(); });
             }catch (Exception){ }
+        }
+        private string GetDiskInstanceName(string driveLetter){
+            var category = new PerformanceCounterCategory("PhysicalDisk");
+            return category.GetInstanceNames().FirstOrDefault(name => name.EndsWith(driveLetter));
         }
         // NETWORK ENGINE
         // ======================================================================================================
-        private void NETWORKEngine(){
+        private async Task NETWORKEngine(){
             try{
-                string activeAdapter = Net_replacer(GetActiveNetworkAdapter());
-                ManagementObjectSearcher searcher_net_speed = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PerfFormattedData_Tcpip_NetworkInterface");
-                while (Overlay_overlay_loop)
-                {
-                    foreach (ManagementObject search_active_speed in searcher_net_speed.Get().Cast<ManagementObject>()){
-                        if (Net_replacer(search_active_speed["Name"].ToString().Trim()) == activeAdapter){
-                            ulong bytesReceived = (ulong)search_active_speed["BytesReceivedPerSec"];
-                            ulong bytesSent = (ulong)search_active_speed["BytesSentPerSec"];
-                            double mbpsReceived = Math.Round(bytesReceived * 8 / 1000000.0, 1);
-                            double mbpsSent = Math.Round(bytesSent * 8 / 1000000.0, 1);
-                            SetLabelTextSafeAsync(OVERLAY_NETWORK_V, $"{software_lang.TSReadLangs("ScreenOverlayTool", "sot_net_download")} {mbpsReceived:0.00} Mbps\n" + $"{software_lang.TSReadLangs("ScreenOverlayTool", "sot_net_upload")} {mbpsSent:0.00} Mbps");
+                string activeAdapter = GetActiveNetworkAdapter();
+                if (string.IsNullOrEmpty(activeAdapter)) return;
+                var category = new PerformanceCounterCategory("Network Interface");
+                string[] instanceNames = category.GetInstanceNames();
+                string perfCounterAdapterName = instanceNames.FirstOrDefault(name => Net_replacer(name) == Net_replacer(activeAdapter));
+                if (perfCounterAdapterName == null) return;
+                using (var bytesReceivedCounter = new PerformanceCounter("Network Interface", "Bytes Received/sec", perfCounterAdapterName))
+                using (var bytesSentCounter = new PerformanceCounter("Network Interface", "Bytes Sent/sec", perfCounterAdapterName)){
+                    while (Overlay_overlay_loop){
+                        DateTime startTime = DateTime.Now;
+                        try{
+                            double mbpsReceived = bytesReceivedCounter.NextValue() * 8 / 1_000_000.0;
+                            double mbpsSent = bytesSentCounter.NextValue() * 8 / 1_000_000.0;
+                            string downloadStr = software_lang.TSReadLangs("ScreenOverlayTool", "sot_net_download");
+                            string uploadStr = software_lang.TSReadLangs("ScreenOverlayTool", "sot_net_upload");
+                            await SetLabelTextSafeAsync(OVERLAY_NETWORK_V, $"{downloadStr} {mbpsReceived:0.00} Mbps\n{uploadStr} {mbpsSent:0.00} Mbps");
+                        }catch { }
+                        //
+                        int elapsed = (int)(DateTime.Now - startTime).TotalMilliseconds;
+                        int nextDelay = Math.Max(10, 750 - elapsed);
+                        try{
+                            await Task.Delay(nextDelay, Program.TS_TokenEngine.Token);
+                        }catch (TaskCanceledException){
+                            break;
                         }
                     }
-                    Thread.Sleep(750);
                 }
-            }catch (Exception){ }
+            }catch (Exception) { }
         }
         private static string GetActiveNetworkAdapter(){
             try{
-                ManagementObjectSearcher searcher_active_net = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_NetworkAdapter WHERE NetConnectionStatus=2");
+                ManagementObjectSearcher searcher_active_net = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name, Index FROM Win32_NetworkAdapter WHERE NetConnectionStatus = 2");
                 foreach (ManagementObject search_ip_enabled in searcher_active_net.Get().Cast<ManagementObject>()){
-                    ManagementObjectSearcher configSearcher = new ManagementObjectSearcher("root\\CIMV2", $"SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index={search_ip_enabled["Index"]} AND IPEnabled=True");
+                    ManagementObjectSearcher configSearcher = new ManagementObjectSearcher("root\\CIMV2", $"SELECT IPEnabled FROM Win32_NetworkAdapterConfiguration WHERE Index={search_ip_enabled["Index"]} AND IPEnabled=True");
                     foreach (ManagementObject configObj in configSearcher.Get().Cast<ManagementObject>()){
                         return search_ip_enabled["Name"].ToString().Trim();
                     }
                 }
-            }catch (Exception){ }
+            }catch (Exception) { }
             return null;
         }
         // OVERLAY MODE
@@ -262,8 +286,13 @@ namespace Glow.glow_tools{
         // HELPER
         // ======================================================================================================
         private Task SetLabelTextSafeAsync(Label label, string text){
+            if (label == null || label.IsDisposed || !label.IsHandleCreated)
+                return Task.CompletedTask;
             if (label.InvokeRequired){
-                return label.InvokeAsync(() => label.Text = text);
+                label.BeginInvoke(new Action(() =>{
+                    if (!label.IsDisposed) label.Text = text;
+                }));
+                return Task.CompletedTask;
             }else{
                 label.Text = text;
                 return Task.CompletedTask;

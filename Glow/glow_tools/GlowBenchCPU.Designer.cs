@@ -313,7 +313,7 @@
             this.Bench_TimeCustom.Name = "Bench_TimeCustom";
             this.Bench_TimeCustom.Size = new System.Drawing.Size(60, 26);
             this.Bench_TimeCustom.TabIndex = 2;
-            this.Bench_TimeCustom.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OSD_TextBox_KeyPress);
+            this.Bench_TimeCustom.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Bench_TimeCustom_TextBox_KeyPress);
             // 
             // Bench_TimeSelector
             // 

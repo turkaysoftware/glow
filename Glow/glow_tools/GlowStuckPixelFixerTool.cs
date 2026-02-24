@@ -99,9 +99,9 @@ namespace Glow.glow_tools{
         public readonly Button closeButton;
         public readonly Button addButton;
         //
-        private readonly Stopwatch stopwatch;
+        private Stopwatch stopwatch;
         private readonly GlowStuckPixelFixerTool parentForm;
-        private readonly Random random;
+        private Random random;
         //
         private bool dragging = false;
         private Point dragStart;
@@ -116,6 +116,10 @@ namespace Glow.glow_tools{
         private Bitmap frame;
         private readonly object frameLock = new object();
         readonly int fieldLimit = 16;
+        //
+        private readonly System.Timers.Timer elapsedTimer;
+        private readonly CancellationTokenSource renderCts;
+        private readonly Task renderTask;
         //
         public TSStuckPixelTest(GlowStuckPixelFixerTool parent){
             // PREVENT SET
@@ -272,24 +276,30 @@ namespace Glow.glow_tools{
             random = new Random();
             stopwatch = new Stopwatch();
             stopwatch.Start();
-            System.Timers.Timer elapsedTimer = new System.Timers.Timer(1000);
+            elapsedTimer = new System.Timers.Timer(1000);
             elapsedTimer.Elapsed += (s, e) => {
-                if (timeLabel.IsHandleCreated){
-                    timeLabel.BeginInvoke((Action)(() => {
-                        timeLabel.Text = stopwatch.Elapsed.ToString(@"hh\:mm\:ss");
-                    }));
-                }
+                if (timeLabel.IsDisposed || !timeLabel.IsHandleCreated)
+                    return;
+                timeLabel.BeginInvoke((Action)(() => {
+                    if (timeLabel.IsDisposed)
+                        return;
+                    timeLabel.Text = stopwatch.Elapsed.ToString(@"hh\:mm\:ss");
+                }));
             };
             elapsedTimer.Start();
             // RUN TEST
             // ----------------------------
-            Task.Run(() => {
+            renderCts = new CancellationTokenSource();
+            var token = renderCts.Token;
+            renderTask = Task.Run(() => {
                 Stopwatch frameTimer = Stopwatch.StartNew();
                 const double targetFrameTime = 1000.0 / 60; // 60 FPS
-                while (!this.IsDisposed){
+                while (!token.IsCancellationRequested && !this.IsDisposed){
                     UpdateFrame();
-                    if (this.IsHandleCreated){
+                    if (this.IsHandleCreated && !this.IsDisposed){
                         this.BeginInvoke(new Action(() => {
+                            if (this.IsDisposed || !this.IsHandleCreated)
+                                return;
                             int topOffset = headerPanel.Dock == DockStyle.Top ? headerPanel.Height : 0;
                             int bottomOffset = headerPanel.Dock == DockStyle.Bottom ? headerPanel.Height : 0;
                             this.Invalidate(new Rectangle(0, topOffset, this.Width, this.Height - topOffset - bottomOffset));
@@ -301,7 +311,7 @@ namespace Glow.glow_tools{
                         Thread.Sleep((int)sleepTime);
                     frameTimer.Restart();
                 }
-            });
+            }, token);
         }
         // UPDATER FRAME
         // ======================================================================================================
@@ -309,6 +319,8 @@ namespace Glow.glow_tools{
             int topOffset = headerPanel.Dock == DockStyle.Top ? headerPanel.Height : 0;
             int bottomOffset = headerPanel.Dock == DockStyle.Bottom ? headerPanel.Height : 0;
             Rectangle area = new Rectangle(0, topOffset, this.Width, this.Height - topOffset - bottomOffset);
+            if (area.Width <= 0 || area.Height <= 0)
+                return;
             lock (frameLock){
                 if (frame == null || frame.Width != area.Width || frame.Height != area.Height){
                     frame?.Dispose();
@@ -406,5 +418,29 @@ namespace Glow.glow_tools{
         private bool IsOnRightEdge(Point p) => Math.Abs(p.X - this.Width) <= 6;
         private bool IsOnBottomEdge(Point p) => Math.Abs(p.Y - this.Height) <= 6;
         private bool IsInCorner(Point p) => IsOnRightEdge(p) && IsOnBottomEdge(p);
+        protected override void Dispose(bool disposing){
+            if (disposing){
+                try{
+                    renderCts?.Cancel();
+                }catch (Exception) { }
+                try{
+                    elapsedTimer?.Stop();
+                    elapsedTimer?.Dispose();
+                }catch (Exception) { }
+                try{
+                    stopwatch?.Stop();
+                }catch (Exception) { }
+                try{
+                    lock (frameLock){
+                        frame?.Dispose();
+                        frame = null;
+                    }
+                }catch (Exception) { }
+                try{
+                    randomBuffer = null;
+                }catch (Exception) { }
+            }
+            base.Dispose(disposing);
+        }
     }
 }

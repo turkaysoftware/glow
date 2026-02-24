@@ -33,11 +33,15 @@ namespace Glow.glow_tools{
             GetWallpaperInfo(GlowMain.wp_rotate);
             Image img = null;
             try{
-                img = Image.FromFile(GlowMain.wp_rotate);
+                byte[] bytes = File.ReadAllBytes(GlowMain.wp_rotate);
+                using (var ms = new MemoryStream(bytes)){
+                    img = Image.FromStream(ms);
+                }
                 if (WPImage.IsHandleCreated){
                     WPImage.Invoke(new Action(() => SetPictureBoxImage(WPImage, img)));
+                    img = null;
                 }else{
-                    img.Dispose();
+                    img?.Dispose();
                 }
             }catch{
                 img?.Dispose();

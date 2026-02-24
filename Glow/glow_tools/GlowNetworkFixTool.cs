@@ -118,23 +118,26 @@ namespace Glow.glow_tools{
                         CreateNoWindow = true
                     };
                     using (Process network_fix_runner = Process.Start(start_network_fix_process)){
-                        network_fix_runner.WaitForExit();
                         string get_result = network_fix_runner.StandardOutput.ReadToEnd();
                         string get_error = network_fix_runner.StandardError.ReadToEnd();
+                        network_fix_runner.WaitForExit();
+                        int exitCode = network_fix_runner.ExitCode;
                         TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                        if (!string.IsNullOrEmpty(get_result)){
-                            Invoke(new Action(() => {
+                        if (IsDisposed || !IsHandleCreated)
+                            return;
+                        BeginInvoke(new Action(() => {
+                            if (IsDisposed || !IsHandleCreated)
+                                return;
+                            if (exitCode == 0){
                                 NFT_ResultList.Items.Add(string.Format(software_lang.TSReadLangs("NetworkFixTool", "nft_process_code_transfer"), get_command, get_arguments));
-                            }));
-                        }
-                        if (!string.IsNullOrEmpty(get_error)){
-                            Invoke(new Action(() => {
-                                NFT_ResultList.Items.Add(string.Format(software_lang.TSReadLangs("NetworkFixTool", "nft_process_code_transfer_error"), get_command, get_arguments, get_error));
-                            }));
-                        }
+                            }else{
+                                string errText = !string.IsNullOrWhiteSpace(get_error) ? get_error.Trim() : (!string.IsNullOrWhiteSpace(get_result) ? get_result.Trim() : $"ExitCode: {exitCode}");
+                                NFT_ResultList.Items.Add(string.Format(software_lang.TSReadLangs("NetworkFixTool", "nft_process_code_transfer_error"), get_command, get_arguments, errText));
+                            }
+                        }));
                     }
                 });
-            }catch (Exception){ }
+            }catch (Exception) { }
         }
     }
 }

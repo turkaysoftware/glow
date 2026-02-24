@@ -33,6 +33,15 @@ namespace Glow{
         // ======================================================================================================
         private bool formIsDragging = false;
         private Point formDraggingStartPoint = new Point(0, 0);
+        // ENABLE EDGE WHEN BORDER IS CLOSED FOR WINDOWS 11
+        // ======================================================================================================
+        protected override void OnHandleCreated(EventArgs e){
+            base.OnHandleCreated(e);
+            if (Program.windows_mode == 1){
+                int preference = (int)DWM_WINDOW_CORNER_PREFERENCE.Round;
+                DwmSetWindowAttribute(this.Handle, DWMWA_WINDOW_CORNER_PREFERENCE, ref preference, sizeof(int));
+            }
+        }
         // ABOUT LOAD
         // ======================================================================================================
         private async void GlowAbout_Load(object sender, EventArgs e){
@@ -49,7 +58,7 @@ namespace Glow{
         }
         private void LoadLanguageConverterName(){
             foreach (var available_lang_file in AvailableLanguages){
-                TSSettingsSave software_read_settings = new TSSettingsSave(available_lang_file);
+                TSSettingsModule software_read_settings = new TSSettingsModule(available_lang_file);
                 string[] get_name = software_read_settings.TSReadSettings("Main", "lang_name").Split('/');
                 string get_lang_translator = software_read_settings.TSReadSettings("Main", "translator");
                 AboutTable.BeginInvoke((Action)(() =>{

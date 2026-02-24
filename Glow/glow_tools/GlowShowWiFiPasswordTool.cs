@@ -67,6 +67,7 @@ namespace Glow.glow_tools{
             Swpt_theme_settings();
             try{
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
+                Text = string.Format(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_title"), Application.ProductName) + " - " + software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_load");
                 await Task.Run(() => {
                     string[] wifiProfiles = Ts_ExtractWiFiProfileNames(Ts_GetWiFiPassword("netsh wlan show profile"));
                     if (wifiProfiles.Length == 0){
@@ -77,6 +78,8 @@ namespace Glow.glow_tools{
                         return;
                     }
                     Invoke(new Action(() => {
+                        Text = string.Format(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_title"), Application.ProductName);
+                        SWPT_ExportBtn.Enabled = true;
                         foreach (string profile in wifiProfiles){
                             string password = GetWiFiPassword(profile.Trim());
                             SWP_DGV.Rows.Add(profile.Trim(), password);
@@ -154,6 +157,7 @@ namespace Glow.glow_tools{
                     return;
                 Clipboard.SetText(password);
                 TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format(software_lang.TSReadLangs("ShowWiFiPasswordTool", "swpt_copy_txt"), profileName));
+                SWP_DGV.ClearSelection();
             }catch (Exception){ }
         }
         // EXPORT WI-FI'S PASSWORD

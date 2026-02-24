@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlowQuickAccessTool));
             this.QUICK_FLY = new System.Windows.Forms.FlowLayoutPanel();
             this.QB_About = new Glow.TSCustomButton();
             this.QB_AdvancedScreenSettings = new Glow.TSCustomButton();
@@ -343,7 +342,7 @@
             this.QB_DefaultApps.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_DefaultApps.ForeColor = System.Drawing.Color.White;
             this.QB_DefaultApps.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_DefaultApps.Location = new System.Drawing.Point(2, 362);
+            this.QB_DefaultApps.Location = new System.Drawing.Point(306, 2);
             this.QB_DefaultApps.Margin = new System.Windows.Forms.Padding(2);
             this.QB_DefaultApps.Name = "QB_DefaultApps";
             this.QB_DefaultApps.Size = new System.Drawing.Size(300, 36);
@@ -368,7 +367,7 @@
             this.QB_DeviceManager.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_DeviceManager.ForeColor = System.Drawing.Color.White;
             this.QB_DeviceManager.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_DeviceManager.Location = new System.Drawing.Point(306, 2);
+            this.QB_DeviceManager.Location = new System.Drawing.Point(306, 42);
             this.QB_DeviceManager.Margin = new System.Windows.Forms.Padding(2);
             this.QB_DeviceManager.Name = "QB_DeviceManager";
             this.QB_DeviceManager.Size = new System.Drawing.Size(300, 36);
@@ -393,7 +392,7 @@
             this.QB_DirectX.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_DirectX.ForeColor = System.Drawing.Color.White;
             this.QB_DirectX.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_DirectX.Location = new System.Drawing.Point(306, 42);
+            this.QB_DirectX.Location = new System.Drawing.Point(306, 82);
             this.QB_DirectX.Margin = new System.Windows.Forms.Padding(2);
             this.QB_DirectX.Name = "QB_DirectX";
             this.QB_DirectX.Size = new System.Drawing.Size(300, 36);
@@ -418,7 +417,7 @@
             this.QB_DiskManagement.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_DiskManagement.ForeColor = System.Drawing.Color.White;
             this.QB_DiskManagement.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_DiskManagement.Location = new System.Drawing.Point(306, 82);
+            this.QB_DiskManagement.Location = new System.Drawing.Point(306, 122);
             this.QB_DiskManagement.Margin = new System.Windows.Forms.Padding(2);
             this.QB_DiskManagement.Name = "QB_DiskManagement";
             this.QB_DiskManagement.Size = new System.Drawing.Size(300, 36);
@@ -443,7 +442,7 @@
             this.QB_EventViewer.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_EventViewer.ForeColor = System.Drawing.Color.White;
             this.QB_EventViewer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_EventViewer.Location = new System.Drawing.Point(306, 122);
+            this.QB_EventViewer.Location = new System.Drawing.Point(306, 162);
             this.QB_EventViewer.Margin = new System.Windows.Forms.Padding(2);
             this.QB_EventViewer.Name = "QB_EventViewer";
             this.QB_EventViewer.Size = new System.Drawing.Size(300, 36);
@@ -468,7 +467,7 @@
             this.QB_GamingMode.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_GamingMode.ForeColor = System.Drawing.Color.White;
             this.QB_GamingMode.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_GamingMode.Location = new System.Drawing.Point(306, 162);
+            this.QB_GamingMode.Location = new System.Drawing.Point(306, 202);
             this.QB_GamingMode.Margin = new System.Windows.Forms.Padding(2);
             this.QB_GamingMode.Name = "QB_GamingMode";
             this.QB_GamingMode.Size = new System.Drawing.Size(300, 36);
@@ -493,7 +492,7 @@
             this.QB_Language.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_Language.ForeColor = System.Drawing.Color.White;
             this.QB_Language.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_Language.Location = new System.Drawing.Point(306, 202);
+            this.QB_Language.Location = new System.Drawing.Point(306, 242);
             this.QB_Language.Margin = new System.Windows.Forms.Padding(2);
             this.QB_Language.Name = "QB_Language";
             this.QB_Language.Size = new System.Drawing.Size(300, 36);
@@ -518,7 +517,7 @@
             this.QB_LicenseStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_LicenseStatus.ForeColor = System.Drawing.Color.White;
             this.QB_LicenseStatus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_LicenseStatus.Location = new System.Drawing.Point(306, 242);
+            this.QB_LicenseStatus.Location = new System.Drawing.Point(306, 282);
             this.QB_LicenseStatus.Margin = new System.Windows.Forms.Padding(2);
             this.QB_LicenseStatus.Name = "QB_LicenseStatus";
             this.QB_LicenseStatus.Size = new System.Drawing.Size(300, 36);
@@ -543,7 +542,7 @@
             this.QB_LockScreen.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_LockScreen.ForeColor = System.Drawing.Color.White;
             this.QB_LockScreen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_LockScreen.Location = new System.Drawing.Point(306, 282);
+            this.QB_LockScreen.Location = new System.Drawing.Point(306, 322);
             this.QB_LockScreen.Margin = new System.Windows.Forms.Padding(2);
             this.QB_LockScreen.Name = "QB_LockScreen";
             this.QB_LockScreen.Size = new System.Drawing.Size(300, 36);
@@ -568,7 +567,7 @@
             this.QB_MouseSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_MouseSettings.ForeColor = System.Drawing.Color.White;
             this.QB_MouseSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_MouseSettings.Location = new System.Drawing.Point(306, 322);
+            this.QB_MouseSettings.Location = new System.Drawing.Point(610, 2);
             this.QB_MouseSettings.Margin = new System.Windows.Forms.Padding(2);
             this.QB_MouseSettings.Name = "QB_MouseSettings";
             this.QB_MouseSettings.Size = new System.Drawing.Size(300, 36);
@@ -593,7 +592,7 @@
             this.QB_NotificationSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_NotificationSettings.ForeColor = System.Drawing.Color.White;
             this.QB_NotificationSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_NotificationSettings.Location = new System.Drawing.Point(306, 362);
+            this.QB_NotificationSettings.Location = new System.Drawing.Point(610, 42);
             this.QB_NotificationSettings.Margin = new System.Windows.Forms.Padding(2);
             this.QB_NotificationSettings.Name = "QB_NotificationSettings";
             this.QB_NotificationSettings.Size = new System.Drawing.Size(300, 36);
@@ -618,7 +617,7 @@
             this.QB_Phone.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_Phone.ForeColor = System.Drawing.Color.White;
             this.QB_Phone.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_Phone.Location = new System.Drawing.Point(610, 2);
+            this.QB_Phone.Location = new System.Drawing.Point(610, 82);
             this.QB_Phone.Margin = new System.Windows.Forms.Padding(2);
             this.QB_Phone.Name = "QB_Phone";
             this.QB_Phone.Size = new System.Drawing.Size(300, 36);
@@ -643,7 +642,7 @@
             this.QB_ScreenSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_ScreenSettings.ForeColor = System.Drawing.Color.White;
             this.QB_ScreenSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_ScreenSettings.Location = new System.Drawing.Point(610, 42);
+            this.QB_ScreenSettings.Location = new System.Drawing.Point(610, 122);
             this.QB_ScreenSettings.Margin = new System.Windows.Forms.Padding(2);
             this.QB_ScreenSettings.Name = "QB_ScreenSettings";
             this.QB_ScreenSettings.Size = new System.Drawing.Size(300, 36);
@@ -668,7 +667,7 @@
             this.QB_Settings.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_Settings.ForeColor = System.Drawing.Color.White;
             this.QB_Settings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_Settings.Location = new System.Drawing.Point(610, 82);
+            this.QB_Settings.Location = new System.Drawing.Point(610, 162);
             this.QB_Settings.Margin = new System.Windows.Forms.Padding(2);
             this.QB_Settings.Name = "QB_Settings";
             this.QB_Settings.Size = new System.Drawing.Size(300, 36);
@@ -693,7 +692,7 @@
             this.QB_SoundSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_SoundSettings.ForeColor = System.Drawing.Color.White;
             this.QB_SoundSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_SoundSettings.Location = new System.Drawing.Point(610, 122);
+            this.QB_SoundSettings.Location = new System.Drawing.Point(610, 202);
             this.QB_SoundSettings.Margin = new System.Windows.Forms.Padding(2);
             this.QB_SoundSettings.Name = "QB_SoundSettings";
             this.QB_SoundSettings.Size = new System.Drawing.Size(300, 36);
@@ -718,7 +717,7 @@
             this.QB_Start.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_Start.ForeColor = System.Drawing.Color.White;
             this.QB_Start.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_Start.Location = new System.Drawing.Point(610, 162);
+            this.QB_Start.Location = new System.Drawing.Point(610, 242);
             this.QB_Start.Margin = new System.Windows.Forms.Padding(2);
             this.QB_Start.Name = "QB_Start";
             this.QB_Start.Size = new System.Drawing.Size(300, 36);
@@ -743,7 +742,7 @@
             this.QB_Storage.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_Storage.ForeColor = System.Drawing.Color.White;
             this.QB_Storage.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_Storage.Location = new System.Drawing.Point(610, 202);
+            this.QB_Storage.Location = new System.Drawing.Point(610, 282);
             this.QB_Storage.Margin = new System.Windows.Forms.Padding(2);
             this.QB_Storage.Name = "QB_Storage";
             this.QB_Storage.Size = new System.Drawing.Size(300, 36);
@@ -768,7 +767,7 @@
             this.QB_Taskbar.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_Taskbar.ForeColor = System.Drawing.Color.White;
             this.QB_Taskbar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_Taskbar.Location = new System.Drawing.Point(610, 242);
+            this.QB_Taskbar.Location = new System.Drawing.Point(610, 322);
             this.QB_Taskbar.Margin = new System.Windows.Forms.Padding(2);
             this.QB_Taskbar.Name = "QB_Taskbar";
             this.QB_Taskbar.Size = new System.Drawing.Size(300, 36);
@@ -793,7 +792,7 @@
             this.QB_USB.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_USB.ForeColor = System.Drawing.Color.White;
             this.QB_USB.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_USB.Location = new System.Drawing.Point(610, 282);
+            this.QB_USB.Location = new System.Drawing.Point(914, 2);
             this.QB_USB.Margin = new System.Windows.Forms.Padding(2);
             this.QB_USB.Name = "QB_USB";
             this.QB_USB.Size = new System.Drawing.Size(300, 36);
@@ -818,7 +817,7 @@
             this.QB_WindowsDefender.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_WindowsDefender.ForeColor = System.Drawing.Color.White;
             this.QB_WindowsDefender.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_WindowsDefender.Location = new System.Drawing.Point(610, 322);
+            this.QB_WindowsDefender.Location = new System.Drawing.Point(914, 42);
             this.QB_WindowsDefender.Margin = new System.Windows.Forms.Padding(2);
             this.QB_WindowsDefender.Name = "QB_WindowsDefender";
             this.QB_WindowsDefender.Size = new System.Drawing.Size(300, 36);
@@ -843,7 +842,7 @@
             this.QB_WindowsUpdate.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.QB_WindowsUpdate.ForeColor = System.Drawing.Color.White;
             this.QB_WindowsUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.QB_WindowsUpdate.Location = new System.Drawing.Point(610, 362);
+            this.QB_WindowsUpdate.Location = new System.Drawing.Point(914, 82);
             this.QB_WindowsUpdate.Margin = new System.Windows.Forms.Padding(2);
             this.QB_WindowsUpdate.Name = "QB_WindowsUpdate";
             this.QB_WindowsUpdate.Size = new System.Drawing.Size(300, 36);
@@ -862,7 +861,7 @@
             this.Controls.Add(this.QUICK_FLY);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = Properties.Resources.GlowLogo;
+            this.Icon = global::Glow.Properties.Resources.GlowLogo;
             this.MaximizeBox = false;
             this.Name = "GlowQuickAccessTool";
             this.Padding = new System.Windows.Forms.Padding(3);

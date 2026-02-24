@@ -58,7 +58,7 @@ namespace Glow.glow_tools{
                 TSImageRenderer(SADT_StartBtn, GlowMain.theme == 1 ? Properties.Resources.ct_fix_light : Properties.Resources.ct_fix_dark, 18, ContentAlignment.MiddleRight);
                 // SET UI TEXT
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                TSSettingsSave software_read_settings = new TSSettingsSave(ts_sf);
+                TSSettingsModule software_read_settings = new TSSettingsModule(ts_sf);
                 //
                 titleMessage = string.Format(software_lang.TSReadLangs("SFCandDISMTool", "sadt_title"), Application.ProductName);
                 Text = titleMessage;
@@ -186,7 +186,7 @@ namespace Glow.glow_tools{
                 UpdateSafeText(SADT_L4, current_time);
                 //
                 try{
-                    TSSettingsSave software_setting_save = new TSSettingsSave(ts_sf);
+                    TSSettingsModule software_setting_save = new TSSettingsModule(ts_sf);
                     software_setting_save.TSWriteSettings(ts_settings_container, "SADTime", current_time);
                 }catch{ }
             }catch (Exception ex){

@@ -217,6 +217,8 @@ namespace Glow.glow_tools{
             // PowerShell: Bluetooth class -> manage peripheral devices -> remove radios/adapters
             string psCommand = @"
                 $OutputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+                $ErrorActionPreference = 'SilentlyContinue'
+                $ProgressPreference = 'SilentlyContinue'
 
                 $bluetooth = Get-PnpDevice -Class 'Bluetooth' -ErrorAction SilentlyContinue
 
@@ -227,25 +229,49 @@ namespace Glow.glow_tools{
                     ($_.InstanceId -notlike 'BluetoothDevice_*')
                 }
 
-                $result = @()
+                $ids = @($radios | ForEach-Object { $_.InstanceId }) | Where-Object { $_ }
+
+                # Toplu property çek (en büyük hız kazanımı burada)
+                $keys = @(
+                  'DEVPKEY_Device_Manufacturer',
+                  'DEVPKEY_Bluetooth_RadioLmpVersion',
+                  'DEVPKEY_Device_DriverVersion',
+                  'DEVPKEY_Device_DriverDate',
+                  'DEVPKEY_Device_HardwareIds'
+                )
+
+                $map = @{}
+                foreach ($k in $keys) {
+                    Get-PnpDeviceProperty -InstanceId $ids -KeyName $k -ErrorAction SilentlyContinue |
+                        ForEach-Object { $map[($_.InstanceId + '|' + $_.KeyName)] = $_.Data }
+                }
+
+                # result += yerine List kullan
+                $result = New-Object 'System.Collections.Generic.List[object]'
 
                 foreach ($device in $radios) {
 
-                    $m = (Get-PnpDeviceProperty -InstanceId $device.InstanceId -KeyName 'DEVPKEY_Device_Manufacturer' -ErrorAction SilentlyContinue).Data
-                    $lmp = (Get-PnpDeviceProperty -InstanceId $device.InstanceId -KeyName 'DEVPKEY_Bluetooth_RadioLmpVersion' -ErrorAction SilentlyContinue).Data
-                    $drvVer = (Get-PnpDeviceProperty -InstanceId $device.InstanceId -KeyName 'DEVPKEY_Device_DriverVersion' -ErrorAction SilentlyContinue).Data
+                    $id = $device.InstanceId
 
-                    $driverDateProperty = Get-PnpDeviceProperty -InstanceId $device.InstanceId -KeyName 'DEVPKEY_Device_DriverDate' -ErrorAction SilentlyContinue
-                    if ($driverDateProperty -and $driverDateProperty.Data) {
-                        try { $formattedDate = ([datetime]$driverDateProperty.Data).ToString('dd.MM.yyyy') }
-                        catch { $formattedDate = [string]$driverDateProperty.Data }
+                    $m     = $map[$id + '|DEVPKEY_Device_Manufacturer']
+                    $lmp   = $map[$id + '|DEVPKEY_Bluetooth_RadioLmpVersion']
+                    $drvVer= $map[$id + '|DEVPKEY_Device_DriverVersion']
+                    $dd    = $map[$id + '|DEVPKEY_Device_DriverDate']
+                    $hwids = $map[$id + '|DEVPKEY_Device_HardwareIds']
+
+                    # DriverDate format
+                    if ($dd) {
+                        try { $formattedDate = ([datetime]$dd).ToString('dd.MM.yyyy') }
+                        catch { $formattedDate = [string]$dd }
                     } else {
                         $formattedDate = ''
                     }
 
-                    $hwids = (Get-PnpDeviceProperty -InstanceId $device.InstanceId -KeyName 'DEVPKEY_Device_HardwareIds' -ErrorAction SilentlyContinue).Data
-                    if ($hwids -isnot [System.Array]) { $hwids = @($hwids) }
+                    # HardwareIds normalize
+                    if ($null -eq $hwids) { $hwids = @() }
+                    elseif ($hwids -isnot [System.Array]) { $hwids = @($hwids) }
 
+                    # VendorId çıkar
                     $vendorId = ''
                     foreach ($h in $hwids) {
                         if ($h -match 'VID_([0-9A-Fa-f]{4})') { $vendorId = $matches[1].ToUpper(); break }
@@ -258,15 +284,15 @@ namespace Glow.glow_tools{
                         LmpVersion    = [string]$lmp
                         DriverVersion = [string]$drvVer
                         DriverDate    = [string]$formattedDate
-                        InstanceId    = [string]$device.InstanceId
+                        InstanceId    = [string]$id
                         VendorId      = [string]$vendorId
                         HardwareIds   = $hwids
                     }
 
-                    $result += $obj
+                    $null = $result.Add($obj)
                 }
 
-                $result | ConvertTo-Json -Compress
+                $result | ConvertTo-Json -Compress -Depth 4
                 ";
             //
             TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
@@ -274,7 +300,7 @@ namespace Glow.glow_tools{
             try{
                 var psi_bt = new ProcessStartInfo{
                     FileName = "powershell.exe",
-                    Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command \"{psCommand}\"",
+                    Arguments = $"-NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command \"{psCommand}\"",
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,
@@ -387,7 +413,8 @@ namespace Glow.glow_tools{
                                 BTCopyInfoBtn.Enabled = true;
                                 TS_MessageBoxEngine.TS_MessageBox(this, 1, software_lang.TSReadLangs("BluetoothFinderTool", "bft_bt_finder_success"));
                             }else{
-                                TS_MessageBoxEngine.TS_MessageBox(this, 1, software_lang.TSReadLangs("BluetoothFinderTool", "bft_bt_finder_failed"));
+                                TS_MessageBoxEngine.TS_MessageBox(this, 2, software_lang.TSReadLangs("BluetoothFinderTool", "bft_bt_finder_failed"));
+                                Close();
                             }
                         }catch (Exception ex){
                             GlowMain.BTfinderMode = false;

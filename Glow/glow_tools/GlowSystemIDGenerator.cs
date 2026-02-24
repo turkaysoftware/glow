@@ -20,7 +20,6 @@ using static Glow.TSModules;
 namespace Glow.glow_tools{
     public partial class GlowSystemIDGenerator : Form{
         private readonly ConcurrentDictionary<string, ConcurrentBag<string>> hwBag = new ConcurrentDictionary<string, ConcurrentBag<string>>();
-        public static string __system_processor_id;
         // CONSTRUCTION
         // ======================================================================================================
         public GlowSystemIDGenerator(){
@@ -53,28 +52,24 @@ namespace Glow.glow_tools{
         private void DGV_MainTable_SelectionChanged(object sender, EventArgs e) => DGV_MainTable.ClearSelection();
         // LOAD
         // ======================================================================================================
-        private void GlowSystemIDGenerator_Load(object sender, EventArgs e){
+        private async void GlowSystemIDGenerator_Load(object sender, EventArgs e){
             SIG_Preloader();
-            //
             Btn_Save.Enabled = false;
             Btn_Compare.Enabled = false;
-            //
             DGV_MainTable.Rows.Clear();
-            foreach (var key in hwBag.Keys){
+            foreach (var key in hwBag.Keys)
                 hwBag[key] = new ConcurrentBag<string>();
-            }
-            //
-            var tasks_list = new List<Task>{
-                Task.Run(() => SID_Processor()),
-                Task.Run(() => SID_Motherboard()),
-                Task.Run(() => SID_BIOS()),
-                Task.Run(() => SID_Memory()),
-                Task.Run(() => SID_GPU()),
-                Task.Run(() => SID_Monitor()),
-                Task.Run(() => SID_Storage()),
-                Task.Run(() => SID_Battery())
+            var tasks = new Task[]{
+                Task.Run(SID_Processor),
+                Task.Run(SID_Motherboard),
+                Task.Run(SID_BIOS),
+                Task.Run(SID_Memory),
+                Task.Run(SID_GPU),
+                Task.Run(SID_Monitor),
+                Task.Run(SID_Storage),
+                Task.Run(SID_Battery)
             };
-            //
+            await Task.WhenAll(tasks);
             SortGridNatural();
             DGV_MainTable.ClearSelection();
             Btn_Save.Enabled = true;
@@ -320,10 +315,17 @@ namespace Glow.glow_tools{
         private void SID_Processor(){
             try{
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                if (!string.IsNullOrEmpty(__system_processor_id)){
-                    hwBag["CPU"].Add(__system_processor_id.Trim());
-                    AddRowSafe(software_lang.TSReadLangs("SystemIDTool", "sit_processor"), __system_processor_id.Trim());
-                }
+                try{
+                    using (var search_cpu = new ManagementObjectSearcher("root\\CIMV2", "SELECT ProcessorId FROM Win32_Processor")){
+                        foreach (ManagementObject query_cpu in search_cpu.Get().Cast<ManagementObject>()){
+                            string cpu_unique_id = (string)query_cpu["ProcessorId"];
+                            if (!string.IsNullOrEmpty(cpu_unique_id)){
+                                hwBag["CPU"].Add(cpu_unique_id.Trim());
+                                AddRowSafe(software_lang.TSReadLangs("SystemIDTool", "sit_processor"), cpu_unique_id.Trim());
+                            }
+                        }
+                    }
+                }catch (Exception){ }
             }catch (Exception){ }
         }
         // MOTHERBOARD SERIAL INFO
@@ -331,7 +333,7 @@ namespace Glow.glow_tools{
         private void SID_Motherboard(){
             try{
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                using (var search_motherboard = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_BaseBoard")){
+                using (var search_motherboard = new ManagementObjectSearcher("root\\CIMV2", "SELECT SerialNumber FROM Win32_BaseBoard")){
                     foreach (ManagementObject query_motherboard in search_motherboard.Get().Cast<ManagementObject>()){
                         string motherboard_serial = (string)query_motherboard["SerialNumber"];
                         if (!string.IsNullOrEmpty(motherboard_serial)){
@@ -347,7 +349,7 @@ namespace Glow.glow_tools{
         private void SID_BIOS(){
             try{
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                using (var search_bios = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_BIOS")){
+                using (var search_bios = new ManagementObjectSearcher("root\\CIMV2", "SELECT SerialNumber FROM Win32_BIOS")){
                     foreach (ManagementObject query_bios in search_bios.Get().Cast<ManagementObject>()){
                         string bios_serial = (string)query_bios["SerialNumber"];
                         if (!string.IsNullOrEmpty(bios_serial)){
@@ -363,7 +365,7 @@ namespace Glow.glow_tools{
         private void SID_Memory(){
             try{
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                using (var search_memory = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PhysicalMemory")){
+                using (var search_memory = new ManagementObjectSearcher("root\\CIMV2", "SELECT SerialNumber FROM Win32_PhysicalMemory")){
                     foreach (ManagementObject query_memory in search_memory.Get().Cast<ManagementObject>()){
                         string memory_serial = (string)query_memory["SerialNumber"];
                         if (!string.IsNullOrEmpty(memory_serial)){
@@ -379,7 +381,7 @@ namespace Glow.glow_tools{
         private void SID_GPU(){
             try{
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                using (var search_gpu = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_VideoController")){
+                using (var search_gpu = new ManagementObjectSearcher("root\\CIMV2", "SELECT PNPDeviceID FROM Win32_VideoController")){
                     foreach (ManagementObject query_gpu in search_gpu.Get().Cast<ManagementObject>()){
                         string gpu_pnp_device_id = (string)query_gpu["PNPDeviceID"];
                         if (!string.IsNullOrEmpty(gpu_pnp_device_id)){
@@ -395,7 +397,7 @@ namespace Glow.glow_tools{
         private void SID_Monitor(){
             try{
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                using (var search_monitor = new ManagementObjectSearcher(@"root\WMI", "SELECT * FROM WmiMonitorID")){
+                using (var search_monitor = new ManagementObjectSearcher(@"root\WMI", "SELECT SerialNumberID FROM WmiMonitorID")){
                     foreach (ManagementObject query_monitor in search_monitor.Get().Cast<ManagementObject>()){
                         string monitor_serial = GlowMain.GetMonitorFromUShortArray((ushort[])query_monitor["SerialNumberID"]);
                         if (!string.IsNullOrEmpty(monitor_serial)) {
@@ -411,7 +413,7 @@ namespace Glow.glow_tools{
         private void SID_Storage(){
             try{
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                using (var search_storage = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_DiskDrive")){
+                using (var search_storage = new ManagementObjectSearcher("root\\CIMV2", "SELECT SerialNumber FROM Win32_DiskDrive")){
                     foreach (ManagementObject query_storage in search_storage.Get().Cast<ManagementObject>()){
                         string disk_serial = (string)query_storage["SerialNumber"];
                         if (!string.IsNullOrEmpty(disk_serial)){
@@ -427,7 +429,7 @@ namespace Glow.glow_tools{
         private void SID_Battery(){
             try{
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                using (var search_battery = new ManagementObjectSearcher("root\\WMI", "SELECT * FROM BatteryStaticData")){
+                using (var search_battery = new ManagementObjectSearcher("root\\WMI", "SELECT SerialNumber FROM BatteryStaticData")){
                     foreach (ManagementObject query_battery in search_battery.Get().Cast<ManagementObject>()){
                         string battery_serial = (string)query_battery["SerialNumber"];
                         if (!string.IsNullOrEmpty(battery_serial)){
@@ -441,11 +443,10 @@ namespace Glow.glow_tools{
         // NATURAL SORTING
         // ======================================================================================================
         private void SortGridNatural(){
-            var rows = DGV_MainTable.Rows.Cast<DataGridViewRow>().Where(r => !r.IsNewRow).Select(r => new { Name = r.Cells[0].Value?.ToString(), Value = r.Cells[1].Value?.ToString() }).OrderBy(x => TSNaturalSortKey(x.Name, CultureInfo.CurrentCulture)).ToList();
+            var rows = DGV_MainTable.Rows.Cast<DataGridViewRow>().Where(r => !r.IsNewRow).Select(r => new { Name = r.Cells[0].Value?.ToString() ?? "", Value = r.Cells[1].Value?.ToString() }).OrderBy(x => TSNaturalSortKey(x.Name, CultureInfo.CurrentCulture)).ToList();
             DGV_MainTable.Rows.Clear();
-            foreach (var item in rows){
+            foreach (var item in rows)
                 DGV_MainTable.Rows.Add(item.Name, item.Value);
-            }
         }
     }
 }

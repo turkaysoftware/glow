@@ -1,6 +1,6 @@
 ﻿// ======================================================================================================
 // Türkay Software - C# Custom Graphics UI Library
-// Library Version: v26.2
+// Library Version: v26.3
 // © Eray Türkay
 // ======================================================================================================
 
@@ -11,6 +11,7 @@
 // - CheckBox
 // - DateTimePicker
 // - FlowLayoutPanel
+// - Panel
 // - ListBox
 // - RadioButton
 // - TrackBar
@@ -751,6 +752,153 @@ namespace Glow
             Rectangle textBounds = new Rectangle(e.Bounds.X + 3, e.Bounds.Y, e.Bounds.Width - 3, e.Bounds.Height);
             TextFormatFlags flags = TextFormatFlags.VerticalCenter | TextFormatFlags.Left | TextFormatFlags.NoPrefix;
             TextRenderer.DrawText(e.Graphics, this.Items[e.Index].ToString(), this.Font, textBounds, foreColor, flags);
+        }
+    }
+    #endregion
+    // ======================================================================================================
+    #region TS Custom Panel
+    public class TSCustomPanel : Panel
+    {
+        // Fields
+        private int borderRadius = 10;
+        private Color borderColor = Color.DodgerBlue;
+        private int borderSize = 0;
+        // Cache objects for performance
+        private GraphicsPath pathSurface;
+        private GraphicsPath pathBorder;
+        [Category("TS Appearance")]
+        [Description("Specifies the radius of the border corners.")]
+        public int BorderRadius
+        {
+            get => borderRadius;
+            set { borderRadius = value; RecreatePaths(); this.Invalidate(); }
+        }
+        [Category("TS Appearance")]
+        [Description("Specifies the color of the border.")]
+        public Color BorderColor
+        {
+            get => borderColor;
+            set { borderColor = value; this.Invalidate(); }
+        }
+        [Category("TS Appearance")]
+        [Description("Specifies the thickness of the border.")]
+        public int BorderSize
+        {
+            get => borderSize;
+            set { borderSize = value; RecreatePaths(); this.Invalidate(); }
+        }
+        // Constructor
+        public TSCustomPanel()
+        {
+            this.DoubleBuffered = true;
+            this.BackColor = Color.White;
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer, true);
+        }
+        private void RecreatePaths()
+        {
+            pathSurface?.Dispose();
+            pathBorder?.Dispose();
+            if (this.Width <= 0 || this.Height <= 0) return;
+            float scale = this.DeviceDpi / 96f;
+            float scaledBorderSize = borderSize * scale;
+            float scaledRadius = borderRadius * scale;
+            RectangleF rectSurface = new RectangleF(0.1f, 0.1f, this.Width - 0.2f, this.Height - 0.2f);
+            RectangleF rectBorder = new RectangleF(scaledBorderSize / 2f, scaledBorderSize / 2f, this.Width - scaledBorderSize, this.Height - scaledBorderSize);
+            if (scaledRadius > 1)
+            {
+                pathSurface = GetRoundedRectangle(rectSurface, scaledRadius);
+                pathBorder = GetRoundedRectangle(rectBorder, scaledRadius - (scaledBorderSize / 2f));
+            }
+            else
+            {
+                pathSurface = null;
+                pathBorder = null;
+            }
+        }
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (pathSurface == null && borderRadius > 1) RecreatePaths();
+            //
+            Graphics g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            //
+            this.Region = null;
+            if (this.Parent != null)
+            {
+                using (var parentBrush = new SolidBrush(this.Parent.BackColor))
+                {
+                    g.FillRectangle(parentBrush, 0, 0, this.Width, this.Height);
+                }
+            }
+            if (borderRadius > 1 && pathSurface != null)
+            {
+                using (SolidBrush brush = new SolidBrush(this.BackColor))
+                {
+                    g.FillPath(brush, pathSurface);
+                }
+                if (borderSize > 0)
+                {
+                    float scale = this.DeviceDpi / 96f;
+                    using (Pen penBorder = new Pen(borderColor, borderSize * scale))
+                    {
+                        penBorder.Alignment = PenAlignment.Center;
+                        g.DrawPath(penBorder, pathBorder);
+                    }
+                }
+            }
+            else
+            {
+                using (SolidBrush brush = new SolidBrush(this.BackColor))
+                    g.FillRectangle(brush, 0, 0, this.Width, this.Height);
+                if (borderSize > 0)
+                {
+                    float scale = this.DeviceDpi / 96f;
+                    float scaledBorderSize = borderSize * scale;
+                    using (Pen penBorder = new Pen(borderColor, scaledBorderSize))
+                    {
+                        g.DrawRectangle(penBorder, scaledBorderSize / 2f, scaledBorderSize / 2f, this.Width - scaledBorderSize, this.Height - scaledBorderSize);
+                    }
+                }
+            }
+        }
+        private GraphicsPath GetRoundedRectangle(RectangleF rect, float radius)
+        {
+            GraphicsPath path = new GraphicsPath();
+            float curveSize = radius * 2f;
+            //
+            if (curveSize > rect.Width) curveSize = rect.Width;
+            if (curveSize > rect.Height) curveSize = rect.Height;
+            if (curveSize <= 0) curveSize = 0.1f;
+            //
+            path.StartFigure();
+            path.AddArc(rect.X, rect.Y, curveSize, curveSize, 180, 90);
+            path.AddArc(rect.Right - curveSize, rect.Y, curveSize, curveSize, 270, 90);
+            path.AddArc(rect.Right - curveSize, rect.Bottom - curveSize, curveSize, curveSize, 0, 90);
+            path.AddArc(rect.X, rect.Bottom - curveSize, curveSize, curveSize, 90, 90);
+            path.CloseFigure();
+            return path;
+        }
+        protected override void OnResize(EventArgs eventargs)
+        {
+            base.OnResize(eventargs);
+            RecreatePaths();
+            this.Invalidate();
+        }
+        protected override void OnParentBackColorChanged(EventArgs e)
+        {
+            base.OnParentBackColorChanged(e);
+            this.Invalidate();
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                pathSurface?.Dispose();
+                pathBorder?.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
     #endregion

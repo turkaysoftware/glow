@@ -1,17 +1,19 @@
-﻿using System;
-using System.IO;
-using System.Net;
-using System.Linq;
-using System.Text;
-using System.Drawing;
-using Microsoft.Win32;
-using System.Windows.Forms;
-using System.Globalization;
-using System.Drawing.Imaging;
-using System.Drawing.Drawing2D;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Glow{
     internal class TSModules{
@@ -111,29 +113,211 @@ namespace Glow{
                 m_form.Activate();
             }
         }
+        // TS LOGGER
+        // ======================================================================================================
+        public static class TSLogger{
+            private static readonly object _lock = new object();
+            private static bool _fileEnabled;
+            private static bool _consoleEnabled;
+            private static string _currentLogFile;
+            private static readonly string _logDir;
+            private static StreamWriter _writer;
+            /// <summary>
+            /// Full path to the log directory (independent of enabled state).
+            /// </summary>
+            public static string LogDirectory => _logDir;
+            /// <summary>
+            /// Full path to the current session log file (null if not initialized / disabled).
+            /// </summary>
+            public static string CurrentLogFile{
+                get { lock (_lock) { return _currentLogFile; } }
+            }
+            static TSLogger(){
+                _logDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "g_logs");
+                // Deterministic cleanup on shutdown
+                try{
+                    AppDomain.CurrentDomain.ProcessExit += (_, __) => CloseWriter_NoThrow();
+                    AppDomain.CurrentDomain.DomainUnload += (_, __) => CloseWriter_NoThrow();
+                }catch { }
+            }
+            /// <summary>
+            /// Enables/disables logging and (re)initializes the session log file.
+            /// Each Enable(true, ...) call creates a NEW log file for that run.
+            /// </summary>
+            public static void Enable(bool fileEnabled, bool consoleEnabled){
+                lock (_lock){
+                    _fileEnabled = fileEnabled;
+                    _consoleEnabled = consoleEnabled;
+                    CloseWriter_NoThrow();
+                    if (!_fileEnabled){
+                        _currentLogFile = null;
+                        return;
+                    }
+                    InitializeInternal_NoThrow();
+                }
+            }
+            public static void Log(string message){
+                lock (_lock){
+                    if (!_fileEnabled && !_consoleEnabled) return;
+                    Write_NoLock(message);
+                }
+            }
+            /// <summary>
+            /// Optional overload. Prefer TSErrorLog for formatted exceptions.
+            /// </summary>
+            public static void Log(Exception ex){
+                if (ex == null) return;
+                Log(ex.ToString());
+            }
+            private static void InitializeInternal_NoThrow(){
+                try{
+                    if (!Directory.Exists(_logDir)){
+                        Directory.CreateDirectory(_logDir);
+                    }
+                    //
+                    string stamp = DateTime.Now.ToString("yyyyMMdd_HHmmss_fff");
+                    string baseName = $"Glow_{Dns.GetHostName()}_{stamp}";
+                    string path;
+                    //
+                    for (int i = 0; i < 1000; i++){
+                        string suffix = (i == 0) ? "" : "_" + i.ToString();
+                        path = Path.Combine(_logDir, baseName + suffix + ".log");
+                        try{
+                            var fs = new FileStream(path, FileMode.CreateNew, FileAccess.Write, FileShare.Read);
+                            _currentLogFile = path;
+                            _writer = new StreamWriter(fs, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)){
+                                AutoFlush = true
+                            };
+                            return;
+                        }catch (IOException){
+                            continue;
+                        }
+                    }
+                    _writer = null;
+                    _currentLogFile = null;
+                    _fileEnabled = false;
+                    if (_consoleEnabled)
+                        Console.WriteLine("[DEBUG] " + DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss") + " - TSLogger: Failed to create log file (attempted 1000 names). File logging disabled.");
+                }catch{
+                    _writer = null;
+                    _currentLogFile = null;
+                    _fileEnabled = false;
+                    if (_consoleEnabled)
+                        Console.WriteLine("[DEBUG] " + DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss") + " - TSLogger: Exception during log initialization. File logging disabled.");
+                }
+            }
+            private static void CloseWriter_NoThrow(){
+                try { _writer?.Dispose(); } catch { }
+                _writer = null;
+            }
+            private static void Write_NoLock(string text){
+                if (text == null) text = "";
+                string[] lines = SplitLines(text);
+                if (lines.Length == 0) return;
+                string prefix = DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss") + " - ";
+                // Console
+                if (_consoleEnabled){
+                    for (int i = 0; i < lines.Length; i++)
+                        Console.WriteLine("[DEBUG] " + prefix + lines[i]);
+                }
+                // File
+                if (_fileEnabled && _writer != null)
+                {
+                    for (int i = 0; i < lines.Length; i++)
+                        _writer.WriteLine(prefix + lines[i]);
+                }
+            }
+            private static string[] SplitLines(string text){
+                // Preserve empty lines inside the message (important for stack traces / formatted logs).
+                // But if the message is entirely empty (or only line breaks), keep prior behavior: write nothing.
+                if (string.IsNullOrEmpty(text)) return Array.Empty<string>();
+                // Normalize CRLF/CR to LF then split (keep empty entries).
+                string normalized = text.Replace("\r\n", "\n").Replace("\r", "\n");
+                string[] parts = normalized.Split(new[] { '\n' }, StringSplitOptions.None);
+                // If it's only empty lines, skip (matches previous "RemoveEmptyEntries => 0")
+                bool anyNonEmpty = false;
+                for (int i = 0; i < parts.Length; i++){
+                    if (parts[i].Length != 0) { anyNonEmpty = true; break; }
+                }
+                return anyNonEmpty ? parts : Array.Empty<string>();
+            }
+        }
+        // TS ERROR LOGGER
+        // ======================================================================================================
+        public static class TSErrorLog{
+            /// <summary>
+            /// Call this from all catch blocks.
+            /// context: A short description such as “SID_GPU()”, “Theme apply”, “Startup”.
+            /// </summary>
+            public static void LogException(Exception ex, string context = null){
+                if (ex == null) return;
+                //
+                string header = new string('-', 50);
+                string time = DateTime.Now.ToString("dd.MM.yyyy - HH:mm:ss");
+                string type = ex.GetType().FullName;
+                string msg = ex.Message ?? "";
+                string source = ex.Source ?? "";
+                string target = ex.TargetSite != null ? ex.TargetSite.ToString() : "";
+                int tid = Thread.CurrentThread.ManagedThreadId;
+                //
+                string firstFrameInfo = "";
+                try{
+                    var st = new StackTrace(ex, true);
+                    var f0 = st.FrameCount > 0 ? st.GetFrame(0) : null;
+                    if (f0 != null){
+                        string file = f0.GetFileName();
+                        int line = f0.GetFileLineNumber();
+                        if (!string.IsNullOrEmpty(file) && line > 0)
+                            firstFrameInfo = $"Location   : {file}:{line}\n";
+                    }
+                }catch { }
+                //
+                string body =
+                    header + "\n" +
+                    "EXCEPTION\n" +
+                    $"Time       : {time}\n" +
+                    (string.IsNullOrWhiteSpace(context) ? "" : $"Context    : {context}\n") +
+                    $"Type       : {type}\n" +
+                    $"Message    : {msg}\n" +
+                    (string.IsNullOrEmpty(source) ? "" : $"Source     : {source}\n") +
+                    (string.IsNullOrEmpty(target) ? "" : $"TargetSite : {target}\n") +
+                    $"ThreadId   : {tid}\n" +
+                    firstFrameInfo +
+                    "StackTrace :\n" +
+                    (ex.StackTrace ?? "") + "\n" +
+                    (ex.InnerException != null ? $"InnerException:\n{ex.InnerException}\n" : "") +
+                    header;
+                //
+                TSLogger.Log(body);
+            }
+        }
         // TS SOFTWARE COPYRIGHT DATE
         // ======================================================================================================
         public class TS_SoftwareCopyrightDate{
             public static string ts_scd_preloader = string.Format("\u00a9 2019-{0}, {1}.", DateTime.Now.Year, Application.CompanyName);
         }
-        // SETTINGS SAVE PATHS
+        // SETTINGS MODULE PATHS
         // ======================================================================================================
         public static readonly string ts_sf = StartupPath + @"\" + Application.ProductName + "Settings.ini";
         public static readonly string ts_settings_container = Path.GetFileNameWithoutExtension(ts_sf);
-        // SETTINGS SAVE CLASS
+        // SETTINGS MODULE CLASS
         // ======================================================================================================
-        public class TSSettingsSave{
+        public class TSSettingsModule{
             private readonly string _iniFilePath;
             private readonly object _fileLock = new object();
-            public TSSettingsSave(string filePath) { _iniFilePath = filePath; }
+            public TSSettingsModule(string filePath){
+                _iniFilePath = filePath;
+            }
+            // READ SETTINGS
             public string TSReadSettings(string sectionName, string keyName){
                 lock (_fileLock){
-                    if (!File.Exists(_iniFilePath)) { return string.Empty; }
+                    if (!File.Exists(_iniFilePath)) return string.Empty;
                     string[] lines = File.ReadAllLines(_iniFilePath, Encoding.UTF8);
                     bool isInSection = string.IsNullOrEmpty(sectionName);
                     foreach (string rawLine in lines){
                         string line = rawLine.Trim();
-                        if (line.Length == 0 || line.StartsWith(";")) { continue; }
+                        if (line.Length == 0 || line.StartsWith(";"))
+                            continue;
                         if (line.StartsWith("[") && line.EndsWith("]")){
                             isInSection = line.Equals("[" + sectionName + "]", StringComparison.OrdinalIgnoreCase);
                             continue;
@@ -151,6 +335,7 @@ namespace Glow{
                     return string.Empty;
                 }
             }
+            // WRITE/UPDATE SETTINGS
             public void TSWriteSettings(string sectionName, string keyName, string value){
                 lock (_fileLock){
                     List<string> lines = File.Exists(_iniFilePath) ? File.ReadAllLines(_iniFilePath, Encoding.UTF8).ToList() : new List<string>();
@@ -159,13 +344,15 @@ namespace Glow{
                     int insertIndex = lines.Count;
                     for (int i = 0; i < lines.Count; i++){
                         string trimmedLine = lines[i].Trim();
-                        if (trimmedLine.Length == 0 || trimmedLine.StartsWith(";")) { continue; }
+                        if (trimmedLine.Length == 0 || trimmedLine.StartsWith(";"))
+                            continue;
                         if (trimmedLine.StartsWith("[") && trimmedLine.EndsWith("]")){
                             if (sectionFound && !keyUpdated){
                                 insertIndex = i;
                                 break;
                             }
-                            sectionFound = trimmedLine.Equals("[" + sectionName + "]", StringComparison.OrdinalIgnoreCase);
+                            if (!string.IsNullOrEmpty(sectionName))
+                                sectionFound = trimmedLine.Equals("[" + sectionName + "]", StringComparison.OrdinalIgnoreCase);
                             continue;
                         }
                         if (sectionFound){
@@ -180,8 +367,8 @@ namespace Glow{
                             }
                         }
                     }
-                    if (!sectionFound){
-                        if (lines.Count > 0) { lines.Add(""); }
+                    if (!sectionFound && !string.IsNullOrEmpty(sectionName)){
+                        if (lines.Count > 0) lines.Add("");
                         lines.Add("[" + sectionName + "]");
                         lines.Add(keyName + "=" + value);
                     }else if (!keyUpdated){
@@ -189,10 +376,11 @@ namespace Glow{
                         lines.Insert(insertIndex, keyName + "=" + value);
                     }
                     try{
-                        File.WriteAllLines(_iniFilePath, lines, Encoding.UTF8);
+                        File.WriteAllText(_iniFilePath, string.Join(Environment.NewLine, lines), Encoding.UTF8);
                     }catch (IOException){ }
                 }
             }
+            // DELETE SETTINSG
             public void TSDeleteSetting(string sectionName, string keyName){
                 lock (_fileLock){
                     if (!File.Exists(_iniFilePath)) return;
@@ -200,9 +388,12 @@ namespace Glow{
                     bool isInSection = string.IsNullOrEmpty(sectionName);
                     for (int i = 0; i < lines.Count; i++){
                         string line = lines[i].Trim();
-                        if (line.Length == 0 || line.StartsWith(";")) continue;
+                        if (line.Length == 0 || line.StartsWith(";"))
+                            continue;
                         if (line.StartsWith("[") && line.EndsWith("]")){
-                            isInSection = line.Equals("[" + sectionName + "]", StringComparison.OrdinalIgnoreCase);
+                            if (!string.IsNullOrEmpty(sectionName))
+                                isInSection = line.Equals("[" + sectionName + "]", StringComparison.OrdinalIgnoreCase);
+
                             continue;
                         }
                         if (isInSection){
@@ -217,8 +408,172 @@ namespace Glow{
                         }
                     }
                     try{
-                        File.WriteAllLines(_iniFilePath, lines, Encoding.UTF8);
+                        File.WriteAllText(_iniFilePath, string.Join(Environment.NewLine, lines), Encoding.UTF8);
                     }catch (IOException){ }
+                }
+            }
+            // RENAME KEY
+            public bool TSRenameKey(string sectionName, string oldKey, string newKey){
+                lock (_fileLock){
+                    if (!File.Exists(_iniFilePath)) return false;
+                    List<string> lines = File.ReadAllLines(_iniFilePath, Encoding.UTF8).ToList();
+                    bool isInSection = string.IsNullOrEmpty(sectionName);
+                    foreach (var raw in lines){
+                        var line = raw.Trim();
+                        if (line.Length == 0 || line.StartsWith(";"))
+                            continue;
+                        if (line.StartsWith("[") && line.EndsWith("]")){
+                            if (!string.IsNullOrEmpty(sectionName))
+                                isInSection = line.Equals($"[{sectionName}]", StringComparison.OrdinalIgnoreCase);
+                            else
+                                isInSection = true;
+                            continue;
+                        }
+                        if (isInSection){
+                            int eq = line.IndexOf('=');
+                            if (eq > 0){
+                                var key = line.Substring(0, eq).Trim();
+                                if (key.Equals(newKey, StringComparison.OrdinalIgnoreCase))
+                                    return false;
+                            }
+                        }
+                    }
+                    isInSection = string.IsNullOrEmpty(sectionName);
+                    for (int i = 0; i < lines.Count; i++){
+                        string trimmed = lines[i].Trim();
+                        if (trimmed.Length == 0 || trimmed.StartsWith(";"))
+                            continue;
+                        if (trimmed.StartsWith("[") && trimmed.EndsWith("]")){
+                            if (!string.IsNullOrEmpty(sectionName))
+                                isInSection = trimmed.Equals($"[{sectionName}]", StringComparison.OrdinalIgnoreCase);
+                            else
+                                isInSection = true;
+                            continue;
+                        }
+                        if (isInSection){
+                            int eqIndex = trimmed.IndexOf('=');
+                            if (eqIndex > 0){
+                                string currentKey = trimmed.Substring(0, eqIndex).Trim();
+                                if (currentKey.Equals(oldKey, StringComparison.OrdinalIgnoreCase)){
+                                    string value = trimmed.Substring(eqIndex + 1).Trim();
+                                    lines[i] = $"{newKey}={value}";
+                                    try{
+                                        File.WriteAllText(_iniFilePath, string.Join(Environment.NewLine, lines), Encoding.UTF8);
+                                        return true;
+                                    }catch (IOException){
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return false;
+                }
+            }
+            // RENAME SECTION
+            public bool TSRenameSection(string oldSectionName, string newSectionName){
+                lock (_fileLock){
+                    if (!File.Exists(_iniFilePath)) return false;
+                    var lines = File.ReadAllLines(_iniFilePath, Encoding.UTF8).ToList();
+                    foreach (var raw in lines){
+                        var t = raw.Trim();
+                        if (t.StartsWith("[") && t.EndsWith("]")){
+                            var sec = t.Substring(1, t.Length - 2).Trim();
+                            if (sec.Equals(newSectionName, StringComparison.OrdinalIgnoreCase))
+                                return false;
+                        }
+                    }
+                    bool oldFound = false;
+                    for (int i = 0; i < lines.Count; i++){
+                        var trimmed = lines[i].Trim();
+                        if (trimmed.StartsWith("[") && trimmed.EndsWith("]")){
+                            var sec = trimmed.Substring(1, trimmed.Length - 2).Trim();
+                            if (sec.Equals(oldSectionName, StringComparison.OrdinalIgnoreCase)){
+                                lines[i] = $"[{newSectionName}]";
+                                oldFound = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!oldFound) return false;
+                    try{
+                        File.WriteAllText(_iniFilePath, string.Join(Environment.NewLine, lines), Encoding.UTF8);
+                        return true;
+                    }catch (IOException){
+                        return false;
+                    }
+                }
+            }
+            // ORDER / NORMALIZE KEYS IN A SECTION
+            public bool TSOrderSectionKeys(string sectionName, IEnumerable<string> orderedKeys){
+                if (orderedKeys == null) return false;
+                lock (_fileLock){
+                    if (!File.Exists(_iniFilePath)) return false;
+                    var lines = File.ReadAllLines(_iniFilePath, Encoding.UTF8).ToList();
+                    int sectionHeaderIndex = -1;
+                    int sectionEndIndex = lines.Count;
+                    for (int i = 0; i < lines.Count; i++){
+                        var t = lines[i].Trim();
+                        if (t.StartsWith("[") && t.EndsWith("]")){
+                            var sec = t.Substring(1, t.Length - 2).Trim();
+                            if (sec.Equals(sectionName, StringComparison.OrdinalIgnoreCase)){
+                                sectionHeaderIndex = i;
+                                for (int j = i + 1; j < lines.Count; j++){
+                                    var tj = lines[j].Trim();
+                                    if (tj.StartsWith("[") && tj.EndsWith("]")){
+                                        sectionEndIndex = j;
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    if (sectionHeaderIndex < 0) return false;
+                    var currentOrder = new List<string>();
+                    var kv = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                    for (int i = sectionHeaderIndex + 1; i < sectionEndIndex; i++){
+                        var raw = lines[i];
+                        var t = raw.Trim();
+                        if (t.Length == 0 || t.StartsWith(";")) continue;
+                        int eq = t.IndexOf('=');
+                        if (eq > 0){
+                            var key = t.Substring(0, eq).Trim();
+                            var val = t.Substring(eq + 1).Trim();
+                            if (!currentOrder.Contains(key, StringComparer.OrdinalIgnoreCase))
+                                currentOrder.Add(key);
+                            kv[key] = val;
+                        }
+                    }
+                    var orderedList = orderedKeys.Where(k => !string.IsNullOrWhiteSpace(k)).Select(k => k.Trim()).ToList();
+                    var desiredOrder = new List<string>();
+                    foreach (var key in orderedList){
+                        if (kv.ContainsKey(key))
+                            desiredOrder.Add(key);
+                    }
+                    foreach (var key in currentOrder){
+                        if (!orderedList.Contains(key, StringComparer.OrdinalIgnoreCase))
+                            desiredOrder.Add(key);
+                    }
+                    if (currentOrder.SequenceEqual(desiredOrder, StringComparer.OrdinalIgnoreCase))
+                        return true;
+                    var rebuilt = new List<string> { lines[sectionHeaderIndex].Trim() };
+                    foreach (var key in orderedList){
+                        if (kv.TryGetValue(key, out var val))
+                            rebuilt.Add($"{key}={val}");
+                    }
+                    foreach (var key in currentOrder){
+                        if (!orderedList.Contains(key, StringComparer.OrdinalIgnoreCase) && kv.TryGetValue(key, out var val))
+                            rebuilt.Add($"{key}={val}");
+                    }
+                    lines.RemoveRange(sectionHeaderIndex, sectionEndIndex - sectionHeaderIndex);
+                    lines.InsertRange(sectionHeaderIndex, rebuilt);
+                    try{
+                        File.WriteAllText(_iniFilePath, string.Join(Environment.NewLine, lines), Encoding.UTF8);
+                        return true;
+                    }catch (IOException){
+                        return false;
+                    }
                 }
             }
         }
@@ -269,44 +624,61 @@ namespace Glow{
         // ======================================================================================================
         public class TSGetLangs{
             private readonly string _iniFilePath;
+            private readonly string _fallbackIniFilePath = ts_lang_en;
             private readonly object _cacheLock = new object();
             private string[] _cachedLines = null;
             private DateTime _lastFileWriteTime = DateTime.MinValue;
-            public TSGetLangs(string iniFilePath) { _iniFilePath = iniFilePath; }
+            private string[] _cachedFallbackLines = null;
+            private DateTime _lastFallbackWriteTime = DateTime.MinValue;
+            public TSGetLangs(string iniFilePath){
+                _iniFilePath = iniFilePath;
+            }
             public string TSReadLangs(string sectionName, string keyName){
-                string[] iniLines = GetIniLinesCached();
+                string value = FindLangsValue(GetIniLinesCached(_iniFilePath, ref _cachedLines, ref _lastFileWriteTime), sectionName, keyName);
+                if (!string.IsNullOrEmpty(value)){
+                    return value;
+                }
+                value = FindLangsValue(GetIniLinesCached(_fallbackIniFilePath, ref _cachedFallbackLines, ref _lastFallbackWriteTime), sectionName, keyName);
+                if (!string.IsNullOrEmpty(value)){
+                    return value;
+                }
+                return "N/A Langs";
+            }
+            private string FindLangsValue(string[] iniLines, string sectionName, string keyName){
                 bool isInSection = string.IsNullOrEmpty(sectionName);
                 foreach (string rawLine in iniLines){
                     string line = rawLine.Trim();
-                    if (line.Length == 0 || line.StartsWith(";")) { continue; }
+                    if (line.Length == 0 || line.StartsWith(";"))
+                        continue;
                     if (line.StartsWith("[") && line.EndsWith("]")){
                         isInSection = line.Equals("[" + sectionName + "]", StringComparison.OrdinalIgnoreCase);
                         continue;
                     }
-                    if (isInSection){
-                        int eqIndex = line.IndexOf('=');
-                        if (eqIndex > 0){
-                            string currentKey = line.Substring(0, eqIndex).Trim();
-                            if (currentKey.Equals(keyName, StringComparison.OrdinalIgnoreCase)){
-                                return line.Substring(eqIndex + 1).Trim();
-                            }
-                        }
-                    }
+                    if (!isInSection)
+                        continue;
+                    int eqIndex = line.IndexOf('=');
+                    if (eqIndex <= 0)
+                        continue;
+                    string currentKey = line.Substring(0, eqIndex).Trim();
+                    if (currentKey.Equals(keyName, StringComparison.OrdinalIgnoreCase))
+                        return line.Substring(eqIndex + 1).Trim();
                 }
                 return string.Empty;
             }
-            private string[] GetIniLinesCached(){
+            private string[] GetIniLinesCached(string path, ref string[] cache, ref DateTime lastWriteTimeUtc){
                 lock (_cacheLock){
                     try{
-                        if (!File.Exists(_iniFilePath)) { return new string[0]; }
-                        DateTime currentWriteTime = File.GetLastWriteTimeUtc(_iniFilePath);
-                        if (_cachedLines == null || currentWriteTime != _lastFileWriteTime){
-                            _cachedLines = File.ReadAllLines(_iniFilePath, Encoding.UTF8);
-                            _lastFileWriteTime = currentWriteTime;
+                        if (string.IsNullOrEmpty(path) || !File.Exists(path)){
+                            return Array.Empty<string>();
                         }
-                        return _cachedLines;
+                        DateTime currentWriteTime = File.GetLastWriteTimeUtc(path);
+                        if (cache == null || currentWriteTime != lastWriteTimeUtc){
+                            cache = File.ReadAllLines(path, Encoding.UTF8);
+                            lastWriteTimeUtc = currentWriteTime;
+                        }
+                        return cache;
                     }catch (IOException){
-                        return new string[0];
+                        return Array.Empty<string>();
                     }
                 }
             }
@@ -470,27 +842,40 @@ namespace Glow{
                     return;
                 int useDark = enableRequire ? 1 : 0;
                 DwmSetWindowAttribute(targetForm.Handle, DWMWA_USE_IMMERSIVE_DARK_MODE, ref useDark, sizeof(int));
-                ApplyScrollTheme(targetForm, enableRequire ? "DarkMode_Explorer" : "Explorer");
+                string themeName = enableRequire ? "DarkMode_Explorer" : "Explorer";
+                ApplyScrollTheme(targetForm, themeName);
             }
             private static void ApplyScrollTheme(Control parentControl, string targetTheme){
                 if (parentControl == null || parentControl.IsDisposed)
                     return;
-                if (parentControl.Tag as string != targetTheme){
-                    SetWindowTheme(parentControl.Handle, targetTheme, null);
-                    parentControl.Tag = targetTheme;
+                if (parentControl is DataGridView || parentControl is ListBox || parentControl is ListView || parentControl is TreeView || parentControl is RichTextBox || parentControl is Panel || parentControl is Form || (parentControl is TextBox tb && tb.Multiline)){
+                    if (parentControl.Tag as string != targetTheme){
+                        SetWindowTheme(parentControl.Handle, targetTheme, null);
+                        if (parentControl is DataGridView dgv){
+                            foreach (Control c in dgv.Controls){
+                                if (c is ScrollBar)
+                                    SetWindowTheme(c.Handle, targetTheme, null);
+                            }
+                        }
+                        parentControl.Tag = targetTheme;
+                    }
                 }
-                foreach (Control childControl in parentControl.Controls){
-                    ApplyScrollTheme(childControl, targetTheme);
+                if (parentControl is Form || parentControl is TabControl || parentControl is TabPage || parentControl is Panel || parentControl is GroupBox || parentControl is UserControl){
+                    if (parentControl.HasChildren){
+                        foreach (Control childControl in parentControl.Controls){
+                            ApplyScrollTheme(childControl, targetTheme);
+                        }
+                    }
                 }
             }
-        }
-        public static int GetSystemTheme(int theme_mode){
-            if (theme_mode == 2){
-                using (var getSystemThemeKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize")){
-                    theme_mode = (int)(getSystemThemeKey?.GetValue("SystemUsesLightTheme") ?? 1);
+            public static int GetSystemTheme(int theme_mode){
+                if (theme_mode == 2){
+                    using (var getSystemThemeKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize")){
+                        theme_mode = (int)(getSystemThemeKey?.GetValue("SystemUsesLightTheme") ?? 1);
+                    }
                 }
+                return theme_mode;
             }
-            return theme_mode;
         }
         // DPI SENSITIVE DYNAMIC IMAGE RENDERER
         // ======================================================================================================
@@ -751,5 +1136,11 @@ namespace Glow{
         [DllImport("user32.dll", PreserveSig = true)]
         public static extern bool SetProcessDpiAwarenessContext(IntPtr dpiFlag);
         public static readonly IntPtr DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 = new IntPtr(-4);
+        // ENABLE EDGE WHEN BORDER IS CLOSED FOR WINDOWS 11
+        // ======================================================================================================
+        [DllImport("dwmapi.dll", SetLastError = true)]
+        public static extern int DwmSetWindowAttribute(IntPtr hwnd, int attribute, ref int attributeValue, int attributeSize);
+        public const int DWMWA_WINDOW_CORNER_PREFERENCE = 33;
+        public enum DWM_WINDOW_CORNER_PREFERENCE{ Default = 0, DoNotRound = 1, Round = 2, RoundSmall = 3 }
     }
 }

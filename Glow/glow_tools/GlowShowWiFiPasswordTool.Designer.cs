@@ -115,6 +115,7 @@
             this.SWPT_ExportBtn.BorderSize = 0;
             this.SWPT_ExportBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.SWPT_ExportBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.SWPT_ExportBtn.Enabled = false;
             this.SWPT_ExportBtn.FlatAppearance.BorderSize = 0;
             this.SWPT_ExportBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SWPT_ExportBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));

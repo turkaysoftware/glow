@@ -137,7 +137,7 @@ namespace Glow.glow_tools{
                 using (var ping = new Ping()){
                     for (int i = 0; i < item.Provider.DnsAddresses.Count; i++){
                         string ip = item.Provider.DnsAddresses[i];
-                        PingReply reply = await ping.SendPingAsync(ip, 5000);
+                        PingReply reply = await ping.SendPingAsync(ip, 3000);
                         if (reply.Status == IPStatus.Success){
                             sb.Append(string.Format("{0} - {1} {2} ms", ip, DNSTest_pingSendText, reply.RoundtripTime));
                             if (!best.HasValue || reply.RoundtripTime < best.Value){

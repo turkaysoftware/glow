@@ -15,6 +15,7 @@ namespace Glow.glow_tools{
         // VARIABLES
         // ======================================================================================================
         private long RAMBench_TargetMemoryUsage, RAMBench_totalAllocated = 0;
+        private const long RAMBench_ReserveBytes = 1024L * 1024L * 1024L;
         private const int RAMBench_AllocationSize = 100 * 1024 * 1024, RAMBench_SleepTime = 150; // 1 = 100 MB | 2 = 0.15 seconds
         private readonly List<byte[]> RAMBench_allocations = new List<byte[]>();
         private CancellationTokenSource RAMBench_cancellationTokenSource;
@@ -96,39 +97,42 @@ namespace Glow.glow_tools{
             //
             Bench_ram_settings();
             //
-            Task dynamic_ram_info = new Task(Dynamic_ram_status);
-            dynamic_ram_info.Start();
+            Task.Run(() => Dynamic_ram_status());
         }
         // DYNAMIC RAM STATUS
         // ======================================================================================================
-        private async void Dynamic_ram_status(){
-            try{
+        private async Task Dynamic_ram_status(){
+            try
+            {
                 ComputerInfo get_ram_info = new ComputerInfo();
                 do{
                     ulong total_ram = ulong.Parse(get_ram_info.TotalPhysicalMemory.ToString());
                     ulong usable_ram = ulong.Parse(get_ram_info.AvailablePhysicalMemory.ToString());
                     double usage_ram_percentage = (TS_FormatSizeNoType(total_ram) - TS_FormatSizeNoType(usable_ram)) / TS_FormatSizeNoType(total_ram) * 100;
                     if (Bench_TLP.InvokeRequired){
-                        Bench_TLP.Invoke(new Action(() =>{
+                        Bench_TLP.BeginInvoke(new Action(() => {
+                            if (IsDisposed || !IsHandleCreated)
+                                return;
                             Bench_TLP.Rows[0].Cells[1].Value = TS_FormatSize(total_ram);
                             Bench_TLP.Rows[1].Cells[1].Value = string.Format("{0} - {1}", TS_FormatSize(total_ram - usable_ram), string.Format("{0:0.00}%", usage_ram_percentage));
                             Bench_TLP.Rows[2].Cells[1].Value = TS_FormatSize(usable_ram);
                             Bench_TLP.ClearSelection();
                         }));
                     }else{
+                        if (IsDisposed || !IsHandleCreated)
+                            return;
                         Bench_TLP.Rows[0].Cells[1].Value = TS_FormatSize(total_ram);
                         Bench_TLP.Rows[1].Cells[1].Value = string.Format("{0} - {1}", TS_FormatSize(total_ram - usable_ram), string.Format("{0:0.00}%", usage_ram_percentage));
                         Bench_TLP.Rows[2].Cells[1].Value = TS_FormatSize(usable_ram);
                         Bench_TLP.ClearSelection();
                     }
-                    RAMBench_TargetMemoryUsage = (long)(Math.Round(TS_FormatSizeNoType(total_ram - usable_ram)) - 1) * 1024 * 1024 * 1024;
                     await Task.Delay(1000 - DateTime.Now.Millisecond);
                 } while (RAMBench_dynamicMemoryUsage);
-            }catch (Exception){ }
+            }catch (Exception) { }
         }
         // TIMER
         // ======================================================================================================
-        private async void BenchTimer(){
+        private async Task BenchTimer(){
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             //
@@ -144,16 +148,31 @@ namespace Glow.glow_tools{
                     int fh_hour = (int)(elapsed.TotalHours);
                     //
                     if (InvokeRequired){
-                        Invoke(new Action(() =>{
+                        BeginInvoke(new Action(() => {
+                            if (IsDisposed || !IsHandleCreated)
+                                return;
                             Text = string.Format(titleFormat, Application.ProductName) + " | " + elapsedTimeFormat + " " + string.Format("{0:D2}:{1:D2}:{2:D2}", fh_hour, fh_minute, fh_second);
                         }));
                     }else{
+                        if (IsDisposed || !IsHandleCreated)
+                            return;
                         Text = string.Format(titleFormat, Application.ProductName) + " | " + elapsedTimeFormat + " " + string.Format("{0:D2}:{1:D2}:{2:D2}", fh_hour, fh_minute, fh_second);
                     }
                     //
                     await Task.Delay(1000);
                 }
-            }catch (Exception){ }
+                try{
+                    TSGetLangs software_lang_end = new TSGetLangs(GlowMain.lang_path);
+                    string titleFormatEnd = software_lang_end.TSReadLangs("BenchRAM", "br_title");
+                    if (InvokeRequired){
+                        Invoke(new Action(() => {
+                            Text = string.Format(titleFormatEnd, Application.ProductName);
+                        }));
+                    }else{
+                        Text = string.Format(titleFormatEnd, Application.ProductName);
+                    }
+                }catch (Exception) { }
+            }catch (Exception) { }
         }
         // START ENGINE
         // ======================================================================================================
@@ -163,13 +182,21 @@ namespace Glow.glow_tools{
                 DialogResult warning_test = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(software_lang.TSReadLangs("BenchRAM", "br_warning"), "\n\n", "\n"));
                 if (warning_test == DialogResult.Yes){
                     RAMBench_cancellationTokenSource = new CancellationTokenSource();
+                    //
+                    RAMBench_totalAllocated = 0;
+                    RAMBench_stopMode = false;
+                    RAMBench_allocations.Clear();
+                    //
+                    ComputerInfo get_ram_info = new ComputerInfo();
+                    ulong usable_ram = ulong.Parse(get_ram_info.AvailablePhysicalMemory.ToString());
+                    long target = (long)usable_ram - RAMBench_ReserveBytes;
+                    RAMBench_TargetMemoryUsage = Math.Max(0, target);
+                    //
                     Bench_MStart.Enabled = false;
                     Bench_MStop.Enabled = true;
                     GlowMain.RAMbenchMode = true;
-                    RAMBench_stopMode = false;
                     //
-                    Task timer_start = new Task(BenchTimer);
-                    timer_start.Start();
+                    _ = Task.Run(async () => await BenchTimer());
                     //
                     await Task.Run(() => RAMBenchmarkEngine(RAMBench_cancellationTokenSource.Token));
                 }
@@ -186,7 +213,6 @@ namespace Glow.glow_tools{
             RAMBench_cancellationTokenSource?.Cancel();
             GlowMain.RAMbenchMode = false;
             RAMBench_stopMode = true;
-            RAMBench_dynamicMemoryUsage = false;
             Bench_MStart.Enabled = true;
             Bench_MStop.Enabled = false;
             Gc_run();
@@ -201,10 +227,14 @@ namespace Glow.glow_tools{
         }
         // RAM BENCHMARK ENGINE
         // ======================================================================================================
-        private async void RAMBenchmarkEngine(CancellationToken cancellationToken){
+        private async Task RAMBenchmarkEngine(CancellationToken cancellationToken){
             try{
-         
+                ComputerInfo get_ram_info = new ComputerInfo();
                 while (RAMBench_totalAllocated < RAMBench_TargetMemoryUsage && !cancellationToken.IsCancellationRequested){
+                    long current_available = (long)ulong.Parse(get_ram_info.AvailablePhysicalMemory.ToString());
+                    if (current_available <= RAMBench_ReserveBytes){
+                        break;
+                    }
                     byte[] allocation = new byte[RAMBench_AllocationSize];
                     for (int i = 0; i < RAMBench_AllocationSize; i += 4096){
                         allocation[i] = 1;
@@ -212,32 +242,44 @@ namespace Glow.glow_tools{
                     RAMBench_allocations.Add(allocation);
                     RAMBench_totalAllocated += RAMBench_AllocationSize;
                     long totalMemoryDuring = GC.GetTotalMemory(false); // Stop GC Launch Event
-                    Invoke(new Action(() =>{
+                    if (IsDisposed || !IsHandleCreated)
+                        break;
+                    BeginInvoke(new Action(() => {
+                        if (IsDisposed || !IsHandleCreated)
+                            return;
                         Bench_TLP.Rows[3].Cells[1].Value = TS_FormatSize(totalMemoryDuring);
                     }));
                     await Task.Delay(RAMBench_SleepTime);
                 }
             }catch (OutOfMemoryException){
-                Invoke(new Action(() =>{
-                  //  Bench_TLP.Rows[3].Cells[1].Value = "Out of memory exception caught!";
-                }));
+                if (!IsDisposed && IsHandleCreated)
+                {
+                    BeginInvoke(new Action(() => {
+                        //  Bench_TLP.Rows[3].Cells[1].Value = "Out of memory exception caught!";
+                    }));
+                }
             }
             finally{
-                Invoke(new Action(() =>{
-                    Bench_MStart.Enabled = true;
-                    Bench_MStop.Enabled = false;
-                    Gc_run();
-                    GlowMain.RAMbenchMode = false;
-                    TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
-                    Text = string.Format(software_lang.TSReadLangs("BenchRAM", "br_title"), Application.ProductName);
-                    Bench_TLP.Rows[3].Cells[1].Value = software_lang.TSReadLangs("BenchRAM", "br_await_start");
-                    if (!RAMBench_stopMode){
-                        TS_MessageBoxEngine.TS_MessageBox(this, 1, software_lang.TSReadLangs("BenchRAM", "br_end"));
-                    }else{
-                        RAMBench_stopMode = false;
-                        TS_MessageBoxEngine.TS_MessageBox(this, 1, software_lang.TSReadLangs("BenchRAM", "br_stopped"));
-                    }
-                }));
+                if (!IsDisposed && IsHandleCreated){
+                    BeginInvoke(new Action(() => {
+                        if (IsDisposed || !IsHandleCreated)
+                            return;
+                        Bench_MStart.Enabled = true;
+                        Bench_MStop.Enabled = false;
+                        Gc_run();
+                        GlowMain.RAMbenchMode = false;
+                        TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
+                        Text = string.Format(software_lang.TSReadLangs("BenchRAM", "br_title"), Application.ProductName);
+                        Bench_TLP.Rows[3].Cells[1].Value = software_lang.TSReadLangs("BenchRAM", "br_await_start");
+                        if (!RAMBench_stopMode){
+                            TS_MessageBoxEngine.TS_MessageBox(this, 1, software_lang.TSReadLangs("BenchRAM", "br_end"));
+                        }else
+                        {
+                            RAMBench_stopMode = false;
+                            TS_MessageBoxEngine.TS_MessageBox(this, 1, software_lang.TSReadLangs("BenchRAM", "br_stopped"));
+                        }
+                    }));
+                }
             }
         }
         // EXIT
@@ -248,6 +290,7 @@ namespace Glow.glow_tools{
                 TSGetLangs software_lang = new TSGetLangs(GlowMain.lang_path);
                 TS_MessageBoxEngine.TS_MessageBox(this, 2, software_lang.TSReadLangs("GToolsMessage", "gtm_benchmark_ram_prs_msg"));
             }else{
+                RAMBench_dynamicMemoryUsage = false;
                 RAMBenchStop();
             }
         }
