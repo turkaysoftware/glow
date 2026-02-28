@@ -84,7 +84,7 @@ Glow includes a built-in suite for system maintenance:
 
 ## 📸 Interface Preview
 
-<img width="1010" height="633" alt="Glow UI" src="https://github.com/user-attachments/assets/01760c48-4a1a-4b3c-80e5-61ad30d52d27" />
+<img width="1010" height="633" alt="Glow UI" src="https://github.com/user-attachments/assets/d6bd1735-aae1-4e57-9401-bfcc170e913b" />
 
 ---
 
