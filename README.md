@@ -1,4 +1,4 @@
-# 🌟 Glow | Advanced System Analysis Software
+# 🌟 Glow - Advanced System Analysis Software
 
 ![GitHub all releases](https://img.shields.io/github/downloads/turkaysoftware/glow/total?style=for-the-badge&color=DF313F)
 ![GitHub Repo stars](https://img.shields.io/github/stars/turkaysoftware/glow?style=for-the-badge&color=167C33)
@@ -28,7 +28,7 @@ Glow is free and will always be. If you find it useful, consider supporting the 
 * 🌓 **Modern UI:** Clean, intuitive interface compatible with Windows 11 design language, featuring Light, Dark, and System themes.
 * 🌍 **Multilingual:** It supports 15 different languages, primarily English. You can access the supported languages here: [Supported Languages](https://github.com/turkaysoftware/glow/discussions/20)
 * 📦 **Portable:** No installation required. Just download it, extract all files from the ZIP, select the appropriate architecture, and run it.
-* 📥 **Saving Data:** The ability to save all features offered in the interface as a **Text Document** or **HTML Document**, if desired.
+* 📥 **Saving Data:** The ability to save all features offered in the interface as a **Text Document**, **HTML Document** and **Markdown Document**, if desired.
 * 🔍 **System Identity:** Unique device ID generation for hardware verification (Shortcut: `CTRL + G`).
 
 ---
@@ -61,7 +61,7 @@ Glow queries deep system layers to provide professional-grade data across specia
 
 ## 🛠️ Advanced Tools Menu
 Glow includes a built-in suite for system maintenance:
-* **SFC & DISM Automation:** Automated system file repair and image health management.
+* **DISM & SFC Automation:** Automated system file repair and image health management.
 * **Cache Cleanup:** Instantly clear system, browser, and temporary junk files.
 * **Performance Benchmarks:** High-precision CPU, RAM, and Disk performance testing modules.
 * **Screen Overlay:** Real-time system monitoring overlay for power users.
