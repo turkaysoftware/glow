@@ -1,19 +1,19 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.Globalization;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices;
+using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
+using System.Drawing;
+using Microsoft.Win32;
 using System.Threading;
+using System.Diagnostics;
+using System.Globalization;
 using System.Windows.Forms;
+using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Runtime.InteropServices;
 
 namespace Glow{
     internal class TSModules{
@@ -683,24 +683,6 @@ namespace Glow{
                 }
             }
         }
-        // TURKISH LETTER CONVERTER
-        // ======================================================================================================
-        public static string ConvertTurkishCharacters(string input){
-            if (string.IsNullOrWhiteSpace(input)){ return input; }
-            var characterMap = new Dictionary<char, char>{
-                { 'Ç', 'C' }, { 'ç', 'c' },
-                { 'Ğ', 'G' }, { 'ğ', 'g' },
-                { 'İ', 'I' }, { 'ı', 'i' },
-                { 'Ö', 'O' }, { 'ö', 'o' },
-                { 'Ş', 'S' }, { 'ş', 's' },
-                { 'Ü', 'U' }, { 'ü', 'u' }
-            };
-            var result = new StringBuilder(input.Length);
-            foreach (var c in input){
-                result.Append(characterMap.TryGetValue(c, out var replacement) ? replacement : c);
-            }
-            return result.ToString().Trim();
-        }
         // TS THEME ENGINE
         // ======================================================================================================
         public class TS_ThemeEngine{
@@ -990,13 +972,29 @@ namespace Glow{
         }
         // DYNAMIC BUTTON WIDTH
         // ======================================================================================================
-        public static void TS_AdjustButtonWidth(Button render_button){
-            using (Graphics btn_graphics = render_button.CreateGraphics()){
-                SizeF text_size = btn_graphics.MeasureString(render_button.Text, render_button.Font);
-                int padding_btn = render_button.Padding.Left + render_button.Padding.Right;
-                render_button.Width = (int)(text_size.Width * 1.24) + padding_btn + 25;
-                // render_button.Height = Math.Max(render_button.Height, (int)(text_size.Height * 1.2) + render_button.Padding.Top + render_button.Padding.Bottom);
+        public static void TS_AdjustButtonWidth(Button btn){
+            if (btn == null || btn.IsDisposed) return;
+            float scale = btn.DeviceDpi / 96f;
+            Size text = TextRenderer.MeasureText(btn.Text ?? string.Empty, btn.Font);
+            int imgW = btn.Image?.Width ?? 0;
+            int padW = btn.Padding.Left + btn.Padding.Right;
+            int gap = (imgW > 0 && !string.IsNullOrEmpty(btn.Text)) ? (int)Math.Round(8 * scale) : 0;
+            int contentW;
+            //
+            switch (btn.TextImageRelation){
+                case TextImageRelation.ImageBeforeText:
+                case TextImageRelation.TextBeforeImage:
+                    contentW = imgW + gap + text.Width;
+                    break;
+                case TextImageRelation.ImageAboveText:
+                case TextImageRelation.TextAboveImage:
+                case TextImageRelation.Overlay:
+                default:
+                    contentW = Math.Max(imgW, text.Width);
+                    break;
             }
+            int chrome = (int)Math.Round(16 * scale);
+            btn.Width = contentW + padW + chrome;
         }
         // WINDOWS PROD KEY ALGORITHM
         // ======================================================================================================

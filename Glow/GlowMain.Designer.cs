@@ -205,31 +205,37 @@
             this.OS_ActivePower_V = new System.Windows.Forms.Label();
             this.OS_MSEdge = new System.Windows.Forms.Label();
             this.os_panel_7 = new System.Windows.Forms.Panel();
-            this.os_minidump_panel_1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.OS_Minidump = new System.Windows.Forms.Label();
-            this.OS_MinidumpOpen = new System.Windows.Forms.PictureBox();
-            this.OS_BSoDZIP = new System.Windows.Forms.PictureBox();
+            this.OS_WinLicenseTime = new System.Windows.Forms.Label();
+            this.OS_WinLicenseTime_V = new System.Windows.Forms.Label();
+            this.OS_WinLicenseURL = new System.Windows.Forms.Label();
+            this.OS_WinLicenseURL_V = new System.Windows.Forms.Label();
             this.OS_WinKey = new System.Windows.Forms.Label();
-            this.OS_Minidump_V = new System.Windows.Forms.Label();
             this.OS_MSOfficeVersion = new System.Windows.Forms.Label();
             this.OS_WinActiveChannel = new System.Windows.Forms.Label();
             this.OS_MSEdgeWebView_V = new System.Windows.Forms.Label();
             this.OS_MSOfficeVersion_V = new System.Windows.Forms.Label();
-            this.OS_NETFrameworkVersion = new System.Windows.Forms.Label();
             this.OS_MSEdgeWebView = new System.Windows.Forms.Label();
             this.OS_WinKey_V = new System.Windows.Forms.Label();
             this.OS_WinActiveChannel_V = new System.Windows.Forms.Label();
-            this.OS_NETFrameworkVersion_V = new System.Windows.Forms.Label();
             this.OS_MSStoreVersion = new System.Windows.Forms.Label();
             this.OS_MSStoreVersion_V = new System.Windows.Forms.Label();
             this.os_panel_8 = new System.Windows.Forms.Panel();
+            this.OS_WinLicenseVerifiURL = new System.Windows.Forms.Label();
+            this.os_minidump_panel_1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.OS_Minidump = new System.Windows.Forms.Label();
+            this.OS_MinidumpOpen = new System.Windows.Forms.PictureBox();
+            this.OS_BSoDZIP = new System.Windows.Forms.PictureBox();
+            this.OS_WinLicenseVerifiURL_V = new System.Windows.Forms.Label();
             this.OS_BSODDate = new System.Windows.Forms.Label();
             this.OS_Wallpaper_V = new System.Windows.Forms.Label();
+            this.OS_Minidump_V = new System.Windows.Forms.Label();
             this.OS_BSODDate_V = new System.Windows.Forms.Label();
             this.os_wallpaper_panel_1 = new System.Windows.Forms.FlowLayoutPanel();
             this.OS_Wallpaper = new System.Windows.Forms.Label();
             this.OS_WallpaperPreview = new System.Windows.Forms.PictureBox();
             this.OS_WallpaperOpen = new System.Windows.Forms.PictureBox();
+            this.OS_NETFrameworkVersion = new System.Windows.Forms.Label();
+            this.OS_NETFrameworkVersion_V = new System.Windows.Forms.Label();
             this.MB = new System.Windows.Forms.TabPage();
             this.MB_TLP = new System.Windows.Forms.TableLayoutPanel();
             this.mb_panel_1 = new System.Windows.Forms.Panel();
@@ -273,7 +279,6 @@
             this.MB_TPMManID = new System.Windows.Forms.Label();
             this.MB_TPMManID_V = new System.Windows.Forms.Label();
             this.mb_panel_2 = new System.Windows.Forms.Panel();
-            this.MB_BIOSUpdateBtn = new Glow.TSCustomButton();
             this.MB_LastBIOSTime = new System.Windows.Forms.Label();
             this.MB_LastBIOSTime_V = new System.Windows.Forms.Label();
             this.MB_BiosMode = new System.Windows.Forms.Label();
@@ -292,7 +297,6 @@
             this.CPU_ActiveCoreCount = new System.Windows.Forms.Label();
             this.CPU_ActiveCoreCount_V = new System.Windows.Forms.Label();
             this.CPU_Slot = new System.Windows.Forms.Label();
-            this.CPU_Selector_List = new Glow.TSCustomComboBox();
             this.CPU_Slot_V = new System.Windows.Forms.Label();
             this.CPU_L1 = new System.Windows.Forms.Label();
             this.CPU_L1_V = new System.Windows.Forms.Label();
@@ -350,7 +354,6 @@
             this.RAM_UsageRAMCount = new System.Windows.Forms.Label();
             this.RAM_EmptyRamCount = new System.Windows.Forms.Label();
             this.ram_panel_2 = new System.Windows.Forms.Panel();
-            this.RAM_Selector_List = new Glow.TSCustomComboBox();
             this.RAM_DataWidth_V = new System.Windows.Forms.Label();
             this.RAM_DataWidth = new System.Windows.Forms.Label();
             this.RAM_BankLabel_V = new System.Windows.Forms.Label();
@@ -381,7 +384,6 @@
             this.GPU_DirectXAll = new System.Windows.Forms.Label();
             this.GPU_DirectXMax_V = new System.Windows.Forms.Label();
             this.GPU_DirectXAll_V = new System.Windows.Forms.Label();
-            this.GPU_Selector_List = new Glow.TSCustomComboBox();
             this.GPU_VRAM = new System.Windows.Forms.Label();
             this.GPU_VRAM_V = new System.Windows.Forms.Label();
             this.GPU_CurrentColor = new System.Windows.Forms.Label();
@@ -422,7 +424,6 @@
             this.GPU_MonitorManName_V = new System.Windows.Forms.Label();
             this.GPU_MonitorUserFriendlyName = new System.Windows.Forms.Label();
             this.GPU_MonitorUserFriendlyName_V = new System.Windows.Forms.Label();
-            this.GPU_MonitorSelector_List = new Glow.TSCustomComboBox();
             this.GPU_ScreenBit = new System.Windows.Forms.Label();
             this.GPU_ScreenBit_V = new System.Windows.Forms.Label();
             this.GPU_ScreenRefreshRate = new System.Windows.Forms.Label();
@@ -473,7 +474,6 @@
             this.DISK_MediaLoaded_V = new System.Windows.Forms.Label();
             this.disk_panel_2 = new System.Windows.Forms.Panel();
             this.DISK_PBar_Label = new System.Windows.Forms.Label();
-            this.DISK_Selector_List = new Glow.TSCustomComboBox();
             this.DISK_PBar_BG = new System.Windows.Forms.Panel();
             this.DISK_PBar_FE = new System.Windows.Forms.Panel();
             this.DISK_Man_V = new System.Windows.Forms.Label();
@@ -500,19 +500,15 @@
             this.DISK_TTLP_Panel_4 = new System.Windows.Forms.Panel();
             this.DISK_TTLP_P4_L2 = new System.Windows.Forms.Label();
             this.DISK_TTLP_P4_L1 = new System.Windows.Forms.Label();
-            this.DISK_TLP_PB_4 = new Glow.TSCustomPanel();
             this.DISK_TTLP_Panel_3 = new System.Windows.Forms.Panel();
             this.DISK_TTLP_P3_L2 = new System.Windows.Forms.Label();
             this.DISK_TTLP_P3_L1 = new System.Windows.Forms.Label();
-            this.DISK_TLP_PB_3 = new Glow.TSCustomPanel();
             this.DISK_TTLP_Panel_2 = new System.Windows.Forms.Panel();
             this.DISK_TTLP_P2_L2 = new System.Windows.Forms.Label();
             this.DISK_TTLP_P2_L1 = new System.Windows.Forms.Label();
-            this.DISK_TLP_PB_2 = new Glow.TSCustomPanel();
             this.DISK_TTLP_Panel_1 = new System.Windows.Forms.Panel();
             this.DISK_TTLP_P1_L2 = new System.Windows.Forms.Label();
             this.DISK_TTLP_P1_L1 = new System.Windows.Forms.Label();
-            this.DISK_TLP_PB_1 = new Glow.TSCustomPanel();
             this.DISK_TTLP_L1 = new System.Windows.Forms.Label();
             this.NETWORK = new System.Windows.Forms.TabPage();
             this.NET_TLP = new System.Windows.Forms.TableLayoutPanel();
@@ -525,7 +521,6 @@
             this.NET_DriverDate_V = new System.Windows.Forms.Label();
             this.NET_DriverVersion = new System.Windows.Forms.Label();
             this.NET_DriverVersion_V = new System.Windows.Forms.Label();
-            this.NET_Selector_List = new Glow.TSCustomComboBox();
             this.NET_IPv6Adress_V = new System.Windows.Forms.Label();
             this.NET_Physical_V = new System.Windows.Forms.Label();
             this.NET_IPv4Adress = new System.Windows.Forms.Label();
@@ -587,7 +582,6 @@
             this.USB_DeviceID_V = new System.Windows.Forms.Label();
             this.USB_InfFile = new System.Windows.Forms.Label();
             this.USB_InfFile_V = new System.Windows.Forms.Label();
-            this.USB_DeviceSelector_List = new Glow.TSCustomComboBox();
             this.USB_DriverDate = new System.Windows.Forms.Label();
             this.USB_DriverDate_V = new System.Windows.Forms.Label();
             this.USB_DriverVersion = new System.Windows.Forms.Label();
@@ -598,7 +592,6 @@
             this.USB_DeviceName_V = new System.Windows.Forms.Label();
             this.USB_DeviceSelector = new System.Windows.Forms.Label();
             this.usb_panel_1 = new System.Windows.Forms.Panel();
-            this.USB_Selector_List = new Glow.TSCustomComboBox();
             this.USB_ConMan = new System.Windows.Forms.Label();
             this.USB_ConMan_V = new System.Windows.Forms.Label();
             this.USB_ConDeviceStatus = new System.Windows.Forms.Label();
@@ -617,7 +610,6 @@
             this.SOUND_DriverDate_V = new System.Windows.Forms.Label();
             this.SOUND_DriverVersion = new System.Windows.Forms.Label();
             this.SOUND_DriverVersion_V = new System.Windows.Forms.Label();
-            this.SOUND_Selector_List = new Glow.TSCustomComboBox();
             this.SOUND_DeviceManufacturer = new System.Windows.Forms.Label();
             this.SOUND_DeviceManufacturer_V = new System.Windows.Forms.Label();
             this.SOUND_DeviceStatus = new System.Windows.Forms.Label();
@@ -660,12 +652,9 @@
             this.BATTERY_Voltage_V = new System.Windows.Forms.Label();
             this.BATTERY_RemainingChargeCapacity = new System.Windows.Forms.Label();
             this.BATTERY_RemainingChargeCapacity_V = new System.Windows.Forms.Label();
-            this.BATTERY_ReportBtn = new Glow.TSCustomButton();
             this.DRIVERS = new System.Windows.Forms.TabPage();
             this.OSD_TLP = new System.Windows.Forms.TableLayoutPanel();
             this.osd_panel_1 = new System.Windows.Forms.Panel();
-            this.OSD_TextBoxClearBtn = new Glow.TSCustomButton();
-            this.OSD_SortMode = new Glow.TSCustomCheckBox();
             this.OSD_TYSS = new System.Windows.Forms.Label();
             this.OSD_SearchDriverLabel = new System.Windows.Forms.Label();
             this.OSD_DataMainTable = new System.Windows.Forms.DataGridView();
@@ -674,8 +663,6 @@
             this.SERVICES = new System.Windows.Forms.TabPage();
             this.SERVICE_TLP = new System.Windows.Forms.TableLayoutPanel();
             this.service_panel_1 = new System.Windows.Forms.Panel();
-            this.SERVICE_TextBoxClearBtn = new Glow.TSCustomButton();
-            this.SERVICE_SortMode = new Glow.TSCustomCheckBox();
             this.SERVICE_TYS = new System.Windows.Forms.Label();
             this.SERVICE_SearchLabel = new System.Windows.Forms.Label();
             this.SERVICE_DataMainTable = new System.Windows.Forms.DataGridView();
@@ -684,8 +671,6 @@
             this.INSTAPPS = new System.Windows.Forms.TabPage();
             this.INSTAPPS_TLP = new System.Windows.Forms.TableLayoutPanel();
             this.instapps_panel_1 = new System.Windows.Forms.Panel();
-            this.INSTAPPS_TextBoxClearBtn = new Glow.TSCustomButton();
-            this.INSTAPPS_SortMode = new Glow.TSCustomCheckBox();
             this.INSTAPPS_TYUS = new System.Windows.Forms.Label();
             this.INSTAPPS_SearchAppsLabel = new System.Windows.Forms.Label();
             this.INSTAPPS_DataMainTable = new System.Windows.Forms.DataGridView();
@@ -694,20 +679,59 @@
             this.EXPORT = new System.Windows.Forms.TabPage();
             this.EXPORT_TLP = new System.Windows.Forms.TableLayoutPanel();
             this.print_panel_1 = new System.Windows.Forms.Panel();
-            this.EXPORT_StartEngineBtn = new Glow.TSCustomButton();
-            this.EXPORT_Selector_List = new Glow.TSCustomComboBox();
+            this.Export_ModeTitle = new System.Windows.Forms.Label();
+            this.EXPORT_CB_FLP = new System.Windows.Forms.FlowLayoutPanel();
             this.EXPORT_ProgressBGPanel = new System.Windows.Forms.Panel();
             this.EXPORT_ProgressFEPanel = new System.Windows.Forms.Panel();
             this.EXPORT_Selector = new System.Windows.Forms.Label();
             this.EXPORT_ProgessLabel = new System.Windows.Forms.Label();
             this.print_panel_2 = new System.Windows.Forms.Panel();
-            this.EXPORT_Donate = new Glow.TSCustomButton();
             this.EXPORT_DonateLabel = new System.Windows.Forms.Label();
             this.Header_InPanel = new System.Windows.Forms.Panel();
             this.HeaderImage = new System.Windows.Forms.PictureBox();
             this.HeaderText = new System.Windows.Forms.Label();
             this.MainToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.HeaderPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.OS_RecoveryModeBtn = new Glow.TSCustomButton();
+            this.MB_BIOSOpenBtn = new Glow.TSCustomButton();
+            this.MB_BIOSUpdateBtn = new Glow.TSCustomButton();
+            this.CPU_Selector_List = new Glow.TSCustomComboBox();
+            this.RAM_Selector_List = new Glow.TSCustomComboBox();
+            this.GPU_Selector_List = new Glow.TSCustomComboBox();
+            this.GPU_MonitorSelector_List = new Glow.TSCustomComboBox();
+            this.DISK_Selector_List = new Glow.TSCustomComboBox();
+            this.DISK_TLP_PB_4 = new Glow.TSCustomPanel();
+            this.DISK_TLP_PB_3 = new Glow.TSCustomPanel();
+            this.DISK_TLP_PB_2 = new Glow.TSCustomPanel();
+            this.DISK_TLP_PB_1 = new Glow.TSCustomPanel();
+            this.NET_Selector_List = new Glow.TSCustomComboBox();
+            this.USB_DeviceSelector_List = new Glow.TSCustomComboBox();
+            this.USB_Selector_List = new Glow.TSCustomComboBox();
+            this.SOUND_Selector_List = new Glow.TSCustomComboBox();
+            this.BATTERY_ReportBtn = new Glow.TSCustomButton();
+            this.OSD_TextBoxClearBtn = new Glow.TSCustomButton();
+            this.OSD_SortMode = new Glow.TSCustomCheckBox();
+            this.SERVICE_TextBoxClearBtn = new Glow.TSCustomButton();
+            this.SERVICE_SortMode = new Glow.TSCustomCheckBox();
+            this.INSTAPPS_TextBoxClearBtn = new Glow.TSCustomButton();
+            this.INSTAPPS_SortMode = new Glow.TSCustomCheckBox();
+            this.EXPORT_ModeSelector_List = new Glow.TSCustomComboBox();
+            this.EXPORT_CB_OS = new Glow.TSCustomCheckBox();
+            this.EXPORT_CB_MB = new Glow.TSCustomCheckBox();
+            this.EXPORT_CB_CPU = new Glow.TSCustomCheckBox();
+            this.EXPORT_CB_RAM = new Glow.TSCustomCheckBox();
+            this.EXPORT_CB_GPU = new Glow.TSCustomCheckBox();
+            this.EXPORT_CB_STORAGE = new Glow.TSCustomCheckBox();
+            this.EXPORT_CB_NETWORK = new Glow.TSCustomCheckBox();
+            this.EXPORT_CB_USB = new Glow.TSCustomCheckBox();
+            this.EXPORT_CB_SOUND = new Glow.TSCustomCheckBox();
+            this.EXPORT_CB_BATTERY = new Glow.TSCustomCheckBox();
+            this.EXPORT_CB_DRIVERS = new Glow.TSCustomCheckBox();
+            this.EXPORT_CB_SERVICES = new Glow.TSCustomCheckBox();
+            this.EXPORT_CB_APPS = new Glow.TSCustomCheckBox();
+            this.EXPORT_StartEngineBtn = new Glow.TSCustomButton();
+            this.EXPORT_Selector_List = new Glow.TSCustomComboBox();
+            this.EXPORT_Donate = new Glow.TSCustomButton();
             this.LeftMenuPanel.SuspendLayout();
             this.HeaderMenu.SuspendLayout();
             this.MainContent.SuspendLayout();
@@ -720,10 +744,10 @@
             this.os_panel_3.SuspendLayout();
             this.os_panel_6.SuspendLayout();
             this.os_panel_7.SuspendLayout();
+            this.os_panel_8.SuspendLayout();
             this.os_minidump_panel_1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OS_MinidumpOpen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OS_BSoDZIP)).BeginInit();
-            this.os_panel_8.SuspendLayout();
             this.os_wallpaper_panel_1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OS_WallpaperPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OS_WallpaperOpen)).BeginInit();
@@ -793,6 +817,7 @@
             this.EXPORT.SuspendLayout();
             this.EXPORT_TLP.SuspendLayout();
             this.print_panel_1.SuspendLayout();
+            this.EXPORT_CB_FLP.SuspendLayout();
             this.EXPORT_ProgressBGPanel.SuspendLayout();
             this.print_panel_2.SuspendLayout();
             this.Header_InPanel.SuspendLayout();
@@ -1185,9 +1210,9 @@
             this.tSWizardToolStripMenuItem,
             this.donateToolStripMenuItem,
             this.aboutToolStripMenuItem});
-            this.HeaderMenu.Location = new System.Drawing.Point(515, 9);
+            this.HeaderMenu.Location = new System.Drawing.Point(513, 9);
             this.HeaderMenu.Name = "HeaderMenu";
-            this.HeaderMenu.Size = new System.Drawing.Size(291, 24);
+            this.HeaderMenu.Size = new System.Drawing.Size(293, 24);
             this.HeaderMenu.TabIndex = 1;
             this.HeaderMenu.Text = "menuStrip1";
             // 
@@ -1222,7 +1247,7 @@
             this.lightThemeToolStripMenuItem.Name = "lightThemeToolStripMenuItem";
             this.lightThemeToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.lightThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.lightThemeToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.lightThemeToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.lightThemeToolStripMenuItem.Text = "Light Theme";
             this.lightThemeToolStripMenuItem.Click += new System.EventHandler(this.LightThemeToolStripMenuItem_Click);
             // 
@@ -1232,7 +1257,7 @@
             this.darkThemeToolStripMenuItem.Name = "darkThemeToolStripMenuItem";
             this.darkThemeToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.darkThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.darkThemeToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.darkThemeToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.darkThemeToolStripMenuItem.Text = "Dark Theme";
             this.darkThemeToolStripMenuItem.Click += new System.EventHandler(this.DarkThemeToolStripMenuItem_Click);
             // 
@@ -1240,7 +1265,7 @@
             // 
             this.systemThemeToolStripMenuItem.Name = "systemThemeToolStripMenuItem";
             this.systemThemeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.systemThemeToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.systemThemeToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.systemThemeToolStripMenuItem.Text = "System Theme";
             this.systemThemeToolStripMenuItem.Click += new System.EventHandler(this.SystemThemeToolStripMenuItem_Click);
             // 
@@ -1449,7 +1474,7 @@
             this.debugOnToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.debugOnToolStripMenuItem.Name = "debugOnToolStripMenuItem";
             this.debugOnToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.debugOnToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.debugOnToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.debugOnToolStripMenuItem.Text = "DebugOn";
             this.debugOnToolStripMenuItem.Click += new System.EventHandler(this.DebugOnToolStripMenuItem_Click);
             // 
@@ -1458,7 +1483,7 @@
             this.debugOffToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.debugOffToolStripMenuItem.Name = "debugOffToolStripMenuItem";
             this.debugOffToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
-            this.debugOffToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.debugOffToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.debugOffToolStripMenuItem.Text = "DebugOff";
             this.debugOffToolStripMenuItem.Click += new System.EventHandler(this.DebugOffToolStripMenuItem_Click);
             // 
@@ -1466,7 +1491,7 @@
             // 
             this.debugFolderToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.debugFolderToolStripMenuItem.Name = "debugFolderToolStripMenuItem";
-            this.debugFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.debugFolderToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.debugFolderToolStripMenuItem.Text = "DebugFolder";
             this.debugFolderToolStripMenuItem.Click += new System.EventHandler(this.DebugFolderToolStripMenuItem_Click);
             // 
@@ -1474,7 +1499,7 @@
             // 
             this.debugZIPToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.debugZIPToolStripMenuItem.Name = "debugZIPToolStripMenuItem";
-            this.debugZIPToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.debugZIPToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.debugZIPToolStripMenuItem.Text = "DebugZIP";
             this.debugZIPToolStripMenuItem.Click += new System.EventHandler(this.DebugZIPToolStripMenuItem_Click);
             // 
@@ -1482,7 +1507,7 @@
             // 
             this.debugDeleteToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.debugDeleteToolStripMenuItem.Name = "debugDeleteToolStripMenuItem";
-            this.debugDeleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.debugDeleteToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.debugDeleteToolStripMenuItem.Text = "DebugDelete";
             this.debugDeleteToolStripMenuItem.Click += new System.EventHandler(this.DebugDeleteToolStripMenuItem_Click);
             // 
@@ -1513,14 +1538,14 @@
             this.monitorTestTool});
             this.toolsToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // sFCandDISMAutoTool
             // 
             this.sFCandDISMAutoTool.Name = "sFCandDISMAutoTool";
             this.sFCandDISMAutoTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.sFCandDISMAutoTool.Size = new System.Drawing.Size(238, 22);
+            this.sFCandDISMAutoTool.Size = new System.Drawing.Size(239, 22);
             this.sFCandDISMAutoTool.Text = "sFCandDISMAutoTool";
             this.sFCandDISMAutoTool.Click += new System.EventHandler(this.SFCandDISMAutoTool_Click);
             // 
@@ -1528,7 +1553,7 @@
             // 
             this.cacheCleaningTool.Name = "cacheCleaningTool";
             this.cacheCleaningTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.cacheCleaningTool.Size = new System.Drawing.Size(238, 22);
+            this.cacheCleaningTool.Size = new System.Drawing.Size(239, 22);
             this.cacheCleaningTool.Text = "cacheCleaningTool";
             this.cacheCleaningTool.Click += new System.EventHandler(this.CacheCleaningTool_Click);
             // 
@@ -1536,7 +1561,7 @@
             // 
             this.benchCPUTool.Name = "benchCPUTool";
             this.benchCPUTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.benchCPUTool.Size = new System.Drawing.Size(238, 22);
+            this.benchCPUTool.Size = new System.Drawing.Size(239, 22);
             this.benchCPUTool.Text = "benchCPUTool";
             this.benchCPUTool.Click += new System.EventHandler(this.BenchCPUTool_Click);
             // 
@@ -1544,7 +1569,7 @@
             // 
             this.benchRAMTool.Name = "benchRAMTool";
             this.benchRAMTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.benchRAMTool.Size = new System.Drawing.Size(238, 22);
+            this.benchRAMTool.Size = new System.Drawing.Size(239, 22);
             this.benchRAMTool.Text = "benchRAMTool";
             this.benchRAMTool.Click += new System.EventHandler(this.BenchRAMTool_Click);
             // 
@@ -1552,7 +1577,7 @@
             // 
             this.benchDiskTool.Name = "benchDiskTool";
             this.benchDiskTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.benchDiskTool.Size = new System.Drawing.Size(238, 22);
+            this.benchDiskTool.Size = new System.Drawing.Size(239, 22);
             this.benchDiskTool.Text = "benchDiskTool";
             this.benchDiskTool.Click += new System.EventHandler(this.BenchDiskTool_Click);
             // 
@@ -1560,7 +1585,7 @@
             // 
             this.screenOverlayTool.Name = "screenOverlayTool";
             this.screenOverlayTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.screenOverlayTool.Size = new System.Drawing.Size(238, 22);
+            this.screenOverlayTool.Size = new System.Drawing.Size(239, 22);
             this.screenOverlayTool.Text = "screenOverlayTool";
             this.screenOverlayTool.Click += new System.EventHandler(this.ScreenOverlayTool_Click);
             // 
@@ -1568,7 +1593,7 @@
             // 
             this.dnsTestTool.Name = "dnsTestTool";
             this.dnsTestTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
-            this.dnsTestTool.Size = new System.Drawing.Size(238, 22);
+            this.dnsTestTool.Size = new System.Drawing.Size(239, 22);
             this.dnsTestTool.Text = "dnsTestTool";
             this.dnsTestTool.Click += new System.EventHandler(this.DnsTestTool_Click);
             // 
@@ -1576,7 +1601,7 @@
             // 
             this.quickAccessTool.Name = "quickAccessTool";
             this.quickAccessTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.quickAccessTool.Size = new System.Drawing.Size(238, 22);
+            this.quickAccessTool.Size = new System.Drawing.Size(239, 22);
             this.quickAccessTool.Text = "quickAccessTool";
             this.quickAccessTool.Click += new System.EventHandler(this.QuickAccessTool_Click);
             // 
@@ -1584,7 +1609,7 @@
             // 
             this.networkFixTool.Name = "networkFixTool";
             this.networkFixTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.networkFixTool.Size = new System.Drawing.Size(238, 22);
+            this.networkFixTool.Size = new System.Drawing.Size(239, 22);
             this.networkFixTool.Text = "networkFixTool";
             this.networkFixTool.Click += new System.EventHandler(this.NetworkFixTool_Click);
             // 
@@ -1592,7 +1617,7 @@
             // 
             this.showWiFiPasswordTool.Name = "showWiFiPasswordTool";
             this.showWiFiPasswordTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.showWiFiPasswordTool.Size = new System.Drawing.Size(238, 22);
+            this.showWiFiPasswordTool.Size = new System.Drawing.Size(239, 22);
             this.showWiFiPasswordTool.Text = "showWiFiPasswordTool";
             this.showWiFiPasswordTool.Click += new System.EventHandler(this.ShowWiFiPasswordTool_Click);
             // 
@@ -1600,7 +1625,7 @@
             // 
             this.bluetoothFinderToolToolStripMenuItem.Name = "bluetoothFinderToolToolStripMenuItem";
             this.bluetoothFinderToolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-            this.bluetoothFinderToolToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
+            this.bluetoothFinderToolToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.bluetoothFinderToolToolStripMenuItem.Text = "bluetoothFinderTool";
             this.bluetoothFinderToolToolStripMenuItem.Click += new System.EventHandler(this.BluetoothFinderToolToolStripMenuItem_Click);
             // 
@@ -1608,7 +1633,7 @@
             // 
             this.systemIdGeneratorTool.Name = "systemIdGeneratorTool";
             this.systemIdGeneratorTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.systemIdGeneratorTool.Size = new System.Drawing.Size(238, 22);
+            this.systemIdGeneratorTool.Size = new System.Drawing.Size(239, 22);
             this.systemIdGeneratorTool.Text = "systemIdGenerator";
             this.systemIdGeneratorTool.Click += new System.EventHandler(this.SystemIdGeneratorTool_Click);
             // 
@@ -1619,14 +1644,14 @@
             this.monitorDynamicRangeTestTool,
             this.monitorStuckPixelFixerTool});
             this.monitorTestTool.Name = "monitorTestTool";
-            this.monitorTestTool.Size = new System.Drawing.Size(238, 22);
+            this.monitorTestTool.Size = new System.Drawing.Size(239, 22);
             this.monitorTestTool.Text = "monitorTestTool";
             // 
             // monitorDeadPixelTestTool
             // 
             this.monitorDeadPixelTestTool.Name = "monitorDeadPixelTestTool";
             this.monitorDeadPixelTestTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.monitorDeadPixelTestTool.Size = new System.Drawing.Size(280, 22);
+            this.monitorDeadPixelTestTool.Size = new System.Drawing.Size(282, 22);
             this.monitorDeadPixelTestTool.Text = "monitorDeadPixelTestTool";
             this.monitorDeadPixelTestTool.Click += new System.EventHandler(this.MonitorDeadPixelTestTool_Click);
             // 
@@ -1634,7 +1659,7 @@
             // 
             this.monitorDynamicRangeTestTool.Name = "monitorDynamicRangeTestTool";
             this.monitorDynamicRangeTestTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.monitorDynamicRangeTestTool.Size = new System.Drawing.Size(280, 22);
+            this.monitorDynamicRangeTestTool.Size = new System.Drawing.Size(282, 22);
             this.monitorDynamicRangeTestTool.Text = "monitorDynamicRangeTestTool";
             this.monitorDynamicRangeTestTool.Click += new System.EventHandler(this.MonitorDynamicRangeTestTool_Click);
             // 
@@ -1642,7 +1667,7 @@
             // 
             this.monitorStuckPixelFixerTool.Name = "monitorStuckPixelFixerTool";
             this.monitorStuckPixelFixerTool.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.monitorStuckPixelFixerTool.Size = new System.Drawing.Size(280, 22);
+            this.monitorStuckPixelFixerTool.Size = new System.Drawing.Size(282, 22);
             this.monitorStuckPixelFixerTool.Text = "monitorStuckPixelFixerTool";
             this.monitorStuckPixelFixerTool.Click += new System.EventHandler(this.MonitorStuckPixelFixerToolToolStripMenuItem_Click);
             // 
@@ -1652,7 +1677,7 @@
             this.tSWizardToolStripMenuItem.Name = "tSWizardToolStripMenuItem";
             this.tSWizardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.tSWizardToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.tSWizardToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.tSWizardToolStripMenuItem.Text = "TSWizard";
             this.tSWizardToolStripMenuItem.Click += new System.EventHandler(this.TSWizardToolStripMenuItem_Click);
             // 
@@ -1739,7 +1764,7 @@
             this.OS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.OS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.OS_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.OS_TLP.Size = new System.Drawing.Size(802, 2359);
+            this.OS_TLP.Size = new System.Drawing.Size(802, 2559);
             this.OS_TLP.TabIndex = 2;
             // 
             // os_panel_1
@@ -3029,18 +3054,18 @@
             // os_panel_7
             // 
             this.os_panel_7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.os_panel_7.Controls.Add(this.os_minidump_panel_1);
+            this.os_panel_7.Controls.Add(this.OS_WinLicenseTime);
+            this.os_panel_7.Controls.Add(this.OS_WinLicenseTime_V);
+            this.os_panel_7.Controls.Add(this.OS_WinLicenseURL);
+            this.os_panel_7.Controls.Add(this.OS_WinLicenseURL_V);
             this.os_panel_7.Controls.Add(this.OS_WinKey);
-            this.os_panel_7.Controls.Add(this.OS_Minidump_V);
             this.os_panel_7.Controls.Add(this.OS_MSOfficeVersion);
             this.os_panel_7.Controls.Add(this.OS_WinActiveChannel);
             this.os_panel_7.Controls.Add(this.OS_MSEdgeWebView_V);
             this.os_panel_7.Controls.Add(this.OS_MSOfficeVersion_V);
-            this.os_panel_7.Controls.Add(this.OS_NETFrameworkVersion);
             this.os_panel_7.Controls.Add(this.OS_MSEdgeWebView);
             this.os_panel_7.Controls.Add(this.OS_WinKey_V);
             this.os_panel_7.Controls.Add(this.OS_WinActiveChannel_V);
-            this.os_panel_7.Controls.Add(this.OS_NETFrameworkVersion_V);
             this.os_panel_7.Controls.Add(this.OS_MSStoreVersion);
             this.os_panel_7.Controls.Add(this.OS_MSStoreVersion_V);
             this.os_panel_7.Dock = System.Windows.Forms.DockStyle.Top;
@@ -3050,63 +3075,60 @@
             this.os_panel_7.Size = new System.Drawing.Size(794, 322);
             this.os_panel_7.TabIndex = 6;
             // 
-            // os_minidump_panel_1
+            // OS_WinLicenseTime
             // 
-            this.os_minidump_panel_1.Controls.Add(this.OS_Minidump);
-            this.os_minidump_panel_1.Controls.Add(this.OS_MinidumpOpen);
-            this.os_minidump_panel_1.Controls.Add(this.OS_BSoDZIP);
-            this.os_minidump_panel_1.Location = new System.Drawing.Point(10, 284);
-            this.os_minidump_panel_1.Name = "os_minidump_panel_1";
-            this.os_minidump_panel_1.Size = new System.Drawing.Size(360, 20);
-            this.os_minidump_panel_1.TabIndex = 12;
+            this.OS_WinLicenseTime.AutoSize = true;
+            this.OS_WinLicenseTime.BackColor = System.Drawing.Color.Transparent;
+            this.OS_WinLicenseTime.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.OS_WinLicenseTime.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_WinLicenseTime.Location = new System.Drawing.Point(10, 239);
+            this.OS_WinLicenseTime.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.OS_WinLicenseTime.Name = "OS_WinLicenseTime";
+            this.OS_WinLicenseTime.Size = new System.Drawing.Size(164, 20);
+            this.OS_WinLicenseTime.TabIndex = 10;
+            this.OS_WinLicenseTime.Text = "Windows Lisans Süresi:";
             // 
-            // OS_Minidump
+            // OS_WinLicenseTime_V
             // 
-            this.OS_Minidump.AutoSize = true;
-            this.OS_Minidump.BackColor = System.Drawing.Color.Transparent;
-            this.OS_Minidump.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
-            this.OS_Minidump.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_Minidump.Location = new System.Drawing.Point(0, 0);
-            this.OS_Minidump.Margin = new System.Windows.Forms.Padding(0);
-            this.OS_Minidump.Name = "OS_Minidump";
-            this.OS_Minidump.Size = new System.Drawing.Size(132, 20);
-            this.OS_Minidump.TabIndex = 0;
-            this.OS_Minidump.Text = "Mavi Ekran Sayısı:";
-            this.OS_Minidump.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.OS_WinLicenseTime_V.AutoSize = true;
+            this.OS_WinLicenseTime_V.BackColor = System.Drawing.Color.Transparent;
+            this.OS_WinLicenseTime_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.OS_WinLicenseTime_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.OS_WinLicenseTime_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_WinLicenseTime_V.Location = new System.Drawing.Point(382, 239);
+            this.OS_WinLicenseTime_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.OS_WinLicenseTime_V.Name = "OS_WinLicenseTime_V";
+            this.OS_WinLicenseTime_V.Size = new System.Drawing.Size(37, 20);
+            this.OS_WinLicenseTime_V.TabIndex = 11;
+            this.OS_WinLicenseTime_V.Text = "N/A";
             // 
-            // OS_MinidumpOpen
+            // OS_WinLicenseURL
             // 
-            this.OS_MinidumpOpen.BackColor = System.Drawing.Color.Transparent;
-            this.OS_MinidumpOpen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.OS_MinidumpOpen.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.OS_MinidumpOpen.Dock = System.Windows.Forms.DockStyle.Left;
-            this.OS_MinidumpOpen.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_MinidumpOpen.Location = new System.Drawing.Point(135, 0);
-            this.OS_MinidumpOpen.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.OS_MinidumpOpen.Name = "OS_MinidumpOpen";
-            this.OS_MinidumpOpen.Size = new System.Drawing.Size(20, 20);
-            this.OS_MinidumpOpen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.OS_MinidumpOpen.TabIndex = 76;
-            this.OS_MinidumpOpen.TabStop = false;
-            this.OS_MinidumpOpen.Visible = false;
-            this.OS_MinidumpOpen.Click += new System.EventHandler(this.OS_MinidumpOpen_Click);
+            this.OS_WinLicenseURL.AutoSize = true;
+            this.OS_WinLicenseURL.BackColor = System.Drawing.Color.Transparent;
+            this.OS_WinLicenseURL.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.OS_WinLicenseURL.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_WinLicenseURL.Location = new System.Drawing.Point(10, 284);
+            this.OS_WinLicenseURL.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.OS_WinLicenseURL.Name = "OS_WinLicenseURL";
+            this.OS_WinLicenseURL.Size = new System.Drawing.Size(158, 20);
+            this.OS_WinLicenseURL.TabIndex = 12;
+            this.OS_WinLicenseURL.Text = "Aktivasyon Sunucusu:";
+            this.OS_WinLicenseURL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // OS_BSoDZIP
+            // OS_WinLicenseURL_V
             // 
-            this.OS_BSoDZIP.BackColor = System.Drawing.Color.Transparent;
-            this.OS_BSoDZIP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.OS_BSoDZIP.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.OS_BSoDZIP.Dock = System.Windows.Forms.DockStyle.Left;
-            this.OS_BSoDZIP.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_BSoDZIP.Location = new System.Drawing.Point(161, 0);
-            this.OS_BSoDZIP.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.OS_BSoDZIP.Name = "OS_BSoDZIP";
-            this.OS_BSoDZIP.Size = new System.Drawing.Size(20, 20);
-            this.OS_BSoDZIP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.OS_BSoDZIP.TabIndex = 77;
-            this.OS_BSoDZIP.TabStop = false;
-            this.OS_BSoDZIP.Visible = false;
-            this.OS_BSoDZIP.Click += new System.EventHandler(this.OS_BSoDZIP_Click);
+            this.OS_WinLicenseURL_V.AutoSize = true;
+            this.OS_WinLicenseURL_V.BackColor = System.Drawing.Color.Transparent;
+            this.OS_WinLicenseURL_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.OS_WinLicenseURL_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.OS_WinLicenseURL_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_WinLicenseURL_V.Location = new System.Drawing.Point(382, 284);
+            this.OS_WinLicenseURL_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.OS_WinLicenseURL_V.Name = "OS_WinLicenseURL_V";
+            this.OS_WinLicenseURL_V.Size = new System.Drawing.Size(37, 20);
+            this.OS_WinLicenseURL_V.TabIndex = 13;
+            this.OS_WinLicenseURL_V.Text = "N/A";
             // 
             // OS_WinKey
             // 
@@ -3121,20 +3143,6 @@
             this.OS_WinKey.TabIndex = 6;
             this.OS_WinKey.Text = "Windows Ürün Anahtarı:";
             this.OS_WinKey.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // OS_Minidump_V
-            // 
-            this.OS_Minidump_V.AutoSize = true;
-            this.OS_Minidump_V.BackColor = System.Drawing.Color.Transparent;
-            this.OS_Minidump_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
-            this.OS_Minidump_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.OS_Minidump_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_Minidump_V.Location = new System.Drawing.Point(382, 284);
-            this.OS_Minidump_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
-            this.OS_Minidump_V.Name = "OS_Minidump_V";
-            this.OS_Minidump_V.Size = new System.Drawing.Size(37, 20);
-            this.OS_Minidump_V.TabIndex = 13;
-            this.OS_Minidump_V.Text = "N/A";
             // 
             // OS_MSOfficeVersion
             // 
@@ -3190,19 +3198,6 @@
             this.OS_MSOfficeVersion_V.TabIndex = 5;
             this.OS_MSOfficeVersion_V.Text = "N/A";
             // 
-            // OS_NETFrameworkVersion
-            // 
-            this.OS_NETFrameworkVersion.AutoSize = true;
-            this.OS_NETFrameworkVersion.BackColor = System.Drawing.Color.Transparent;
-            this.OS_NETFrameworkVersion.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
-            this.OS_NETFrameworkVersion.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_NETFrameworkVersion.Location = new System.Drawing.Point(10, 239);
-            this.OS_NETFrameworkVersion.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
-            this.OS_NETFrameworkVersion.Name = "OS_NETFrameworkVersion";
-            this.OS_NETFrameworkVersion.Size = new System.Drawing.Size(184, 20);
-            this.OS_NETFrameworkVersion.TabIndex = 10;
-            this.OS_NETFrameworkVersion.Text = ".NET Framework Sürümü:";
-            // 
             // OS_MSEdgeWebView
             // 
             this.OS_MSEdgeWebView.AutoSize = true;
@@ -3244,20 +3239,6 @@
             this.OS_WinActiveChannel_V.TabIndex = 9;
             this.OS_WinActiveChannel_V.Text = "N/A";
             // 
-            // OS_NETFrameworkVersion_V
-            // 
-            this.OS_NETFrameworkVersion_V.AutoSize = true;
-            this.OS_NETFrameworkVersion_V.BackColor = System.Drawing.Color.Transparent;
-            this.OS_NETFrameworkVersion_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
-            this.OS_NETFrameworkVersion_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.OS_NETFrameworkVersion_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_NETFrameworkVersion_V.Location = new System.Drawing.Point(382, 239);
-            this.OS_NETFrameworkVersion_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
-            this.OS_NETFrameworkVersion_V.Name = "OS_NETFrameworkVersion_V";
-            this.OS_NETFrameworkVersion_V.Size = new System.Drawing.Size(37, 20);
-            this.OS_NETFrameworkVersion_V.TabIndex = 11;
-            this.OS_NETFrameworkVersion_V.Text = "N/A";
-            // 
             // OS_MSStoreVersion
             // 
             this.OS_MSStoreVersion.AutoSize = true;
@@ -3288,16 +3269,108 @@
             // os_panel_8
             // 
             this.os_panel_8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.os_panel_8.Controls.Add(this.OS_RecoveryModeBtn);
+            this.os_panel_8.Controls.Add(this.OS_WinLicenseVerifiURL);
+            this.os_panel_8.Controls.Add(this.os_minidump_panel_1);
+            this.os_panel_8.Controls.Add(this.OS_WinLicenseVerifiURL_V);
             this.os_panel_8.Controls.Add(this.OS_BSODDate);
             this.os_panel_8.Controls.Add(this.OS_Wallpaper_V);
+            this.os_panel_8.Controls.Add(this.OS_Minidump_V);
             this.os_panel_8.Controls.Add(this.OS_BSODDate_V);
             this.os_panel_8.Controls.Add(this.os_wallpaper_panel_1);
+            this.os_panel_8.Controls.Add(this.OS_NETFrameworkVersion);
+            this.os_panel_8.Controls.Add(this.OS_NETFrameworkVersion_V);
             this.os_panel_8.Dock = System.Windows.Forms.DockStyle.Top;
             this.os_panel_8.Location = new System.Drawing.Point(5, 2260);
             this.os_panel_8.Margin = new System.Windows.Forms.Padding(2, 1, 3, 1);
             this.os_panel_8.Name = "os_panel_8";
-            this.os_panel_8.Size = new System.Drawing.Size(794, 95);
+            this.os_panel_8.Size = new System.Drawing.Size(794, 295);
             this.os_panel_8.TabIndex = 7;
+            // 
+            // OS_WinLicenseVerifiURL
+            // 
+            this.OS_WinLicenseVerifiURL.AutoSize = true;
+            this.OS_WinLicenseVerifiURL.BackColor = System.Drawing.Color.Transparent;
+            this.OS_WinLicenseVerifiURL.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.OS_WinLicenseVerifiURL.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_WinLicenseVerifiURL.Location = new System.Drawing.Point(10, 14);
+            this.OS_WinLicenseVerifiURL.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.OS_WinLicenseVerifiURL.Name = "OS_WinLicenseVerifiURL";
+            this.OS_WinLicenseVerifiURL.Size = new System.Drawing.Size(239, 20);
+            this.OS_WinLicenseVerifiURL.TabIndex = 0;
+            this.OS_WinLicenseVerifiURL.Text = "Aktivasyon Doğrulama Sunucusu:";
+            // 
+            // os_minidump_panel_1
+            // 
+            this.os_minidump_panel_1.Controls.Add(this.OS_Minidump);
+            this.os_minidump_panel_1.Controls.Add(this.OS_MinidumpOpen);
+            this.os_minidump_panel_1.Controls.Add(this.OS_BSoDZIP);
+            this.os_minidump_panel_1.Location = new System.Drawing.Point(10, 104);
+            this.os_minidump_panel_1.Name = "os_minidump_panel_1";
+            this.os_minidump_panel_1.Size = new System.Drawing.Size(360, 20);
+            this.os_minidump_panel_1.TabIndex = 4;
+            // 
+            // OS_Minidump
+            // 
+            this.OS_Minidump.AutoSize = true;
+            this.OS_Minidump.BackColor = System.Drawing.Color.Transparent;
+            this.OS_Minidump.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.OS_Minidump.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_Minidump.Location = new System.Drawing.Point(0, 0);
+            this.OS_Minidump.Margin = new System.Windows.Forms.Padding(0);
+            this.OS_Minidump.Name = "OS_Minidump";
+            this.OS_Minidump.Size = new System.Drawing.Size(132, 20);
+            this.OS_Minidump.TabIndex = 0;
+            this.OS_Minidump.Text = "Mavi Ekran Sayısı:";
+            this.OS_Minidump.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // OS_MinidumpOpen
+            // 
+            this.OS_MinidumpOpen.BackColor = System.Drawing.Color.Transparent;
+            this.OS_MinidumpOpen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.OS_MinidumpOpen.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.OS_MinidumpOpen.Dock = System.Windows.Forms.DockStyle.Left;
+            this.OS_MinidumpOpen.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_MinidumpOpen.Location = new System.Drawing.Point(135, 0);
+            this.OS_MinidumpOpen.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.OS_MinidumpOpen.Name = "OS_MinidumpOpen";
+            this.OS_MinidumpOpen.Size = new System.Drawing.Size(20, 20);
+            this.OS_MinidumpOpen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.OS_MinidumpOpen.TabIndex = 76;
+            this.OS_MinidumpOpen.TabStop = false;
+            this.OS_MinidumpOpen.Visible = false;
+            this.OS_MinidumpOpen.Click += new System.EventHandler(this.OS_MinidumpOpen_Click);
+            // 
+            // OS_BSoDZIP
+            // 
+            this.OS_BSoDZIP.BackColor = System.Drawing.Color.Transparent;
+            this.OS_BSoDZIP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.OS_BSoDZIP.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.OS_BSoDZIP.Dock = System.Windows.Forms.DockStyle.Left;
+            this.OS_BSoDZIP.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_BSoDZIP.Location = new System.Drawing.Point(161, 0);
+            this.OS_BSoDZIP.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.OS_BSoDZIP.Name = "OS_BSoDZIP";
+            this.OS_BSoDZIP.Size = new System.Drawing.Size(20, 20);
+            this.OS_BSoDZIP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.OS_BSoDZIP.TabIndex = 77;
+            this.OS_BSoDZIP.TabStop = false;
+            this.OS_BSoDZIP.Visible = false;
+            this.OS_BSoDZIP.Click += new System.EventHandler(this.OS_BSoDZIP_Click);
+            // 
+            // OS_WinLicenseVerifiURL_V
+            // 
+            this.OS_WinLicenseVerifiURL_V.AutoSize = true;
+            this.OS_WinLicenseVerifiURL_V.BackColor = System.Drawing.Color.Transparent;
+            this.OS_WinLicenseVerifiURL_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.OS_WinLicenseVerifiURL_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.OS_WinLicenseVerifiURL_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_WinLicenseVerifiURL_V.Location = new System.Drawing.Point(382, 14);
+            this.OS_WinLicenseVerifiURL_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.OS_WinLicenseVerifiURL_V.Name = "OS_WinLicenseVerifiURL_V";
+            this.OS_WinLicenseVerifiURL_V.Size = new System.Drawing.Size(37, 20);
+            this.OS_WinLicenseVerifiURL_V.TabIndex = 1;
+            this.OS_WinLicenseVerifiURL_V.Text = "N/A";
             // 
             // OS_BSODDate
             // 
@@ -3305,11 +3378,11 @@
             this.OS_BSODDate.BackColor = System.Drawing.Color.Transparent;
             this.OS_BSODDate.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.OS_BSODDate.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_BSODDate.Location = new System.Drawing.Point(10, 14);
+            this.OS_BSODDate.Location = new System.Drawing.Point(10, 149);
             this.OS_BSODDate.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.OS_BSODDate.Name = "OS_BSODDate";
             this.OS_BSODDate.Size = new System.Drawing.Size(175, 20);
-            this.OS_BSODDate.TabIndex = 0;
+            this.OS_BSODDate.TabIndex = 6;
             this.OS_BSODDate.Text = "Son Mavi Ekran Zamanı:";
             // 
             // OS_Wallpaper_V
@@ -3319,12 +3392,26 @@
             this.OS_Wallpaper_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.OS_Wallpaper_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
             this.OS_Wallpaper_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_Wallpaper_V.Location = new System.Drawing.Point(382, 59);
+            this.OS_Wallpaper_V.Location = new System.Drawing.Point(382, 194);
             this.OS_Wallpaper_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.OS_Wallpaper_V.Name = "OS_Wallpaper_V";
             this.OS_Wallpaper_V.Size = new System.Drawing.Size(37, 20);
-            this.OS_Wallpaper_V.TabIndex = 3;
+            this.OS_Wallpaper_V.TabIndex = 9;
             this.OS_Wallpaper_V.Text = "N/A";
+            // 
+            // OS_Minidump_V
+            // 
+            this.OS_Minidump_V.AutoSize = true;
+            this.OS_Minidump_V.BackColor = System.Drawing.Color.Transparent;
+            this.OS_Minidump_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.OS_Minidump_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.OS_Minidump_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_Minidump_V.Location = new System.Drawing.Point(382, 104);
+            this.OS_Minidump_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.OS_Minidump_V.Name = "OS_Minidump_V";
+            this.OS_Minidump_V.Size = new System.Drawing.Size(37, 20);
+            this.OS_Minidump_V.TabIndex = 5;
+            this.OS_Minidump_V.Text = "N/A";
             // 
             // OS_BSODDate_V
             // 
@@ -3333,11 +3420,11 @@
             this.OS_BSODDate_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.OS_BSODDate_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
             this.OS_BSODDate_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OS_BSODDate_V.Location = new System.Drawing.Point(382, 14);
+            this.OS_BSODDate_V.Location = new System.Drawing.Point(382, 149);
             this.OS_BSODDate_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.OS_BSODDate_V.Name = "OS_BSODDate_V";
             this.OS_BSODDate_V.Size = new System.Drawing.Size(37, 20);
-            this.OS_BSODDate_V.TabIndex = 1;
+            this.OS_BSODDate_V.TabIndex = 7;
             this.OS_BSODDate_V.Text = "N/A";
             // 
             // os_wallpaper_panel_1
@@ -3345,10 +3432,11 @@
             this.os_wallpaper_panel_1.Controls.Add(this.OS_Wallpaper);
             this.os_wallpaper_panel_1.Controls.Add(this.OS_WallpaperPreview);
             this.os_wallpaper_panel_1.Controls.Add(this.OS_WallpaperOpen);
-            this.os_wallpaper_panel_1.Location = new System.Drawing.Point(10, 59);
+            this.os_wallpaper_panel_1.Location = new System.Drawing.Point(10, 194);
+            this.os_wallpaper_panel_1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.os_wallpaper_panel_1.Name = "os_wallpaper_panel_1";
             this.os_wallpaper_panel_1.Size = new System.Drawing.Size(360, 20);
-            this.os_wallpaper_panel_1.TabIndex = 2;
+            this.os_wallpaper_panel_1.TabIndex = 8;
             // 
             // OS_Wallpaper
             // 
@@ -3396,6 +3484,33 @@
             this.OS_WallpaperOpen.TabStop = false;
             this.OS_WallpaperOpen.Click += new System.EventHandler(this.OS_WallpaperOpen_Click);
             // 
+            // OS_NETFrameworkVersion
+            // 
+            this.OS_NETFrameworkVersion.AutoSize = true;
+            this.OS_NETFrameworkVersion.BackColor = System.Drawing.Color.Transparent;
+            this.OS_NETFrameworkVersion.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.OS_NETFrameworkVersion.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_NETFrameworkVersion.Location = new System.Drawing.Point(10, 59);
+            this.OS_NETFrameworkVersion.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.OS_NETFrameworkVersion.Name = "OS_NETFrameworkVersion";
+            this.OS_NETFrameworkVersion.Size = new System.Drawing.Size(184, 20);
+            this.OS_NETFrameworkVersion.TabIndex = 2;
+            this.OS_NETFrameworkVersion.Text = ".NET Framework Sürümü:";
+            // 
+            // OS_NETFrameworkVersion_V
+            // 
+            this.OS_NETFrameworkVersion_V.AutoSize = true;
+            this.OS_NETFrameworkVersion_V.BackColor = System.Drawing.Color.Transparent;
+            this.OS_NETFrameworkVersion_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.OS_NETFrameworkVersion_V.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.OS_NETFrameworkVersion_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.OS_NETFrameworkVersion_V.Location = new System.Drawing.Point(382, 59);
+            this.OS_NETFrameworkVersion_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.OS_NETFrameworkVersion_V.Name = "OS_NETFrameworkVersion_V";
+            this.OS_NETFrameworkVersion_V.Size = new System.Drawing.Size(37, 20);
+            this.OS_NETFrameworkVersion_V.TabIndex = 3;
+            this.OS_NETFrameworkVersion_V.Text = "N/A";
+            // 
             // MB
             // 
             this.MB.AutoScroll = true;
@@ -3424,7 +3539,7 @@
             this.MB_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.MB_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.MB_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.MB_TLP.Size = new System.Drawing.Size(802, 1220);
+            this.MB_TLP.Size = new System.Drawing.Size(802, 1265);
             this.MB_TLP.TabIndex = 2;
             // 
             // mb_panel_1
@@ -3750,7 +3865,7 @@
             this.mb_panel_3.Controls.Add(this.MB_TPMManID);
             this.mb_panel_3.Controls.Add(this.MB_TPMManID_V);
             this.mb_panel_3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.mb_panel_3.Location = new System.Drawing.Point(5, 806);
+            this.mb_panel_3.Location = new System.Drawing.Point(5, 851);
             this.mb_panel_3.Margin = new System.Windows.Forms.Padding(2, 1, 3, 1);
             this.mb_panel_3.Name = "mb_panel_3";
             this.mb_panel_3.Size = new System.Drawing.Size(794, 410);
@@ -4003,6 +4118,7 @@
             // 
             this.mb_panel_2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.mb_panel_2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.mb_panel_2.Controls.Add(this.MB_BIOSOpenBtn);
             this.mb_panel_2.Controls.Add(this.MB_BIOSUpdateBtn);
             this.mb_panel_2.Controls.Add(this.MB_LastBIOSTime);
             this.mb_panel_2.Controls.Add(this.MB_LastBIOSTime_V);
@@ -4020,33 +4136,8 @@
             this.mb_panel_2.Location = new System.Drawing.Point(5, 464);
             this.mb_panel_2.Margin = new System.Windows.Forms.Padding(2, 1, 3, 1);
             this.mb_panel_2.Name = "mb_panel_2";
-            this.mb_panel_2.Size = new System.Drawing.Size(794, 340);
+            this.mb_panel_2.Size = new System.Drawing.Size(794, 385);
             this.mb_panel_2.TabIndex = 1;
-            // 
-            // MB_BIOSUpdateBtn
-            // 
-            this.MB_BIOSUpdateBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.MB_BIOSUpdateBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.MB_BIOSUpdateBtn.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.MB_BIOSUpdateBtn.BorderRadius = 10;
-            this.MB_BIOSUpdateBtn.BorderSize = 0;
-            this.MB_BIOSUpdateBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.MB_BIOSUpdateBtn.FlatAppearance.BorderSize = 0;
-            this.MB_BIOSUpdateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MB_BIOSUpdateBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.MB_BIOSUpdateBtn.ForeColor = System.Drawing.Color.White;
-            this.MB_BIOSUpdateBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.MB_BIOSUpdateBtn.Location = new System.Drawing.Point(15, 286);
-            this.MB_BIOSUpdateBtn.Name = "MB_BIOSUpdateBtn";
-            this.MB_BIOSUpdateBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.MB_BIOSUpdateBtn.Size = new System.Drawing.Size(190, 36);
-            this.MB_BIOSUpdateBtn.TabIndex = 12;
-            this.MB_BIOSUpdateBtn.Text = "BIOS Update";
-            this.MB_BIOSUpdateBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.MB_BIOSUpdateBtn.TextColor = System.Drawing.Color.White;
-            this.MB_BIOSUpdateBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.MB_BIOSUpdateBtn.UseVisualStyleBackColor = false;
-            this.MB_BIOSUpdateBtn.Click += new System.EventHandler(this.MB_BIOSUpdateBtn_Click);
             // 
             // MB_LastBIOSTime
             // 
@@ -4317,33 +4408,6 @@
             this.CPU_Slot.Size = new System.Drawing.Size(98, 20);
             this.CPU_Slot.TabIndex = 24;
             this.CPU_Slot.Text = "İşlemci Slotu:";
-            // 
-            // CPU_Selector_List
-            // 
-            this.CPU_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
-            this.CPU_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
-            this.CPU_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.CPU_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.CPU_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
-            this.CPU_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
-            this.CPU_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.CPU_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
-            this.CPU_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.CPU_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CPU_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
-            this.CPU_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.CPU_Selector_List.FormattingEnabled = true;
-            this.CPU_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
-            this.CPU_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.CPU_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
-            this.CPU_Selector_List.Location = new System.Drawing.Point(386, 9);
-            this.CPU_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
-            this.CPU_Selector_List.Name = "CPU_Selector_List";
-            this.CPU_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
-            this.CPU_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
-            this.CPU_Selector_List.Size = new System.Drawing.Size(350, 28);
-            this.CPU_Selector_List.TabIndex = 1;
-            this.CPU_Selector_List.SelectedIndexChanged += new System.EventHandler(this.CPU_Selector_List_SelectedIndexChanged);
             // 
             // CPU_Slot_V
             // 
@@ -5151,33 +5215,6 @@
             this.ram_panel_2.Size = new System.Drawing.Size(794, 545);
             this.ram_panel_2.TabIndex = 0;
             // 
-            // RAM_Selector_List
-            // 
-            this.RAM_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
-            this.RAM_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
-            this.RAM_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.RAM_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.RAM_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
-            this.RAM_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
-            this.RAM_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.RAM_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
-            this.RAM_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.RAM_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.RAM_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
-            this.RAM_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.RAM_Selector_List.FormattingEnabled = true;
-            this.RAM_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
-            this.RAM_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.RAM_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
-            this.RAM_Selector_List.Location = new System.Drawing.Point(386, 9);
-            this.RAM_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
-            this.RAM_Selector_List.Name = "RAM_Selector_List";
-            this.RAM_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
-            this.RAM_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
-            this.RAM_Selector_List.Size = new System.Drawing.Size(325, 28);
-            this.RAM_Selector_List.TabIndex = 1;
-            this.RAM_Selector_List.SelectedIndexChanged += new System.EventHandler(this.RAM_Selector_List_SelectedIndexChanged);
-            // 
             // RAM_DataWidth_V
             // 
             this.RAM_DataWidth_V.AutoSize = true;
@@ -5609,33 +5646,6 @@
             this.GPU_DirectXAll_V.Size = new System.Drawing.Size(37, 20);
             this.GPU_DirectXAll_V.TabIndex = 19;
             this.GPU_DirectXAll_V.Text = "N/A";
-            // 
-            // GPU_Selector_List
-            // 
-            this.GPU_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
-            this.GPU_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
-            this.GPU_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.GPU_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.GPU_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
-            this.GPU_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
-            this.GPU_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.GPU_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
-            this.GPU_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.GPU_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.GPU_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
-            this.GPU_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.GPU_Selector_List.FormattingEnabled = true;
-            this.GPU_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
-            this.GPU_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.GPU_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
-            this.GPU_Selector_List.Location = new System.Drawing.Point(386, 9);
-            this.GPU_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
-            this.GPU_Selector_List.Name = "GPU_Selector_List";
-            this.GPU_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
-            this.GPU_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
-            this.GPU_Selector_List.Size = new System.Drawing.Size(350, 28);
-            this.GPU_Selector_List.TabIndex = 1;
-            this.GPU_Selector_List.SelectedIndexChanged += new System.EventHandler(this.GPU_Selector_List_SelectedIndexChanged);
             // 
             // GPU_VRAM
             // 
@@ -6205,33 +6215,6 @@
             this.GPU_MonitorUserFriendlyName_V.Size = new System.Drawing.Size(37, 20);
             this.GPU_MonitorUserFriendlyName_V.TabIndex = 3;
             this.GPU_MonitorUserFriendlyName_V.Text = "N/A";
-            // 
-            // GPU_MonitorSelector_List
-            // 
-            this.GPU_MonitorSelector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
-            this.GPU_MonitorSelector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
-            this.GPU_MonitorSelector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.GPU_MonitorSelector_List.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.GPU_MonitorSelector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
-            this.GPU_MonitorSelector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
-            this.GPU_MonitorSelector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.GPU_MonitorSelector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
-            this.GPU_MonitorSelector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.GPU_MonitorSelector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.GPU_MonitorSelector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
-            this.GPU_MonitorSelector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.GPU_MonitorSelector_List.FormattingEnabled = true;
-            this.GPU_MonitorSelector_List.HoverBackColor = System.Drawing.SystemColors.Window;
-            this.GPU_MonitorSelector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.GPU_MonitorSelector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
-            this.GPU_MonitorSelector_List.Location = new System.Drawing.Point(386, 9);
-            this.GPU_MonitorSelector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
-            this.GPU_MonitorSelector_List.Name = "GPU_MonitorSelector_List";
-            this.GPU_MonitorSelector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
-            this.GPU_MonitorSelector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
-            this.GPU_MonitorSelector_List.Size = new System.Drawing.Size(275, 28);
-            this.GPU_MonitorSelector_List.TabIndex = 1;
-            this.GPU_MonitorSelector_List.SelectedIndexChanged += new System.EventHandler(this.GPU_MonitorSelector_List_SelectedIndexChanged);
             // 
             // GPU_ScreenBit
             // 
@@ -6959,33 +6942,6 @@
             this.DISK_PBar_Label.Text = "N/A";
             this.DISK_PBar_Label.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
-            // DISK_Selector_List
-            // 
-            this.DISK_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
-            this.DISK_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
-            this.DISK_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.DISK_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DISK_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
-            this.DISK_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
-            this.DISK_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.DISK_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
-            this.DISK_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.DISK_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.DISK_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
-            this.DISK_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.DISK_Selector_List.FormattingEnabled = true;
-            this.DISK_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
-            this.DISK_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.DISK_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
-            this.DISK_Selector_List.Location = new System.Drawing.Point(382, 9);
-            this.DISK_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
-            this.DISK_Selector_List.Name = "DISK_Selector_List";
-            this.DISK_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
-            this.DISK_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
-            this.DISK_Selector_List.Size = new System.Drawing.Size(345, 28);
-            this.DISK_Selector_List.TabIndex = 26;
-            this.DISK_Selector_List.SelectedIndexChanged += new System.EventHandler(this.DISK_Selector_List_SelectedIndexChanged);
-            // 
             // DISK_PBar_BG
             // 
             this.DISK_PBar_BG.Controls.Add(this.DISK_PBar_FE);
@@ -7341,18 +7297,6 @@
             this.DISK_TTLP_P4_L1.Text = "Toplam:";
             this.DISK_TTLP_P4_L1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // DISK_TLP_PB_4
-            // 
-            this.DISK_TLP_PB_4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.DISK_TLP_PB_4.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.DISK_TLP_PB_4.BorderRadius = 7;
-            this.DISK_TLP_PB_4.BorderSize = 0;
-            this.DISK_TLP_PB_4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.DISK_TLP_PB_4.Location = new System.Drawing.Point(5, 5);
-            this.DISK_TLP_PB_4.Name = "DISK_TLP_PB_4";
-            this.DISK_TLP_PB_4.Size = new System.Drawing.Size(17, 17);
-            this.DISK_TLP_PB_4.TabIndex = 5;
-            // 
             // DISK_TTLP_Panel_3
             // 
             this.DISK_TTLP_Panel_3.BackColor = System.Drawing.Color.Transparent;
@@ -7399,18 +7343,6 @@
             this.DISK_TTLP_P3_L1.TabIndex = 0;
             this.DISK_TTLP_P3_L1.Text = "USB Sayısı:";
             this.DISK_TTLP_P3_L1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DISK_TLP_PB_3
-            // 
-            this.DISK_TLP_PB_3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.DISK_TLP_PB_3.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.DISK_TLP_PB_3.BorderRadius = 7;
-            this.DISK_TLP_PB_3.BorderSize = 0;
-            this.DISK_TLP_PB_3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.DISK_TLP_PB_3.Location = new System.Drawing.Point(5, 5);
-            this.DISK_TLP_PB_3.Name = "DISK_TLP_PB_3";
-            this.DISK_TLP_PB_3.Size = new System.Drawing.Size(17, 17);
-            this.DISK_TLP_PB_3.TabIndex = 4;
             // 
             // DISK_TTLP_Panel_2
             // 
@@ -7459,18 +7391,6 @@
             this.DISK_TTLP_P2_L1.Text = "HDD Sayısı:";
             this.DISK_TTLP_P2_L1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // DISK_TLP_PB_2
-            // 
-            this.DISK_TLP_PB_2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.DISK_TLP_PB_2.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.DISK_TLP_PB_2.BorderRadius = 7;
-            this.DISK_TLP_PB_2.BorderSize = 0;
-            this.DISK_TLP_PB_2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.DISK_TLP_PB_2.Location = new System.Drawing.Point(5, 5);
-            this.DISK_TLP_PB_2.Name = "DISK_TLP_PB_2";
-            this.DISK_TLP_PB_2.Size = new System.Drawing.Size(17, 17);
-            this.DISK_TLP_PB_2.TabIndex = 3;
-            // 
             // DISK_TTLP_Panel_1
             // 
             this.DISK_TTLP_Panel_1.BackColor = System.Drawing.Color.Transparent;
@@ -7517,18 +7437,6 @@
             this.DISK_TTLP_P1_L1.TabIndex = 0;
             this.DISK_TTLP_P1_L1.Text = "SSD Sayısı:";
             this.DISK_TTLP_P1_L1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DISK_TLP_PB_1
-            // 
-            this.DISK_TLP_PB_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.DISK_TLP_PB_1.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.DISK_TLP_PB_1.BorderRadius = 7;
-            this.DISK_TLP_PB_1.BorderSize = 0;
-            this.DISK_TLP_PB_1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.DISK_TLP_PB_1.Location = new System.Drawing.Point(5, 5);
-            this.DISK_TLP_PB_1.Name = "DISK_TLP_PB_1";
-            this.DISK_TLP_PB_1.Size = new System.Drawing.Size(17, 17);
-            this.DISK_TLP_PB_1.TabIndex = 2;
             // 
             // DISK_TTLP_L1
             // 
@@ -7728,33 +7636,6 @@
             this.NET_DriverVersion_V.Size = new System.Drawing.Size(37, 20);
             this.NET_DriverVersion_V.TabIndex = 7;
             this.NET_DriverVersion_V.Text = "N/A";
-            // 
-            // NET_Selector_List
-            // 
-            this.NET_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
-            this.NET_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
-            this.NET_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.NET_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.NET_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
-            this.NET_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
-            this.NET_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.NET_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
-            this.NET_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.NET_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.NET_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
-            this.NET_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.NET_Selector_List.FormattingEnabled = true;
-            this.NET_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
-            this.NET_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.NET_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
-            this.NET_Selector_List.Location = new System.Drawing.Point(386, 9);
-            this.NET_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
-            this.NET_Selector_List.Name = "NET_Selector_List";
-            this.NET_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
-            this.NET_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
-            this.NET_Selector_List.Size = new System.Drawing.Size(385, 28);
-            this.NET_Selector_List.TabIndex = 1;
-            this.NET_Selector_List.SelectedIndexChanged += new System.EventHandler(this.NET_Selector_List_SelectedIndexChanged);
             // 
             // NET_IPv6Adress_V
             // 
@@ -8611,33 +8492,6 @@
             this.USB_InfFile_V.TabIndex = 11;
             this.USB_InfFile_V.Text = "N/A";
             // 
-            // USB_DeviceSelector_List
-            // 
-            this.USB_DeviceSelector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
-            this.USB_DeviceSelector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
-            this.USB_DeviceSelector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.USB_DeviceSelector_List.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.USB_DeviceSelector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
-            this.USB_DeviceSelector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
-            this.USB_DeviceSelector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.USB_DeviceSelector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
-            this.USB_DeviceSelector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.USB_DeviceSelector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.USB_DeviceSelector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
-            this.USB_DeviceSelector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.USB_DeviceSelector_List.FormattingEnabled = true;
-            this.USB_DeviceSelector_List.HoverBackColor = System.Drawing.SystemColors.Window;
-            this.USB_DeviceSelector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.USB_DeviceSelector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
-            this.USB_DeviceSelector_List.Location = new System.Drawing.Point(386, 9);
-            this.USB_DeviceSelector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
-            this.USB_DeviceSelector_List.Name = "USB_DeviceSelector_List";
-            this.USB_DeviceSelector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
-            this.USB_DeviceSelector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
-            this.USB_DeviceSelector_List.Size = new System.Drawing.Size(300, 28);
-            this.USB_DeviceSelector_List.TabIndex = 1;
-            this.USB_DeviceSelector_List.SelectedIndexChanged += new System.EventHandler(this.USB_DeviceSelector_List_SelectedIndexChanged);
-            // 
             // USB_DriverDate
             // 
             this.USB_DriverDate.AutoSize = true;
@@ -8780,33 +8634,6 @@
             this.usb_panel_1.Name = "usb_panel_1";
             this.usb_panel_1.Size = new System.Drawing.Size(794, 277);
             this.usb_panel_1.TabIndex = 0;
-            // 
-            // USB_Selector_List
-            // 
-            this.USB_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
-            this.USB_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
-            this.USB_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.USB_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.USB_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
-            this.USB_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
-            this.USB_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.USB_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
-            this.USB_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.USB_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.USB_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
-            this.USB_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.USB_Selector_List.FormattingEnabled = true;
-            this.USB_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
-            this.USB_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.USB_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
-            this.USB_Selector_List.Location = new System.Drawing.Point(386, 9);
-            this.USB_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
-            this.USB_Selector_List.Name = "USB_Selector_List";
-            this.USB_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
-            this.USB_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
-            this.USB_Selector_List.Size = new System.Drawing.Size(400, 28);
-            this.USB_Selector_List.TabIndex = 1;
-            this.USB_Selector_List.SelectedIndexChanged += new System.EventHandler(this.USB_Selector_List_SelectedIndexChanged);
             // 
             // USB_ConMan
             // 
@@ -9060,33 +8887,6 @@
             this.SOUND_DriverVersion_V.Size = new System.Drawing.Size(37, 20);
             this.SOUND_DriverVersion_V.TabIndex = 13;
             this.SOUND_DriverVersion_V.Text = "N/A";
-            // 
-            // SOUND_Selector_List
-            // 
-            this.SOUND_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
-            this.SOUND_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
-            this.SOUND_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.SOUND_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SOUND_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
-            this.SOUND_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
-            this.SOUND_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.SOUND_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
-            this.SOUND_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.SOUND_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SOUND_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
-            this.SOUND_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.SOUND_Selector_List.FormattingEnabled = true;
-            this.SOUND_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
-            this.SOUND_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.SOUND_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
-            this.SOUND_Selector_List.Location = new System.Drawing.Point(386, 9);
-            this.SOUND_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
-            this.SOUND_Selector_List.Name = "SOUND_Selector_List";
-            this.SOUND_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
-            this.SOUND_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
-            this.SOUND_Selector_List.Size = new System.Drawing.Size(375, 28);
-            this.SOUND_Selector_List.TabIndex = 1;
-            this.SOUND_Selector_List.SelectedIndexChanged += new System.EventHandler(this.SOUND_Selector_List_SelectedIndexChanged);
             // 
             // SOUND_DeviceManufacturer
             // 
@@ -9671,31 +9471,6 @@
             this.BATTERY_RemainingChargeCapacity_V.TabIndex = 1;
             this.BATTERY_RemainingChargeCapacity_V.Text = "N/A";
             // 
-            // BATTERY_ReportBtn
-            // 
-            this.BATTERY_ReportBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.BATTERY_ReportBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.BATTERY_ReportBtn.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.BATTERY_ReportBtn.BorderRadius = 10;
-            this.BATTERY_ReportBtn.BorderSize = 0;
-            this.BATTERY_ReportBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BATTERY_ReportBtn.FlatAppearance.BorderSize = 0;
-            this.BATTERY_ReportBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BATTERY_ReportBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.BATTERY_ReportBtn.ForeColor = System.Drawing.Color.White;
-            this.BATTERY_ReportBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BATTERY_ReportBtn.Location = new System.Drawing.Point(14, 286);
-            this.BATTERY_ReportBtn.Name = "BATTERY_ReportBtn";
-            this.BATTERY_ReportBtn.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.BATTERY_ReportBtn.Size = new System.Drawing.Size(196, 36);
-            this.BATTERY_ReportBtn.TabIndex = 12;
-            this.BATTERY_ReportBtn.Text = "Battery Report";
-            this.BATTERY_ReportBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BATTERY_ReportBtn.TextColor = System.Drawing.Color.White;
-            this.BATTERY_ReportBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.BATTERY_ReportBtn.UseVisualStyleBackColor = false;
-            this.BATTERY_ReportBtn.Click += new System.EventHandler(this.BATTERY_ReportBtn_Click);
-            // 
             // DRIVERS
             // 
             this.DRIVERS.Controls.Add(this.OSD_TLP);
@@ -9737,54 +9512,6 @@
             this.osd_panel_1.Name = "osd_panel_1";
             this.osd_panel_1.Size = new System.Drawing.Size(811, 556);
             this.osd_panel_1.TabIndex = 0;
-            // 
-            // OSD_TextBoxClearBtn
-            // 
-            this.OSD_TextBoxClearBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.OSD_TextBoxClearBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.OSD_TextBoxClearBtn.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.OSD_TextBoxClearBtn.BorderRadius = 3;
-            this.OSD_TextBoxClearBtn.BorderSize = 0;
-            this.OSD_TextBoxClearBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.OSD_TextBoxClearBtn.Enabled = false;
-            this.OSD_TextBoxClearBtn.FlatAppearance.BorderSize = 0;
-            this.OSD_TextBoxClearBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OSD_TextBoxClearBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.OSD_TextBoxClearBtn.ForeColor = System.Drawing.Color.White;
-            this.OSD_TextBoxClearBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.OSD_TextBoxClearBtn.Location = new System.Drawing.Point(265, 31);
-            this.OSD_TextBoxClearBtn.Name = "OSD_TextBoxClearBtn";
-            this.OSD_TextBoxClearBtn.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.OSD_TextBoxClearBtn.Size = new System.Drawing.Size(27, 27);
-            this.OSD_TextBoxClearBtn.TabIndex = 12;
-            this.OSD_TextBoxClearBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.OSD_TextBoxClearBtn.TextColor = System.Drawing.Color.White;
-            this.OSD_TextBoxClearBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.OSD_TextBoxClearBtn.UseVisualStyleBackColor = false;
-            this.OSD_TextBoxClearBtn.Click += new System.EventHandler(this.OSD_TextBoxClearBtn_Click);
-            // 
-            // OSD_SortMode
-            // 
-            this.OSD_SortMode.AutoSize = true;
-            this.OSD_SortMode.BorderRadius = 2F;
-            this.OSD_SortMode.BorderThickness = 1F;
-            this.OSD_SortMode.CheckedColor = System.Drawing.Color.DodgerBlue;
-            this.OSD_SortMode.CheckMarkColor = System.Drawing.Color.White;
-            this.OSD_SortMode.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.OSD_SortMode.DrawUncheckedFill = false;
-            this.OSD_SortMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
-            this.OSD_SortMode.Location = new System.Drawing.Point(9, 62);
-            this.OSD_SortMode.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.OSD_SortMode.MaxBorderRadius = 8F;
-            this.OSD_SortMode.MaxBorderThickness = 4F;
-            this.OSD_SortMode.Name = "OSD_SortMode";
-            this.OSD_SortMode.Size = new System.Drawing.Size(113, 21);
-            this.OSD_SortMode.TabIndex = 5;
-            this.OSD_SortMode.Text = "Tersten sırala";
-            this.OSD_SortMode.UncheckedBackColor = System.Drawing.Color.Transparent;
-            this.OSD_SortMode.UncheckedBorderColor = System.Drawing.Color.Gray;
-            this.OSD_SortMode.UseVisualStyleBackColor = true;
-            this.OSD_SortMode.CheckedChanged += new System.EventHandler(this.OSD_SortMode_CheckedChanged);
             // 
             // OSD_TYSS
             // 
@@ -9936,54 +9663,6 @@
             this.service_panel_1.Size = new System.Drawing.Size(811, 556);
             this.service_panel_1.TabIndex = 0;
             // 
-            // SERVICE_TextBoxClearBtn
-            // 
-            this.SERVICE_TextBoxClearBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.SERVICE_TextBoxClearBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.SERVICE_TextBoxClearBtn.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.SERVICE_TextBoxClearBtn.BorderRadius = 3;
-            this.SERVICE_TextBoxClearBtn.BorderSize = 0;
-            this.SERVICE_TextBoxClearBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SERVICE_TextBoxClearBtn.Enabled = false;
-            this.SERVICE_TextBoxClearBtn.FlatAppearance.BorderSize = 0;
-            this.SERVICE_TextBoxClearBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SERVICE_TextBoxClearBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.SERVICE_TextBoxClearBtn.ForeColor = System.Drawing.Color.White;
-            this.SERVICE_TextBoxClearBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.SERVICE_TextBoxClearBtn.Location = new System.Drawing.Point(265, 31);
-            this.SERVICE_TextBoxClearBtn.Name = "SERVICE_TextBoxClearBtn";
-            this.SERVICE_TextBoxClearBtn.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.SERVICE_TextBoxClearBtn.Size = new System.Drawing.Size(27, 27);
-            this.SERVICE_TextBoxClearBtn.TabIndex = 13;
-            this.SERVICE_TextBoxClearBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.SERVICE_TextBoxClearBtn.TextColor = System.Drawing.Color.White;
-            this.SERVICE_TextBoxClearBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.SERVICE_TextBoxClearBtn.UseVisualStyleBackColor = false;
-            this.SERVICE_TextBoxClearBtn.Click += new System.EventHandler(this.SERVICE_TextBoxClearBtn_Click);
-            // 
-            // SERVICE_SortMode
-            // 
-            this.SERVICE_SortMode.AutoSize = true;
-            this.SERVICE_SortMode.BorderRadius = 2F;
-            this.SERVICE_SortMode.BorderThickness = 1F;
-            this.SERVICE_SortMode.CheckedColor = System.Drawing.Color.DodgerBlue;
-            this.SERVICE_SortMode.CheckMarkColor = System.Drawing.Color.White;
-            this.SERVICE_SortMode.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SERVICE_SortMode.DrawUncheckedFill = false;
-            this.SERVICE_SortMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
-            this.SERVICE_SortMode.Location = new System.Drawing.Point(9, 62);
-            this.SERVICE_SortMode.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.SERVICE_SortMode.MaxBorderRadius = 8F;
-            this.SERVICE_SortMode.MaxBorderThickness = 4F;
-            this.SERVICE_SortMode.Name = "SERVICE_SortMode";
-            this.SERVICE_SortMode.Size = new System.Drawing.Size(113, 21);
-            this.SERVICE_SortMode.TabIndex = 5;
-            this.SERVICE_SortMode.Text = "Tersten sırala";
-            this.SERVICE_SortMode.UncheckedBackColor = System.Drawing.Color.Transparent;
-            this.SERVICE_SortMode.UncheckedBorderColor = System.Drawing.Color.Gray;
-            this.SERVICE_SortMode.UseVisualStyleBackColor = true;
-            this.SERVICE_SortMode.CheckedChanged += new System.EventHandler(this.SERVICES_SortMode_CheckedChanged);
-            // 
             // SERVICE_TYS
             // 
             this.SERVICE_TYS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -10134,54 +9813,6 @@
             this.instapps_panel_1.Size = new System.Drawing.Size(811, 556);
             this.instapps_panel_1.TabIndex = 0;
             // 
-            // INSTAPPS_TextBoxClearBtn
-            // 
-            this.INSTAPPS_TextBoxClearBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.INSTAPPS_TextBoxClearBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.INSTAPPS_TextBoxClearBtn.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.INSTAPPS_TextBoxClearBtn.BorderRadius = 3;
-            this.INSTAPPS_TextBoxClearBtn.BorderSize = 0;
-            this.INSTAPPS_TextBoxClearBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.INSTAPPS_TextBoxClearBtn.Enabled = false;
-            this.INSTAPPS_TextBoxClearBtn.FlatAppearance.BorderSize = 0;
-            this.INSTAPPS_TextBoxClearBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.INSTAPPS_TextBoxClearBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.INSTAPPS_TextBoxClearBtn.ForeColor = System.Drawing.Color.White;
-            this.INSTAPPS_TextBoxClearBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.INSTAPPS_TextBoxClearBtn.Location = new System.Drawing.Point(265, 31);
-            this.INSTAPPS_TextBoxClearBtn.Name = "INSTAPPS_TextBoxClearBtn";
-            this.INSTAPPS_TextBoxClearBtn.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.INSTAPPS_TextBoxClearBtn.Size = new System.Drawing.Size(27, 27);
-            this.INSTAPPS_TextBoxClearBtn.TabIndex = 14;
-            this.INSTAPPS_TextBoxClearBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.INSTAPPS_TextBoxClearBtn.TextColor = System.Drawing.Color.White;
-            this.INSTAPPS_TextBoxClearBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.INSTAPPS_TextBoxClearBtn.UseVisualStyleBackColor = false;
-            this.INSTAPPS_TextBoxClearBtn.Click += new System.EventHandler(this.INSTAPPS_TextBoxClearBtn_Click);
-            // 
-            // INSTAPPS_SortMode
-            // 
-            this.INSTAPPS_SortMode.AutoSize = true;
-            this.INSTAPPS_SortMode.BorderRadius = 2F;
-            this.INSTAPPS_SortMode.BorderThickness = 1F;
-            this.INSTAPPS_SortMode.CheckedColor = System.Drawing.Color.DodgerBlue;
-            this.INSTAPPS_SortMode.CheckMarkColor = System.Drawing.Color.White;
-            this.INSTAPPS_SortMode.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.INSTAPPS_SortMode.DrawUncheckedFill = false;
-            this.INSTAPPS_SortMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
-            this.INSTAPPS_SortMode.Location = new System.Drawing.Point(9, 62);
-            this.INSTAPPS_SortMode.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.INSTAPPS_SortMode.MaxBorderRadius = 8F;
-            this.INSTAPPS_SortMode.MaxBorderThickness = 4F;
-            this.INSTAPPS_SortMode.Name = "INSTAPPS_SortMode";
-            this.INSTAPPS_SortMode.Size = new System.Drawing.Size(113, 21);
-            this.INSTAPPS_SortMode.TabIndex = 5;
-            this.INSTAPPS_SortMode.Text = "Tersten sırala";
-            this.INSTAPPS_SortMode.UncheckedBackColor = System.Drawing.Color.Transparent;
-            this.INSTAPPS_SortMode.UncheckedBorderColor = System.Drawing.Color.Gray;
-            this.INSTAPPS_SortMode.UseVisualStyleBackColor = true;
-            this.INSTAPPS_SortMode.CheckedChanged += new System.EventHandler(this.INSTAPPS_SortMode_CheckedChanged);
-            // 
             // INSTAPPS_TYUS
             // 
             this.INSTAPPS_TYUS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -10315,12 +9946,15 @@
             this.EXPORT_TLP.RowCount = 2;
             this.EXPORT_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.EXPORT_TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.EXPORT_TLP.Size = new System.Drawing.Size(819, 468);
+            this.EXPORT_TLP.Size = new System.Drawing.Size(819, 491);
             this.EXPORT_TLP.TabIndex = 0;
             // 
             // print_panel_1
             // 
             this.print_panel_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.print_panel_1.Controls.Add(this.EXPORT_ModeSelector_List);
+            this.print_panel_1.Controls.Add(this.Export_ModeTitle);
+            this.print_panel_1.Controls.Add(this.EXPORT_CB_FLP);
             this.print_panel_1.Controls.Add(this.EXPORT_StartEngineBtn);
             this.print_panel_1.Controls.Add(this.EXPORT_Selector_List);
             this.print_panel_1.Controls.Add(this.EXPORT_ProgressBGPanel);
@@ -10330,70 +9964,57 @@
             this.print_panel_1.Location = new System.Drawing.Point(5, 4);
             this.print_panel_1.Margin = new System.Windows.Forms.Padding(2, 1, 3, 1);
             this.print_panel_1.Name = "print_panel_1";
-            this.print_panel_1.Padding = new System.Windows.Forms.Padding(10);
-            this.print_panel_1.Size = new System.Drawing.Size(811, 207);
+            this.print_panel_1.Padding = new System.Windows.Forms.Padding(12);
+            this.print_panel_1.Size = new System.Drawing.Size(811, 230);
             this.print_panel_1.TabIndex = 0;
             // 
-            // EXPORT_StartEngineBtn
+            // Export_ModeTitle
             // 
-            this.EXPORT_StartEngineBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.EXPORT_StartEngineBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.EXPORT_StartEngineBtn.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.EXPORT_StartEngineBtn.BorderRadius = 10;
-            this.EXPORT_StartEngineBtn.BorderSize = 0;
-            this.EXPORT_StartEngineBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.EXPORT_StartEngineBtn.FlatAppearance.BorderSize = 0;
-            this.EXPORT_StartEngineBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.EXPORT_StartEngineBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.EXPORT_StartEngineBtn.ForeColor = System.Drawing.Color.White;
-            this.EXPORT_StartEngineBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.EXPORT_StartEngineBtn.Location = new System.Drawing.Point(14, 99);
-            this.EXPORT_StartEngineBtn.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
-            this.EXPORT_StartEngineBtn.Name = "EXPORT_StartEngineBtn";
-            this.EXPORT_StartEngineBtn.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.EXPORT_StartEngineBtn.Size = new System.Drawing.Size(300, 36);
-            this.EXPORT_StartEngineBtn.TabIndex = 2;
-            this.EXPORT_StartEngineBtn.Text = "Write Engine";
-            this.EXPORT_StartEngineBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.EXPORT_StartEngineBtn.TextColor = System.Drawing.Color.White;
-            this.EXPORT_StartEngineBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.EXPORT_StartEngineBtn.UseVisualStyleBackColor = false;
-            this.EXPORT_StartEngineBtn.Click += new System.EventHandler(this.EXPORT_StartEngineBtn_Click);
+            this.Export_ModeTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Export_ModeTitle.BackColor = System.Drawing.Color.Transparent;
+            this.Export_ModeTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.Export_ModeTitle.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Export_ModeTitle.Location = new System.Drawing.Point(364, 12);
+            this.Export_ModeTitle.Margin = new System.Windows.Forms.Padding(3, 0, 3, 7);
+            this.Export_ModeTitle.Name = "Export_ModeTitle";
+            this.Export_ModeTitle.Size = new System.Drawing.Size(435, 20);
+            this.Export_ModeTitle.TabIndex = 1;
+            this.Export_ModeTitle.Text = "Yazdırılacak Bölümleri Seçiniz:";
+            this.Export_ModeTitle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // EXPORT_Selector_List
+            // EXPORT_CB_FLP
             // 
-            this.EXPORT_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
-            this.EXPORT_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
-            this.EXPORT_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.EXPORT_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.EXPORT_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
-            this.EXPORT_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
-            this.EXPORT_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.EXPORT_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
-            this.EXPORT_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.EXPORT_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.EXPORT_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
-            this.EXPORT_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.EXPORT_Selector_List.FormattingEnabled = true;
-            this.EXPORT_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
-            this.EXPORT_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
-            this.EXPORT_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
-            this.EXPORT_Selector_List.Location = new System.Drawing.Point(14, 43);
-            this.EXPORT_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
-            this.EXPORT_Selector_List.Name = "EXPORT_Selector_List";
-            this.EXPORT_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
-            this.EXPORT_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
-            this.EXPORT_Selector_List.Size = new System.Drawing.Size(300, 28);
-            this.EXPORT_Selector_List.TabIndex = 1;
+            this.EXPORT_CB_FLP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.EXPORT_CB_FLP.BackColor = System.Drawing.Color.White;
+            this.EXPORT_CB_FLP.Controls.Add(this.EXPORT_CB_OS);
+            this.EXPORT_CB_FLP.Controls.Add(this.EXPORT_CB_MB);
+            this.EXPORT_CB_FLP.Controls.Add(this.EXPORT_CB_CPU);
+            this.EXPORT_CB_FLP.Controls.Add(this.EXPORT_CB_RAM);
+            this.EXPORT_CB_FLP.Controls.Add(this.EXPORT_CB_GPU);
+            this.EXPORT_CB_FLP.Controls.Add(this.EXPORT_CB_STORAGE);
+            this.EXPORT_CB_FLP.Controls.Add(this.EXPORT_CB_NETWORK);
+            this.EXPORT_CB_FLP.Controls.Add(this.EXPORT_CB_USB);
+            this.EXPORT_CB_FLP.Controls.Add(this.EXPORT_CB_SOUND);
+            this.EXPORT_CB_FLP.Controls.Add(this.EXPORT_CB_BATTERY);
+            this.EXPORT_CB_FLP.Controls.Add(this.EXPORT_CB_DRIVERS);
+            this.EXPORT_CB_FLP.Controls.Add(this.EXPORT_CB_SERVICES);
+            this.EXPORT_CB_FLP.Controls.Add(this.EXPORT_CB_APPS);
+            this.EXPORT_CB_FLP.Location = new System.Drawing.Point(364, 88);
+            this.EXPORT_CB_FLP.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.EXPORT_CB_FLP.Name = "EXPORT_CB_FLP";
+            this.EXPORT_CB_FLP.Padding = new System.Windows.Forms.Padding(5);
+            this.EXPORT_CB_FLP.Size = new System.Drawing.Size(435, 130);
+            this.EXPORT_CB_FLP.TabIndex = 4;
             // 
             // EXPORT_ProgressBGPanel
             // 
             this.EXPORT_ProgressBGPanel.Controls.Add(this.EXPORT_ProgressFEPanel);
-            this.EXPORT_ProgressBGPanel.Location = new System.Drawing.Point(14, 148);
+            this.EXPORT_ProgressBGPanel.Location = new System.Drawing.Point(10, 137);
             this.EXPORT_ProgressBGPanel.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.EXPORT_ProgressBGPanel.Name = "EXPORT_ProgressBGPanel";
             this.EXPORT_ProgressBGPanel.Size = new System.Drawing.Size(300, 9);
-            this.EXPORT_ProgressBGPanel.TabIndex = 3;
+            this.EXPORT_ProgressBGPanel.TabIndex = 6;
             this.EXPORT_ProgressBGPanel.Visible = false;
             // 
             // EXPORT_ProgressFEPanel
@@ -10411,7 +10032,7 @@
             this.EXPORT_Selector.BackColor = System.Drawing.Color.Transparent;
             this.EXPORT_Selector.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.EXPORT_Selector.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.EXPORT_Selector.Location = new System.Drawing.Point(10, 13);
+            this.EXPORT_Selector.Location = new System.Drawing.Point(6, 12);
             this.EXPORT_Selector.Margin = new System.Windows.Forms.Padding(3, 0, 3, 7);
             this.EXPORT_Selector.Name = "EXPORT_Selector";
             this.EXPORT_Selector.Size = new System.Drawing.Size(156, 20);
@@ -10420,16 +10041,15 @@
             // 
             // EXPORT_ProgessLabel
             // 
-            this.EXPORT_ProgessLabel.AutoSize = true;
             this.EXPORT_ProgessLabel.BackColor = System.Drawing.Color.Transparent;
             this.EXPORT_ProgessLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.EXPORT_ProgessLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
             this.EXPORT_ProgessLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.EXPORT_ProgessLabel.Location = new System.Drawing.Point(10, 167);
-            this.EXPORT_ProgessLabel.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
+            this.EXPORT_ProgessLabel.Location = new System.Drawing.Point(10, 159);
+            this.EXPORT_ProgessLabel.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.EXPORT_ProgessLabel.Name = "EXPORT_ProgessLabel";
-            this.EXPORT_ProgessLabel.Size = new System.Drawing.Size(37, 20);
-            this.EXPORT_ProgessLabel.TabIndex = 4;
+            this.EXPORT_ProgessLabel.Size = new System.Drawing.Size(300, 49);
+            this.EXPORT_ProgessLabel.TabIndex = 7;
             this.EXPORT_ProgessLabel.Text = "N/A";
             this.EXPORT_ProgessLabel.Visible = false;
             // 
@@ -10439,39 +10059,12 @@
             this.print_panel_2.Controls.Add(this.EXPORT_Donate);
             this.print_panel_2.Controls.Add(this.EXPORT_DonateLabel);
             this.print_panel_2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.print_panel_2.Location = new System.Drawing.Point(5, 213);
+            this.print_panel_2.Location = new System.Drawing.Point(5, 236);
             this.print_panel_2.Margin = new System.Windows.Forms.Padding(2, 1, 3, 1);
             this.print_panel_2.Name = "print_panel_2";
             this.print_panel_2.Padding = new System.Windows.Forms.Padding(12);
             this.print_panel_2.Size = new System.Drawing.Size(811, 251);
             this.print_panel_2.TabIndex = 1;
-            // 
-            // EXPORT_Donate
-            // 
-            this.EXPORT_Donate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.EXPORT_Donate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.EXPORT_Donate.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
-            this.EXPORT_Donate.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.EXPORT_Donate.BorderRadius = 10;
-            this.EXPORT_Donate.BorderSize = 0;
-            this.EXPORT_Donate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.EXPORT_Donate.FlatAppearance.BorderSize = 0;
-            this.EXPORT_Donate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.EXPORT_Donate.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.EXPORT_Donate.ForeColor = System.Drawing.Color.White;
-            this.EXPORT_Donate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.EXPORT_Donate.Location = new System.Drawing.Point(10, 200);
-            this.EXPORT_Donate.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.EXPORT_Donate.Name = "EXPORT_Donate";
-            this.EXPORT_Donate.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.EXPORT_Donate.Size = new System.Drawing.Size(300, 36);
-            this.EXPORT_Donate.TabIndex = 1;
-            this.EXPORT_Donate.Text = "Export Donate";
-            this.EXPORT_Donate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.EXPORT_Donate.TextColor = System.Drawing.Color.White;
-            this.EXPORT_Donate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.EXPORT_Donate.UseVisualStyleBackColor = false;
-            this.EXPORT_Donate.Click += new System.EventHandler(this.EXPORT_Donate_Click);
             // 
             // EXPORT_DonateLabel
             // 
@@ -10546,6 +10139,960 @@
             this.HeaderPanel.Size = new System.Drawing.Size(817, 42);
             this.HeaderPanel.TabIndex = 1;
             // 
+            // OS_RecoveryModeBtn
+            // 
+            this.OS_RecoveryModeBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.OS_RecoveryModeBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.OS_RecoveryModeBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.OS_RecoveryModeBtn.BorderRadius = 10;
+            this.OS_RecoveryModeBtn.BorderSize = 0;
+            this.OS_RecoveryModeBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.OS_RecoveryModeBtn.FlatAppearance.BorderSize = 0;
+            this.OS_RecoveryModeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OS_RecoveryModeBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.OS_RecoveryModeBtn.ForeColor = System.Drawing.Color.White;
+            this.OS_RecoveryModeBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.OS_RecoveryModeBtn.Location = new System.Drawing.Point(14, 242);
+            this.OS_RecoveryModeBtn.Name = "OS_RecoveryModeBtn";
+            this.OS_RecoveryModeBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.OS_RecoveryModeBtn.Size = new System.Drawing.Size(190, 36);
+            this.OS_RecoveryModeBtn.TabIndex = 10;
+            this.OS_RecoveryModeBtn.Text = "Recovery Mode Open";
+            this.OS_RecoveryModeBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.OS_RecoveryModeBtn.TextColor = System.Drawing.Color.White;
+            this.OS_RecoveryModeBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.OS_RecoveryModeBtn.UseVisualStyleBackColor = false;
+            this.OS_RecoveryModeBtn.Click += new System.EventHandler(this.OS_RecoveryModeBtn_Click);
+            // 
+            // MB_BIOSOpenBtn
+            // 
+            this.MB_BIOSOpenBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.MB_BIOSOpenBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.MB_BIOSOpenBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.MB_BIOSOpenBtn.BorderRadius = 10;
+            this.MB_BIOSOpenBtn.BorderSize = 0;
+            this.MB_BIOSOpenBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.MB_BIOSOpenBtn.FlatAppearance.BorderSize = 0;
+            this.MB_BIOSOpenBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MB_BIOSOpenBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.MB_BIOSOpenBtn.ForeColor = System.Drawing.Color.White;
+            this.MB_BIOSOpenBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MB_BIOSOpenBtn.Location = new System.Drawing.Point(15, 328);
+            this.MB_BIOSOpenBtn.Name = "MB_BIOSOpenBtn";
+            this.MB_BIOSOpenBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.MB_BIOSOpenBtn.Size = new System.Drawing.Size(190, 36);
+            this.MB_BIOSOpenBtn.TabIndex = 13;
+            this.MB_BIOSOpenBtn.Text = "BIOS Open";
+            this.MB_BIOSOpenBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MB_BIOSOpenBtn.TextColor = System.Drawing.Color.White;
+            this.MB_BIOSOpenBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.MB_BIOSOpenBtn.UseVisualStyleBackColor = false;
+            this.MB_BIOSOpenBtn.Click += new System.EventHandler(this.MB_BIOSOpenBtn_Click);
+            // 
+            // MB_BIOSUpdateBtn
+            // 
+            this.MB_BIOSUpdateBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.MB_BIOSUpdateBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.MB_BIOSUpdateBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.MB_BIOSUpdateBtn.BorderRadius = 10;
+            this.MB_BIOSUpdateBtn.BorderSize = 0;
+            this.MB_BIOSUpdateBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.MB_BIOSUpdateBtn.FlatAppearance.BorderSize = 0;
+            this.MB_BIOSUpdateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MB_BIOSUpdateBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.MB_BIOSUpdateBtn.ForeColor = System.Drawing.Color.White;
+            this.MB_BIOSUpdateBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MB_BIOSUpdateBtn.Location = new System.Drawing.Point(15, 286);
+            this.MB_BIOSUpdateBtn.Name = "MB_BIOSUpdateBtn";
+            this.MB_BIOSUpdateBtn.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.MB_BIOSUpdateBtn.Size = new System.Drawing.Size(190, 36);
+            this.MB_BIOSUpdateBtn.TabIndex = 12;
+            this.MB_BIOSUpdateBtn.Text = "BIOS Update";
+            this.MB_BIOSUpdateBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MB_BIOSUpdateBtn.TextColor = System.Drawing.Color.White;
+            this.MB_BIOSUpdateBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.MB_BIOSUpdateBtn.UseVisualStyleBackColor = false;
+            this.MB_BIOSUpdateBtn.Click += new System.EventHandler(this.MB_BIOSUpdateBtn_Click);
+            // 
+            // CPU_Selector_List
+            // 
+            this.CPU_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
+            this.CPU_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.CPU_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.CPU_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CPU_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
+            this.CPU_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
+            this.CPU_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.CPU_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
+            this.CPU_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.CPU_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CPU_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
+            this.CPU_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.CPU_Selector_List.FormattingEnabled = true;
+            this.CPU_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
+            this.CPU_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.CPU_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
+            this.CPU_Selector_List.Location = new System.Drawing.Point(386, 9);
+            this.CPU_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
+            this.CPU_Selector_List.Name = "CPU_Selector_List";
+            this.CPU_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
+            this.CPU_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
+            this.CPU_Selector_List.Size = new System.Drawing.Size(350, 28);
+            this.CPU_Selector_List.TabIndex = 1;
+            this.CPU_Selector_List.SelectedIndexChanged += new System.EventHandler(this.CPU_Selector_List_SelectedIndexChanged);
+            // 
+            // RAM_Selector_List
+            // 
+            this.RAM_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
+            this.RAM_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.RAM_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.RAM_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RAM_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
+            this.RAM_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
+            this.RAM_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.RAM_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
+            this.RAM_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.RAM_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.RAM_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
+            this.RAM_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.RAM_Selector_List.FormattingEnabled = true;
+            this.RAM_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
+            this.RAM_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.RAM_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
+            this.RAM_Selector_List.Location = new System.Drawing.Point(386, 9);
+            this.RAM_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
+            this.RAM_Selector_List.Name = "RAM_Selector_List";
+            this.RAM_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
+            this.RAM_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
+            this.RAM_Selector_List.Size = new System.Drawing.Size(325, 28);
+            this.RAM_Selector_List.TabIndex = 1;
+            this.RAM_Selector_List.SelectedIndexChanged += new System.EventHandler(this.RAM_Selector_List_SelectedIndexChanged);
+            // 
+            // GPU_Selector_List
+            // 
+            this.GPU_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
+            this.GPU_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.GPU_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.GPU_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GPU_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
+            this.GPU_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
+            this.GPU_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.GPU_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
+            this.GPU_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.GPU_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GPU_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
+            this.GPU_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.GPU_Selector_List.FormattingEnabled = true;
+            this.GPU_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
+            this.GPU_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.GPU_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
+            this.GPU_Selector_List.Location = new System.Drawing.Point(386, 9);
+            this.GPU_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
+            this.GPU_Selector_List.Name = "GPU_Selector_List";
+            this.GPU_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
+            this.GPU_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
+            this.GPU_Selector_List.Size = new System.Drawing.Size(350, 28);
+            this.GPU_Selector_List.TabIndex = 1;
+            this.GPU_Selector_List.SelectedIndexChanged += new System.EventHandler(this.GPU_Selector_List_SelectedIndexChanged);
+            // 
+            // GPU_MonitorSelector_List
+            // 
+            this.GPU_MonitorSelector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
+            this.GPU_MonitorSelector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.GPU_MonitorSelector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.GPU_MonitorSelector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GPU_MonitorSelector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
+            this.GPU_MonitorSelector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
+            this.GPU_MonitorSelector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.GPU_MonitorSelector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
+            this.GPU_MonitorSelector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.GPU_MonitorSelector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GPU_MonitorSelector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
+            this.GPU_MonitorSelector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.GPU_MonitorSelector_List.FormattingEnabled = true;
+            this.GPU_MonitorSelector_List.HoverBackColor = System.Drawing.SystemColors.Window;
+            this.GPU_MonitorSelector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.GPU_MonitorSelector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
+            this.GPU_MonitorSelector_List.Location = new System.Drawing.Point(386, 9);
+            this.GPU_MonitorSelector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
+            this.GPU_MonitorSelector_List.Name = "GPU_MonitorSelector_List";
+            this.GPU_MonitorSelector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
+            this.GPU_MonitorSelector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
+            this.GPU_MonitorSelector_List.Size = new System.Drawing.Size(275, 28);
+            this.GPU_MonitorSelector_List.TabIndex = 1;
+            this.GPU_MonitorSelector_List.SelectedIndexChanged += new System.EventHandler(this.GPU_MonitorSelector_List_SelectedIndexChanged);
+            // 
+            // DISK_Selector_List
+            // 
+            this.DISK_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
+            this.DISK_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.DISK_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.DISK_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DISK_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
+            this.DISK_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
+            this.DISK_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.DISK_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
+            this.DISK_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.DISK_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DISK_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
+            this.DISK_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.DISK_Selector_List.FormattingEnabled = true;
+            this.DISK_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
+            this.DISK_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.DISK_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
+            this.DISK_Selector_List.Location = new System.Drawing.Point(382, 9);
+            this.DISK_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
+            this.DISK_Selector_List.Name = "DISK_Selector_List";
+            this.DISK_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
+            this.DISK_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
+            this.DISK_Selector_List.Size = new System.Drawing.Size(345, 28);
+            this.DISK_Selector_List.TabIndex = 26;
+            this.DISK_Selector_List.SelectedIndexChanged += new System.EventHandler(this.DISK_Selector_List_SelectedIndexChanged);
+            // 
+            // DISK_TLP_PB_4
+            // 
+            this.DISK_TLP_PB_4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.DISK_TLP_PB_4.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.DISK_TLP_PB_4.BorderRadius = 7;
+            this.DISK_TLP_PB_4.BorderSize = 0;
+            this.DISK_TLP_PB_4.Dock = System.Windows.Forms.DockStyle.Left;
+            this.DISK_TLP_PB_4.Location = new System.Drawing.Point(5, 5);
+            this.DISK_TLP_PB_4.Name = "DISK_TLP_PB_4";
+            this.DISK_TLP_PB_4.Size = new System.Drawing.Size(17, 17);
+            this.DISK_TLP_PB_4.TabIndex = 5;
+            // 
+            // DISK_TLP_PB_3
+            // 
+            this.DISK_TLP_PB_3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.DISK_TLP_PB_3.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.DISK_TLP_PB_3.BorderRadius = 7;
+            this.DISK_TLP_PB_3.BorderSize = 0;
+            this.DISK_TLP_PB_3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.DISK_TLP_PB_3.Location = new System.Drawing.Point(5, 5);
+            this.DISK_TLP_PB_3.Name = "DISK_TLP_PB_3";
+            this.DISK_TLP_PB_3.Size = new System.Drawing.Size(17, 17);
+            this.DISK_TLP_PB_3.TabIndex = 4;
+            // 
+            // DISK_TLP_PB_2
+            // 
+            this.DISK_TLP_PB_2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.DISK_TLP_PB_2.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.DISK_TLP_PB_2.BorderRadius = 7;
+            this.DISK_TLP_PB_2.BorderSize = 0;
+            this.DISK_TLP_PB_2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.DISK_TLP_PB_2.Location = new System.Drawing.Point(5, 5);
+            this.DISK_TLP_PB_2.Name = "DISK_TLP_PB_2";
+            this.DISK_TLP_PB_2.Size = new System.Drawing.Size(17, 17);
+            this.DISK_TLP_PB_2.TabIndex = 3;
+            // 
+            // DISK_TLP_PB_1
+            // 
+            this.DISK_TLP_PB_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.DISK_TLP_PB_1.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.DISK_TLP_PB_1.BorderRadius = 7;
+            this.DISK_TLP_PB_1.BorderSize = 0;
+            this.DISK_TLP_PB_1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.DISK_TLP_PB_1.Location = new System.Drawing.Point(5, 5);
+            this.DISK_TLP_PB_1.Name = "DISK_TLP_PB_1";
+            this.DISK_TLP_PB_1.Size = new System.Drawing.Size(17, 17);
+            this.DISK_TLP_PB_1.TabIndex = 2;
+            // 
+            // NET_Selector_List
+            // 
+            this.NET_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
+            this.NET_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.NET_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.NET_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.NET_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
+            this.NET_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
+            this.NET_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.NET_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
+            this.NET_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.NET_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.NET_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
+            this.NET_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.NET_Selector_List.FormattingEnabled = true;
+            this.NET_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
+            this.NET_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.NET_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
+            this.NET_Selector_List.Location = new System.Drawing.Point(386, 9);
+            this.NET_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
+            this.NET_Selector_List.Name = "NET_Selector_List";
+            this.NET_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
+            this.NET_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
+            this.NET_Selector_List.Size = new System.Drawing.Size(385, 28);
+            this.NET_Selector_List.TabIndex = 1;
+            this.NET_Selector_List.SelectedIndexChanged += new System.EventHandler(this.NET_Selector_List_SelectedIndexChanged);
+            // 
+            // USB_DeviceSelector_List
+            // 
+            this.USB_DeviceSelector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
+            this.USB_DeviceSelector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.USB_DeviceSelector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.USB_DeviceSelector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.USB_DeviceSelector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
+            this.USB_DeviceSelector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
+            this.USB_DeviceSelector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.USB_DeviceSelector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
+            this.USB_DeviceSelector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.USB_DeviceSelector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.USB_DeviceSelector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
+            this.USB_DeviceSelector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.USB_DeviceSelector_List.FormattingEnabled = true;
+            this.USB_DeviceSelector_List.HoverBackColor = System.Drawing.SystemColors.Window;
+            this.USB_DeviceSelector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.USB_DeviceSelector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
+            this.USB_DeviceSelector_List.Location = new System.Drawing.Point(386, 9);
+            this.USB_DeviceSelector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
+            this.USB_DeviceSelector_List.Name = "USB_DeviceSelector_List";
+            this.USB_DeviceSelector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
+            this.USB_DeviceSelector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
+            this.USB_DeviceSelector_List.Size = new System.Drawing.Size(300, 28);
+            this.USB_DeviceSelector_List.TabIndex = 1;
+            this.USB_DeviceSelector_List.SelectedIndexChanged += new System.EventHandler(this.USB_DeviceSelector_List_SelectedIndexChanged);
+            // 
+            // USB_Selector_List
+            // 
+            this.USB_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
+            this.USB_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.USB_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.USB_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.USB_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
+            this.USB_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
+            this.USB_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.USB_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
+            this.USB_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.USB_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.USB_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
+            this.USB_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.USB_Selector_List.FormattingEnabled = true;
+            this.USB_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
+            this.USB_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.USB_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
+            this.USB_Selector_List.Location = new System.Drawing.Point(386, 9);
+            this.USB_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
+            this.USB_Selector_List.Name = "USB_Selector_List";
+            this.USB_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
+            this.USB_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
+            this.USB_Selector_List.Size = new System.Drawing.Size(400, 28);
+            this.USB_Selector_List.TabIndex = 1;
+            this.USB_Selector_List.SelectedIndexChanged += new System.EventHandler(this.USB_Selector_List_SelectedIndexChanged);
+            // 
+            // SOUND_Selector_List
+            // 
+            this.SOUND_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
+            this.SOUND_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.SOUND_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.SOUND_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SOUND_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
+            this.SOUND_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
+            this.SOUND_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.SOUND_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
+            this.SOUND_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.SOUND_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SOUND_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
+            this.SOUND_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.SOUND_Selector_List.FormattingEnabled = true;
+            this.SOUND_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
+            this.SOUND_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.SOUND_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
+            this.SOUND_Selector_List.Location = new System.Drawing.Point(386, 9);
+            this.SOUND_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
+            this.SOUND_Selector_List.Name = "SOUND_Selector_List";
+            this.SOUND_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
+            this.SOUND_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
+            this.SOUND_Selector_List.Size = new System.Drawing.Size(375, 28);
+            this.SOUND_Selector_List.TabIndex = 1;
+            this.SOUND_Selector_List.SelectedIndexChanged += new System.EventHandler(this.SOUND_Selector_List_SelectedIndexChanged);
+            // 
+            // BATTERY_ReportBtn
+            // 
+            this.BATTERY_ReportBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.BATTERY_ReportBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.BATTERY_ReportBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.BATTERY_ReportBtn.BorderRadius = 10;
+            this.BATTERY_ReportBtn.BorderSize = 0;
+            this.BATTERY_ReportBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BATTERY_ReportBtn.FlatAppearance.BorderSize = 0;
+            this.BATTERY_ReportBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BATTERY_ReportBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.BATTERY_ReportBtn.ForeColor = System.Drawing.Color.White;
+            this.BATTERY_ReportBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BATTERY_ReportBtn.Location = new System.Drawing.Point(14, 286);
+            this.BATTERY_ReportBtn.Name = "BATTERY_ReportBtn";
+            this.BATTERY_ReportBtn.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.BATTERY_ReportBtn.Size = new System.Drawing.Size(196, 36);
+            this.BATTERY_ReportBtn.TabIndex = 12;
+            this.BATTERY_ReportBtn.Text = "Battery Report";
+            this.BATTERY_ReportBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BATTERY_ReportBtn.TextColor = System.Drawing.Color.White;
+            this.BATTERY_ReportBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BATTERY_ReportBtn.UseVisualStyleBackColor = false;
+            this.BATTERY_ReportBtn.Click += new System.EventHandler(this.BATTERY_ReportBtn_Click);
+            // 
+            // OSD_TextBoxClearBtn
+            // 
+            this.OSD_TextBoxClearBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.OSD_TextBoxClearBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.OSD_TextBoxClearBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.OSD_TextBoxClearBtn.BorderRadius = 3;
+            this.OSD_TextBoxClearBtn.BorderSize = 0;
+            this.OSD_TextBoxClearBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.OSD_TextBoxClearBtn.Enabled = false;
+            this.OSD_TextBoxClearBtn.FlatAppearance.BorderSize = 0;
+            this.OSD_TextBoxClearBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OSD_TextBoxClearBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.OSD_TextBoxClearBtn.ForeColor = System.Drawing.Color.White;
+            this.OSD_TextBoxClearBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.OSD_TextBoxClearBtn.Location = new System.Drawing.Point(265, 31);
+            this.OSD_TextBoxClearBtn.Name = "OSD_TextBoxClearBtn";
+            this.OSD_TextBoxClearBtn.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.OSD_TextBoxClearBtn.Size = new System.Drawing.Size(27, 27);
+            this.OSD_TextBoxClearBtn.TabIndex = 12;
+            this.OSD_TextBoxClearBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.OSD_TextBoxClearBtn.TextColor = System.Drawing.Color.White;
+            this.OSD_TextBoxClearBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.OSD_TextBoxClearBtn.UseVisualStyleBackColor = false;
+            this.OSD_TextBoxClearBtn.Click += new System.EventHandler(this.OSD_TextBoxClearBtn_Click);
+            // 
+            // OSD_SortMode
+            // 
+            this.OSD_SortMode.AutoSize = true;
+            this.OSD_SortMode.BorderRadius = 2F;
+            this.OSD_SortMode.BorderThickness = 1F;
+            this.OSD_SortMode.CheckedColor = System.Drawing.Color.DodgerBlue;
+            this.OSD_SortMode.CheckMarkColor = System.Drawing.Color.White;
+            this.OSD_SortMode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.OSD_SortMode.DrawUncheckedFill = false;
+            this.OSD_SortMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.OSD_SortMode.Location = new System.Drawing.Point(9, 62);
+            this.OSD_SortMode.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.OSD_SortMode.MaxBorderRadius = 8F;
+            this.OSD_SortMode.MaxBorderThickness = 4F;
+            this.OSD_SortMode.Name = "OSD_SortMode";
+            this.OSD_SortMode.Size = new System.Drawing.Size(113, 21);
+            this.OSD_SortMode.TabIndex = 5;
+            this.OSD_SortMode.Text = "Tersten sırala";
+            this.OSD_SortMode.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.OSD_SortMode.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.OSD_SortMode.UseVisualStyleBackColor = true;
+            this.OSD_SortMode.CheckedChanged += new System.EventHandler(this.OSD_SortMode_CheckedChanged);
+            // 
+            // SERVICE_TextBoxClearBtn
+            // 
+            this.SERVICE_TextBoxClearBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.SERVICE_TextBoxClearBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.SERVICE_TextBoxClearBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.SERVICE_TextBoxClearBtn.BorderRadius = 3;
+            this.SERVICE_TextBoxClearBtn.BorderSize = 0;
+            this.SERVICE_TextBoxClearBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SERVICE_TextBoxClearBtn.Enabled = false;
+            this.SERVICE_TextBoxClearBtn.FlatAppearance.BorderSize = 0;
+            this.SERVICE_TextBoxClearBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SERVICE_TextBoxClearBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.SERVICE_TextBoxClearBtn.ForeColor = System.Drawing.Color.White;
+            this.SERVICE_TextBoxClearBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.SERVICE_TextBoxClearBtn.Location = new System.Drawing.Point(265, 31);
+            this.SERVICE_TextBoxClearBtn.Name = "SERVICE_TextBoxClearBtn";
+            this.SERVICE_TextBoxClearBtn.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.SERVICE_TextBoxClearBtn.Size = new System.Drawing.Size(27, 27);
+            this.SERVICE_TextBoxClearBtn.TabIndex = 13;
+            this.SERVICE_TextBoxClearBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.SERVICE_TextBoxClearBtn.TextColor = System.Drawing.Color.White;
+            this.SERVICE_TextBoxClearBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.SERVICE_TextBoxClearBtn.UseVisualStyleBackColor = false;
+            this.SERVICE_TextBoxClearBtn.Click += new System.EventHandler(this.SERVICE_TextBoxClearBtn_Click);
+            // 
+            // SERVICE_SortMode
+            // 
+            this.SERVICE_SortMode.AutoSize = true;
+            this.SERVICE_SortMode.BorderRadius = 2F;
+            this.SERVICE_SortMode.BorderThickness = 1F;
+            this.SERVICE_SortMode.CheckedColor = System.Drawing.Color.DodgerBlue;
+            this.SERVICE_SortMode.CheckMarkColor = System.Drawing.Color.White;
+            this.SERVICE_SortMode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SERVICE_SortMode.DrawUncheckedFill = false;
+            this.SERVICE_SortMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.SERVICE_SortMode.Location = new System.Drawing.Point(9, 62);
+            this.SERVICE_SortMode.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.SERVICE_SortMode.MaxBorderRadius = 8F;
+            this.SERVICE_SortMode.MaxBorderThickness = 4F;
+            this.SERVICE_SortMode.Name = "SERVICE_SortMode";
+            this.SERVICE_SortMode.Size = new System.Drawing.Size(113, 21);
+            this.SERVICE_SortMode.TabIndex = 5;
+            this.SERVICE_SortMode.Text = "Tersten sırala";
+            this.SERVICE_SortMode.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.SERVICE_SortMode.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.SERVICE_SortMode.UseVisualStyleBackColor = true;
+            this.SERVICE_SortMode.CheckedChanged += new System.EventHandler(this.SERVICES_SortMode_CheckedChanged);
+            // 
+            // INSTAPPS_TextBoxClearBtn
+            // 
+            this.INSTAPPS_TextBoxClearBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.INSTAPPS_TextBoxClearBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.INSTAPPS_TextBoxClearBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.INSTAPPS_TextBoxClearBtn.BorderRadius = 3;
+            this.INSTAPPS_TextBoxClearBtn.BorderSize = 0;
+            this.INSTAPPS_TextBoxClearBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.INSTAPPS_TextBoxClearBtn.Enabled = false;
+            this.INSTAPPS_TextBoxClearBtn.FlatAppearance.BorderSize = 0;
+            this.INSTAPPS_TextBoxClearBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.INSTAPPS_TextBoxClearBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.INSTAPPS_TextBoxClearBtn.ForeColor = System.Drawing.Color.White;
+            this.INSTAPPS_TextBoxClearBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.INSTAPPS_TextBoxClearBtn.Location = new System.Drawing.Point(265, 31);
+            this.INSTAPPS_TextBoxClearBtn.Name = "INSTAPPS_TextBoxClearBtn";
+            this.INSTAPPS_TextBoxClearBtn.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.INSTAPPS_TextBoxClearBtn.Size = new System.Drawing.Size(27, 27);
+            this.INSTAPPS_TextBoxClearBtn.TabIndex = 14;
+            this.INSTAPPS_TextBoxClearBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.INSTAPPS_TextBoxClearBtn.TextColor = System.Drawing.Color.White;
+            this.INSTAPPS_TextBoxClearBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.INSTAPPS_TextBoxClearBtn.UseVisualStyleBackColor = false;
+            this.INSTAPPS_TextBoxClearBtn.Click += new System.EventHandler(this.INSTAPPS_TextBoxClearBtn_Click);
+            // 
+            // INSTAPPS_SortMode
+            // 
+            this.INSTAPPS_SortMode.AutoSize = true;
+            this.INSTAPPS_SortMode.BorderRadius = 2F;
+            this.INSTAPPS_SortMode.BorderThickness = 1F;
+            this.INSTAPPS_SortMode.CheckedColor = System.Drawing.Color.DodgerBlue;
+            this.INSTAPPS_SortMode.CheckMarkColor = System.Drawing.Color.White;
+            this.INSTAPPS_SortMode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.INSTAPPS_SortMode.DrawUncheckedFill = false;
+            this.INSTAPPS_SortMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.INSTAPPS_SortMode.Location = new System.Drawing.Point(9, 62);
+            this.INSTAPPS_SortMode.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.INSTAPPS_SortMode.MaxBorderRadius = 8F;
+            this.INSTAPPS_SortMode.MaxBorderThickness = 4F;
+            this.INSTAPPS_SortMode.Name = "INSTAPPS_SortMode";
+            this.INSTAPPS_SortMode.Size = new System.Drawing.Size(113, 21);
+            this.INSTAPPS_SortMode.TabIndex = 5;
+            this.INSTAPPS_SortMode.Text = "Tersten sırala";
+            this.INSTAPPS_SortMode.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.INSTAPPS_SortMode.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.INSTAPPS_SortMode.UseVisualStyleBackColor = true;
+            this.INSTAPPS_SortMode.CheckedChanged += new System.EventHandler(this.INSTAPPS_SortMode_CheckedChanged);
+            // 
+            // EXPORT_ModeSelector_List
+            // 
+            this.EXPORT_ModeSelector_List.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.EXPORT_ModeSelector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
+            this.EXPORT_ModeSelector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.EXPORT_ModeSelector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.EXPORT_ModeSelector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_ModeSelector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
+            this.EXPORT_ModeSelector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
+            this.EXPORT_ModeSelector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.EXPORT_ModeSelector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
+            this.EXPORT_ModeSelector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.EXPORT_ModeSelector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.EXPORT_ModeSelector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
+            this.EXPORT_ModeSelector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_ModeSelector_List.FormattingEnabled = true;
+            this.EXPORT_ModeSelector_List.HoverBackColor = System.Drawing.SystemColors.Window;
+            this.EXPORT_ModeSelector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.EXPORT_ModeSelector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
+            this.EXPORT_ModeSelector_List.Location = new System.Drawing.Point(499, 42);
+            this.EXPORT_ModeSelector_List.Margin = new System.Windows.Forms.Padding(3, 3, 3, 15);
+            this.EXPORT_ModeSelector_List.Name = "EXPORT_ModeSelector_List";
+            this.EXPORT_ModeSelector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
+            this.EXPORT_ModeSelector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
+            this.EXPORT_ModeSelector_List.Size = new System.Drawing.Size(300, 28);
+            this.EXPORT_ModeSelector_List.TabIndex = 3;
+            this.EXPORT_ModeSelector_List.SelectedIndexChanged += new System.EventHandler(this.EXPORT_ModeSelector_List_SelectedIndexChanged);
+            // 
+            // EXPORT_CB_OS
+            // 
+            this.EXPORT_CB_OS.AutoSize = true;
+            this.EXPORT_CB_OS.BorderRadius = 2F;
+            this.EXPORT_CB_OS.BorderThickness = 1F;
+            this.EXPORT_CB_OS.Checked = true;
+            this.EXPORT_CB_OS.CheckedColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_CB_OS.CheckMarkColor = System.Drawing.Color.White;
+            this.EXPORT_CB_OS.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EXPORT_CB_OS.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_CB_OS.DrawUncheckedFill = false;
+            this.EXPORT_CB_OS.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_CB_OS.Location = new System.Drawing.Point(9, 9);
+            this.EXPORT_CB_OS.Margin = new System.Windows.Forms.Padding(4);
+            this.EXPORT_CB_OS.MaxBorderRadius = 8F;
+            this.EXPORT_CB_OS.MaxBorderThickness = 4F;
+            this.EXPORT_CB_OS.Name = "EXPORT_CB_OS";
+            this.EXPORT_CB_OS.Size = new System.Drawing.Size(51, 21);
+            this.EXPORT_CB_OS.TabIndex = 0;
+            this.EXPORT_CB_OS.Text = "OS";
+            this.EXPORT_CB_OS.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.EXPORT_CB_OS.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.EXPORT_CB_OS.UseVisualStyleBackColor = true;
+            // 
+            // EXPORT_CB_MB
+            // 
+            this.EXPORT_CB_MB.AutoSize = true;
+            this.EXPORT_CB_MB.BorderRadius = 2F;
+            this.EXPORT_CB_MB.BorderThickness = 1F;
+            this.EXPORT_CB_MB.Checked = true;
+            this.EXPORT_CB_MB.CheckedColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_CB_MB.CheckMarkColor = System.Drawing.Color.White;
+            this.EXPORT_CB_MB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EXPORT_CB_MB.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_CB_MB.DrawUncheckedFill = false;
+            this.EXPORT_CB_MB.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_CB_MB.Location = new System.Drawing.Point(68, 9);
+            this.EXPORT_CB_MB.Margin = new System.Windows.Forms.Padding(4);
+            this.EXPORT_CB_MB.MaxBorderRadius = 8F;
+            this.EXPORT_CB_MB.MaxBorderThickness = 4F;
+            this.EXPORT_CB_MB.Name = "EXPORT_CB_MB";
+            this.EXPORT_CB_MB.Size = new System.Drawing.Size(54, 21);
+            this.EXPORT_CB_MB.TabIndex = 1;
+            this.EXPORT_CB_MB.Text = "MB";
+            this.EXPORT_CB_MB.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.EXPORT_CB_MB.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.EXPORT_CB_MB.UseVisualStyleBackColor = true;
+            // 
+            // EXPORT_CB_CPU
+            // 
+            this.EXPORT_CB_CPU.AutoSize = true;
+            this.EXPORT_CB_CPU.BorderRadius = 2F;
+            this.EXPORT_CB_CPU.BorderThickness = 1F;
+            this.EXPORT_CB_CPU.Checked = true;
+            this.EXPORT_CB_CPU.CheckedColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_CB_CPU.CheckMarkColor = System.Drawing.Color.White;
+            this.EXPORT_CB_CPU.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EXPORT_CB_CPU.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_CB_CPU.DrawUncheckedFill = false;
+            this.EXPORT_CB_CPU.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_CB_CPU.Location = new System.Drawing.Point(130, 9);
+            this.EXPORT_CB_CPU.Margin = new System.Windows.Forms.Padding(4);
+            this.EXPORT_CB_CPU.MaxBorderRadius = 8F;
+            this.EXPORT_CB_CPU.MaxBorderThickness = 4F;
+            this.EXPORT_CB_CPU.Name = "EXPORT_CB_CPU";
+            this.EXPORT_CB_CPU.Size = new System.Drawing.Size(58, 21);
+            this.EXPORT_CB_CPU.TabIndex = 2;
+            this.EXPORT_CB_CPU.Text = "Cpu";
+            this.EXPORT_CB_CPU.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.EXPORT_CB_CPU.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.EXPORT_CB_CPU.UseVisualStyleBackColor = true;
+            // 
+            // EXPORT_CB_RAM
+            // 
+            this.EXPORT_CB_RAM.AutoSize = true;
+            this.EXPORT_CB_RAM.BorderRadius = 2F;
+            this.EXPORT_CB_RAM.BorderThickness = 1F;
+            this.EXPORT_CB_RAM.Checked = true;
+            this.EXPORT_CB_RAM.CheckedColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_CB_RAM.CheckMarkColor = System.Drawing.Color.White;
+            this.EXPORT_CB_RAM.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EXPORT_CB_RAM.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_CB_RAM.DrawUncheckedFill = false;
+            this.EXPORT_CB_RAM.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_CB_RAM.Location = new System.Drawing.Point(196, 9);
+            this.EXPORT_CB_RAM.Margin = new System.Windows.Forms.Padding(4);
+            this.EXPORT_CB_RAM.MaxBorderRadius = 8F;
+            this.EXPORT_CB_RAM.MaxBorderThickness = 4F;
+            this.EXPORT_CB_RAM.Name = "EXPORT_CB_RAM";
+            this.EXPORT_CB_RAM.Size = new System.Drawing.Size(61, 21);
+            this.EXPORT_CB_RAM.TabIndex = 3;
+            this.EXPORT_CB_RAM.Text = "Ram";
+            this.EXPORT_CB_RAM.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.EXPORT_CB_RAM.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.EXPORT_CB_RAM.UseVisualStyleBackColor = true;
+            // 
+            // EXPORT_CB_GPU
+            // 
+            this.EXPORT_CB_GPU.AutoSize = true;
+            this.EXPORT_CB_GPU.BorderRadius = 2F;
+            this.EXPORT_CB_GPU.BorderThickness = 1F;
+            this.EXPORT_CB_GPU.Checked = true;
+            this.EXPORT_CB_GPU.CheckedColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_CB_GPU.CheckMarkColor = System.Drawing.Color.White;
+            this.EXPORT_CB_GPU.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EXPORT_CB_GPU.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_CB_GPU.DrawUncheckedFill = false;
+            this.EXPORT_CB_GPU.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_CB_GPU.Location = new System.Drawing.Point(265, 9);
+            this.EXPORT_CB_GPU.Margin = new System.Windows.Forms.Padding(4);
+            this.EXPORT_CB_GPU.MaxBorderRadius = 8F;
+            this.EXPORT_CB_GPU.MaxBorderThickness = 4F;
+            this.EXPORT_CB_GPU.Name = "EXPORT_CB_GPU";
+            this.EXPORT_CB_GPU.Size = new System.Drawing.Size(60, 21);
+            this.EXPORT_CB_GPU.TabIndex = 4;
+            this.EXPORT_CB_GPU.Text = "GPU";
+            this.EXPORT_CB_GPU.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.EXPORT_CB_GPU.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.EXPORT_CB_GPU.UseVisualStyleBackColor = true;
+            // 
+            // EXPORT_CB_STORAGE
+            // 
+            this.EXPORT_CB_STORAGE.AutoSize = true;
+            this.EXPORT_CB_STORAGE.BorderRadius = 2F;
+            this.EXPORT_CB_STORAGE.BorderThickness = 1F;
+            this.EXPORT_CB_STORAGE.Checked = true;
+            this.EXPORT_CB_STORAGE.CheckedColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_CB_STORAGE.CheckMarkColor = System.Drawing.Color.White;
+            this.EXPORT_CB_STORAGE.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EXPORT_CB_STORAGE.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_CB_STORAGE.DrawUncheckedFill = false;
+            this.EXPORT_CB_STORAGE.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_CB_STORAGE.Location = new System.Drawing.Point(333, 9);
+            this.EXPORT_CB_STORAGE.Margin = new System.Windows.Forms.Padding(4);
+            this.EXPORT_CB_STORAGE.MaxBorderRadius = 8F;
+            this.EXPORT_CB_STORAGE.MaxBorderThickness = 4F;
+            this.EXPORT_CB_STORAGE.Name = "EXPORT_CB_STORAGE";
+            this.EXPORT_CB_STORAGE.Size = new System.Drawing.Size(81, 21);
+            this.EXPORT_CB_STORAGE.TabIndex = 5;
+            this.EXPORT_CB_STORAGE.Text = "Storage";
+            this.EXPORT_CB_STORAGE.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.EXPORT_CB_STORAGE.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.EXPORT_CB_STORAGE.UseVisualStyleBackColor = true;
+            // 
+            // EXPORT_CB_NETWORK
+            // 
+            this.EXPORT_CB_NETWORK.AutoSize = true;
+            this.EXPORT_CB_NETWORK.BorderRadius = 2F;
+            this.EXPORT_CB_NETWORK.BorderThickness = 1F;
+            this.EXPORT_CB_NETWORK.Checked = true;
+            this.EXPORT_CB_NETWORK.CheckedColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_CB_NETWORK.CheckMarkColor = System.Drawing.Color.White;
+            this.EXPORT_CB_NETWORK.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EXPORT_CB_NETWORK.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_CB_NETWORK.DrawUncheckedFill = false;
+            this.EXPORT_CB_NETWORK.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_CB_NETWORK.Location = new System.Drawing.Point(9, 38);
+            this.EXPORT_CB_NETWORK.Margin = new System.Windows.Forms.Padding(4);
+            this.EXPORT_CB_NETWORK.MaxBorderRadius = 8F;
+            this.EXPORT_CB_NETWORK.MaxBorderThickness = 4F;
+            this.EXPORT_CB_NETWORK.Name = "EXPORT_CB_NETWORK";
+            this.EXPORT_CB_NETWORK.Size = new System.Drawing.Size(86, 21);
+            this.EXPORT_CB_NETWORK.TabIndex = 6;
+            this.EXPORT_CB_NETWORK.Text = "Network";
+            this.EXPORT_CB_NETWORK.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.EXPORT_CB_NETWORK.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.EXPORT_CB_NETWORK.UseVisualStyleBackColor = true;
+            // 
+            // EXPORT_CB_USB
+            // 
+            this.EXPORT_CB_USB.AutoSize = true;
+            this.EXPORT_CB_USB.BorderRadius = 2F;
+            this.EXPORT_CB_USB.BorderThickness = 1F;
+            this.EXPORT_CB_USB.Checked = true;
+            this.EXPORT_CB_USB.CheckedColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_CB_USB.CheckMarkColor = System.Drawing.Color.White;
+            this.EXPORT_CB_USB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EXPORT_CB_USB.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_CB_USB.DrawUncheckedFill = false;
+            this.EXPORT_CB_USB.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_CB_USB.Location = new System.Drawing.Point(103, 38);
+            this.EXPORT_CB_USB.Margin = new System.Windows.Forms.Padding(4);
+            this.EXPORT_CB_USB.MaxBorderRadius = 8F;
+            this.EXPORT_CB_USB.MaxBorderThickness = 4F;
+            this.EXPORT_CB_USB.Name = "EXPORT_CB_USB";
+            this.EXPORT_CB_USB.Size = new System.Drawing.Size(58, 21);
+            this.EXPORT_CB_USB.TabIndex = 7;
+            this.EXPORT_CB_USB.Text = "USB";
+            this.EXPORT_CB_USB.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.EXPORT_CB_USB.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.EXPORT_CB_USB.UseVisualStyleBackColor = true;
+            // 
+            // EXPORT_CB_SOUND
+            // 
+            this.EXPORT_CB_SOUND.AutoSize = true;
+            this.EXPORT_CB_SOUND.BorderRadius = 2F;
+            this.EXPORT_CB_SOUND.BorderThickness = 1F;
+            this.EXPORT_CB_SOUND.Checked = true;
+            this.EXPORT_CB_SOUND.CheckedColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_CB_SOUND.CheckMarkColor = System.Drawing.Color.White;
+            this.EXPORT_CB_SOUND.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EXPORT_CB_SOUND.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_CB_SOUND.DrawUncheckedFill = false;
+            this.EXPORT_CB_SOUND.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_CB_SOUND.Location = new System.Drawing.Point(169, 38);
+            this.EXPORT_CB_SOUND.Margin = new System.Windows.Forms.Padding(4);
+            this.EXPORT_CB_SOUND.MaxBorderRadius = 8F;
+            this.EXPORT_CB_SOUND.MaxBorderThickness = 4F;
+            this.EXPORT_CB_SOUND.Name = "EXPORT_CB_SOUND";
+            this.EXPORT_CB_SOUND.Size = new System.Drawing.Size(73, 21);
+            this.EXPORT_CB_SOUND.TabIndex = 8;
+            this.EXPORT_CB_SOUND.Text = "Sound";
+            this.EXPORT_CB_SOUND.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.EXPORT_CB_SOUND.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.EXPORT_CB_SOUND.UseVisualStyleBackColor = true;
+            // 
+            // EXPORT_CB_BATTERY
+            // 
+            this.EXPORT_CB_BATTERY.AutoSize = true;
+            this.EXPORT_CB_BATTERY.BorderRadius = 2F;
+            this.EXPORT_CB_BATTERY.BorderThickness = 1F;
+            this.EXPORT_CB_BATTERY.Checked = true;
+            this.EXPORT_CB_BATTERY.CheckedColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_CB_BATTERY.CheckMarkColor = System.Drawing.Color.White;
+            this.EXPORT_CB_BATTERY.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EXPORT_CB_BATTERY.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_CB_BATTERY.DrawUncheckedFill = false;
+            this.EXPORT_CB_BATTERY.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_CB_BATTERY.Location = new System.Drawing.Point(250, 38);
+            this.EXPORT_CB_BATTERY.Margin = new System.Windows.Forms.Padding(4);
+            this.EXPORT_CB_BATTERY.MaxBorderRadius = 8F;
+            this.EXPORT_CB_BATTERY.MaxBorderThickness = 4F;
+            this.EXPORT_CB_BATTERY.Name = "EXPORT_CB_BATTERY";
+            this.EXPORT_CB_BATTERY.Size = new System.Drawing.Size(79, 21);
+            this.EXPORT_CB_BATTERY.TabIndex = 9;
+            this.EXPORT_CB_BATTERY.Text = "Battery";
+            this.EXPORT_CB_BATTERY.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.EXPORT_CB_BATTERY.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.EXPORT_CB_BATTERY.UseVisualStyleBackColor = true;
+            // 
+            // EXPORT_CB_DRIVERS
+            // 
+            this.EXPORT_CB_DRIVERS.AutoSize = true;
+            this.EXPORT_CB_DRIVERS.BorderRadius = 2F;
+            this.EXPORT_CB_DRIVERS.BorderThickness = 1F;
+            this.EXPORT_CB_DRIVERS.Checked = true;
+            this.EXPORT_CB_DRIVERS.CheckedColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_CB_DRIVERS.CheckMarkColor = System.Drawing.Color.White;
+            this.EXPORT_CB_DRIVERS.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EXPORT_CB_DRIVERS.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_CB_DRIVERS.DrawUncheckedFill = false;
+            this.EXPORT_CB_DRIVERS.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_CB_DRIVERS.Location = new System.Drawing.Point(337, 38);
+            this.EXPORT_CB_DRIVERS.Margin = new System.Windows.Forms.Padding(4);
+            this.EXPORT_CB_DRIVERS.MaxBorderRadius = 8F;
+            this.EXPORT_CB_DRIVERS.MaxBorderThickness = 4F;
+            this.EXPORT_CB_DRIVERS.Name = "EXPORT_CB_DRIVERS";
+            this.EXPORT_CB_DRIVERS.Size = new System.Drawing.Size(76, 21);
+            this.EXPORT_CB_DRIVERS.TabIndex = 10;
+            this.EXPORT_CB_DRIVERS.Text = "Drivers";
+            this.EXPORT_CB_DRIVERS.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.EXPORT_CB_DRIVERS.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.EXPORT_CB_DRIVERS.UseVisualStyleBackColor = true;
+            // 
+            // EXPORT_CB_SERVICES
+            // 
+            this.EXPORT_CB_SERVICES.AutoSize = true;
+            this.EXPORT_CB_SERVICES.BorderRadius = 2F;
+            this.EXPORT_CB_SERVICES.BorderThickness = 1F;
+            this.EXPORT_CB_SERVICES.Checked = true;
+            this.EXPORT_CB_SERVICES.CheckedColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_CB_SERVICES.CheckMarkColor = System.Drawing.Color.White;
+            this.EXPORT_CB_SERVICES.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EXPORT_CB_SERVICES.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_CB_SERVICES.DrawUncheckedFill = false;
+            this.EXPORT_CB_SERVICES.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_CB_SERVICES.Location = new System.Drawing.Point(9, 67);
+            this.EXPORT_CB_SERVICES.Margin = new System.Windows.Forms.Padding(4);
+            this.EXPORT_CB_SERVICES.MaxBorderRadius = 8F;
+            this.EXPORT_CB_SERVICES.MaxBorderThickness = 4F;
+            this.EXPORT_CB_SERVICES.Name = "EXPORT_CB_SERVICES";
+            this.EXPORT_CB_SERVICES.Size = new System.Drawing.Size(83, 21);
+            this.EXPORT_CB_SERVICES.TabIndex = 11;
+            this.EXPORT_CB_SERVICES.Text = "Services";
+            this.EXPORT_CB_SERVICES.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.EXPORT_CB_SERVICES.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.EXPORT_CB_SERVICES.UseVisualStyleBackColor = true;
+            // 
+            // EXPORT_CB_APPS
+            // 
+            this.EXPORT_CB_APPS.AutoSize = true;
+            this.EXPORT_CB_APPS.BorderRadius = 2F;
+            this.EXPORT_CB_APPS.BorderThickness = 1F;
+            this.EXPORT_CB_APPS.Checked = true;
+            this.EXPORT_CB_APPS.CheckedColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_CB_APPS.CheckMarkColor = System.Drawing.Color.White;
+            this.EXPORT_CB_APPS.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EXPORT_CB_APPS.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_CB_APPS.DrawUncheckedFill = false;
+            this.EXPORT_CB_APPS.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_CB_APPS.Location = new System.Drawing.Point(100, 67);
+            this.EXPORT_CB_APPS.Margin = new System.Windows.Forms.Padding(4);
+            this.EXPORT_CB_APPS.MaxBorderRadius = 8F;
+            this.EXPORT_CB_APPS.MaxBorderThickness = 4F;
+            this.EXPORT_CB_APPS.Name = "EXPORT_CB_APPS";
+            this.EXPORT_CB_APPS.Size = new System.Drawing.Size(65, 21);
+            this.EXPORT_CB_APPS.TabIndex = 12;
+            this.EXPORT_CB_APPS.Text = "Apps";
+            this.EXPORT_CB_APPS.UncheckedBackColor = System.Drawing.Color.Transparent;
+            this.EXPORT_CB_APPS.UncheckedBorderColor = System.Drawing.Color.Gray;
+            this.EXPORT_CB_APPS.UseVisualStyleBackColor = true;
+            // 
+            // EXPORT_StartEngineBtn
+            // 
+            this.EXPORT_StartEngineBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_StartEngineBtn.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_StartEngineBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.EXPORT_StartEngineBtn.BorderRadius = 10;
+            this.EXPORT_StartEngineBtn.BorderSize = 0;
+            this.EXPORT_StartEngineBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_StartEngineBtn.FlatAppearance.BorderSize = 0;
+            this.EXPORT_StartEngineBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EXPORT_StartEngineBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_StartEngineBtn.ForeColor = System.Drawing.Color.White;
+            this.EXPORT_StartEngineBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.EXPORT_StartEngineBtn.Location = new System.Drawing.Point(10, 88);
+            this.EXPORT_StartEngineBtn.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
+            this.EXPORT_StartEngineBtn.Name = "EXPORT_StartEngineBtn";
+            this.EXPORT_StartEngineBtn.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.EXPORT_StartEngineBtn.Size = new System.Drawing.Size(300, 36);
+            this.EXPORT_StartEngineBtn.TabIndex = 5;
+            this.EXPORT_StartEngineBtn.Text = "Print Engine Button";
+            this.EXPORT_StartEngineBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.EXPORT_StartEngineBtn.TextColor = System.Drawing.Color.White;
+            this.EXPORT_StartEngineBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.EXPORT_StartEngineBtn.UseVisualStyleBackColor = false;
+            this.EXPORT_StartEngineBtn.Click += new System.EventHandler(this.EXPORT_StartEngineBtn_Click);
+            // 
+            // EXPORT_Selector_List
+            // 
+            this.EXPORT_Selector_List.ArrowColor = System.Drawing.SystemColors.WindowText;
+            this.EXPORT_Selector_List.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.EXPORT_Selector_List.ButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.EXPORT_Selector_List.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_Selector_List.DisabledArrowColor = System.Drawing.SystemColors.GrayText;
+            this.EXPORT_Selector_List.DisabledBackColor = System.Drawing.SystemColors.Control;
+            this.EXPORT_Selector_List.DisabledButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.EXPORT_Selector_List.DisabledForeColor = System.Drawing.SystemColors.GrayText;
+            this.EXPORT_Selector_List.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.EXPORT_Selector_List.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.EXPORT_Selector_List.FocusedBorderColor = System.Drawing.Color.DodgerBlue;
+            this.EXPORT_Selector_List.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_Selector_List.FormattingEnabled = true;
+            this.EXPORT_Selector_List.HoverBackColor = System.Drawing.SystemColors.Window;
+            this.EXPORT_Selector_List.HoverButtonColor = System.Drawing.SystemColors.ControlDark;
+            this.EXPORT_Selector_List.HoverForeColor = System.Drawing.SystemColors.WindowText;
+            this.EXPORT_Selector_List.Location = new System.Drawing.Point(10, 42);
+            this.EXPORT_Selector_List.Margin = new System.Windows.Forms.Padding(3, 3, 45, 15);
+            this.EXPORT_Selector_List.Name = "EXPORT_Selector_List";
+            this.EXPORT_Selector_List.SelectedBackColor = System.Drawing.SystemColors.Highlight;
+            this.EXPORT_Selector_List.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
+            this.EXPORT_Selector_List.Size = new System.Drawing.Size(300, 28);
+            this.EXPORT_Selector_List.TabIndex = 2;
+            // 
+            // EXPORT_Donate
+            // 
+            this.EXPORT_Donate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.EXPORT_Donate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_Donate.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(95)))), ((int)(((byte)(146)))));
+            this.EXPORT_Donate.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.EXPORT_Donate.BorderRadius = 10;
+            this.EXPORT_Donate.BorderSize = 0;
+            this.EXPORT_Donate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EXPORT_Donate.FlatAppearance.BorderSize = 0;
+            this.EXPORT_Donate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EXPORT_Donate.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.EXPORT_Donate.ForeColor = System.Drawing.Color.White;
+            this.EXPORT_Donate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.EXPORT_Donate.Location = new System.Drawing.Point(10, 200);
+            this.EXPORT_Donate.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.EXPORT_Donate.Name = "EXPORT_Donate";
+            this.EXPORT_Donate.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.EXPORT_Donate.Size = new System.Drawing.Size(300, 36);
+            this.EXPORT_Donate.TabIndex = 1;
+            this.EXPORT_Donate.Text = "Export Donate";
+            this.EXPORT_Donate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.EXPORT_Donate.TextColor = System.Drawing.Color.White;
+            this.EXPORT_Donate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.EXPORT_Donate.UseVisualStyleBackColor = false;
+            this.EXPORT_Donate.Click += new System.EventHandler(this.EXPORT_Donate_Click);
+            // 
             // GlowMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -10585,12 +11132,12 @@
             this.os_panel_6.PerformLayout();
             this.os_panel_7.ResumeLayout(false);
             this.os_panel_7.PerformLayout();
+            this.os_panel_8.ResumeLayout(false);
+            this.os_panel_8.PerformLayout();
             this.os_minidump_panel_1.ResumeLayout(false);
             this.os_minidump_panel_1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OS_MinidumpOpen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OS_BSoDZIP)).EndInit();
-            this.os_panel_8.ResumeLayout(false);
-            this.os_panel_8.PerformLayout();
             this.os_wallpaper_panel_1.ResumeLayout(false);
             this.os_wallpaper_panel_1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OS_WallpaperPreview)).EndInit();
@@ -10702,6 +11249,8 @@
             this.EXPORT_TLP.ResumeLayout(false);
             this.print_panel_1.ResumeLayout(false);
             this.print_panel_1.PerformLayout();
+            this.EXPORT_CB_FLP.ResumeLayout(false);
+            this.EXPORT_CB_FLP.PerformLayout();
             this.EXPORT_ProgressBGPanel.ResumeLayout(false);
             this.print_panel_2.ResumeLayout(false);
             this.Header_InPanel.ResumeLayout(false);
@@ -11381,6 +11930,30 @@
         private System.Windows.Forms.ToolStripMenuItem debugFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem debugDeleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem debugZIPToolStripMenuItem;
+        internal System.Windows.Forms.Label OS_WinLicenseURL;
+        internal System.Windows.Forms.Label OS_WinLicenseVerifiURL;
+        internal System.Windows.Forms.Label OS_WinLicenseURL_V;
+        internal System.Windows.Forms.Label OS_WinLicenseVerifiURL_V;
+        private TSCustomButton OS_RecoveryModeBtn;
+        private TSCustomButton MB_BIOSOpenBtn;
+        internal System.Windows.Forms.Label OS_WinLicenseTime;
+        internal System.Windows.Forms.Label OS_WinLicenseTime_V;
+        private System.Windows.Forms.FlowLayoutPanel EXPORT_CB_FLP;
+        private TSCustomCheckBox EXPORT_CB_OS;
+        private TSCustomCheckBox EXPORT_CB_MB;
+        private TSCustomCheckBox EXPORT_CB_CPU;
+        private TSCustomCheckBox EXPORT_CB_RAM;
+        private TSCustomCheckBox EXPORT_CB_GPU;
+        private TSCustomCheckBox EXPORT_CB_STORAGE;
+        private TSCustomCheckBox EXPORT_CB_NETWORK;
+        private TSCustomCheckBox EXPORT_CB_USB;
+        private TSCustomCheckBox EXPORT_CB_SOUND;
+        private TSCustomCheckBox EXPORT_CB_BATTERY;
+        private TSCustomCheckBox EXPORT_CB_DRIVERS;
+        private TSCustomCheckBox EXPORT_CB_SERVICES;
+        private TSCustomCheckBox EXPORT_CB_APPS;
+        internal System.Windows.Forms.Label Export_ModeTitle;
+        private TSCustomComboBox EXPORT_ModeSelector_List;
     }
 }
 

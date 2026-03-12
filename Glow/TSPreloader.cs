@@ -45,6 +45,7 @@ namespace Glow{
         // ======================================================================================================
         private async void TSPreloader_Load(object sender, EventArgs e){
             if (!SoftwarePreloader()){
+                Application.Exit();
                 return;
             }
             SoftwareSetLaunch();
@@ -61,18 +62,18 @@ namespace Glow{
             try{
                 // CHECK LANGS FOLDER
                 if (!Directory.Exists(ts_lf)){
-                    Software_prelaoder_alert(0);
+                    SoftwarePrelaoderAlert(0);
                     return false;
                 }
                 // CHECK LANGS FILE
                 var lang_files = Directory.GetFiles(ts_lf, "*.ini");
                 if (lang_files.Length == 0){
-                    Software_prelaoder_alert(1);
+                    SoftwarePrelaoderAlert(1);
                     return false;
                 }
                 // CHECK ENGLISH LANG FILE
                 if (!File.Exists(ts_lang_en)){
-                    Software_prelaoder_alert(2);
+                    SoftwarePrelaoderAlert(2);
                     return false;
                 }
                 // Ensure settings file exists and add missing keys (file may or may not exist)
@@ -101,10 +102,11 @@ namespace Glow{
             }
             string uiLang = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName.Trim();
             TSSettingsModule settings = new TSSettingsModule(ts_sf);
-            foreach (var (key, valueFactory) in GetDefaultSettings(uiLang)){
+            var defaults = GetDefaultSettings(uiLang).ToList();
+            foreach (var (key, valueFactory) in defaults){
                 EnsureSettingKey(settings, ts_settings_container, key, valueFactory());
             }
-            settings.TSOrderSectionKeys(ts_settings_container, GetDefaultSettings(uiLang).Select(x => x.Key));
+            settings.TSOrderSectionKeys(ts_settings_container, defaults.Select(x => x.Key));
         }
         // Make sure the adjustment key is present
         // ======================================================================================================
@@ -121,12 +123,30 @@ namespace Glow{
         // DEFAULT SETTINGS
         // ======================================================================================================
         /*
-        |   -- THEME --       |  -- LANGUAGE --       |  -- INITIAL MODE --     |  -- HIDING MODE --   |  -- DEBUG MODE --
-        |   -------------------------------------------------------------------------------------------------------------------------
-        |   0 = Dark Theme    |  Moved to             |  0 = Windowed           |  0 = Off             |  0 = Off
-        |   1 = Light Theme   |  TSModules.cs         |  1 = Full Screen        |  1 = On              |  1 = On
-        |   2 = System Theme
-        |   -------------------------------------------------------------------------------------------------------------------------
+            -- ThemeStatus
+            ---------------------------
+            0 = Dark Theme
+            1 = Light Theme
+            2 = System Theme
+
+            -- LanguageStatus
+            ---------------------------
+            Moved to TSModules.cs
+
+            -- StartupStatus
+            ---------------------------
+            1 = Full Screen
+            0 = Windowed
+
+            -- HidingStatus
+            ---------------------------
+            1 = On
+            0 = Off
+
+            -- DebugMode
+            ---------------------------
+            1 = On
+            0 = Off
         */
         private IEnumerable<(string Key, Func<string> ValueFactory)> GetDefaultSettings(string uiLang){
             // GLOBAL
@@ -139,7 +159,7 @@ namespace Glow{
         }
         // PRELOAD ALERT
         // ======================================================================================================
-        private void Software_prelaoder_alert(int pre_mode){
+        private void SoftwarePrelaoderAlert(int pre_mode){
             string set_message = string.Empty;
             switch (pre_mode){
                 case 0:
@@ -201,7 +221,9 @@ namespace Glow{
                         TSSettingsModule software_setting_save = new TSSettingsModule(ts_sf);
                         software_setting_save.TSWriteSettings(ts_settings_container, "LanguageStatus", lang_mode);
                     }
-                }catch (Exception){ }
+                }catch (Exception ex){
+                    LogError(ex);
+                }
                 //
                 TSGetLangs software_lang = new TSGetLangs(lang_file);
                 Text = string.Format(software_lang.TSReadLangs("TSPreloader", "tsbt_title"), Application.CompanyName);
@@ -227,20 +249,20 @@ namespace Glow{
                 int progress_delay = 10;
                 TSProgressExecutive(0);
                 while (progress_interval < 100){
-                    TSProgressExecutive(progress_interval);
-                    if (progress_interval + progress_increment >= 100){
-                        progress_interval = 100;
-                        TSProgressExecutive(progress_interval);
-                        break;
-                    }
                     progress_interval += progress_increment;
+                    if (progress_interval > 100)
+                        progress_interval = 100;
+                    TSProgressExecutive(progress_interval);
                     await Task.Delay(progress_delay, Program.TS_TokenEngine.Token);
                 }
             }catch (OperationCanceledException){
+                Program.TS_TokenEngine?.Dispose();
                 return;
             }
-            if (IsDisposed || !IsHandleCreated)
+            if (IsDisposed || !IsHandleCreated){
+                Program.TS_TokenEngine?.Dispose();
                 return;
+            }
             var glow = new GlowMain();
             glow.Show();
             Hide();

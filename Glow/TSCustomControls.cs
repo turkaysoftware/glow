@@ -1,6 +1,7 @@
 ﻿// ======================================================================================================
 // Türkay Software - C# Custom Graphics UI Library
-// Library Version: v26.3
+// Library Version: v26.4
+// Compilation Date: 10.03.2026
 // © Eray Türkay
 // ======================================================================================================
 
@@ -11,8 +12,8 @@
 // - CheckBox
 // - DateTimePicker
 // - FlowLayoutPanel
-// - Panel
 // - ListBox
+// - Panel
 // - RadioButton
 // - TrackBar
 // ======================================================================================================
@@ -256,7 +257,7 @@ namespace Glow
             radius = Math.Min(radius, boxSize / 2f);
             if (Checked || (DrawUncheckedFill && UncheckedBackColor.A > 0))
             {
-                Color fillColor = !Enabled ? SystemColors.Control : (Checked ? CheckedColor : UncheckedBackColor);
+                Color fillColor = Checked ? CheckedColor : (!Enabled ? SystemColors.Control : UncheckedBackColor);
                 using (var path = GetRoundedRectPath(boxRect, radius))
                 using (var brush = new SolidBrush(fillColor))
                     g.FillPath(brush, path);
@@ -265,12 +266,12 @@ namespace Glow
             if (border > 0.5f)
             {
                 RectangleF borderRect = new RectangleF(boxRect.X + border / 2f, boxRect.Y + border / 2f, boxRect.Width - border, boxRect.Height - border);
-                Color borderColor = !Enabled ? SystemColors.ControlDark : (Checked ? CheckedColor : UncheckedBorderColor);
+                Color borderColor = Checked ? CheckedColor : (!Enabled ? SystemColors.ControlDark : UncheckedBorderColor);
                 using (var path = GetRoundedRectPath(borderRect, radius))
                 using (var pen = new Pen(borderColor, border))
                     g.DrawPath(pen, path);
             }
-            if (Checked && Enabled)
+            if (Checked)
             {
                 using (var pen = new Pen(CheckMarkColor, boxRect.Width * 0.18f))
                 {
@@ -685,27 +686,36 @@ namespace Glow
     public class TSCustomFLP : FlowLayoutPanel
     {
         private Point _savedScrollPosition;
-        protected override void OnLayout(LayoutEventArgs levent)
+        private bool _restoringScroll;
+        protected override void OnScroll(ScrollEventArgs se)
         {
-            if (!DesignMode)
+            base.OnScroll(se);
+
+            if (!_restoringScroll)
             {
-                var current = AutoScrollPosition;
-                _savedScrollPosition = new Point(-current.X, -current.Y);
+                Point p = AutoScrollPosition;
+                _savedScrollPosition = new Point(-p.X, -p.Y);
             }
-            base.OnLayout(levent);
-            if (!DesignMode)
-                AutoScrollPosition = _savedScrollPosition;
         }
         protected override void OnResize(EventArgs e)
         {
-            if (!DesignMode)
-            {
-                var current = AutoScrollPosition;
-                _savedScrollPosition = new Point(-current.X, -current.Y);
-            }
+            Point p = AutoScrollPosition;
+            _savedScrollPosition = new Point(-p.X, -p.Y);
             base.OnResize(e);
-            if (!DesignMode)
-                AutoScrollPosition = _savedScrollPosition;
+            if (!IsHandleCreated || DesignMode)
+                return;
+            BeginInvoke((MethodInvoker)delegate
+            {
+                try
+                {
+                    _restoringScroll = true;
+                    AutoScrollPosition = _savedScrollPosition;
+                }
+                finally
+                {
+                    _restoringScroll = false;
+                }
+            });
         }
     }
     #endregion

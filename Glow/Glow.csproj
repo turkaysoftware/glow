@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -331,7 +346,6 @@
     <None Include="glow_images\glow_ui\theme_dark\ct_link_dark.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GlowLogo.ico" />
     <None Include="glow_images\glow_ui\theme_light\cx_system_id_light.png" />
     <None Include="glow_images\glow_ui\theme_dark\cx_system_id_dark.png" />
     <None Include="glow_images\glow_ui\theme_light\ct_compare_light.png" />
@@ -342,7 +356,6 @@
     <None Include="glow_images\glow_ui\theme_light\tm_donate_light.png" />
     <None Include="glow_images\glow_ui\theme_dark\tm_donate_mc_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\tm_donate_dark.png" />
-    <None Include="glow_images\ts_preloader\ts_preloader_release.jpg" />
     <None Include="glow_images\glow_ui\theme_light\ct_spf_color_light.png" />
     <None Include="glow_images\glow_ui\theme_dark\ct_spf_color_dark.png" />
     <None Include="glow_images\glow_ui\theme_light\ct_spf_toggle_light.png" />
@@ -361,6 +374,24 @@
     <None Include="glow_images\glow_ui\theme_dark\ct_image_preview_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\cx_bt_finder_dark.png" />
     <None Include="glow_images\glow_ui\theme_light\cx_bt_finder_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GlowLogo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8.1 %28x86 ve x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 </ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="glow_images\ts_preloader\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
