@@ -1,8 +1,8 @@
 ---
 
 name: Feature Request
-about: Suggest an idea or improvement
-title: "[FEATURE] "
+about: Suggest an idea or improvement.
+title: "[FEATURE] Please describe the feature you're looking for here"
 labels: feature request
 assignees: ''
 
