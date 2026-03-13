@@ -1,27 +1,68 @@
 ---
+
 name: Bug Report
-about: 'You can report software bugs '
-title: "[BUG]"
+about: Report a bug to help us improve
+title: "[BUG] "
 labels: bug
 assignees: ''
+-------------
 
----
+## 🐞 Bug Description
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+Provide a clear and concise description of the bug.
 
-**To Reproduce**
+## 🔁 Steps to Reproduce
+
 Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+1. Run `...`
+2. Navigate to `...`
+3. Click `...`
+4. Observe the error
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+## ✅ Expected Behavior
 
-**Additional context**
+Describe what you expected to happen.
+
+## ❌ Actual Behavior
+
+Describe what actually happened instead.
+
+## 📷 Screenshots / Recordings
+
+If applicable, add screenshots or screen recordings.
+
+## 🖥 Environment
+
+* **Windows Version:** (e.g. Windows 11 23H2 / Windows 10 22H2)
+* **Software Version:** (e.g. v1.4.2)
+* **Architecture:** (x64 / ARM64)
+
+## 📜 Logs / Error Output
+
+Paste any relevant logs, stack traces, or console output.
+
+```
+paste logs here
+```
+
+## ⚠ Impact
+
+How severe is this issue?
+
+* [ ] Critical (blocks usage)
+* [ ] High (major functionality affected)
+* [ ] Medium (minor functionality affected)
+* [ ] Low (cosmetic or minor issue)
+
+## 📝 Additional Context
+
 Add any other context about the problem here.
+
+## ✔ Checklist
+
+Before submitting the issue:
+
+* [ ] I searched existing issues
+* [ ] I included steps to reproduce
+* [ ] I provided logs or screenshots if applicable
