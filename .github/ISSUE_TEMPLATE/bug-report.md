@@ -35,8 +35,8 @@ If applicable, add screenshots or screen recordings.
 
 ## 🖥 Environment
 
-* **Windows Version:** (e.g. Windows 11 23H2 / Windows 10 22H2)
-* **Software Version:** (e.g. v1.4.2)
+* **Windows Version:** (e.g. Windows 11 25H2 x64 / Windows 10 22H2 x64)
+* **Software Version:** (e.g. v26.1)
 * **Architecture:** (x64 / ARM64)
 
 ## 📜 Logs / Error Output
