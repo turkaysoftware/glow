@@ -1,9 +1,3 @@
----
-
-name: Pull Request
-about: Submit a contribution to the project
--------------------------------------------
-
 ## 📄 Description
 
 Provide a clear and concise description of the changes introduced by this pull request.
