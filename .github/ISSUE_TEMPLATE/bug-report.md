@@ -8,38 +8,38 @@ assignees: ''
 
 --- 
 
-## 🐞 Bug Description
+## Bug Description
 
 Provide a clear and concise description of the bug.
 
-## 🔁 Steps to Reproduce
+## Steps to Reproduce
 
 Steps to reproduce the behavior:
 
-1. Run `...`
-2. Navigate to `...`
-3. Click `...`
+1. Run ...
+2. Navigate to ...
+3. Click ...
 4. Observe the error
 
-## ✅ Expected Behavior
+## Expected Behavior
 
 Describe what you expected to happen.
 
-## ❌ Actual Behavior
+## Actual Behavior
 
 Describe what actually happened instead.
 
-## 📷 Screenshots / Recordings
+## Screenshots / Recordings
 
 If applicable, add screenshots or screen recordings.
 
-## 🖥 Environment
+## Environment
 
 * **Windows Version:** (e.g. Windows 11 25H2 x64 / Windows 10 22H2 x64)
 * **Software Version:** (e.g. v26.1)
 * **Architecture:** (x64 / ARM64)
 
-## 📜 Logs / Error Output
+## Logs / Error Output
 
 Paste any relevant logs, stack traces, or console output.
 
@@ -47,7 +47,7 @@ Paste any relevant logs, stack traces, or console output.
 paste logs here
 ```
 
-## ⚠ Impact
+## Impact
 
 How severe is this issue?
 
@@ -56,11 +56,11 @@ How severe is this issue?
 * [ ] Medium (minor functionality affected)
 * [ ] Low (cosmetic or minor issue)
 
-## 📝 Additional Context
+## Additional Context
 
 Add any other context about the problem here.
 
-## ✔ Checklist
+## Checklist
 
 Before submitting the issue:
 
