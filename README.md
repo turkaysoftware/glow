@@ -13,7 +13,7 @@ By presenting all this information in a simple, clear, and well-organized manner
 ---
 
 ### Donate
-Glow is free and will always be. If you find it useful, consider supporting the development!
+You can support this project by making a donation to help ensure its sustainability and the development of new features.
 
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Donate-DF313F?style=for-the-badge&logo=buy-me-a-coffee)](https://buymeacoffee.com/turkaysoftware)
 
