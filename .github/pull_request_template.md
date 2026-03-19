@@ -1,13 +1,13 @@
-## 📄 Description
+## Description
 
 Provide a clear and concise description of the changes introduced by this pull request.
 
-## 🎯 Motivation
+## Motivation
 
 Explain why this change is needed.
 What problem does it solve?
 
-## 🔗 Related Issues
+## Related Issues
 
 Link any related issues.
 
@@ -16,21 +16,21 @@ Example:
 * Closes #123
 * Related to #456
 
-## 🧪 How to Test
+## How to Test
 
 Describe how reviewers can test the changes.
 
 Steps:
 
 1. Build the project
-2. Run `...`
-3. Verify that `...`
+2. Run ...
+3. Verify that ...
 
-## 📷 Screenshots (if applicable)
+## Screenshots (if applicable)
 
 Add screenshots or recordings if the change affects UI or visual behavior.
 
-## ⚠ Breaking Changes
+## Breaking Changes
 
 Does this pull request introduce breaking changes?
 
@@ -39,7 +39,7 @@ Does this pull request introduce breaking changes?
 
 If yes, describe them.
 
-## ✔ Checklist
+## Checklist
 
 Before submitting this pull request:
 
