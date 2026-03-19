@@ -8,11 +8,11 @@ assignees: ''
 
 ---
 
-## 💡 Feature Description
+## Feature Description
 
 Provide a clear and concise description of the feature or improvement.
 
-## ❓ Problem / Motivation
+## Problem / Motivation
 
 Is your feature request related to a problem?
 Describe the problem you are trying to solve.
@@ -21,27 +21,27 @@ Example:
 
 > I'm always frustrated when [...]
 
-## 🚀 Proposed Solution
+## Proposed Solution
 
 Describe the solution you would like to see implemented.
 
-## 🔄 Alternatives Considered
+## Alternatives Considered
 
 Describe any alternative solutions or workarounds you have considered.
 
-## 📌 Use Case
+## Use Case
 
 Explain how this feature would be used and who would benefit from it.
 
-## 📷 Screenshots / Mockups
+## Screenshots / Mockups
 
 If applicable, add screenshots, mockups, or examples.
 
-## 📝 Additional Context
+## Additional Context
 
 Add any other context or information here.
 
-## ✔ Checklist
+## Checklist
 
 Before submitting the request:
 
