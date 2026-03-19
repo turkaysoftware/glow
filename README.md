@@ -1,4 +1,4 @@
-# 🌟 Glow - Advanced System Analysis Software
+# Glow - Advanced System Analysis Software
 
 ![GitHub all releases](https://img.shields.io/github/downloads/turkaysoftware/glow/total?style=for-the-badge&color=DF313F)
 ![GitHub Repo stars](https://img.shields.io/github/stars/turkaysoftware/glow?style=for-the-badge&color=167C33)
@@ -12,7 +12,7 @@ By presenting all this information in a simple, clear, and well-organized manner
 
 ---
 
-### ☕ Support the Project
+### Donate
 Glow is free and will always be. If you find it useful, consider supporting the development!
 
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Donate-DF313F?style=for-the-badge&logo=buy-me-a-coffee)](https://buymeacoffee.com/turkaysoftware)
@@ -21,23 +21,23 @@ Glow is free and will always be. If you find it useful, consider supporting the 
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-* 🛡️ **Privacy First:** No data ever leaves your computer. Everything is processed locally.
-* 🚀 **Pure Performance:** Developed using C# and .NET Framework with **zero external library dependencies** for a lightweight footprint.
-* 🌓 **Modern UI:** Clean, intuitive interface compatible with Windows 11 design language, featuring Light, Dark, and System themes.
-* 🌍 **Multilingual:** It supports 15 different languages, primarily English. You can access the supported languages here: [Supported Languages](https://github.com/turkaysoftware/glow/discussions/20)
-* 📦 **Portable:** No installation required. Just download it, extract all files from the ZIP, select the appropriate architecture, and run it.
-* 📥 **Saving Data:** The ability to save all features offered in the interface as a **Text Document**, **HTML Document** and **Markdown Document**, if desired.
-* 🔍 **System Identity:** Unique device ID generation for hardware verification (Shortcut: `CTRL + G`).
+* **Privacy First:** No data ever leaves your computer. Everything is processed locally.
+* **Pure Performance:** Developed using C# and .NET Framework with **zero external library dependencies** for a lightweight footprint.
+* **Modern UI:** Clean, intuitive interface compatible with Windows 11 design language, featuring Light, Dark, and System themes.
+* **Multilingual:** It supports 15 different languages, primarily English. You can access the supported languages here: [Supported Languages](https://github.com/turkaysoftware/glow/discussions/20)
+* **Portable:** No installation required. Just download it, extract all files from the ZIP, select the appropriate architecture, and run it.
+* **Saving Data:** The ability to save all features offered in the interface as a **Text Document**, **HTML Document** and **Markdown Document**, if desired.
+* **System Identity:** Unique device ID generation for hardware verification (Shortcut: `CTRL + G`).
 
 ---
 
-## 🛠️ Technical Insights & Data Depth
+## Technical Insights & Data Depth
 
 Glow queries deep system layers to provide professional-grade data across specialized modules, showing you what others can't:
 
-### 💻 Core Hardware Components
+### Core Hardware Components
 * **Operating System:** Detailed Windows build numbers, installation timestamp, current "Up Time," and active security settings.
 * **Motherboard:** Access chipset details, BIOS manufacturer, release date, and specific board revision numbers.
 * **Processor (CPU):** Microcode version, physical/logical core counts, L1/L2/L3 cache hierarchies, and real-time virtualization status.
@@ -45,13 +45,13 @@ Glow queries deep system layers to provide professional-grade data across specia
 * **Graphics (GPU):** Full adapter string, VRAM capacity, driver date/version, and active monitor refresh rates/resolutions.
 * **Storage:** Real-time health monitoring, partition styles (GPT/MBR), interface types (NVMe/SATA), and precise capacity reports.
 
-### 🔌 Peripherals & Connectivity
+### Peripherals & Connectivity
 * **Network:** Dynamic monitoring of MAC addresses, internal IP addresses, network adapter speeds, and active connection status.
 * **USB:** Lists all connected USB controllers and devices with detailed hardware IDs.
 * **Sound:** Deep dive into audio controllers, driver versions, and active output/input devices.
 * **Battery:** Full health report including design capacity vs. full charge capacity, cycle count, and wear level percentage.
 
-### 📂 Software & Management
+### Software & Management
 * **Installed Drivers:** Comprehensive listing of kernel and system drivers with provider and version details.
 * **Installed Services:** View all background services, their current status (Running/Stopped), and startup types.
 * **Installed Applications:** A complete list of software installed on the system, including hidden components.
@@ -59,7 +59,7 @@ Glow queries deep system layers to provide professional-grade data across specia
 
 ---
 
-## 🛠️ Advanced Tools Menu
+## Advanced Tools Menu
 Glow includes a built-in suite for system maintenance:
 * **DISM & SFC Automation:** Automated system file repair and image health management.
 * **Cache Cleanup:** Instantly clear system, browser, and temporary junk files.
@@ -75,20 +75,20 @@ Glow includes a built-in suite for system maintenance:
 
 ---
 
-## 🛠️ Automatic Updates and Translation Support
+## Automatic Updates and Translation Support
 
 * **TS Wizard Integration:** Fully compatible with [TS Wizard](https://www.turkaysoftware.com/ts-wizard) for automatic updates and system monitoring.
 * **Translation Support:** Community-driven localization via the official [Translation Guide](https://github.com/turkaysoftware/glow/discussions/20).
 
 ---
 
-## 📸 Interface Preview
+## Interface Preview
 
 <img width="1010" height="633" alt="Glow UI" src="https://github.com/user-attachments/assets/063537e7-55f0-4055-aa77-75fe4d12e486" />
 
 ---
 
-## 💻 System Requirements
+## System Requirements
 
 | Feature | Minimum Requirements | Recommended Requirements |
 | :--- | :--- | :--- |
@@ -98,7 +98,7 @@ Glow includes a built-in suite for system maintenance:
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 1.  Navigate to the **[Releases](https://github.com/turkaysoftware/glow/releases)** page.
 2.  Download the latest ZIP file.
@@ -109,7 +109,7 @@ Glow includes a built-in suite for system maintenance:
 
 ---
 
-## 🛡️ Security
+## Security
 
 * **Zero Data Export Policy:** Your privacy is our priority; no data leaves your machine.
 * **No Dependencies:** Developed entirely from scratch using its own source code, there are no risks from security vulnerabilities in third-party libraries.
@@ -117,6 +117,6 @@ Glow includes a built-in suite for system maintenance:
 
 ---
 
-## 📄 License
+## License
 
 This software is offered free of charge as part of the **Türkay Software solutions package** and is protected under the [**MIT License**](https://github.com/turkaysoftware/glow?tab=MIT-1-ov-file).
