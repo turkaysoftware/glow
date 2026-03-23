@@ -1,9 +1,9 @@
 # Glow - Advanced System Analysis Software
 
-[![GitHub downloads](https://img.shields.io/github/downloads/turkaysoftware/glow/total?style=flat&color=1a893c)](https://github.com/turkaysoftware/glow/releases)
-[![GitHub stars](https://img.shields.io/github/stars/turkaysoftware/glow?style=flat&color=0062cc)](https://github.com/turkaysoftware/glow/stargazers)
-[![GitHub release](https://img.shields.io/github/v/release/turkaysoftware/glow?style=flat&color=5a32a3)](https://github.com/turkaysoftware/glow/releases/latest)
-[![Platform](https://img.shields.io/badge/platform-Windows-b31d28?style=flat)](https://github.com/turkaysoftware/glow)
+[![GitHub downloads](https://img.shields.io/github/downloads/turkaysoftware/glow/total?style=flat&color=1a893c&label=Downloads)](https://github.com/turkaysoftware/glow/releases)
+[![GitHub stars](https://img.shields.io/github/stars/turkaysoftware/glow?style=flat&color=0062cc&label=Stars)](https://github.com/turkaysoftware/glow/stargazers)
+[![GitHub release](https://img.shields.io/github/v/release/turkaysoftware/glow?style=flat&color=5a32a3&label=Latest%20Release)](https://github.com/turkaysoftware/glow/releases/latest)
+[![Platform](https://img.shields.io/badge/platform-Windows-b31d28?style=flat&label=Platform)](https://github.com/turkaysoftware/glow)
 
 **Glow** is an advanced system analysis software developed by **Eray Türkay**. It is designed to reveal technical details that are difficult to access with standard tools or are often completely hidden. From the deepest layers of hardware architecture to the complex structure of software environment variables, Glow analyzes your system with high precision.
 
