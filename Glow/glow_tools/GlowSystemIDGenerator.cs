@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Management;
@@ -443,7 +441,7 @@ namespace Glow.glow_tools{
         // NATURAL SORTING
         // ======================================================================================================
         private void SortGridNatural(){
-            var rows = DGV_MainTable.Rows.Cast<DataGridViewRow>().Where(r => !r.IsNewRow).Select(r => new { Name = r.Cells[0].Value?.ToString() ?? "", Value = r.Cells[1].Value?.ToString() }).OrderBy(x => TSNaturalSortKey(x.Name, CultureInfo.CurrentCulture)).ToList();
+            var rows = DGV_MainTable.Rows.Cast<DataGridViewRow>().Where(r => !r.IsNewRow).Select(r => new { Name = r.Cells[0].Value?.ToString() ?? "", Value = r.Cells[1].Value?.ToString() }).OrderBy(x => TSNaturalSortKey(x.Name)).ToList();
             DGV_MainTable.Rows.Clear();
             foreach (var item in rows)
                 DGV_MainTable.Rows.Add(item.Name, item.Value);

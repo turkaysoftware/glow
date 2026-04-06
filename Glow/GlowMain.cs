@@ -8,7 +8,6 @@
 // GitHub: https://github.com/turkaysoftware/glow
 // ======================================================================================================
 
-using Microsoft.VisualBasic.Devices;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -162,12 +161,12 @@ namespace Glow{
         // ======================================================================================================
         private void TSCAC_Properties(){
             try{
-                var OSLabels = new Label[] { OS_SystemUser_V, OS_ComputerName_V, OS_Name_V, OS_Manufacturer_V, OS_SystemVersion_V, OS_SystemArchitectural_V, OS_ExperienceVersion_V, OS_Country_V, OS_TimeZone_V, OS_EncryptionType_V, OS_SystemTime_V, OS_Install_V, OS_SystemWorkTime_V, OS_LastBootTime_V, OS_SystemLastShutDown_V, OS_PrimaryOS_V, OS_PortableOS_V, OS_MouseWheelStatus_V, OS_ScrollLockStatus_V, OS_NumLockStatus_V, OS_CapsLockStatus_V, OS_FastBoot_V, OS_WinPageFile_V, OS_TempWinPageFile_V, OS_Hiberfil_V, OS_AVProgram_V, OS_FirewallProgram_V, OS_AntiSpywareProgram_V, OS_WinDefCoreIsolation_V, OS_CA2023_Status_V, OS_CA2023_Capable_V, OS_CA2023_Error_V, OS_ActivePower_V, OS_ActivePowerGUID_V, OS_ActivePowerScreenTimeOutP_V, OS_ActivePowerScreenTimeOutB_V, OS_ActivePowerSleepTimeP_V, OS_ActivePowerSleepTimeB_V, OS_MSEdge_V, OS_MSEdgeWebView_V, OS_MSStoreVersion_V, OS_MSOfficeVersion_V, OS_WinActiveChannel_V, OS_WinLicenseTime_V, OS_NETFrameworkVersion_V, OS_Minidump_V, OS_BSODDate_V };
+                var OSLabels = new Label[] { OS_SystemUser_V, OS_ComputerName_V, OS_Name_V, OS_Manufacturer_V, OS_SystemVersion_V, OS_SystemArchitectural_V, OS_ExperienceVersion_V, OS_Country_V, OS_TimeZone_V, OS_SystemTime_V, OS_SystemWorkTime_V, OS_LastBootTime_V, OS_Install_V, OS_SystemLastShutDown_V, OS_PrimaryOS_V, OS_PortableOS_V, OS_FastBoot_V, OS_AVProgram_V, OS_FirewallProgram_V, OS_AntiSpywareProgram_V, OS_WinDefCoreIsolation_V, OS_CA2023_Status_V, OS_CA2023_Capable_V, OS_CA2023_Error_V, OS_ActivePower_V, OS_ActivePowerGUID_V, OS_ActivePowerScreenTimeOutP_V, OS_ActivePowerScreenTimeOutB_V, OS_ActivePowerSleepTimeP_V, OS_ActivePowerSleepTimeB_V, OS_MSOfficeVersion_V, OS_WinActiveChannel_V, OS_WinLicenseTime_V, OS_NETFrameworkVersion_V, OS_Minidump_V, OS_BSODDate_V };
                 var MBLabels = new Label[] { MB_MotherBoardName_V, MB_MotherBoardMan_V, MB_SystemModelMan_V, MB_SystemModelFamily_V, MB_SystemFamily_V, MB_SystemModel_V, MB_Chipset_V, MB_BiosManufacturer_V, MB_BiosDate_V, MB_BiosVersion_V, MB_SmBiosVersion_V, MB_BiosMode_V, MB_LastBIOSTime_V, MB_SecureBoot_V, MB_SecureBootCA2023_V, MB_TPMStatus_V, MB_TPMPhysicalVersion_V, MB_TPMMan_V, MB_TPMManVersion_V, MB_TPMManFullVersion_V, MB_TPMManPublisher_V };
                 var CPULabels = new Label[] { CPU_Manufacturer_V, CPU_Architectural_V, CPU_Speed_V, CPU_CoreCount_V, CPU_ActiveCoreCount_V, CPU_LogicalCore_V, CPU_L1_V, CPU_L2_V, CPU_L3_V, CPU_Family_V, CPU_Slot_V, CPU_SocketDefinition_V, CPU_Virtualization_V, CPU_Usage_V, CPU_Process_V, CPU_Threads_V, CPU_Handles_V, };
                 var RAMLabels = new Label[] { RAM_TotalRAM_V, RAM_UsageRAMCount_V, RAM_EmptyRamCount_V, RAM_TotalVirtualRam_V, RAM_UsageVirtualRam_V, RAM_EmptyVirtualRam_V, RAM_SlotStatus_V, RAM_Amount_V, RAM_Type_V, RAM_Frequency_V, RAM_Volt_V, RAM_FormFactor_V, RAM_Manufacturer_V, RAM_BankLabel_V, RAM_DataWidth_V, RAM_BellekType_V };
                 var GPULabels = new Label[] { GPU_Manufacturer_V, GPU_VRAM_V, GPU_Version_V, GPU_DriverDate_V, GPU_Status_V, GPU_DeviceID_V, GPU_DacType_V, GPU_GraphicDriversName_V, GPU_DirectXAll_V, GPU_DirectXMax_V, GPU_InfFileName_V, GPU_INFSectionFile_V, GPU_CurrentColor_V, GPU_MonitorUserFriendlyName_V, GPU_MonitorManName_V, GPU_MonitorProductCodeID_V, GPU_MonitorConType_V, GPU_MonitorManfDate_V, GPU_MonitorManfDateWeek_V, GPU_MonitorHID_V, GPU_MonitorResLabel_V, GPU_MonitorVirtualRes_V, GPU_MonitorBounds_V, GPU_MonitorWorking_V, GPU_ScreenRefreshRate_V, GPU_ScreenBit_V, GPU_MonitorPrimary_V };
-                var DISKLabels = new Label[] { DISK_Model_V, DISK_Man_V, DISK_VolumeID_V, DISK_VolumeName_V, DISK_Firmware_V, DISK_Size_V, DISK_FreeSpace_V, DISK_FileSystem_V, DISK_FormattingType_V, DISK_Type_V, DISK_DriveType_V, DISK_InterFace_V, DISK_PartitionCount_V, DISK_MediaLoaded_V, DISK_MediaStatus_V, DISK_Health_V, DISK_Boot_V, DISK_Bootable_V, DISK_BitLockerStatus_V, DISK_BitLockerConversionStatus_V, DISK_BitLockerEncryptMehod_V, DISK_DriveCompressed_V };
+                var DISKLabels = new Label[] { DISK_Model_V, DISK_Man_V, DISK_VolumeID_V, DISK_VolumeName_V, DISK_Firmware_V, DISK_Size_V, DISK_UsedSpace_V, DISK_FreeSpace_V, DISK_FileSystem_V, DISK_FormattingType_V, DISK_Type_V, DISK_DriveType_V, DISK_InterFace_V, DISK_PartitionCount_V, DISK_MediaLoaded_V, DISK_MediaStatus_V, DISK_Health_V, DISK_Boot_V, DISK_Bootable_V, DISK_BitLockerStatus_V, DISK_BitLockerConversionStatus_V, DISK_BitLockerEncryptMehod_V, DISK_DriveCompressed_V };
                 var NETLabels = new Label[] { NET_LT_Device_V, NET_LT_BandWidth_V, NET_LT_LocalIP_V, NET_LT_GatewayIP_V, NET_NetMan_V, NET_DriverVersion_V, NET_DriverDate_V, NET_ServiceName_V, NET_AdapterType_V, NET_Physical_V, NET_DeviceID_V, NET_ConnectionType_V, NET_Dhcp_status_V, NET_Dhcp_server_V, NET_DHCPFirstIpTime_V, NET_DHCPLastIpTime_V, NET_LocalConSpeed_V };
                 var USBLabels = new Label[] { USB_ConName_V, USB_ConMan_V, USB_ConDeviceID_V, USB_ConPNPDeviceID_V, USB_ConDeviceStatus_V, USB_DeviceName_V, USB_DeviceMan_V, USB_DriverVersion_V, USB_DriverDate_V, USB_InfFile_V, USB_DeviceID_V, USB_HardwareID_V };
                 var SOUNDLabels = new Label[] { SOUND_DeviceName_V, SOUND_DeviceManufacturer_V, SOUND_DriverVersion_V, SOUND_DriverDate_V, SOUND_DeviceID_V, SOUND_PNPDeviceID_V, SOUND_DeviceStatus_V };
@@ -351,27 +350,21 @@ namespace Glow{
         // TS PARALLEL RUN SECTION MODULE
         // ======================================================================================================
         private async Task RunSec(Action __action){
-            var cnToken = Program.TS_TokenEngine.Token;
-            if (!cnToken.IsCancellationRequested){
-                try{
-                    await Task.Run(__action, cnToken);
-                }catch (OperationCanceledException ex){
-                    if (debug_status) TSErrorLog.LogException(ex, "RunSec");
-                }catch (Exception ex){
-                    if (debug_status) TSErrorLog.LogException(ex, "RunSec");
-                }
+            try{
+                await Task.Run(__action);
+            }catch (OperationCanceledException ex){
+                if (debug_status) TSErrorLog.LogException(ex, "RunSec");
+            }catch (Exception ex){
+                if (debug_status) TSErrorLog.LogException(ex, "RunSec");
             }
         }
         private async Task RunSec(Func<Task> __action){
-            var cnToken = Program.TS_TokenEngine.Token;
-            if (!cnToken.IsCancellationRequested){
-                try{
-                    await Task.Run(async () => await __action(), cnToken);
-                }catch (OperationCanceledException ex){
-                    if (debug_status) TSErrorLog.LogException(ex, "RunSec");
-                }catch (Exception ex){
-                    if (debug_status) TSErrorLog.LogException(ex, "RunSec");
-                }
+            try{
+                await Task.Run(async () => await __action());
+            }catch (OperationCanceledException ex){
+                if (debug_status) TSErrorLog.LogException(ex, "RunSec");
+            }catch (Exception ex){
+                if (debug_status) TSErrorLog.LogException(ex, "RunSec");
             }
         }
         // TASK ALL PROCESS
@@ -379,7 +372,6 @@ namespace Glow{
         private async Task GlowBootstrapper(){
             // PROPERTIES
             // ---------------
-            var cnToken = Program.TS_TokenEngine.Token;
             var btTime = Stopwatch.StartNew();
             var tList = new List<Task>();
             // RUN PARALLEL START
@@ -474,7 +466,6 @@ namespace Glow{
         private void Os(){
             TSGetLangs software_lang = new TSGetLangs(lang_path);
             ManagementObjectSearcher search_os = new ManagementObjectSearcher("root\\CIMV2", "SELECT RegisteredUser, Caption, Manufacturer, OSArchitecture, SerialNumber, EncryptionLevel, LastBootUpTime, Primary, PortableOperatingSystem FROM Win32_OperatingSystem");
-            ManagementObjectSearcher search_pfu = new ManagementObjectSearcher("root\\CIMV2", "SELECT Caption, Name FROM Win32_PageFileUsage");
             ManagementObjectSearcher search_av = new ManagementObjectSearcher("root\\SecurityCenter2", "SELECT displayName, pathToSignedProductExe, pathToSignedReportingExe FROM AntiVirusProduct");
             ManagementObjectSearcher search_fw = new ManagementObjectSearcher("root\\SecurityCenter2", "SELECT displayName, pathToSignedProductExe, pathToSignedReportingExe FROM FirewallProduct");
             ManagementObjectSearcher search_as = new ManagementObjectSearcher("root\\SecurityCenter2", "SELECT displayName, pathToSignedProductExe, pathToSignedReportingExe FROM AntiSpywareProduct");
@@ -494,10 +485,14 @@ namespace Glow{
                 try{
                     // REGISTERED USER
                     string os_saved_user = Convert.ToString(query_os_rotate["RegisteredUser"]).Trim();
-                    if (hiding_mode_wrapper != 1){
-                        OS_SavedUser_V.Text = os_saved_user;
+                    if (!string.IsNullOrEmpty(os_saved_user)){
+                        if (hiding_mode_wrapper != 1){
+                            OS_SavedUser_V.Text = os_saved_user;
+                        }else{
+                            OS_SavedUser_V.Text = new string('*', vis_m_property.Next(vn_range[0], vn_range[1])) + $" ({software_lang.TSReadLangs("HeaderHidingMode", "header_hiding_mode_on_ui")})";
+                        }
                     }else{
-                        OS_SavedUser_V.Text = new string('*', vis_m_property.Next(vn_range[0], vn_range[1])) + $" ({software_lang.TSReadLangs("HeaderHidingMode", "header_hiding_mode_on_ui")})";
+                        OS_SavedUser_V.Text = software_lang.TSReadLangs("Os_Content", "os_c_unknown");
                     }
                 }catch (Exception ex){
                     if (debug_status) { TSErrorLog.LogException(ex, "Os()"); }
@@ -611,12 +606,6 @@ namespace Glow{
                     if (debug_status) { TSErrorLog.LogException(ex, "Os()"); }
                 }
                 try{
-                    // OS ENCRYPTION BIT VALUE
-                    OS_EncryptionType_V.Text = Convert.ToString(query_os_rotate["EncryptionLevel"]) + " " + software_lang.TSReadLangs("Os_Content", "os_c_bit");
-                }catch (Exception ex){
-                    if (debug_status) { TSErrorLog.LogException(ex, "Os()"); }
-                }
-                try{
                     // OS LAST BOOT
                     string last_bt = Convert.ToString(query_os_rotate["LastBootUpTime"]);
                     DateTime last_boot_time = ManagementDateTimeConverter.ToDateTime(last_bt);
@@ -668,46 +657,6 @@ namespace Glow{
                 }catch (Exception ex){
                     if (debug_status) { TSErrorLog.LogException(ex, "Os()"); }
                 }
-                try{
-                    // WINDOWS TEMP PAGEFILE
-                    string temp_pagefile = Path.Combine(Program.windows_disk, "swapfile.sys");
-                    if (File.Exists(temp_pagefile)){
-                        OS_TempWinPageFile_V.Text = string.Format("{0} - {1}", temp_pagefile, TS_FormatSize(new FileInfo(temp_pagefile).Length));
-                    }else{
-                        OS_TempWinPageFile_V.Text = software_lang.TSReadLangs("Os_Content", "os_c_unknown");
-                    }
-                }catch (Exception ex){
-                    if (debug_status) { TSErrorLog.LogException(ex, "Os()"); }
-                }
-                try{
-                    // WINDOWS HIBERFIL FILE
-                    string hiberfil_file = Path.Combine(Program.windows_disk, "hiberfil.sys");
-                    if (File.Exists(hiberfil_file)){
-                        OS_Hiberfil_V.Text = string.Format("{0} - {1}", hiberfil_file, TS_FormatSize(new FileInfo(hiberfil_file).Length));
-                    }else{
-                        OS_Hiberfil_V.Text = software_lang.TSReadLangs("Os_Content", "os_c_unknown");
-                    }
-                }catch (Exception ex){
-                    if (debug_status) { TSErrorLog.LogException(ex, "Os()"); }
-                }
-            }try{
-                // WINDOWS PAGEFILE
-                foreach (ManagementObject query_os_pfu in search_pfu.Get().Cast<ManagementObject>()){
-                    object pagefile_caption = query_os_pfu["Caption"];
-                    object pagefile_name = query_os_pfu["Name"];
-                    string pagefile_result;
-                    //
-                    if (pagefile_caption != null && !string.IsNullOrEmpty(pagefile_caption.ToString())){
-                        pagefile_result = string.Format("{0} - {1}", pagefile_caption, TS_FormatSize(new FileInfo(Convert.ToString(pagefile_caption)).Length));
-                    }else if (pagefile_name != null && !string.IsNullOrEmpty(pagefile_name.ToString())){
-                        pagefile_result = string.Format("{0} - {1}", pagefile_name, TS_FormatSize(new FileInfo(Convert.ToString(pagefile_name)).Length));
-                    }else{
-                        pagefile_result = software_lang.TSReadLangs("Os_Content", "os_c_unknown");
-                    }
-                    OS_WinPageFile_V.Text = pagefile_result.Trim();
-                }
-            }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "Os()"); }
             }
             try{
                 // SYSTEM ANTI-VIRUS PRODUCT
@@ -930,42 +879,6 @@ namespace Glow{
                 if (debug_status) { TSErrorLog.LogException(ex, "Os()"); }
             }
             try{
-                // MS EDGE VERSION
-                string ms_edge_path = Path.Combine(Program.windows_disk, @"Program Files (x86)\Microsoft\Edge\Application\msedge.exe");
-                if (File.Exists(ms_edge_path)){
-                    FileVersionInfo edgeFileVersionInfo = FileVersionInfo.GetVersionInfo(ms_edge_path);
-                    OS_MSEdge_V.Text = edgeFileVersionInfo.ProductVersion.Trim();
-                }else{
-                    OS_MSEdge_V.Text = software_lang.TSReadLangs("Os_Content", "os_c_msedge_not");
-                }
-            }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "Os()"); }
-            }
-            try{
-                // MS EDGE WEBVIEW2 VERSION
-                string webview2_path = Path.Combine(Program.windows_disk, @"Program Files (x86)\Microsoft\EdgeWebView\Application");
-                if (Directory.Exists(webview2_path)){
-                    string[] webview2_subdirectories = Directory.GetDirectories(webview2_path);
-                    var webview2_numeric_folders = webview2_subdirectories.Select(get_dir_name => new DirectoryInfo(get_dir_name).Name).Where(get_numeric_name => char.IsDigit(get_numeric_name[0])).OrderByDescending(version_object_sort => Version.Parse(version_object_sort)).ToList();
-                    if (webview2_numeric_folders.Count > 0){
-                        string webview_lastest_version = webview2_numeric_folders.First();
-                        OS_MSEdgeWebView_V.Text = webview_lastest_version.Trim();
-                    }else{
-                        OS_MSEdgeWebView_V.Text = software_lang.TSReadLangs("Os_Content", "os_c_msedge_webview2_not");
-                    }
-                }else{
-                    OS_MSEdgeWebView_V.Text = software_lang.TSReadLangs("Os_Content", "os_c_msedge_webview2_not");
-                }
-            }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "Os()"); }
-            }
-            try{
-                // MS STORE VERSION
-                StartMsStoreVersionCheck();
-            }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "Os()"); }
-            }
-            try{
                 // MS OFFICE VERSION
                 StartMsOfficeVersionCheck();
             }catch (Exception ex){
@@ -976,7 +889,7 @@ namespace Glow{
                 string win_key = TSWindowsProductKey.GetWindowsProductKey().Trim();
                 if (!string.IsNullOrEmpty(win_key) && win_key != "NS_OS" && win_key != "NO_SUB_KEY" && win_key != "NO_KEY"){
                     if (hiding_mode_wrapper != 1){
-                        OS_WinKey_V.Text = win_key;
+                        OS_WinKey_V.Text = win_key; 
                     }else{
                         OS_WinKey_V.Text = new string('*', vis_m_property.Next(vn_range[0], vn_range[1])) + $" ({software_lang.TSReadLangs("HeaderHidingMode", "header_hiding_mode_on_ui")})";
                     }
@@ -1194,7 +1107,7 @@ namespace Glow{
                     UpdateSystemInfoBG(search_os, software_lang);
                     int msToNextSecond = 1000 - DateTime.Now.Millisecond;
                     if (msToNextSecond <= 0) msToNextSecond = 10;
-                    await Task.Delay(msToNextSecond, Program.TS_TokenEngine.Token);
+                    await Task.Delay(msToNextSecond);
                 }catch (TaskCanceledException) { break; }catch (Exception ex){
                     if (debug_status) { TSErrorLog.LogException(ex, "OsBgProcess()"); }
                 }
@@ -1296,14 +1209,6 @@ namespace Glow{
                         }
                     }
                 }
-                // --- Input / Locks ---
-                var pc = new Computer();
-                OS_MouseWheelStatus_V.Text = string.Format(software_lang.TSReadLangs("Os_Content", "os_c_scroll_speed"), pc.Mouse.WheelScrollLines);
-                string statusOn = software_lang.TSReadLangs("Os_Content", "os_c_on");
-                string statusOff = software_lang.TSReadLangs("Os_Content", "os_c_off");
-                OS_ScrollLockStatus_V.Text = pc.Keyboard.ScrollLock ? statusOn : statusOff;
-                OS_NumLockStatus_V.Text = pc.Keyboard.NumLock ? statusOn : statusOff;
-                OS_CapsLockStatus_V.Text = pc.Keyboard.CapsLock ? statusOn : statusOff;
             }catch (Exception ex){
                 if (debug_status) { TSErrorLog.LogException(ex, "UpdateSystemInfoBG()"); }
             }
@@ -1345,40 +1250,6 @@ namespace Glow{
                 }
             }
             return -1;
-        }
-        // GET MS STORE VERSION
-        private async void StartMsStoreVersionCheck(){
-            try{
-                await Ms_store_version();
-            }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "StartMsStoreVersionCheck()"); }
-            }
-        }
-        private async Task Ms_store_version(){
-            try{
-                TSGetLangs software_lang = new TSGetLangs(lang_path);
-                string version = await Task.Run(async () => {
-                    using (var process = new Process()){
-                        process.StartInfo = new ProcessStartInfo{
-                            FileName = "powershell.exe",
-                            Arguments = "-NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command \"(Get-AppxPackage -Name Microsoft.WindowsStore).Version\"",
-                            RedirectStandardOutput = true,
-                            UseShellExecute = false,
-                            CreateNoWindow = true
-                        };
-                        process.Start();
-                        string get_store_version = await process.StandardOutput.ReadToEndAsync();
-                        process.WaitForExit();
-                        return get_store_version.Trim();
-                    }
-                });
-                string displayText = string.IsNullOrEmpty(version) ? software_lang.TSReadLangs("Os_Content", "os_c_unknown") : version;
-                if (IsHandleCreated){
-                    BeginInvoke(new Action(() => OS_MSStoreVersion_V.Text = displayText));
-                }
-            }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "Ms_store_version()"); }
-            }
         }
         // GET MS OFFICE VERSION
         private async void StartMsOfficeVersionCheck(){
@@ -1504,15 +1375,15 @@ namespace Glow{
                             if (description.IndexOf("RETAIL", StringComparison.OrdinalIgnoreCase) >= 0)
                                 licenseType = "Retail";
                             else if (description.IndexOf("OEM_DM", StringComparison.OrdinalIgnoreCase) >= 0)
-                                licenseType = "OEM:DM";
+                                licenseType = "OEM: DM";
                             else if (description.IndexOf("OEM_COA", StringComparison.OrdinalIgnoreCase) >= 0)
-                                licenseType = "OEM:COA";
+                                licenseType = "OEM: COA";
                             else if (description.IndexOf("OEM", StringComparison.OrdinalIgnoreCase) >= 0)
                                 licenseType = "OEM";
                             else if (description.IndexOf("VOLUME_MAK", StringComparison.OrdinalIgnoreCase) >= 0 || description.IndexOf("MAK", StringComparison.OrdinalIgnoreCase) >= 0)
-                                licenseType = "Volume:MAK";
+                                licenseType = "Volume: MAK";
                             else if (description.IndexOf("VOLUME_KMSCLIENT", StringComparison.OrdinalIgnoreCase) >= 0 || description.IndexOf("KMS", StringComparison.OrdinalIgnoreCase) >= 0)
-                                licenseType = "Volume:KMS";
+                                licenseType = "Volume: KMS";
                             else if (description.IndexOf("GVLK", StringComparison.OrdinalIgnoreCase) >= 0)
                                 licenseType = "GVLK";
                             else
@@ -1589,7 +1460,7 @@ namespace Glow{
         // BSOD TIME DYNAMIC
         private async void StartBsodTimeDynamicCheck(){
             try{
-                await Task.Run(() => Bsod_time_dynamic(), Program.TS_TokenEngine.Token);
+                await Task.Run(() => Bsod_time_dynamic());
             }catch (Exception ex){
                 if (debug_status) { TSErrorLog.LogException(ex, "StartBsodTimeDynamicCheck()"); }
             }
@@ -1634,7 +1505,7 @@ namespace Glow{
                         //
                         int msToNextSecond = 1000 - DateTime.Now.Millisecond;
                         if (msToNextSecond <= 0) msToNextSecond = 10;
-                        await Task.Delay(msToNextSecond, Program.TS_TokenEngine.Token);
+                        await Task.Delay(msToNextSecond);
                     }catch (TaskCanceledException) { break; }catch (Exception ex){
                         if (debug_status) { TSErrorLog.LogException(ex, "Bsod_time_dynamic()"); }
                     }
@@ -1762,7 +1633,7 @@ namespace Glow{
                 foreach (string file_path in minidump_files_list){
                     string file_name = Path.GetFileName(file_path);
                     string target_file_path = Path.Combine(minidump_target_file, file_name);
-                    await Task.Run(() => File.Copy(file_path, target_file_path, true), Program.TS_TokenEngine.Token);
+                    await Task.Run(() => File.Copy(file_path, target_file_path, true));
                     currentFile++;
                 }
                 // ZIP ASYNC
@@ -1783,7 +1654,7 @@ namespace Glow{
                             }
                         }
                     }
-                }, Program.TS_TokenEngine.Token);
+                });
                 if (Directory.Exists(minidump_target_file)){
                     Directory.Delete(minidump_target_file, true);
                 }
@@ -2544,7 +2415,7 @@ namespace Glow{
                     int elapsed = (int)(DateTime.Now - startTime).TotalMilliseconds;
                     int nextDelay = Math.Max(10, 1000 - elapsed);
                     try{
-                        await Task.Delay(nextDelay, Program.TS_TokenEngine.Token);
+                        await Task.Delay(nextDelay);
                     }catch (TaskCanceledException){
                         break;
                     }
@@ -2579,7 +2450,7 @@ namespace Glow{
                     int elapsed = (int)(DateTime.Now - startTime).TotalMilliseconds;
                     int nextDelay = Math.Max(10, 1000 - elapsed);
                     try{
-                        await Task.Delay(nextDelay, Program.TS_TokenEngine.Token);
+                        await Task.Delay(nextDelay);
                     }catch (TaskCanceledException){
                         break;
                     }
@@ -2627,24 +2498,24 @@ namespace Glow{
         readonly List<string> ram_part_number_list = new List<string>();
         private void Ram(){
             TSGetLangs software_lang = new TSGetLangs(lang_path);
-            ManagementObjectSearcher search_os = new ManagementObjectSearcher("root\\CIMV2", "SELECT TotalVirtualMemorySize FROM Win32_OperatingSystem");
+            ManagementObjectSearcher search_os = new ManagementObjectSearcher("root\\CIMV2", "SELECT TotalVisibleMemorySize, TotalVirtualMemorySize FROM Win32_OperatingSystem");
             ManagementObjectSearcher search_pm = new ManagementObjectSearcher("root\\CIMV2", "SELECT BankLabel, Capacity, SMBIOSMemoryType, MemoryType, Speed, ConfiguredVoltage, FormFactor, SerialNumber, Manufacturer, TotalWidth, DeviceLocator, PartNumber FROM Win32_PhysicalMemory");
-            try{
-                // TOTAL RAM
-                ComputerInfo main_query = new ComputerInfo();
-                ulong total_ram_x64_tick = ulong.Parse(main_query.TotalPhysicalMemory.ToString());
-                RAM_TotalRAM_V.Text = TS_FormatSize(total_ram_x64_tick);
-            }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "Ram()"); }
-            }
-            try{
-                foreach (ManagementObject query_os_rotate in search_os.Get().Cast<ManagementObject>()){
+            //
+            foreach (ManagementObject query_os_rotate in search_os.Get().Cast<ManagementObject>()){
+                try{
+                    // TOTAL RAM
+                    double total_ram_x64_tick = Convert.ToDouble(query_os_rotate["TotalVisibleMemorySize"]) * 1024;
+                    RAM_TotalRAM_V.Text = TS_FormatSize(total_ram_x64_tick);
+                }catch (Exception ex){
+                    if (debug_status) { TSErrorLog.LogException(ex, "Ram()"); }
+                }
+                try{
                     // TOTAL VIRTUAL RAM
                     double total_virtual_ram = Convert.ToDouble(query_os_rotate["TotalVirtualMemorySize"]) * 1024;
                     RAM_TotalVirtualRam_V.Text = TS_FormatSize(total_virtual_ram);
+                }catch (Exception ex){
+                    if (debug_status) { TSErrorLog.LogException(ex, "Ram()"); }
                 }
-            }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "Ram()"); }
             }
             foreach (ManagementObject queryObj in search_pm.Get().Cast<ManagementObject>()){
                 try{
@@ -2911,29 +2782,28 @@ namespace Glow{
         }
         private async void RamBgProcess(){
             try{
-                var get_ram_info = new ComputerInfo();
+                ManagementObjectSearcher search_os = new ManagementObjectSearcher("root\\CIMV2", "SELECT TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem");
                 while (loop_status){
-                    ulong total = get_ram_info.TotalPhysicalMemory;
-                    ulong free = get_ram_info.AvailablePhysicalMemory;
-                    double usedRatio = (TS_FormatSizeNoType(total) - TS_FormatSizeNoType(free)) / TS_FormatSizeNoType(total) * 100;
+                    var get_ram_info = search_os.Get().Cast<ManagementObject>().FirstOrDefault();
+                    ulong total = (ulong)get_ram_info["TotalVisibleMemorySize"] * 1024;
+                    ulong free = (ulong)get_ram_info["FreePhysicalMemory"] * 1024;
+                    ulong used = total - free;
+                    double usedRatio = (double)used / total * 100;
                     if (IsHandleCreated){
-                        BeginInvoke(new Action(() => {
-                            // RAM_UsageRAMCount_V.Text = $"{TS_FormatSize(total - free)} - {usedRatio:0.00}%";
-                            RAM_UsageRAMCount_V.Text = $"{TS_FormatSize(total - free)}";
+                        BeginInvoke((Action)(() =>{
+                            RAM_UsageRAMCount_V.Text = TS_FormatSize(used);
                             RAM_EmptyRamCount_V.Text = TS_FormatSize(free);
                             RAM_ProgressFEPanel.Height = (int)(RAM_ProgressBGPanel.Height * (usedRatio / 100.0));
                             RAM_ProgressLabel.Text = $"{usedRatio:0.0}%";
                             RAM_ProgressLabel.Top = RAM_ProgressFEPanel.Top + 6;
                         }));
                     }
-                    try{
-                        await Task.Delay(1000, Program.TS_TokenEngine.Token);
-                    }catch (TaskCanceledException){
-                        break;
-                    }
+                    await Task.Delay(1000);
                 }
             }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "RamBgProcess()"); }
+                if (debug_status){
+                    TSErrorLog.LogException(ex, "RamBgProcess()");
+                }
             }
         }
         #endregion
@@ -3697,6 +3567,7 @@ namespace Glow{
         readonly List<string> disk_serial_list = new List<string>();
         readonly List<string> disk_volume_serial_list = new List<string>();
         readonly List<string> disk_total_space_list = new List<string>();
+        readonly List<string> disk_used_space_list = new List<string>();
         readonly List<string> disk_free_space_list = new List<string>();
         readonly List<string> disk_file_system_list = new List<string>();
         readonly List<string> disk_formatting_system_list = new List<string>();
@@ -4013,21 +3884,24 @@ namespace Glow{
                     }catch{
                         disk_volume_serial_list.Add(software_lang.TSReadLangs("StorageContent", "se_c_unknown"));
                     }
-                    // DISK TOTAL SIZE
+                    // DISK SPACE & FREE & USED               
                     try{
-                        var diskSizeBytes = Convert.ToDouble(drive_info["Size"]);
-                        disk_total_space_list.Add(TS_FormatSize(diskSizeBytes));
-                    }catch{
-                        disk_total_space_list.Add(software_lang.TSReadLangs("StorageContent", "se_c_unknown"));
-                    }
-                    // DISK FREE SPACE
-                    try{
-                        double freeBytes = logicalDisks.Sum(ld =>{
+                        // TOTAL SPACE
+                        double diskSizeBytes = Convert.ToDouble(drive_info["Size"]);
+                        // FREE SPACE
+                        double freeBytes = logicalDisks.Sum(ld => {
                             try { return Convert.ToDouble(ld["FreeSpace"]); }
                             catch { return 0d; }
                         });
+                        // USED SPACE
+                        double usedBytes = diskSizeBytes - freeBytes;
+                        if (usedBytes < 0) usedBytes = 0;
+                        disk_total_space_list.Add(TS_FormatSize(diskSizeBytes));
+                        disk_used_space_list.Add(TS_FormatSize(usedBytes));
                         disk_free_space_list.Add(TS_FormatSize(freeBytes));
                     }catch{
+                        disk_total_space_list.Add(software_lang.TSReadLangs("StorageContent", "se_c_unknown"));
+                        disk_used_space_list.Add(software_lang.TSReadLangs("StorageContent", "se_c_unknown"));
                         disk_free_space_list.Add(software_lang.TSReadLangs("StorageContent", "se_c_unknown"));
                     }
                     // DISK FILE SYSTEM
@@ -4427,6 +4301,7 @@ namespace Glow{
                 try { DISK_Serial_V.Text = disk_serial_list[disk_percent]; } catch (Exception ex) { if (debug_status) TSErrorLog.LogException(ex, "DISK_Selector_List_SelectedIndexChanged()"); }
                 try { DISK_VolumeSerial_V.Text = disk_volume_serial_list[disk_percent]; } catch (Exception ex) { if (debug_status) TSErrorLog.LogException(ex, "DISK_Selector_List_SelectedIndexChanged()"); }
                 try { DISK_Size_V.Text = disk_total_space_list[disk_percent]; } catch (Exception ex) { if (debug_status) TSErrorLog.LogException(ex, "DISK_Selector_List_SelectedIndexChanged()"); }
+                try { DISK_UsedSpace_V.Text = disk_used_space_list[disk_percent]; } catch (Exception ex) { if (debug_status) TSErrorLog.LogException(ex, "DISK_Selector_List_SelectedIndexChanged()"); }
                 try { DISK_FreeSpace_V.Text = disk_free_space_list[disk_percent]; } catch (Exception ex) { if (debug_status) TSErrorLog.LogException(ex, "DISK_Selector_List_SelectedIndexChanged()"); }
                 try { DISK_FileSystem_V.Text = disk_file_system_list[disk_percent]; } catch (Exception ex) { if (debug_status) TSErrorLog.LogException(ex, "DISK_Selector_List_SelectedIndexChanged()"); }
                 try { DISK_FormattingType_V.Text = disk_formatting_system_list[disk_percent]; } catch (Exception ex) { if (debug_status) TSErrorLog.LogException(ex, "DISK_Selector_List_SelectedIndexChanged()"); }
@@ -4493,9 +4368,9 @@ namespace Glow{
         };
         private void Network(){
             TSGetLangs software_lang = new TSGetLangs(lang_path);
-            ManagementObjectSearcher search_na = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name, MACAddress, Manufacturer, ServiceName, AdapterType, PhysicalAdapter, PNPDeviceID, GUID, NetConnectionID, Index, Speed FROM Win32_NetworkAdapter");
-            //
-            var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT DeviceName, DriverVersion, DriverDate FROM Win32_PnPSignedDriver WHERE DeviceClass='Net'");
+            EnumerationOptions queryOptions = new EnumerationOptions { ReturnImmediately = true, Rewindable = false, DirectRead = true };
+            ManagementObjectSearcher search_na = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name, MACAddress, Manufacturer, ServiceName, AdapterType, PhysicalAdapter, PNPDeviceID, GUID, NetConnectionID, Index, Speed FROM Win32_NetworkAdapter", queryOptions);
+            var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT DeviceName, DriverVersion, DriverDate FROM Win32_PnPSignedDriver WHERE DeviceClass='Net'", queryOptions);
             var driverDict = new Dictionary<string, ManagementObject>(StringComparer.OrdinalIgnoreCase);
             using (var results = searcher.Get()){
                 foreach (ManagementObject d in results.Cast<ManagementObject>()){
@@ -4860,7 +4735,7 @@ namespace Glow{
                         int elapsed = (int)(DateTime.Now - startTime).TotalMilliseconds;
                         int nextDelay = Math.Max(10, 1000 - elapsed);
                         try{
-                            await Task.Delay(nextDelay, Program.TS_TokenEngine.Token);
+                            await Task.Delay(nextDelay);
                         }catch (TaskCanceledException){
                             break;
                         }
@@ -5034,8 +4909,9 @@ namespace Glow{
         readonly List<string> usb_device_guid_list = new List<string>();
         private void Usb(){
             TSGetLangs software_lang = new TSGetLangs(lang_path);
-            ManagementObjectSearcher search_usb_controller = new ManagementObjectSearcher("root\\CIMV2", "SELECT Caption, Name, Manufacturer, DeviceID, PNPDeviceID, Status FROM Win32_USBController");
-            ManagementObjectSearcher search_usb_device = new ManagementObjectSearcher("root\\CIMV2", "SELECT FriendlyName, DeviceName, Manufacturer, DriverVersion, DriverDate, InfName, DeviceID, HardWareID, ClassGuid FROM Win32_PnPSignedDriver WHERE DeviceID LIKE 'USB%'");
+            EnumerationOptions queryOptions = new EnumerationOptions { ReturnImmediately = true, Rewindable = false, DirectRead = true };
+            ManagementObjectSearcher search_usb_controller = new ManagementObjectSearcher("root\\CIMV2", "SELECT Caption, Name, Manufacturer, DeviceID, PNPDeviceID, Status FROM Win32_USBController", queryOptions);
+            ManagementObjectSearcher search_usb_device = new ManagementObjectSearcher("root\\CIMV2", "SELECT FriendlyName, DeviceName, Manufacturer, DriverVersion, DriverDate, InfName, DeviceID, HardWareID, ClassGuid FROM Win32_PnPSignedDriver WHERE DeviceID LIKE 'USB%'", queryOptions);
             foreach (ManagementObject query_usb_con in search_usb_controller.Get().Cast<ManagementObject>()){
                 // USB CON CAPTION
                 try{
@@ -5308,9 +5184,10 @@ namespace Glow{
         readonly List<string> sound_device_status_list = new List<string>();
         private void Sound(){
             TSGetLangs software_lang = new TSGetLangs(lang_path);
-            ManagementObjectSearcher search_sound = new ManagementObjectSearcher("root\\CIMV2", "SELECT Caption, Name, Manufacturer, PNPDeviceID, DeviceID, Status FROM Win32_SoundDevice");
+            EnumerationOptions queryOptions = new EnumerationOptions { ReturnImmediately = true, Rewindable = false, DirectRead = true };
+            ManagementObjectSearcher search_sound = new ManagementObjectSearcher("root\\CIMV2", "SELECT Caption, Name, Manufacturer, PNPDeviceID, DeviceID, Status FROM Win32_SoundDevice", queryOptions);
             //
-            var soundSearcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT DeviceID, DriverVersion, DriverDate FROM Win32_PnPSignedDriver WHERE DeviceClass='MEDIA'");
+            var soundSearcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT DeviceID, DriverVersion, DriverDate FROM Win32_PnPSignedDriver WHERE DeviceClass='MEDIA'", queryOptions);
             var soundDriversDict = new Dictionary<string, ManagementObject>(StringComparer.OrdinalIgnoreCase);
             using (var results = soundSearcher.Get()){
                 foreach (ManagementObject d in results.Cast<ManagementObject>()){
@@ -5718,7 +5595,7 @@ namespace Glow{
                     }
                     //
                     try{
-                        await Task.Delay(1000, Program.TS_TokenEngine.Token);
+                        await Task.Delay(1000);
                     }catch (TaskCanceledException){
                         break;
                     }
@@ -5741,7 +5618,7 @@ namespace Glow{
         }
         private async Task StartBatteryReportProcessAsync(){
             try{
-                await Task.Run(async () => await Battery_report_check_process_async(), Program.TS_TokenEngine.Token);
+                await Task.Run(async () => await Battery_report_check_process_async());
             }catch (Exception ex){
                 if (debug_status) { TSErrorLog.LogException(ex, "StartBatteryReportProcessAsync()"); }
             }
@@ -5749,7 +5626,7 @@ namespace Glow{
         private async Task Battery_report_check_process_async(){
             try{
                 while (!File.Exists(battery_report_path)){
-                    await Task.Delay(500, Program.TS_TokenEngine.Token);
+                    await Task.Delay(500);
                 }
                 bool fileReady = false;
                 while (!fileReady){
@@ -5778,70 +5655,70 @@ namespace Glow{
         // ======================================================================================================
         private Task InstalledDrivers(){
             TSGetLangs software_lang = new TSGetLangs(lang_path);
-            var driverTypeMappings = new Dictionary<string, string>{
-                { "Kernel Driver", "osd_c_kernel_driver" },
-                { "File System Driver", "osd_c_file_system_driver" },
-                { "Unknown", "osd_c_unknown" }
+            var typeMap = new Dictionary<string, string> {
+                 { "Kernel Driver", "osd_c_kernel_driver" },
+                 { "File System Driver", "osd_c_file_system_driver" }
             };
-            var driverStartModeMappings = new Dictionary<string, string>{
-                { "Boot", "osd_c_boot" },
-                { "Manual", "osd_c_manuel" },
-                { "System", "osd_c_system" },
-                { "Auto", "osd_c_auto" },
-                { "Disabled", "osd_c_disabled" },
-                { "Unknown", "osd_c_unknown" }
+            var startMap = new Dictionary<string, string> {
+                 { "Boot", "osd_c_boot" }, { "Manual", "osd_c_manuel" },
+                 { "System", "osd_c_system" }, { "Auto", "osd_c_auto" },
+                 { "Disabled", "osd_c_disabled" }
             };
-            var driverStatusMappings = new Dictionary<string, string>{
-                { "Stopped", "osd_c_stopped" },
-                { "Running", "osd_c_working" }
+            var stateMap = new Dictionary<string, string> {
+                 { "Stopped", "osd_c_stopped" }, { "Running", "osd_c_working" }
             };
             var langCache = new Dictionary<string, string>();
             string L(string key){
-                if (!langCache.TryGetValue(key, out var val))
-                    langCache[key] = val = software_lang.TSReadLangs("Osd_Content", key);
+                if (!langCache.TryGetValue(key, out string val)){
+                    val = software_lang.TSReadLangs("Osd_Content", key);
+                    langCache[key] = val;
+                }
                 return val;
             }
             try{
-                var search = new ManagementObjectSearcher("root\\CIMV2", "SELECT PathName, DisplayName, ServiceType, StartMode, State FROM Win32_SystemDriver");
+                var scope = new ManagementScope(@"\\.\root\CIMV2");
+                scope.Connect();
+                var options = new EnumerationOptions{
+                    ReturnImmediately = true,
+                    Rewindable = false,
+                    DirectRead = true
+                };
+                var query = new ObjectQuery("SELECT PathName, DisplayName, ServiceType, StartMode, State FROM Win32_SystemDriver");
+                var searcher = new ManagementObjectSearcher(scope, query, options);
                 var driverRows = new List<string[]>();
-                foreach (ManagementObject d in search.Get().Cast<ManagementObject>()){
-                    string path = Convert.ToString(d["PathName"])?.Replace("\"", "").Replace("\\??\\", "").Trim() ?? "";
+                foreach (ManagementBaseObject d in searcher.Get()){
+                    string path = (d["PathName"] as string ?? "").Replace("\"", "").Replace("\\??\\", "").Trim();
                     string file = Path.GetFileName(path);
-                    string disp = Convert.ToString(d["DisplayName"])?.Trim() ?? "";
-                    string typeKey = Convert.ToString(d["ServiceType"])?.Trim();
-                    string startKey = Convert.ToString(d["StartMode"])?.Trim();
-                    string stateKey = Convert.ToString(d["State"])?.Trim();
+                    string disp = (d["DisplayName"] as string ?? "").Trim();
                     //
-                    string type = driverTypeMappings.TryGetValue(typeKey ?? "", out var t) ? L(t) : L("osd_c_unknown");
-                    string start = driverStartModeMappings.TryGetValue(startKey ?? "", out var s) ? L(s) : L("osd_c_unknown");
-                    string state = driverStatusMappings.TryGetValue(stateKey ?? "", out var st) ? L(st) : L("osd_c_unknown");
+                    string typeKey = d["ServiceType"] as string ?? "";
+                    string startKey = d["StartMode"] as string ?? "";
+                    string stateKey = d["State"] as string ?? "";
                     //
-                    driverRows.Add(new[] { path, file, disp, type, start, state });
+                    string type = L(typeMap.TryGetValue(typeKey, out var tVal) ? tVal : "osd_c_unknown");
+                    string start = L(startMap.TryGetValue(startKey, out var sVal) ? sVal : "osd_c_unknown");
+                    string state = L(stateMap.TryGetValue(stateKey, out var stVal) ? stVal : "osd_c_unknown");
+                    //
+                    driverRows.Add(new string[] { path, file, disp, type, start, state, TSNaturalSortKey(file) });
                 }
                 //
-                driverRows.Sort((a, b) => string.Compare(a[1], b[1], StringComparison.OrdinalIgnoreCase));
+                driverRows.Sort((a, b) => string.Compare(a[6], b[6], StringComparison.OrdinalIgnoreCase));
                 //
-                Action uiUpdate = () =>{
-                    BulkAddRows(driverRows, software_lang);
-                };
+                Action uiUpdate = () => BulkAddRowsFast(driverRows, software_lang);
                 if (OSD_DataMainTable.InvokeRequired)
                     OSD_DataMainTable.Invoke(uiUpdate);
                 else
                     uiUpdate();
             }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "InstalledDrivers()"); }
+                if (debug_status) TSErrorLog.LogException(ex, "InstalledDrivers()");
             }finally{
-                Action finalizeUi = () =>{
+                Action finalizeUi = () => {
                     OSD_RotateBtn.Enabled = true;
                     ((Control)DRIVERS).Enabled = true;
                     OSD_DataMainTable.PerformLayout();
                     OSD_DataMainTable.Invalidate();
-                    //
-                    if (debug_status){
-                        TSLogger.Log("<--- Installed Drivers Section Loaded --->");
-                    }
+                    if (debug_status) TSLogger.Log("<--- Installed Drivers Section Loaded --->");
                 };
-                //
                 if (OSD_DataMainTable.InvokeRequired)
                     OSD_DataMainTable.Invoke(finalizeUi);
                 else
@@ -5849,19 +5726,26 @@ namespace Glow{
             }
             return Task.CompletedTask;
         }
-        private void BulkAddRows(List<string[]> driverRows, TSGetLangs software_lang){
+        private void BulkAddRowsFast(List<string[]> driverRows, TSGetLangs software_lang){
             OSD_DataMainTable.SuspendLayout();
             OSD_DataMainTable.Rows.Clear();
             string unknownValue = software_lang.TSReadLangs("Osd_Content", "osd_c_unknown");
-            foreach (var row in driverRows){
-                for (int i = 0; i < row.Length; i++)
-                    if (string.IsNullOrWhiteSpace(row[i]))
-                        row[i] = unknownValue;
-
-                OSD_DataMainTable.Rows.Add(row);
+            int count = driverRows.Count;
+            int dpiHeight = OSD_DataMainTable.RowTemplate.Height;
+            DataGridViewRow[] rowsArray = new DataGridViewRow[count];
+            for (int i = 0; i < count; i++){
+                string[] data = driverRows[i];
+                for (int j = 0; j < data.Length; j++){
+                    if (string.IsNullOrWhiteSpace(data[j])) data[j] = unknownValue;
+                }
+                DataGridViewRow gridRow = new DataGridViewRow();
+                gridRow.CreateCells(OSD_DataMainTable, data);
+                gridRow.Height = dpiHeight;
+                rowsArray[i] = gridRow;
             }
+            OSD_DataMainTable.Rows.AddRange(rowsArray);
             OSD_DataMainTable.ClearSelection();
-            OSD_TYSS_V.Text = OSD_DataMainTable.Rows.Count.ToString();
+            OSD_TYSS_V.Text = count.ToString();
             OSD_DataMainTable.ResumeLayout();
         }
         private void OSD_TextBox_TextChanged(object sender, EventArgs e){
@@ -5930,74 +5814,75 @@ namespace Glow{
         // ======================================================================================================
         private Task InstalledServices(){
             TSGetLangs software_lang = new TSGetLangs(lang_path);
-            var serviceTypeMappings = new Dictionary<string, string>{
-                { "Kernel Driver", "ss_c_kernel_driver" },
-                { "File System Driver", "ss_c_file_system_service" },
-                { "Adapter", "ss_c_adaptor" },
-                { "Recognizer Driver", "ss_c_recognizer_service" },
-                { "Own Process", "ss_c_own_system" },
-                { "Share Process", "ss_c_process_sharer" },
-                { "Interactive Process", "ss_c_interactive_process" },
-                { "Unknown", "ss_c_unknown" }
+            var serviceTypeMap = new Dictionary<string, string>{
+                 { "Kernel Driver", "ss_c_kernel_driver" },
+                 { "File System Driver", "ss_c_file_system_service" },
+                 { "Adapter", "ss_c_adaptor" },
+                 { "Recognizer Driver", "ss_c_recognizer_service" },
+                 { "Own Process", "ss_c_own_system" },
+                 { "Share Process", "ss_c_process_sharer" },
+                 { "Interactive Process", "ss_c_interactive_process" }
             };
-            var startModeMappings = new Dictionary<string, string>{
-                { "Boot", "ss_c_boot" },
-                { "Manual", "ss_c_manuel" },
-                { "System", "ss_c_system" },
-                { "Auto", "ss_c_auto" },
-                { "Disabled", "ss_c_disabled" },
-                { "Unknown", "ss_c_unknown" }
+            var startModeMap = new Dictionary<string, string>{
+                 { "Boot", "ss_c_boot" }, { "Manual", "ss_c_manuel" },
+                 { "System", "ss_c_system" }, { "Auto", "ss_c_auto" },
+                 { "Disabled", "ss_c_disabled" }
             };
-            var stateMappings = new Dictionary<string, string>{
-                { "Stopped", "ss_c_stopped" },
-                { "Running", "ss_c_working" }
+            var stateMap = new Dictionary<string, string>{
+                 { "Stopped", "ss_c_stopped" }, { "Running", "ss_c_working" }
             };
             var langCache = new Dictionary<string, string>();
             string L(string key){
-                if (!langCache.TryGetValue(key, out var val))
-                    langCache[key] = val = software_lang.TSReadLangs("Services_Content", key);
+                if (!langCache.TryGetValue(key, out string val)){
+                    val = software_lang.TSReadLangs("Services_Content", key);
+                    langCache[key] = val;
+                }
                 return val;
             }
             try{
-                var search = new ManagementObjectSearcher("root\\CIMV2", "SELECT PathName, Name, DisplayName, ServiceType, StartMode, State FROM Win32_Service");
+                var scope = new ManagementScope(@"\\.\root\CIMV2");
+                scope.Connect();
+                var options = new EnumerationOptions{
+                    ReturnImmediately = true,
+                    Rewindable = false,
+                    DirectRead = true
+                };
+                var query = new ObjectQuery("SELECT PathName, Name, DisplayName, ServiceType, StartMode, State FROM Win32_Service");
+                var searcher = new ManagementObjectSearcher(scope, query, options);
                 var serviceRows = new List<string[]>();
-                foreach (ManagementObject s in search.Get().Cast<ManagementObject>()){
-                    string path = Convert.ToString(s["PathName"])?.Replace("\"", "").Replace("\\??\\", "").Trim() ?? "";
-                    string name = Convert.ToString(s["Name"])?.Trim() ?? "";
-                    string disp = Convert.ToString(s["DisplayName"])?.Trim() ?? "";
-                    string typeKey = Convert.ToString(s["ServiceType"])?.Trim();
-                    string startKey = Convert.ToString(s["StartMode"])?.Trim();
-                    string stateKey = Convert.ToString(s["State"])?.Trim();
+                //
+                foreach (ManagementBaseObject s in searcher.Get()){
+                    string path = (s["PathName"] as string ?? "").Replace("\"", "").Replace("\\??\\", "").Trim();
+                    string name = (s["Name"] as string ?? "").Trim();
+                    string disp = (s["DisplayName"] as string ?? "").Trim();
                     //
-                    string type = serviceTypeMappings.TryGetValue(typeKey ?? "", out var t) ? L(t) : L("ss_c_unknown");
-                    string start = startModeMappings.TryGetValue(startKey ?? "", out var sm) ? L(sm) : L("ss_c_unknown");
-                    string state = stateMappings.TryGetValue(stateKey ?? "", out var st) ? L(st) : L("ss_c_unknown");
+                    string tK = s["ServiceType"] as string ?? "";
+                    string smK = s["StartMode"] as string ?? "";
+                    string stK = s["State"] as string ?? "";
                     //
-                    serviceRows.Add(new[] { path, name, disp, type, start, state });
+                    string type = L(serviceTypeMap.TryGetValue(tK, out var t) ? t : "ss_c_unknown");
+                    string start = L(startModeMap.TryGetValue(smK, out var sm) ? sm : "ss_c_unknown");
+                    string state = L(stateMap.TryGetValue(stK, out var st) ? st : "ss_c_unknown");
+                    //
+                    serviceRows.Add(new string[] { path, name, disp, type, start, state, TSNaturalSortKey(name) });
                 }
                 //
-                serviceRows.Sort((a, b) => string.Compare(a[1], b[1], StringComparison.OrdinalIgnoreCase));
+                serviceRows.Sort((a, b) => string.Compare(a[6], b[6], StringComparison.OrdinalIgnoreCase));
                 //
-                Action uiUpdate = () =>{
-                    BulkAddServiceRows(serviceRows, software_lang);
-                };
-                //
+                Action uiUpdate = () => BulkAddServiceRowsFast(serviceRows, software_lang);
                 if (SERVICE_DataMainTable.InvokeRequired)
                     SERVICE_DataMainTable.Invoke(uiUpdate);
                 else
                     uiUpdate();
             }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "InstalledServices()"); }
+                if (debug_status) TSErrorLog.LogException(ex, "InstalledServices()");
             }finally{
-                Action finalizeUi = () =>{
+                Action finalizeUi = () => {
                     SERVICES_RotateBtn.Enabled = true;
                     ((Control)SERVICES).Enabled = true;
                     SERVICE_DataMainTable.PerformLayout();
                     SERVICE_DataMainTable.Invalidate();
-                    //
-                    if (debug_status){
-                        TSLogger.Log("<--- Installed Services Section Loaded --->");
-                    }
+                    if (debug_status) TSLogger.Log("<--- Installed Services Section Loaded --->");
                 };
                 if (SERVICE_DataMainTable.InvokeRequired)
                     SERVICE_DataMainTable.Invoke(finalizeUi);
@@ -6006,18 +5891,26 @@ namespace Glow{
             }
             return Task.CompletedTask;
         }
-        private void BulkAddServiceRows(List<string[]> serviceRows, TSGetLangs software_lang){
+        private void BulkAddServiceRowsFast(List<string[]> serviceRows, TSGetLangs software_lang){
             SERVICE_DataMainTable.SuspendLayout();
             SERVICE_DataMainTable.Rows.Clear();
             string unknownValue = software_lang.TSReadLangs("Services_Content", "ss_c_unknown");
-            foreach (var row in serviceRows){
-                for (int i = 0; i < row.Length; i++)
-                    if (string.IsNullOrWhiteSpace(row[i]))
-                        row[i] = unknownValue;
-                SERVICE_DataMainTable.Rows.Add(row);
+            int count = serviceRows.Count;
+            int dpiHeight = SERVICE_DataMainTable.RowTemplate.Height;
+            DataGridViewRow[] rowsArray = new DataGridViewRow[count];
+            for (int i = 0; i < count; i++){
+                string[] rowData = serviceRows[i];
+                for (int j = 0; j < rowData.Length; j++){
+                    if (string.IsNullOrWhiteSpace(rowData[j])) rowData[j] = unknownValue;
+                }
+                DataGridViewRow gridRow = new DataGridViewRow();
+                gridRow.CreateCells(SERVICE_DataMainTable, rowData);
+                gridRow.Height = dpiHeight;
+                rowsArray[i] = gridRow;
             }
+            SERVICE_DataMainTable.Rows.AddRange(rowsArray);
             SERVICE_DataMainTable.ClearSelection();
-            SERVICE_TYS_V.Text = SERVICE_DataMainTable.Rows.Count.ToString();
+            SERVICE_TYS_V.Text = count.ToString();
             SERVICE_DataMainTable.ResumeLayout();
         }
         private void Services_SearchTextBox_TextChanged(object sender, EventArgs e){
@@ -6374,7 +6267,7 @@ namespace Glow{
                     }
                 }
             }
-            return apps.GroupBy(a => a.Name, StringComparer.OrdinalIgnoreCase).Select(g => g.First()).OrderBy(a => TSNaturalSortKey(a.Name, CultureInfo.CurrentCulture)).ToList();
+            return apps.GroupBy(a => a.Name, StringComparer.OrdinalIgnoreCase).Select(g => g.First()).OrderBy(a => TSNaturalSortKey(a.Name)).ToList();
         }
         private void INSTAPPS_DataMainTable_CellPainting(object sender, DataGridViewCellPaintingEventArgs e){
             if (e.ColumnIndex == 0 && e.RowIndex >= 0){
@@ -6697,22 +6590,14 @@ namespace Glow{
                 OS_ExperienceVersion.Text = software_lang.TSReadLangs("OperatingSystem", "os_experience_version");
                 OS_Country.Text = software_lang.TSReadLangs("OperatingSystem", "os_adjustable_language");
                 OS_TimeZone.Text = software_lang.TSReadLangs("OperatingSystem", "os_timezone");
-                OS_EncryptionType.Text = software_lang.TSReadLangs("OperatingSystem", "os_encrypt_type");
                 OS_SystemTime.Text = software_lang.TSReadLangs("OperatingSystem", "os_time");
-                OS_Install.Text = software_lang.TSReadLangs("OperatingSystem", "os_install_date");
                 OS_SystemWorkTime.Text = software_lang.TSReadLangs("OperatingSystem", "os_system_work_time");
                 OS_LastBootTime.Text = software_lang.TSReadLangs("OperatingSystem", "os_last_boot_time");
                 OS_SystemLastShutDown.Text = software_lang.TSReadLangs("OperatingSystem", "os_last_shutdown_time");
+                OS_Install.Text = software_lang.TSReadLangs("OperatingSystem", "os_install_date");
                 OS_PrimaryOS.Text = software_lang.TSReadLangs("OperatingSystem", "os_primary_os");
                 OS_PortableOS.Text = software_lang.TSReadLangs("OperatingSystem", "os_portable_os");
-                OS_MouseWheelStatus.Text = software_lang.TSReadLangs("OperatingSystem", "os_mouse_scroll_speed");
-                OS_ScrollLockStatus.Text = software_lang.TSReadLangs("OperatingSystem", "os_scroll_lock_status");
-                OS_NumLockStatus.Text = software_lang.TSReadLangs("OperatingSystem", "os_numpad_lock_status");
-                OS_CapsLockStatus.Text = software_lang.TSReadLangs("OperatingSystem", "os_caps_lock_status");
                 OS_FastBoot.Text = software_lang.TSReadLangs("OperatingSystem", "os_fastboot_status");
-                OS_WinPageFile.Text = software_lang.TSReadLangs("OperatingSystem", "os_win_pagefile");
-                OS_TempWinPageFile.Text = software_lang.TSReadLangs("OperatingSystem", "os_win_temp_pagefile");
-                OS_Hiberfil.Text = software_lang.TSReadLangs("OperatingSystem", "os_win_hiberfil");
                 OS_AVProgram.Text = software_lang.TSReadLangs("OperatingSystem", "os_installed_anti_virus_apps");
                 OS_FirewallProgram.Text = software_lang.TSReadLangs("OperatingSystem", "os_installed_firewall_apps");
                 OS_AntiSpywareProgram.Text = software_lang.TSReadLangs("OperatingSystem", "os_installed_anti_spyware_apps");
@@ -6726,13 +6611,10 @@ namespace Glow{
                 OS_ActivePowerScreenTimeOutB.Text = software_lang.TSReadLangs("OperatingSystem", "os_active_power_sctb");
                 OS_ActivePowerSleepTimeP.Text = software_lang.TSReadLangs("OperatingSystem", "os_active_power_sptp");
                 OS_ActivePowerSleepTimeB.Text = software_lang.TSReadLangs("OperatingSystem", "os_active_power_sptb");
-                OS_MSEdge.Text = software_lang.TSReadLangs("OperatingSystem", "os_msedge_version");
-                OS_MSEdgeWebView.Text = software_lang.TSReadLangs("OperatingSystem", "os_msedge_webview2_version");
-                OS_MSStoreVersion.Text = software_lang.TSReadLangs("OperatingSystem", "os_ms_store_version");
                 OS_MSOfficeVersion.Text = software_lang.TSReadLangs("OperatingSystem", "os_ms_office_version");
+                OS_WinLicenseTime.Text = software_lang.TSReadLangs("OperatingSystem", "os_win_license_time");
                 OS_WinKey.Text = software_lang.TSReadLangs("OperatingSystem", "os_win_license_key");
                 OS_WinActiveChannel.Text = software_lang.TSReadLangs("OperatingSystem", "os_win_activation_channel");
-                OS_WinLicenseTime.Text = software_lang.TSReadLangs("OperatingSystem", "os_win_license_time");
                 OS_WinLicenseURL.Text = software_lang.TSReadLangs("OperatingSystem", "os_win_license_url");
                 OS_WinLicenseVerifiURL.Text = software_lang.TSReadLangs("OperatingSystem", "os_win_license_verification_url");
                 OS_NETFrameworkVersion.Text = software_lang.TSReadLangs("OperatingSystem", "os_net_framework_version");
@@ -6868,6 +6750,7 @@ namespace Glow{
                 DISK_Serial.Text = software_lang.TSReadLangs("Storage", "se_serial");
                 DISK_VolumeSerial.Text = software_lang.TSReadLangs("Storage", "se_partition_serial");
                 DISK_Size.Text = software_lang.TSReadLangs("Storage", "se_size");
+                DISK_UsedSpace.Text = software_lang.TSReadLangs("Storage", "se_used_space");
                 DISK_FreeSpace.Text = software_lang.TSReadLangs("Storage", "se_empty_space");
                 DISK_FileSystem.Text = software_lang.TSReadLangs("Storage", "se_file_system");
                 DISK_FormattingType.Text = software_lang.TSReadLangs("Storage", "se_formatting_type");
@@ -7342,7 +7225,6 @@ namespace Glow{
                 os_panel_5.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
                 os_panel_6.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
                 os_panel_7.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
-                os_panel_8.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
                 //
                 OS_SystemUser.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_SystemUser_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
@@ -7368,38 +7250,22 @@ namespace Glow{
                 OS_Country_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_TimeZone.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_TimeZone_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_EncryptionType.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_EncryptionType_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_SystemTime.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_SystemTime_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_Install.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_Install_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_SystemWorkTime.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_SystemWorkTime_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_LastBootTime.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_LastBootTime_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_SystemLastShutDown.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_SystemLastShutDown_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                OS_Install.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_Install_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_PrimaryOS.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_PrimaryOS_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_PortableOS.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_PortableOS_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_MouseWheelStatus.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_MouseWheelStatus_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_ScrollLockStatus.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_ScrollLockStatus_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_NumLockStatus.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_NumLockStatus_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_CapsLockStatus.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_CapsLockStatus_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_FastBoot.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_FastBoot_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_WinPageFile.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_WinPageFile_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_TempWinPageFile.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_TempWinPageFile_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_Hiberfil.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_Hiberfil_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_AVProgram.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_AVProgram_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_FirewallProgram.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
@@ -7426,20 +7292,14 @@ namespace Glow{
                 OS_ActivePowerSleepTimeP_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_ActivePowerSleepTimeB.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_ActivePowerSleepTimeB_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_MSEdge.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_MSEdge_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_MSEdgeWebView.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_MSEdgeWebView_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_MSStoreVersion.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_MSStoreVersion_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_MSOfficeVersion.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_MSOfficeVersion_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                OS_WinLicenseTime.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                OS_WinLicenseTime_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_WinKey.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_WinKey_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_WinActiveChannel.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_WinActiveChannel_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_WinLicenseTime.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_WinLicenseTime_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_WinLicenseURL.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_WinLicenseURL_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_WinLicenseVerifiURL.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
@@ -7783,6 +7643,8 @@ namespace Glow{
                 DISK_VolumeSerial_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 DISK_Size.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 DISK_Size_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                DISK_UsedSpace.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                DISK_UsedSpace_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 DISK_FreeSpace.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 DISK_FreeSpace_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 DISK_FileSystem.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
@@ -9076,22 +8938,14 @@ namespace Glow{
                 KV(OS_ExperienceVersion.Text, OS_ExperienceVersion_V.Text),
                 KV(OS_Country.Text, OS_Country_V.Text),
                 KV(OS_TimeZone.Text, OS_TimeZone_V.Text),
-                KV(OS_EncryptionType.Text, OS_EncryptionType_V.Text),
                 KV(OS_SystemTime.Text, OS_SystemTime_V.Text),
-                KV(OS_Install.Text, OS_Install_V.Text),
                 KV(OS_SystemWorkTime.Text, OS_SystemWorkTime_V.Text),
                 KV(OS_LastBootTime.Text, OS_LastBootTime_V.Text),
                 KV(OS_SystemLastShutDown.Text, OS_SystemLastShutDown_V.Text),
+                KV(OS_Install.Text, OS_Install_V.Text),
                 KV(OS_PrimaryOS.Text, OS_PrimaryOS_V.Text),
                 KV(OS_PortableOS.Text, OS_PortableOS_V.Text),
-                KV(OS_MouseWheelStatus.Text, OS_MouseWheelStatus_V.Text),
-                KV(OS_ScrollLockStatus.Text, OS_ScrollLockStatus_V.Text),
-                KV(OS_NumLockStatus.Text, OS_NumLockStatus_V.Text),
-                KV(OS_CapsLockStatus.Text, OS_CapsLockStatus_V.Text),
                 KV(OS_FastBoot.Text, OS_FastBoot_V.Text),
-                KV(OS_WinPageFile.Text, OS_WinPageFile_V.Text),
-                KV(OS_TempWinPageFile.Text, OS_TempWinPageFile_V.Text),
-                KV(OS_Hiberfil.Text, OS_Hiberfil_V.Text),
                 KV(OS_AVProgram.Text, OS_AVProgram_V.Text),
                 KV(OS_FirewallProgram.Text, OS_FirewallProgram_V.Text),
                 KV(OS_AntiSpywareProgram.Text, OS_AntiSpywareProgram_V.Text),
@@ -9105,13 +8959,10 @@ namespace Glow{
                 KV(OS_ActivePowerScreenTimeOutB.Text, OS_ActivePowerScreenTimeOutB_V.Text),
                 KV(OS_ActivePowerSleepTimeP.Text, OS_ActivePowerSleepTimeP_V.Text),
                 KV(OS_ActivePowerSleepTimeB.Text, OS_ActivePowerSleepTimeB_V.Text),
-                KV(OS_MSEdge.Text, OS_MSEdge_V.Text),
-                KV(OS_MSEdgeWebView.Text, OS_MSEdgeWebView_V.Text),
-                KV(OS_MSStoreVersion.Text, OS_MSStoreVersion_V.Text),
                 KV(OS_MSOfficeVersion.Text, OS_MSOfficeVersion_V.Text),
+                KV(OS_WinLicenseTime.Text, OS_WinLicenseTime_V.Text),
                 KV(OS_WinKey.Text, OS_WinKey_V.Text),
                 KV(OS_WinActiveChannel.Text, OS_WinActiveChannel_V.Text),
-                KV(OS_WinLicenseTime.Text, OS_WinLicenseTime_V.Text),
                 KV(OS_WinLicenseURL.Text, OS_WinLicenseURL_V.Text),
                 KV(OS_WinLicenseVerifiURL.Text, OS_WinLicenseVerifiURL_V.Text),
                 KV(OS_NETFrameworkVersion.Text, OS_NETFrameworkVersion_V.Text),
@@ -9352,6 +9203,7 @@ namespace Glow{
                         KV(DISK_Serial.Text, DISK_Serial_V.Text),
                         KV(DISK_VolumeSerial.Text, DISK_VolumeSerial_V.Text),
                         KV(DISK_Size.Text, DISK_Size_V.Text),
+                        KV(DISK_UsedSpace.Text, DISK_UsedSpace_V.Text),
                         KV(DISK_FreeSpace.Text, DISK_FreeSpace_V.Text),
                         KV(DISK_FileSystem.Text, DISK_FileSystem_V.Text),
                         KV(DISK_FormattingType.Text, DISK_FormattingType_V.Text),
@@ -10112,7 +9964,6 @@ namespace Glow{
         private void CancelAllTasks(){
             try{
                 if (ts_token_engine_stopper) return;
-                Program.TS_TokenEngine?.Cancel();
                 ts_token_engine_stopper = true;
                 if (debug_status){
                     TSLogger.Log("<---------------------------->");
@@ -10120,10 +9971,23 @@ namespace Glow{
                     TSLogger.Log("<---------------------------->");
                 }
             }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "CancelAllTasks()"); }
+                if (debug_status && !this.IsDisposed){
+                    TSErrorLog.LogException(ex, "CancelAllTasks()");
+                }
             }
         }
-        private void Software_exit(){ loop_status = false; CancelAllTasks(); Application.Exit(); }
+        private bool isExiting = false;
+        private void Software_exit(){
+            if (isExiting) return;
+            isExiting = true;
+            loop_status = false;
+            CancelAllTasks();
+            if (Application.MessageLoop){
+                Application.Exit();
+            }else{
+                Environment.Exit(1);
+            }
+        }
         private void Glow_FormClosing(object sender, FormClosingEventArgs e){
             if (CPUbenchMode || DISKbenchMode || RAMbenchMode || BTfinderMode || SFCandDISMprocessStatus){
                 e.Cancel = true;

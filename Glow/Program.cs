@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Management;
-using System.Threading;
 using System.Windows.Forms;
 //
 using static Glow.TSModules;
@@ -12,9 +11,6 @@ namespace Glow{
         /// <summary>
         /// Uygulamanın ana girdi noktası.
         /// </summary>
-        // ======================================================================================================
-        // GLOBAL TS CANCEL TOKEN
-        public static CancellationTokenSource TS_TokenEngine;
         // ======================================================================================================
         // GLOBAL SYSTEM INFO
         public static int windows_mode = 0;

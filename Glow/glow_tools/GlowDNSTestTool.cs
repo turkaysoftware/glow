@@ -1,11 +1,9 @@
-﻿using Microsoft.VisualBasic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +35,6 @@ namespace Glow.glow_tools{
             }
             //
             DNS_TestStartBtn.Width = Btn_FLP.Width;
-            DNS_CustomTestBtn.Width = Btn_FLP.Width;
             DNS_TestExportBtn.Width = Btn_FLP.Width;
             //
             InitDnsProviders();
@@ -90,12 +87,6 @@ namespace Glow.glow_tools{
                 DNS_TestStartBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
                 DNS_TestStartBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColorHover");
                 //
-                DNS_CustomTestBtn.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
-                DNS_CustomTestBtn.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DynamicThemeActiveBtnBG");
-                DNS_CustomTestBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
-                DNS_CustomTestBtn.FlatAppearance.MouseDownBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
-                DNS_CustomTestBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColorHover");
-                //
                 DNS_TestExportBtn.BackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
                 DNS_TestExportBtn.ForeColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "DynamicThemeActiveBtnBG");
                 DNS_TestExportBtn.FlatAppearance.BorderColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColor");
@@ -103,7 +94,6 @@ namespace Glow.glow_tools{
                 DNS_TestExportBtn.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(GlowMain.theme, "AccentColorHover");
                 //
                 TSImageRenderer(DNS_TestStartBtn, GlowMain.theme == 1 ? Properties.Resources.ct_test_start_light : Properties.Resources.ct_test_start_dark, 18, ContentAlignment.MiddleRight);
-                TSImageRenderer(DNS_CustomTestBtn, GlowMain.theme == 1 ? Properties.Resources.ct_dns_test_light : Properties.Resources.ct_dns_test_dark, 15, ContentAlignment.MiddleRight);
                 TSImageRenderer(DNS_TestExportBtn, GlowMain.theme == 1 ? Properties.Resources.ct_export_light : Properties.Resources.ct_export_dark, 17, ContentAlignment.MiddleRight);
                 //
                 Text = string.Format(software_lang.TSReadLangs("DNSTestTool", "dtt_title"), Application.ProductName);
@@ -114,7 +104,6 @@ namespace Glow.glow_tools{
                 DNSTable.Columns[1].HeaderText = software_lang.TSReadLangs("DNSTestTool", "dtt_column_server_response");
                 //
                 DNS_TestStartBtn.Text = " " + software_lang.TSReadLangs("DNSTestTool", "dtt_start");
-                DNS_CustomTestBtn.Text = " " + software_lang.TSReadLangs("DNSTestTool", "dtt_custom");
                 DNS_TestExportBtn.Text = " " + software_lang.TSReadLangs("DNSTestTool", "dtt_export");
             }catch (Exception){ }
         }
@@ -207,27 +196,6 @@ namespace Glow.glow_tools{
             }catch (Exception){
                 TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(software_lang.TSReadLangs("DNSTestTool", "dtt_copy_failed"), DNSTable.Rows[e.RowIndex].Cells[0].Value, "\n"));
             }
-        }
-        // CUSTOM DNS TEST
-        // ======================================================================================================
-        private void DNS_CustomTestBtn_Click(object sender, EventArgs e){
-            try{
-                string custom_ip = Interaction.InputBox(string.Format(software_lang.TSReadLangs("DNSTestTool", "dtt_custom_message"), "\n\n", "1.1.1.1"), string.Format(software_lang.TSReadLangs("DNSTestTool", "dtt_title"), Application.ProductName), "");
-                if (string.IsNullOrWhiteSpace(custom_ip))
-                    return;
-                if (IPAddress.TryParse(custom_ip.Trim(), out IPAddress ip)){
-                    var pingSender = new Ping();
-                    var reply = pingSender.Send(custom_ip);
-                    if (reply.Status == IPStatus.Success)
-                        TS_MessageBoxEngine.TS_MessageBox(this, 1, $"IP: {custom_ip}\n{DNSTest_pingSendText} {reply.RoundtripTime} ms");
-                    else
-                        TS_MessageBoxEngine.TS_MessageBox(this, 2, $"({custom_ip}) - {DNSTest_pingSendError} (({reply.Status}))");
-                }else{
-                    DialogResult restart = TS_MessageBoxEngine.TS_MessageBox(this, 6, string.Format(software_lang.TSReadLangs("DNSTestTool", "dtt_custom_message_error"), "\n"));
-                    if (restart == DialogResult.Yes)
-                        DNS_CustomTestBtn.PerformClick();
-                }
-            }catch (Exception){ }
         }
         // PRINT ENGINE
         // ======================================================================================================

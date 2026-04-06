@@ -5,7 +5,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 // TS Modules
@@ -18,8 +17,6 @@ namespace Glow{
         private string load_text;
         public TSPreloader(){
             InitializeComponent();
-            //
-            Program.TS_TokenEngine = new CancellationTokenSource();
             //
             LabelDeveloper.Text = Application.CompanyName;
             LabelSoftware.Text = Application.ProductName;
@@ -253,14 +250,12 @@ namespace Glow{
                     if (progress_interval > 100)
                         progress_interval = 100;
                     TSProgressExecutive(progress_interval);
-                    await Task.Delay(progress_delay, Program.TS_TokenEngine.Token);
+                    await Task.Delay(progress_delay);
                 }
             }catch (OperationCanceledException){
-                Program.TS_TokenEngine?.Dispose();
                 return;
             }
             if (IsDisposed || !IsHandleCreated){
-                Program.TS_TokenEngine?.Dispose();
                 return;
             }
             var glow = new GlowMain();

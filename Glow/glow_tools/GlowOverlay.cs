@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic.Devices;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -123,7 +122,7 @@ namespace Glow.glow_tools{
                         int elapsed = (int)(DateTime.Now - startTime).TotalMilliseconds;
                         int nextDelay = Math.Max(10, 750 - elapsed);
                         try{
-                            await Task.Delay(nextDelay, Program.TS_TokenEngine.Token);
+                            await Task.Delay(nextDelay);
                         }catch (TaskCanceledException){
                             break;
                         }
@@ -135,26 +134,26 @@ namespace Glow.glow_tools{
         // ======================================================================================================
         private async Task RAMEngine(){
             try{
-                var get_ram_info = new ComputerInfo();
+                var search_os = new ManagementObjectSearcher("root\\CIMV2", "SELECT TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem");
                 while (Overlay_overlay_loop){
                     DateTime startTime = DateTime.Now;
                     try{
-                        ulong total_ram = get_ram_info.TotalPhysicalMemory;
-                        ulong usable_ram = get_ram_info.AvailablePhysicalMemory;
-                        double total_formatted = TS_FormatSizeNoType(total_ram);
-                        double usable_formatted = TS_FormatSizeNoType(usable_ram);
-                        double usage_ram_percentage = (total_formatted - usable_formatted) / total_formatted * 100;
-                        await SetLabelTextSafeAsync(OVERLAY_RAM_V, string.Format("{0:0.0} - {1} / {2}", TS_FormatSize(total_ram - usable_ram), $"{usage_ram_percentage:0.0}%", TS_FormatSize(total_ram)));
-                    }catch { }
+                        var get_ram_info = search_os.Get().Cast<ManagementObject>().FirstOrDefault();
+                        ulong total_ram = (ulong)get_ram_info["TotalVisibleMemorySize"] * 1024;
+                        ulong usable_ram = (ulong)get_ram_info["FreePhysicalMemory"] * 1024;
+                        ulong used_ram = total_ram - usable_ram;
+                        double usage_ram_percentage = (double)used_ram / total_ram * 100;
+                        await SetLabelTextSafeAsync(OVERLAY_RAM_V, $"{TS_FormatSize(used_ram)} - {usage_ram_percentage:0.0}% / {TS_FormatSize(total_ram)}");
+                    }catch{ }
                     int elapsed = (int)(DateTime.Now - startTime).TotalMilliseconds;
                     int nextDelay = Math.Max(10, 750 - elapsed);
                     try{
-                        await Task.Delay(nextDelay, Program.TS_TokenEngine.Token);
+                        await Task.Delay(nextDelay);
                     }catch (TaskCanceledException){
                         break;
                     }
                 }
-            }catch (Exception) { }
+            }catch (Exception){ }
         }
         // DISK ENGINE
         // ======================================================================================================
@@ -186,7 +185,7 @@ namespace Glow.glow_tools{
                     int elapsed = (int)(DateTime.Now - startTime).TotalMilliseconds;
                     int nextDelay = Math.Max(10, 750 - elapsed);
                     try{
-                        await Task.Delay(nextDelay, Program.TS_TokenEngine.Token);
+                        await Task.Delay(nextDelay);
                     }catch (TaskCanceledException){
                         break;
                     }
@@ -223,7 +222,7 @@ namespace Glow.glow_tools{
                         int elapsed = (int)(DateTime.Now - startTime).TotalMilliseconds;
                         int nextDelay = Math.Max(10, 750 - elapsed);
                         try{
-                            await Task.Delay(nextDelay, Program.TS_TokenEngine.Token);
+                            await Task.Delay(nextDelay);
                         }catch (TaskCanceledException){
                             break;
                         }

@@ -1099,13 +1099,11 @@ namespace Glow{
         public static string Net_replacer(string get_adapter_name) => get_adapter_name.Replace("[", "(").Replace("]", ")");
         // TS NATURAL SORT KEY ALGORITHM
         // ======================================================================================================
-        public static string TSNaturalSortKey(string input, CultureInfo culture, int paddingLength = 30){
-            if (input == null) { return ""; }
-            string padded = Regex.Replace(input, @"\d+", match => match.Value.PadLeft(paddingLength, '0'));
-            string normalized = padded.Normalize(NormalizationForm.FormD);
-            if (culture == null) { culture = CultureInfo.CurrentCulture; }
-            string lowerCased = normalized.ToLower(culture);
-            return lowerCased;
+        public static string TSNaturalSortKey(string input, int paddingLength = 30){
+            if (string.IsNullOrEmpty(input)) return "";
+            string text = input.Trim();
+            text = Regex.Replace(text, @"\d+", match => match.Value.PadLeft(paddingLength, '0'));
+            return text.ToLower(CultureInfo.InvariantCulture);
         }
         // INTERNET CONNECTION STATUS
         // ======================================================================================================

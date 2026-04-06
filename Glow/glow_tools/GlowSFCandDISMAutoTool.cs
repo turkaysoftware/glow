@@ -103,7 +103,7 @@ namespace Glow.glow_tools{
             string process_message = software_lang.TSReadLangs("DISMandSFCTool", "sadt_current_running_pro");
             //
             try{
-                var engineCommands = new[]{
+                var engineCommands = new[] {
                     "DISM /Online /Cleanup-Image /CheckHealth",
                     "DISM /Online /Cleanup-Image /ScanHealth",
                     "DISM /Online /Cleanup-Image /RestoreHealth",
@@ -125,8 +125,8 @@ namespace Glow.glow_tools{
                             RedirectStandardError = true,
                             CreateNoWindow = true
                         };
-                        //
                         Encoding encoding = cmdCurrentMod.StartsWith("sfc", StringComparison.OrdinalIgnoreCase) ? Encoding.Unicode : Encoding.Default;
+                        //
                         processRepair.Start();
                         StringBuilder fullStdOut = new StringBuilder();
                         //
@@ -153,7 +153,8 @@ namespace Glow.glow_tools{
                         //
                         processRepair.WaitForExit();
                         string combinedOutput = (fullStdOut.ToString() + "\n" + processRepair.StandardError.ReadToEnd()).Trim();
-                        // DISM CHECK
+                        // --- REPORTING AND ERROR HANDLING LOGIC ---
+                        // DISM CONTROL
                         if (cmdCurrentMod.StartsWith("DISM", StringComparison.OrdinalIgnoreCase)){
                             if (combinedOutput.Contains("Error:") || processRepair.ExitCode != 0){
                                 processStatus = false;
@@ -161,30 +162,28 @@ namespace Glow.glow_tools{
                                 break;
                             }
                             if (cmdCurrentMod.Contains("/CheckHealth") || cmdCurrentMod.Contains("/ScanHealth")){
-                                if (combinedOutput.Contains("The component store is repairable")){
+                                if (combinedOutput.Contains("repairable")){
                                     isComponentStoreCorrupt = true;
-                                    repairedCommands.Add(cmdCurrentMod);
                                 }
                             }else if (cmdCurrentMod.Contains("/RestoreHealth")){
-                                if (isComponentStoreCorrupt && combinedOutput.Contains("The operation completed successfully")){
+                                if (isComponentStoreCorrupt && (combinedOutput.Contains("successfully") || processRepair.ExitCode == 0)){
                                     repairedCommands.Add(cmdCurrentMod);
                                 }
                             }
                         }
-                        // SFC CHECK
+                        // SFC CONTROL
                         else if (cmdCurrentMod.StartsWith("sfc", StringComparison.OrdinalIgnoreCase)){
-                            bool sfcFailed = Regex.IsMatch(combinedOutput, @"found corrupt files but was unable to fix|could not perform|verification failed", RegexOptions.IgnoreCase);
+                            bool sfcFailed = Regex.IsMatch(combinedOutput, @"unable to fix|could not perform|verification failed", RegexOptions.IgnoreCase);
                             if (sfcFailed || processRepair.ExitCode != 0){
                                 processStatus = false;
                                 processStatusMessage = combinedOutput;
                                 break;
                             }
-                            if (combinedOutput.Contains("found corrupt files and successfully repaired them")){
+                            if (combinedOutput.Contains("successfully repaired")){
                                 repairedCommands.Add(cmdCurrentMod);
                             }
                         }
                     }
-                    UpdateSafeText(SADT_L2, software_lang.TSReadLangs("DISMandSFCTool", "sadt_description"));
                     if (!processStatus) break;
                 }
                 //
@@ -194,22 +193,34 @@ namespace Glow.glow_tools{
             }catch (Exception ex){
                 processStatus = false;
                 processStatusMessage = ex.Message.Trim();
-            }finally{
+            }
+            finally
+            {
                 BeginInvoke(new Action(() => { sadtUiTimer.Stop(); sadtStopwatch.Stop(); }));
                 GlowMain.SFCandDISMprocessStatus = false;
+                //
                 UpdateSafeEnabled(SADT_StartBtn, true);
                 UpdateSafeText(this, titleMessage);
+                UpdateSafeText(SADT_L2, software_lang.TSReadLangs("DISMandSFCTool", "sadt_description"));
                 //
                 TimeSpan totalTime = sadtStopwatch.Elapsed;
+                string timeStr = $"{totalTime:hh\\:mm\\:ss}";
+                //
                 if (processStatus){
-                    string finalMsg = string.Format(software_lang.TSReadLangs("DISMandSFCTool", "sadt_process_success"), "\n\n", $"{totalTime:hh\\:mm\\:ss}");
+                    string finalMsg = string.Empty;
                     if (repairedCommands.Count > 0){
+                        finalMsg = string.Format(software_lang.TSReadLangs("DISMandSFCTool", "sadt_process_success"), "\n\n", timeStr);
                         finalMsg += "\n\n" + software_lang.TSReadLangs("DISMandSFCTool", "sadt_repair_codes") + "\n\n";
-                        foreach (var cmd in repairedCommands) finalMsg += $"- {cmd}\n";
+                        foreach (var cmd in repairedCommands){
+                            finalMsg += $"- {cmd}\n";
+                        }
+                    }else{
+                        finalMsg = software_lang.TSReadLangs("DISMandSFCTool", "sadt_no_repair_needed");
+                        finalMsg += "\n\n" + string.Format(software_lang.TSReadLangs("DISMandSFCTool", "sadt_total_time"), timeStr);
                     }
                     TS_MessageBoxEngine.TS_MessageBox(this, 1, finalMsg);
                 }else{
-                    TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(software_lang.TSReadLangs("DISMandSFCTool", "sadt_process_failed"), "\n\n", processStatusMessage, "\n\n", $"{totalTime:hh\\:mm\\:ss}"));
+                    TS_MessageBoxEngine.TS_MessageBox(this, 3, string.Format(software_lang.TSReadLangs("DISMandSFCTool", "sadt_process_failed"), "\n\n", processStatusMessage, "\n\n", timeStr));
                 }
             }
         }
