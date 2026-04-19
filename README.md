@@ -5,9 +5,11 @@
 [![GitHub release](https://img.shields.io/github/v/release/turkaysoftware/glow?style=flat&color=5a32a3&label=Latest%20Release)](https://github.com/turkaysoftware/glow/releases/latest)
 [![Platform](https://img.shields.io/badge/platform-Windows-b31d28?style=flat&label=Platform)](https://github.com/turkaysoftware/glow)
 
-**Glow** is an advanced system analysis software developed by **Eray Türkay**. It is designed to reveal technical details that are difficult to access with standard tools or are often completely hidden. From the deepest layers of hardware architecture to the complex structure of software environment variables, Glow analyzes your system with high precision.
+**Glow** is an advanced system analysis software developed by **Eray Türkay**. It is designed to uncover technical details that are difficult to access with standard tools or that typically remain completely hidden. From the deepest layers of hardware architecture to the complex structure of software environment variables, Glow analyzes your system with high precision.
 
-By presenting all this information in a simple, clear, and well-organized manner, it enables even users with limited knowledge of computers to easily understand their systems and quickly access the data they need through a clean output.
+**With over 500 advanced features** and comprehensive analysis capabilities, Glow examines system components from multiple angles, making critical data that would normally go unnoticed visible and providing users with broad technical insights.
+
+By presenting all this information in a simple, clear, and organized manner, it enables even users with limited computer knowledge to easily understand their systems and quickly access the data they need through a clean output.
 
 ---
 
@@ -64,7 +66,7 @@ Glow includes a built-in suite for system maintenance:
 * **Screen Overlay:** Real-time system monitoring overlay for power users.
 * **Network Suite:** DNS Test Tool and Network Troubleshooting for connectivity issues.
 * **Security & Access:** Wi-Fi Password Showing Tool and System ID Generation.
-* **Connectivity Tools:** Bluetooth Information and Quick Access utilities.
+* **Connectivity Tools:** Bluetooth Information utilities.
 * **Monitor Test Suite:**
     * **Dead Pixel Test:** Identify faulty pixels across various color ranges.
     * **Dynamic Color Range:** Test your monitor's color depth and accuracy.
