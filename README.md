@@ -32,6 +32,12 @@ You can support this project by making a donation to help ensure its sustainabil
 
 ---
 
+## Interface Preview
+
+<img width="1010" height="633" alt="Glow UI" src="https://github.com/user-attachments/assets/8ac2e822-4190-432b-a7dd-1c688f92bc1c" />
+
+---
+
 ## Technical Insights & Data Depth
 
 Glow queries deep system layers to provide professional-grade data across specialized modules, showing you what others can't:
@@ -78,12 +84,6 @@ Glow includes a built-in suite for system maintenance:
 
 * **TS Wizard Integration:** Fully compatible with [TS Wizard](https://www.turkaysoftware.com/ts-wizard) for automatic updates and system monitoring.
 * **Translation Support:** Community-driven localization via the official [Translation Guide](https://github.com/turkaysoftware/glow/discussions/20).
-
----
-
-## Interface Preview
-
-<img width="1010" height="633" alt="Glow UI" src="https://github.com/user-attachments/assets/8ac2e822-4190-432b-a7dd-1c688f92bc1c" />
 
 ---
 
