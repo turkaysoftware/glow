@@ -1,9 +1,9 @@
 # Glow - Advanced System Analysis Software
 
-[![GitHub downloads](https://img.shields.io/github/downloads/turkaysoftware/glow/total?style=flat&color=1a893c&label=Downloads)](https://github.com/turkaysoftware/glow/releases)
-[![GitHub stars](https://img.shields.io/github/stars/turkaysoftware/glow?style=flat&color=0062cc&label=Stars)](https://github.com/turkaysoftware/glow/stargazers)
-[![GitHub release](https://img.shields.io/github/v/release/turkaysoftware/glow?style=flat&color=5a32a3&label=Latest%20Release)](https://github.com/turkaysoftware/glow/releases/latest)
-[![Platform](https://img.shields.io/badge/platform-Windows-b31d28?style=flat&label=Platform)](https://github.com/turkaysoftware/glow)
+[![GitHub downloads](https://img.shields.io/github/downloads/turkaysoft/glow/total?style=flat&color=1a893c&label=Downloads)](https://github.com/turkaysoft/glow/releases)
+[![GitHub stars](https://img.shields.io/github/stars/turkaysoft/glow?style=flat&color=0062cc&label=Stars)](https://github.com/turkaysoft/glow/stargazers)
+[![GitHub release](https://img.shields.io/github/v/release/turkaysoft/glow?style=flat&color=5a32a3&label=Latest%20Release)](https://github.com/turkaysoft/glow/releases/latest)
+[![Platform](https://img.shields.io/badge/platform-Windows-b31d28?style=flat&label=Platform)](https://github.com/turkaysoft/glow)
 
 **Glow** is an advanced system analysis software developed by **Eray Türkay**. It is designed to uncover technical details that are difficult to access with standard tools or that typically remain completely hidden. From the deepest layers of hardware architecture to the complex structure of software environment variables, Glow analyzes your system with high precision.
 
@@ -25,7 +25,7 @@ You can support this project by making a donation to help ensure its sustainabil
 * **Privacy First:** No data ever leaves your computer. Everything is processed locally.
 * **Pure Performance:** Developed using C# and .NET Framework with **zero external library dependencies** for a lightweight footprint.
 * **Modern UI:** Clean, intuitive interface compatible with Windows 11 design language, featuring Light, Dark, and System themes.
-* **Multilingual:** It supports 15 different languages, primarily English. You can access the supported languages here: [Supported Languages](https://github.com/turkaysoftware/glow/discussions/20)
+* **Multilingual:** It supports 15 different languages, primarily English. You can access the supported languages here: [Supported Languages](https://github.com/turkaysoft/glow/discussions/20)
 * **Portable:** No installation required. Just download it, extract all files from the ZIP, select the appropriate architecture, and run it.
 * **Saving Data:** The ability to save all features offered in the interface as a **Text Document**, **HTML Document** and **Markdown Document**, if desired.
 * **System Identity:** Unique device ID generation for hardware verification (Shortcut: `CTRL + G`).
@@ -82,7 +82,7 @@ Glow includes a built-in suite for system maintenance:
 
 ## Translation Support
 
-* **Translation Support:** Community-driven localization via the official [Translation Guide](https://github.com/turkaysoftware/glow/discussions/20).
+* **Translation Support:** Community-driven localization via the official [Translation Guide](https://github.com/turkaysoft/glow/discussions/20).
 
 ---
 
@@ -99,7 +99,7 @@ Glow includes a built-in suite for system maintenance:
 
 ## Getting Started
 
-1.  Navigate to the **[Releases](https://github.com/turkaysoftware/glow/releases)** page.
+1.  Navigate to the **[Releases](https://github.com/turkaysoft/glow/releases)** page.
 2.  Download the latest ZIP file.
 3.  **Extract all files from the ZIP** (Important: Application requires all folder contents to run correctly).
 4.  Launch the executable corresponding to your architecture:
@@ -118,4 +118,4 @@ Glow includes a built-in suite for system maintenance:
 
 ## License
 
-This software is offered free of charge as part of the **Türkay Software solutions package** and is protected under the [**MIT License**](https://github.com/turkaysoftware/glow?tab=MIT-1-ov-file).
+This software is offered free of charge as part of the **Türkay Software solutions package** and is protected under the [**MIT License**](https://github.com/turkaysoft/glow?tab=MIT-1-ov-file).
