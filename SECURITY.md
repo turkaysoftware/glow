@@ -17,7 +17,7 @@ If you discover a security vulnerability, please **do not open a public issue.**
 
 ### How to Report
 Please report vulnerabilities privately using the GitHub **"Report a vulnerability"** feature:
-1. Navigate to the [Security](https://github.com/turkaysoftware/glow/security/advisories/new) tab of this repository.
+1. Navigate to the [Security](https://github.com/turkaysoft/glow/security/advisories/new) tab of this repository.
 2. Click on **"Advisories"** and then **"Report a vulnerability"**.
 
 ### Our Process
