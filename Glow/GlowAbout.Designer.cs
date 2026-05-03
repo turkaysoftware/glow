@@ -159,7 +159,7 @@
             this.LabelDeveloper.Name = "LabelDeveloper";
             this.LabelDeveloper.Size = new System.Drawing.Size(335, 35);
             this.LabelDeveloper.TabIndex = 0;
-            this.LabelDeveloper.Text = "Türkay Software";
+            this.LabelDeveloper.Text = "Türkaysoft";
             this.LabelDeveloper.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // LabelSoftware

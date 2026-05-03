@@ -25,14 +25,13 @@ namespace Glow{
         public class TS_LinkSystem{
             public const string
             // Main Control Links
-            github_link_lv      = "https://raw.githubusercontent.com/turkaysoftware/glow/main/Glow/SoftwareVersion.txt",
-            github_link_lr      = "https://github.com/turkaysoftware/glow/releases/latest",
+            github_link_lv      = "https://raw.githubusercontent.com/turkaysoft/glow/main/Glow/SoftwareVersion.txt",
+            github_link_lr      = "https://github.com/turkaysoft/glow/releases/latest",
             // Social Links
-            website_link        = "https://www.turkaysoftware.com",
-            github_link         = "https://github.com/turkaysoftware",
+            website_link        = "https://turkaysoft.com",
+            github_link         = "https://github.com/turkaysoft",
             // Other Links
-            ts_wizard           = "https://www.turkaysoftware.com/ts-wizard",
-            ts_donate           = "https://buymeacoffee.com/turkaysoftware";
+            ts_donate           = "https://buymeacoffee.com/turkaysoft";
         }
         // VERSIONS
         // ======================================================================================================
@@ -50,6 +49,8 @@ namespace Glow{
                 return version_mode;
             }
         }
+        // VERSION PARSER
+        // ======================================================================================================
         public static class TS_VersionParser{
             public static string ParseUINormalize(string version){
                 Version v = Normalize(version);
@@ -861,83 +862,108 @@ namespace Glow{
         }
         // DPI SENSITIVE DYNAMIC IMAGE RENDERER
         // ======================================================================================================
+        private static readonly object _lock_icon = new object();
+        private static readonly Dictionary<string, Image> _cache_icon = new Dictionary<string, Image>();
         public static void TSImageRenderer(object baseTarget, Image sourceImage, int basePadding, ContentAlignment imageAlign = ContentAlignment.MiddleCenter){
-            if (sourceImage == null || baseTarget == null) return;
+            if (baseTarget == null || sourceImage == null) return;
             const int minImageSize = 16;
-            try{
-                int calculatedSize;
-                Image previousImage = null;
-                Image ResizeImage(Image targetImg, int targetSize){
-                    Bitmap resizedEngine = new Bitmap(targetSize, targetSize, PixelFormat.Format32bppArgb);
-                    using (Graphics renderGraphics = Graphics.FromImage(resizedEngine)){
-                        renderGraphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                        renderGraphics.SmoothingMode = SmoothingMode.AntiAlias;
-                        renderGraphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                        renderGraphics.CompositingQuality = CompositingQuality.HighQuality;
-                        renderGraphics.DrawImage(targetImg, 0, 0, targetSize, targetSize);
-                    }
-                    return resizedEngine;
+            Image ResizeImage(Image targetImg, int targetSize){
+                var bmp = new Bitmap(targetSize, targetSize, PixelFormat.Format32bppArgb);
+                using (var g = Graphics.FromImage(bmp)){
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    g.SmoothingMode = SmoothingMode.AntiAlias;
+                    g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                    g.CompositingQuality = CompositingQuality.HighQuality;
+                    g.DrawImage(targetImg, 0, 0, targetSize, targetSize);
                 }
-                if (baseTarget is Control targetControl){
-                    float dpi = targetControl.DeviceDpi > 0 ? targetControl.DeviceDpi : 96f;
-                    float dpiScaleFactor = dpi / 96f;
-                    int paddingWithScale = (int)Math.Round(basePadding * dpiScaleFactor);
-                    //
-                    calculatedSize = targetControl.Height - paddingWithScale;
-                    if (calculatedSize <= 0) { calculatedSize = minImageSize; }
-                    Image resizedImage = ResizeImage(sourceImage, calculatedSize);
-                    if (targetControl is Button buttonMode){
-                        previousImage = buttonMode.Image;
-                        buttonMode.Image = resizedImage;
-                        buttonMode.ImageAlign = imageAlign;
-                    }else if (targetControl is PictureBox pictureBoxMode){
-                        previousImage = pictureBoxMode.Image;
-                        pictureBoxMode.Image = resizedImage;
-                        pictureBoxMode.SizeMode = PictureBoxSizeMode.Zoom;
+                return bmp;
+            }
+            Image newImage = null;
+            Image oldImage = null;
+            try{
+                int size;
+                float dpi;
+                if (baseTarget is Control ctrl){
+                    dpi = ctrl.DeviceDpi > 0 ? ctrl.DeviceDpi : 96f;
+                    int padding = (int)Math.Round(basePadding * (dpi / 96f));
+                    size = ctrl.Height - padding;
+                    if (size <= 0) size = minImageSize;
+                    string key = $"{sourceImage.GetHashCode()}_C_{size}_{dpi}";
+                    newImage = GetOrCreate(key, () => ResizeImage(sourceImage, size));
+                    if (ctrl is Button btn){
+                        oldImage = btn.Image;
+                        btn.Image = newImage;
+                        btn.ImageAlign = imageAlign;
+                    }else if (ctrl is PictureBox pb){
+                        oldImage = pb.Image;
+                        pb.Image = newImage;
+                        pb.SizeMode = PictureBoxSizeMode.Zoom;
                     }else{
-                        resizedImage.Dispose();
+                        newImage.Dispose();
+                        newImage = null;
                     }
-                }else if (baseTarget is ToolStripItem toolStripItemMode){
-                    calculatedSize = toolStripItemMode.Height - basePadding;
-                    if (calculatedSize <= 0) { calculatedSize = minImageSize; }
-                    Image resizedImage = ResizeImage(sourceImage, calculatedSize);
-                    previousImage = toolStripItemMode.Image;
-                    toolStripItemMode.Image = resizedImage;
+                }else if (baseTarget is ToolStripItem item){
+                    dpi = item.GetCurrentParent()?.DeviceDpi ?? 96f;
+                    int padding = (int)Math.Round(basePadding * (dpi / 96f));
+                    size = item.Height - padding;
+                    if (size <= 0) size = minImageSize;
+                    string key = $"{sourceImage.GetHashCode()}_T_{size}_{dpi}";
+                    newImage = GetOrCreate(key, () => ResizeImage(sourceImage, size));
+                    oldImage = item.Image;
+                    item.Image = newImage;
                 }else{
                     return;
                 }
-                if (previousImage != null && previousImage != sourceImage) { previousImage.Dispose(); }
-            }catch (Exception){ }
+                if (oldImage != null && !ReferenceEquals(oldImage, sourceImage)){
+                    oldImage.Dispose();
+                }
+            }catch{
+                newImage?.Dispose();
+            }
+        }
+        private static Image GetOrCreate(string key, Func<Image> factory){
+            lock (_lock_icon){
+                if (_cache_icon.TryGetValue(key, out Image cached))
+                    return cached;
+                var created = factory();
+                _cache_icon[key] = created;
+                return created;
+            }
         }
         // SET DYNAMIC SIZE ALGORITHM
         // ======================================================================================================
         public static void SetPictureBoxImage(PictureBox pictureBox, Image newImage){
-            pictureBox.Image?.Dispose();
-            pictureBox.Image = null;
+            if (pictureBox == null) return;
+            Image old = pictureBox.Image;
             if (newImage == null){
                 pictureBox.Image = null;
+                old?.Dispose();
                 return;
             }
             var resized = ResizeImageToDeviceDpi(newImage, pictureBox.Width, pictureBox.Height, pictureBox.DeviceDpi);
             pictureBox.Image = resized;
-            newImage.Dispose();
+            if (old != null && !ReferenceEquals(old, newImage))
+                old.Dispose();
         }
         public static Image ResizeImageToDeviceDpi(Image img, int maxWidth, int maxHeight, int deviceDpi){
-            int newWidth = (int)(img.Width * deviceDpi / img.HorizontalResolution);
-            int newHeight = (int)(img.Height * deviceDpi / img.VerticalResolution);
-            double ratio = Math.Min((double)maxWidth / newWidth, (double)maxHeight / newHeight);
-            newWidth = (int)(newWidth * ratio);
-            newHeight = (int)(newHeight * ratio);
-            var newImage = new Bitmap(newWidth, newHeight);
-            newImage.SetResolution(deviceDpi, deviceDpi);
-            using (var image_render = Graphics.FromImage(newImage)){
-                image_render.CompositingQuality = CompositingQuality.HighQuality;
-                image_render.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                image_render.SmoothingMode = SmoothingMode.HighQuality;
-                image_render.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                image_render.DrawImage(img, 0, 0, newWidth, newHeight);
+            int baseW = img.Width;
+            int baseH = img.Height;
+            float scale = deviceDpi / 96f;
+            int scaledW = (int)(baseW * scale);
+            int scaledH = (int)(baseH * scale);
+            double ratio = Math.Min((double)maxWidth / scaledW, (double)maxHeight / scaledH);
+            int finalW = Math.Max(1, (int)(scaledW * ratio));
+            int finalH = Math.Max(1, (int)(scaledH * ratio));
+            var bmp = new Bitmap(finalW, finalH);
+            bmp.SetResolution(deviceDpi, deviceDpi);
+            using (var g = Graphics.FromImage(bmp)){
+                g.CompositingQuality = CompositingQuality.HighQuality;
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = SmoothingMode.HighQuality;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                g.DrawImage(img, 0, 0, finalW, finalH);
             }
-            return newImage;
+            return bmp;
         }
         public static Image ResizeDGIcon(Image img, int size, int deviceDpi){
             float scale = deviceDpi / 96f;
@@ -957,12 +983,13 @@ namespace Glow{
         public static string TS_FormatSize(double bytes){
             string[] suffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
             int suffixIndex = 0;
-            double doubleBytes = bytes;
-            while (doubleBytes >= 1024 && suffixIndex < suffixes.Length - 1){
-                doubleBytes /= 1024;
+            double value = bytes;
+            while (value >= 1024 && suffixIndex < suffixes.Length - 1){
+                value /= 1024;
                 suffixIndex++;
             }
-            return $"{doubleBytes:0.##} {suffixes[suffixIndex]}";
+            value = Math.Round(value, 2, MidpointRounding.AwayFromZero);
+            return $"{value:0.##} {suffixes[suffixIndex]}";
         }
         public static double TS_FormatSizeNoType(double bytes){
             while (bytes >= 1024){
@@ -1109,17 +1136,15 @@ namespace Glow{
         // ======================================================================================================
         public static bool IsNetworkCheck(){
             try{
-                var check_net = (HttpWebRequest)WebRequest.Create("http://clients3.google.com/generate_204");
-                check_net.Method = "GET";
-                check_net.KeepAlive = false;
-                check_net.Proxy = null;
-                check_net.Timeout = 2500;
-                check_net.ReadWriteTimeout = 2500;
-                check_net.AllowAutoRedirect = false;
-                using (var resp_net = (HttpWebResponse)check_net.GetResponse()){
-                    return resp_net.StatusCode == HttpStatusCode.NoContent;
+                var request = (HttpWebRequest)WebRequest.Create("http://clients3.google.com/generate_204");
+                request.Method = "GET";
+                request.KeepAlive = false;
+                request.Proxy = null;
+                request.Timeout = 3000;
+                using (var response = (HttpWebResponse)request.GetResponse()){
+                    return (int)response.StatusCode == 204;
                 }
-            }catch (WebException){
+            }catch{
                 return false;
             }
         }

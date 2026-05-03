@@ -323,6 +323,26 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap ct_scroll_top_dark {
+            get {
+                object obj = ResourceManager.GetObject("ct_scroll_top_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ct_scroll_top_light {
+            get {
+                object obj = ResourceManager.GetObject("ct_scroll_top_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap ct_spf_add_dark {
             get {
                 object obj = ResourceManager.GetObject("ct_spf_add_dark", resourceCulture);
@@ -636,26 +656,6 @@ namespace Glow.Properties {
         internal static System.Drawing.Bitmap cx_overlay_light {
             get {
                 object obj = ResourceManager.GetObject("cx_overlay_light", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static System.Drawing.Bitmap cx_quick_access_dark {
-            get {
-                object obj = ResourceManager.GetObject("cx_quick_access_dark", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static System.Drawing.Bitmap cx_quick_access_light {
-            get {
-                object obj = ResourceManager.GetObject("cx_quick_access_light", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1306,26 +1306,6 @@ namespace Glow.Properties {
         internal static System.Drawing.Bitmap tm_tools_light {
             get {
                 object obj = ResourceManager.GetObject("tm_tools_light", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static System.Drawing.Bitmap tm_ts_wizard_dark {
-            get {
-                object obj = ResourceManager.GetObject("tm_ts_wizard_dark", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static System.Drawing.Bitmap tm_ts_wizard_light {
-            get {
-                object obj = ResourceManager.GetObject("tm_ts_wizard_light", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

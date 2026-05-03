@@ -1,5 +1,5 @@
 ﻿// ======================================================================================================
-// Türkay Software - C# Custom Graphics UI Library
+// Türkaysoft - C# Custom Graphics UI Library
 // Library Version: v26.4
 // Compilation Date: 10.03.2026
 // © Eray Türkay

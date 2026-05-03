@@ -1,11 +1,11 @@
 ﻿// ======================================================================================================
 // Glow - System Analysis Software
 // © Copyright 2019-2026, Eray Türkay.
-// Publisher: Türkay Software
+// Publisher: Türkaysoft
 // Project Type: Open Source
 // License: MIT License
-// Website: https://www.turkaysoftware.com/glow
-// GitHub: https://github.com/turkaysoftware/glow
+// Website: https://turkaysoft.com
+// GitHub: https://github.com/turkaysoft/glow
 // ======================================================================================================
 
 using Microsoft.Win32;
@@ -27,13 +27,14 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 // TS Modules
 using Glow.glow_tools;
 using static Glow.TSModules;
- 
+
 namespace Glow{
     public partial class GlowMain : Form{
         public GlowMain(){
@@ -90,6 +91,17 @@ namespace Glow{
                 (Control)BATTERY, (Control)DRIVERS, (Control)SERVICES, (Control)INSTAPPS, (Control)EXPORT
             };
             foreach (var r_pages in rotatePages) r_pages.Enabled = false;
+            // SCROLL TOP LISTENER
+            MainContent.Resize += MainContent_Resize;
+            MainContent.SelectedIndexChanged += (s, e) => UpdateScrollTopButtonVisibility();
+            //
+            OS_ScrollTop.Click += ScrollTop_Click;
+            MB_ScrollTop.Click += ScrollTop_Click;
+            CPU_ScrollTop.Click += ScrollTop_Click;
+            RAM_ScrollTop.Click += ScrollTop_Click;
+            GPU_ScrollTop.Click += ScrollTop_Click;
+            DISK_ScrollTop.Click += ScrollTop_Click;
+            NET_ScrollTop.Click += ScrollTop_Click;
         }
         // GLOBAL VARIABLES
         // ======================================================================================================
@@ -103,7 +115,6 @@ namespace Glow{
         private string iapps_unknown;
         private decimal battery_fullChargedCapacity_mWh = 0;
         private const decimal battery_MIN_POWER_THRESHOLD = 0.1m;
-        private readonly string ts_wizard_name = "TS Wizard";
         private readonly List<Label> allCopyableLabels = new List<Label>();
         // VISIBLE MODE DYNAMIC STAR
         // ======================================================================================================
@@ -161,8 +172,8 @@ namespace Glow{
         // ======================================================================================================
         private void TSCAC_Properties(){
             try{
-                var OSLabels = new Label[] { OS_SystemUser_V, OS_ComputerName_V, OS_Name_V, OS_Manufacturer_V, OS_SystemVersion_V, OS_SystemArchitectural_V, OS_ExperienceVersion_V, OS_Country_V, OS_TimeZone_V, OS_SystemTime_V, OS_SystemWorkTime_V, OS_LastBootTime_V, OS_Install_V, OS_SystemLastShutDown_V, OS_PrimaryOS_V, OS_PortableOS_V, OS_FastBoot_V, OS_AVProgram_V, OS_FirewallProgram_V, OS_AntiSpywareProgram_V, OS_WinDefCoreIsolation_V, OS_CA2023_Status_V, OS_CA2023_Capable_V, OS_CA2023_Error_V, OS_ActivePower_V, OS_ActivePowerGUID_V, OS_ActivePowerScreenTimeOutP_V, OS_ActivePowerScreenTimeOutB_V, OS_ActivePowerSleepTimeP_V, OS_ActivePowerSleepTimeB_V, OS_MSOfficeVersion_V, OS_WinActiveChannel_V, OS_WinLicenseTime_V, OS_NETFrameworkVersion_V, OS_Minidump_V, OS_BSODDate_V };
-                var MBLabels = new Label[] { MB_MotherBoardName_V, MB_MotherBoardMan_V, MB_SystemModelMan_V, MB_SystemModelFamily_V, MB_SystemFamily_V, MB_SystemModel_V, MB_Chipset_V, MB_BiosManufacturer_V, MB_BiosDate_V, MB_BiosVersion_V, MB_SmBiosVersion_V, MB_BiosMode_V, MB_LastBIOSTime_V, MB_SecureBoot_V, MB_SecureBootCA2023_V, MB_TPMStatus_V, MB_TPMPhysicalVersion_V, MB_TPMMan_V, MB_TPMManVersion_V, MB_TPMManFullVersion_V, MB_TPMManPublisher_V };
+                var OSLabels = new Label[] { OS_SystemUser_V, OS_ComputerName_V, OS_Name_V, OS_Manufacturer_V, OS_SystemVersion_V, OS_SystemArchitectural_V, OS_ExperienceVersion_V, OS_Country_V, OS_TimeZone_V, OS_SystemTime_V, OS_SystemWorkTime_V, OS_LastBootTime_V, OS_Install_V, OS_SystemLastShutDown_V, OS_PrimaryOS_V, OS_PortableOS_V, OS_FastBoot_V, OS_AVProgram_V, OS_FirewallProgram_V, OS_AntiSpywareProgram_V, OS_WinDefCoreIsolation_V, OS_ActivePower_V, OS_ActivePowerGUID_V, OS_ActivePowerScreenTimeOutP_V, OS_ActivePowerScreenTimeOutB_V, OS_ActivePowerSleepTimeP_V, OS_ActivePowerSleepTimeB_V, OS_MSOfficeVersion_V, OS_WinActiveChannel_V, OS_WinLicenseTime_V, OS_NETFrameworkVersion_V, OS_Minidump_V, OS_BSODDate_V };
+                var MBLabels = new Label[] { MB_MotherBoardName_V, MB_MotherBoardMan_V, MB_SystemModelMan_V, MB_SystemModelFamily_V, MB_SystemFamily_V, MB_SystemModel_V, MB_Chipset_V, MB_BiosManufacturer_V, MB_BiosDate_V, MB_BiosVersion_V, MB_SmBiosVersion_V, MB_BiosMode_V, MB_LastBIOSTime_V, MB_SecureBoot_V, MB_TPMStatus_V, MB_TPMPPIVersion_V, MB_TPMPPIAltVersion_V, MB_TPMMan_V, MB_TPMManVersion_V, MB_TPMManFullVersion_V, MB_TPMManPublisher_V };
                 var CPULabels = new Label[] { CPU_Manufacturer_V, CPU_Architectural_V, CPU_Speed_V, CPU_CoreCount_V, CPU_ActiveCoreCount_V, CPU_LogicalCore_V, CPU_L1_V, CPU_L2_V, CPU_L3_V, CPU_Family_V, CPU_Slot_V, CPU_SocketDefinition_V, CPU_Virtualization_V, CPU_Usage_V, CPU_Process_V, CPU_Threads_V, CPU_Handles_V, };
                 var RAMLabels = new Label[] { RAM_TotalRAM_V, RAM_UsageRAMCount_V, RAM_EmptyRamCount_V, RAM_TotalVirtualRam_V, RAM_UsageVirtualRam_V, RAM_EmptyVirtualRam_V, RAM_SlotStatus_V, RAM_Amount_V, RAM_Type_V, RAM_Frequency_V, RAM_Volt_V, RAM_FormFactor_V, RAM_Manufacturer_V, RAM_BankLabel_V, RAM_DataWidth_V, RAM_BellekType_V };
                 var GPULabels = new Label[] { GPU_Manufacturer_V, GPU_VRAM_V, GPU_Version_V, GPU_DriverDate_V, GPU_Status_V, GPU_DeviceID_V, GPU_DacType_V, GPU_GraphicDriversName_V, GPU_DirectXAll_V, GPU_DirectXMax_V, GPU_InfFileName_V, GPU_INFSectionFile_V, GPU_CurrentColor_V, GPU_MonitorUserFriendlyName_V, GPU_MonitorManName_V, GPU_MonitorProductCodeID_V, GPU_MonitorConType_V, GPU_MonitorManfDate_V, GPU_MonitorManfDateWeek_V, GPU_MonitorHID_V, GPU_MonitorResLabel_V, GPU_MonitorVirtualRes_V, GPU_MonitorBounds_V, GPU_MonitorWorking_V, GPU_ScreenRefreshRate_V, GPU_ScreenBit_V, GPU_MonitorPrimary_V };
@@ -185,7 +196,7 @@ namespace Glow{
                 allCopyableLabels.AddRange(BATTERYLabels);
                 //
                 if (hiding_mode_wrapper != 1){
-                    var HIDINGLabels = new Label[] { OS_SavedUser_V, OS_DeviceID_V, OS_Serial_V, OS_WinKey_V, OS_WinLicenseURL_V, OS_WinLicenseVerifiURL_V, OS_Wallpaper_V, MB_DeviceSerialNumber_V, MB_MotherBoardSerial_V, MB_SystemSKU_V, MB_TPMManID_V, CPU_SerialName_V, RAM_Serial_V, RAM_PartNumber_V, GPU_MonitorSerialNumberID_V, DISK_Serial_V, DISK_VolumeSerial_V, NET_MacAdress_V, NET_Guid_V, NET_IPv4Adress_V, NET_IPv6Adress_V, NET_DNS1_V, NET_DNS2_V, USB_DeviceGUID_V, BATTERY_Serial_V };
+                    var HIDINGLabels = new Label[] { OS_SavedUser_V, OS_DeviceID_V, OS_Serial_V, OS_WinKey_V, OS_WinLicenseURL_V, OS_WinLicenseVerifiURL_V, OS_Wallpaper_V, MB_DeviceSerialNumber_V, MB_MotherBoardSerial_V, MB_SystemSKU_V, MB_TPMManID_V, CPU_SerialName_V, RAM_Serial_V, RAM_PartNumber_V, GPU_MonitorSerialNumberID_V, DISK_Serial_V, DISK_VolumeSerial_V, NET_MacAdress_V, NET_Guid_V, NET_IPv4Adress_V, NET_IPv6Adress_V, NET_DNS_v4_1_V, NET_DNS_v4_2_V, NET_DNS_v6_1_V, NET_DNS_v6_2_V, USB_DeviceGUID_V, BATTERY_Serial_V };
                     allCopyableLabels.AddRange(HIDINGLabels);
                 }
                 //
@@ -210,10 +221,14 @@ namespace Glow{
             }
         }
         private void TSLabel_DoubleClick(object sender, EventArgs e){
-            if (sender is Label label){
-                TSGetLangs software_lang = new TSGetLangs(lang_path);
-                Clipboard.SetText(label.Text);
-                TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format(software_lang.TSReadLangs("ContentCrossFeature", "ccf_copy_message"), label.Text));
+            try{
+                if (sender is Label label){
+                    TSGetLangs software_lang = new TSGetLangs(lang_path);
+                    Clipboard.SetText(label.Text);
+                    TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format(software_lang.TSReadLangs("ContentCrossFeature", "ccf_copy_message"), label.Text));
+                }
+            }catch (Exception ex){
+                if (debug_status){ TSErrorLog.LogException(ex, "TSLabel_DoubleClick()"); }
             }
         }
         // UI DPI CHANGER
@@ -288,8 +303,13 @@ namespace Glow{
             OSD_TextBoxClearBtn.Height = OSD_TextBox.Height + 2;
             SERVICE_TextBoxClearBtn.Height = SERVICE_TextBox.Height + 2;
             INSTAPPS_TextBoxClearBtn.Height = INSTAPPS_TextBox.Height + 2;
-            // DGV DOUBLE BUFFER
+            // SET DOUBLE BUFFER
             // ======================================================================================================
+            typeof(TabControl).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, MainContent, new object[] { true });
+            foreach (TabPage tp in MainContent.TabPages){
+                typeof(Control).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, tp, new object[] { true });
+            }
+            //
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, OSD_DataMainTable, new object[]{ true });
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, SERVICE_DataMainTable, new object[]{ true });
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, INSTAPPS_DataMainTable, new object[]{ true });
@@ -734,87 +754,6 @@ namespace Glow{
                     string langKey = val == "1" ? "os_c_win_core_isolation_active" : "os_c_win_core_isolation_deactive";
                     OS_WinDefCoreIsolation_V.Text = software_lang.TSReadLangs("Os_Content", langKey);
                 }
-            }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "Os()"); }
-            }
-            try{
-                // https://support.microsoft.com/en-us/topic/registry-key-updates-for-secure-boot-windows-devices-with-it-managed-updates-a7be69c9-4634-42e1-9ca1-df06f43f360d
-                // WINDOWS CA 2023 CERT STATUS
-                string ca2023_status_result = string.Empty;
-                string ca2023_capable_result = string.Empty;
-                string ca2023_error_result = string.Empty;
-                string __ca2023_unknown = software_lang.TSReadLangs("Os_Content", "os_c_unknown");
-                string __ca_2023_not_found_error = software_lang.TSReadLangs("Os_Content", "os_c_ca2023_not_found_error");
-                try{
-                    using (var get_ca2023 = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing", writable: false)){
-                        if (get_ca2023 != null){
-                            // --- Status (REG_SZ) ---
-                            object ca2023_status = get_ca2023.GetValue("UEFICA2023Status", null, RegistryValueOptions.DoNotExpandEnvironmentNames);
-                            string ca2023_status_q = (ca2023_status as string) ?? (ca2023_status != null ? Convert.ToString(ca2023_status) : null);
-                            ca2023_status_q = (ca2023_status_q ?? string.Empty).Trim();
-                            if (ca2023_status_q == "Updated"){
-                                ca2023_status_result = software_lang.TSReadLangs("Os_Content", "os_c_ca2023_active");
-                            }else if (ca2023_status_q == "InProgress"){
-                                ca2023_status_result = software_lang.TSReadLangs("Os_Content", "os_c_ca2023_progress");
-                            }else if (ca2023_status_q == "NotStarted"){
-                                ca2023_status_result = software_lang.TSReadLangs("Os_Content", "os_c_ca2023_not_started");
-                            }else if (!string.IsNullOrEmpty(ca2023_status_q)){
-                                ca2023_status_result = __ca2023_unknown + ": " + ca2023_status_q;
-                            }else{
-                                ca2023_status_result = __ca2023_unknown;
-                            }
-                            // --- Capable (REG_DWORD) ---
-                            object ca2023_capable = get_ca2023.GetValue("WindowsUEFICA2023Capable", null);
-                            if (ca2023_capable == null){
-                                ca2023_capable_result = __ca2023_unknown;
-                            }else{
-                                int ca2023_capable_q;
-                                try { ca2023_capable_q = (ca2023_capable is int i) ? i : Convert.ToInt32(ca2023_capable); } catch (Exception ex) { if (debug_status) { TSErrorLog.LogException(ex, "Os()"); } ca2023_capable_q = int.MinValue; }
-                                if (ca2023_capable_q == int.MinValue){
-                                    ca2023_capable_result = __ca2023_unknown;
-                                }else if (ca2023_capable_q == 0){
-                                    ca2023_capable_result = software_lang.TSReadLangs("Os_Content", "os_c_ca2023_c_not_found");
-                                }else if (ca2023_capable_q == 1){
-                                    ca2023_capable_result = software_lang.TSReadLangs("Os_Content", "os_c_ca2023_c_found");
-                                }else if (ca2023_capable_q == 2){
-                                    ca2023_capable_result = software_lang.TSReadLangs("Os_Content", "os_c_ca2023_active");
-                                }else{
-                                    ca2023_capable_result = __ca2023_unknown + ": " + ca2023_capable_q;
-                                }
-                            }
-                            // --- Error (REG_DWORD) ---
-                            object ca2023_error = get_ca2023.GetValue("UEFICA2023Error", null);
-                            if (ca2023_error == null){
-                                ca2023_error_result = __ca_2023_not_found_error;
-                            }else{
-                                int ca2023_error_q;
-                                try { ca2023_error_q = (ca2023_error is int i) ? i : Convert.ToInt32(ca2023_error); } catch (Exception ex) { if (debug_status) { TSErrorLog.LogException(ex, "Os()"); } ca2023_error_q = int.MinValue; }
-                                if (ca2023_error_q == int.MinValue){
-                                    ca2023_error_result = __ca2023_unknown;
-                                }else if (ca2023_error_q == 0){
-                                    ca2023_error_result = __ca_2023_not_found_error;
-                                }else{
-                                    ca2023_error_result = __ca2023_unknown + ": " + ca2023_error_q;
-                                }
-                            }
-                        }else{
-                            ca2023_status_result = __ca2023_unknown;
-                            ca2023_capable_result = __ca2023_unknown;
-                            ca2023_error_result = __ca2023_unknown;
-                        }
-                    }
-                }catch (Exception ex){
-                    ca2023_status_result = __ca2023_unknown;
-                    ca2023_capable_result = __ca2023_unknown;
-                    ca2023_error_result = __ca2023_unknown;
-                    if (debug_status){
-                        TSErrorLog.LogException(ex, "Os()");
-                    }
-                }
-                //
-                OS_CA2023_Status_V.Text = ca2023_status_result;
-                OS_CA2023_Capable_V.Text = ca2023_capable_result;
-                OS_CA2023_Error_V.Text = ca2023_error_result;
             }catch (Exception ex){
                 if (debug_status) { TSErrorLog.LogException(ex, "Os()"); }
             }
@@ -1683,7 +1622,7 @@ namespace Glow{
         }
         // OPEN WALLPAPER PREVIEW
         private void OS_WallpaperPreview_Click(object sender, EventArgs e){
-            TSToolLauncher<GlowWallpaperPreview>("glow_wallpaper_preview_tool", "wpt_name");
+            TSToolLauncher<GlowWallpaperPreviewTool>("glow_wallpaper_preview_tool", "wpt_name");
         }
         // OPEN WINDOWS RECOVERY MODE
         private void OS_RecoveryModeBtn_Click(object sender, EventArgs e){
@@ -1872,21 +1811,13 @@ namespace Glow{
             }catch (Exception ex){
                 if (debug_status) { TSErrorLog.LogException(ex, "Mb()"); }
             }
-            try{
-                // MB FIRMWARE WINDOWS CA 2023 CERT CHECK
-                Task.Run(() => CheckMBFirmwareCA2023Cert());
-            }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "Mb()"); }
-            }
             foreach (ManagementObject query_tpm in search_tpm.Get().Cast<ManagementObject>()){
                 try{
                     // TPM VERSION
                     bool tpm_status = Convert.ToBoolean(query_tpm["IsActivated_InitialValue"]);
-                    string tpm_version = Convert.ToString(query_tpm["SpecVersion"]);
-                    char[] split_char = { ',' };
-                    string[] split_keywords = tpm_version.Trim().Split(split_char);
-                    if (tpm_status == true){
-                        MB_TPMStatus_V.Text = string.Format(software_lang.TSReadLangs("Mb_Content", "mb_c_active"), split_keywords[0], tpm_version);
+                    string tpm_version = Convert.ToString(query_tpm["SpecVersion"]) ?? "";
+                    if (tpm_status == true && !string.IsNullOrEmpty(tpm_version)){
+                        MB_TPMStatus_V.Text = string.Format(software_lang.TSReadLangs("Mb_Content", "mb_c_active"), tpm_version.Split(',')[0].Trim());
                     }else{
                         MB_TPMStatus_V.Text = software_lang.TSReadLangs("Mb_Content", "mb_c_tpm_off");
                     }
@@ -1894,12 +1825,29 @@ namespace Glow{
                     if (debug_status) { TSErrorLog.LogException(ex, "Mb()"); }
                 }
                 try{
-                    // TPM PHYSICAL VERSION
-                    string tpm_phy_version = Convert.ToString(query_tpm["PhysicalPresenceVersionInfo"]).Trim();
-                    if (!string.IsNullOrEmpty(tpm_phy_version)){
-                        MB_TPMPhysicalVersion_V.Text = tpm_phy_version;
+                    // TPM PPI VERSION
+                    string tpm_ppi_version = Convert.ToString(query_tpm["PhysicalPresenceVersionInfo"]).Trim();
+                    if (!string.IsNullOrEmpty(tpm_ppi_version)){
+                        MB_TPMPPIVersion_V.Text = tpm_ppi_version;
                     }else{
-                        MB_TPMPhysicalVersion_V.Text = software_lang.TSReadLangs("Mb_Content", "mb_c_tpm_off");
+                        MB_TPMPPIVersion_V.Text = software_lang.TSReadLangs("Mb_Content", "mb_c_tpm_off");
+                    }
+                }catch (Exception ex){
+                    if (debug_status) { TSErrorLog.LogException(ex, "Mb()"); }
+                }
+                try{
+                    // TPM PPI ALT VERSION
+                    bool tpm_status = Convert.ToBoolean(query_tpm["IsActivated_InitialValue"]);
+                    string tpm_version = Convert.ToString(query_tpm["SpecVersion"]) ?? "";
+                    if (tpm_status == true && !string.IsNullOrEmpty(tpm_version)){
+                        string[] parts = tpm_version.Split(',');
+                        if (parts.Length >= 3){
+                            MB_TPMPPIAltVersion_V.Text = parts[2].Trim();
+                        }else{
+                            MB_TPMPPIAltVersion_V.Text = "N/A";
+                        }
+                    }else{
+                        MB_TPMPPIAltVersion_V.Text = software_lang.TSReadLangs("Mb_Content", "mb_c_tpm_off");
                     }
                 }catch (Exception ex){
                     if (debug_status) { TSErrorLog.LogException(ex, "Mb()"); }
@@ -1908,7 +1856,11 @@ namespace Glow{
                     // TPM MANUFACTURER ID TXT
                     string tpm_man_id_txt = Convert.ToString(query_tpm["ManufacturerIdTxt"]).Trim();
                     if (!string.IsNullOrEmpty(tpm_man_id_txt)){
-                        MB_TPMMan_V.Text = tpm_man_id_txt;
+                        if (tpm_man_id_txt == "INTC"){
+                            MB_TPMMan_V.Text = string.Format("Intel ({0})", tpm_man_id_txt);
+                        }else{
+                            MB_TPMMan_V.Text = tpm_man_id_txt;
+                        }
                     }else{
                         MB_TPMMan_V.Text = software_lang.TSReadLangs("Mb_Content", "mb_c_tpm_off");
                     }
@@ -1969,7 +1921,8 @@ namespace Glow{
                 string tpmOffMessage = software_lang.TSReadLangs("Mb_Content", "mb_c_tpm_off");
                 var tpm_controls = new Control[] {
                     MB_TPMStatus_V,
-                    MB_TPMPhysicalVersion_V,
+                    MB_TPMPPIVersion_V,
+                    MB_TPMPPIAltVersion_V,
                     MB_TPMMan_V,
                     MB_TPMManID_V,
                     MB_TPMManVersion_V,
@@ -1998,93 +1951,6 @@ namespace Glow{
             MB_BIOSUpdateBtn.Enabled = true;
             if (debug_status){
                 TSLogger.Log("<--- Motherboard Section Loaded --->");
-            }
-        }
-        // CHECK MOTHERBOARD FIRMWARE WINDOWS CA 2023 CERT
-        private void CheckMBFirmwareCA2023Cert(){
-            TSGetLangs software_lang = new TSGetLangs(lang_path);
-            void SetCA2023Label(string text){
-                if (MB_SecureBootCA2023_V.InvokeRequired){
-                    MB_SecureBootCA2023_V.Invoke(new Action(() => MB_SecureBootCA2023_V.Text = text));
-                }else{
-                    MB_SecureBootCA2023_V.Text = text;
-                }
-            }
-            string CA2023ReadOrFallback(string section, string key, string fallback){
-                try{
-                    var v = software_lang.TSReadLangs(section, key);
-                    return string.IsNullOrWhiteSpace(v) ? fallback : v;
-                }catch (Exception ex){
-                    if (debug_status) { TSErrorLog.LogException(ex, "Mb()"); }
-                    return fallback;
-                }
-            }
-            try{
-                bool hasCa2023;
-                //
-                string ca2023_true = software_lang.TSReadLangs("Mb_Content", "mb_c_ca2023_true");
-                string ca2023_false = software_lang.TSReadLangs("Mb_Content", "mb_c_ca2023_false");
-                string ps_not_start = software_lang.TSReadLangs("Mb_Content", "mb_c_ps_not_start");
-                string ps_error_code = software_lang.TSReadLangs("Mb_Content", "mb_c_ps_error_code");
-                string unknown_err = software_lang.TSReadLangs("Mb_Content", "mb_c_unknown");
-                //
-                string msg_sb_disabled = CA2023ReadOrFallback("Mb_Content", "mb_c_sb_disabled", unknown_err);
-                string msg_not_uefi = CA2023ReadOrFallback("Mb_Content", "mb_c_not_uefi", unknown_err);
-                string msg_admin_required = CA2023ReadOrFallback("Mb_Content", "mb_c_admin_required", unknown_err);
-                string msg_cmdlet_missing = CA2023ReadOrFallback("Mb_Content", "mb_c_cmdlet_missing", unknown_err);
-                string msg_ps_missing = CA2023ReadOrFallback("Mb_Content", "mb_c_ps_missing", unknown_err);
-                //
-                ProcessStartInfo psi_ca2023 = new ProcessStartInfo{
-                    FileName = "powershell.exe",
-                    Arguments = "-NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command \"[System.Text.Encoding]::ASCII.GetString((Get-SecureBootUEFI db -ErrorAction SilentlyContinue).bytes) -match 'Windows UEFI CA 2023'\"",
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-                //
-                using (Process p_run = Process.Start(psi_ca2023)){
-                    if (p_run == null){
-                        throw new Exception(ps_not_start);
-                    }
-                    //
-                    string output = p_run.StandardOutput.ReadToEnd().Trim();
-                    string err = p_run.StandardError.ReadToEnd();
-                    p_run.WaitForExit();
-                    //
-                    if (p_run.ExitCode != 0){
-                        if (string.IsNullOrWhiteSpace(err)){
-                            throw new Exception(string.Format(ps_error_code, p_run.ExitCode));
-                        }
-                        string errTrim = err.Trim();
-                        if (errTrim.IndexOf("Secure Boot is not enabled", StringComparison.OrdinalIgnoreCase) >= 0 || errTrim.IndexOf("SecureBoot is not enabled", StringComparison.OrdinalIgnoreCase) >= 0){
-                            throw new Exception(msg_sb_disabled);
-                        }
-                        if (errTrim.IndexOf("not supported on this platform", StringComparison.OrdinalIgnoreCase) >= 0 || errTrim.IndexOf("Cmdlet not supported", StringComparison.OrdinalIgnoreCase) >= 0){
-                            throw new Exception(msg_not_uefi);
-                        }
-                        if (errTrim.IndexOf("Access is denied", StringComparison.OrdinalIgnoreCase) >= 0 || errTrim.IndexOf("UnauthorizedAccess", StringComparison.OrdinalIgnoreCase) >= 0){
-                            throw new Exception(msg_admin_required);
-                        }
-                        if (errTrim.IndexOf("Get-SecureBootUEFI", StringComparison.OrdinalIgnoreCase) >= 0 && errTrim.IndexOf("is not recognized", StringComparison.OrdinalIgnoreCase) >= 0){
-                            throw new Exception(msg_cmdlet_missing);
-                        }
-                        throw new Exception(unknown_err);
-                    }
-                    if (!bool.TryParse(output, out hasCa2023)){
-                        throw new Exception(unknown_err);
-                    }
-                }
-                string response_msg = hasCa2023 ? ca2023_true : ca2023_false;
-                SetCA2023Label(response_msg);
-            }catch (Win32Exception){
-                string unknown_err = software_lang.TSReadLangs("Mb_Content", "mb_c_unknown");
-                string msg_ps_missing = CA2023ReadOrFallback("Mb_Content", "mb_c_ps_missing", unknown_err);
-                SetCA2023Label(msg_ps_missing);
-            }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "CheckMBFirmwareCA2023Cert()"); }
-                string unknown_err = software_lang.TSReadLangs("Mb_Content", "mb_c_unknown");
-                SetCA2023Label(unknown_err);
             }
         }
         private void MB_BIOSUpdateBtn_Click(object sender, EventArgs e){
@@ -2504,8 +2370,16 @@ namespace Glow{
             foreach (ManagementObject query_os_rotate in search_os.Get().Cast<ManagementObject>()){
                 try{
                     // TOTAL RAM
-                    double total_ram_x64_tick = Convert.ToDouble(query_os_rotate["TotalVisibleMemorySize"]) * 1024;
-                    RAM_TotalRAM_V.Text = TS_FormatSize(total_ram_x64_tick);
+                    double total_bytes = Convert.ToDouble(query_os_rotate["TotalVisibleMemorySize"]) * 1024;
+                    //
+                    string usableStr = TS_FormatSize(total_bytes);
+                    double totalGB = total_bytes / (1024 * 1024 * 1024);
+                    double installedGBValue = Math.Pow(2, Math.Round(Math.Log(totalGB, 2)));
+                    double installedBytes = installedGBValue * 1024 * 1024 * 1024;
+                    string installedStr = TS_FormatSize(installedBytes);
+                    //
+                    string avabilable_string = software_lang.TSReadLangs("Ram_Content", "ram_c_available");
+                    RAM_TotalRAM_V.Text = string.Format("{0} ({1} {2})", installedStr, avabilable_string, usableStr);
                 }catch (Exception ex){
                     if (debug_status) { TSErrorLog.LogException(ex, "Ram()"); }
                 }
@@ -3388,7 +3262,27 @@ namespace Glow{
                             }
                         }
                         if (bestIndex >= 0){
-                            gpu_vram_list[bestIndex] = TS_FormatSize(vramBytes);
+                            string dynamicStr = TS_FormatSize(vramBytes);
+                            double roundedBytes = 0;
+                            //
+                            if (vramBytes >= 1024 * 1024 * 1024){
+                                double vramGB = vramBytes / (1024.0 * 1024 * 1024);
+                                double totalGBRounded = Math.Round(vramGB, 0, MidpointRounding.AwayFromZero);
+                                roundedBytes = totalGBRounded * 1024 * 1024 * 1024;
+                            }else{
+                                double vramMB = vramBytes / (1024.0 * 1024);
+                                double totalMBRounded = Math.Round(vramMB, 0, MidpointRounding.AwayFromZero);
+                                roundedBytes = totalMBRounded * 1024 * 1024;
+                            }
+                            //
+                            string totalStr = TS_FormatSize(roundedBytes);
+                            if (totalStr != dynamicStr){
+                                string available_string = software_lang.TSReadLangs("Gpu_Content", "gpu_c_available");
+                                gpu_vram_list[bestIndex] = string.Format("{0} ({1} {2})", totalStr, available_string, dynamicStr);
+                            }else{
+                                gpu_vram_list[bestIndex] = totalStr;
+                            }
+                            //
                             if (!string.IsNullOrWhiteSpace(bestDxfl)){
                                 gpu_dxfl_list[bestIndex] = bestDxfl;
                                 string maxFl = bestDxfl.Split(new[] { ',' }, 2, StringSplitOptions.RemoveEmptyEntries)[0].Trim();
@@ -3872,7 +3766,12 @@ namespace Glow{
                     }
                     // DISK VOLUME SERIAL NUMBER
                     try{
-                        var volSerials = logicalDisks.Select(ld => Convert.ToString(ld["VolumeSerialNumber"])?.Trim()).Where(s => !string.IsNullOrEmpty(s)).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+                        var volSerials = logicalDisks.Select(ld => {
+                            string raw = Convert.ToString(ld["VolumeSerialNumber"])?.Trim();
+                            if (!string.IsNullOrEmpty(raw) && raw.Length == 8)
+                                return raw.Insert(4, "-").ToUpper();
+                            return raw;
+                        }).Where(s => !string.IsNullOrEmpty(s)).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
                         if (volSerials.Count == 0){
                             disk_volume_serial_list.Add(software_lang.TSReadLangs("StorageContent", "se_c_unknown"));
                         }else{
@@ -4099,9 +3998,9 @@ namespace Glow{
                                 });
                                 if (isOsOnThisDisk){
                                     var disk_style = Convert.ToInt32(sbt["PartitionStyle"]);
-                                    if (disk_style == 1) MB_BiosMode_V.Text = software_lang.TSReadLangs("Mb_Content", "mb_c_old") + " (Legacy)";
+                                    if (disk_style == 1) MB_BiosMode_V.Text = software_lang.TSReadLangs("Mb_Content", "mb_c_old");
                                     else if (disk_style == 2) MB_BiosMode_V.Text = "UEFI";
-                                    else MB_BiosMode_V.Text = software_lang.TSReadLangs("Mb_Content", "mb_c_old") + " (Legacy)";
+                                    else MB_BiosMode_V.Text = software_lang.TSReadLangs("Mb_Content", "mb_c_old");
                                 }
                                 break;
                             }
@@ -4345,26 +4244,69 @@ namespace Glow{
         // -----------------------------------------
         public class DnsProvider{
             public string Name { get; }
-            public List<string> DnsAddresses { get; }
+            public List<string> IPv4 { get; }
+            public List<string> IPv6 { get; }
             public int Id { get; }
-            public DnsProvider(string name, List<string> dnsAddresses, int id){
+            public List<string> DnsAddresses{
+                get{
+                    var all = new List<string>(IPv4.Count + IPv6.Count);
+                    all.AddRange(IPv4);
+                    all.AddRange(IPv6);
+                    return all;
+                }
+            }
+            public DnsProvider(string name, List<string> ipv4, List<string> ipv6, int id){
                 Name = name;
-                DnsAddresses = dnsAddresses;
+                IPv4 = ipv4 ?? new List<string>();
+                IPv6 = ipv6 ?? new List<string>();
                 Id = id;
             }
         }
         public static readonly List<DnsProvider> DnsProviders = new List<DnsProvider>{
-            new DnsProvider("AdGuard DNS",  new List<string>{ "94.140.14.14", "94.140.15.15" }, 0),
-            new DnsProvider("Cloudflare",   new List<string>{ "1.1.1.1", "1.0.0.1" }, 1),
-            new DnsProvider("Comodo",       new List<string>{ "8.26.56.26", "8.20.247.20" }, 2),
-            new DnsProvider("Control D",    new List<string>{ "76.76.2.0", "76.76.10.0" }, 3),
-            new DnsProvider("DNS.WATCH",    new List<string>{ "84.200.69.80", "84.200.70.40" }, 4),
-            new DnsProvider("Google",       new List<string>{ "8.8.8.8", "8.8.4.4" }, 5),
-            new DnsProvider("Lumen DNS",    new List<string>{ "4.2.2.1", "4.2.2.2" }, 6),
-            new DnsProvider("NextDNS",      new List<string>{ "45.90.28.0", "45.90.30.0" }, 7),
-            new DnsProvider("OpenDNS",      new List<string>{ "208.67.222.222", "208.67.220.220" }, 8),
-            new DnsProvider("Quad9",        new List<string>{ "9.9.9.9", "149.112.112.112" }, 9),
-            new DnsProvider("Yandex DNS",   new List<string>{ "77.88.8.8", "77.88.8.1" }, 10),
+            new DnsProvider("AdGuard DNS",
+                new List<string> { "94.140.14.14", "94.140.15.15" },
+                new List<string> { "2a10:50c0::ad1:ff", "2a10:50c0::ad2:ff" }, 0
+            ),
+            new DnsProvider("Cloudflare",
+                new List<string> { "1.1.1.1", "1.0.0.1" },
+                new List<string> { "2606:4700:4700::1111", "2606:4700:4700::1001" }, 1
+            ),
+            new DnsProvider("Comodo",
+                new List<string> { "8.26.56.26", "8.20.247.20" },
+                new List<string>(), 2
+            ),
+            new DnsProvider("Control D",
+                new List<string> { "76.76.2.0", "76.76.10.0" },
+                new List<string> { "2606:1a40::2", "2606:1a40::10" }, 3
+            ),
+            new DnsProvider("DNS.WATCH",
+                new List<string> { "84.200.69.80", "84.200.70.40" },
+                new List<string> { "2001:1608:10:25::1c04:b12f", "2001:1608:10:25::9249:d69b" }, 4
+            ),
+            new DnsProvider("Google",
+                new List<string> { "8.8.8.8", "8.8.4.4" },
+                new List<string> { "2001:4860:4860::8888", "2001:4860:4860::8844" }, 5
+            ),
+            new DnsProvider("Lumen DNS",
+                new List<string> { "4.2.2.1", "4.2.2.2" },
+                new List<string>(), 6
+            ),
+            new DnsProvider("NextDNS",
+                new List<string> { "45.90.28.0", "45.90.30.0" },
+                new List<string> { "2a07:a8c0::", "2a07:a8c1::" }, 7
+            ),
+            new DnsProvider("OpenDNS",
+                new List<string> { "208.67.222.222", "208.67.220.220" },
+                new List<string> { "2620:119:35::35", "2620:119:53::53" }, 8
+            ),
+            new DnsProvider("Quad9",
+                new List<string> { "9.9.9.9", "149.112.112.112" },
+                new List<string> { "2620:fe::fe", "2620:fe::9" }, 9
+            ),
+            new DnsProvider("Yandex DNS",
+                new List<string> { "77.88.8.8", "77.88.8.1" },
+                new List<string> { "2a02:6b8::feed:0ff", "2a02:6b8:0:1::feed:0ff" }, 10
+            ),
         };
         private void Network(){
             TSGetLangs software_lang = new TSGetLangs(lang_path);
@@ -4648,7 +4590,7 @@ namespace Glow{
             }
             try{
                 // GET DNS ADRESS
-                UpdateDnsLabels(NET_DNS1_V, NET_DNS2_V);
+                UpdateDnsLabels(NET_DNS_v4_1_V, NET_DNS_v4_2_V, NET_DNS_v6_1_V, NET_DNS_v6_2_V);
             }catch (Exception ex){
                 if (debug_status) { TSErrorLog.LogException(ex, "Network()"); }
             }
@@ -4838,55 +4780,91 @@ namespace Glow{
             }
         }
         // CHECK DNS
-        private void UpdateDnsLabels(Label labelDns1, Label labelDns2){
+        private void UpdateDnsLabels(Label labelDns1, Label labelDns2, Label labelDns3, Label labelDns4){
             try{
-                string dns1 = "";
-                string dns2 = "";
-                var candidates = NetworkInterface.GetAllNetworkInterfaces().Where(ni => ni.OperationalStatus == OperationalStatus.Up && ni.NetworkInterfaceType != NetworkInterfaceType.Loopback && ni.GetIPProperties().GatewayAddresses.Any(g => g?.Address != null && !g.Address.Equals(IPAddress.Any) && !g.Address.Equals(IPAddress.IPv6Any) && !g.Address.Equals(IPAddress.None))).ToList();
-                NetworkInterface activeInterface = null;
-                if (candidates.Count > 0){
-                    activeInterface = candidates.FirstOrDefault(ni => ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet) ?? candidates.FirstOrDefault(ni => ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211) ?? candidates.FirstOrDefault();
-                }
-                if (activeInterface != null){
+                string ipv4_1 = "";
+                string ipv4_2 = "";
+                string ipv6_1 = "";
+                string ipv6_2 = "";
+                //
+                var allInterfaces = NetworkInterface.GetAllNetworkInterfaces().Where(ni => ni.OperationalStatus == OperationalStatus.Up && ni.NetworkInterfaceType != NetworkInterfaceType.Loopback).ToList();
+                NetworkInterface activeInterface = allInterfaces.Where(IsUsableInterface).OrderByDescending(GetInterfacePriority).FirstOrDefault();
+                bool hasNetwork = activeInterface != null;
+                bool hasDns = false;
+                //
+                if (hasNetwork){
                     var ipProps = activeInterface.GetIPProperties();
                     var dnsList = ipProps.DnsAddresses.Where(d => d != null && !d.Equals(IPAddress.Any) && !d.Equals(IPAddress.IPv6Any) && !d.ToString().StartsWith("fec0:0:0:ffff", StringComparison.OrdinalIgnoreCase)).ToList();
+                    hasDns = dnsList.Any();
+                    //
                     var ipv4 = dnsList.Where(d => d.AddressFamily == AddressFamily.InterNetwork).ToList();
-                    if (ipv4.Count > 0){
-                        dns1 = ipv4.ElementAtOrDefault(0)?.ToString() ?? "";
-                        dns2 = ipv4.ElementAtOrDefault(1)?.ToString() ?? "";
-                    }else{
-                        var ipv6 = dnsList.Where(d => d.AddressFamily == AddressFamily.InterNetworkV6).ToList();
-                        dns1 = ipv6.ElementAtOrDefault(0)?.ToString() ?? "";
-                        dns2 = ipv6.ElementAtOrDefault(1)?.ToString() ?? "";
-                    }
+                    var ipv6 = dnsList.Where(d => d.AddressFamily == AddressFamily.InterNetworkV6).ToList();
+                    ipv4_1 = ipv4.ElementAtOrDefault(0)?.ToString() ?? "";
+                    ipv4_2 = ipv4.ElementAtOrDefault(1)?.ToString() ?? "";
+                    ipv6_1 = ipv6.ElementAtOrDefault(0)?.ToString() ?? "";
+                    ipv6_2 = ipv6.ElementAtOrDefault(1)?.ToString() ?? "";
                 }
+                //
                 TSGetLangs software_lang = new TSGetLangs(lang_path);
-                // DNS1
-                if (!string.IsNullOrEmpty(dns1)){
-                    if (hiding_mode_wrapper == 1){
-                        int maskLength = vis_m_property.Next(vn_range[0], vn_range[1]);
-                        labelDns1.Text = new string('*', maskLength) + $" ({software_lang.TSReadLangs("HeaderHidingMode", "header_hiding_mode_on_ui")})";
-                    }else{
-                        var provider = DnsProviders.FirstOrDefault(p => p.DnsAddresses.Contains(dns1));
-                        labelDns1.Text = provider != null ? $"{dns1} ({provider.Name})" : dns1;
-                    }
-                }else{
-                    labelDns1.Text = software_lang.TSReadLangs("Network_Content", "nk_c_dns_not");
+                string notConnectedText = software_lang.TSReadLangs("Network_Content", "nk_c_not_connect");
+                string dnsNotAssignedText = software_lang.TSReadLangs("Network_Content", "nk_c_dns_not");
+                //
+                if (!hasNetwork){
+                    labelDns1.Text = notConnectedText;
+                    labelDns2.Text = notConnectedText;
+                    labelDns3.Text = notConnectedText;
+                    labelDns4.Text = notConnectedText;
+                    return;
                 }
-                // DNS2
-                if (!string.IsNullOrEmpty(dns2)){
-                    if (hiding_mode_wrapper == 1){
-                        int maskLength = vis_m_property.Next(vn_range[0], vn_range[1]);
-                        labelDns2.Text = new string('*', maskLength) + $" ({software_lang.TSReadLangs("HeaderHidingMode", "header_hiding_mode_on_ui")})";
-                    }else{
-                        var provider = DnsProviders.FirstOrDefault(p => p.DnsAddresses.Contains(dns2));
-                        labelDns2.Text = provider != null ? $"{dns2} ({provider.Name})" : dns2;
-                    }
-                }else{
-                    labelDns2.Text = software_lang.TSReadLangs("Network_Content", "nk_c_dns_not");
+                if (!hasDns){
+                    labelDns1.Text = dnsNotAssignedText;
+                    labelDns2.Text = dnsNotAssignedText;
+                    labelDns3.Text = dnsNotAssignedText;
+                    labelDns4.Text = dnsNotAssignedText;
+                    return;
                 }
+                //
+                SetDnsLabel(labelDns1, ipv4_1, software_lang);
+                SetDnsLabel(labelDns2, ipv4_2, software_lang);
+                SetDnsLabel(labelDns3, ipv6_1, software_lang);
+                SetDnsLabel(labelDns4, ipv6_2, software_lang);
             }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "UpdateDnsLabels()"); }
+                if (debug_status)
+                    TSErrorLog.LogException(ex, "UpdateDnsLabels()");
+            }
+        }
+        private bool IsUsableInterface(NetworkInterface ni){
+            var props = ni.GetIPProperties();
+            bool hasGateway = props.GatewayAddresses.Any(g => g?.Address != null && !g.Address.Equals(IPAddress.Any));
+            return hasGateway;
+        }
+        private int GetInterfacePriority(NetworkInterface ni){
+            switch (ni.NetworkInterfaceType){
+                case NetworkInterfaceType.Ethernet:
+                    return 3;
+                case NetworkInterfaceType.Wireless80211:
+                    return 2;
+                default:
+                    return 1;
+            }
+        }
+        private void SetDnsLabel(Label label, string dns, TSGetLangs lang){
+            if (!string.IsNullOrEmpty(dns)){
+                if (hiding_mode_wrapper == 1){
+                    int maskLength = vis_m_property.Next(vn_range[0], vn_range[1]);
+                    label.Text = new string('*', maskLength) + $" ({lang.TSReadLangs("HeaderHidingMode", "header_hiding_mode_on_ui")})";
+                }else{
+                    var ip = IPAddress.Parse(dns);
+                    DnsProvider provider = null;
+                    if (ip.AddressFamily == AddressFamily.InterNetwork){
+                        provider = DnsProviders.FirstOrDefault(p => p.IPv4.Contains(dns));
+                    }else if (ip.AddressFamily == AddressFamily.InterNetworkV6){
+                        provider = DnsProviders.FirstOrDefault(p => p.IPv6.Contains(dns));
+                    }
+                    label.Text = provider != null ? $"{dns} ({provider.Name})" : dns;
+                }
+            }else{
+                label.Text = lang.TSReadLangs("Network_Content", "nk_c_dns_not");
             }
         }
         #endregion
@@ -6532,17 +6510,14 @@ namespace Glow{
                 benchDiskTool.Text = software_lang.TSReadLangs("HeaderTools", "ht_bench_disk");
                 screenOverlayTool.Text = software_lang.TSReadLangs("HeaderTools", "ht_overlay");
                 dnsTestTool.Text = software_lang.TSReadLangs("HeaderTools", "ht_dns_test_tool");
-                quickAccessTool.Text = software_lang.TSReadLangs("HeaderTools", "ht_quick_access_tool");
                 networkFixTool.Text = software_lang.TSReadLangs("HeaderTools", "ht_network_fix_tool");
                 showWiFiPasswordTool.Text = software_lang.TSReadLangs("HeaderTools", "ht_show_wifi_password_tool");
                 bluetoothFinderToolToolStripMenuItem.Text = software_lang.TSReadLangs("HeaderTools", "ht_bluetooth_finder_tool");
-                systemIdGeneratorTool.Text = software_lang.TSReadLangs("HeaderTools", "ht_system_id_generator_tool");
+                systemIdAnalysisTool.Text = software_lang.TSReadLangs("HeaderTools", "ht_system_id_analysis_tool");
                 monitorTestTool.Text = software_lang.TSReadLangs("HeaderTools", "ht_monitor_test");
                 monitorDeadPixelTestTool.Text = software_lang.TSReadLangs("HeaderTools", "ht_monitor_test_dead_pixel");
                 monitorDynamicRangeTestTool.Text = software_lang.TSReadLangs("HeaderTools", "ht_monitor_test_dynamic_range");
                 monitorStuckPixelFixerTool.Text = software_lang.TSReadLangs("HeaderTools", "ht_stuck_pixel_fixer_tool");
-                // TS WIZARD
-                tSWizardToolStripMenuItem.Text = software_lang.TSReadLangs("HeaderMenu", "header_menu_ts_wizard");
                 // DONATE
                 donateToolStripMenuItem.Text = software_lang.TSReadLangs("HeaderMenu", "header_menu_donate");
                 // ABOUT
@@ -6602,9 +6577,6 @@ namespace Glow{
                 OS_FirewallProgram.Text = software_lang.TSReadLangs("OperatingSystem", "os_installed_firewall_apps");
                 OS_AntiSpywareProgram.Text = software_lang.TSReadLangs("OperatingSystem", "os_installed_anti_spyware_apps");
                 OS_WinDefCoreIsolation.Text = software_lang.TSReadLangs("OperatingSystem", "os_win_core_isolation_status");
-                OS_CA2023_Status.Text = software_lang.TSReadLangs("OperatingSystem", "os_ca2023_status");
-                OS_CA2023_Capable.Text = software_lang.TSReadLangs("OperatingSystem", "os_ca2023_capable");
-                OS_CA2023_Error.Text = software_lang.TSReadLangs("OperatingSystem", "os_ca2023_error");
                 OS_ActivePower.Text = software_lang.TSReadLangs("OperatingSystem", "os_active_power");
                 OS_ActivePowerGUID.Text = software_lang.TSReadLangs("OperatingSystem", "os_active_power_guid");
                 OS_ActivePowerScreenTimeOutP.Text = software_lang.TSReadLangs("OperatingSystem", "os_active_power_sctp");
@@ -6651,9 +6623,9 @@ namespace Glow{
                 MB_BiosMode.Text = software_lang.TSReadLangs("Motherboard", "mb_bios_mode");
                 MB_LastBIOSTime.Text = software_lang.TSReadLangs("Motherboard", "mb_last_bios_time");
                 MB_SecureBoot.Text = software_lang.TSReadLangs("Motherboard", "mb_secure_boot_status");
-                MB_SecureBootCA2023.Text = software_lang.TSReadLangs("Motherboard", "mb_secure_boot_ca2023_status");
                 MB_TPMStatus.Text = software_lang.TSReadLangs("Motherboard", "mb_tpm_status");
-                MB_TPMPhysicalVersion.Text = software_lang.TSReadLangs("Motherboard", "mb_tpm_physical_presence_version");
+                MB_TPMPPIVersion.Text = software_lang.TSReadLangs("Motherboard", "mb_tpm_ppi_version");
+                MB_TPMPPIAltVersion.Text = software_lang.TSReadLangs("Motherboard", "mb_tpm_ppi_alt_version");
                 MB_TPMMan.Text = software_lang.TSReadLangs("Motherboard", "mb_tpm_manufacturer");
                 MB_TPMManID.Text = software_lang.TSReadLangs("Motherboard", "mb_tpm_manufacturer_id");
                 MB_TPMManVersion.Text = software_lang.TSReadLangs("Motherboard", "mb_tpm_manufacturer_version");
@@ -6796,8 +6768,10 @@ namespace Glow{
                 NET_LocalConSpeed.Text = software_lang.TSReadLangs("Network", "nk_connection_speed");
                 NET_IPv4Adress.Text = software_lang.TSReadLangs("Network", "nk_appointed_ipv4_adress");
                 NET_IPv6Adress.Text = software_lang.TSReadLangs("Network", "nk_appointed_ipv6_adress");
-                NET_DNS1.Text = software_lang.TSReadLangs("Network", "nk_dns1");
-                NET_DNS2.Text = software_lang.TSReadLangs("Network", "nk_dns2");
+                NET_DNS_v4_1.Text = software_lang.TSReadLangs("Network", "nk_v4_dns1");
+                NET_DNS_v4_2.Text = software_lang.TSReadLangs("Network", "nk_v4_dns2");
+                NET_DNS_v6_1.Text = software_lang.TSReadLangs("Network", "nk_v6_dns1");
+                NET_DNS_v6_2.Text = software_lang.TSReadLangs("Network", "nk_v6_dns2");
                 // USB
                 USB_Selector.Text = software_lang.TSReadLangs("Usb", "usb_controller");
                 USB_ConName.Text = software_lang.TSReadLangs("Usb", "usb_controller_name");
@@ -6907,6 +6881,14 @@ namespace Glow{
                 TS_AdjustButtonWidth(EXPORT_Donate); // Dynamic Width
                 // CHANGE COPYABLE LABELS TOOLTIP TEXT
                 this.BeginInvoke(new MethodInvoker(() => { TSSetTooltips(allCopyableLabels); }));
+                // SCROLL TOP
+                MainToolTip.SetToolTip(OS_ScrollTop, software_lang.TSReadLangs("GToolsMessage", "gtm_scroll_top"));
+                MainToolTip.SetToolTip(MB_ScrollTop, software_lang.TSReadLangs("GToolsMessage", "gtm_scroll_top"));
+                MainToolTip.SetToolTip(CPU_ScrollTop, software_lang.TSReadLangs("GToolsMessage", "gtm_scroll_top"));
+                MainToolTip.SetToolTip(RAM_ScrollTop, software_lang.TSReadLangs("GToolsMessage", "gtm_scroll_top"));
+                MainToolTip.SetToolTip(GPU_ScrollTop, software_lang.TSReadLangs("GToolsMessage", "gtm_scroll_top"));
+                MainToolTip.SetToolTip(DISK_ScrollTop, software_lang.TSReadLangs("GToolsMessage", "gtm_scroll_top"));
+                MainToolTip.SetToolTip(NET_ScrollTop, software_lang.TSReadLangs("GToolsMessage", "gtm_scroll_top"));
                 // OTHER PAGE DYNAMIC UI
                 Glow_other_page_dynamic_ui();
             }catch (Exception ex){
@@ -6998,11 +6980,10 @@ namespace Glow{
                     TSImageRenderer(benchDiskTool, Properties.Resources.cx_bench_disk_light, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(screenOverlayTool, Properties.Resources.cx_overlay_light, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(dnsTestTool, Properties.Resources.cx_dns_test_light, 0, ContentAlignment.MiddleRight);
-                    TSImageRenderer(quickAccessTool, Properties.Resources.cx_quick_access_light, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(networkFixTool, Properties.Resources.cx_network_fix_light, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(showWiFiPasswordTool, Properties.Resources.cx_swpt_light, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(bluetoothFinderToolToolStripMenuItem, Properties.Resources.cx_bt_finder_light, 0, ContentAlignment.MiddleRight);
-                    TSImageRenderer(systemIdGeneratorTool, Properties.Resources.cx_system_id_light, 0, ContentAlignment.MiddleRight);
+                    TSImageRenderer(systemIdAnalysisTool, Properties.Resources.cx_system_id_light, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(monitorTestTool, Properties.Resources.cx_test_monitor_light, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(monitorDeadPixelTestTool, Properties.Resources.cx_test_dead_pixel_light, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(monitorDynamicRangeTestTool, Properties.Resources.cx_test_dynamic_range_light, 0, ContentAlignment.MiddleRight);
@@ -7028,10 +7009,16 @@ namespace Glow{
                     TSImageRenderer(OSD_TextBoxClearBtn, Properties.Resources.ct_clear_light, 15, ContentAlignment.MiddleCenter);
                     // DONATE
                     TSImageRenderer(donateToolStripMenuItem, Properties.Resources.tm_donate_light, 0, ContentAlignment.MiddleRight);
-                    // TS WIZARD
-                    TSImageRenderer(tSWizardToolStripMenuItem, Properties.Resources.tm_ts_wizard_light, 0, ContentAlignment.MiddleRight);
                     // ABOUT
                     TSImageRenderer(aboutToolStripMenuItem, Properties.Resources.tm_about_light, 0, ContentAlignment.MiddleRight);
+                    // SCROLL TOP
+                    TSImageRenderer(OS_ScrollTop, Properties.Resources.ct_scroll_top_light, 24, ContentAlignment.MiddleCenter);
+                    TSImageRenderer(MB_ScrollTop, Properties.Resources.ct_scroll_top_light, 24, ContentAlignment.MiddleCenter);
+                    TSImageRenderer(CPU_ScrollTop, Properties.Resources.ct_scroll_top_light, 24, ContentAlignment.MiddleCenter);
+                    TSImageRenderer(RAM_ScrollTop, Properties.Resources.ct_scroll_top_light, 24, ContentAlignment.MiddleCenter);
+                    TSImageRenderer(GPU_ScrollTop, Properties.Resources.ct_scroll_top_light, 24, ContentAlignment.MiddleCenter);
+                    TSImageRenderer(DISK_ScrollTop, Properties.Resources.ct_scroll_top_light, 24, ContentAlignment.MiddleCenter);
+                    TSImageRenderer(NET_ScrollTop, Properties.Resources.ct_scroll_top_light, 24, ContentAlignment.MiddleCenter);
                 }else if (theme == 0){
                     // LEFT MENU LOGO CHANGE
                     if (Program.windows_mode == 1){
@@ -7069,11 +7056,10 @@ namespace Glow{
                     TSImageRenderer(benchDiskTool, Properties.Resources.cx_bench_disk_dark, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(screenOverlayTool, Properties.Resources.cx_overlay_dark, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(dnsTestTool, Properties.Resources.cx_dns_test_dark, 0, ContentAlignment.MiddleRight);
-                    TSImageRenderer(quickAccessTool, Properties.Resources.cx_quick_access_dark, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(networkFixTool, Properties.Resources.cx_network_fix_dark, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(showWiFiPasswordTool, Properties.Resources.cx_swpt_dark, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(bluetoothFinderToolToolStripMenuItem, Properties.Resources.cx_bt_finder_dark, 0, ContentAlignment.MiddleRight);
-                    TSImageRenderer(systemIdGeneratorTool, Properties.Resources.cx_system_id_dark, 0, ContentAlignment.MiddleRight);
+                    TSImageRenderer(systemIdAnalysisTool, Properties.Resources.cx_system_id_dark, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(monitorTestTool, Properties.Resources.cx_test_monitor_dark, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(monitorDeadPixelTestTool, Properties.Resources.cx_test_dead_pixel_dark, 0, ContentAlignment.MiddleRight);
                     TSImageRenderer(monitorDynamicRangeTestTool, Properties.Resources.cx_test_dynamic_range_dark, 0, ContentAlignment.MiddleRight);
@@ -7099,10 +7085,16 @@ namespace Glow{
                     TSImageRenderer(OSD_TextBoxClearBtn, Properties.Resources.ct_clear_dark, 15, ContentAlignment.MiddleCenter);
                     // DONATE
                     TSImageRenderer(donateToolStripMenuItem, Properties.Resources.tm_donate_dark, 0, ContentAlignment.MiddleRight);
-                    // TS WIZARD
-                    TSImageRenderer(tSWizardToolStripMenuItem, Properties.Resources.tm_ts_wizard_dark, 0, ContentAlignment.MiddleRight);
                     // ABOUT
                     TSImageRenderer(aboutToolStripMenuItem, Properties.Resources.tm_about_dark, 0, ContentAlignment.MiddleRight);
+                    // SCROLL TOP
+                    TSImageRenderer(OS_ScrollTop, Properties.Resources.ct_scroll_top_dark, 24, ContentAlignment.MiddleCenter);
+                    TSImageRenderer(MB_ScrollTop, Properties.Resources.ct_scroll_top_dark, 24, ContentAlignment.MiddleCenter);
+                    TSImageRenderer(CPU_ScrollTop, Properties.Resources.ct_scroll_top_dark, 24, ContentAlignment.MiddleCenter);
+                    TSImageRenderer(RAM_ScrollTop, Properties.Resources.ct_scroll_top_dark, 24, ContentAlignment.MiddleCenter);
+                    TSImageRenderer(GPU_ScrollTop, Properties.Resources.ct_scroll_top_dark, 24, ContentAlignment.MiddleCenter);
+                    TSImageRenderer(DISK_ScrollTop, Properties.Resources.ct_scroll_top_dark, 24, ContentAlignment.MiddleCenter);
+                    TSImageRenderer(NET_ScrollTop, Properties.Resources.ct_scroll_top_dark, 24, ContentAlignment.MiddleCenter);
                 }
                 // OTHER PAGE DYNAMIC UI
                 Glow_other_page_dynamic_ui();
@@ -7224,7 +7216,6 @@ namespace Glow{
                 os_panel_4.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
                 os_panel_5.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
                 os_panel_6.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
-                os_panel_7.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
                 //
                 OS_SystemUser.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_SystemUser_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
@@ -7274,12 +7265,6 @@ namespace Glow{
                 OS_AntiSpywareProgram_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_WinDefCoreIsolation.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_WinDefCoreIsolation_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_CA2023_Status.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_CA2023_Status_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_CA2023_Capable.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_CA2023_Capable_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                OS_CA2023_Error.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                OS_CA2023_Error_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_ActivePower.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 OS_ActivePower_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 OS_ActivePowerGUID.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
@@ -7369,12 +7354,12 @@ namespace Glow{
                 MB_LastBIOSTime_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 MB_SecureBoot.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 MB_SecureBoot_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                MB_SecureBootCA2023.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                MB_SecureBootCA2023_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 MB_TPMStatus.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 MB_TPMStatus_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                MB_TPMPhysicalVersion.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                MB_TPMPhysicalVersion_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                MB_TPMPPIVersion.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_TPMPPIVersion_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                MB_TPMPPIAltVersion.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                MB_TPMPPIAltVersion_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 MB_TPMMan.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 MB_TPMMan_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 MB_TPMManID.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
@@ -7744,10 +7729,14 @@ namespace Glow{
                 NET_IPv4Adress_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 NET_IPv6Adress.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
                 NET_IPv6Adress_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                NET_DNS1.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                NET_DNS1_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
-                NET_DNS2.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
-                NET_DNS2_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                NET_DNS_v4_1.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_DNS_v4_1_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                NET_DNS_v4_2.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_DNS_v4_2_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                NET_DNS_v6_1.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_DNS_v6_1_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                NET_DNS_v6_2.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                NET_DNS_v6_2_V.ForeColor = TS_ThemeEngine.ColorMode(theme, "AccentColor");
                 // USB
                 usb_panel_1.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
                 usb_panel_2.BackColor = TS_ThemeEngine.ColorMode(theme, "ContentPanelBGColor");
@@ -8017,6 +8006,17 @@ namespace Glow{
                 EXPORT_Donate.FlatAppearance.MouseOverBackColor = TS_ThemeEngine.ColorMode(theme, "AccentColorHover");
                 EXPORT_DonateLabel.BackColor = TS_ThemeEngine.ColorMode(theme, "LeftMenuButtonHoverAndMouseDownColor");
                 EXPORT_DonateLabel.ForeColor = TS_ThemeEngine.ColorMode(theme, "ContentLabelLeft");
+                // SCROLL TOP
+                var st_fg = TS_ThemeEngine.ColorMode(theme, "DynamicThemeActiveBtnBG");
+                var st_bg = TS_ThemeEngine.ColorMode(theme, "AccentColor");
+                var st_hover = TS_ThemeEngine.ColorMode(theme, "AccentColorHover");
+                new[] { OS_ScrollTop, CPU_ScrollTop, MB_ScrollTop, RAM_ScrollTop, GPU_ScrollTop, DISK_ScrollTop, NET_ScrollTop }.ToList().ForEach(btn =>{
+                    btn.ForeColor = st_fg;
+                    btn.BackColor = st_bg;
+                    btn.FlatAppearance.BorderColor = st_bg;
+                    btn.FlatAppearance.MouseDownBackColor = st_bg;
+                    btn.FlatAppearance.MouseOverBackColor = st_hover;
+                });
                 // ROTATE MENU
                 var buttonMap = new Dictionary<int, Button>{
                     { 1, OS_RotateBtn },
@@ -8099,20 +8099,19 @@ namespace Glow{
                 var glow_other_pages = new (string name, Func<object> createTool, Action<object> applySettings)[]{
                     ("glow_sfc_and_dism_tool", () => new GlowSFCandDISMAutoTool(), tool => ((GlowSFCandDISMAutoTool)tool).SADTLoadEngine()),
                     ("glow_cache_cleanup_tool", () => new GlowCacheCleanupTool(), tool => ((GlowCacheCleanupTool)tool).Cct_theme_settings()),
-                    ("glow_bench_cpu_tool", () => new GlowBenchCPU(), tool => ((GlowBenchCPU)tool).Bench_cpu_theme_settings()),
-                    ("glow_bench_ram_tool", () => new GlowBenchMemory(), tool => ((GlowBenchMemory)tool).Bench_ram_settings()),
-                    ("glow_bench_disk_tool", () => new GlowBenchDisk(), tool => ((GlowBenchDisk)tool).Bench_disk_theme_settings()),
-                    ("glow_screen_overlay_tool", () => new GlowOverlay(), tool => ((GlowOverlay)tool).Screen_overlay_settings()),
+                    ("glow_bench_cpu_tool", () => new GlowBenchCPUTool(), tool => ((GlowBenchCPUTool)tool).Bench_cpu_theme_settings()),
+                    ("glow_bench_ram_tool", () => new GlowBenchMemoryTool(), tool => ((GlowBenchMemoryTool)tool).Bench_ram_settings()),
+                    ("glow_bench_disk_tool", () => new GlowBenchDiskTool(), tool => ((GlowBenchDiskTool)tool).Bench_disk_theme_settings()),
+                    ("glow_screen_overlay_tool", () => new GlowOverlayTool(), tool => ((GlowOverlayTool)tool).Screen_overlay_settings()),
                     ("glow_dns_test_tool", () => new GlowDNSTestTool(), tool => ((GlowDNSTestTool)tool).Dns_test_settings()),
-                    ("glow_quick_access_tool", () => new GlowQuickAccessTool(), tool => ((GlowQuickAccessTool)tool).Quick_access_settings()),
                     ("glow_show_wifi_password_tool", () => new GlowShowWiFiPasswordTool(), tool => ((GlowShowWiFiPasswordTool)tool).Swpt_theme_settings()),
                     ("glow_network_fix_tool", () => new GlowNetworkFixTool(), tool => ((GlowNetworkFixTool)tool).Nft_theme_settings()),
                     ("glow_bluetooth_finder_tool", () => new GlowBluetoothFinderTool(), tool => ((GlowBluetoothFinderTool)tool).BTFinder_Preloader()),
-                    ("glow_system_id_generator_tool", () => new GlowSystemIDGenerator(), tool => ((GlowSystemIDGenerator)tool).SIG_Preloader()),
-                    ("glow_monitor_test_engine_dead_pixel", () => new GlowMonitorTestEngine(), tool => ((GlowMonitorTestEngine)tool).Monitor_test_engine_theme_settings()),
-                    ("glow_monitor_test_engine_dynamic_range", () => new GlowMonitorTestEngine(), tool => ((GlowMonitorTestEngine)tool).Monitor_test_engine_theme_settings()),
+                    ("glow_system_id_analysis_tool", () => new GlowSystemIDAnalysisTool(), tool => ((GlowSystemIDAnalysisTool)tool).SIG_Preloader()),
+                    ("glow_monitor_test_engine_dead_pixel", () => new GlowMonitorTestTool(), tool => ((GlowMonitorTestTool)tool).Monitor_test_engine_theme_settings()),
+                    ("glow_monitor_test_engine_dynamic_range", () => new GlowMonitorTestTool(), tool => ((GlowMonitorTestTool)tool).Monitor_test_engine_theme_settings()),
                     ("glow_monitor_stuck_pixel_fixer", () => new GlowStuckPixelFixerTool(), tool => ((GlowStuckPixelFixerTool)tool).ChangeDynamicUI()),
-                    ("glow_wallpaper_preview_tool", () => new GlowWallpaperPreview(), tool => ((GlowWallpaperPreview)tool).WP_Preview_theme_settings()),
+                    ("glow_wallpaper_preview_tool", () => new GlowWallpaperPreviewTool(), tool => ((GlowWallpaperPreviewTool)tool).WP_Preview_theme_settings()),
                     ("glow_about", () => new GlowAbout(), tool => ((GlowAbout)tool).About_preloader()),
                 };
                 foreach (var (toolName, createTool, applySettings) in glow_other_pages){
@@ -8130,6 +8129,69 @@ namespace Glow{
             }catch (Exception ex){
                 if (debug_status) { TSErrorLog.LogException(ex, "Glow_other_page_dynamic_ui()"); }
             }
+        }
+        // SCROLL TOP MODULE
+        // ======================================================================================================
+        private CancellationTokenSource _resizeCts;
+        private void MainContent_Resize(object sender, EventArgs e){
+            _resizeCts?.Cancel();
+            _resizeCts = new CancellationTokenSource();
+            var token = _resizeCts.Token;
+            _ = Task.Run(async () =>{
+                try{
+                    await Task.Delay(100, token);
+                    if (token.IsCancellationRequested) return;
+                    MainContent.Invoke((Action)UpdateScrollTopButtonVisibility);
+                }catch (TaskCanceledException) { }
+            });
+        }
+        private void UpdateScrollTopButtonVisibility(){
+            var tab = MainContent.SelectedTab;
+            if (tab == null) return;
+            bool hasScroll = tab.DisplayRectangle.Height > tab.ClientSize.Height;
+            foreach (var btn in new[]{
+                OS_ScrollTop,
+                CPU_ScrollTop,
+                MB_ScrollTop,
+                RAM_ScrollTop,
+                GPU_ScrollTop,
+                DISK_ScrollTop,
+                NET_ScrollTop
+            }){
+                btn.Visible = hasScroll;
+            }
+        }
+        private bool _isScrolling = false;
+        private async void ScrollTop_Click(object sender, EventArgs e){
+            if (_isScrolling) return;
+            try{
+                _isScrolling = true;
+                await TS_ScrollTop();
+            }finally{
+                _isScrolling = false;
+            }
+        }
+        private async Task TS_ScrollTop(){
+            var tab = MainContent.SelectedTab;
+            if (tab == null) return;
+            int start = tab.VerticalScroll.Value;
+            if (start <= 0) return;
+            int duration = 250;
+            var sw = Stopwatch.StartNew();
+            while (true){
+                double t = sw.Elapsed.TotalMilliseconds / duration;
+                if (t >= 1.0) break;
+                double eased = 1 - Math.Pow(1 - t, 3);
+                int value = (int)(start * (1 - eased));
+                tab.AutoScrollPosition = new Point(0, value);
+                tab.VerticalScroll.Value = value;
+                tab.Update();
+                await Task.Yield();
+            }
+            tab.AutoScrollPosition = new Point(0, 0);
+            tab.VerticalScroll.Value = 0;
+            tab.Focus();
+            tab.PerformLayout();
         }
         // STARTUP SETINGS
         // ======================================================================================================
@@ -8367,37 +8429,6 @@ namespace Glow{
                 if (debug_status) { TSErrorLog.LogException(ex, "Debug_mode_settings()"); }
             }
         }
-        // SOFTWARE OPERATION CONTROLLER MODULE
-        // ======================================================================================================
-        private static bool Software_operation_controller(string __target_software_path){
-            var exeFiles = Directory.GetFiles(__target_software_path, "*.exe");
-            var runned_process = Process.GetProcesses();
-            foreach (var exe_path in exeFiles){
-                string exe_name = Path.GetFileNameWithoutExtension(exe_path);
-                if (runned_process.Any(p => {
-                    try{
-                        return string.Equals(p.ProcessName, exe_name, StringComparison.OrdinalIgnoreCase);
-                    }catch{
-                        return false;
-                    }
-                })){
-                    return true;
-                }
-            }
-            return false;
-        }
-        // TS WIZARD STARTER MODE
-        // ======================================================================================================
-        private string[] Ts_wizard_starter_mode(){
-            string[] ts_wizard_exe_files = { "TSWizard_arm64.exe", "TSWizard_x64.exe", "TSWizard.exe" };
-            if (RuntimeInformation.OSArchitecture == Architecture.Arm64){
-                return new[] { ts_wizard_exe_files[0], ts_wizard_exe_files[1], ts_wizard_exe_files[2] }; // arm64 > x64 > default
-            }else if (Environment.Is64BitOperatingSystem){
-                return new[] { ts_wizard_exe_files[1], ts_wizard_exe_files[0], ts_wizard_exe_files[2] }; // x64 > arm64 > default
-            }else{
-                return new[] { ts_wizard_exe_files[2], ts_wizard_exe_files[1], ts_wizard_exe_files[0] }; // default > x64 > arm64
-            }
-        }
         // UPDATE CHECK ENGINE
         // ======================================================================================================
         private void CheckForUpdatesToolStripMenuItem_Click(object sender, EventArgs e){
@@ -8419,24 +8450,9 @@ namespace Glow{
                     Version client_ver = Version.Parse(client_version_raw);
                     Version last_ver = Version.Parse(last_version_raw);
                     if (client_ver < last_ver){
-                        string baseDir = Path.Combine(Directory.GetParent(Directory.GetParent(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).FullName).FullName);
-                        string ts_wizard_path = Ts_wizard_starter_mode().Select(name => Path.Combine(baseDir, name)).FirstOrDefault(File.Exists);
-                        if (!string.IsNullOrEmpty(ts_wizard_path) && File.Exists(ts_wizard_path)){
-                            if (!Software_operation_controller(Path.GetDirectoryName(ts_wizard_path))){
-                                DialogResult info_update = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(software_lang.TSReadLangs("SoftwareUpdate", "su_available_ts_wizard"), Application.ProductName, "\n\n", client_version_raw, "\n", last_version_raw, "\n\n", ts_wizard_name), string.Format(software_lang.TSReadLangs("SoftwareUpdate", "su_title"), Application.ProductName));
-                                if (info_update == DialogResult.Yes){
-                                    Process.Start(new ProcessStartInfo{ FileName = ts_wizard_path, WorkingDirectory = Path.GetDirectoryName(ts_wizard_path) });
-                                }
-                            }else{
-                                if (_check_update_ui == 1){
-                                    TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format(software_lang.TSReadLangs("HeaderHelp", "header_help_info_notification"), ts_wizard_name));
-                                }
-                            }
-                        }else{
-                            DialogResult info_update = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(software_lang.TSReadLangs("SoftwareUpdate", "su_available"), Application.ProductName, "\n\n", client_version_raw, "\n", last_version_raw, "\n\n"), string.Format(software_lang.TSReadLangs("SoftwareUpdate", "su_title"), Application.ProductName));
-                            if (info_update == DialogResult.Yes)
-                                Process.Start(new ProcessStartInfo(TS_LinkSystem.github_link_lr) { UseShellExecute = true });
-                        }
+                        DialogResult info_update = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(software_lang.TSReadLangs("SoftwareUpdate", "su_available"), Application.ProductName, "\n\n", client_version_raw, "\n", last_version_raw, "\n\n"), string.Format(software_lang.TSReadLangs("SoftwareUpdate", "su_title"), Application.ProductName));
+                        if (info_update == DialogResult.Yes)
+                            Process.Start(new ProcessStartInfo(TS_LinkSystem.github_link_lr) { UseShellExecute = true });
                     }else if (_check_update_ui == 1){
                         string update_msg = client_ver == last_ver ? string.Format(software_lang.TSReadLangs("SoftwareUpdate", "su_not_available"), Application.ProductName, "\n", client_version_raw) : string.Format(software_lang.TSReadLangs("SoftwareUpdate", "su_newer"), "\n\n", $"v{client_version_raw}");
                         TS_MessageBoxEngine.TS_MessageBox(this, 1, update_msg, string.Format(software_lang.TSReadLangs("SoftwareUpdate", "su_title"), Application.ProductName));
@@ -8950,9 +8966,6 @@ namespace Glow{
                 KV(OS_FirewallProgram.Text, OS_FirewallProgram_V.Text),
                 KV(OS_AntiSpywareProgram.Text, OS_AntiSpywareProgram_V.Text),
                 KV(OS_WinDefCoreIsolation.Text, OS_WinDefCoreIsolation_V.Text),
-                KV(OS_CA2023_Status.Text, OS_CA2023_Status_V.Text),
-                KV(OS_CA2023_Capable.Text, OS_CA2023_Capable_V.Text),
-                KV(OS_CA2023_Error.Text, OS_CA2023_Error_V.Text),
                 KV(OS_ActivePower.Text, OS_ActivePower_V.Text),
                 KV(OS_ActivePowerGUID.Text, OS_ActivePowerGUID_V.Text),
                 KV(OS_ActivePowerScreenTimeOutP.Text, OS_ActivePowerScreenTimeOutP_V.Text),
@@ -8996,9 +9009,9 @@ namespace Glow{
                 KV(MB_BiosMode.Text, MB_BiosMode_V.Text),
                 KV(MB_LastBIOSTime.Text, MB_LastBIOSTime_V.Text),
                 KV(MB_SecureBoot.Text, MB_SecureBoot_V.Text),
-                KV(MB_SecureBootCA2023.Text, MB_SecureBootCA2023_V.Text),
                 KV(MB_TPMStatus.Text, MB_TPMStatus_V.Text),
-                KV(MB_TPMPhysicalVersion.Text, MB_TPMPhysicalVersion_V.Text),
+                KV(MB_TPMPPIVersion.Text, MB_TPMPPIVersion_V.Text),
+                KV(MB_TPMPPIAltVersion.Text, MB_TPMPPIAltVersion_V.Text),
                 KV(MB_TPMMan.Text, MB_TPMMan_V.Text),
                 KV(MB_TPMManID.Text, MB_TPMManID_V.Text),
                 KV(MB_TPMManVersion.Text, MB_TPMManVersion_V.Text),
@@ -9284,8 +9297,10 @@ namespace Glow{
                 if (debug_status) { TSErrorLog.LogException(ex, "BuildNetworkSection()"); }
             }
             section.Blocks.Add(KVList(
-                KV(NET_DNS1.Text, NET_DNS1_V.Text),
-                KV(NET_DNS2.Text, NET_DNS2_V.Text)
+                KV(NET_DNS_v4_1.Text, NET_DNS_v4_1_V.Text),
+                KV(NET_DNS_v4_2.Text, NET_DNS_v4_2_V.Text),
+                KV(NET_DNS_v6_1.Text, NET_DNS_v6_1_V.Text),
+                KV(NET_DNS_v6_2.Text, NET_DNS_v6_2_V.Text)
             ));
             return section;
         }
@@ -9570,7 +9585,7 @@ namespace Glow{
                 Color html_ui_fe_hover_color = TS_ThemeEngine.ColorMode(_theme, "AccentColorHover");
                 string html_uifhc = string.Format("#{0}{1}{2}", html_ui_fe_hover_color.R.ToString("X2"), html_ui_fe_hover_color.G.ToString("X2"), html_ui_fe_hover_color.B.ToString("X2"));
                 string print_html_font_url =        @"https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap";
-                string print_html_glow_logo_url =   @"https://raw.githubusercontent.com/turkaysoftware/glow/main/Glow/glow_images/glow_logo/GlowLogo.ico";
+                string print_html_glow_logo_url =   @"https://raw.githubusercontent.com/turkaysoft/glow/main/Glow/glow_images/glow_logo/GlowLogo.ico";
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine("<!DOCTYPE html>");
                 sb.AppendLine("<html lang='" + H(_lang) + "'>");
@@ -9831,32 +9846,27 @@ namespace Glow{
         // CPU BENCH TOOL
         // ======================================================================================================
         private void BenchCPUTool_Click(object sender, EventArgs e){
-            TSToolLauncher<GlowBenchCPU>("glow_bench_cpu_tool", "ht_bench_cpu");
+            TSToolLauncher<GlowBenchCPUTool>("glow_bench_cpu_tool", "ht_bench_cpu");
         }
         // RAM BENCH TOOL
         // ======================================================================================================
         private void BenchRAMTool_Click(object sender, EventArgs e){
-            TSToolLauncher<GlowBenchMemory>("glow_bench_ram_tool", "ht_bench_ram");
+            TSToolLauncher<GlowBenchMemoryTool>("glow_bench_ram_tool", "ht_bench_ram");
         }
         // DISK BENCH TOOL
         // ======================================================================================================
         private void BenchDiskTool_Click(object sender, EventArgs e){
-            TSToolLauncher<GlowBenchDisk>("glow_bench_disk_tool", "ht_bench_disk");
+            TSToolLauncher<GlowBenchDiskTool>("glow_bench_disk_tool", "ht_bench_disk");
         }
         // SCREEN OVERLAY
         // ======================================================================================================
         private void ScreenOverlayTool_Click(object sender, EventArgs e){
-            TSToolLauncher<GlowOverlay>("glow_screen_overlay_tool", "ht_overlay");
+            TSToolLauncher<GlowOverlayTool>("glow_screen_overlay_tool", "ht_overlay");
         }
         // DNS TEST TOOL
         // ======================================================================================================
         private void DnsTestTool_Click(object sender, EventArgs e){
             TSToolLauncher<GlowDNSTestTool>("glow_dns_test_tool", "ht_dns_test_tool");
-        }
-        // QUICK ACCESS TOOL
-        // ======================================================================================================
-        private void QuickAccessTool_Click(object sender, EventArgs e){
-            TSToolLauncher<GlowQuickAccessTool>("glow_quick_access_tool", "ht_quick_access_tool");
         }
         // NETWORK FIX TOOL
         // ======================================================================================================
@@ -9875,8 +9885,8 @@ namespace Glow{
         }
         // SYSTEM ID GENERATOR TOOL
         // ======================================================================================================
-        private void SystemIdGeneratorTool_Click(object sender, EventArgs e){
-            TSToolLauncher<GlowSystemIDGenerator>("glow_system_id_generator_tool", "ht_system_id_generator_tool");
+        private void SystemIdAnalysisTool_Click(object sender, EventArgs e){
+            TSToolLauncher<GlowSystemIDAnalysisTool>("glow_system_id_analysis_tool", "ht_system_id_analysis_tool");
         }
         // MONITOR TEST TOOL
         // ======================================================================================================
@@ -9906,7 +9916,7 @@ namespace Glow{
         private void MonitorStartEngineSelect(){
             string glow_tool_name = monitor_engine_mode == 0 ? "glow_monitor_test_engine_dead_pixel" : "glow_monitor_test_engine_dynamic_range";
             string toolKey = monitor_engine_mode == 0 ? "ht_monitor_test_dead_pixel" : "ht_monitor_test_dynamic_range";
-            TSToolLauncher<GlowMonitorTestEngine>(glow_tool_name, toolKey);
+            TSToolLauncher<GlowMonitorTestTool>(glow_tool_name, toolKey);
         }
         // MONITOR STUCK PIXEL FIXER TOOL
         // ======================================================================================================
@@ -9927,31 +9937,6 @@ namespace Glow{
                 Process.Start(new ProcessStartInfo(TS_LinkSystem.ts_donate) { UseShellExecute = true });
             }catch (Exception ex){
                 if (debug_status) { TSErrorLog.LogException(ex, "DonateToolStripMenuItem_Click()"); }
-            }
-        }
-        // TS WIZARD
-        // ======================================================================================================
-        private void TSWizardToolStripMenuItem_Click(object sender, EventArgs e){
-            try{
-                string baseDir = Path.Combine(Directory.GetParent(Directory.GetParent(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).FullName).FullName);
-                string ts_wizard_path = Ts_wizard_starter_mode().Select(name => Path.Combine(baseDir, name)).FirstOrDefault(File.Exists);
-                //
-                TSGetLangs software_lang = new TSGetLangs(lang_path);
-                //
-                if (ts_wizard_path != null){
-                    if (!Software_operation_controller(Path.GetDirectoryName(ts_wizard_path))){
-                        Process.Start(new ProcessStartInfo{ FileName = ts_wizard_path, WorkingDirectory = Path.GetDirectoryName(ts_wizard_path) });
-                    }else{
-                        TS_MessageBoxEngine.TS_MessageBox(this, 1, string.Format(software_lang.TSReadLangs("HeaderHelp", "header_help_info_notification"), ts_wizard_name));
-                    }
-                }else{
-                    DialogResult ts_wizard_query = TS_MessageBoxEngine.TS_MessageBox(this, 5, string.Format(software_lang.TSReadLangs("TSWizard", "tsw_content"), software_lang.TSReadLangs("HeaderMenu", "header_menu_ts_wizard"), Application.CompanyName, "\n\n", Application.ProductName, Application.CompanyName, "\n\n"), string.Format("{0} - {1}", Application.ProductName, ts_wizard_name));
-                    if (ts_wizard_query == DialogResult.Yes){
-                        Process.Start(new ProcessStartInfo(TS_LinkSystem.ts_wizard) { UseShellExecute = true });
-                    }
-                }
-            }catch (Exception ex){
-                if (debug_status) { TSErrorLog.LogException(ex, "TSWizardToolStripMenuItem_Click()"); }
             }
         }
         // ABOUT

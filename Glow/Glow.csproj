@@ -89,17 +89,17 @@
     <Compile Include="GlowAbout.Designer.cs">
       <DependentUpon>GlowAbout.cs</DependentUpon>
     </Compile>
-    <Compile Include="glow_tools\GlowBenchDisk.cs">
+    <Compile Include="glow_tools\GlowBenchDiskTool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="glow_tools\GlowBenchDisk.Designer.cs">
-      <DependentUpon>GlowBenchDisk.cs</DependentUpon>
+    <Compile Include="glow_tools\GlowBenchDiskTool.Designer.cs">
+      <DependentUpon>GlowBenchDiskTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="glow_tools\GlowBenchMemory.cs">
+    <Compile Include="glow_tools\GlowBenchMemoryTool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="glow_tools\GlowBenchMemory.Designer.cs">
-      <DependentUpon>GlowBenchMemory.cs</DependentUpon>
+    <Compile Include="glow_tools\GlowBenchMemoryTool.Designer.cs">
+      <DependentUpon>GlowBenchMemoryTool.cs</DependentUpon>
     </Compile>
     <Compile Include="glow_tools\GlowBluetoothFinderTool.cs">
       <SubType>Form</SubType>
@@ -113,11 +113,11 @@
     <Compile Include="glow_tools\GlowCacheCleanupTool.Designer.cs">
       <DependentUpon>GlowCacheCleanupTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="glow_tools\GlowBenchCPU.cs">
+    <Compile Include="glow_tools\GlowBenchCPUTool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="glow_tools\GlowBenchCPU.Designer.cs">
-      <DependentUpon>GlowBenchCPU.cs</DependentUpon>
+    <Compile Include="glow_tools\GlowBenchCPUTool.Designer.cs">
+      <DependentUpon>GlowBenchCPUTool.cs</DependentUpon>
     </Compile>
     <Compile Include="glow_tools\GlowDNSTestTool.cs">
       <SubType>Form</SubType>
@@ -125,11 +125,11 @@
     <Compile Include="glow_tools\GlowDNSTestTool.Designer.cs">
       <DependentUpon>GlowDNSTestTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="glow_tools\GlowMonitorTestEngine.cs">
+    <Compile Include="glow_tools\GlowMonitorTestTool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="glow_tools\GlowMonitorTestEngine.Designer.cs">
-      <DependentUpon>GlowMonitorTestEngine.cs</DependentUpon>
+    <Compile Include="glow_tools\GlowMonitorTestTool.Designer.cs">
+      <DependentUpon>GlowMonitorTestTool.cs</DependentUpon>
     </Compile>
     <Compile Include="glow_tools\GlowNetworkFixTool.cs">
       <SubType>Form</SubType>
@@ -137,17 +137,11 @@
     <Compile Include="glow_tools\GlowNetworkFixTool.Designer.cs">
       <DependentUpon>GlowNetworkFixTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="glow_tools\GlowOverlay.cs">
+    <Compile Include="glow_tools\GlowOverlayTool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="glow_tools\GlowOverlay.Designer.cs">
-      <DependentUpon>GlowOverlay.cs</DependentUpon>
-    </Compile>
-    <Compile Include="glow_tools\GlowQuickAccessTool.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="glow_tools\GlowQuickAccessTool.Designer.cs">
-      <DependentUpon>GlowQuickAccessTool.cs</DependentUpon>
+    <Compile Include="glow_tools\GlowOverlayTool.Designer.cs">
+      <DependentUpon>GlowOverlayTool.cs</DependentUpon>
     </Compile>
     <Compile Include="glow_tools\GlowSFCandDISMAutoTool.cs">
       <SubType>Form</SubType>
@@ -167,17 +161,17 @@
     <Compile Include="glow_tools\GlowStuckPixelFixerTool.Designer.cs">
       <DependentUpon>GlowStuckPixelFixerTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="glow_tools\GlowSystemIDGenerator.cs">
+    <Compile Include="glow_tools\GlowSystemIDAnalysisTool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="glow_tools\GlowSystemIDGenerator.Designer.cs">
-      <DependentUpon>GlowSystemIDGenerator.cs</DependentUpon>
+    <Compile Include="glow_tools\GlowSystemIDAnalysisTool.Designer.cs">
+      <DependentUpon>GlowSystemIDAnalysisTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="glow_tools\GlowWallpaperPreview.cs">
+    <Compile Include="glow_tools\GlowWallpaperPreviewTool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="glow_tools\GlowWallpaperPreview.Designer.cs">
-      <DependentUpon>GlowWallpaperPreview.cs</DependentUpon>
+    <Compile Include="glow_tools\GlowWallpaperPreviewTool.Designer.cs">
+      <DependentUpon>GlowWallpaperPreviewTool.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -236,13 +230,10 @@
     <None Include="glow_images\glow_ui\theme_dark\ct_battery_report_dark.png" />
     <None Include="glow_images\glow_ui\theme_light\ct_clear_light.png" />
     <None Include="glow_images\glow_ui\theme_dark\ct_clear_dark.png" />
-    <None Include="glow_images\glow_ui\theme_dark\ct_website_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\ct_github_dark.png" />
-    <None Include="glow_images\glow_ui\theme_light\ct_website_light.png" />
     <None Include="glow_images\glow_ui\theme_light\ct_github_light.png" />
     <None Include="glow_images\glow_ui\ts_material\ts_close.png" />
     <None Include="glow_images\glow_ui\theme_light\tm_update_light.png" />
-    <None Include="glow_images\glow_ui\theme_light\tm_ts_wizard_light.png" />
     <None Include="glow_images\glow_ui\theme_light\tm_tools_light.png" />
     <None Include="glow_images\glow_ui\theme_light\tm_theme_light.png" />
     <None Include="glow_images\glow_ui\theme_light\tm_startup_light.png" />
@@ -269,7 +260,6 @@
     <None Include="glow_images\glow_ui\theme_light\cx_test_dead_pixel_light.png" />
     <None Include="glow_images\glow_ui\theme_light\cx_swpt_light.png" />
     <None Include="glow_images\glow_ui\theme_light\cx_sfc_and_dism_light.png" />
-    <None Include="glow_images\glow_ui\theme_light\cx_quick_access_light.png" />
     <None Include="glow_images\glow_ui\theme_light\cx_network_fix_light.png" />
     <None Include="glow_images\glow_ui\theme_light\cx_dns_test_light.png" />
     <None Include="glow_images\glow_ui\theme_light\cx_cache_clean_light.png" />
@@ -279,7 +269,6 @@
     <None Include="glow_images\glow_ui\theme_light\ct_zip_light.png" />
     <None Include="glow_images\glow_ui\theme_light\ct_link_light.png" />
     <None Include="glow_images\glow_ui\theme_dark\tm_update_dark.png" />
-    <None Include="glow_images\glow_ui\theme_dark\tm_ts_wizard_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\tm_tools_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\tm_theme_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\tm_startup_dark.png" />
@@ -306,7 +295,6 @@
     <None Include="glow_images\glow_ui\theme_dark\cx_test_dead_pixel_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\cx_swpt_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\cx_sfc_and_dism_dark.png" />
-    <None Include="glow_images\glow_ui\theme_dark\cx_quick_access_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\cx_network_fix_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\cx_dns_test_dark.png" />
     <None Include="glow_images\glow_ui\theme_dark\cx_cache_clean_dark.png" />
